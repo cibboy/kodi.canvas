@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fonts>
+	<!-- Sizes also defined in Includes.xml for element heights -->
+	<fontset id="Default">
+		<font>
+			<name>TITLE1</name>
+			<filename>Geologica-SemiBold.ttf</filename>
+			<size>75</size>
+		</font>
+		<font>
+			<name>TITLE2</name>
+			<filename>Montserrat-SemiBold.ttf</filename>
+			<size>62</size>
+		</font>
+		<font>
+			<name>SUBTITLE</name>
+			<filename>Montserrat-SemiBold.ttf</filename>
+			<size>44</size>
+		</font>
+		<font>
+			<name>BODY</name>
+			<filename>Geologica-Thin.ttf</filename>
+			<size>32</size>
+			<linespacing>1.1</linespacing>
+		</font>
+		<font>
+			<name>BODY_STRONG</name>
+			<filename>Geologica-SemiBold.ttf</filename>
+			<size>32</size>
+			<linespacing>1.1</linespacing>
+		</font>
+		<font>
+			<name>BODY2</name>
+			<filename>Geologica-Thin.ttf</filename>
+			<size>29</size>
+			<linespacing>1.1</linespacing>
+		</font>
+		<font>
+			<name>BODY2_STRONG</name>
+			<filename>Geologica-SemiBold.ttf</filename>
+			<size>29</size>
+			<linespacing>1.1</linespacing>
+		</font>
+		<font>
+			<name>CAPTION</name>
+			<filename>Geologica-Regular.ttf</filename>
+			<size>24</size>
+			<linespacing>1.05</linespacing>
+		</font>
+		<font>
+			<name>CAPTION_STRONG</name>
+			<filename>Geologica-Bold.ttf</filename>
+			<size>24</size>
+			<linespacing>1.05</linespacing>
+		</font>
+	</fontset>
+</fonts>

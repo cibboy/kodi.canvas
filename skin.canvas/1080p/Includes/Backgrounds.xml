@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<variable name="BackgroundArt">
+		<!-- Continue watching -->
+		<value condition="String.IsEqual(Window.Property(Home.ActiveListId),101)">$INFO[Container(101).ListItem.Art(fanart)]</value>
+		<!-- Recently added episodes -->
+		<value condition="String.IsEqual(Window.Property(Home.ActiveListId),102)">$INFO[Container(102).ListItem.Art(fanart)]</value>
+		<!-- Recently added movies -->
+		<value condition="String.IsEqual(Window.Property(Home.ActiveListId),103)">$INFO[Container(103).ListItem.Art(fanart)]</value>
+		<!-- Recently added music -->
+		<value condition="String.IsEqual(Window.Property(Home.ActiveListId),104)">$INFO[Container(104).ListItem.Art(album.thumb)]</value>
+		<!-- Movies -->
+		<value condition="String.IsEqual(Window.Property(Home.ActiveListId),110)">$INFO[Container(110).ListItem.Art(fanart)]</value>
+		<!-- TV shows -->
+		<value condition="String.IsEqual(Window.Property(Home.ActiveListId),120)">$INFO[Container(120).ListItem.Art(fanart)]</value>
+		<!-- Yoga -->
+		<value condition="String.IsEqual(Window.Property(Home.ActiveListId),130)">$INFO[Container(130).ListItem.Art(fanart)]</value>
+		<!-- Music -->
+		<value condition="String.IsEqual(Window.Property(Home.ActiveListId),140)">$INFO[Container(140).ListItem.Art(album.thumb)]</value>
+	</variable>
+
+	<include name="Background">
+		<param name="show_art">true</param>
+
+		<definition>
+			<control type="group">
+				<!-- Background blur -->
+				<control type="image">
+					<width>100%</width>
+					<height>100%</height>
+					<fadetime>ANIMATION_CRAWL</fadetime>
+					<texture fallback="1080p/fallback/bg.png" diffuse="1080p/diffuse/bg_diffuse.png">$INFO[Window.Property(ActiveItem.BackgroundBlur)]</texture>
+				</control>
+
+				<!-- Art -->
+				<control type="image">
+					<visible>$PARAM[show_art]</visible>
+					<include content="ShowHideFadeAnimation" />
+
+					<width>67%</width>
+					<height>67%</height>
+					<top>0</top>
+					<right>0</right>
+					<fadetime>ANIMATION_SLOW</fadetime>
+					<texture diffuse="1080p/diffuse/fanart.png" background="true">$VAR[BackgroundArt]</texture>
+					<aspectratio align="right">keep</aspectratio>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<include name="DarkeningLayer">
+		<param name="visible">true</param>
+		<param name="fade_speed">ANIMATION_SLOW</param>
+
+		<definition>
+			<control type="image">
+				<visible>$PARAM[visible]</visible>
+				<include content="ShowHideFadeAnimation">
+					<param name="speed">ANIMATION_MID</param>
+				</include>
+
+				<width>100%</width>
+				<height>100%</height>
+				<fadetime>$PARAM[fade_speed]</fadetime>
+				<texture colordiffuse="BACKGROUND_OPAQUE50">diffuse.png</texture>
+			</control>
+		</definition>
+	</include>
+</includes>

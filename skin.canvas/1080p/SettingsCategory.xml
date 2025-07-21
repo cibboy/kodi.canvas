@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<!--<defaultcontrol>1</defaultcontrol>-->
+	<controls>
+		<!-- Background -->
+		<include content="Background">
+			<param name="top_left">CC4D3F2F</param>
+			<param name="top_right">CC4D4336</param>
+			<param name="bottom_left">CC4D492B</param>
+			<param name="bottom_right">CC464D47</param>
+		</include>
+
+		<control type="group">
+			<control type="grouplist" id="5">
+				<description>control area</description>
+				<top>133</top>
+				<left>470</left>
+				<pagecontrol>60</pagecontrol>
+				<right>0</right>
+				<bottom>137</bottom>
+				<onleft>3</onleft>
+				<onright>60</onright>
+				<onup>5</onup>
+				<ondown>5</ondown>
+			</control>
+			<!--<control type="image">
+				<left>470</left>
+				<top>130</top>
+				<right>0</right>
+				<height>200</height>
+				<texture colordiffuse="foreground_accent" border="2">1080p/menu/yoga.png</texture>
+			</control>
+			<control type="image">
+				<left>470</left>
+				<bottom>135</bottom>
+				<right>0</right>
+				<height>200</height>
+				<texture colordiffuse="foreground_accent" border="2">1080p/menu/music.png</texture>
+			</control>-->
+		</control>
+
+		<control type="button" id="7">
+			<!--<description>Default Button</description>
+			<top>0</top>
+			<height>50</height>
+			<aligny>center</aligny>
+			<invalidcolor>foreground</invalidcolor>
+			<selectedcolor>highlight</selectedcolor>
+			<texturefocus colordiffuse="background">1080p/menu/home.png</texturefocus>
+			<texturenofocus />-->
+			<width>300</width>
+			<height>100</height>
+			<label></label>
+			<textcolor>FF00FF00</textcolor>
+			<font>body</font>
+			<textoffsetx>20</textoffsetx>
+			<onclick></onclick>
+			<wrapmultiline>false</wrapmultiline>
+			<align>center</align>
+			<texturefocus border="40" colordiffuse="FFFF0000">diffuse.png</texturefocus>
+			<texturenofocus border="40">diffuse.png</texturenofocus>
+			<visible>true</visible>
+			<enable>true</enable>
+		</control>
+
+		<!--<control type="radiobutton" id="8">
+			<description>Default RadioButton</description>
+			<top>0</top>
+			<height>50</height>
+			<aligny>center</aligny>
+			<invalidcolor>foreground</invalidcolor>
+			<selectedcolor>highlight</selectedcolor>
+			<texturefocus colordiffuse="background">1080p/menu/home.png</texturefocus>
+			<texturenofocus />
+		</control>
+
+		<control type="spincontrolex" id="9">
+			<description>Default SpinControlex</description>
+			<top>0</top>
+			<height>50</height>
+			<aligny>center</aligny>
+			<invalidcolor>foreground</invalidcolor>
+			<selectedcolor>highlight</selectedcolor>
+			<texturefocus colordiffuse="background">1080p/menu/home.png</texturefocus>
+			<texturenofocus />
+			<aligny>center</aligny>
+		</control>
+
+		<control type="sliderex" id="13">
+			<description>Default Slider</description>
+			<top>0</top>
+			<height>50</height>
+			<aligny>center</aligny>
+			<invalidcolor>foreground</invalidcolor>
+			<selectedcolor>highlight</selectedcolor>
+			<texturefocus colordiffuse="background">1080p/menu/home.png</texturefocus>
+			<texturenofocus />
+			<aligny>center</aligny>
+		</control>
+
+		<control type="image" id="11">
+			<description>separator image</description>
+			<height>300</height>
+			<width>300</width>
+			<texture colordiffuse="AAAAAAAA" border="3">1080p/menu/menu.png</texture>
+		</control>
+
+		<control type="label" id="14">
+			<description>Default Label</description>
+			<width>1450</width>
+			<textoffsetx>45</textoffsetx>
+			<top>0</top>
+			<height>50</height>
+			<label></label>
+			<align>center</align>
+			<aligny>center</aligny>
+			<font>body</font>
+			<textcolor>foreground</textcolor>
+			<shadowcolor>background</shadowcolor>
+		</control>
+
+		<control type="colorbutton" id="15">
+			<description>Default ColorButton</description>
+			<description>Default Button</description>
+			<top>0</top>
+			<height>50</height>
+			<width>200</width>
+			<aligny>center</aligny>
+			<invalidcolor>foreground</invalidcolor>
+			<selectedcolor>highlight</selectedcolor>
+			<texturefocus colordiffuse="background">diffuse.png</texturefocus>
+			<texturenofocus />
+		</control>
+
+		<control type="group">
+			<control type="grouplist" id="3">
+				<description>button area</description>
+				<left>0</left>
+				<top>130</top>
+				<width>470</width>
+				<height>810</height>
+				<usecontrolcoords>true</usecontrolcoords>
+				<onleft>5</onleft>
+				<onright>5</onright>
+				<onup>3</onup>
+				<ondown>20</ondown>
+			</control>
+			<control type="button" id="10">
+				<description>Default Button</description>
+				<top>0</top>
+				<height>50</height>
+				<width>200</width>
+				<aligny>center</aligny>
+				<invalidcolor>foreground</invalidcolor>
+				<selectedcolor>highlight</selectedcolor>
+				<texturefocus colordiffuse="background">1080p/menu/yoga.png</texturefocus>
+				<texturenofocus />
+			</control>
+		</control>
+
+		<control type="group">
+			<right>0</right>
+			<top>133</top>
+			<bottom>137</bottom>
+			<width>60</width>
+			<control type="scrollbar" id="60">
+				<right>0</right>
+				<top>0</top>
+				<bottom>0</bottom>
+				<width>12</width>
+				<orientation>vertical</orientation>
+				<texturesliderbackground />
+				<animation effect="slide" end="6,0" time="300" tween="sine" easing="inout" condition="!Control.HasFocus(60)">conditional</animation>
+				<onleft>5</onleft>
+				<onright>5</onright>
+				<animation effect="fade" start="0" end="100" time="200" delay="300">Visible</animation>
+				<animation effect="fade" start="100" end="0" time="200">Hidden</animation>
+				<animation effect="fade" start="0" end="100" delay="300" time="320">WindowOpen</animation>
+				<animation effect="fade" start="100" end="0" time="150">WindowClose</animation>
+				<hitrect x="0" y="0" w="60" h="100%" />
+			</control>
+		</control>
+
+		<control type="radiobutton" id="20">
+			<width>470</width>
+			<left>0</left>
+			<bottom>70</bottom>
+			<height>90</height>
+			<aligny>center</aligny>
+			<onclick>SettingsLevelChange</onclick>
+			<textoffsetx>100</textoffsetx>
+			<textoffsety>0</textoffsety>
+			<texturefocus colordiffuse="foreground">diffuse.png</texturefocus>
+			<texturenofocus />
+			<radioposx>40</radioposx>
+			<radioposy>0</radioposy>
+			<radiowidth>40</radiowidth>
+			<radioheight>40</radioheight>
+			<onleft>5</onleft>
+			<onright>5</onright>
+			<onup>3</onup>
+			<ondown>3</ondown>
+			<textureradioonfocus>1080p/menu/tv.png</textureradioonfocus>
+			<textureradioonnofocus>1080p/menu/movies.png</textureradioonnofocus>
+			<textureradioofffocus>1080p/menu/pictures.png</textureradioofffocus>
+			<textureradiooffnofocus>1080p/menu/menu.png</textureradiooffnofocus>
+		</control>
+
+		<control type="textbox" id="6">
+			<description>description area</description>
+			<left>510</left>
+			<bottom>25</bottom>
+			<right>60</right>
+			<height>104</height>
+			<font>body</font>
+			<align>justify</align>
+			<textcolor>highlight</textcolor>
+			<autoscroll time="3000" delay="5000" repeat="5000">true</autoscroll>
+		</control>
+
+		<control type="label" id="2">
+			<description>breadcrumbs label</description>
+			<visible>True</visible>
+		</control>-->
+	</controls>
+</window>

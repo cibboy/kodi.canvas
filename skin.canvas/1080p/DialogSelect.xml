@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">3</defaultcontrol>
+	<controls>
+		<control type="image">
+			<width>100%</width>
+			<height>100%</height>
+			<texture colordiffuse="FF000000">diffuse.png</texture>
+		</control>
+
+		<control type="group">
+			<centertop>50%</centertop>
+			<centerleft>50%</centerleft>
+			<height>750</height>
+			<width>1220</width>
+			<control type="list" id="3">
+				<left>20</left>
+				<top>100</top>
+				<width>880</width>
+				<bottom>20</bottom>
+				<onup>3</onup>
+				<ondown>3</ondown>
+				<onleft>9001</onleft>
+				<onright>61</onright>
+				<pagecontrol>61</pagecontrol>
+				<scrolltime>200</scrolltime>
+			</control>
+			<control type="list" id="6">
+				<left>20</left>
+				<top>100</top>
+				<width>880</width>
+				<bottom>20</bottom>
+				<onup>6</onup>
+				<ondown>6</ondown>
+				<onleft>9001</onleft>
+				<onright>61</onright>
+				<pagecontrol>61</pagecontrol>
+				<scrolltime>200</scrolltime>
+				<itemlayout height="125" width="880">
+					<control type="label">
+						<left>135</left>
+						<top>0</top>
+						<right>20</right>
+						<height>60</height>
+						<font>BODY</font>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+					<control type="textbox">
+						<left>135</left>
+						<top>50</top>
+						<right>20</right>
+						<height>67</height>
+						<font>BODY</font>
+						<textcolor>HIGHLIGHT</textcolor>
+						<label>$INFO[ListItem.Label2]</label>
+					</control>
+				</itemlayout>
+				<focusedlayout height="125" width="880">
+					<control type="label">
+						<left>135</left>
+						<top>0</top>
+						<right>20</right>
+						<height>60</height>
+						<aligny>center</aligny>
+						<scroll>true</scroll>
+						<font>BODY</font>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+					<control type="textbox">
+						<left>135</left>
+						<top>50</top>
+						<right>20</right>
+						<height>67</height>
+						<font>BODY</font>
+						<textcolor>HIGHLIGHT</textcolor>
+						<label>$INFO[ListItem.Label2]</label>
+					</control>
+				</focusedlayout>
+			</control>
+		</control>
+	</controls>
+</window>

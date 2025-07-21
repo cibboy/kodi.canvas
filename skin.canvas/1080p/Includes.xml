@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<!-- Constants: times -->
+	<constant name="ANIMATION_FAST">150</constant>
+	<constant name="ANIMATION_MID">200</constant>
+	<constant name="ANIMATION_SLOW">300</constant>
+	<constant name="ANIMATION_CRAWL">1000</constant>
+
+	<!-- Constants: padding -->
+	<constant name="PADDING_BASE">50</constant>
+	<constant name="PADDING_BASE_-0.3X">-15</constant>
+	<constant name="PADDING_BASE_0.5X">25</constant>
+	<constant name="PADDING_BASE_1.2X">60</constant>
+
+	<!-- Constants: sizes -->
+	<constant name="SIZE_ITEM_SHADOW_SQUARE">20</constant>
+	<constant name="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">40</constant>
+	<constant name="SIZE_ITEM_SHADOW_CIRCLE">25</constant>
+	<constant name="SIZE_ITEM_SHADOW_CIRCLE_DOUBLE">50</constant>
+
+	<constant name="HEIGHT_HOME_STRIP">590</constant>
+	<constant name="OFFSET_HOME_STRIP">-110</constant>	<!-- Strip height - home strip height -->
+
+	<constant name="HEIGHT_POSTER">380</constant>
+	<constant name="WIDTH_POSTER">260</constant>
+	<constant name="WIDTH_POSTER_STRIP_ITEM_CONTAINER">240</constant>
+	<constant name="HEIGHT_POSTER_STRIP_CONTAINER">480</constant>
+
+	<constant name="HEIGHT_LANDSCAPE">260</constant>
+	<constant name="WIDTH_LANDSCAPE">462</constant>
+	<constant name="WIDTH_LANDSCAPE_STRIP_ITEM_CONTAINER">450</constant>
+	<constant name="HEIGHT_LANDSCAPE_STRIP_CONTAINER">480</constant>
+	<constant name="OFFSET_LANDSCAPE_STRIP_CLEARLOGO">235</constant>
+
+	<constant name="HEIGHT_ALBUM">260</constant>
+	<constant name="WIDTH_ALBUM">260</constant>
+	<constant name="WIDTH_ALBUM_STRIP_ITEM_CONTAINER">240</constant>
+	<constant name="HEIGHT_ALBUM_STRIP_CONTAINER">480</constant>
+
+	<constant name="HEIGHT_WALL_FILTER">200</constant>
+	<constant name="HEIGHT_WALL_CONTENT">830</constant>
+
+	<constant name="HEIGHT_STUDIO_LOGO">80</constant>
+	<constant name="WIDTH_STUDIO_LOGO">120</constant>
+	<constant name="HEIGHT_CLEARLOGO_BIG">100</constant>
+	<constant name="WIDTH_CLEARLOGO_BIG">800</constant>
+	<constant name="HEIGHT_CLEARLOGO_SMALL">80</constant>
+	<constant name="WIDTH_CLEARLOGO_SMALL">100</constant>
+
+	<!-- Constants: screen-related sizes -->
+	<constant name="SCREEN_CENTER_Y">540</constant>
+	<constant name="SCREEN_CENTER_X">960</constant>
+	<constant name="SCREEN_HEIGHT">1080</constant>
+	<constant name="SCREEN_WIDTH">1920</constant>
+	<constant name="SCREEN_HEIGHT_PADDED">1030</constant>
+	<constant name="SCREEN_WIDTH_PADDED">1870</constant>
+	<constant name="SCREEN_HEIGHT_DOUBLE_PADDED">980</constant>
+	<constant name="SCREEN_WIDTH_DOUBLE_PADDED">1820</constant>
+
+	<!-- Constants: font sizes -->
+	<constant name="FONT_SIZE_TITLE1">75</constant>
+	<constant name="FONT_SIZE_TITLE2">62</constant>
+	<constant name="FONT_SIZE_SUBTITLE">44</constant>
+	<constant name="FONT_SIZE_BODY">32</constant>
+	<constant name="FONT_SIZE_BODY2">29</constant>
+	<constant name="FONT_SIZE_CAPTION">24</constant>
+
+	<!-- Referenced includes -->
+	<include file="Includes/Utilities.xml" />
+	<include file="Includes/GeneralAnimations.xml" />
+	<include file="Includes/Backgrounds.xml" />
+	<include file="Includes/BottomBar.xml" />
+	<include file="Includes/TopBar.xml" />
+	<include file="Includes/ArtLists.xml" />
+	<include file="Includes/Details.xml" />
+</includes>

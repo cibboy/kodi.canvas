@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<variable name="Studio">
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),101)">$INFO[Container(101).ListItem.Studio]</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),102)">$INFO[Container(102).ListItem.Studio]</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),103)">$INFO[Container(103).ListItem.Studio]</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),104)">$INFO[Container(104).ListItem.Studio]</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),110)">$INFO[Container(110).ListItem.Studio]</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),120)">$INFO[Container(120).ListItem.Studio]</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),130)">$INFO[Container(130).ListItem.Studio]</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),140)">$INFO[Container(140).ListItem.Studio]</value>
+	</variable>
+
+	<expression name="HasStudio">
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),101) + !String.IsEmpty(Container(101).ListItem.Studio)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.Studio)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.Studio)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),104) + !String.IsEmpty(Container(104).ListItem.Studio)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),110) + !String.IsEmpty(Container(110).ListItem.Studio)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),120) + !String.IsEmpty(Container(120).ListItem.Studio)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),130) + !String.IsEmpty(Container(130).ListItem.Studio)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),140) + !String.IsEmpty(Container(140).ListItem.Studio)]
+	</expression>
+
+	<include name="TopBar">
+		<definition>
+			<control type="group">
+				<height>360</height>
+
+				<control type="image">
+					<width>100%</width>
+					<height>360</height>
+					<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/diffuse/corner.png</texture>
+				</control>
+				<control type="label">
+					<top>PADDING_BASE</top>
+					<right>PADDING_BASE</right>
+					<align>right</align>
+					<aligny>center</aligny>
+					<height>FONT_SIZE_SUBTITLE</height>
+					<font>SUBTITLE</font>
+					<textcolor>FOREGROUND_OPAQUE75</textcolor>
+					<label>$INFO[System.Time]</label>
+				</control>
+			</control>
+		</definition>
+	</include>
+</includes>

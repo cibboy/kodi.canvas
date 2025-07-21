@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--todo: progress indicators-->
+<includes>
+	<!-- Horizontal strip of landscape elements, with label and optional logo -->
+	<!--todo: add more info beyond logo? (like season and episode number)-->
+	<!--todo: logo is wip and partially broken-->
+	<include name="LandscapeStrip">
+		<param name="id"></param>
+		<param name="label"></param>
+		<param name="content"></param>
+		<param name="art"></param>
+		<param name="logo"></param>
+		<param name="onfocus">noop</param>
+		<param name="onchange">noop</param>
+		<param name="onback">noop</param>
+		<param name="onup">noop</param>
+		<param name="ondown">noop</param>
+		<param name="onleft">noop</param>
+		<param name="onright">noop</param>
+
+		<definition>
+			<control type="group">
+				<height>HEIGHT_LANDSCAPE_STRIP_CONTAINER</height>
+
+				<control type="label">
+					<font>BODY_STRONG</font>
+					<textcolor>FOREGROUND</textcolor>
+					<label>$PARAM[label]</label>
+				</control>
+
+				<control type="fixedlist" id="$PARAM[id]">
+					<top>PADDING_BASE_1.2X</top>
+					<autoscroll>false</autoscroll>
+					<orientation>horizontal</orientation>
+					<onfocus>$PARAM[onfocus]</onfocus>
+					<onback>$PARAM[onback]</onback>
+					<onleft>$PARAM[onleft]</onleft>
+					<onright>$PARAM[onright]</onright>
+					<onup>$PARAM[onup]</onup>
+					<ondown>$PARAM[ondown]</ondown>
+
+					<itemlayout width="WIDTH_LANDSCAPE_STRIP_ITEM_CONTAINER" height="HEIGHT_LANDSCAPE">
+						<control type="group">
+							<!-- Landscape item -->
+							<control type="image">
+								<width>WIDTH_LANDSCAPE</width>
+								<height>HEIGHT_LANDSCAPE</height>
+								<texture fallback="1080p/fallback/landscape.png" background="true" diffuse="1080p/diffuse/landscape.png">$INFO[$PARAM[art]]</texture>
+								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
+								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
+								<aspectratio scalediffuse="false">scale</aspectratio>
+							</control>
+							<!-- Logo -->
+							<control type="image">
+								<!--<visible>!String.IsEmpty($PARAM[logo])</visible>-->
+								<top>OFFSET_LANDSCAPE_STRIP_CLEARLOGO</top>
+								<left>SIZE_ITEM_SHADOW_SQUARE</left>
+								<width>WIDTH_CLEARLOGO_SMALL</width>
+								<height>HEIGHT_CLEARLOGO_SMALL</height>
+								<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+								<aspectratio align="left">keep</aspectratio>
+							</control>
+						</control>
+					</itemlayout>
+					
+					<focusedlayout width="WIDTH_LANDSCAPE_STRIP_ITEM_CONTAINER" height="HEIGHT_LANDSCAPE">
+						<control type="group">
+							<animation type="Focus"><effect type="zoom" start="100" end="110" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
+							<animation type="Unfocus"><effect type="zoom" start="110" end="100" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
+
+							<!-- Update selected item info -->
+							<control type="button">
+								<include content="Hidden" />
+								<onfocus>$PARAM[onchange]</onfocus>
+							</control>
+
+							<!-- Landscape item -->
+							<control type="image">
+								<width>WIDTH_LANDSCAPE</width>
+								<height>HEIGHT_LANDSCAPE</height>
+								<texture fallback="1080p/fallback/landscape.png" background="true" diffuse="1080p/diffuse/landscape.png">$INFO[$PARAM[art]]</texture>
+								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
+								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
+								<aspectratio scalediffuse="false">scale</aspectratio>
+							</control>
+							<!-- Logo -->
+							<control type="image">
+								<!--<visible>!String.IsEmpty($PARAM[logo])</visible>-->
+								<top>OFFSET_LANDSCAPE_STRIP_CLEARLOGO</top>
+								<left>SIZE_ITEM_SHADOW_SQUARE</left>
+								<width>WIDTH_CLEARLOGO_SMALL</width>
+								<height>HEIGHT_CLEARLOGO_SMALL</height>
+								<texture background="true">$PARAM[logo]</texture>
+								<aspectratio align="left">keep</aspectratio>
+							</control>
+						</control>
+					</focusedlayout>
+
+					<content>$PARAM[content]</content>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Horizontal strip of poster elements, with label -->
+	<include name="PosterStrip">
+		<param name="id"></param>
+		<param name="label"></param>
+		<param name="content"></param>
+		<param name="art"></param>
+		<param name="onfocus">noop</param>
+		<param name="onchange">noop</param>
+		<param name="onback">noop</param>
+		<param name="onup">noop</param>
+		<param name="ondown">noop</param>
+		<param name="onleft">noop</param>
+		<param name="onright">noop</param>
+
+		<definition>
+			<control type="group">
+				<height>HEIGHT_POSTER_STRIP_CONTAINER</height>
+
+				<control type="label">
+					<font>BODY_STRONG</font>
+					<textcolor>FOREGROUND</textcolor>
+					<label>$PARAM[label]</label>
+				</control>
+
+				<control type="fixedlist" id="$PARAM[id]">
+					<top>PADDING_BASE_1.2X</top>
+					<autoscroll>false</autoscroll>
+					<orientation>horizontal</orientation>
+					<onfocus>$PARAM[onfocus]</onfocus>
+					<onback>$PARAM[onback]</onback>
+					<onleft>$PARAM[onleft]</onleft>
+					<onright>$PARAM[onright]</onright>
+					<onup>$PARAM[onup]</onup>
+					<ondown>$PARAM[ondown]</ondown>
+
+					<itemlayout width="WIDTH_POSTER_STRIP_ITEM_CONTAINER" height="HEIGHT_POSTER">
+						<control type="group">
+							<control type="image">
+								<width>WIDTH_POSTER</width>
+								<height>HEIGHT_POSTER</height>
+								<texture fallback="1080p/fallback/poster.png" background="true" diffuse="1080p/diffuse/poster.png">$INFO[$PARAM[art]]</texture>
+								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
+								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
+								<aspectratio scalediffuse="false">scale</aspectratio>
+							</control>
+						</control>
+					</itemlayout>
+
+					<focusedlayout width="WIDTH_POSTER_STRIP_ITEM_CONTAINER" height="HEIGHT_POSTER">
+						<control type="group">
+							<animation type="Focus"><effect type="zoom" start="100" end="110" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
+							<animation type="Unfocus"><effect type="zoom" start="110" end="100" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
+
+							<!-- Update selected item info -->
+							<control type="button">
+								<include content="Hidden" />
+								<onfocus>$PARAM[onchange]</onfocus>
+							</control>
+
+							<control type="image">
+								<width>WIDTH_POSTER</width>
+								<height>HEIGHT_POSTER</height>
+								<texture fallback="1080p/fallback/poster.png" background="true" diffuse="1080p/diffuse/poster.png">$INFO[$PARAM[art]]</texture>
+								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
+								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
+								<aspectratio scalediffuse="false">scale</aspectratio>
+							</control>
+						</control>
+					</focusedlayout>
+
+					<content>$PARAM[content]</content>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Horizontal strip of album elements, with label -->
+	<include name="AlbumStrip">
+		<param name="id"></param>
+		<param name="label"></param>
+		<param name="content"></param>
+		<param name="art"></param>
+		<param name="onfocus">noop</param>
+		<param name="onchange">noop</param>
+		<param name="onback">noop</param>
+		<param name="onup">noop</param>
+		<param name="ondown">noop</param>
+		<param name="onleft">noop</param>
+		<param name="onright">noop</param>
+
+		<definition>
+			<control type="group">
+				<height>HEIGHT_ALBUM_STRIP_CONTAINER</height>
+
+				<control type="label">
+					<font>BODY_STRONG</font>
+					<textcolor>FOREGROUND</textcolor>
+					<label>$PARAM[label]</label>
+				</control>
+
+				<control type="fixedlist" id="$PARAM[id]">
+					<top>PADDING_BASE_1.2X</top>
+					<autoscroll>false</autoscroll>
+					<orientation>horizontal</orientation>
+					<onfocus>$PARAM[onfocus]</onfocus>
+					<onback>$PARAM[onback]</onback>
+					<onleft>$PARAM[onleft]</onleft>
+					<onright>$PARAM[onright]</onright>
+					<onup>$PARAM[onup]</onup>
+					<ondown>$PARAM[ondown]</ondown>
+
+					<itemlayout width="WIDTH_ALBUM_STRIP_ITEM_CONTAINER" height="HEIGHT_ALBUM">
+						<control type="group">
+							<control type="image">
+								<width>WIDTH_ALBUM</width>
+								<height>HEIGHT_ALBUM</height>
+								<texture fallback="1080p/fallback/album.png" background="true" diffuse="1080p/diffuse/album.png">$INFO[$PARAM[art]]</texture>
+								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
+								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
+								<aspectratio scalediffuse="false">scale</aspectratio>
+							</control>
+						</control>
+					</itemlayout>
+
+					<focusedlayout width="WIDTH_ALBUM_STRIP_ITEM_CONTAINER" height="HEIGHT_ALBUM">
+						<control type="group">
+							<animation type="Focus"><effect type="zoom" start="100" end="110" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
+							<animation type="Unfocus"><effect type="zoom" start="110" end="100" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
+
+							<!-- Update selected item info -->
+							<control type="button">
+								<include content="Hidden" />
+								<onfocus>$PARAM[onchange]</onfocus>
+							</control>
+							
+							<control type="image">
+								<width>WIDTH_ALBUM</width>
+								<height>HEIGHT_ALBUM</height>
+								<texture fallback="1080p/fallback/album.png" background="true" diffuse="1080p/diffuse/album.png">$INFO[$PARAM[art]]</texture>
+								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
+								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
+								<aspectratio scalediffuse="false">scale</aspectratio>
+							</control>
+						</control>
+					</focusedlayout>
+
+					<content>$PARAM[content]</content>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Vertical wall of poster elements, with label and filters (for focused status) -->
+	<include name="PosterWall">
+		<param name="id"></param>
+		<param name="label"></param>
+		<param name="content"></param>
+		<param name="art"></param>
+		<param name="onfocus">noop</param>
+		<param name="onchange">noop</param>
+		<param name="onback">noop</param>
+		<param name="onup">noop</param>
+		<param name="ondown">noop</param>
+		<param name="onleft">noop</param>
+		<param name="onright">noop</param>
+
+		<definition>
+			<control type="group">
+				<height>SCREEN_HEIGHT_PADDED</height>
+
+				<!-- Wall title and filters -->
+				<control type="group">
+					<control type="label">
+						<font>TITLE2</font>
+						<textcolor>FOREGROUND</textcolor>
+						<label>$PARAM[label]</label>
+						<aligny>center</aligny>
+						<height>FONT_SIZE_TITLE2</height>
+					</control>
+				</control>
+
+				<control type="panel" id="$PARAM[id]">
+					<top>HEIGHT_WALL_FILTER</top>
+					<height>HEIGHT_WALL_CONTENT</height>
+					<autoscroll>false</autoscroll>
+					<orientation>vertical</orientation>
+					<onfocus>$PARAM[onfocus]</onfocus>
+					<onback>$PARAM[onback]</onback>
+					<onleft>$PARAM[onleft]</onleft>
+					<onright>$PARAM[onright]</onright>
+					<onup>$PARAM[onup]</onup>
+					<ondown>$PARAM[ondown]</ondown>
+
+					<itemlayout width="WIDTH_POSTER" height="HEIGHT_POSTER">
+						<control type="group">
+							<control type="image">
+								<width>WIDTH_POSTER</width>
+								<height>HEIGHT_POSTER</height>
+								<texture fallback="1080p/fallback/poster.png" background="true" diffuse="1080p/diffuse/poster.png">$INFO[$PARAM[art]]</texture>
+								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
+								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
+								<aspectratio scalediffuse="false">scale</aspectratio>
+							</control>
+						</control>
+					</itemlayout>
+
+					<focusedlayout width="WIDTH_POSTER" height="HEIGHT_POSTER">
+						<control type="group">
+							<animation type="Focus"><effect type="zoom" start="100" end="110" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
+							<animation type="Unfocus"><effect type="zoom" start="110" end="100" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
+
+							<!-- Update selected item info -->
+							<control type="button">
+								<include content="Hidden" />
+								<onfocus>$PARAM[onchange]</onfocus>
+							</control>
+
+							<control type="image">
+								<width>WIDTH_POSTER</width>
+								<height>HEIGHT_POSTER</height>
+								<texture fallback="1080p/fallback/poster.png" background="true" diffuse="1080p/diffuse/poster.png">$INFO[$PARAM[art]]</texture>
+								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
+								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
+								<aspectratio scalediffuse="false">scale</aspectratio>
+							</control>
+						</control>
+					</focusedlayout>
+
+					<content>$PARAM[content]</content>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Vertical wall of album elements, with label and filters (for focused status) -->
+	<include name="AlbumWall">
+		<param name="id"></param>
+		<param name="label"></param>
+		<param name="content"></param>
+		<param name="art"></param>
+		<param name="onfocus">noop</param>
+		<param name="onchange">noop</param>
+		<param name="onback">noop</param>
+		<param name="onup">noop</param>
+		<param name="ondown">noop</param>
+		<param name="onleft">noop</param>
+		<param name="onright">noop</param>
+
+		<definition>
+			<control type="group">
+				<height>SCREEN_HEIGHT_PADDED</height>
+
+				<!-- Wall title and filters -->
+				<control type="group">
+					<control type="label">
+						<font>TITLE2</font>
+						<textcolor>FOREGROUND</textcolor>
+						<label>$PARAM[label]</label>
+						<aligny>center</aligny>
+						<height>FONT_SIZE_TITLE2</height>
+					</control>
+				</control>
+
+				<control type="panel" id="$PARAM[id]">
+					<top>HEIGHT_WALL_FILTER</top>
+					<height>HEIGHT_WALL_CONTENT</height>
+					<autoscroll>false</autoscroll>
+					<orientation>vertical</orientation>
+					<onfocus>$PARAM[onfocus]</onfocus>
+					<onback>$PARAM[onback]</onback>
+					<onleft>$PARAM[onleft]</onleft>
+					<onright>$PARAM[onright]</onright>
+					<onup>$PARAM[onup]</onup>
+					<ondown>$PARAM[ondown]</ondown>
+
+					<itemlayout width="WIDTH_ALBUM" height="HEIGHT_ALBUM">
+						<control type="group">
+							<control type="image">
+								<width>WIDTH_ALBUM</width>
+								<height>HEIGHT_ALBUM</height>
+								<texture fallback="1080p/fallback/album.png" background="true" diffuse="1080p/diffuse/album.png">$INFO[$PARAM[art]]</texture>
+								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
+								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
+								<aspectratio scalediffuse="false">scale</aspectratio>
+							</control>
+						</control>
+					</itemlayout>
+
+					<focusedlayout width="WIDTH_ALBUM" height="HEIGHT_ALBUM">
+						<control type="group">
+							<animation type="Focus"><effect type="zoom" start="100" end="110" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
+							<animation type="Unfocus"><effect type="zoom" start="110" end="100" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
+
+							<!-- Update selected item info -->
+							<control type="button">
+								<include content="Hidden" />
+								<onfocus>$PARAM[onchange]</onfocus>
+							</control>
+
+							<control type="image">
+								<width>WIDTH_ALBUM</width>
+								<height>HEIGHT_ALBUM</height>
+								<texture fallback="1080p/fallback/album.png" background="true" diffuse="1080p/diffuse/album.png">$INFO[$PARAM[art]]</texture>
+								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
+								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
+								<aspectratio scalediffuse="false">scale</aspectratio>
+							</control>
+						</control>
+					</focusedlayout>
+
+					<content>$PARAM[content]</content>
+				</control>
+			</control>
+		</definition>
+	</include>
+</includes>

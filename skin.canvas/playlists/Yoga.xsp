@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<smartplaylist type="episodes">
+    <name>Yoga With Adriene</name>
+    <match>all</match>
+	<rule field="tvshow" operator="contains">
+        <value>Yoga With Adriene</value>
+    </rule>
+	<rule field="episode" operator="is">
+        <value>1</value>
+    </rule>
+    <order direction="ascending">season</order>
+</smartplaylist>

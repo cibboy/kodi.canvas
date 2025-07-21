@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<!-- Coordinates to hide control -->
+	<include name="Hidden">
+		<top>-10000</top>
+		<left>-10000</left>
+		<width>0</width>
+		<height>0</height>
+	</include>
+</includes>

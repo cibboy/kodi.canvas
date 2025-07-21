@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<colors>
+	<!-- Foregrounds -->
+	<color name="HIGHLIGHT">FFF1F1F1</color>
+	<color name="FOREGROUND">FFBEBEBE</color>
+	<color name="FOREGROUND_OPAQUE90">E5BEBEBE</color>
+	<color name="FOREGROUND_OPAQUE75">BFBEBEBE</color>
+	<color name="FOREGROUND_OPAQUE50">7FBEBEBE</color>
+	<color name="FOREGROUND_OPAQUE35">59BEBEBE</color>
+	<color name="FOREGROUND_OPAQUE20">33BEBEBE</color>
+	<color name="FOREGROUND_DARK">FF999999</color>
+
+	<color name="FOREGROUND_ACCENT">FFE5A00D</color>
+
+	<!-- Backgrounds -->
+	<color name="BACKGROUND">FF000000</color>
+	<color name="BACKGROUND_OPAQUE90">E5000000</color>
+	<color name="BACKGROUND_OPAQUE75">BF000000</color>
+	<color name="BACKGROUND_OPAQUE50">7F000000</color>
+	<color name="BACKGROUND_OPAQUE35">59000000</color>
+	<color name="BACKGROUND_OPAQUE20">33000000</color>
+</colors>

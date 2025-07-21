@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="script.canvas.helper" name="Canvas Skin Helper Addon" version="1.0.0" provider-name="Gabriele Seppi">
+
+  <requires>
+    <import addon="xbmc.python" version="3.0.1"/>
+    <!-- Require Pillow module -->
+    <import addon="script.module.pil" version="1.1.7"/>
+  </requires>
+
+  <extension point="xbmc.python.script" library="script.py" />
+  <extension point="xbmc.python.pluginsource" library="plugin.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Canvas skin helper addon</summary>
+  </extension>
+</addon>
