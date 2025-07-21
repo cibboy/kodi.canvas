@@ -2,9 +2,29 @@
 <includes>
 	<variable name="BackgroundArt">
 		<!-- Continue watching -->
+		<value condition="String.IsEqual(Window.Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(ItemType),episode)">$INFO[Container(101).ListItem.Art(tvshow.fanart)]</value>
 		<value condition="String.IsEqual(Window.Property(Home.ActiveListId),101)">$INFO[Container(101).ListItem.Art(fanart)]</value>
 		<!-- Recently added episodes -->
-		<value condition="String.IsEqual(Window.Property(Home.ActiveListId),102)">$INFO[Container(102).ListItem.Art(fanart)]</value>
+		<value condition="String.IsEqual(Window.Property(Home.ActiveListId),102)">$INFO[Container(102).ListItem.Art(tvshow.fanart)]</value>
+		<!-- Recently added movies -->
+		<value condition="String.IsEqual(Window.Property(Home.ActiveListId),103)">$INFO[Container(103).ListItem.Art(fanart)]</value>
+		<!-- Recently added music -->
+		<value condition="String.IsEqual(Window.Property(Home.ActiveListId),104)">$INFO[Container(104).ListItem.Art(album.thumb)]</value>
+		<!-- Movies -->
+		<value condition="String.IsEqual(Window.Property(Home.ActiveListId),110)">$INFO[Container(110).ListItem.Art(fanart)]</value>
+		<!-- TV shows -->
+		<value condition="String.IsEqual(Window.Property(Home.ActiveListId),120)">$INFO[Container(120).ListItem.Art(fanart)]</value>
+		<!-- Yoga -->
+		<value condition="String.IsEqual(Window.Property(Home.ActiveListId),130)">$INFO[Container(130).ListItem.Art(fanart)]</value>
+		<!-- Music -->
+		<value condition="String.IsEqual(Window.Property(Home.ActiveListId),140)">$INFO[Container(140).ListItem.Art(album.thumb)]</value>
+	</variable>
+	<variable name="BlurArt">
+		<!-- Continue watching -->
+		<value condition="String.IsEqual(Window.Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(ItemType),episode)">$INFO[Container(101).ListItem.Property(BlurArt.TvShow)]</value>
+		<value condition="String.IsEqual(Window.Property(Home.ActiveListId),101)">$INFO[Container(101).ListItem.Property(BlurArt)]</value>
+		<!-- Recently added episodes -->
+		<value condition="String.IsEqual(Window.Property(Home.ActiveListId),102)">$INFO[Container(102).ListItem.Property(BlurArt.TvShow)]</value>
 		<!-- Recently added movies -->
 		<value condition="String.IsEqual(Window.Property(Home.ActiveListId),103)">$INFO[Container(103).ListItem.Art(fanart)]</value>
 		<!-- Recently added music -->
@@ -29,7 +49,7 @@
 					<width>100%</width>
 					<height>100%</height>
 					<fadetime>ANIMATION_CRAWL</fadetime>
-					<texture fallback="1080p/fallback/bg.png" diffuse="1080p/diffuse/bg_diffuse.png">$INFO[Window.Property(ActiveItem.BackgroundBlur)]</texture>
+					<texture fallback="1080p/fallback/bg.png" diffuse="1080p/diffuse/bg_diffuse.png">$VAR[BlurArt]</texture>
 				</control>
 
 				<!-- Art -->

@@ -174,7 +174,6 @@
 								<param name="content">plugin://script.canvas.helper/continue_watching/</param>
 								<param name="art">ListItem.Art(poster)</param>
 								<param name="onfocus">RunScript(script.canvas.helper,home_page_item_onfocus,home,101)</param>
-								<param name="onchange">RunScript(script.canvas.helper,home_page_listitem_onchange,101)</param>
 								<param name="onback">SetFocus(1,0)</param>
 								<param name="onleft">SetFocus(1,0)</param>
 								<param name="ondown">SetFocus(102)</param>
@@ -187,12 +186,12 @@
 							<include content="LandscapeStrip">
 								<param name="id">102</param>
 								<param name="label">Recently added episodes</param>
-								<param name="content">special://skin/playlists/RecentlyAddedTvShowEpisodes.xsp</param>
-								<param name="art">ListItem.Art(thumb)</param>
-								<!--<param name="logo">ListItem.Art(tvshow.clearlogo)</param>-->
-								<param name="logo">$INFO[Window.Property(ActiveItem.Clearlogo.Small)]</param>
+								<param name="content">plugin://script.canvas.helper/recently_added_tvshow_episode/</param>
+								<param name="art">$INFO[ListItem.Art(thumb)]</param>
+								<param name="logo">$INFO[ListItem.Property(Clearlogo.Small)]</param>
+								<param name="episode">S$INFO[ListItem.Season]·E$INFO[ListItem.Episode]</param>
+								<param name="title">$INFO[ListItem.Title]</param>
 								<param name="onfocus">RunScript(script.canvas.helper,home_page_item_onfocus,home,102)</param>
-								<param name="onchange">RunScript(script.canvas.helper,home_page_listitem_onchange,102)</param>
 								<param name="onback">SetFocus(1,0)</param>
 								<param name="onleft">SetFocus(1,0)</param>
 								<param name="onup">SetFocus(101)</param>
@@ -209,7 +208,6 @@
 								<param name="content">videodb://recentlyaddedmovies/</param>
 								<param name="art">ListItem.Art(poster)</param>
 								<param name="onfocus">RunScript(script.canvas.helper,home_page_item_onfocus,home,103)</param>
-								<param name="onchange">RunScript(script.canvas.helper,home_page_listitem_onchange,103)</param>
 								<param name="onback">SetFocus(1,0)</param>
 								<param name="onleft">SetFocus(1,0)</param>
 								<param name="onup">SetFocus(102)</param>
@@ -226,7 +224,6 @@
 								<param name="content">special://skin/playlists/RecentlyAddedSongs.xsp</param>
 								<param name="art">ListItem.Art(album.thumb)</param>
 								<param name="onfocus">RunScript(script.canvas.helper,home_page_item_onfocus,home,104)</param>
-								<param name="onchange">RunScript(script.canvas.helper,home_page_listitem_onchange,104)</param>
 								<param name="onback">SetFocus(1,0)</param>
 								<param name="onleft">SetFocus(1,0)</param>
 								<param name="onup">SetFocus(103)</param>
@@ -248,7 +245,6 @@
 							<param name="content">videodb://movies/titles/</param>
 							<param name="art">ListItem.Art(poster)</param>
 							<param name="onfocus">RunScript(script.canvas.helper,home_page_item_onfocus,movies,110)</param>
-							<param name="onchange">RunScript(script.canvas.helper,home_page_listitem_onchange,110)</param>
 							<param name="onback">SetFocus(1,1)</param>
 							<param name="onleft">SetFocus(1,1)</param>
 						</include>
@@ -268,7 +264,6 @@
 							<param name="content">special://skin/playlists/TvShows.xsp</param>
 							<param name="art">ListItem.Art(poster)</param>
 							<param name="onfocus">RunScript(script.canvas.helper,home_page_item_onfocus,tvshows,120)</param>
-							<param name="onchange">RunScript(script.canvas.helper,home_page_listitem_onchange,120)</param>
 							<param name="onback">SetFocus(1,2)</param>
 							<param name="onleft">SetFocus(1,2)</param>
 						</include>
@@ -291,7 +286,6 @@
 							<param name="content">special://skin/playlists/Yoga.xsp</param>
 							<param name="art">ListItem.Art(season.poster)</param>
 							<param name="onfocus">RunScript(script.canvas.helper,home_page_item_onfocus,yoga,130)</param>
-							<param name="onchange">RunScript(script.canvas.helper,home_page_listitem_onchange,130)</param>
 							<param name="onback">SetFocus(1,3)</param>
 							<param name="onleft">SetFocus(1,3)</param>
 						</include>
@@ -311,7 +305,6 @@
 							<param name="content">special://skin/playlists/Songs.xsp</param>
 							<param name="art">ListItem.Art(album.thumb)</param>
 							<param name="onfocus">RunScript(script.canvas.helper,home_page_item_onfocus,music,140)</param>
-							<param name="onchange">RunScript(script.canvas.helper,home_page_listitem_onchange,140)</param>
 							<param name="onback">SetFocus(1,4)</param>
 							<param name="onleft">SetFocus(1,4)</param>
 						</include>

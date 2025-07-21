@@ -10,6 +10,8 @@
 		<param name="content"></param>
 		<param name="art"></param>
 		<param name="logo"></param>
+		<param name="episode"></param>
+		<param name="title"></param>
 		<param name="onfocus">noop</param>
 		<param name="onchange">noop</param>
 		<param name="onback">noop</param>
@@ -45,20 +47,47 @@
 							<control type="image">
 								<width>WIDTH_LANDSCAPE</width>
 								<height>HEIGHT_LANDSCAPE</height>
-								<texture fallback="1080p/fallback/landscape.png" background="true" diffuse="1080p/diffuse/landscape.png">$INFO[$PARAM[art]]</texture>
+								<texture fallback="1080p/fallback/landscape.png" background="true" diffuse="1080p/diffuse/landscape.png">$PARAM[art]</texture>
 								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
 								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
 								<aspectratio scalediffuse="false">scale</aspectratio>
 							</control>
-							<!-- Logo -->
-							<control type="image">
-								<!--<visible>!String.IsEmpty($PARAM[logo])</visible>-->
+
+							<!-- Info -->
+							<control type="group">
 								<top>OFFSET_LANDSCAPE_STRIP_CLEARLOGO</top>
-								<left>SIZE_ITEM_SHADOW_SQUARE</left>
-								<width>WIDTH_CLEARLOGO_SMALL</width>
-								<height>HEIGHT_CLEARLOGO_SMALL</height>
-								<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
-								<aspectratio align="left">keep</aspectratio>
+
+								<control type="group">
+									<top>SIZE_ITEM_SHADOW_SQUARE</top>
+									<left>SIZE_ITEM_SHADOW_SQUARE</left>
+									<right>SIZE_ITEM_SHADOW_SQUARE</right>
+									<width>100%</width>
+
+									<!-- Logo -->
+									<control type="image">
+										<width>WIDTH_CLEARLOGO_SMALL</width>
+										<height>HEIGHT_CLEARLOGO_SMALL</height>
+										<texture background="true">$PARAM[logo]</texture>
+										<aspectratio align="left">keep</aspectratio>
+									</control>
+									<!-- Season/episode -->
+									<control type="label">
+										<right>0</right>
+										<top>PADDING_BASE_0.1X</top>
+										<width>100</width>
+										<aligny>center</aligny>
+										<font>CAPTION2</font>
+										<textcolor>FOREGROUND</textcolor>
+										<label>$PARAM[episode]</label>
+									</control>
+									<!-- Season/episode -->
+									<control type="label">
+										<top>HEIGHT_CLEARLOGO_SMALL</top>
+										<font>CAPTION</font>
+										<textcolor>FOREGROUND</textcolor>
+										<label>$PARAM[title]</label>
+									</control>
+								</control>
 							</control>
 						</control>
 					</itemlayout>
@@ -78,20 +107,47 @@
 							<control type="image">
 								<width>WIDTH_LANDSCAPE</width>
 								<height>HEIGHT_LANDSCAPE</height>
-								<texture fallback="1080p/fallback/landscape.png" background="true" diffuse="1080p/diffuse/landscape.png">$INFO[$PARAM[art]]</texture>
+								<texture fallback="1080p/fallback/landscape.png" background="true" diffuse="1080p/diffuse/landscape.png">$PARAM[art]</texture>
 								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
 								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
 								<aspectratio scalediffuse="false">scale</aspectratio>
 							</control>
-							<!-- Logo -->
-							<control type="image">
-								<!--<visible>!String.IsEmpty($PARAM[logo])</visible>-->
+
+							<!-- Info -->
+							<control type="group">
 								<top>OFFSET_LANDSCAPE_STRIP_CLEARLOGO</top>
-								<left>SIZE_ITEM_SHADOW_SQUARE</left>
-								<width>WIDTH_CLEARLOGO_SMALL</width>
-								<height>HEIGHT_CLEARLOGO_SMALL</height>
-								<texture background="true">$PARAM[logo]</texture>
-								<aspectratio align="left">keep</aspectratio>
+
+								<control type="group">
+									<top>SIZE_ITEM_SHADOW_SQUARE</top>
+									<left>SIZE_ITEM_SHADOW_SQUARE</left>
+									<right>SIZE_ITEM_SHADOW_SQUARE</right>
+									<width>100%</width>
+
+									<!-- Logo -->
+									<control type="image">
+										<width>WIDTH_CLEARLOGO_SMALL</width>
+										<height>HEIGHT_CLEARLOGO_SMALL</height>
+										<texture background="true">$PARAM[logo]</texture>
+										<aspectratio align="left">keep</aspectratio>
+									</control>
+									<!-- Season/episode -->
+									<control type="label">
+										<right>PADDING_BASE_0.1X</right>
+										<top>PADDING_BASE_0.1X</top>
+										<width>100</width>
+										<aligny>center</aligny>
+										<font>CAPTION2</font>
+										<textcolor>FOREGROUND</textcolor>
+										<label>$PARAM[episode]</label>
+									</control>
+									<!-- Season/episode -->
+									<control type="label">
+										<top>HEIGHT_CLEARLOGO_SMALL</top>
+										<font>CAPTION</font>
+										<textcolor>FOREGROUND</textcolor>
+										<label>$PARAM[title]</label>
+									</control>
+								</control>
 							</control>
 						</control>
 					</focusedlayout>

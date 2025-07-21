@@ -9,6 +9,7 @@
 	<!-- Constants: padding -->
 	<constant name="PADDING_BASE">50</constant>
 	<constant name="PADDING_BASE_-0.3X">-15</constant>
+	<constant name="PADDING_BASE_0.1X">5</constant>
 	<constant name="PADDING_BASE_0.5X">25</constant>
 	<constant name="PADDING_BASE_1.2X">60</constant>
 
@@ -44,8 +45,8 @@
 	<constant name="WIDTH_STUDIO_LOGO">120</constant>
 	<constant name="HEIGHT_CLEARLOGO_BIG">100</constant>
 	<constant name="WIDTH_CLEARLOGO_BIG">800</constant>
-	<constant name="HEIGHT_CLEARLOGO_SMALL">80</constant>
-	<constant name="WIDTH_CLEARLOGO_SMALL">100</constant>
+	<constant name="HEIGHT_CLEARLOGO_SMALL">30</constant>
+	<constant name="WIDTH_CLEARLOGO_SMALL">200</constant>
 
 	<!-- Constants: screen-related sizes -->
 	<constant name="SCREEN_CENTER_Y">540</constant>
@@ -64,6 +65,7 @@
 	<constant name="FONT_SIZE_BODY">32</constant>
 	<constant name="FONT_SIZE_BODY2">29</constant>
 	<constant name="FONT_SIZE_CAPTION">24</constant>
+	<constant name="FONT_SIZE_CAPTION2">22</constant>
 
 	<!-- Referenced includes -->
 	<include file="Includes/Utilities.xml" />
