@@ -10,7 +10,8 @@ handle = int(sys.argv[1])
 
 # Default property lists.
 movie_properties_query = ['title', 'year', 'resume', 'art', 'plot', 'studio', 'streamdetails', 'mpaa', 'genre']
-episode_properties_query = ['art', 'showtitle', 'title', 'season', 'episode', 'firstaired', 'studio', 'playcount', 'resume', 'streamdetails', 'plot', 'dateadded']
+episode_properties_query = ['art', 'showtitle', 'title', 'season', 'episode', 'firstaired', 'studio', 'playcount', 'resume', 'streamdetails', 'plot']
+song_properties_query = ['title', 'year', 'art', 'album', 'artist', 'duration']
 
 # Calls a JSON-RPC method agains Kodi.
 def call_rpc(method, params=None):
@@ -65,8 +66,7 @@ def get_movie_listitem(movie):
     li.setProperty('DurationString', duration)
     li.setProperty('BlurArt', blur)
     li.setProperty('Clearlogo.Big', clearlogo)
-    li.setProperty('Clearlogo.Small', clearlogo_small)
-        
+
     return li
 
 # Build a listitem for TV shows.
@@ -101,7 +101,7 @@ def get_episode_listitem(episode):
     # Get custom art.
     tvshow_blur = get_blurred(episode['art'].get('tvshow.fanart', ''))
     season_blur = get_blurred(episode['art'].get('season.fanart', ''))
-    clearlogo, clearlogo_small = get_cropped_clearlogo(episode['art'].get('tvshow.clearlogo', ''))
+    clearlogo, clearlogo_small = get_cropped_clearlogo(episode['art'].get('tvshow.clearlogo', ''), True)
 
     # Compute duration visual string.
     duration = episode['streamdetails']['video'][0]['duration']
@@ -127,7 +127,7 @@ def get_episode_listitem(episode):
     li.setProperty('BlurArt.Season', season_blur)
     li.setProperty('Clearlogo.Big', clearlogo)
     li.setProperty('Clearlogo.Small', clearlogo_small)
-        
+
     return li
 
 # Build a listitem for music albums.
@@ -136,9 +136,42 @@ def get_album_listitem():
     a = 0
 
 # Build a listitem for songs.
-def get_song_listitem():
-    #todo
-    a = 0
+def get_song_listitem(song):
+    # Create song-type listitem.
+    li = xbmcgui.ListItem(label=song['title'])
+    li.setProperty('ItemType', 'song')
+
+    # Set internal properties.
+    li.setArt(song['art'])
+    musicinfo = li.getMusicInfoTag()
+    musicinfo.setTitle(song['title'])
+    musicinfo.setYear(song['year'])
+    musicinfo.setDuration(song['duration'])
+    musicinfo.setAlbum(song['album'])
+    musicinfo.setArtist(', '.join(song['artist']))
+
+    # Get custom art.
+    blur = get_blurred(song['art'].get('album.thumb', ''))#todo: not working (usual problem of escaping, that must not be done?)
+
+    # Compute duration visual string.
+    duration = song['duration']
+    if duration >= 3600:
+        hours = math.floor(duration / 3600)
+        minutes = math.floor((duration - (hours * 3600)) / 60)
+        seconds = math.floor(duration - (hours * 3600) - (minutes * 60))
+        duration = f"{hours}h{minutes:0>2}m{seconds:0>2}s"
+    elif duration > 60:
+        minutes = math.floor(duration / 60)
+        seconds = math.floor(duration - (minutes * 60))
+        duration = f"{minutes}m{seconds:0>2}s"
+    else:
+        duration = f"{duration}s"
+
+     # Set custom properties.
+    li.setProperty('DurationString', duration)
+    li.setProperty('BlurArt', blur)
+
+    return li
 
 # Build a listitem for pictures.
 def get_picture_listitem():
@@ -206,7 +239,7 @@ def list_continue_watching():
     xbmcplugin.endOfDirectory(handle)
 
 # Create a list of recently added TV show episodes.
-def recently_added_tvshow_episode():
+def list_recently_added_tvshow_episode():
     # Load all episodes.
     all_episodes = call_rpc('VideoLibrary.GetEpisodes', {
         # Sort by date added, descending.
@@ -219,8 +252,8 @@ def recently_added_tvshow_episode():
     episodes = []
     count = 0
     for e in all_episodes:
-        # Stop at 20.
-        if count == 20:
+        # Stop at 25.
+        if count == 25:
             break
         
         # If not Yoga with Adriene, add to list.
@@ -255,6 +288,54 @@ def recently_added_tvshow_episode():
 
     xbmcplugin.endOfDirectory(handle)
 
+# Create a list of recently added movies.
+def list_recently_added_movies():
+    # Load recently added movies.
+    movies = call_rpc('VideoLibrary.GetMovies', {
+        # Sort by date added, descending.
+        'sort': {'order': 'descending', 'method': 'dateadded'},
+        # Pick the first 25.
+        'limits': {'start': 0, 'end': 25},
+        # Get important movie properties.
+        'properties': movie_properties_query
+    }).get('movies', [])
+
+    # For each movie found add to list.
+    for movie in movies:
+        li = get_movie_listitem(movie)
+        xbmcplugin.addDirectoryItem(
+            handle=handle,
+            url=movie['title'],#todo
+            listitem=li,
+            isFolder=False
+        )
+
+    xbmcplugin.endOfDirectory(handle)
+
+# Create a list of recently added songs.
+def list_recently_added_songs():
+    # Load recently added songs.
+    songs = call_rpc('AudioLibrary.GetSongs', {
+        # Sort by date added, descending.
+        'sort': {'order': 'descending', 'method': 'dateadded'},
+        # Pick the first 25.
+        'limits': {'start': 0, 'end': 25},
+        # Get important song properties.
+        'properties': song_properties_query
+    }).get('songs', [])
+
+    # For each movie found add to list.
+    for song in songs:
+        li = get_song_listitem(song)
+        xbmcplugin.addDirectoryItem(
+            handle=handle,
+            url=song['title'],#todo
+            listitem=li,
+            isFolder=False
+        )
+
+    xbmcplugin.endOfDirectory(handle)
+
 # Create a list of seasons of Yoga with Adriene.
 def list_yoga_with_adriene():
     #todo
@@ -268,6 +349,10 @@ if __name__ == '__main__':
     if method == 'continue_watching':
         list_continue_watching()
     elif method == 'recently_added_tvshow_episode':
-        recently_added_tvshow_episode()
+        list_recently_added_tvshow_episode()
+    elif method == 'recently_added_movies':
+        list_recently_added_movies()
+    elif method == 'recently_added_songs':
+        list_recently_added_songs()
     elif method == 'yoga_with_adriene':
         list_yoga_with_adriene()

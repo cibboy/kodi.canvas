@@ -5,9 +5,10 @@ from PIL import Image, ImageFilter
 
 # Searches the required image, returns its full path and potential edited cache path.
 def get_image(imgPath):
+    xbmc.log(imgPath,xbmc.LOGINFO)
     try:
         # Some paths require unquoting to get a valid cached thumb hash.
-        if imgPath.startswith("image://"):
+        if imgPath.startswith('image://') and not imgPath.startswith('image://music'):
             imgPath = urllib.unquote(imgPath.replace('image://', ''))
             if imgPath.endswith('/'):
                 imgPath = imgPath[:-1]
@@ -66,17 +67,20 @@ def get_blurred(imgPath):
 # Takes an clearlogo path, crops it to the actual content, saves in into temp and returns the new path.
 # It creates 2 version, the original size, cropped, and a smaller one, cropped as well.
 # It avoids re-cropping if already in cache.
-def get_cropped_clearlogo(imgPath):
+def get_cropped_clearlogo(imgPath, add_small=False):
     try:
         # Load paths.
         full_path, out = get_image(imgPath)
-        out_small = out.replace('.png', '-small.png')
+        if add_small:
+            out_small = out.replace('.png', '-small.png')
+        else:
+            out_small = None
 
         # Check if output already present. If so, use it.
         done = True
         if not xbmcvfs.exists(out):
             done = False
-        if not xbmcvfs.exists(out_small):
+        if add_small and not xbmcvfs.exists(out_small):
             done = False
         if done:
             return (out, out_small)
@@ -95,14 +99,19 @@ def get_cropped_clearlogo(imgPath):
             img = img.crop(img.getbbox())
 
         # Resize for small version.
-        width, height = img.size
-        img_small = img.resize((180, int(180*height/width)), Image.LANCZOS)
+        if add_small:
+            width, height = img.size
+            img_small = img.resize((180, int(180*height/width)), Image.LANCZOS)
 
         # Save output.
         img.save(out, 'PNG')
-        img_small.save(out_small, 'PNG')
+        if add_small:
+            img_small.save(out_small, 'PNG')
 
         # Return output paths.
         return (out, out_small)
     except:
-        return ('', '')
+        if add_small:
+            return ('', '')
+        else:
+            return ('', None)

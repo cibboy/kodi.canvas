@@ -2,8 +2,6 @@
 <!--todo: progress indicators-->
 <includes>
 	<!-- Horizontal strip of landscape elements, with label and optional logo -->
-	<!--todo: add more info beyond logo? (like season and episode number)-->
-	<!--todo: logo is wip and partially broken-->
 	<include name="LandscapeStrip">
 		<param name="id"></param>
 		<param name="label"></param>
@@ -198,7 +196,7 @@
 							<control type="image">
 								<width>WIDTH_POSTER</width>
 								<height>HEIGHT_POSTER</height>
-								<texture fallback="1080p/fallback/poster.png" background="true" diffuse="1080p/diffuse/poster.png">$INFO[$PARAM[art]]</texture>
+								<texture fallback="1080p/fallback/poster.png" background="true" diffuse="1080p/diffuse/poster.png">$PARAM[art]</texture>
 								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
 								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
 								<aspectratio scalediffuse="false">scale</aspectratio>
@@ -220,7 +218,7 @@
 							<control type="image">
 								<width>WIDTH_POSTER</width>
 								<height>HEIGHT_POSTER</height>
-								<texture fallback="1080p/fallback/poster.png" background="true" diffuse="1080p/diffuse/poster.png">$INFO[$PARAM[art]]</texture>
+								<texture fallback="1080p/fallback/poster.png" background="true" diffuse="1080p/diffuse/poster.png">$PARAM[art]</texture>
 								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
 								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
 								<aspectratio scalediffuse="false">scale</aspectratio>
@@ -269,12 +267,14 @@
 					<onup>$PARAM[onup]</onup>
 					<ondown>$PARAM[ondown]</ondown>
 
+					<!--todo: add song, album, track? come per episodes-->
+
 					<itemlayout width="WIDTH_ALBUM_STRIP_ITEM_CONTAINER" height="HEIGHT_ALBUM">
 						<control type="group">
 							<control type="image">
 								<width>WIDTH_ALBUM</width>
 								<height>HEIGHT_ALBUM</height>
-								<texture fallback="1080p/fallback/album.png" background="true" diffuse="1080p/diffuse/album.png">$INFO[$PARAM[art]]</texture>
+								<texture fallback="1080p/fallback/album.png" background="true" diffuse="1080p/diffuse/album.png">$PARAM[art]</texture>
 								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
 								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
 								<aspectratio scalediffuse="false">scale</aspectratio>
@@ -296,7 +296,7 @@
 							<control type="image">
 								<width>WIDTH_ALBUM</width>
 								<height>HEIGHT_ALBUM</height>
-								<texture fallback="1080p/fallback/album.png" background="true" diffuse="1080p/diffuse/album.png">$INFO[$PARAM[art]]</texture>
+								<texture fallback="1080p/fallback/album.png" background="true" diffuse="1080p/diffuse/album.png">$PARAM[art]</texture>
 								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
 								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
 								<aspectratio scalediffuse="false">scale</aspectratio>
@@ -356,7 +356,7 @@
 							<control type="image">
 								<width>WIDTH_POSTER</width>
 								<height>HEIGHT_POSTER</height>
-								<texture fallback="1080p/fallback/poster.png" background="true" diffuse="1080p/diffuse/poster.png">$INFO[$PARAM[art]]</texture>
+								<texture fallback="1080p/fallback/poster.png" background="true" diffuse="1080p/diffuse/poster.png">$PARAM[art]</texture>
 								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
 								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
 								<aspectratio scalediffuse="false">scale</aspectratio>
@@ -378,7 +378,7 @@
 							<control type="image">
 								<width>WIDTH_POSTER</width>
 								<height>HEIGHT_POSTER</height>
-								<texture fallback="1080p/fallback/poster.png" background="true" diffuse="1080p/diffuse/poster.png">$INFO[$PARAM[art]]</texture>
+								<texture fallback="1080p/fallback/poster.png" background="true" diffuse="1080p/diffuse/poster.png">$PARAM[art]</texture>
 								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
 								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
 								<aspectratio scalediffuse="false">scale</aspectratio>
@@ -438,7 +438,7 @@
 							<control type="image">
 								<width>WIDTH_ALBUM</width>
 								<height>HEIGHT_ALBUM</height>
-								<texture fallback="1080p/fallback/album.png" background="true" diffuse="1080p/diffuse/album.png">$INFO[$PARAM[art]]</texture>
+								<texture fallback="1080p/fallback/album.png" background="true" diffuse="1080p/diffuse/album.png">$PARAM[art]</texture>
 								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
 								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
 								<aspectratio scalediffuse="false">scale</aspectratio>
@@ -460,7 +460,7 @@
 							<control type="image">
 								<width>WIDTH_ALBUM</width>
 								<height>HEIGHT_ALBUM</height>
-								<texture fallback="1080p/fallback/album.png" background="true" diffuse="1080p/diffuse/album.png">$INFO[$PARAM[art]]</texture>
+								<texture fallback="1080p/fallback/album.png" background="true" diffuse="1080p/diffuse/album.png">$PARAM[art]</texture>
 								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
 								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
 								<aspectratio scalediffuse="false">scale</aspectratio>
