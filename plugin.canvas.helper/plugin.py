@@ -4,14 +4,16 @@ import json
 import xbmc
 import xbmcgui
 import xbmcplugin
+from urllib.parse import urlparse, parse_qsl
 from image import get_blurred, get_cropped_clearlogo
+from utils import get_formatted_timespan
 
 handle = int(sys.argv[1])
 
 # Default property lists.
-movie_properties_query = ['title', 'year', 'resume', 'art', 'plot', 'studio', 'streamdetails', 'mpaa', 'genre']
-episode_properties_query = ['art', 'showtitle', 'title', 'season', 'episode', 'firstaired', 'studio', 'playcount', 'resume', 'streamdetails', 'plot']
-song_properties_query = ['title', 'year', 'art', 'album', 'artist', 'duration']
+movie_properties_query = ['title', 'year', 'resume', 'art', 'plot', 'studio', 'streamdetails', 'mpaa', 'genre', 'playcount']
+episode_properties_query = ['art', 'showtitle', 'title', 'season', 'episode', 'firstaired', 'studio', 'resume', 'streamdetails', 'plot', 'playcount']
+song_properties_query = ['title', 'year', 'art', 'album', 'artist', 'duration', 'track', 'genre']
 
 # Calls a JSON-RPC method agains Kodi.
 def call_rpc(method, params=None):
@@ -40,19 +42,21 @@ def get_movie_listitem(movie):
     videoinfo.setGenres(movie['genre'])
     videoinfo.setDuration(movie['streamdetails']['video'][0]['duration'])
     videoinfo.setResumePoint(movie['resume']['position'], movie['resume']['total'])
+    videoinfo.setPlayCount(movie['playcount'])
 
     # Get custom art.
     blur = get_blurred(movie['art'].get('fanart', ''))
     clearlogo, clearlogo_small = get_cropped_clearlogo(movie['art'].get('clearlogo', ''))
 
     # Compute duration visual string.
-    duration = movie['streamdetails']['video'][0]['duration']
-    if duration >= 3600:
-        hours = math.floor(duration / 3600)
-        minutes = math.floor((duration - (hours * 3600)) / 60)
-        duration = f"{hours}h{minutes}m"
-    else:
-        duration = f"{math.floor(duration / 60)}m"
+    duration = get_formatted_timespan(movie['streamdetails']['video'][0]['duration'])
+
+    # Compute watched stats.
+    time_remaining = ''
+    watched_percentage = 0
+    if movie['resume']['position'] > 0 and movie['resume']['position'] < movie['resume']['total'] and movie['playcount'] == 0:
+        time_remaining = get_formatted_timespan(movie['resume']['total'] - movie['resume']['position'])
+        watched_percentage = movie['resume']['position'] * 100 / movie['resume']['total']
 
     # Remove "Rated" from rating.
     rating = movie['mpaa']
@@ -64,6 +68,8 @@ def get_movie_listitem(movie):
     # Set custom properties.
     videoinfo.setMpaa(rating)
     li.setProperty('DurationString', duration)
+    li.setProperty('TimeRemainingString', time_remaining)
+    li.setProperty('WatchedPercentage', watched_percentage)
     li.setProperty('BlurArt', blur)
     li.setProperty('Clearlogo.Big', clearlogo)
 
@@ -97,6 +103,7 @@ def get_episode_listitem(episode):
     videoinfo.setTvShowTitle(episode['showtitle'])
     videoinfo.setDuration(episode['streamdetails']['video'][0]['duration'])
     videoinfo.setResumePoint(episode['resume']['position'], episode['resume']['total'])
+    videoinfo.setPlayCount(movie['playcount'])
 
     # Get custom art.
     tvshow_blur = get_blurred(episode['art'].get('tvshow.fanart', ''))
@@ -104,13 +111,14 @@ def get_episode_listitem(episode):
     clearlogo, clearlogo_small = get_cropped_clearlogo(episode['art'].get('tvshow.clearlogo', ''), True)
 
     # Compute duration visual string.
-    duration = episode['streamdetails']['video'][0]['duration']
-    if duration >= 3600:
-        hours = math.floor(duration / 3600)
-        minutes = math.floor((duration - (hours * 3600)) / 60)
-        duration = f"{hours}h{minutes}m"
-    else:
-        duration = f"{math.floor(duration / 60)}m"
+    duration = get_formatted_timespan(episode['streamdetails']['video'][0]['duration'])
+
+    # Compute watched stats.
+    time_remaining = ''
+    watched_percentage = 0
+    if movie['resume']['position'] > 0 and movie['resume']['position'] < movie['resume']['total'] and movie['playcount'] == 0:
+        time_remaining = get_formatted_timespan(movie['resume']['total'] - movie['resume']['position'])
+        watched_percentage = movie['resume']['position'] * 100 / movie['resume']['total']
 
     # Remove "Rated" from rating.
     rating = episode.get('tvshow', {'mpaa': None})['mpaa']
@@ -120,9 +128,11 @@ def get_episode_listitem(episode):
         rating = ''
 
     # Set custom properties.
-    li.setArt({'poster': episode['art'].get('tvshow.poster', '')})
     videoinfo.setMpaa(rating)
+    li.setArt({'poster': episode['art'].get('tvshow.poster', '')})
     li.setProperty('DurationString', duration)
+    li.setProperty('TimeRemainingString', time_remaining)
+    li.setProperty('WatchedPercentage', watched_percentage)
     li.setProperty('BlurArt.TvShow', tvshow_blur)
     li.setProperty('BlurArt.Season', season_blur)
     li.setProperty('Clearlogo.Big', clearlogo)
@@ -148,24 +158,15 @@ def get_song_listitem(song):
     musicinfo.setYear(song['year'])
     musicinfo.setDuration(song['duration'])
     musicinfo.setAlbum(song['album'])
+    musicinfo.setTrack(song['track'])
     musicinfo.setArtist(', '.join(song['artist']))
+    musicinfo.setGenres(song['genre'])
 
     # Get custom art.
-    blur = get_blurred(song['art'].get('album.thumb', ''))#todo: not working (usual problem of escaping, that must not be done?)
+    blur = get_blurred(song['art'].get('album.thumb', ''))
 
     # Compute duration visual string.
-    duration = song['duration']
-    if duration >= 3600:
-        hours = math.floor(duration / 3600)
-        minutes = math.floor((duration - (hours * 3600)) / 60)
-        seconds = math.floor(duration - (hours * 3600) - (minutes * 60))
-        duration = f"{hours}h{minutes:0>2}m{seconds:0>2}s"
-    elif duration > 60:
-        minutes = math.floor(duration / 60)
-        seconds = math.floor(duration - (minutes * 60))
-        duration = f"{minutes}m{seconds:0>2}s"
-    else:
-        duration = f"{duration}s"
+    duration = get_formatted_timespan(song['duration'], include_seconds=True)
 
      # Set custom properties.
     li.setProperty('DurationString', duration)
@@ -181,7 +182,13 @@ def get_picture_listitem():
 # Create a list of continue watching items: movies in progress, episodes in progress,
 # TV shows in progress. It collapses TV shows and episodes into one single item if
 # from the same TV show.
-def list_continue_watching():
+def list_continue_watching(params):
+    listid = params.get('listid', None)
+    window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
+    # Set loading.
+    if listid is not None:
+        window.setProperty(f"ListLoading.{listid}", 'true')
+
     # All movies, then filter them for those in progress.
     movies = call_rpc('VideoLibrary.GetMovies', {'properties': movie_properties_query})
     movies = [
@@ -238,8 +245,18 @@ def list_continue_watching():
 
     xbmcplugin.endOfDirectory(handle)
 
+    # Set loading.
+    if listid is not None:
+        window.setProperty(f"ListLoading.{listid}", 'false')
+
 # Create a list of recently added TV show episodes.
-def list_recently_added_tvshow_episode():
+def list_recently_added_tvshow_episodes(params):
+    listid = params.get('listid', None)
+    window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
+    # Set loading.
+    if listid is not None:
+        window.setProperty(f"ListLoading.{listid}", 'true')
+
     # Load all episodes.
     all_episodes = call_rpc('VideoLibrary.GetEpisodes', {
         # Sort by date added, descending.
@@ -288,17 +305,34 @@ def list_recently_added_tvshow_episode():
 
     xbmcplugin.endOfDirectory(handle)
 
-# Create a list of recently added movies.
-def list_recently_added_movies():
-    # Load recently added movies.
-    movies = call_rpc('VideoLibrary.GetMovies', {
-        # Sort by date added, descending.
-        'sort': {'order': 'descending', 'method': 'dateadded'},
-        # Pick the first 25.
-        'limits': {'start': 0, 'end': 25},
+    # Set loading.
+    if listid is not None:
+        window.setProperty(f"ListLoading.{listid}", 'false')
+
+# Create a list of movies.
+def list_movies(params):
+    listid = params.get('listid', None)
+    window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
+    # Set loading.
+    if listid is not None:
+        window.setProperty(f"ListLoading.{listid}", 'true')
+
+    sort = params.get('sort', 'title')
+    order = params.get('order', 'ascending')
+    limit = params.get('limit', 0)
+
+    query = {
+        # Sort by requested sort, with requested order.
+        'sort': { 'order': order, 'method': sort },
         # Get important movie properties.
         'properties': movie_properties_query
-    }).get('movies', [])
+    }
+     # If limit specified, add to call.
+    if limit > 0:
+        query['limits'] = { 'start': 0, 'end': limit }
+
+    # Load movies.
+    movies = call_rpc('VideoLibrary.GetMovies', query).get('movies', [])
 
     # For each movie found add to list.
     for movie in movies:
@@ -312,17 +346,34 @@ def list_recently_added_movies():
 
     xbmcplugin.endOfDirectory(handle)
 
-# Create a list of recently added songs.
-def list_recently_added_songs():
-    # Load recently added songs.
-    songs = call_rpc('AudioLibrary.GetSongs', {
-        # Sort by date added, descending.
-        'sort': {'order': 'descending', 'method': 'dateadded'},
-        # Pick the first 25.
-        'limits': {'start': 0, 'end': 25},
-        # Get important song properties.
+    # Set loading.
+    if listid is not None:
+        window.setProperty(f"ListLoading.{listid}", 'false')
+
+# Create a list of songs.
+def list_songs(params):
+    listid = params.get('listid', None)
+    window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
+    # Set loading.
+    if listid is not None:
+        window.setProperty(f"ListLoading.{listid}", 'true')
+
+    sort = params.get('sort', 'title')
+    order = params.get('order', 'ascending')
+    limit = params.get('limit', 0)
+
+    query = {
+        # Sort by requested sort, with requested order.
+        'sort': { 'order': order, 'method': sort },
+        # Get important movie properties.
         'properties': song_properties_query
-    }).get('songs', [])
+    }
+     # If limit specified, add to call.
+    if limit > 0:
+        query['limits'] = { 'start': 0, 'end': limit }
+
+    # Load songs.
+    songs = call_rpc('AudioLibrary.GetSongs', query).get('songs', [])
 
     # For each movie found add to list.
     for song in songs:
@@ -336,23 +387,46 @@ def list_recently_added_songs():
 
     xbmcplugin.endOfDirectory(handle)
 
+    # Set loading.
+    if listid is not None:
+        window.setProperty(f"ListLoading.{listid}", 'false')
+
 # Create a list of seasons of Yoga with Adriene.
-def list_yoga_with_adriene():
-    #todo
-    a = 0
+def list_yoga_with_adriene(params):
+    listid = params.get('listid', None)
+    window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
+    # Set loading.
+    if listid is not None:
+        window.setProperty(f"ListLoading.{listid}", 'true')
+
+    # Set loading.
+    if listid is not None:
+        window.setProperty(f"ListLoading.{listid}", 'false')
 
 if __name__ == '__main__':
-    method = sys.argv[0].replace('plugin://script.canvas.helper/', '')
-    if method.endswith('/'):
-        method = method[:-1]
+    # Parse the full plugin URL.
+    parsed = urlparse(sys.argv[0])
+    # Example result:
+    # parsed.path == "/mymethod/"
+    # parsed.query == "param1=value1&param2=value2"
+
+    # Strip leading/trailing slashes, split on "/"", take first segment as requested method.
+    segments = parsed.path.strip('/').split('/')
+    if not segments or not segments[0]:
+        xbmc.log('No plugin method supplied', xbmc.LOGERROR)
+    method = segments[0]
+
+    # Parse parameters in a dictionary.
+    params = dict(parse_qsl(parsed.query))
+    # Example result: params == {'param1': 'value1', 'param2': 'value2'}
 
     if method == 'continue_watching':
-        list_continue_watching()
-    elif method == 'recently_added_tvshow_episode':
-        list_recently_added_tvshow_episode()
-    elif method == 'recently_added_movies':
-        list_recently_added_movies()
-    elif method == 'recently_added_songs':
-        list_recently_added_songs()
+        list_continue_watching(params)
+    elif method == 'recently_added_tvshow_episodes':
+        list_recently_added_tvshow_episodes(params)
+    elif method == 'movies':
+        list_movies(params)
+    elif method == 'songs':
+        list_songs(params)
     elif method == 'yoga_with_adriene':
-        list_yoga_with_adriene()
+        list_yoga_with_adriene(params)

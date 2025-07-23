@@ -29,7 +29,7 @@
 				</control>
 
 				<control type="fixedlist" id="$PARAM[id]">
-					<top>PADDING_BASE_1.2X</top>
+					<top>PADDING_MULT_120</top>
 					<autoscroll>false</autoscroll>
 					<orientation>horizontal</orientation>
 					<onfocus>$PARAM[onfocus]</onfocus>
@@ -53,7 +53,7 @@
 
 							<!-- Info -->
 							<control type="group">
-								<top>OFFSET_LANDSCAPE_STRIP_CLEARLOGO</top>
+								<top>OFFSET_LANDSCAPE_STRIP_INFO</top>
 
 								<control type="group">
 									<top>SIZE_ITEM_SHADOW_SQUARE</top>
@@ -71,14 +71,14 @@
 									<!-- Season/episode -->
 									<control type="label">
 										<right>0</right>
-										<top>PADDING_BASE_0.1X</top>
+										<top>PADDING_MULT_10</top>
 										<width>100</width>
 										<aligny>center</aligny>
 										<font>CAPTION2</font>
 										<textcolor>FOREGROUND</textcolor>
 										<label>$PARAM[episode]</label>
 									</control>
-									<!-- Season/episode -->
+									<!-- Episode title -->
 									<control type="label">
 										<top>HEIGHT_CLEARLOGO_SMALL</top>
 										<font>CAPTION</font>
@@ -113,7 +113,7 @@
 
 							<!-- Info -->
 							<control type="group">
-								<top>OFFSET_LANDSCAPE_STRIP_CLEARLOGO</top>
+								<top>OFFSET_LANDSCAPE_STRIP_INFO</top>
 
 								<control type="group">
 									<top>SIZE_ITEM_SHADOW_SQUARE</top>
@@ -130,15 +130,15 @@
 									</control>
 									<!-- Season/episode -->
 									<control type="label">
-										<right>PADDING_BASE_0.1X</right>
-										<top>PADDING_BASE_0.1X</top>
+										<right>PADDING_MULT_10</right>
+										<top>PADDING_MULT_10</top>
 										<width>100</width>
 										<aligny>center</aligny>
 										<font>CAPTION2</font>
 										<textcolor>FOREGROUND</textcolor>
 										<label>$PARAM[episode]</label>
 									</control>
-									<!-- Season/episode -->
+									<!-- Episode title -->
 									<control type="label">
 										<top>HEIGHT_CLEARLOGO_SMALL</top>
 										<font>CAPTION</font>
@@ -181,7 +181,7 @@
 				</control>
 
 				<control type="fixedlist" id="$PARAM[id]">
-					<top>PADDING_BASE_1.2X</top>
+					<top>PADDING_MULT_120</top>
 					<autoscroll>false</autoscroll>
 					<orientation>horizontal</orientation>
 					<onfocus>$PARAM[onfocus]</onfocus>
@@ -233,11 +233,14 @@
 	</include>
 
 	<!-- Horizontal strip of album elements, with label -->
+	<!--todo: consider showing track number in info (ALSO ON DETAILS IF POSSIBLE!!!)-->
 	<include name="AlbumStrip">
 		<param name="id"></param>
 		<param name="label"></param>
 		<param name="content"></param>
 		<param name="art"></param>
+		<param name="info1"></param>
+		<param name="info2"></param>
 		<param name="onfocus">noop</param>
 		<param name="onchange">noop</param>
 		<param name="onback">noop</param>
@@ -257,7 +260,7 @@
 				</control>
 
 				<control type="fixedlist" id="$PARAM[id]">
-					<top>PADDING_BASE_1.2X</top>
+					<top>PADDING_MULT_120</top>
 					<autoscroll>false</autoscroll>
 					<orientation>horizontal</orientation>
 					<onfocus>$PARAM[onfocus]</onfocus>
@@ -267,10 +270,9 @@
 					<onup>$PARAM[onup]</onup>
 					<ondown>$PARAM[ondown]</ondown>
 
-					<!--todo: add song, album, track? come per episodes-->
-
-					<itemlayout width="WIDTH_ALBUM_STRIP_ITEM_CONTAINER" height="HEIGHT_ALBUM">
+					<itemlayout width="WIDTH_ALBUM_STRIP_ITEM_CONTAINER" height="HEIGHT_ALBUM_STRIP_CONTAINER">
 						<control type="group">
+							<!-- Album item -->
 							<control type="image">
 								<width>WIDTH_ALBUM</width>
 								<height>HEIGHT_ALBUM</height>
@@ -279,10 +281,36 @@
 								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
 								<aspectratio scalediffuse="false">scale</aspectratio>
 							</control>
+
+							<!-- Info -->
+							<control type="group">
+								<top>OFFSET_ALBUM_STRIP_INFO</top>
+
+								<control type="group">
+									<top>SIZE_ITEM_SHADOW_SQUARE</top>
+									<left>SIZE_ITEM_SHADOW_SQUARE</left>
+									<right>SIZE_ITEM_SHADOW_SQUARE</right>
+									<width>100%</width>
+
+									<!-- Info line 1 -->
+									<control type="label">
+										<font>CAPTION</font>
+										<textcolor>HIGHLIGHT</textcolor>
+										<label>$PARAM[info1]</label>
+									</control>
+									<!-- Info line 2 -->
+									<control type="label">
+										<top>FONT_SIZE_CAPTION</top>
+										<font>CAPTION</font>
+										<textcolor>FOREGROUND</textcolor>
+										<label>$PARAM[info2]</label>
+									</control>
+								</control>
+							</control>
 						</control>
 					</itemlayout>
 
-					<focusedlayout width="WIDTH_ALBUM_STRIP_ITEM_CONTAINER" height="HEIGHT_ALBUM">
+					<focusedlayout width="WIDTH_ALBUM_STRIP_ITEM_CONTAINER" height="HEIGHT_ALBUM_STRIP_CONTAINER">
 						<control type="group">
 							<animation type="Focus"><effect type="zoom" start="100" end="110" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
 							<animation type="Unfocus"><effect type="zoom" start="110" end="100" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
@@ -293,6 +321,7 @@
 								<onfocus>$PARAM[onchange]</onfocus>
 							</control>
 							
+							<!-- Album item -->
 							<control type="image">
 								<width>WIDTH_ALBUM</width>
 								<height>HEIGHT_ALBUM</height>
@@ -300,6 +329,32 @@
 								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
 								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
 								<aspectratio scalediffuse="false">scale</aspectratio>
+							</control>
+
+							<!-- Info -->
+							<control type="group">
+								<top>OFFSET_ALBUM_STRIP_INFO</top>
+
+								<control type="group">
+									<top>SIZE_ITEM_SHADOW_SQUARE</top>
+									<left>SIZE_ITEM_SHADOW_SQUARE</left>
+									<right>SIZE_ITEM_SHADOW_SQUARE</right>
+									<width>100%</width>
+
+									<!-- Info line 1 -->
+									<control type="label">
+										<font>CAPTION</font>
+										<textcolor>HIGHLIGHT</textcolor>
+										<label>$PARAM[info1]</label>
+									</control>
+									<!-- Info line 2 -->
+									<control type="label">
+										<top>FONT_SIZE_CAPTION</top>
+										<font>CAPTION</font>
+										<textcolor>FOREGROUND</textcolor>
+										<label>$PARAM[info2]</label>
+									</control>
+								</control>
 							</control>
 						</control>
 					</focusedlayout>
@@ -393,6 +448,7 @@
 	</include>
 
 	<!-- Vertical wall of album elements, with label and filters (for focused status) -->
+	<!--todo: aggiungere item label come albumstrip-->
 	<include name="AlbumWall">
 		<param name="id"></param>
 		<param name="label"></param>

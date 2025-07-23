@@ -8,16 +8,19 @@
 
 	<!-- Constants: padding -->
 	<constant name="PADDING_BASE">50</constant>
-	<constant name="PADDING_BASE_-0.3X">-15</constant>
-	<constant name="PADDING_BASE_0.1X">5</constant>
-	<constant name="PADDING_BASE_0.5X">25</constant>
-	<constant name="PADDING_BASE_1.2X">60</constant>
+	<constant name="PADDING_HALF">25</constant>
+	<constant name="PADDING_MULT_NEG30">-15</constant>
+	<constant name="PADDING_MULT_10">5</constant>
+	<constant name="PADDING_MULT_60">30</constant>
+	<constant name="PADDING_MULT_120">60</constant>
 
 	<!-- Constants: sizes -->
 	<constant name="SIZE_ITEM_SHADOW_SQUARE">20</constant>
 	<constant name="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">40</constant>
 	<constant name="SIZE_ITEM_SHADOW_CIRCLE">25</constant>
 	<constant name="SIZE_ITEM_SHADOW_CIRCLE_DOUBLE">50</constant>
+
+	<constant name="SIZE_STATUS">25</constant>
 
 	<constant name="HEIGHT_HOME_STRIP">590</constant>
 	<constant name="OFFSET_HOME_STRIP">-110</constant>	<!-- Strip height - home strip height -->
@@ -31,12 +34,13 @@
 	<constant name="WIDTH_LANDSCAPE">462</constant>
 	<constant name="WIDTH_LANDSCAPE_STRIP_ITEM_CONTAINER">450</constant>
 	<constant name="HEIGHT_LANDSCAPE_STRIP_CONTAINER">480</constant>
-	<constant name="OFFSET_LANDSCAPE_STRIP_CLEARLOGO">235</constant>
+	<constant name="OFFSET_LANDSCAPE_STRIP_INFO">235</constant>
 
 	<constant name="HEIGHT_ALBUM">260</constant>
 	<constant name="WIDTH_ALBUM">260</constant>
 	<constant name="WIDTH_ALBUM_STRIP_ITEM_CONTAINER">240</constant>
 	<constant name="HEIGHT_ALBUM_STRIP_CONTAINER">480</constant>
+	<constant name="OFFSET_ALBUM_STRIP_INFO">235</constant>
 
 	<constant name="HEIGHT_WALL_FILTER">200</constant>
 	<constant name="HEIGHT_WALL_CONTENT">830</constant>
@@ -47,6 +51,8 @@
 	<constant name="WIDTH_CLEARLOGO_BIG">800</constant>
 	<constant name="HEIGHT_CLEARLOGO_SMALL">30</constant>
 	<constant name="WIDTH_CLEARLOGO_SMALL">200</constant>
+
+	<constant name="OFFSET_AFTER_DETAILS">440</constant>
 
 	<!-- Constants: screen-related sizes -->
 	<constant name="SCREEN_CENTER_Y">540</constant>
@@ -70,9 +76,9 @@
 	<!-- Referenced includes -->
 	<include file="Includes/Utilities.xml" />
 	<include file="Includes/GeneralAnimations.xml" />
-	<include file="Includes/Backgrounds.xml" />
-	<include file="Includes/BottomBar.xml" />
+	<include file="Includes/Backgrounds/Backgrounds.xml" />
+	<include file="Includes/BottomBar/BottomBar.xml" />
 	<include file="Includes/TopBar.xml" />
 	<include file="Includes/ArtLists.xml" />
-	<include file="Includes/Details.xml" />
+	<include file="Includes/Details/Details.xml" />
 </includes>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<include file="Includes/BottomBar/Variables.xml" />
+	<include file="Includes/BottomBar/Expressions.xml" />
+
+	<include name="BottomBar">
+		<definition>
+			<control type="group">
+				<visible>$EXP[HasBottomBarStudio]</visible>
+				<include content="ShowHideFadeAnimation" />
+
+				<bottom>0</bottom>
+				<height>360</height>
+
+				<control type="image">
+					<width>1920</width>
+					<height>360</height>
+					<texture colordiffuse="BACKGROUND_OPAQUE90" flipy="true">1080p/diffuse/corner.png</texture>
+				</control>
+				<control type="image">
+					<width>WIDTH_STUDIO_LOGO</width>
+					<height>HEIGHT_STUDIO_LOGO</height>
+					<right>PADDING_BASE</right>
+					<bottom>PADDING_BASE</bottom>
+					<fadetime>ANIMATION_MID</fadetime>
+					<texture>1080p/studios/$VAR[BottomBarStudio].png</texture>
+				</control>
+			</control>
+		</definition>
+	</include>
+</includes>

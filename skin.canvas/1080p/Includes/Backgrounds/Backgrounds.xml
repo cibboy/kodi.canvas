@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<include file="Includes/Backgrounds/Variables.xml" />
+
+	<include name="Background">
+		<param name="show_art">true</param>
+
+		<definition>
+			<control type="group">
+				<!-- Background blur -->
+				<control type="image">
+					<width>100%</width>
+					<height>100%</height>
+					<fadetime>ANIMATION_CRAWL</fadetime>
+					<texture fallback="1080p/fallback/bg.png" diffuse="1080p/diffuse/bg_diffuse.png">$VAR[BlurArt]</texture>
+				</control>
+
+				<!-- Art -->
+				<control type="image">
+					<visible>$PARAM[show_art]</visible>
+					<include content="ShowHideFadeAnimation" />
+
+					<width>67%</width>
+					<height>67%</height>
+					<top>0</top>
+					<right>0</right>
+					<fadetime>ANIMATION_SLOW</fadetime>
+					<texture diffuse="1080p/diffuse/fanart.png" background="true">$VAR[BackgroundArt]</texture>
+					<aspectratio align="right">keep</aspectratio>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<include name="DarkeningLayer">
+		<param name="visible">true</param>
+		<param name="fade_speed">ANIMATION_SLOW</param>
+
+		<definition>
+			<control type="image">
+				<visible>$PARAM[visible]</visible>
+				<include content="ShowHideFadeAnimation">
+					<param name="speed">ANIMATION_MID</param>
+				</include>
+
+				<width>100%</width>
+				<height>100%</height>
+				<fadetime>$PARAM[fade_speed]</fadetime>
+				<texture colordiffuse="BACKGROUND_OPAQUE50">diffuse.png</texture>
+			</control>
+		</definition>
+	</include>
+</includes>

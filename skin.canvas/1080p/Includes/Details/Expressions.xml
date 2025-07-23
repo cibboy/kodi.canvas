@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<!--
+		Has clearlogo?
+		- Continue watching
+		- Recently added episodes
+		- Recently added movies
+		- Recently added music
+		- Movies
+		- TV shows
+		- Yoga
+		- Music
+	-->
+	<expression name="HasDetailsClearlogo">
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),101) + !String.IsEmpty(Container(101).ListItem.Property(Clearlogo.Big))] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.Property(Clearlogo.Big))] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.Property(Clearlogo.Big))] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),104) + !String.IsEmpty(Container(104).ListItem.Property(Clearlogo.Big))] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),110) + !String.IsEmpty(Container(110).ListItem.Property(Clearlogo.Big))] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),120) + !String.IsEmpty(Container(120).ListItem.Property(Clearlogo.Big))] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),130) + !String.IsEmpty(Container(130).ListItem.Property(Clearlogo.Big))] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),140) + !String.IsEmpty(Container(140).ListItem.Property(Clearlogo.Big))]
+	</expression>
+
+	<!--
+		Has subtitle?
+		- Continue watching
+		- Recently added episodes
+		- Recently added music
+		- TV shows
+		- Music
+	--><!--todo: yoga: title is clearlogo/title, subtitle is season title-->
+	<expression name="HasDetailsSubtitle">
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(ItemType),episode) + !String.IsEmpty(Container(101).ListItem.Title)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.Title)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),104) + !String.IsEmpty(Container(104).ListItem.Album)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),140) + !String.IsEmpty(Container(140).ListItem.Album)]
+	</expression>
+
+	<!--
+		Is watched?
+		- Continue watching
+		- Recently added episodes
+		- Recently added movies
+		- Movies
+		- TV shows
+		- Yoga
+	-->
+	<expression name="IsDetailsWatched">
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),101) + Integer.IsGreater(Container(101).ListItem.PlayCount,0)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),102) + Integer.IsGreater(Container(102).ListItem.PlayCount,0)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),103) + Integer.IsGreater(Container(103).ListItem.PlayCount,0)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),110) + Integer.IsGreater(Container(110).ListItem.PlayCount,0)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),120) + Integer.IsGreater(Container(120).ListItem.PlayCount,0)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),130) + Integer.IsGreater(Container(130).ListItem.PlayCount,0)]
+	</expression>
+
+	<!--
+		Has time remaining?
+		- Continue watching
+		- Recently added episodes
+		- Recently added movies
+		- Movies
+	-->
+	<expression name="HasDetailsTimeRemaining">
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),101) + !String.IsEmpty(Container(101).ListItem.Property(TimeRemainingString))] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.Property(TimeRemainingString))] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.Property(TimeRemainingString))] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),110) + !String.IsEmpty(Container(110).ListItem.Property(TimeRemainingString))]
+	</expression>
+
+	<!--
+		Has info line 2?
+		- Recently added movies
+		- Recently added music
+		- Movies
+		- Music
+	-->
+	<expression name="HasDetailsInfo2">
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),101) + !String.IsEmpty(Container(101).ListItem.Genre)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.Genre)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),104) + !String.IsEmpty(Container(104).ListItem.Genre)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),110) + !String.IsEmpty(Container(110).ListItem.Genre)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),140) + !String.IsEmpty(Container(140).ListItem.Genre)]
+	</expression>
+</includes>

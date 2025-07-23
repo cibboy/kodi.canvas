@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<include file="Includes/Details/Variables.xml" />
+	<include file="Includes/Details/Expressions.xml" />
+
+	<include name="SelectionDetails">
+		<param name="visible">true</param>
+
+		<definition>
+			<control type="grouplist">
+				<visible>$PARAM[visible]</visible>
+				<include content="ShowHideFadeAnimation" />
+
+				<itemgap>PADDING_HALF</itemgap>
+				<usecontrolcoords>true</usecontrolcoords>
+
+				<!-- Title/clearlogo -->
+				<control type="group">
+					<height>HEIGHT_CLEARLOGO_BIG</height>
+
+					<!-- Title (if clearlogo not available) -->
+					<control type="label">
+						<visible>!$EXP[HasDetailsClearlogo]</visible>
+
+						<width>1000</width>
+						<height>HEIGHT_CLEARLOGO_BIG</height>
+						<aligny>center</aligny>
+						<font>TITLE1</font>
+						<textcolor>HIGHLIGHT</textcolor>
+						<label>$VAR[DetailsTitle]</label>
+					</control>
+					<!-- Clearlogo -->
+					<control type="image">
+						<visible>$EXP[HasDetailsClearlogo]</visible>
+
+						<width>WIDTH_CLEARLOGO_BIG</width>
+						<height>HEIGHT_CLEARLOGO_BIG</height>
+						<fadetime>ANIMATION_FAST</fadetime>
+						<texture background="true">$VAR[DetailsClearlogo]</texture>
+						<aspectratio align="left">keep</aspectratio>
+					</control>
+				</control>
+
+				<!-- Subtitle -->
+				<control type="label">
+					<visible>$EXP[HasDetailsSubtitle]</visible>
+
+					<width>1000</width>
+					<height>FONT_SIZE_SUBTITLE</height>
+					<font>SUBTITLE</font>
+					<textcolor>HIGHLIGHT</textcolor>
+					<label>$VAR[DetailsSubtitle]</label>
+				</control>
+
+				<!-- Info line 1 -->
+				<control type="grouplist">
+					<orientation>horizontal</orientation>
+					<itemgap>PADDING_BASE</itemgap>
+					
+					<!-- Info string -->
+					<control type="label">
+						<width>800</width>
+						<height>FONT_SIZE_CAPTION</height>
+						<font>CAPTION_STRONG</font>
+						<textcolor>FOREGROUND_DARK</textcolor>
+						<label>$VAR[DetailsInfo]</label>
+					</control>
+
+					<!-- Watched status -->
+					<control type="group">
+						<visible>$EXP[IsDetailsWatched]</visible>
+
+						<control type="image">
+							<width>SIZE_STATUS</width>
+							<height>SIZE_STATUS</height>
+							<texture background="true" colordiffuse="FOREGROUND_ACCENT">1080p/icons/watched.png</texture>
+							<aspectratio align="left">keep</aspectratio>
+						</control>
+						<control type="label">
+							<left>PADDING_MULT_60</left>
+							<width>200</width>
+							<height>FONT_SIZE_CAPTION</height>
+							<font>CAPTION_STRONG</font>
+							<textcolor>FOREGROUND_DARK</textcolor>
+							<label>Watched</label>
+						</control>
+					</control>
+
+					<!-- Time remaining -->
+					<control type="group">
+						<visible>$EXP[HasDetailsTimeRemaining]</visible>
+
+						<control type="image">
+							<width>SIZE_STATUS</width>
+							<height>SIZE_STATUS</height>
+							<texture background="true" colordiffuse="FOREGROUND_ACCENT">1080p/progress/$VAR[DetailsWatchedPercentage].png</texture>
+							<aspectratio align="left">keep</aspectratio>
+						</control>
+						<control type="label">
+							<left>PADDING_MULT_60</left>
+							<width>200</width>
+							<height>FONT_SIZE_CAPTION</height>
+							<font>CAPTION_STRONG</font>
+							<textcolor>FOREGROUND_DARK</textcolor>
+							<label>$VAR[DetailsTimeRemaining] left</label>
+						</control>
+					</control>
+				</control>
+
+				<!-- Info line 2 -->
+				<control type="label">
+					<top>PADDING_MULT_NEG30</top>
+					<visible>$EXP[HasDetailsInfo2]</visible>
+					<width>1000</width>
+					<height>FONT_SIZE_CAPTION</height>
+					<font>CAPTION_STRONG</font>
+					<textcolor>FOREGROUND_DARK</textcolor>
+					<label>$VAR[DetailsInfo2]</label>
+				</control>
+
+				<!-- Summary -->
+				<control type="textbox">
+					<width>800</width>
+					<height>170</height>
+					<font>BODY2</font>
+					<textcolor>FOREGROUND</textcolor>
+					<label>$VAR[DetailsSummary]</label>
+				</control>
+			</control>
+		</definition>
+	</include>
+</includes>

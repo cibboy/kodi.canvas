@@ -141,7 +141,7 @@
 				</animation>
 
 				<!-- Padding + menu + padding -->
-				<left>PADDING_BASE_1.2X</left>
+				<left>PADDING_MULT_120</left>
 				<top>PADDING_BASE</top>
 
 				<!-- Selection details -->
@@ -160,17 +160,23 @@
 							<param name="speed">ANIMATION_SLOW</param>
 						</include>
 
-						<top>440</top>
+						<top>OFFSET_AFTER_DETAILS</top>
 						<itemgap>OFFSET_HOME_STRIP</itemgap>
 						<usecontrolcoords>true</usecontrolcoords>
 
 						<!-- Continue watching -->
 						<control type="group">
 							<height>HEIGHT_HOME_STRIP</height>
+							<control type="label">
+								<visible>String.IsEqual(Window.Property(ListLoading.101),true)</visible>
+								<font>BODY_STRONG</font>
+								<textcolor>FOREGROUND</textcolor>
+								<label>Loading...</label>
+							</control>
 							<include content="PosterStrip">
 								<param name="id">101</param>
 								<param name="label">Continue watching</param>
-								<param name="content">plugin://script.canvas.helper/continue_watching/</param>
+								<param name="content">plugin://script.canvas.helper/continue_watching/?listid=101</param>
 								<param name="art">$INFO[ListItem.Art(poster)]</param>
 								<param name="onfocus">RunScript(script.canvas.helper,home_page_item_onfocus,home,101)</param>
 								<param name="onback">SetFocus(1,0)</param>
@@ -185,7 +191,7 @@
 							<include content="LandscapeStrip">
 								<param name="id">102</param>
 								<param name="label">Recently added episodes</param>
-								<param name="content">plugin://script.canvas.helper/recently_added_tvshow_episode/</param>
+								<param name="content">plugin://script.canvas.helper/recently_added_tvshow_episodes/?listid=102</param>
 								<param name="art">$INFO[ListItem.Art(thumb)]</param>
 								<param name="logo">$INFO[ListItem.Property(Clearlogo.Small)]</param>
 								<param name="episode">S$INFO[ListItem.Season]·E$INFO[ListItem.Episode]</param>
@@ -204,7 +210,7 @@
 							<include content="PosterStrip">
 								<param name="id">103</param>
 								<param name="label">Recently added movies</param>
-								<param name="content">plugin://script.canvas.helper/recently_added_movies/</param>
+								<param name="content">plugin://script.canvas.helper/movies/?sort=dateadded&amp;order=descending&amp;limit=25&amp;listid=103</param>
 								<param name="art">$INFO[ListItem.Art(poster)]</param>
 								<param name="onfocus">RunScript(script.canvas.helper,home_page_item_onfocus,home,103)</param>
 								<param name="onback">SetFocus(1,0)</param>
@@ -220,8 +226,10 @@
 							<include content="AlbumStrip">
 								<param name="id">104</param>
 								<param name="label">Recently added music</param>
-								<param name="content">plugin://script.canvas.helper/recently_added_songs/</param>
+								<param name="content">plugin://script.canvas.helper/songs/?sort=dateadded&amp;order=descending&amp;limit=25&amp;listid=104</param>
 								<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
+								<param name="info1">$INFO[ListItem.Title]</param>
+								<param name="info2">$INFO[ListItem.Album]</param>
 								<param name="onfocus">RunScript(script.canvas.helper,home_page_item_onfocus,home,104)</param>
 								<param name="onback">SetFocus(1,0)</param>
 								<param name="onleft">SetFocus(1,0)</param>
@@ -241,7 +249,7 @@
 						<include content="PosterWall">
 							<param name="id">110</param>
 							<param name="label">Movies</param>
-							<param name="content">videodb://movies/titles/</param>
+							<param name="content">plugin://script.canvas.helper/movies/?listid=110</param>
 							<param name="art">$INFO[ListItem.Art(poster)]</param>
 							<param name="onfocus">RunScript(script.canvas.helper,home_page_item_onfocus,movies,110)</param>
 							<param name="onback">SetFocus(1,1)</param>
@@ -276,8 +284,7 @@
 							<param name="speed">ANIMATION_SLOW</param>
 						</include>
 
-						<!--todo:fix-->
-						<top>440</top>
+						<top>OFFSET_AFTER_DETAILS</top>
 
 						<include content="PosterStrip">
 							<param name="id">130</param>
@@ -301,7 +308,7 @@
 						<include content="AlbumWall">
 							<param name="id">140</param>
 							<param name="label">Music</param>
-							<param name="content">special://skin/playlists/Songs.xsp</param>
+							<param name="content">plugin://script.canvas.helper/songs/?listid=140</param>
 							<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
 							<param name="onfocus">RunScript(script.canvas.helper,home_page_item_onfocus,music,140)</param>
 							<param name="onback">SetFocus(1,4)</param>
