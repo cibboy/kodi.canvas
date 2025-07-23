@@ -167,12 +167,6 @@
 						<!-- Continue watching -->
 						<control type="group">
 							<height>HEIGHT_HOME_STRIP</height>
-							<control type="label">
-								<visible>String.IsEqual(Window.Property(ListLoading.101),true)</visible>
-								<font>BODY_STRONG</font>
-								<textcolor>FOREGROUND</textcolor>
-								<label>Loading...</label>
-							</control>
 							<include content="PosterStrip">
 								<param name="id">101</param>
 								<param name="label">Continue watching</param>

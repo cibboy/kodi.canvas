@@ -5,7 +5,6 @@ from PIL import Image, ImageFilter
 
 # Searches the required image, returns its full path and potential edited cache path.
 def get_image(imgPath):
-    xbmc.log(imgPath,xbmc.LOGINFO)
     try:
         # Some paths require unquoting to get a valid cached thumb hash.
         if imgPath.startswith('image://') and not imgPath.startswith('image://music'):

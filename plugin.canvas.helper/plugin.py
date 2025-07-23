@@ -1,5 +1,4 @@
-import sys
-import math
+import sys, time
 import json
 import xbmc
 import xbmcgui
@@ -42,7 +41,7 @@ def get_movie_listitem(movie):
     videoinfo.setGenres(movie['genre'])
     videoinfo.setDuration(movie['streamdetails']['video'][0]['duration'])
     videoinfo.setResumePoint(movie['resume']['position'], movie['resume']['total'])
-    videoinfo.setPlayCount(movie['playcount'])
+    videoinfo.setPlaycount(movie['playcount'])
 
     # Get custom art.
     blur = get_blurred(movie['art'].get('fanart', ''))
@@ -69,7 +68,7 @@ def get_movie_listitem(movie):
     videoinfo.setMpaa(rating)
     li.setProperty('DurationString', duration)
     li.setProperty('TimeRemainingString', time_remaining)
-    li.setProperty('WatchedPercentage', watched_percentage)
+    li.setProperty('WatchedPercentage', str(watched_percentage))
     li.setProperty('BlurArt', blur)
     li.setProperty('Clearlogo.Big', clearlogo)
 
@@ -103,7 +102,7 @@ def get_episode_listitem(episode):
     videoinfo.setTvShowTitle(episode['showtitle'])
     videoinfo.setDuration(episode['streamdetails']['video'][0]['duration'])
     videoinfo.setResumePoint(episode['resume']['position'], episode['resume']['total'])
-    videoinfo.setPlayCount(movie['playcount'])
+    videoinfo.setPlaycount(episode['playcount'])
 
     # Get custom art.
     tvshow_blur = get_blurred(episode['art'].get('tvshow.fanart', ''))
@@ -116,9 +115,9 @@ def get_episode_listitem(episode):
     # Compute watched stats.
     time_remaining = ''
     watched_percentage = 0
-    if movie['resume']['position'] > 0 and movie['resume']['position'] < movie['resume']['total'] and movie['playcount'] == 0:
-        time_remaining = get_formatted_timespan(movie['resume']['total'] - movie['resume']['position'])
-        watched_percentage = movie['resume']['position'] * 100 / movie['resume']['total']
+    if episode['resume']['position'] > 0 and episode['resume']['position'] < episode['resume']['total'] and episode['playcount'] == 0:
+        time_remaining = get_formatted_timespan(episode['resume']['total'] - episode['resume']['position'])
+        watched_percentage = episode['resume']['position'] * 100 / episode['resume']['total']
 
     # Remove "Rated" from rating.
     rating = episode.get('tvshow', {'mpaa': None})['mpaa']
@@ -132,7 +131,7 @@ def get_episode_listitem(episode):
     li.setArt({'poster': episode['art'].get('tvshow.poster', '')})
     li.setProperty('DurationString', duration)
     li.setProperty('TimeRemainingString', time_remaining)
-    li.setProperty('WatchedPercentage', watched_percentage)
+    li.setProperty('WatchedPercentage', str(watched_percentage))
     li.setProperty('BlurArt.TvShow', tvshow_blur)
     li.setProperty('BlurArt.Season', season_blur)
     li.setProperty('Clearlogo.Big', clearlogo)
@@ -188,6 +187,8 @@ def list_continue_watching(params):
     # Set loading.
     if listid is not None:
         window.setProperty(f"ListLoading.{listid}", 'true')
+
+    time.sleep(5)
 
     # All movies, then filter them for those in progress.
     movies = call_rpc('VideoLibrary.GetMovies', {'properties': movie_properties_query})
@@ -319,7 +320,7 @@ def list_movies(params):
 
     sort = params.get('sort', 'title')
     order = params.get('order', 'ascending')
-    limit = params.get('limit', 0)
+    limit = int(params.get('limit', 0))
 
     query = {
         # Sort by requested sort, with requested order.
@@ -360,7 +361,7 @@ def list_songs(params):
 
     sort = params.get('sort', 'title')
     order = params.get('order', 'ascending')
-    limit = params.get('limit', 0)
+    limit = int(params.get('limit', 0))
 
     query = {
         # Sort by requested sort, with requested order.
@@ -417,7 +418,9 @@ if __name__ == '__main__':
     method = segments[0]
 
     # Parse parameters in a dictionary.
-    params = dict(parse_qsl(parsed.query))
+    params = {}
+    if sys.argv[2] is not None and sys.argv[2] != '':
+        params = dict(parse_qsl(sys.argv[2][1:]))
     # Example result: params == {'param1': 'value1', 'param2': 'value2'}
 
     if method == 'continue_watching':

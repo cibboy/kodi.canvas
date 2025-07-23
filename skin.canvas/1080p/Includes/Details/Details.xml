@@ -11,8 +11,7 @@
 				<visible>$PARAM[visible]</visible>
 				<include content="ShowHideFadeAnimation" />
 
-				<itemgap>PADDING_HALF</itemgap>
-				<usecontrolcoords>true</usecontrolcoords>
+				<itemgap>PADDING_MULT_20</itemgap>
 
 				<!-- Title/clearlogo -->
 				<control type="group">
@@ -53,13 +52,13 @@
 				</control>
 
 				<!-- Info line 1 -->
-				<control type="grouplist">
-					<orientation>horizontal</orientation>
-					<itemgap>PADDING_BASE</itemgap>
+				<control type="group">
+					<width>800</width>
+					<height>FONT_SIZE_CAPTION</height>
+					<left>200</left>
 					
 					<!-- Info string -->
 					<control type="label">
-						<width>800</width>
 						<height>FONT_SIZE_CAPTION</height>
 						<font>CAPTION_STRONG</font>
 						<textcolor>FOREGROUND_DARK</textcolor>
@@ -69,11 +68,12 @@
 					<!-- Watched status -->
 					<control type="group">
 						<visible>$EXP[IsDetailsWatched]</visible>
+						<width>200</width>
 
 						<control type="image">
 							<width>SIZE_STATUS</width>
 							<height>SIZE_STATUS</height>
-							<texture background="true" colordiffuse="FOREGROUND_ACCENT">1080p/icons/watched.png</texture>
+							<texture background="true" colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
 							<aspectratio align="left">keep</aspectratio>
 						</control>
 						<control type="label">
@@ -89,6 +89,7 @@
 					<!-- Time remaining -->
 					<control type="group">
 						<visible>$EXP[HasDetailsTimeRemaining]</visible>
+						<width>200</width>
 
 						<control type="image">
 							<width>SIZE_STATUS</width>
@@ -109,7 +110,6 @@
 
 				<!-- Info line 2 -->
 				<control type="label">
-					<top>PADDING_MULT_NEG30</top>
 					<visible>$EXP[HasDetailsInfo2]</visible>
 					<width>1000</width>
 					<height>FONT_SIZE_CAPTION</height>

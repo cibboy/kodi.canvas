@@ -80,22 +80,22 @@
 	<!-- Info line 1 -->
 	<variable name="DetailsInfo">
 		<!-- Continue watching -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(ItemType),episode)">S$INFO[Container(101).ListItem.Season]·E$INFO[Container(101).ListItem.Episode]   $INFO[Container(101).ListItem.Premiered]   [B]$INFO[Container(101).ListItem.Property(DurationString)][/B]   $INFO[Container(101).ListItem.Mpaa]</value>
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),101)">$INFO[Container(101).ListItem.Year]   [B]$INFO[Container(101).ListItem.Property(DurationString)][/B]   $INFO[Container(101).ListItem.Mpaa]</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(ItemType),episode)">S$INFO[Container(101).ListItem.Season]·E$INFO[Container(101).ListItem.Episode]   $INFO[Container(101).ListItem.Premiered]   $INFO[Container(101).ListItem.Property(DurationString)]   $INFO[Container(101).ListItem.Mpaa]</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),101)">$INFO[Container(101).ListItem.Year]   $INFO[Container(101).ListItem.Property(DurationString)]   $INFO[Container(101).ListItem.Mpaa]</value>
 		<!-- Recently added episodes -->
 		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),102)">S$INFO[Container(102).ListItem.Season]·E$INFO[Container(102).ListItem.Episode]   $INFO[Container(102).ListItem.Premiered]   $INFO[Container(102).ListItem.Property(DurationString)]   $INFO[Container(102).ListItem.Mpaa]</value>
 		<!-- Recently added movies -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),103)">$INFO[Container(103).ListItem.Year]   [B]$INFO[Container(103).ListItem.Property(DurationString)][/B]   $INFO[Container(103).ListItem.Mpaa]</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),103)">$INFO[Container(103).ListItem.Year]   $INFO[Container(103).ListItem.Property(DurationString)]   $INFO[Container(103).ListItem.Mpaa]</value>
 		<!-- Recently added music -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),104)">$INFO[Container(104).ListItem.Year]   $INFO[Container(104).ListItem.Artist]   [B]$INFO[Container(104).ListItem.Property(DurationString)][/B]</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),104)">$INFO[Container(104).ListItem.Year]   $INFO[Container(104).ListItem.Artist]   $INFO[Container(104).ListItem.Property(DurationString)]</value>
 		<!-- Movies -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),110)">$INFO[Container(110).ListItem.Year]   [B]$INFO[Container(110).ListItem.Property(DurationString)][/B]   $INFO[Container(110).ListItem.Mpaa]</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),110)">$INFO[Container(110).ListItem.Year]   $INFO[Container(110).ListItem.Property(DurationString)]   $INFO[Container(110).ListItem.Mpaa]</value>
 		<!-- TV shows --><!--todo-->
 		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),120)">$INFO[Container(120).ListItem.Year] • $INFO[Container(120).ListItem.Status] • $INFO[Container(120).ListItem.Genre]</value>
 		<!-- Yoga --><!--todo-->
 		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),130)">$INFO[Container(130).ListItem.Year] • $INFO[Container(130).ListItem.Status] • $INFO[Container(130).ListItem.Genre]</value>
 		<!-- Music -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),140)">$INFO[Container(140).ListItem.Year]   $INFO[Container(140).ListItem.Artist]   [B]$INFO[Container(140).ListItem.Property(DurationString)][/B]</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),140)">$INFO[Container(140).ListItem.Year]   $INFO[Container(140).ListItem.Artist]   $INFO[Container(140).ListItem.Property(DurationString)]</value>
 	</variable>
 
 	<!-- Info line 2 -->
