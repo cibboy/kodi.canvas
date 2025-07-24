@@ -25,7 +25,7 @@ def find_home_active_id(page):
         return '150'
 
 # When changing the focused item in the home menu.
-def home_menu_onchange(page):
+def onchange_home_menu(page):
     # Highlighting menu keeps things as they are.
     if page == 'menu':
         return
@@ -44,7 +44,7 @@ def home_menu_onchange(page):
     window.setProperty('Home.ActiveListId', page_active_id)
 
 # When changing the focused list inside a page on home.
-def home_page_item_onfocus(page, list_id):
+def onfocus_home_page_item(page, list_id):
     window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
 
     # Update window properties.
@@ -56,8 +56,8 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         method = sys.argv[1]
         # Handle window property updates when changing the selected main menu item.
-        if method == 'home_menu_onchange':
-            home_menu_onchange(sys.argv[2])
+        if method == 'onchange_home_menu':
+            onchange_home_menu(sys.argv[2])
         # Handle window property updates when focusing on a different list inside the same home page.
-        elif method == 'home_page_item_onfocus':
-            home_page_item_onfocus(sys.argv[2], sys.argv[3])
+        elif method == 'onfocus_home_page_item':
+            onfocus_home_page_item(sys.argv[2], sys.argv[3])
