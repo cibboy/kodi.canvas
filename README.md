@@ -1,8 +1,7 @@
 TOFIX:
 - aggiunti genre e track audio in plugin (per genre è potenzialmente una lista, quindi bisognerà fare delle prove con ulteriore scraping e aggiornamento tag mp3, che è stata aggiunta alla details info line 2)
-- watched/time remaining sovrapposto a info1 (non si riesce a usare grouplist inside a grouplist)
 - albumstrip ha l'offset dalla label della strip troppo piccolo (visually compare to posterstrip)
-- dettagli sotto item in albumstrip (c'è scroll e le scritte sono troppo grandi)
+- dettagli sotto item in albumstrip (le scritte sono troppo grandi)
 
 TODO:
 - rifare diffuse shadow (per seguire meglio i border radius più stretto che uso)

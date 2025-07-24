@@ -11,7 +11,7 @@
 				<visible>$PARAM[visible]</visible>
 				<include content="ShowHideFadeAnimation" />
 
-				<itemgap>PADDING_MULT_20</itemgap>
+				<itemgap>PADDING_MULT_10</itemgap>
 				<usecontrolcoords>true</usecontrolcoords>
 
 				<!-- Title/clearlogo -->
@@ -57,7 +57,7 @@
 					<orientation>horizontal</orientation>
 					<itemgap>PADDING_MULT_30</itemgap>
 					<height>HEIGHT_DETAILS_INFOLINE</height>
-					<centertop>HEIGHT_DETAILS_INFOLINE_HALF</centertop>
+					<centertop>HEIGHT_DETAILS_INFOLINE</centertop>
 
 					<!--todo: resolution, audio channels, hdr-->
 					
@@ -66,6 +66,7 @@
 						<width>auto</width>
 						<height>FONT_SIZE_CAPTION</height>
 						<font>CAPTION_STRONG</font>
+						<aligny>center</aligny>
 						<textcolor>FOREGROUND_DARK</textcolor>
 						<label>$VAR[DetailsInfo]</label>
 					</control>
@@ -75,18 +76,19 @@
 						<visible>$EXP[IsDetailsWatched]</visible>
 
 						<control type="image">
-							<width>SIZE_DETAILS_ICON</width>
-							<height>SIZE_DETAILS_ICON</height>
-							<top>OFFSET_DETAILS_ICON</top>
-							<texture background="true" colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
+							<width>SIZE_DETAILS_WATCHED_ICON</width>
+							<height>SIZE_DETAILS_WATCHED_ICON</height>
+							<top>OFFSET_DETAILS_WATCHED_ICON</top>
+							<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
 							<aspectratio align="left">keep</aspectratio>
 						</control>
 						<control type="label">
-							<left>OFFSET_DETAILS_AFTER_ICON</left>
+							<left>OFFSET_DETAILS_AFTER_WATCHED_ICON</left>
 							<width>auto</width>
 							<height>FONT_SIZE_CAPTION</height>
 							<font>CAPTION_STRONG</font>
-							<textcolor>FOREGROUND_DARK</textcolor>
+							<aligny>center</aligny>
+							<textcolor>FOREGROUND_ACCENT</textcolor>
 							<label>Watched</label>
 						</control>
 					</control>
@@ -95,19 +97,26 @@
 					<control type="group">
 						<visible>$EXP[HasDetailsTimeRemaining]</visible>
 
-						<control type="image">
-							<width>SIZE_DETAILS_ICON</width>
-							<height>SIZE_DETAILS_ICON</height>
-							<top>OFFSET_DETAILS_ICON</top>
-							<texture background="true" colordiffuse="FOREGROUND_ACCENT">1080p/progress/$VAR[DetailsWatchedPercentage].png</texture>
-							<aspectratio align="left">keep</aspectratio>
+						<control type="group">
+							<width>SIZE_DETAILS_RUNNING_ICON</width>
+							<height>SIZE_DETAILS_RUNNING_ICON</height>
+							<top>OFFSET_DETAILS_RUNNING_ICON</top>
+							<control type="image">
+								<texture colordiffuse="FOREGROUND_DARK">1080p/progress/circle-100.png</texture>
+								<aspectratio align="left">keep</aspectratio>
+							</control>
+							<control type="image">
+								<texture colordiffuse="FOREGROUND_ACCENT">1080p/progress/circle-$VAR[DetailsWatchedPercentage].png</texture>
+								<aspectratio align="left">keep</aspectratio>
+							</control>
 						</control>
 						<control type="label">
-							<left>OFFSET_DETAILS_AFTER_ICON</left>
+							<left>OFFSET_DETAILS_AFTER_RUNNING_ICON</left>
 							<width>auto</width>
 							<height>FONT_SIZE_CAPTION</height>
 							<font>CAPTION_STRONG</font>
-							<textcolor>FOREGROUND_DARK</textcolor>
+							<aligny>center</aligny>
+							<textcolor>FOREGROUND_ACCENT</textcolor>
 							<label>$VAR[DetailsTimeRemaining] left</label>
 						</control>
 					</control>
@@ -119,6 +128,7 @@
 					<width>1000</width>
 					<height>HEIGHT_DETAILS_INFOLINE</height>
 					<font>CAPTION_STRONG</font>
+					<aligny>center</aligny>
 					<textcolor>FOREGROUND_DARK</textcolor>
 					<label>$VAR[DetailsInfo2]</label>
 				</control>

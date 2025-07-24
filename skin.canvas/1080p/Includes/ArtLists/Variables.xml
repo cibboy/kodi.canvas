@@ -23,4 +23,7 @@
 
 	<constant name="HEIGHT_CLEARLOGO_SMALL">30</constant>
 	<constant name="WIDTH_CLEARLOGO_SMALL">200</constant>
+
+	<constant name="SIZE_LIST_WATCHED_ICON">35</constant>
+	<constant name="SIZE_LIST_RUNNING_ICON">50</constant>
 </includes>

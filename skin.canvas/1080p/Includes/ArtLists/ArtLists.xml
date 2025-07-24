@@ -53,6 +53,24 @@
 								<aspectratio scalediffuse="false">scale</aspectratio>
 							</control>
 
+							<!-- Watched indicator -->
+							<control type="group">
+								<visible>Integer.IsGreater(ListItem.PlayCount,0)</visible>
+								<top>PADDING_MULT_50</top>
+								<right>PADDING_MULT_30</right>
+								<width>SIZE_LIST_WATCHED_ICON</width>
+								<height>SIZE_LIST_WATCHED_ICON</height>
+
+								<control type="image">
+									<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/icons/check-inverse.png</texture>
+									<aspectratio align="left">keep</aspectratio>
+								</control>
+								<control type="image">
+									<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
+									<aspectratio align="left">keep</aspectratio>
+								</control>
+							</control>
+
 							<!-- Info -->
 							<control type="group">
 								<top>OFFSET_LANDSCAPE_STRIP_INFO</top>
@@ -112,6 +130,24 @@
 								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
 								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
 								<aspectratio scalediffuse="false">scale</aspectratio>
+							</control>
+
+							<!-- Watched indicator -->
+							<control type="group">
+								<visible>Integer.IsGreater(ListItem.PlayCount,0)</visible>
+								<top>PADDING_MULT_50</top>
+								<right>PADDING_MULT_30</right>
+								<width>SIZE_LIST_WATCHED_ICON</width>
+								<height>SIZE_LIST_WATCHED_ICON</height>
+
+								<control type="image">
+									<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/icons/check-inverse.png</texture>
+									<aspectratio align="left">keep</aspectratio>
+								</control>
+								<control type="image">
+									<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
+									<aspectratio align="left">keep</aspectratio>
+								</control>
 							</control>
 
 							<!-- Info -->
@@ -205,6 +241,24 @@
 								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
 								<aspectratio scalediffuse="false">scale</aspectratio>
 							</control>
+
+							<!-- Watched indicator -->
+							<control type="group">
+								<visible>Integer.IsGreater(ListItem.PlayCount,0)</visible>
+								<top>PADDING_MULT_50</top>
+								<right>PADDING_MULT_10</right>
+								<width>SIZE_LIST_WATCHED_ICON</width>
+								<height>SIZE_LIST_WATCHED_ICON</height>
+
+								<control type="image">
+									<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/icons/check-inverse.png</texture>
+									<aspectratio align="left">keep</aspectratio>
+								</control>
+								<control type="image">
+									<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
+									<aspectratio align="left">keep</aspectratio>
+								</control>
+							</control>
 						</control>
 					</itemlayout>
 
@@ -226,6 +280,24 @@
 								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
 								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
 								<aspectratio scalediffuse="false">scale</aspectratio>
+							</control>
+
+							<!-- Watched indicator -->
+							<control type="group">
+								<visible>Integer.IsGreater(ListItem.PlayCount,0)</visible>
+								<top>PADDING_MULT_50</top>
+								<right>PADDING_MULT_10</right>
+								<width>SIZE_LIST_WATCHED_ICON</width>
+								<height>SIZE_LIST_WATCHED_ICON</height>
+
+								<control type="image">
+									<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/icons/check-inverse.png</texture>
+									<aspectratio align="left">keep</aspectratio>
+								</control>
+								<control type="image">
+									<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
+									<aspectratio align="left">keep</aspectratio>
+								</control>
 							</control>
 						</control>
 					</focusedlayout>
@@ -424,6 +496,24 @@
 								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
 								<aspectratio scalediffuse="false">scale</aspectratio>
 							</control>
+
+							<!-- Watched indicator -->
+							<control type="group">
+								<visible>Integer.IsGreater(ListItem.PlayCount,0)</visible>
+								<top>PADDING_MULT_50</top>
+								<right>PADDING_MULT_50</right>
+								<width>SIZE_LIST_WATCHED_ICON</width>
+								<height>SIZE_LIST_WATCHED_ICON</height>
+
+								<control type="image">
+									<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/icons/check-inverse.png</texture>
+									<aspectratio align="left">keep</aspectratio>
+								</control>
+								<control type="image">
+									<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
+									<aspectratio align="left">keep</aspectratio>
+								</control>
+							</control>
 						</control>
 					</itemlayout>
 
@@ -445,6 +535,24 @@
 								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
 								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
 								<aspectratio scalediffuse="false">scale</aspectratio>
+							</control>
+
+							<!-- Watched indicator -->
+							<control type="group">
+								<visible>Integer.IsGreater(ListItem.PlayCount,0)</visible>
+								<top>PADDING_MULT_50</top>
+								<right>PADDING_MULT_50</right>
+								<width>SIZE_LIST_WATCHED_ICON</width>
+								<height>SIZE_LIST_WATCHED_ICON</height>
+
+								<control type="image">
+									<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/icons/check-inverse.png</texture>
+									<aspectratio align="left">keep</aspectratio>
+								</control>
+								<control type="image">
+									<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
+									<aspectratio align="left">keep</aspectratio>
+								</control>
 							</control>
 						</control>
 					</focusedlayout>

@@ -55,7 +55,7 @@ def get_movie_listitem(movie):
     watched_percentage = 0
     if movie['resume']['position'] > 0 and movie['resume']['position'] < movie['resume']['total'] and movie['playcount'] == 0:
         time_remaining = get_formatted_timespan(movie['resume']['total'] - movie['resume']['position'])
-        watched_percentage = movie['resume']['position'] * 100 / movie['resume']['total']
+        watched_percentage = round(movie['resume']['position'] * 100 / movie['resume']['total'])
 
     # Remove "Rated" from rating.
     rating = movie['mpaa']
@@ -117,7 +117,7 @@ def get_episode_listitem(episode):
     watched_percentage = 0
     if episode['resume']['position'] > 0 and episode['resume']['position'] < episode['resume']['total'] and episode['playcount'] == 0:
         time_remaining = get_formatted_timespan(episode['resume']['total'] - episode['resume']['position'])
-        watched_percentage = episode['resume']['position'] * 100 / episode['resume']['total']
+        watched_percentage = round(episode['resume']['position'] * 100 / episode['resume']['total'])
 
     # Remove "Rated" from rating.
     rating = episode.get('tvshow', {'mpaa': None})['mpaa']

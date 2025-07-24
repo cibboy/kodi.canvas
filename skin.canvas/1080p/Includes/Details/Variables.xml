@@ -132,11 +132,14 @@
 	<constant name="HEIGHT_CLEARLOGO_BIG">120</constant>
 	<constant name="WIDTH_CLEARLOGO_BIG">800</constant>
 	<constant name="HEIGHT_DETAILS_INFOLINE">32</constant>
-	<constant name="HEIGHT_DETAILS_INFOLINE_HALF">16</constant>
 
-	<constant name="SIZE_DETAILS_ICON">25</constant>
-	
-	<constant name="OFFSET_DETAILS_ICON">8</constant>
-	<constant name="OFFSET_DETAILS_AFTER_ICON">30</constant>
+	<constant name="SIZE_DETAILS_WATCHED_ICON">25</constant>
+	<constant name="OFFSET_DETAILS_WATCHED_ICON">1</constant>
+	<constant name="OFFSET_DETAILS_AFTER_WATCHED_ICON">30</constant>
+
+	<constant name="SIZE_DETAILS_RUNNING_ICON">38</constant>
+	<constant name="OFFSET_DETAILS_RUNNING_ICON">-5</constant>
+	<constant name="OFFSET_DETAILS_AFTER_RUNNING_ICON">38</constant>
+
 	<constant name="OFFSET_AFTER_DETAILS">440</constant>
 </includes>

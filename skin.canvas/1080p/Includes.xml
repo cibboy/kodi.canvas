@@ -12,6 +12,7 @@
 	<constant name="PADDING_MULT_10">5</constant>
 	<constant name="PADDING_MULT_20">10</constant>
 	<constant name="PADDING_MULT_30">15</constant>
+	<constant name="PADDING_MULT_50">25</constant>
 	<constant name="PADDING_MULT_60">30</constant>
 	<constant name="PADDING_MULT_120">60</constant>
 
