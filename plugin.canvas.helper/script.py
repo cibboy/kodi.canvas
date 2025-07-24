@@ -52,11 +52,27 @@ def onfocus_home_page_item(page, list_id):
     window.setProperty('Home.ActivePage', page)
     window.setProperty('Home.ActiveListId', str(list_id))
 
+# Reset home status.
+def init_home():
+    window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
+
+    # Clear window properties.
+    window.clearProperty('Home.ActivePage.home')
+    window.clearProperty('Home.ActivePage.movies')
+    window.clearProperty('Home.ActivePage.tvshows')
+    window.clearProperty('Home.ActivePage.yoga')
+    window.clearProperty('Home.ActivePage.music')
+    window.clearProperty('Home.ActivePage')
+    window.clearProperty('Home.ActiveListId')
+
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         method = sys.argv[1]
+        # Reset home status.
+        if method == 'init_home':
+            init_home()
         # Handle window property updates when changing the selected main menu item.
-        if method == 'onchange_home_menu':
+        elif method == 'onchange_home_menu':
             onchange_home_menu(sys.argv[2])
         # Handle window property updates when focusing on a different list inside the same home page.
         elif method == 'onfocus_home_page_item':

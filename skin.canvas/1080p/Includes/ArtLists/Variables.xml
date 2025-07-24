@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<!-- Constants -->
+	<constant name="HEIGHT_POSTER">380</constant>
+	<constant name="WIDTH_POSTER">260</constant>
+	<constant name="WIDTH_POSTER_STRIP_ITEM_CONTAINER">240</constant>
+	<constant name="HEIGHT_POSTER_STRIP_CONTAINER">480</constant>
+
+	<constant name="HEIGHT_LANDSCAPE">260</constant>
+	<constant name="WIDTH_LANDSCAPE">462</constant>
+	<constant name="WIDTH_LANDSCAPE_STRIP_ITEM_CONTAINER">450</constant>
+	<constant name="HEIGHT_LANDSCAPE_STRIP_CONTAINER">480</constant>
+	<constant name="OFFSET_LANDSCAPE_STRIP_INFO">235</constant>
+
+	<constant name="HEIGHT_ALBUM">260</constant>
+	<constant name="WIDTH_ALBUM">260</constant>
+	<constant name="WIDTH_ALBUM_STRIP_ITEM_CONTAINER">240</constant>
+	<constant name="HEIGHT_ALBUM_STRIP_CONTAINER">480</constant>
+	<constant name="OFFSET_ALBUM_STRIP_INFO">235</constant>
+
+	<constant name="HEIGHT_WALL_FILTER">200</constant>
+	<constant name="HEIGHT_WALL_CONTENT">830</constant>
+
+	<constant name="HEIGHT_CLEARLOGO_SMALL">30</constant>
+	<constant name="WIDTH_CLEARLOGO_SMALL">200</constant>
+</includes>

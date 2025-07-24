@@ -188,7 +188,8 @@ def list_continue_watching(params):
     if listid is not None:
         window.setProperty(f"ListLoading.{listid}", 'true')
 
-    time.sleep(5)
+    #todo: temp test (remove anche dell'import)
+    #time.sleep(5)
 
     # All movies, then filter them for those in progress.
     movies = call_rpc('VideoLibrary.GetMovies', {'properties': movie_properties_query})

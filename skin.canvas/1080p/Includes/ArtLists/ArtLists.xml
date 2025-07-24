@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--todo: progress indicators-->
 <includes>
+	<include file="Includes/ArtLists/Variables.xml" />
+
 	<!-- Horizontal strip of landscape elements, with label and optional logo -->
 	<include name="LandscapeStrip">
 		<param name="id"></param>
@@ -63,6 +65,7 @@
 
 									<!-- Logo -->
 									<control type="image">
+										<left>PADDING_MULT_10</left>
 										<width>WIDTH_CLEARLOGO_SMALL</width>
 										<height>HEIGHT_CLEARLOGO_SMALL</height>
 										<texture background="true">$PARAM[logo]</texture>
@@ -71,17 +74,17 @@
 									<!-- Season/episode -->
 									<control type="label">
 										<right>0</right>
-										<top>PADDING_MULT_10</top>
+										<top>HEIGHT_CLEARLOGO_SMALL</top>
 										<width>100</width>
-										<aligny>center</aligny>
 										<font>CAPTION2</font>
 										<textcolor>FOREGROUND</textcolor>
 										<label>$PARAM[episode]</label>
 									</control>
 									<!-- Episode title -->
 									<control type="label">
+										<left>PADDING_MULT_10</left>
 										<top>HEIGHT_CLEARLOGO_SMALL</top>
-										<font>CAPTION</font>
+										<font>CAPTION2</font>
 										<textcolor>FOREGROUND</textcolor>
 										<label>$PARAM[title]</label>
 									</control>
@@ -123,6 +126,7 @@
 
 									<!-- Logo -->
 									<control type="image">
+										<left>PADDING_MULT_10</left>
 										<width>WIDTH_CLEARLOGO_SMALL</width>
 										<height>HEIGHT_CLEARLOGO_SMALL</height>
 										<texture background="true">$PARAM[logo]</texture>
@@ -131,17 +135,17 @@
 									<!-- Season/episode -->
 									<control type="label">
 										<right>PADDING_MULT_10</right>
-										<top>PADDING_MULT_10</top>
+										<top>HEIGHT_CLEARLOGO_SMALL</top>
 										<width>100</width>
-										<aligny>center</aligny>
 										<font>CAPTION2</font>
 										<textcolor>FOREGROUND</textcolor>
 										<label>$PARAM[episode]</label>
 									</control>
 									<!-- Episode title -->
 									<control type="label">
+										<left>PADDING_MULT_10</left>
 										<top>HEIGHT_CLEARLOGO_SMALL</top>
-										<font>CAPTION</font>
+										<font>CAPTION2</font>
 										<textcolor>FOREGROUND</textcolor>
 										<label>$PARAM[title]</label>
 									</control>
@@ -294,6 +298,7 @@
 
 									<!-- Info line 1 -->
 									<control type="label">
+										<scroll>false</scroll>
 										<font>CAPTION</font>
 										<textcolor>HIGHLIGHT</textcolor>
 										<label>$PARAM[info1]</label>
@@ -301,6 +306,7 @@
 									<!-- Info line 2 -->
 									<control type="label">
 										<top>FONT_SIZE_CAPTION</top>
+										<scroll>false</scroll>
 										<font>CAPTION</font>
 										<textcolor>FOREGROUND</textcolor>
 										<label>$PARAM[info2]</label>
@@ -343,6 +349,7 @@
 
 									<!-- Info line 1 -->
 									<control type="label">
+										<scroll>false</scroll>
 										<font>CAPTION</font>
 										<textcolor>HIGHLIGHT</textcolor>
 										<label>$PARAM[info1]</label>
@@ -350,6 +357,7 @@
 									<!-- Info line 2 -->
 									<control type="label">
 										<top>FONT_SIZE_CAPTION</top>
+										<scroll>false</scroll>
 										<font>CAPTION</font>
 										<textcolor>FOREGROUND</textcolor>
 										<label>$PARAM[info2]</label>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
-	<default type="label">
+	<!--<default type="label">
 		<align>left</align>
 		<font>BODY</font>
 		<scroll>false</scroll>
 		<textcolor>FOREGROUND</textcolor>
-	</default>
+	</default>-->
 
 	<!--<default type="image">
 		<texture></texture>

@@ -3,21 +3,17 @@
 	<include file="Includes/Details/Variables.xml" />
 	<include file="Includes/Details/Expressions.xml" />
 
-	<include name="DetailsInfoOffsetWithSubtitle">
-		<top>FONT_SIZE_SUBTITLE</top>
-	</include>
-	<include name="DetailsSummaryOffsetWithInfo2">
-		<top>FONT_SIZE_CAPTION</top>
-	</include>
-
 	<include name="SelectionDetails">
 		<param name="visible">true</param>
 
 		<definition>
-			<control type="group">
+			<control type="grouplist">
 				<visible>$PARAM[visible]</visible>
 				<include content="ShowHideFadeAnimation" />
-			
+
+				<itemgap>PADDING_MULT_20</itemgap>
+				<usecontrolcoords>true</usecontrolcoords>
+
 				<!-- Title/clearlogo -->
 				<control type="group">
 					<height>HEIGHT_CLEARLOGO_BIG</height>
@@ -45,112 +41,95 @@
 					</control>
 				</control>
 
-				<control type="group">
-					<top>HEIGHT_CLEARLOGO_BIG</top>
+				<!-- Subtitle -->
+				<control type="label">
+					<visible>$EXP[HasDetailsSubtitle]</visible>
 
-					<!-- Subtitle -->
+					<width>1000</width>
+					<height>FONT_SIZE_SUBTITLE</height>
+					<font>SUBTITLE</font>
+					<textcolor>HIGHLIGHT</textcolor>
+					<label>$VAR[DetailsSubtitle]</label>
+				</control>
+
+				<!-- Info line 1 -->
+				<control type="grouplist">
+					<orientation>horizontal</orientation>
+					<itemgap>PADDING_MULT_30</itemgap>
+					<height>HEIGHT_DETAILS_INFOLINE</height>
+					<centertop>HEIGHT_DETAILS_INFOLINE_HALF</centertop>
+
+					<!--todo: resolution, audio channels, hdr-->
+					
+					<!-- Info string -->
 					<control type="label">
-						<visible>$EXP[HasDetailsSubtitle]</visible>
-
-						<width>1000</width>
-						<height>FONT_SIZE_SUBTITLE</height>
-						<font>SUBTITLE</font>
-						<textcolor>HIGHLIGHT</textcolor>
-						<label>$VAR[DetailsSubtitle]</label>
+						<width>auto</width>
+						<height>FONT_SIZE_CAPTION</height>
+						<font>CAPTION_STRONG</font>
+						<textcolor>FOREGROUND_DARK</textcolor>
+						<label>$VAR[DetailsInfo]</label>
 					</control>
 
-					<!-- Info line 1 + Info line 2 + Summary -->
+					<!-- Watched status -->
 					<control type="group">
-						<!-- If subtitle is present, add further offset -->
-						<include content="DetailsInfoOffsetWithSubtitle" condition="$EXP[HasDetailsSubtitle]" />
+						<visible>$EXP[IsDetailsWatched]</visible>
 
-						<!-- Info line 1 -->
-						<control type="grouplist">
-							<orientation>horizontal</orientation>
-							<width>800</width>
-							<height>FONT_SIZE_CAPTION</height>
-
-							<!--todo: resolution, audio channels, hdr-->
-							
-							<!-- Info string -->
-							<control type="label">
-								<height>FONT_SIZE_CAPTION</height>
-								<font>CAPTION_STRONG</font>
-								<textcolor>FOREGROUND_DARK</textcolor>
-								<label>$VAR[DetailsInfo]</label>
-							</control>
-
-							<!-- Watched status -->
-							<control type="group">
-								<visible>$EXP[IsDetailsWatched]</visible>
-								<width>200</width>
-
-								<control type="image">
-									<width>SIZE_STATUS</width>
-									<height>SIZE_STATUS</height>
-									<texture background="true" colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
-									<aspectratio align="left">keep</aspectratio>
-								</control>
-								<control type="label">
-									<left>PADDING_MULT_60</left>
-									<width>200</width>
-									<height>FONT_SIZE_CAPTION</height>
-									<font>CAPTION_STRONG</font>
-									<textcolor>FOREGROUND_DARK</textcolor>
-									<label>Watched</label>
-								</control>
-							</control>
-
-							<!-- Time remaining -->
-							<control type="group">
-								<visible>$EXP[HasDetailsTimeRemaining]</visible>
-								<width>200</width>
-
-								<control type="image">
-									<width>SIZE_STATUS</width>
-									<height>SIZE_STATUS</height>
-									<texture background="true" colordiffuse="FOREGROUND_ACCENT">1080p/progress/$VAR[DetailsWatchedPercentage].png</texture>
-									<aspectratio align="left">keep</aspectratio>
-								</control>
-								<control type="label">
-									<left>PADDING_MULT_60</left>
-									<width>200</width>
-									<height>FONT_SIZE_CAPTION</height>
-									<font>CAPTION_STRONG</font>
-									<textcolor>FOREGROUND_DARK</textcolor>
-									<label>$VAR[DetailsTimeRemaining] left</label>
-								</control>
-							</control>
+						<control type="image">
+							<width>SIZE_DETAILS_ICON</width>
+							<height>SIZE_DETAILS_ICON</height>
+							<top>OFFSET_DETAILS_ICON</top>
+							<texture background="true" colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
+							<aspectratio align="left">keep</aspectratio>
 						</control>
-
-						<!-- Info line 2 + Summary -->
-						<control type="group">
-							<top>FONT_SIZE_CAPTION</top>
-
-							<!-- Info line 2 -->
-							<control type="label">
-								<visible>$EXP[HasDetailsInfo2]</visible>
-								<width>1000</width>
-								<height>FONT_SIZE_CAPTION</height>
-
-								<font>CAPTION_STRONG</font>
-								<textcolor>FOREGROUND_DARK</textcolor>
-								<label>$VAR[DetailsInfo2]</label>
-							</control>
-
-							<!-- Summary -->
-							<control type="textbox">
-								<!-- If info line 2 is present, add further offset -->
-								<include content="DetailsSummaryOffsetWithInfo2" condition="$EXP[HasDetailsInfo2]" />
-								<width>800</width>
-								<height>170</height>
-
-								<font>BODY2</font>
-								<textcolor>FOREGROUND</textcolor>
-								<label>$VAR[DetailsSummary]</label>
-							</control>
+						<control type="label">
+							<left>OFFSET_DETAILS_AFTER_ICON</left>
+							<width>auto</width>
+							<height>FONT_SIZE_CAPTION</height>
+							<font>CAPTION_STRONG</font>
+							<textcolor>FOREGROUND_DARK</textcolor>
+							<label>Watched</label>
 						</control>
 					</control>
+
+					<!-- Time remaining -->
+					<control type="group">
+						<visible>$EXP[HasDetailsTimeRemaining]</visible>
+
+						<control type="image">
+							<width>SIZE_DETAILS_ICON</width>
+							<height>SIZE_DETAILS_ICON</height>
+							<top>OFFSET_DETAILS_ICON</top>
+							<texture background="true" colordiffuse="FOREGROUND_ACCENT">1080p/progress/$VAR[DetailsWatchedPercentage].png</texture>
+							<aspectratio align="left">keep</aspectratio>
+						</control>
+						<control type="label">
+							<left>OFFSET_DETAILS_AFTER_ICON</left>
+							<width>auto</width>
+							<height>FONT_SIZE_CAPTION</height>
+							<font>CAPTION_STRONG</font>
+							<textcolor>FOREGROUND_DARK</textcolor>
+							<label>$VAR[DetailsTimeRemaining] left</label>
+						</control>
+					</control>
+				</control>
+
+				<!-- Info line 2 -->
+				<control type="label">
+					<visible>$EXP[HasDetailsInfo2]</visible>
+					<width>1000</width>
+					<height>HEIGHT_DETAILS_INFOLINE</height>
+					<font>CAPTION_STRONG</font>
+					<textcolor>FOREGROUND_DARK</textcolor>
+					<label>$VAR[DetailsInfo2]</label>
+				</control>
+
+				<!-- Summary -->
+				<control type="textbox">
+					<width>800</width>
+					<height>170</height>
+					<font>BODY2</font>
+					<textcolor>FOREGROUND</textcolor>
+					<label>$VAR[DetailsSummary]</label>
 				</control>
 			</control>
 		</definition>
