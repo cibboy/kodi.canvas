@@ -7,7 +7,7 @@ from PIL import Image, ImageFilter
 def get_image(imgPath):
     try:
         # Some paths require unquoting to get a valid cached thumb hash.
-        if imgPath.startswith('image://') and not imgPath.startswith('image://music'):
+        if imgPath.startswith('image://') and not imgPath.startswith('image://music') and not imgPath.startswith('image://video'):
             imgPath = urllib.unquote(imgPath.replace('image://', ''))
             if imgPath.endswith('/'):
                 imgPath = imgPath[:-1]

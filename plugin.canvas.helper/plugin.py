@@ -191,15 +191,14 @@ def list_continue_watching(params):
     #todo: temp test (remove anche dell'import)
     #time.sleep(5)
 
-    # All movies, then filter them for those in progress.
-    movies = call_rpc('VideoLibrary.GetMovies', {'properties': movie_properties_query})
-    movies = [
-        m for m in movies.get('movies', [])
-        if 0 < m['resume']['position'] < m['resume']['total']
-    ]
+    # In progress movies.
+    movies = call_rpc('VideoLibrary.GetMovies', {
+        'filter': {'field': 'inprogress', 'operator': 'is', 'value': "true"},
+        'properties': movie_properties_query + ['lastplayed']
+    }).get('movies', [])
 
     # In progress TV shows.
-    tvshows = call_rpc('VideoLibrary.GetInprogressTVShows', {'properties': ['mpaa']})
+    tvshows = call_rpc('VideoLibrary.GetInprogressTVShows', {'properties': ['mpaa', 'lastplayed']})
     # For each show, find the next episode.
     next_episodes = []
     for tvshow in tvshows.get('tvshows', []):
@@ -225,22 +224,31 @@ def list_continue_watching(params):
             next_episode['tvshow'] = tvshow
             next_episodes.append(next_episode)
 
-    #todo: sort movies, episodes by last viewed, then add
-    
-    for movie in movies:
-        li = get_movie_listitem(movie)
+    # Sort in progress items according to the last played.
+    sorted_items = []
+    for i,movie in enumerate(movies):
+        sorted_items.append({
+            'type': 'movie',
+            'key': movie['lastplayed'],
+            'id': i
+        })
+    for i,episode in enumerate(next_episodes):
+        sorted_items.append({
+            'type': 'episode',
+            'key': episode['tvshow']['lastplayed'],
+            'id': i
+        })
+    sorted_items.sort(reverse=True, key=lambda item: item['key'])
+
+    # Add items to list, referencing proper type.
+    for item in sorted_items:
+        if item['type'] == 'movie':
+            li = get_movie_listitem(movies[item['id']])
+        elif item['type'] == 'episode':
+            li = get_episode_listitem(next_episodes[item['id']])
         xbmcplugin.addDirectoryItem(
             handle=handle,
             url=movie['title'],#todo
-            listitem=li,
-            isFolder=False
-        )
-
-    for episode in next_episodes:
-        li = get_episode_listitem(episode)
-        xbmcplugin.addDirectoryItem(
-            handle=handle,
-            url=episode['title'],#todo
             listitem=li,
             isFolder=False
         )
@@ -260,28 +268,19 @@ def list_recently_added_tvshow_episodes(params):
         window.setProperty(f"ListLoading.{listid}", 'true')
 
     # Load all episodes.
-    all_episodes = call_rpc('VideoLibrary.GetEpisodes', {
+    episodes = call_rpc('VideoLibrary.GetEpisodes', {
+        # Exclude Yoga with Adriene.
+        'filter': {'field': 'tvshow', 'operator': 'isnot', 'value': "Yoga with Adriene"},
         # Sort by date added, descending.
         'sort': {'order': 'descending', 'method': 'dateadded'},
+        # Pick first 25.
+        'limits': {'start': 0, 'end': 25},
         # Only get TV show title.
-        'properties': ['showtitle']
+        'properties': episode_properties_query
     }).get('episodes', [])
 
-    # Get first 20 episodes that are not Yoga with Adriene.
-    episodes = []
-    count = 0
-    for e in all_episodes:
-        # Stop at 25.
-        if count == 25:
-            break
-        
-        # If not Yoga with Adriene, add to list.
-        if e['showtitle'].lower() != 'yoga with adriene':
-            episodes.append(e)
-            count += 1
-
     if len(episodes) > 0:
-        # Load all TV shows.
+        # Load all TV shows with title and MPAA (to be added to the episode).
         all_shows = call_rpc('VideoLibrary.GetTVShows', {
             # Only get TV show title and rating for later use.
             'properties': ['title', 'mpaa']
@@ -292,18 +291,15 @@ def list_recently_added_tvshow_episodes(params):
             shows[s['title']] = s
 
         # For each episode ID found, get details and add to list.
-        for e in episodes:
-            episode = call_rpc('VideoLibrary.GetEpisodeDetails', {'episodeid': e['episodeid'], 'properties': episode_properties_query}).get('episodedetails', None)
-            if episode is not None:
-                # Add show info, then create listitem.
-                episode['tvshow'] = shows[e['showtitle']]
-                li = get_episode_listitem(episode)
-                xbmcplugin.addDirectoryItem(
-                    handle=handle,
-                    url=episode['title'],#todo
-                    listitem=li,
-                    isFolder=False
-                )
+        for episode in episodes:
+            episode['tvshow'] = shows[episode['showtitle']]
+            li = get_episode_listitem(episode)
+            xbmcplugin.addDirectoryItem(
+                handle=handle,
+                url=episode['title'],#todo
+                listitem=li,
+                isFolder=False
+            )
 
     xbmcplugin.endOfDirectory(handle)
 
