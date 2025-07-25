@@ -16,7 +16,8 @@
 		<!-- TV shows -->
 		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),120)">$INFO[Container(120).ListItem.Art(fanart)]</value>
 		<!-- Yoga -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),130)">$INFO[Container(130).ListItem.Art(fanart)]</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),130) + !String.IsEmpty(Container(130).ListItem.Art(fanart))">$INFO[Container(130).ListItem.Art(fanart)]</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),130)">$INFO[Container(130).ListItem.Art(tvshow.fanart)]</value>
 		<!-- Music -->
 		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),140)">$INFO[Container(140).ListItem.Art(album.thumb)]</value>
 	</variable>
@@ -37,7 +38,8 @@
 		<!-- TV shows -->
 		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),120)">$INFO[Container(120).ListItem.Property(BlurArt)]</value>
 		<!-- Yoga -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),130)">$INFO[Container(130).ListItem.Property(BlurArt)]</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),130) + !String.IsEmpty(Container(130).ListItem.Property(BlurArt.Season))">$INFO[Container(130).ListItem.Property(BlurArt.Season)]</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),130)">$INFO[Container(130).ListItem.Property(BlurArt.TvShow)]</value>
 		<!-- Music -->
 		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),140)">$INFO[Container(140).ListItem.Property(BlurArt)]</value>
 	</variable>

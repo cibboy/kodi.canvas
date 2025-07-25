@@ -93,6 +93,34 @@
 						</control>
 					</control>
 
+					<!-- Episodes remaining -->
+					<control type="group">
+						<visible>$EXP[HasDetailsEpisodesRemaining]</visible>
+<!--todo: show "New" if 0 episodes watched-->
+						<control type="group">
+							<width>SIZE_DETAILS_RUNNING_ICON</width>
+							<height>SIZE_DETAILS_RUNNING_ICON</height>
+							<top>OFFSET_DETAILS_RUNNING_ICON</top>
+							<control type="image">
+								<texture colordiffuse="FOREGROUND_DARK">1080p/progress/circle-100.png</texture>
+								<aspectratio align="left">keep</aspectratio>
+							</control>
+							<control type="image">
+								<texture colordiffuse="FOREGROUND_ACCENT">1080p/progress/circle-$VAR[DetailsWatchedPercentage].png</texture>
+								<aspectratio align="left">keep</aspectratio>
+							</control>
+						</control>
+						<control type="label">
+							<left>OFFSET_DETAILS_AFTER_RUNNING_ICON</left>
+							<width>auto</width>
+							<height>FONT_SIZE_CAPTION</height>
+							<font>CAPTION_STRONG</font>
+							<aligny>center</aligny>
+							<textcolor>FOREGROUND_ACCENT</textcolor>
+							<label>$VAR[DetailsEpisodesRemaining]</label>
+						</control>
+					</control>
+
 					<!-- Time remaining -->
 					<control type="group">
 						<visible>$EXP[HasDetailsTimeRemaining]</visible>

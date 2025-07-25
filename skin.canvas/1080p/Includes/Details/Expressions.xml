@@ -27,13 +27,14 @@
 		- Continue watching
 		- Recently added episodes
 		- Recently added music
-		- TV shows
+		- Yoga
 		- Music
 	--><!--todo: yoga: title is clearlogo/title, subtitle is season title-->
 	<expression name="HasDetailsSubtitle">
 		[String.IsEqual(Window(home).Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(ItemType),episode) + !String.IsEmpty(Container(101).ListItem.Title)] |
 		[String.IsEqual(Window(home).Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.Title)] |
 		[String.IsEqual(Window(home).Property(Home.ActiveListId),104) + !String.IsEmpty(Container(104).ListItem.Album)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),130) + !String.IsEmpty(Container(130).ListItem.Title)] |
 		[String.IsEqual(Window(home).Property(Home.ActiveListId),140) + !String.IsEmpty(Container(140).ListItem.Album)]
 	</expression>
 
@@ -67,6 +68,14 @@
 		[String.IsEqual(Window(home).Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.Property(TimeRemainingString))] |
 		[String.IsEqual(Window(home).Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.Property(TimeRemainingString))] |
 		[String.IsEqual(Window(home).Property(Home.ActiveListId),110) + !String.IsEmpty(Container(110).ListItem.Property(TimeRemainingString))]
+	</expression>
+
+	<!--
+		Has episodes remaining?
+		- Yoga
+	-->
+	<expression name="HasDetailsTimeRemaining">
+		String.IsEqual(Window(home).Property(Home.ActiveListId),130)
 	</expression>
 
 	<!--
