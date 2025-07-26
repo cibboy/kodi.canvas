@@ -1,7 +1,8 @@
 TOFIX:
-- aggiunti genre e track audio in plugin (per genre è potenzialmente una lista, quindi bisognerà fare delle prove con ulteriore scraping e aggiornamento tag mp3, che è stata aggiunta alla details info line 2)
+- aggiunto genre audio in plugin (potenzialmente una lista, quindi bisognerà fare delle prove con ulteriore scraping e aggiornamento tag mp3, che è stata aggiunta alla details info line 2)
 - albumstrip ha l'offset dalla label della strip troppo piccolo (visually compare to posterstrip)
 - dettagli sotto item in albumstrip (le scritte sono troppo grandi)
+- al boot è sul menu principale (corretto) con info del primo elemento del continue watching, ma poi refresha e va sul secondo
 
 TODO:
 - rifare diffuse shadow (per seguire meglio i border radius più stretto che uso)

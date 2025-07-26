@@ -59,5 +59,11 @@
 			<size>22</size>
 			<linespacing>1.05</linespacing>
 		</font>
+		<font>
+			<name>CAPTION2_STRONG</name>
+			<filename>Geologica-Bold.ttf</filename>
+			<size>22</size>
+			<linespacing>1.05</linespacing>
+		</font>
 	</fontset>
 </fonts>

@@ -6,7 +6,12 @@
 		<!-- Background -->
 		<include content="Background">
 			<param name="art">$VAR[HomeBackgroundArt]</param>
-			<param name="show_art">String.IsEqual(Window.Property(Home.ActivePage),home) | String.IsEqual(Window.Property(Home.ActivePage),yoga)</param>
+			<param name="show_art">!String.IsEqual(Window.Property(Home.ActivePage),pictures)</param>
+		</include>
+
+		<!-- Dark overlay on the left to improve legibility of text -->
+		<include content="LegibilityDarkeningLayer">
+			<param name="visible">!Control.HasFocus(1)</param>
 		</include>
 
 		<!-- Dark overlay to background for when the menu has focus -->
@@ -147,7 +152,7 @@
 
 				<!-- Selection details -->
 				<include content="SelectionDetails">
-					<param name="visible">String.IsEqual(Window.Property(Home.ActivePage),home) | String.IsEqual(Window.Property(Home.ActivePage),yoga)</param>
+					<param name="visible">!String.IsEqual(Window.Property(Home.ActivePage),pictures)</param>
 				</include>
 
 				<!-- Items -->
@@ -188,9 +193,6 @@
 								<param name="label">Recently added episodes</param>
 								<param name="content">plugin://script.canvas.helper/recently_added_tvshow_episodes/?listid=102</param>
 								<param name="art">$INFO[ListItem.Art(thumb)]</param>
-								<param name="logo">$INFO[ListItem.Property(Clearlogo.Small)]</param>
-								<param name="episode">S$INFO[ListItem.Season]·E$INFO[ListItem.Episode]</param>
-								<param name="title">$INFO[ListItem.Title]</param>
 								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,102)</param>
 								<param name="onback">SetFocus(1,0)</param>
 								<param name="onleft">SetFocus(1,0)</param>
@@ -283,7 +285,7 @@
 
 						<include content="PosterStrip">
 							<param name="id">130</param>
-							<param name="label">Yoga With Adriene</param>
+							<param name="label"></param>
 							<param name="content">plugin://script.canvas.helper/yoga_with_adriene/</param>
 							<param name="art">$INFO[ListItem.Art(poster)]</param>
 							<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,yoga,130)</param>

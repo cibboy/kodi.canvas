@@ -55,20 +55,124 @@
 		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),140)">$INFO[Container(140).ListItem.Album]</value>
 	</variable>
 
+	<!-- Year -->
+	<variable name="DetailsYear">
+		<!-- Continue watching (movies) -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(ItemType),movie)">$INFO[Container(101).ListItem.Year]</value>
+		<!-- Recently added movies -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),103)">$INFO[Container(103).ListItem.Year]</value>
+		<!-- Recently added music -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),104)">$INFO[Container(104).ListItem.Year]</value>
+		<!-- Movies -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),110)">$INFO[Container(110).ListItem.Year]</value>
+		<!-- TV shows -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),120)">$INFO[Container(120).ListItem.Year]</value>
+		<!-- Music -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),140)">$INFO[Container(140).ListItem.Year]</value>
+	</variable>
+
+	<!-- Episode -->
+	<variable name="DetailsEpisode">
+		<!-- Continue watching (episodes) -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(ItemType),episode)">S$INFO[Container(101).ListItem.Season]·E$INFO[Container(101).ListItem.Episode]</value>
+		<!-- Recently added episodes -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),102)">S$INFO[Container(102).ListItem.Season]·E$INFO[Container(102).ListItem.Episode]</value>
+	</variable>
+
+	<!-- Premiered -->
+	<variable name="DetailsPremiered">
+		<!-- Continue watching (episodes) -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(ItemType),episode)">$INFO[Container(101).ListItem.Premiered]</value>
+		<!-- Recently added episodes -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),102)">$INFO[Container(102).ListItem.Premiered]</value>
+	</variable>
+
+	<!-- Artist -->
+	<variable name="DetailsArtist">
+		<!-- Recently added music -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),104)">$INFO[Container(104).ListItem.Artist]</value>
+		<!-- Music -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),140)">$INFO[Container(140).ListItem.Artist]</value>
+	</variable>
+
+	<!-- Duration -->
+	<variable name="DetailsDuration">
+		<!-- Continue watching -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),101)">$INFO[Container(101).ListItem.Property(DurationString)]</value>
+		<!-- Recently added episodes -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),102)">$INFO[Container(102).ListItem.Property(DurationString)]</value>
+		<!-- Recently added movies -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),103)">$INFO[Container(103).ListItem.Property(DurationString)]</value>
+		<!-- Recently added music -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),104)">$INFO[Container(104).ListItem.Property(DurationString)]</value>
+		<!-- Movies -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),110)">$INFO[Container(110).ListItem.Property(DurationString)]</value>
+		<!-- Music -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),140)">$INFO[Container(140).ListItem.Property(DurationString)]</value>
+	</variable>
+
+	<!-- Mpaa -->
+	<variable name="DetailsMpaa">
+		<!-- Continue watching -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),101)">$INFO[Container(101).ListItem.Mpaa]</value>
+		<!-- Recently added episodes -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),102)">$INFO[Container(102).ListItem.Mpaa]</value>
+		<!-- Recently added movies -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),103)">$INFO[Container(103).ListItem.Mpaa]</value>
+		<!-- Movies -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),110)">$INFO[Container(110).ListItem.Mpaa]</value>
+		<!-- TV shows -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),120)">$INFO[Container(120).ListItem.Mpaa]</value>
+		<!-- Yoga -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),130)">$INFO[Container(130).ListItem.Mpaa]</value>
+	</variable>
+
+	<!-- Status -->
+	<variable name="DetailsStatus">
+		<!-- TV shows -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),120)">$INFO[Container(120).ListItem.Status]</value>
+	</variable>
+
+	<!-- Track -->
+	<variable name="DetailsTrack">
+		<!-- Recently added music -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),104)">Track $NUMBER[$INFO[Container(104).ListItem.Property(Track)]]</value>
+		<!-- Music -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),140)">Track $NUMBER[$INFO[Container(140).ListItem.Property(Track)]]</value>
+	</variable>
+
+	<!-- Genre -->
+	<variable name="DetailsGenre">
+		<!-- Continue watching (movies) -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(ItemType),movie)">$INFO[Container(101).ListItem.Genre]</value>
+		<!-- Recently added movies -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),103)">$INFO[Container(103).ListItem.Genre]</value>
+		<!-- Recently added music -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),104)">$INFO[Container(104).ListItem.Genre]</value>
+		<!-- Movies -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),110)">$INFO[Container(110).ListItem.Genre]</value>
+		<!-- TV shows -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),120)">$INFO[Container(120).ListItem.Genre]</value>
+		<!-- Music -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),140)">$INFO[Container(140).ListItem.Genre]</value>
+	</variable>
+
 	<!-- Time remaining -->
 	<variable name="DetailsTimeRemaining">
 		<!-- Continue watching -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),101)">$INFO[Container(101).ListItem.Property(TimeRemainingString)]</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),101)">$INFO[Container(101).ListItem.Property(TimeRemainingString)] left</value>
 		<!-- Recently added episodes -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),102)">$INFO[Container(102).ListItem.Property(TimeRemainingString)]</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),102)">$INFO[Container(102).ListItem.Property(TimeRemainingString)] left</value>
 		<!-- Recently added movies -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),103)">$INFO[Container(103).ListItem.Property(TimeRemainingString)]</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),103)">$INFO[Container(103).ListItem.Property(TimeRemainingString)] left</value>
 		<!-- Movies -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),110)">$INFO[Container(110).ListItem.Property(TimeRemainingString)]</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),110)">$INFO[Container(110).ListItem.Property(TimeRemainingString)] left</value>
 	</variable>
 
 	<!-- Episodes remaining -->
 	<variable name="DetailsEpisodesRemaining">
+		<!-- TV shows -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),120)">$INFO[Container(120).ListItem.Property(WatchedEpisodes)] of $INFO[Container(120).ListItem.Episode] watched</value>
 		<!-- Yoga -->
 		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),130)">$INFO[Container(130).ListItem.Property(WatchedEpisodes)] of $INFO[Container(130).ListItem.Episode] watched</value>
 	</variable>
@@ -83,43 +187,10 @@
 		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),103)">$INFO[Container(103).ListItem.Property(WatchedPercentage)]</value>
 		<!-- Movies -->
 		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),110)">$INFO[Container(110).ListItem.Property(WatchedPercentage)]</value>
+		<!-- TV shows -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),120)">$INFO[Container(120).ListItem.Property(WatchedPercentage)]</value>
 		<!-- Yoga -->
 		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),130)">$INFO[Container(130).ListItem.Property(WatchedPercentage)]</value>
-	</variable>
-
-	<!-- Info line 1 -->
-	<variable name="DetailsInfo">
-		<!-- Continue watching -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(ItemType),episode)">S$INFO[Container(101).ListItem.Season]·E$INFO[Container(101).ListItem.Episode,,   ]$INFO[Container(101).ListItem.Premiered,,   ]$INFO[Container(101).ListItem.Property(DurationString),,   ]$INFO[Container(101).ListItem.Mpaa]</value>
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),101)">$INFO[Container(101).ListItem.Year,,   ]$INFO[Container(101).ListItem.Property(DurationString),,   ]$INFO[Container(101).ListItem.Mpaa]</value>
-		<!-- Recently added episodes -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),102)">S$INFO[Container(102).ListItem.Season]·E$INFO[Container(102).ListItem.Episode,,   ]$INFO[Container(102).ListItem.Premiered,,   ]$INFO[Container(102).ListItem.Property(DurationString),,   ]$INFO[Container(102).ListItem.Mpaa]</value>
-		<!-- Recently added movies -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),103)">$INFO[Container(103).ListItem.Year,,   ]$INFO[Container(103).ListItem.Property(DurationString),,   ]$INFO[Container(103).ListItem.Mpaa]</value>
-		<!-- Recently added music -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),104)">$INFO[Container(104).ListItem.Year,,   ]$INFO[Container(104).ListItem.Artist,,   ]$INFO[Container(104).ListItem.Property(DurationString)]</value>
-		<!-- Movies -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),110)">$INFO[Container(110).ListItem.Year,,   ]$INFO[Container(110).ListItem.Property(DurationString),,   ]$INFO[Container(110).ListItem.Mpaa]</value>
-		<!-- TV shows --><!--todo-->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),120)">$INFO[Container(120).ListItem.Year] • $INFO[Container(120).ListItem.Status] • $INFO[Container(120).ListItem.Genre]</value>
-		<!-- Yoga -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),130)">$INFO[Container(130).ListItem.Mpaa]</value>
-		<!-- Music -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),140)">$INFO[Container(140).ListItem.Year,,   ]$INFO[Container(140).ListItem.Artist,,   ]$INFO[Container(140).ListItem.Property(DurationString)]</value>
-	</variable>
-
-	<!-- Info line 2 -->
-	<variable name="DetailsInfo2">
-		<!-- Continue watching -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(ItemType),movie)">$INFO[Container(101).ListItem.Genre]</value>
-		<!-- Recently added movies -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),103)">$INFO[Container(103).ListItem.Genre]</value>
-		<!-- Recently added music -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),104)">$INFO[Container(104).ListItem.Genre]</value>
-		<!-- Movies -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),110)">$INFO[Container(110).ListItem.Genre]</value>
-		<!-- Music -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),140)">$INFO[Container(140).ListItem.Genre]</value>
 	</variable>
 
 	<!-- Plot -->
@@ -141,15 +212,16 @@
 	<!-- Constants -->
 	<constant name="HEIGHT_CLEARLOGO_BIG">120</constant>
 	<constant name="WIDTH_CLEARLOGO_BIG">800</constant>
-	<constant name="HEIGHT_DETAILS_INFOLINE">32</constant>
+	<constant name="HEIGHT_DETAILS_SUBTITLE">50</constant>
+	<constant name="HEIGHT_DETAILS_INFOLINE">35</constant>
 
 	<constant name="SIZE_DETAILS_WATCHED_ICON">25</constant>
-	<constant name="OFFSET_DETAILS_WATCHED_ICON">1</constant>
-	<constant name="OFFSET_DETAILS_AFTER_WATCHED_ICON">30</constant>
+	<constant name="OFFSET_TOP_DETAILS_WATCHED_ICON">5</constant>
+	<constant name="OFFSET_LEFT_DETAILS_WATCHED_ICON">6</constant>
 
-	<constant name="SIZE_DETAILS_RUNNING_ICON">38</constant>
-	<constant name="OFFSET_DETAILS_RUNNING_ICON">-5</constant>
-	<constant name="OFFSET_DETAILS_AFTER_RUNNING_ICON">38</constant>
+	<constant name="SIZE_DETAILS_PERCENT_ICON">38</constant>
+	<constant name="OFFSET_TOP_DETAILS_PERCENT_ICON">-1</constant>
+	<constant name="OFFSET_LEFT_DETAILS_PERCENT_ICON">-1</constant>
 
 	<constant name="OFFSET_AFTER_DETAILS">440</constant>
 </includes>

@@ -3,15 +3,87 @@
 <includes>
 	<include file="Includes/ArtLists/Variables.xml" />
 
+	<!-- Watched indicator -->
+	<include name="ArtListsWatchedIcon">
+		<param name="offset_top"></param>
+		<param name="offset_right"></param>
+
+		<definition>
+			<control type="group">
+				<visible>Integer.IsGreater(ListItem.PlayCount,0)</visible>
+				<top>$PARAM[offset_top]</top>
+				<right>$PARAM[offset_right]</right>
+				<width>SIZE_LIST_WATCHED_ICON</width>
+				<height>SIZE_LIST_WATCHED_ICON</height>
+
+				<control type="image">
+					<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/icons/check-inverse.png</texture>
+					<aspectratio align="left">keep</aspectratio>
+				</control>
+				<control type="image">
+					<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
+					<aspectratio align="left">keep</aspectratio>
+				</control>
+			</control>
+		</definition>
+	</include>
+	
+
+	<!-- Poster -->
+	<include name="ArtListsPoster">
+		<param name="art"></param>
+
+		<definition>
+			<control type="image">
+				<width>WIDTH_POSTER</width>
+				<height>HEIGHT_POSTER</height>
+				<texture fallback="1080p/fallback/poster.png" background="true" diffuse="1080p/diffuse/poster.png">$PARAM[art]</texture>
+				<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
+				<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
+				<aspectratio scalediffuse="false">scale</aspectratio>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Album -->
+	<include name="ArtListsAlbum">
+		<param name="art"></param>
+
+		<definition>
+			<control type="image">
+				<width>WIDTH_ALBUM</width>
+				<height>HEIGHT_ALBUM</height>
+				<texture fallback="1080p/fallback/album.png" background="true" diffuse="1080p/diffuse/album.png">$PARAM[art]</texture>
+				<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
+				<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
+				<aspectratio scalediffuse="false">scale</aspectratio>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Landscape -->
+	<include name="ArtListsLandscape">
+		<param name="art"></param>
+
+		<definition>
+			<control type="image">
+				<width>WIDTH_LANDSCAPE</width>
+				<height>HEIGHT_LANDSCAPE</height>
+				<texture fallback="1080p/fallback/landscape.png" background="true" diffuse="1080p/diffuse/landscape.png">$PARAM[art]</texture>
+				<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
+				<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
+				<aspectratio scalediffuse="false">scale</aspectratio>
+			</control>
+		</definition>
+	</include>
+
+
 	<!-- Horizontal strip of landscape elements, with label and optional logo -->
 	<include name="LandscapeStrip">
 		<param name="id"></param>
 		<param name="label"></param>
 		<param name="content"></param>
 		<param name="art"></param>
-		<param name="logo"></param>
-		<param name="episode"></param>
-		<param name="title"></param>
 		<param name="onfocus">noop</param>
 		<param name="onchange">noop</param>
 		<param name="onback">noop</param>
@@ -44,32 +116,15 @@
 					<itemlayout width="WIDTH_LANDSCAPE_STRIP_ITEM_CONTAINER" height="HEIGHT_LANDSCAPE">
 						<control type="group">
 							<!-- Landscape item -->
-							<control type="image">
-								<width>WIDTH_LANDSCAPE</width>
-								<height>HEIGHT_LANDSCAPE</height>
-								<texture fallback="1080p/fallback/landscape.png" background="true" diffuse="1080p/diffuse/landscape.png">$PARAM[art]</texture>
-								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
-								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
-								<aspectratio scalediffuse="false">scale</aspectratio>
-							</control>
+							<include content="ArtListsLandscape">
+								<param name="art">$PARAM[art]</param>
+							</include>
 
 							<!-- Watched indicator -->
-							<control type="group">
-								<visible>Integer.IsGreater(ListItem.PlayCount,0)</visible>
-								<top>PADDING_MULT_50</top>
-								<right>PADDING_MULT_30</right>
-								<width>SIZE_LIST_WATCHED_ICON</width>
-								<height>SIZE_LIST_WATCHED_ICON</height>
-
-								<control type="image">
-									<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/icons/check-inverse.png</texture>
-									<aspectratio align="left">keep</aspectratio>
-								</control>
-								<control type="image">
-									<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
-									<aspectratio align="left">keep</aspectratio>
-								</control>
-							</control>
+							<include content="ArtListsWatchedIcon">
+								<param name="offset_top">OFFSET_TOP_LANDSCAPE_STRIP_ICON</param>
+								<param name="offset_right">OFFSET_RIGHT_LANDSCAPE_STRIP_ICON</param>
+							</include>
 
 							<!-- Info -->
 							<control type="group">
@@ -81,13 +136,33 @@
 									<right>SIZE_ITEM_SHADOW_SQUARE</right>
 									<width>100%</width>
 
-									<!-- Logo -->
-									<control type="image">
+									<!-- Title/clearlogo -->
+									<control type="group">
 										<left>PADDING_MULT_10</left>
-										<width>WIDTH_CLEARLOGO_SMALL</width>
+										<right>PADDING_MULT_10</right>
 										<height>HEIGHT_CLEARLOGO_SMALL</height>
-										<texture background="true">$PARAM[logo]</texture>
-										<aspectratio align="left">keep</aspectratio>
+
+										<!-- Title (if clearlogo not available) -->
+										<control type="label">
+											<visible>String.IsEmpty(ListItem.Property(Clearlogo.Small))</visible>
+
+											<width>auto</width>
+											<height>HEIGHT_CLEARLOGO_SMALL</height>
+											<font>BODY_STRONG</font>
+											<aligny>center</aligny>
+											<textcolor>HIGHLIGHT</textcolor>
+											<label>$INFO[ListItem.TVShowTitle]</label>
+										</control>
+										<!-- Clearlogo -->
+										<control type="image">
+											<visible>!String.IsEmpty(ListItem.Property(Clearlogo.Small))</visible>
+
+											<width>WIDTH_CLEARLOGO_SMALL</width>
+											<height>HEIGHT_CLEARLOGO_SMALL</height>
+											<fadetime>ANIMATION_FAST</fadetime>
+											<texture background="true">$INFO[ListItem.Property(Clearlogo.Small)]</texture>
+											<aspectratio align="left">keep</aspectratio>
+										</control>
 									</control>
 									<!-- Season/episode -->
 									<control type="label">
@@ -96,7 +171,7 @@
 										<width>100</width>
 										<font>CAPTION2</font>
 										<textcolor>FOREGROUND</textcolor>
-										<label>$PARAM[episode]</label>
+										<label>S$INFO[ListItem.Season]·E$INFO[ListItem.Episode]</label>
 									</control>
 									<!-- Episode title -->
 									<control type="label">
@@ -104,7 +179,7 @@
 										<top>HEIGHT_CLEARLOGO_SMALL</top>
 										<font>CAPTION2</font>
 										<textcolor>FOREGROUND</textcolor>
-										<label>$PARAM[title]</label>
+										<label>$INFO[ListItem.Title]</label>
 									</control>
 								</control>
 							</control>
@@ -160,22 +235,42 @@
 									<right>SIZE_ITEM_SHADOW_SQUARE</right>
 									<width>100%</width>
 
-									<!-- Logo -->
-									<control type="image">
+									<!-- Title/clearlogo -->
+									<control type="group">
 										<left>PADDING_MULT_10</left>
-										<width>WIDTH_CLEARLOGO_SMALL</width>
+										<right>PADDING_MULT_10</right>
 										<height>HEIGHT_CLEARLOGO_SMALL</height>
-										<texture background="true">$PARAM[logo]</texture>
-										<aspectratio align="left">keep</aspectratio>
+
+										<!-- Title (if clearlogo not available) -->
+										<control type="label">
+											<visible>String.IsEmpty(ListItem.Property(Clearlogo.Small))</visible>
+
+											<width>auto</width>
+											<height>HEIGHT_CLEARLOGO_SMALL</height>
+											<font>BODY_STRONG</font>
+											<aligny>center</aligny>
+											<textcolor>HIGHLIGHT</textcolor>
+											<label>$INFO[ListItem.TVShowTitle]</label>
+										</control>
+										<!-- Clearlogo -->
+										<control type="image">
+											<visible>!String.IsEmpty(ListItem.Property(Clearlogo.Small))</visible>
+
+											<width>WIDTH_CLEARLOGO_SMALL</width>
+											<height>HEIGHT_CLEARLOGO_SMALL</height>
+											<fadetime>ANIMATION_FAST</fadetime>
+											<texture background="true">$INFO[ListItem.Property(Clearlogo.Small)]</texture>
+											<aspectratio align="left">keep</aspectratio>
+										</control>
 									</control>
 									<!-- Season/episode -->
 									<control type="label">
-										<right>PADDING_MULT_10</right>
+										<right>0</right>
 										<top>HEIGHT_CLEARLOGO_SMALL</top>
 										<width>100</width>
 										<font>CAPTION2</font>
 										<textcolor>FOREGROUND</textcolor>
-										<label>$PARAM[episode]</label>
+										<label>S$INFO[ListItem.Season]·E$INFO[ListItem.Episode]</label>
 									</control>
 									<!-- Episode title -->
 									<control type="label">
@@ -183,7 +278,7 @@
 										<top>HEIGHT_CLEARLOGO_SMALL</top>
 										<font>CAPTION2</font>
 										<textcolor>FOREGROUND</textcolor>
-										<label>$PARAM[title]</label>
+										<label>$INFO[ListItem.Title]</label>
 									</control>
 								</control>
 							</control>
@@ -233,32 +328,16 @@
 
 					<itemlayout width="WIDTH_POSTER_STRIP_ITEM_CONTAINER" height="HEIGHT_POSTER">
 						<control type="group">
-							<control type="image">
-								<width>WIDTH_POSTER</width>
-								<height>HEIGHT_POSTER</height>
-								<texture fallback="1080p/fallback/poster.png" background="true" diffuse="1080p/diffuse/poster.png">$PARAM[art]</texture>
-								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
-								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
-								<aspectratio scalediffuse="false">scale</aspectratio>
-							</control>
+							<!-- Poster -->
+							<include content="ArtListsPoster">
+								<param name="art">$PARAM[art]</param>
+							</include>
 
 							<!-- Watched indicator -->
-							<control type="group">
-								<visible>Integer.IsGreater(ListItem.PlayCount,0)</visible>
-								<top>PADDING_MULT_50</top>
-								<right>PADDING_MULT_10</right>
-								<width>SIZE_LIST_WATCHED_ICON</width>
-								<height>SIZE_LIST_WATCHED_ICON</height>
-
-								<control type="image">
-									<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/icons/check-inverse.png</texture>
-									<aspectratio align="left">keep</aspectratio>
-								</control>
-								<control type="image">
-									<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
-									<aspectratio align="left">keep</aspectratio>
-								</control>
-							</control>
+							<include content="ArtListsWatchedIcon">
+								<param name="offset_top">OFFSET_TOP_POSTER_STRIP_ICON</param>
+								<param name="offset_right">OFFSET_RIGHT_POSTER_STRIP_ICON</param>
+							</include>
 						</control>
 					</itemlayout>
 
@@ -273,32 +352,16 @@
 								<onfocus>$PARAM[onchange]</onfocus>
 							</control>
 
-							<control type="image">
-								<width>WIDTH_POSTER</width>
-								<height>HEIGHT_POSTER</height>
-								<texture fallback="1080p/fallback/poster.png" background="true" diffuse="1080p/diffuse/poster.png">$PARAM[art]</texture>
-								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
-								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
-								<aspectratio scalediffuse="false">scale</aspectratio>
-							</control>
+							<!-- Poster -->
+							<include content="ArtListsPoster">
+								<param name="art">$PARAM[art]</param>
+							</include>
 
 							<!-- Watched indicator -->
-							<control type="group">
-								<visible>Integer.IsGreater(ListItem.PlayCount,0)</visible>
-								<top>PADDING_MULT_50</top>
-								<right>PADDING_MULT_10</right>
-								<width>SIZE_LIST_WATCHED_ICON</width>
-								<height>SIZE_LIST_WATCHED_ICON</height>
-
-								<control type="image">
-									<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/icons/check-inverse.png</texture>
-									<aspectratio align="left">keep</aspectratio>
-								</control>
-								<control type="image">
-									<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
-									<aspectratio align="left">keep</aspectratio>
-								</control>
-							</control>
+							<include content="ArtListsWatchedIcon">
+								<param name="offset_top">OFFSET_TOP_POSTER_STRIP_ICON</param>
+								<param name="offset_right">OFFSET_RIGHT_POSTER_STRIP_ICON</param>
+							</include>
 						</control>
 					</focusedlayout>
 
@@ -349,14 +412,9 @@
 					<itemlayout width="WIDTH_ALBUM_STRIP_ITEM_CONTAINER" height="HEIGHT_ALBUM_STRIP_CONTAINER">
 						<control type="group">
 							<!-- Album item -->
-							<control type="image">
-								<width>WIDTH_ALBUM</width>
-								<height>HEIGHT_ALBUM</height>
-								<texture fallback="1080p/fallback/album.png" background="true" diffuse="1080p/diffuse/album.png">$PARAM[art]</texture>
-								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
-								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
-								<aspectratio scalediffuse="false">scale</aspectratio>
-							</control>
+							<include content="ArtListsAlbum">
+								<param name="art">$PARAM[art]</param>
+							</include>
 
 							<!-- Info -->
 							<control type="group">
@@ -400,14 +458,9 @@
 							</control>
 							
 							<!-- Album item -->
-							<control type="image">
-								<width>WIDTH_ALBUM</width>
-								<height>HEIGHT_ALBUM</height>
-								<texture fallback="1080p/fallback/album.png" background="true" diffuse="1080p/diffuse/album.png">$PARAM[art]</texture>
-								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
-								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
-								<aspectratio scalediffuse="false">scale</aspectratio>
-							</control>
+							<include content="ArtListsAlbum">
+								<param name="art">$PARAM[art]</param>
+							</include>
 
 							<!-- Info -->
 							<control type="group">
@@ -463,20 +516,9 @@
 			<control type="group">
 				<height>SCREEN_HEIGHT_PADDED</height>
 
-				<!-- Wall title and filters -->
-				<control type="group">
-					<control type="label">
-						<font>TITLE2</font>
-						<textcolor>FOREGROUND</textcolor>
-						<label>$PARAM[label]</label>
-						<aligny>center</aligny>
-						<height>FONT_SIZE_TITLE2</height>
-					</control>
-				</control>
-
 				<control type="panel" id="$PARAM[id]">
-					<top>HEIGHT_WALL_FILTER</top>
-					<height>HEIGHT_WALL_CONTENT</height>
+					<top>OFFSET_AFTER_DETAILS</top>
+					<height>HEIGHT_POSTER_WALL_CONTENT</height>
 					<autoscroll>false</autoscroll>
 					<orientation>vertical</orientation>
 					<onfocus>$PARAM[onfocus]</onfocus>
@@ -486,38 +528,22 @@
 					<onup>$PARAM[onup]</onup>
 					<ondown>$PARAM[ondown]</ondown>
 
-					<itemlayout width="WIDTH_POSTER" height="HEIGHT_POSTER">
+					<itemlayout width="WIDTH_POSTER_WALL_ITEM_CONTAINER" height="HEIGHT_POSTER">
 						<control type="group">
-							<control type="image">
-								<width>WIDTH_POSTER</width>
-								<height>HEIGHT_POSTER</height>
-								<texture fallback="1080p/fallback/poster.png" background="true" diffuse="1080p/diffuse/poster.png">$PARAM[art]</texture>
-								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
-								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
-								<aspectratio scalediffuse="false">scale</aspectratio>
-							</control>
+							<!-- Poster -->
+							<include content="ArtListsPoster">
+								<param name="art">$PARAM[art]</param>
+							</include>
 
 							<!-- Watched indicator -->
-							<control type="group">
-								<visible>Integer.IsGreater(ListItem.PlayCount,0)</visible>
-								<top>PADDING_MULT_50</top>
-								<right>PADDING_MULT_50</right>
-								<width>SIZE_LIST_WATCHED_ICON</width>
-								<height>SIZE_LIST_WATCHED_ICON</height>
-
-								<control type="image">
-									<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/icons/check-inverse.png</texture>
-									<aspectratio align="left">keep</aspectratio>
-								</control>
-								<control type="image">
-									<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
-									<aspectratio align="left">keep</aspectratio>
-								</control>
-							</control>
+							<include content="ArtListsWatchedIcon">
+								<param name="offset_top">OFFSET_TOP_POSTER_WALL_ICON</param>
+								<param name="offset_right">OFFSET_RIGHT_POSTER_WALL_ICON</param>
+							</include>
 						</control>
 					</itemlayout>
 
-					<focusedlayout width="WIDTH_POSTER" height="HEIGHT_POSTER">
+					<focusedlayout width="WIDTH_POSTER_WALL_ITEM_CONTAINER" height="HEIGHT_POSTER">
 						<control type="group">
 							<animation type="Focus"><effect type="zoom" start="100" end="110" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
 							<animation type="Unfocus"><effect type="zoom" start="110" end="100" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
@@ -528,32 +554,16 @@
 								<onfocus>$PARAM[onchange]</onfocus>
 							</control>
 
-							<control type="image">
-								<width>WIDTH_POSTER</width>
-								<height>HEIGHT_POSTER</height>
-								<texture fallback="1080p/fallback/poster.png" background="true" diffuse="1080p/diffuse/poster.png">$PARAM[art]</texture>
-								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
-								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
-								<aspectratio scalediffuse="false">scale</aspectratio>
-							</control>
+							<!-- Poster -->
+							<include content="ArtListsPoster">
+								<param name="art">$PARAM[art]</param>
+							</include>
 
 							<!-- Watched indicator -->
-							<control type="group">
-								<visible>Integer.IsGreater(ListItem.PlayCount,0)</visible>
-								<top>PADDING_MULT_50</top>
-								<right>PADDING_MULT_50</right>
-								<width>SIZE_LIST_WATCHED_ICON</width>
-								<height>SIZE_LIST_WATCHED_ICON</height>
-
-								<control type="image">
-									<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/icons/check-inverse.png</texture>
-									<aspectratio align="left">keep</aspectratio>
-								</control>
-								<control type="image">
-									<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
-									<aspectratio align="left">keep</aspectratio>
-								</control>
-							</control>
+							<include content="ArtListsWatchedIcon">
+								<param name="offset_top">OFFSET_TOP_POSTER_WALL_ICON</param>
+								<param name="offset_right">OFFSET_RIGHT_POSTER_WALL_ICON</param>
+							</include>
 						</control>
 					</focusedlayout>
 
@@ -582,20 +592,9 @@
 			<control type="group">
 				<height>SCREEN_HEIGHT_PADDED</height>
 
-				<!-- Wall title and filters -->
-				<control type="group">
-					<control type="label">
-						<font>TITLE2</font>
-						<textcolor>FOREGROUND</textcolor>
-						<label>$PARAM[label]</label>
-						<aligny>center</aligny>
-						<height>FONT_SIZE_TITLE2</height>
-					</control>
-				</control>
-
 				<control type="panel" id="$PARAM[id]">
-					<top>HEIGHT_WALL_FILTER</top>
-					<height>HEIGHT_WALL_CONTENT</height>
+					<top>OFFSET_ALBUM_WALL_CONTENT</top>
+					<height>HEIGHT_ALBUM_WALL_CONTENT</height>
 					<autoscroll>false</autoscroll>
 					<orientation>vertical</orientation>
 					<onfocus>$PARAM[onfocus]</onfocus>

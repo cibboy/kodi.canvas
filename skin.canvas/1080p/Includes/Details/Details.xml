@@ -3,6 +3,58 @@
 	<include file="Includes/Details/Variables.xml" />
 	<include file="Includes/Details/Expressions.xml" />
 
+	<!-- Infoline text -->
+	<include name="DetailsInfoText">
+		<param name="text"></param>
+		<param name="visible">true</param>
+
+		<definition>
+			<control type="label">
+				<visible>$PARAM[visible]</visible>
+
+				<width>auto</width>
+				<height>HEIGHT_DETAILS_INFOLINE</height>
+
+				<font>CAPTION_STRONG</font>
+				<aligny>center</aligny>
+				<textcolor>FOREGROUND_DARK</textcolor>
+				<label>$PARAM[text]</label>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Infoline tag -->
+	<include name="DetailsInfoTag">
+		<param name="text"></param>
+		<param name="visible">true</param>
+
+		<definition>
+			<control type="group">
+				<!-- Text (must include empty space for icon, if necessary) with background -->
+				<control type="button">
+					<visible>$PARAM[visible]</visible>
+
+					<width>auto</width>
+					<height>HEIGHT_DETAILS_INFOLINE</height>
+
+					<texturefocus colordiffuse="BACKGROUND_OPAQUE50" border="8">1080p/diffuse/tag.png</texturefocus>
+					<texturenofocus colordiffuse="BACKGROUND_OPAQUE50" border="8">1080p/diffuse/tag.png</texturenofocus>
+					<font>CAPTION2_STRONG</font>
+					<textoffsetx>8</textoffsetx>
+					<textoffsety>-2</textoffsety>
+					<align>right</align>
+					<textcolor>FOREGROUND_ACCENT</textcolor>
+					<label>$PARAM[text]</label>
+				</control>
+
+				<!-- Icon (will be over the empty space left in button) -->
+				<nested />
+			</control>
+		</definition>
+	</include>
+
+
+	<!-- Details -->
 	<include name="SelectionDetails">
 		<param name="visible">true</param>
 
@@ -46,7 +98,7 @@
 					<visible>$EXP[HasDetailsSubtitle]</visible>
 
 					<width>1000</width>
-					<height>FONT_SIZE_SUBTITLE</height>
+					<height>HEIGHT_DETAILS_SUBTITLE</height>
 					<font>SUBTITLE</font>
 					<textcolor>HIGHLIGHT</textcolor>
 					<label>$VAR[DetailsSubtitle]</label>
@@ -60,105 +112,143 @@
 					<centertop>HEIGHT_DETAILS_INFOLINE</centertop>
 
 					<!--todo: resolution, audio channels, hdr-->
-					
-					<!-- Info string -->
-					<control type="label">
-						<width>auto</width>
-						<height>FONT_SIZE_CAPTION</height>
-						<font>CAPTION_STRONG</font>
-						<aligny>center</aligny>
-						<textcolor>FOREGROUND_DARK</textcolor>
-						<label>$VAR[DetailsInfo]</label>
-					</control>
+					<!-- Year -->
+					<include content="DetailsInfoText">
+						<param name="text">$VAR[DetailsYear]</param>
+						<param name="visible">$EXP[HasDetailsYear]</param>
+					</include>
+					<!-- Episode -->
+					<include content="DetailsInfoText">
+						<param name="text">$VAR[DetailsEpisode]</param>
+						<param name="visible">$EXP[HasDetailsEpisode]</param>
+					</include>
+					<!-- Premiered -->
+					<include content="DetailsInfoText">
+						<param name="text">$VAR[DetailsPremiered]</param>
+						<param name="visible">$EXP[HasDetailsPremiered]</param>
+					</include>
+					<!-- Artist -->
+					<include content="DetailsInfoText">
+						<param name="text">$VAR[DetailsArtist]</param>
+						<param name="visible">$EXP[HasDetailsArtist]</param>
+					</include>
+					<!-- Duration -->
+					<include content="DetailsInfoText">
+						<param name="text">$VAR[DetailsDuration]</param>
+						<param name="visible">$EXP[HasDetailsDuration]</param>
+					</include>
+					<!-- Mpaa -->
+					<include content="DetailsInfoText">
+						<param name="text">$VAR[DetailsMpaa]</param>
+						<param name="visible">$EXP[HasDetailsMpaa]</param>
+					</include>
+					<!-- Status -->
+					<include content="DetailsInfoText">
+						<param name="text">$VAR[DetailsStatus]</param>
+						<param name="visible">$EXP[HasDetailsStatus]</param>
+					</include>
 
 					<!-- Watched status -->
 					<control type="group">
 						<visible>$EXP[IsDetailsWatched]</visible>
 
-						<control type="image">
-							<width>SIZE_DETAILS_WATCHED_ICON</width>
-							<height>SIZE_DETAILS_WATCHED_ICON</height>
-							<top>OFFSET_DETAILS_WATCHED_ICON</top>
-							<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
-							<aspectratio align="left">keep</aspectratio>
-						</control>
-						<control type="label">
-							<left>OFFSET_DETAILS_AFTER_WATCHED_ICON</left>
-							<width>auto</width>
-							<height>FONT_SIZE_CAPTION</height>
-							<font>CAPTION_STRONG</font>
-							<aligny>center</aligny>
-							<textcolor>FOREGROUND_ACCENT</textcolor>
-							<label>Watched</label>
-						</control>
+						<include content="DetailsInfoTag">
+							<!-- Text has space for icon -->
+							<param name="text">      Watched</param>
+
+							<!-- Icon -->
+							<control type="image">
+								<width>SIZE_DETAILS_WATCHED_ICON</width>
+								<height>SIZE_DETAILS_WATCHED_ICON</height>
+								<top>OFFSET_TOP_DETAILS_WATCHED_ICON</top>
+								<left>OFFSET_LEFT_DETAILS_WATCHED_ICON</left>
+								<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
+								<aspectratio align="left">keep</aspectratio>
+							</control>
+						</include>
 					</control>
 
 					<!-- Episodes remaining -->
 					<control type="group">
-						<visible>$EXP[HasDetailsEpisodesRemaining]</visible>
-<!--todo: show "New" if 0 episodes watched-->
-						<control type="group">
-							<width>SIZE_DETAILS_RUNNING_ICON</width>
-							<height>SIZE_DETAILS_RUNNING_ICON</height>
-							<top>OFFSET_DETAILS_RUNNING_ICON</top>
-							<control type="image">
-								<texture colordiffuse="FOREGROUND_DARK">1080p/progress/circle-100.png</texture>
-								<aspectratio align="left">keep</aspectratio>
+						<visible>!$EXP[IsDetailsWatched] + $EXP[HasDetailsEpisodesRemaining] + !$EXP[IsAllNew]</visible>
+
+						<include content="DetailsInfoTag">
+							<!-- Text has space for icon -->
+							<param name="text">      $VAR[DetailsEpisodesRemaining]</param>
+
+							<!-- Round icon -->
+							<control type="group">
+								<width>SIZE_DETAILS_PERCENT_ICON</width>
+								<height>SIZE_DETAILS_PERCENT_ICON</height>
+								<top>OFFSET_TOP_DETAILS_PERCENT_ICON</top>
+								<left>OFFSET_LEFT_DETAILS_PERCENT_ICON</left>
+								
+								<control type="image">
+									<texture colordiffuse="FOREGROUND_DARK">1080p/progress/circle-100.png</texture>
+									<aspectratio align="left">keep</aspectratio>
+								</control>
+								<control type="image">
+									<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-$VAR[DetailsWatchedPercentage].png</texture>
+									<aspectratio align="left">keep</aspectratio>
+								</control>
 							</control>
-							<control type="image">
-								<texture colordiffuse="FOREGROUND_ACCENT">1080p/progress/circle-$VAR[DetailsWatchedPercentage].png</texture>
-								<aspectratio align="left">keep</aspectratio>
-							</control>
-						</control>
-						<control type="label">
-							<left>OFFSET_DETAILS_AFTER_RUNNING_ICON</left>
-							<width>auto</width>
-							<height>FONT_SIZE_CAPTION</height>
-							<font>CAPTION_STRONG</font>
-							<aligny>center</aligny>
-							<textcolor>FOREGROUND_ACCENT</textcolor>
-							<label>$VAR[DetailsEpisodesRemaining]</label>
-						</control>
+						</include>
+					</control>
+					<!-- All new -->
+					<control type="group">
+						<visible>!$EXP[IsDetailsWatched] + $EXP[IsAllNew]</visible>
+
+						<include content="DetailsInfoTag">
+							<param name="text">All new</param>
+						</include>
 					</control>
 
 					<!-- Time remaining -->
 					<control type="group">
 						<visible>$EXP[HasDetailsTimeRemaining]</visible>
 
-						<control type="group">
-							<width>SIZE_DETAILS_RUNNING_ICON</width>
-							<height>SIZE_DETAILS_RUNNING_ICON</height>
-							<top>OFFSET_DETAILS_RUNNING_ICON</top>
-							<control type="image">
-								<texture colordiffuse="FOREGROUND_DARK">1080p/progress/circle-100.png</texture>
-								<aspectratio align="left">keep</aspectratio>
+						<include content="DetailsInfoTag">
+							<!-- Text has space for icon -->
+							<param name="text">      $VAR[DetailsTimeRemaining]</param>
+
+							<!-- Round icon -->
+							<control type="group">
+								<width>SIZE_DETAILS_PERCENT_ICON</width>
+								<height>SIZE_DETAILS_PERCENT_ICON</height>
+								<top>OFFSET_TOP_DETAILS_PERCENT_ICON</top>
+								<left>OFFSET_LEFT_DETAILS_PERCENT_ICON</left>
+								
+								<control type="image">
+									<texture colordiffuse="FOREGROUND_DARK">1080p/progress/circle-100.png</texture>
+									<aspectratio align="left">keep</aspectratio>
+								</control>
+								<control type="image">
+									<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-$VAR[DetailsWatchedPercentage].png</texture>
+									<aspectratio align="left">keep</aspectratio>
+								</control>
 							</control>
-							<control type="image">
-								<texture colordiffuse="FOREGROUND_ACCENT">1080p/progress/circle-$VAR[DetailsWatchedPercentage].png</texture>
-								<aspectratio align="left">keep</aspectratio>
-							</control>
-						</control>
-						<control type="label">
-							<left>OFFSET_DETAILS_AFTER_RUNNING_ICON</left>
-							<width>auto</width>
-							<height>FONT_SIZE_CAPTION</height>
-							<font>CAPTION_STRONG</font>
-							<aligny>center</aligny>
-							<textcolor>FOREGROUND_ACCENT</textcolor>
-							<label>$VAR[DetailsTimeRemaining] left</label>
-						</control>
+						</include>
 					</control>
 				</control>
 
 				<!-- Info line 2 -->
-				<control type="label">
-					<visible>$EXP[HasDetailsInfo2]</visible>
-					<width>1000</width>
+				<control type="grouplist">
+					<visible>$EXP[HasDetailsTrack] | $EXP[HasDetailsGenre]</visible>
+
+					<orientation>horizontal</orientation>
+					<itemgap>PADDING_MULT_30</itemgap>
 					<height>HEIGHT_DETAILS_INFOLINE</height>
-					<font>CAPTION_STRONG</font>
-					<aligny>center</aligny>
-					<textcolor>FOREGROUND_DARK</textcolor>
-					<label>$VAR[DetailsInfo2]</label>
+
+					<!-- Track -->
+					<include content="DetailsInfoText">
+						<param name="text">$VAR[DetailsTrack]</param>
+						<param name="visible">$EXP[HasDetailsTrack]</param>
+					</include>
+					<!-- Genre -->
+					<include content="DetailsInfoText">
+						<param name="text">$VAR[DetailsGenre]</param>
+						<param name="visible">$EXP[HasDetailsGenre]</param>
+					</include>
 				</control>
 
 				<!-- Summary -->

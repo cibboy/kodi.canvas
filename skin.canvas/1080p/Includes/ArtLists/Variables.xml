@@ -2,28 +2,35 @@
 <includes>
 	<!-- Constants -->
 	<constant name="HEIGHT_POSTER">380</constant>
-	<constant name="WIDTH_POSTER">260</constant>
-	<constant name="WIDTH_POSTER_STRIP_ITEM_CONTAINER">240</constant>
+	<constant name="WIDTH_POSTER">266</constant>
+	<constant name="WIDTH_POSTER_STRIP_ITEM_CONTAINER">246</constant>
 	<constant name="HEIGHT_POSTER_STRIP_CONTAINER">480</constant>
+	<constant name="OFFSET_TOP_POSTER_STRIP_ICON">25</constant>
+	<constant name="OFFSET_RIGHT_POSTER_STRIP_ICON">10</constant>
+	<constant name="WIDTH_POSTER_WALL_ITEM_CONTAINER">256</constant>
+	<constant name="HEIGHT_POSTER_WALL_CONTENT">590</constant>
+	<constant name="OFFSET_TOP_POSTER_WALL_ICON">25</constant>
+	<constant name="OFFSET_RIGHT_POSTER_WALL_ICON">17</constant>
 
 	<constant name="HEIGHT_LANDSCAPE">260</constant>
 	<constant name="WIDTH_LANDSCAPE">462</constant>
 	<constant name="WIDTH_LANDSCAPE_STRIP_ITEM_CONTAINER">450</constant>
 	<constant name="HEIGHT_LANDSCAPE_STRIP_CONTAINER">480</constant>
 	<constant name="OFFSET_LANDSCAPE_STRIP_INFO">235</constant>
+	<constant name="OFFSET_TOP_LANDSCAPE_STRIP_ICON">25</constant>
+	<constant name="OFFSET_RIGHT_LANDSCAPE_STRIP_ICON">12</constant>
 
 	<constant name="HEIGHT_ALBUM">260</constant>
 	<constant name="WIDTH_ALBUM">260</constant>
 	<constant name="WIDTH_ALBUM_STRIP_ITEM_CONTAINER">240</constant>
 	<constant name="HEIGHT_ALBUM_STRIP_CONTAINER">480</constant>
 	<constant name="OFFSET_ALBUM_STRIP_INFO">235</constant>
-
-	<constant name="HEIGHT_WALL_FILTER">200</constant>
-	<constant name="HEIGHT_WALL_CONTENT">830</constant>
+	<constant name="HEIGHT_ALBUM_WALL_CONTENT">650</constant>
+	<constant name="OFFSET_ALBUM_WALL_CONTENT">380</constant>
 
 	<constant name="HEIGHT_CLEARLOGO_SMALL">30</constant>
 	<constant name="WIDTH_CLEARLOGO_SMALL">200</constant>
 
-	<constant name="SIZE_LIST_WATCHED_ICON">35</constant>
+	<constant name="SIZE_LIST_WATCHED_ICON">40</constant>
 	<constant name="SIZE_LIST_RUNNING_ICON">50</constant>
 </includes>

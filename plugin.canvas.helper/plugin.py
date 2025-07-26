@@ -104,8 +104,10 @@ def get_season_listitem(season):
 
     # Compute watched percentage.
     watched_percentage = 0
+    unwatched = 0
     if season['episode'] > 0:
         watched_percentage = round(season['watchedepisodes'] * 100 / season['episode'])
+        unwatched = season['episode'] - season['watchedepisodes']
 
     # Remove "Rated" from rating.
     rating = season.get('tvshow', {'mpaa': None})['mpaa']
@@ -118,6 +120,7 @@ def get_season_listitem(season):
     videoinfo.setMpaa(rating)
     li.setArt({'tvshow.fanart': season.get('tvshow', {'art': {}})['art'].get('fanart', '')})
     li.setProperty('WatchedEpisodes', str(season['watchedepisodes']))
+    li.setProperty('UnwatchedEpisodes', str(unwatched))
     li.setProperty('WatchedPercentage', str(watched_percentage))
     li.setProperty('BlurArt.TvShow', tvshow_blur)
     li.setProperty('BlurArt.Season', season_blur)
@@ -212,6 +215,7 @@ def get_song_listitem(song):
      # Set custom properties.
     li.setProperty('DurationString', duration)
     li.setProperty('BlurArt', blur)
+    li.setProperty('Track', str(song['track']))
 
     return li
 

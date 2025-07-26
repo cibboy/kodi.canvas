@@ -5,6 +5,7 @@
 	</requires>
 	<extension point="xbmc.gui.skin" debugging="false">
 		<res width="1920" height="1080" aspect="16:9" default="true" folder="1080p" />
+		<res width="1920" height="1200" aspect="16:10" default="true" folder="1080p" />
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<platform>all</platform>
