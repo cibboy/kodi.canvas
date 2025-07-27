@@ -47,4 +47,16 @@
 			</animation>
 		</definition>
 	</include>
+
+	<!-- Fade on focus -->
+	<include name="FocusFadeAnimation">
+		<param name="speed">ANIMATION_SLOW</param>
+		<param name="amount">75</param>
+		<param name="reference_id"></param>
+
+		<definition>
+			<animation effect="fade" start="100" end="$PARAM[amount]" time="$PARAM[speed]" tween="cubic" easing="out" condition="!Control.HasFocus($PARAM[reference_id])">Conditional</animation>
+			<animation effect="fade" start="$PARAM[amount]" end="100" time="$PARAM[speed]" tween="cubic" easing="out" condition="Control.HasFocus($PARAM[reference_id])">Conditional</animation>
+		</definition>
+	</include>
 </includes>

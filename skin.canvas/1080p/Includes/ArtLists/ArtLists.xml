@@ -372,7 +372,6 @@
 	</include>
 
 	<!-- Horizontal strip of album elements, with label -->
-	<!--todo: consider showing track number in info (ALSO ON DETAILS IF POSSIBLE!!!)-->
 	<include name="AlbumStrip">
 		<param name="id"></param>
 		<param name="label"></param>
@@ -424,12 +423,12 @@
 									<top>SIZE_ITEM_SHADOW_SQUARE</top>
 									<left>SIZE_ITEM_SHADOW_SQUARE</left>
 									<right>SIZE_ITEM_SHADOW_SQUARE</right>
-									<width>100%</width>
 
 									<!-- Info line 1 -->
 									<control type="label">
 										<scroll>false</scroll>
-										<font>CAPTION</font>
+										<width>auto</width>
+										<font>LABEL</font>
 										<textcolor>HIGHLIGHT</textcolor>
 										<label>$PARAM[info1]</label>
 									</control>
@@ -437,7 +436,8 @@
 									<control type="label">
 										<top>FONT_SIZE_CAPTION</top>
 										<scroll>false</scroll>
-										<font>CAPTION</font>
+										<width>auto</width>
+										<font>LABEL</font>
 										<textcolor>FOREGROUND</textcolor>
 										<label>$PARAM[info2]</label>
 									</control>
@@ -470,12 +470,12 @@
 									<top>SIZE_ITEM_SHADOW_SQUARE</top>
 									<left>SIZE_ITEM_SHADOW_SQUARE</left>
 									<right>SIZE_ITEM_SHADOW_SQUARE</right>
-									<width>100%</width>
 
 									<!-- Info line 1 -->
 									<control type="label">
 										<scroll>false</scroll>
-										<font>CAPTION</font>
+										<width>auto</width>
+										<font>LABEL</font>
 										<textcolor>HIGHLIGHT</textcolor>
 										<label>$PARAM[info1]</label>
 									</control>
@@ -483,7 +483,8 @@
 									<control type="label">
 										<top>FONT_SIZE_CAPTION</top>
 										<scroll>false</scroll>
-										<font>CAPTION</font>
+										<width>auto</width>
+										<font>LABEL</font>
 										<textcolor>FOREGROUND</textcolor>
 										<label>$PARAM[info2]</label>
 									</control>

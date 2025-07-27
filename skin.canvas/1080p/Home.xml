@@ -81,7 +81,7 @@
 							<height>45</height>
 							<centertop>50%</centertop>
 							<centerleft>50%</centerleft>
-							<texture colordiffuse="FOREGROUND_OPAQUE20">$INFO[ListItem.Art(thumb)]</texture>
+							<texture colordiffuse="FOREGROUND_OPAQUE50">$INFO[ListItem.Art(thumb)]</texture>
 						</control>
 					</itemlayout>
 
@@ -172,7 +172,11 @@
 
 						<!-- Continue watching -->
 						<control type="group">
+							<include content="FocusFadeAnimation">
+								<param name="reference_id">101</param>
+							</include>
 							<height>HEIGHT_HOME_STRIP</height>
+
 							<include content="PosterStrip">
 								<param name="id">101</param>
 								<param name="label">Continue watching</param>
@@ -187,7 +191,11 @@
 
 						<!-- Recently added episodes -->
 						<control type="group">
+							<include content="FocusFadeAnimation">
+								<param name="reference_id">102</param>
+							</include>
 							<height>HEIGHT_HOME_STRIP</height>
+
 							<include content="LandscapeStrip">
 								<param name="id">102</param>
 								<param name="label">Recently added episodes</param>
@@ -203,7 +211,11 @@
 
 						<!-- Recently added movies -->
 						<control type="group">
+							<include content="FocusFadeAnimation">
+								<param name="reference_id">103</param>
+							</include>
 							<height>HEIGHT_HOME_STRIP</height>
+
 							<include content="PosterStrip">
 								<param name="id">103</param>
 								<param name="label">Recently added movies</param>
@@ -219,7 +231,11 @@
 
 						<!-- Recently added music -->
 						<control type="group">
+							<include content="FocusFadeAnimation">
+								<param name="reference_id">104</param>
+							</include>
 							<height>HEIGHT_HOME_STRIP</height>
+
 							<include content="AlbumStrip">
 								<param name="id">104</param>
 								<param name="label">Recently added music</param>
@@ -242,7 +258,10 @@
 							<param name="slide_amount">200</param>
 							<param name="speed">ANIMATION_SLOW</param>
 						</include>
-
+						<include content="FocusFadeAnimation">
+							<param name="reference_id">110</param>
+						</include>
+							
 						<include content="PosterWall">
 							<param name="id">110</param>
 							<param name="label">Movies</param>
@@ -260,6 +279,9 @@
 						<include content="ShowHideFadeSlideVerticalAnimation">
 							<param name="slide_amount">200</param>
 							<param name="speed">ANIMATION_SLOW</param>
+						</include>
+						<include content="FocusFadeAnimation">
+							<param name="reference_id">120</param>
 						</include>
 
 						<include content="PosterWall">
@@ -279,6 +301,9 @@
 						<include content="ShowHideFadeSlideVerticalAnimation">
 							<param name="slide_amount">200</param>
 							<param name="speed">ANIMATION_SLOW</param>
+						</include>
+						<include content="FocusFadeAnimation">
+							<param name="reference_id">130</param>
 						</include>
 
 						<top>OFFSET_AFTER_DETAILS</top>
@@ -300,6 +325,9 @@
 						<include content="ShowHideFadeSlideVerticalAnimation">
 							<param name="slide_amount">200</param>
 							<param name="speed">ANIMATION_SLOW</param>
+						</include>
+						<include content="FocusFadeAnimation">
+							<param name="reference_id">140</param>
 						</include>
 
 						<include content="AlbumWall">

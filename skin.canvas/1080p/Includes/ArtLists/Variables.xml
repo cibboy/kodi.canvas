@@ -23,7 +23,7 @@
 	<constant name="HEIGHT_ALBUM">260</constant>
 	<constant name="WIDTH_ALBUM">260</constant>
 	<constant name="WIDTH_ALBUM_STRIP_ITEM_CONTAINER">240</constant>
-	<constant name="HEIGHT_ALBUM_STRIP_CONTAINER">480</constant>
+	<constant name="HEIGHT_ALBUM_STRIP_CONTAINER">360</constant>
 	<constant name="OFFSET_ALBUM_STRIP_INFO">235</constant>
 	<constant name="HEIGHT_ALBUM_WALL_CONTENT">650</constant>
 	<constant name="OFFSET_ALBUM_WALL_CONTENT">380</constant>

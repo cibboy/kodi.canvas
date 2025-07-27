@@ -1,10 +1,6 @@
 TOFIX:
 - aggiunto genre audio in plugin (potenzialmente una lista, quindi bisognerà fare delle prove con ulteriore scraping e aggiornamento tag mp3, che è stata aggiunta alla details info line 2)
-- albumstrip ha l'offset dalla label della strip troppo piccolo (visually compare to posterstrip)
-- dettagli sotto item in albumstrip (le scritte sono troppo grandi)
 - al boot è sul menu principale (corretto) con info del primo elemento del continue watching, ma poi refresha e va sul secondo
-- background image di fallback dev'essere quella singola, non i 4 angoli
-- solo la lista selezionata dovrebbe essere full opacity in home
 
 TODO:
 - rifare diffuse shadow (per seguire meglio i border radius più stretto che uso)

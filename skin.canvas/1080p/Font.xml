@@ -77,5 +77,11 @@
 			<size>20</size>
 			<linespacing>1.05</linespacing>
 		</font>
+		<font>
+			<name>LABEL</name>
+			<filename>Geologica-Regular.ttf</filename>
+			<size>16</size>
+			<linespacing>1.05</linespacing>
+		</font>
 	</fontset>
 </fonts>
