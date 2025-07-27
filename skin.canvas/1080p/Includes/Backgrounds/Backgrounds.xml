@@ -136,7 +136,7 @@
 				<width>100%</width>
 				<height>100%</height>
 				<fadetime>$PARAM[fade_speed]</fadetime>
-				<texture colordiffuse="BACKGROUND_OPAQUE50">1080p/diffuse/legibility.png</texture>
+				<texture colordiffuse="BACKGROUND_OPAQUE20">1080p/diffuse/legibility.png</texture>
 			</control>
 		</definition>
 	</include>

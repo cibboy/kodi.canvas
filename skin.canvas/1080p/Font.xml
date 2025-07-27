@@ -31,7 +31,7 @@
 		</font>
 		<font>
 			<name>BODY_NARROW</name>
-			<filename>OpenSans-Light.ttf</filename>
+			<filename>OpenSans-Regular.ttf</filename>
 			<size>28</size>
 			<linespacing>1.1</linespacing>
 		</font>
@@ -49,7 +49,7 @@
 		</font>
 		<font>
 			<name>BODY2_NARROW</name>
-			<filename>OpenSans-Light.ttf</filename>
+			<filename>OpenSans-Regular.ttf</filename>
 			<size>25</size>
 			<linespacing>1.1</linespacing>
 		</font>

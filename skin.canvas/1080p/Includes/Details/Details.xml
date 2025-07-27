@@ -17,7 +17,8 @@
 
 				<font>CAPTION_STRONG</font>
 				<aligny>center</aligny>
-				<textcolor>FOREGROUND_DARK</textcolor>
+				<textcolor>FOREGROUND</textcolor>
+				<shadowcolor>BACKGROUND_OPAQUE10</shadowcolor>
 				<label>$PARAM[text]</label>
 			</control>
 		</definition>
@@ -107,6 +108,7 @@
 						<aligny>center</aligny>
 						<font>TITLE1</font>
 						<textcolor>HIGHLIGHT</textcolor>
+						<shadowcolor>BACKGROUND_OPAQUE10</shadowcolor>
 						<label>$VAR[DetailsTitle]</label>
 					</control>
 					<!-- Clearlogo -->
@@ -129,6 +131,7 @@
 					<height>HEIGHT_DETAILS_SUBTITLE</height>
 					<font>SUBTITLE</font>
 					<textcolor>HIGHLIGHT</textcolor>
+					<shadowcolor>BACKGROUND_OPAQUE10</shadowcolor>
 					<label>$VAR[DetailsSubtitle]</label>
 				</control>
 
@@ -291,6 +294,7 @@
 
 					<font>BODY2_NARROW</font>
 					<textcolor>FOREGROUND</textcolor>
+					<shadowcolor>BACKGROUND_OPAQUE10</shadowcolor>
 					<label>$VAR[DetailsSummary]</label>
 				</control>
 			</control>
