@@ -15,30 +15,42 @@
 		<font>
 			<name>SUBTITLE</name>
 			<filename>Montserrat-SemiBold.ttf</filename>
-			<size>44</size>
+			<size>38</size>
 		</font>
 		<font>
 			<name>BODY</name>
 			<filename>Geologica-Thin.ttf</filename>
 			<size>32</size>
-			<linespacing>1.1</linespacing>
+			<linespacing>1.05</linespacing>
 		</font>
 		<font>
 			<name>BODY_STRONG</name>
 			<filename>Geologica-SemiBold.ttf</filename>
 			<size>32</size>
+			<linespacing>1.05</linespacing>
+		</font>
+		<font>
+			<name>BODY_NARROW</name>
+			<filename>OpenSans-Light.ttf</filename>
+			<size>28</size>
 			<linespacing>1.1</linespacing>
 		</font>
 		<font>
 			<name>BODY2</name>
 			<filename>Geologica-Thin.ttf</filename>
 			<size>29</size>
-			<linespacing>1.1</linespacing>
+			<linespacing>1.05</linespacing>
 		</font>
 		<font>
 			<name>BODY2_STRONG</name>
 			<filename>Geologica-SemiBold.ttf</filename>
 			<size>29</size>
+			<linespacing>1.05</linespacing>
+		</font>
+		<font>
+			<name>BODY2_NARROW</name>
+			<filename>OpenSans-Light.ttf</filename>
+			<size>25</size>
 			<linespacing>1.1</linespacing>
 		</font>
 		<font>
@@ -56,13 +68,13 @@
 		<font>
 			<name>CAPTION2</name>
 			<filename>Geologica-Regular.ttf</filename>
-			<size>22</size>
+			<size>20</size>
 			<linespacing>1.05</linespacing>
 		</font>
 		<font>
 			<name>CAPTION2_STRONG</name>
 			<filename>Geologica-Bold.ttf</filename>
-			<size>22</size>
+			<size>20</size>
 			<linespacing>1.05</linespacing>
 		</font>
 	</fontset>

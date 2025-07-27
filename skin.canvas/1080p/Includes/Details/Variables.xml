@@ -55,6 +55,63 @@
 		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),140)">$INFO[Container(140).ListItem.Album]</value>
 	</variable>
 
+	<!-- Resolution -->
+	<variable name="DetailsResolution">
+		<!-- Continue watching -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),101)">$INFO[Container(101).ListItem.VideoResolution]</value>
+		<!-- Recently added episodes -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),102)">$INFO[Container(102).ListItem.VideoResolution]</value>
+		<!-- Recently added movies -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),103)">$INFO[Container(103).ListItem.VideoResolution]</value>
+		<!-- Movies -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),110)">$INFO[Container(110).ListItem.VideoResolution]</value>
+		<!-- Yoga -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),130)">$INFO[Container(130).ListItem.VideoResolution]</value>
+	</variable>
+
+	<!-- HDR -->
+	<variable name="DetailsHdr">
+		<!-- Continue watching -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.HdrType,hdr10)">HDR</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.HdrType,dolbyvision)">Dolby Vision</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.HdrType,hlg)">HLG</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),101)">[UPPERCASE]$INFO[Container(101).ListItem.HdrType][/UPPERCASE]</value>
+		<!-- Recently added episodes -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),102) + String.IsEqual(Container(102).ListItem.HdrType,hdr10)">HDR</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),102) + String.IsEqual(Container(102).ListItem.HdrType,dolbyvision)">Dolby Vision</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),102) + String.IsEqual(Container(102).ListItem.HdrType,hlg)">HLG</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),102)">[UPPERCASE]$INFO[Container(102).ListItem.HdrType][/UPPERCASE]</value>
+		<!-- Recently added movies -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),103) + String.IsEqual(Container(103).ListItem.HdrType,hdr10)">HDR</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),103) + String.IsEqual(Container(103).ListItem.HdrType,dolbyvision)">Dolby Vision</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),103) + String.IsEqual(Container(103).ListItem.HdrType,hlg)">HLG</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),103)">[UPPERCASE]$INFO[Container(103).ListItem.HdrType][/UPPERCASE]</value>
+		<!-- Movies -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),110) + String.IsEqual(Container(110).ListItem.HdrType,hdr10)">HDR</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),110) + String.IsEqual(Container(110).ListItem.HdrType,dolbyvision)">Dolby Vision</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),110) + String.IsEqual(Container(110).ListItem.HdrType,hlg)">HLG</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),110)">[UPPERCASE]$INFO[Container(110).ListItem.HdrType][/UPPERCASE]</value>
+		<!-- Yoga -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),130) + String.IsEqual(Container(130).ListItem.HdrType,hdr10)">HDR</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),130) + String.IsEqual(Container(130).ListItem.HdrType,dolbyvision)">Dolby Vision</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),130) + String.IsEqual(Container(130).ListItem.HdrType,hlg)">HLG</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),130)">[UPPERCASE]$INFO[Container(130).ListItem.HdrType][/UPPERCASE]</value>
+	</variable>
+
+	<!-- Audio channels -->
+	<variable name="DetailsAudioChannels">
+		<!-- Continue watching -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),101)">$INFO[Container(101).ListItem.Property(AudioChannels)]</value>
+		<!-- Recently added episodes -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),102)">$INFO[Container(102).ListItem.Property(AudioChannels)]</value>
+		<!-- Recently added movies -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),103)">$INFO[Container(103).ListItem.Property(AudioChannels)]</value>
+		<!-- Movies -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),110)">$INFO[Container(110).ListItem.Property(AudioChannels)]</value>
+		<!-- Yoga -->
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),130)">$INFO[Container(130).ListItem.Property(AudioChannels)]</value>
+	</variable>
+
 	<!-- Year -->
 	<variable name="DetailsYear">
 		<!-- Continue watching (movies) -->
@@ -172,9 +229,9 @@
 	<!-- Episodes remaining -->
 	<variable name="DetailsEpisodesRemaining">
 		<!-- TV shows -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),120)">$INFO[Container(120).ListItem.Property(WatchedEpisodes)] of $INFO[Container(120).ListItem.Episode] watched</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),120)">$INFO[Container(120).ListItem.Property(WatchedEpisodes)] of $INFO[Container(120).ListItem.Property(TotalEpisodes)] watched</value>
 		<!-- Yoga -->
-		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),130)">$INFO[Container(130).ListItem.Property(WatchedEpisodes)] of $INFO[Container(130).ListItem.Episode] watched</value>
+		<value condition="String.IsEqual(Window(home).Property(Home.ActiveListId),130)">$INFO[Container(130).ListItem.Property(WatchedEpisodes)] of $INFO[Container(130).ListItem.Property(TotalEpisodes)] watched</value>
 	</variable>
 
 	<!-- Watched percentage -->
@@ -210,17 +267,18 @@
 	</variable>
 	
 	<!-- Constants -->
-	<constant name="HEIGHT_CLEARLOGO_BIG">120</constant>
+	<constant name="HEIGHT_CLEARLOGO_BIG">150</constant>
 	<constant name="WIDTH_CLEARLOGO_BIG">800</constant>
-	<constant name="HEIGHT_DETAILS_SUBTITLE">50</constant>
-	<constant name="HEIGHT_DETAILS_INFOLINE">35</constant>
+	<constant name="HEIGHT_DETAILS_SUBTITLE">40</constant>
+	<constant name="HEIGHT_DETAILS_INFOLINE">32</constant>
+	<constant name="HEIGHT_DETAILS_INFOLINE_TEXT">30</constant>
 
 	<constant name="SIZE_DETAILS_WATCHED_ICON">25</constant>
-	<constant name="OFFSET_TOP_DETAILS_WATCHED_ICON">5</constant>
+	<constant name="OFFSET_TOP_DETAILS_WATCHED_ICON">4</constant>
 	<constant name="OFFSET_LEFT_DETAILS_WATCHED_ICON">6</constant>
 
 	<constant name="SIZE_DETAILS_PERCENT_ICON">38</constant>
-	<constant name="OFFSET_TOP_DETAILS_PERCENT_ICON">-1</constant>
+	<constant name="OFFSET_TOP_DETAILS_PERCENT_ICON">-3</constant>
 	<constant name="OFFSET_LEFT_DETAILS_PERCENT_ICON">-1</constant>
 
 	<constant name="OFFSET_AFTER_DETAILS">440</constant>

@@ -41,11 +41,11 @@
 	<!-- Constants: font sizes -->
 	<constant name="FONT_SIZE_TITLE1">75</constant>
 	<constant name="FONT_SIZE_TITLE2">62</constant>
-	<constant name="FONT_SIZE_SUBTITLE">44</constant>
+	<constant name="FONT_SIZE_SUBTITLE">38</constant>
 	<constant name="FONT_SIZE_BODY">32</constant>
 	<constant name="FONT_SIZE_BODY2">29</constant>
 	<constant name="FONT_SIZE_CAPTION">24</constant>
-	<constant name="FONT_SIZE_CAPTION2">22</constant>
+	<constant name="FONT_SIZE_CAPTION2">20</constant>
 
 	<!-- Referenced includes -->
 	<include file="Includes/Utilities.xml" />

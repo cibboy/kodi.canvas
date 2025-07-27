@@ -5,7 +5,7 @@ import xbmcgui
 import xbmcplugin
 from urllib.parse import urlparse, parse_qsl
 from image import get_blurred, get_cropped_clearlogo
-from utils import get_formatted_timespan
+from utils import get_formatted_timespan, get_formatted_audiochannels
 
 handle = int(sys.argv[1])
 
@@ -43,6 +43,28 @@ def get_movie_listitem(movie):
     videoinfo.setDuration(movie['streamdetails']['video'][0]['duration'])
     videoinfo.setResumePoint(movie['resume']['position'], movie['resume']['total'])
     videoinfo.setPlaycount(movie['playcount'])
+    for video in movie['streamdetails']['video']:
+        stream = xbmc.VideoStreamDetail(
+            video.get('width', 0),
+            video.get('height', 0),
+            video.get('aspect', 0.0),
+            video.get('duration', 0),
+            video.get('codec', ''),
+            video.get('stereomode', ''),
+            video.get('language', ''),
+            video.get('hdrtype', '')
+        )
+        videoinfo.addVideoStream(stream)
+    for audio in movie['streamdetails']['audio']:
+        stream = xbmc.AudioStreamDetail(
+            video.get('channels', 0),
+            video.get('codec', ''),
+            video.get('language', '')
+        )
+        videoinfo.addAudioStream(stream)
+    for sub in movie['streamdetails']['subtitle']:
+        stream = xbmc.SubtitleStreamDetail(video.get('language', ''))
+        videoinfo.addSubtitleStream(stream)
 
     # Get custom art.
     blur = get_blurred(movie['art'].get('fanart', ''))
@@ -50,6 +72,9 @@ def get_movie_listitem(movie):
 
     # Compute duration visual string.
     duration = get_formatted_timespan(movie['streamdetails']['video'][0]['duration'])
+
+    # Get number of audio channels.
+    channels = get_formatted_audiochannels(movie['streamdetails']['audio'][0].get('channels', 0))
 
     # Compute watched stats.
     time_remaining = ''
@@ -67,6 +92,7 @@ def get_movie_listitem(movie):
 
     # Set custom properties.
     videoinfo.setMpaa(rating)
+    li.setProperty('AudioChannels', str(channels))
     li.setProperty('DurationString', duration)
     li.setProperty('TimeRemainingString', time_remaining)
     li.setProperty('WatchedPercentage', str(watched_percentage))
@@ -120,7 +146,8 @@ def get_season_listitem(season):
     videoinfo.setMpaa(rating)
     li.setArt({'tvshow.fanart': season.get('tvshow', {'art': {}})['art'].get('fanart', '')})
     li.setProperty('WatchedEpisodes', str(season['watchedepisodes']))
-    li.setProperty('UnwatchedEpisodes', str(unwatched))
+    li.setProperty('TotalEpisodes', str(season['episode']))
+    li.setProperty('UnWatchedEpisodes', str(unwatched))
     li.setProperty('WatchedPercentage', str(watched_percentage))
     li.setProperty('BlurArt.TvShow', tvshow_blur)
     li.setProperty('BlurArt.Season', season_blur)
@@ -148,6 +175,28 @@ def get_episode_listitem(episode):
     videoinfo.setDuration(episode['streamdetails']['video'][0]['duration'])
     videoinfo.setResumePoint(episode['resume']['position'], episode['resume']['total'])
     videoinfo.setPlaycount(episode['playcount'])
+    for video in episode['streamdetails']['video']:
+        stream = xbmc.VideoStreamDetail(
+            video.get('width', 0),
+            video.get('height', 0),
+            video.get('aspect', 0.0),
+            video.get('duration', 0),
+            video.get('codec', ''),
+            video.get('stereomode', ''),
+            video.get('language', ''),
+            video.get('hdrtype', '')
+        )
+        videoinfo.addVideoStream(stream)
+    for audio in episode['streamdetails']['audio']:
+        stream = xbmc.AudioStreamDetail(
+            video.get('channels', 0),
+            video.get('codec', ''),
+            video.get('language', '')
+        )
+        videoinfo.addAudioStream(stream)
+    for sub in episode['streamdetails']['subtitle']:
+        stream = xbmc.SubtitleStreamDetail(video.get('language', ''))
+        videoinfo.addSubtitleStream(stream)
 
     # Get custom art.
     tvshow_blur = get_blurred(episode['art'].get('tvshow.fanart', ''))
@@ -156,6 +205,9 @@ def get_episode_listitem(episode):
 
     # Compute duration visual string.
     duration = get_formatted_timespan(episode['streamdetails']['video'][0]['duration'])
+
+    # Get number of audio channels.
+    channels = get_formatted_audiochannels(episode['streamdetails']['audio'][0].get('channels', 0))
 
     # Compute watched stats.
     time_remaining = ''
@@ -174,6 +226,7 @@ def get_episode_listitem(episode):
     # Set custom properties.
     videoinfo.setMpaa(rating)
     li.setArt({'poster': episode['art'].get('tvshow.poster', '')})
+    li.setProperty('AudioChannels', str(channels))
     li.setProperty('DurationString', duration)
     li.setProperty('TimeRemainingString', time_remaining)
     li.setProperty('WatchedPercentage', str(watched_percentage))

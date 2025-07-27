@@ -39,6 +39,54 @@
 	</expression>
 
 	<!--
+		Has resolution?
+		- Continue watching
+		- Recently added episodes
+		- Recently added movies
+		- Movies
+		- Yoga
+	-->
+	<expression name="HasDetailsResolution">
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),101) + !String.IsEmpty(Container(101).ListItem.VideoResolution)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.VideoResolution)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.VideoResolution)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),110) + !String.IsEmpty(Container(110).ListItem.VideoResolution)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),130) + !String.IsEmpty(Container(130).ListItem.VideoResolution)]
+	</expression>
+
+	<!--
+		Has HDR?
+		- Continue watching
+		- Recently added episodes
+		- Recently added movies
+		- Movies
+		- Yoga
+	-->
+	<expression name="HasDetailsHdr">
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),101) + !String.IsEmpty(Container(101).ListItem.HdrType)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.HdrType)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.HdrType)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),110) + !String.IsEmpty(Container(110).ListItem.HdrType)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),130) + !String.IsEmpty(Container(130).ListItem.HdrType)]
+	</expression>
+
+	<!--
+		Has audio channels?
+		- Continue watching
+		- Recently added episodes
+		- Recently added movies
+		- Movies
+		- Yoga
+	-->
+	<expression name="HasDetailsAudioChannels">
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),101) + !String.IsEmpty(Container(101).ListItem.Property(AudioChannels))] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.Property(AudioChannels))] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.Property(AudioChannels))] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),110) + !String.IsEmpty(Container(110).ListItem.Property(AudioChannels))] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),130) + !String.IsEmpty(Container(130).ListItem.Property(AudioChannels))]
+	</expression>
+
+	<!--
 		Has year?
 		- Continue watching (movies)
 		- Recently added movies
@@ -127,7 +175,7 @@
 		- TV shows
 	-->
 	<expression name="HasDetailsStatus">
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),120) + !String.IsEmpty(Container(120).ListItem.Artist)]
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),120) + !String.IsEmpty(Container(120).ListItem.Status)]
 	</expression>
 
 	<!--
