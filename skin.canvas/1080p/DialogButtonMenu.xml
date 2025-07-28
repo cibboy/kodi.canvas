@@ -69,9 +69,15 @@
 		</control>
 
 		<!-- Clock (no animation) -->
-		<include content="TopBar">
-			<param name="show_background">false</param>
-		</include>
+		<control type="group">
+			<include content="ShowHideFadeAnimation">
+				<param name="visible_condition">WindowOpen</param>
+				<param name="hidden_condition">WindowClose</param>
+			</include>
+			<include content="TopBar">
+				<param name="show_background">false</param>
+			</include>
+		</control>
 
 		<!--<control type="group">
 			<centerleft>50%</centerleft>
