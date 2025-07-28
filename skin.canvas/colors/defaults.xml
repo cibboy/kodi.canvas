@@ -21,4 +21,5 @@
 	<color name="BACKGROUND_OPAQUE35">59000000</color>
 	<color name="BACKGROUND_OPAQUE20">33000000</color>
 	<color name="BACKGROUND_OPAQUE10">1A000000</color>
+	<color name="BACKGROUND_DIALOG">FF252525</color>
 </colors>

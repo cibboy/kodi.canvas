@@ -4,13 +4,15 @@
 	<include name="ShowHideFadeSlideVerticalAnimation">
 		<param name="slide_amount">100</param>
 		<param name="speed">ANIMATION_SLOW</param>
+		<param name="visible_condition">Visible</param>
+		<param name="hidden_condition">Hidden</param>
 
 		<definition>
-			<animation type="Visible">
+			<animation type="$PARAM[visible_condition]">
 				<effect type="slide" start="0,$PARAM[slide_amount]" end="0,0" time="$PARAM[speed]" tween="cubic" easing="out" />
 				<effect type="fade" start="0" end="100" time="$PARAM[speed]" tween="cubic" easing="out" />
 			</animation>
-			<animation type="Hidden">
+			<animation type="$PARAM[hidden_condition]">
 				<effect type="slide" start="0,0" end="0,$PARAM[slide_amount]" time="$PARAM[speed]" tween="cubic" easing="out" />
 				<effect type="fade" start="100" end="0" time="$PARAM[speed]" tween="cubic" easing="out" />
 			</animation>
@@ -21,13 +23,15 @@
 	<include name="ShowHideFadeSlideHorizontalAnimation">
 		<param name="slide_amount">100</param>
 		<param name="speed">ANIMATION_SLOW</param>
+		<param name="visible_condition">Visible</param>
+		<param name="hidden_condition">Hidden</param>
 
 		<definition>
-			<animation type="Visible">
+			<animation type="$PARAM[visible_condition]">
 				<effect type="slide" start="$PARAM[slide_amount],0" end="0,0" time="$PARAM[speed]" tween="cubic" easing="out" />
 				<effect type="fade" start="0" end="100" time="$PARAM[speed]" tween="cubic" easing="out" />
 			</animation>
-			<animation type="Hidden">
+			<animation type="$PARAM[hidden_condition]">
 				<effect type="slide" start="0,0" end="$PARAM[slide_amount],0" time="$PARAM[speed]" tween="cubic" easing="out" />
 				<effect type="fade" start="100" end="0" time="$PARAM[speed]" tween="cubic" easing="out" />
 			</animation>
@@ -37,12 +41,14 @@
 	<!-- Fade on visible/hidden -->
 	<include name="ShowHideFadeAnimation">
 		<param name="speed">ANIMATION_SLOW</param>
+		<param name="visible_condition">Visible</param>
+		<param name="hidden_condition">Hidden</param>
 
 		<definition>
-			<animation type="Visible">
+			<animation type="$PARAM[visible_condition]">
 				<effect type="fade" start="0" end="100" time="$PARAM[speed]" tween="cubic" easing="out" />
 			</animation>
-			<animation type="Hidden">
+			<animation type="$PARAM[hidden_condition]">
 				<effect type="fade" start="100" end="0" time="$PARAM[speed]" tween="cubic" easing="out" />
 			</animation>
 		</definition>
@@ -51,7 +57,7 @@
 	<!-- Fade on focus -->
 	<include name="FocusFadeAnimation">
 		<param name="speed">ANIMATION_SLOW</param>
-		<param name="amount">75</param>
+		<param name="amount">85</param>
 		<param name="reference_id"></param>
 
 		<definition>

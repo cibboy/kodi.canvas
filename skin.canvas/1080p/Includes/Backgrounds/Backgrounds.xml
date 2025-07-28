@@ -9,10 +9,8 @@
 
 		<definition>
 			<control type="group">
-				<!-- Background blur -->
-				<!-- Quadrants (all types, except music) -->
+				<!-- Background blur quadrants -->
 				<control type="group">
-					<visible>!$EXP[IsBackgroundMusic]</visible>
 					<include content="ShowHideFadeAnimation">
 						<param name="speed">ANIMATION_CRAWL</param>
 					</include>
@@ -25,16 +23,28 @@
 					</control>
 					<!-- Left -->
 					<control type="group">
-						<!-- Top -->
+						<!-- Top (videos first, the music) -->
 						<control type="image">
+							<visible>!$EXP[IsBackgroundMusic]</visible>
 							<width>67%</width>
 							<height>67%</height>
 							<right>67%</right>
+							<bottom>33%</bottom>
 							<fadetime>ANIMATION_CRAWL</fadetime>
 							<texture flipx="true" flipy="false">$VAR[BlurArt]</texture>
 						</control>
-						<!-- Bottom -->
 						<control type="image">
+							<visible>$EXP[IsBackgroundMusic]</visible>
+							<width>75%</width>
+							<height>67%</height>
+							<right>25%</right>
+							<bottom>33%</bottom>
+							<fadetime>ANIMATION_CRAWL</fadetime>
+							<texture flipx="true" flipy="false">$VAR[BlurArt]</texture>
+						</control>
+						<!-- Bottom (videos first, the music) -->
+						<control type="image">
+							<visible>!$EXP[IsBackgroundMusic]</visible>
 							<width>67%</width>
 							<height>67%</height>
 							<right>67%</right>
@@ -42,22 +52,52 @@
 							<fadetime>ANIMATION_CRAWL</fadetime>
 							<texture flipx="true" flipy="true">$VAR[BlurArt]</texture>
 						</control>
+						<control type="image">
+							<visible>$EXP[IsBackgroundMusic]</visible>
+							<width>75%</width>
+							<height>67%</height>
+							<right>25%</right>
+							<top>67%</top>
+							<fadetime>ANIMATION_CRAWL</fadetime>
+							<texture flipx="true" flipy="true">$VAR[BlurArt]</texture>
+						</control>
 					</control>
 					<!-- Right -->
 					<control type="group">
-						<!-- Top -->
+						<!-- Top (videos first, the music) -->
 						<control type="image">
+							<visible>!$EXP[IsBackgroundMusic]</visible>
 							<width>67%</width>
 							<height>67%</height>
-							<right>0</right>
+							<left>33%</left>
+							<bottom>33%</bottom>
 							<fadetime>ANIMATION_CRAWL</fadetime>
 							<texture flipx="false" flipy="false">$VAR[BlurArt]</texture>
 						</control>
-						<!-- Bottom -->
 						<control type="image">
+							<visible>$EXP[IsBackgroundMusic]</visible>
+							<width>75%</width>
+							<height>67%</height>
+							<left>75%</left>
+							<bottom>33%</bottom>
+							<fadetime>ANIMATION_CRAWL</fadetime>
+							<texture flipx="false" flipy="false">$VAR[BlurArt]</texture>
+						</control>
+						<!-- Bottom (videos first, the music) -->
+						<control type="image">
+							<visible>!$EXP[IsBackgroundMusic]</visible>
 							<width>67%</width>
 							<height>67%</height>
-							<right>0</right>
+							<left>33%</left>
+							<top>67%</top>
+							<fadetime>ANIMATION_CRAWL</fadetime>
+							<texture flipx="false" flipy="true">$VAR[BlurArt]</texture>
+						</control>
+						<control type="image">
+							<visible>$EXP[IsBackgroundMusic]</visible>
+							<width>75%</width>
+							<height>67%</height>
+							<left>75%</left>
 							<top>67%</top>
 							<fadetime>ANIMATION_CRAWL</fadetime>
 							<texture flipx="false" flipy="true">$VAR[BlurArt]</texture>
@@ -68,18 +108,8 @@
 						<width>100%</width>
 						<height>100%</height>
 						<fadetime>ANIMATION_CRAWL</fadetime>
-						<texture colordiffuse="FF000000" diffuse="1080p/diffuse/background.png">diffuse.png</texture>
+						<texture colordiffuse="BACKGROUND_OPAQUE10" diffuse="1080p/diffuse/background.png">diffuse.png</texture>
 					</control>
-				</control>
-				<!-- Full size (music) -->
-				<control type="image">
-					<visible>$EXP[IsBackgroundMusic]</visible>
-					<include content="ShowHideFadeAnimation" />
-					
-					<width>100%</width>
-					<height>100%</height>
-					<fadetime>ANIMATION_CRAWL</fadetime>
-					<texture fallback="1080p/fallback/bg.png" diffuse="1080p/diffuse/background_full.png">$VAR[BlurArt]</texture>
 				</control>
 
 				<!-- Art -->
@@ -104,19 +134,24 @@
 	<!-- Full screen darkening layer -->
 	<include name="DarkeningLayer">
 		<param name="visible">true</param>
+		<param name="colordiffuse">BACKGROUND_OPAQUE50</param>
 		<param name="fade_speed">ANIMATION_SLOW</param>
+		<param name="visible_condition">Visible</param>
+		<param name="hidden_condition">Hidden</param>
 
 		<definition>
 			<control type="image">
 				<visible>$PARAM[visible]</visible>
 				<include content="ShowHideFadeAnimation">
-					<param name="speed">ANIMATION_MID</param>
+					<param name="speed">$PARAM[fade_speed]</param>
+					<param name="visible_condition">$PARAM[visible_condition]</param>
+					<param name="hidden_condition">$PARAM[hidden_condition]</param>
 				</include>
 
 				<width>100%</width>
 				<height>100%</height>
 				<fadetime>$PARAM[fade_speed]</fadetime>
-				<texture colordiffuse="BACKGROUND_OPAQUE50">diffuse.png</texture>
+				<texture colordiffuse="$PARAM[colordiffuse]">diffuse.png</texture>
 			</control>
 		</definition>
 	</include>
@@ -136,7 +171,7 @@
 				<width>100%</width>
 				<height>100%</height>
 				<fadetime>$PARAM[fade_speed]</fadetime>
-				<texture colordiffuse="BACKGROUND_OPAQUE20">1080p/diffuse/legibility.png</texture>
+				<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/diffuse/legibility.png</texture>
 			</control>
 		</definition>
 	</include>

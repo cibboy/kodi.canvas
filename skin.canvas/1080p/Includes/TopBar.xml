@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 	<include name="TopBar">
+		<param name="show_background">true</param>
+
 		<definition>
 			<control type="group">
 				<height>360</height>
 
 				<control type="image">
+					<visible>$PARAM[show_background]</visible>
 					<width>100%</width>
 					<height>360</height>
+					<fadetime>ANIMATION_SLOW</fadetime>
 					<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/diffuse/corner.png</texture>
 				</control>
 				<control type="label">

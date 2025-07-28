@@ -56,14 +56,18 @@ def onfocus_home_page_item(page, list_id):
 def init_home():
     window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
 
-    # Clear window properties.
-    window.clearProperty('Home.ActivePage.home')
-    window.clearProperty('Home.ActivePage.movies')
-    window.clearProperty('Home.ActivePage.tvshows')
-    window.clearProperty('Home.ActivePage.yoga')
-    window.clearProperty('Home.ActivePage.music')
-    window.clearProperty('Home.ActivePage')
-    window.clearProperty('Home.ActiveListId')
+    # Run only once.
+    if window.getProperty('Home.InitDone') != 'true':
+        # Clear window properties.
+        window.clearProperty('Home.ActivePage.home')
+        window.clearProperty('Home.ActivePage.movies')
+        window.clearProperty('Home.ActivePage.tvshows')
+        window.clearProperty('Home.ActivePage.yoga')
+        window.clearProperty('Home.ActivePage.music')
+        window.clearProperty('Home.ActivePage')
+        window.clearProperty('Home.ActiveListId')
+        # Set first run done.
+        window.setProperty('Home.InitDone', 'true')
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:

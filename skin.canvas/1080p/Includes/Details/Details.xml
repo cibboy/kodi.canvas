@@ -289,10 +289,10 @@
 				<!-- Summary -->
 				<control type="textbox">
 					<width>700</width>
-					<height>150</height>
-					<top>15</top>
+					<height>160</height>
+					<top>10</top>
 
-					<font>BODY2_NARROW</font>
+					<font>BODY2</font>
 					<textcolor>FOREGROUND</textcolor>
 					<shadowcolor>BACKGROUND_OPAQUE10</shadowcolor>
 					<label>$VAR[DetailsSummary]</label>

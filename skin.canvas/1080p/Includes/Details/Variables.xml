@@ -267,7 +267,7 @@
 	</variable>
 	
 	<!-- Constants -->
-	<constant name="HEIGHT_CLEARLOGO_BIG">150</constant>
+	<constant name="HEIGHT_CLEARLOGO_BIG">140</constant>
 	<constant name="WIDTH_CLEARLOGO_BIG">800</constant>
 	<constant name="HEIGHT_DETAILS_SUBTITLE">40</constant>
 	<constant name="HEIGHT_DETAILS_INFOLINE">32</constant>

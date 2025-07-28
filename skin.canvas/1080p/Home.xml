@@ -201,6 +201,7 @@
 								<param name="label">Recently added episodes</param>
 								<param name="content">plugin://script.canvas.helper/recently_added_tvshow_episodes/?listid=102</param>
 								<param name="art">$INFO[ListItem.Art(thumb)]</param>
+								<param name="showinfo">true</param>
 								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,102)</param>
 								<param name="onback">SetFocus(1,0)</param>
 								<param name="onleft">SetFocus(1,0)</param>

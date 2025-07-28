@@ -51,7 +51,7 @@
 			<width>300</width>
 			<height>100</height>
 			<label></label>
-			<textcolor>FF00FF00</textcolor>
+			<!--<textcolor>FF00FF00</textcolor>
 			<font>body</font>
 			<textoffsetx>20</textoffsetx>
 			<onclick></onclick>
@@ -60,7 +60,7 @@
 			<texturefocus border="40" colordiffuse="FFFF0000">diffuse.png</texturefocus>
 			<texturenofocus border="40">diffuse.png</texturenofocus>
 			<visible>true</visible>
-			<enable>true</enable>
+			<enable>true</enable>-->
 		</control>
 
 		<!--<control type="radiobutton" id="8">

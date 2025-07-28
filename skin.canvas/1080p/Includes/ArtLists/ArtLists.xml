@@ -11,17 +11,55 @@
 		<definition>
 			<control type="group">
 				<visible>Integer.IsGreater(ListItem.PlayCount,0)</visible>
-				<top>$PARAM[offset_top]</top>
-				<right>$PARAM[offset_right]</right>
+				<centertop>$PARAM[offset_top]</centertop>
+				<centerright>$PARAM[offset_right]</centerright>
 				<width>SIZE_LIST_WATCHED_ICON</width>
 				<height>SIZE_LIST_WATCHED_ICON</height>
 
 				<control type="image">
-					<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/icons/check-inverse.png</texture>
+					<width>79%</width>
+					<height>79%</height>
+					<centertop>49%</centertop>
+					<centerright>51%</centerright>
+					<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/diffuse/circle.png</texture>
 					<aspectratio align="left">keep</aspectratio>
 				</control>
 				<control type="image">
 					<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
+					<aspectratio align="left">keep</aspectratio>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Remaining indicator -->
+	<include name="ArtListsRemainingIcon">
+		<param name="offset_top"></param>
+		<param name="offset_right"></param>
+		<param name="text"></param>
+
+		<definition>
+			<control type="group">
+				<visible>Integer.IsEqual(ListItem.PlayCount,0)</visible>
+				<centertop>$PARAM[offset_top]</centertop>
+				<centerright>$PARAM[offset_right]</centerright>
+				<width>SIZE_LIST_RUNNING_ICON</width>
+				<height>SIZE_LIST_RUNNING_ICON</height>
+
+				<control type="image">
+					<width>54%</width>
+					<height>54%</height>
+					<centertop>50%</centertop>
+					<centerright>50%</centerright>
+					<texture colordiffuse="BACKGROUND_OPAQUE50">1080p/diffuse/circle.png</texture>
+					<aspectratio align="left">keep</aspectratio>
+				</control>
+				<control type="image">
+					<texture colordiffuse="FOREGROUND_DARK">1080p/progress/circle-100.png</texture>
+					<aspectratio align="left">keep</aspectratio>
+				</control>
+				<control type="image">
+					<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-$INFO[ListItem.Property(WatchedPercentage)].png</texture>
 					<aspectratio align="left">keep</aspectratio>
 				</control>
 			</control>
@@ -53,7 +91,7 @@
 			<control type="image">
 				<width>WIDTH_ALBUM</width>
 				<height>HEIGHT_ALBUM</height>
-				<texture fallback="1080p/fallback/album.png" background="true" diffuse="1080p/diffuse/album.png">$PARAM[art]</texture>
+				<texture fallback="1080p/fallback/square.png" background="true" diffuse="1080p/diffuse/square.png">$PARAM[art]</texture>
 				<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
 				<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
 				<aspectratio scalediffuse="false">scale</aspectratio>
@@ -84,6 +122,7 @@
 		<param name="label"></param>
 		<param name="content"></param>
 		<param name="art"></param>
+		<param name="showinfo">false</param>
 		<param name="onfocus">noop</param>
 		<param name="onchange">noop</param>
 		<param name="onback">noop</param>
@@ -128,6 +167,7 @@
 
 							<!-- Info -->
 							<control type="group">
+								<visible>$PARAM[showinfo]</visible>
 								<top>OFFSET_LANDSCAPE_STRIP_INFO</top>
 
 								<control type="group">
@@ -166,7 +206,7 @@
 									</control>
 									<!-- Season/episode -->
 									<control type="label">
-										<right>0</right>
+										<right>-8</right>
 										<top>HEIGHT_CLEARLOGO_SMALL</top>
 										<width>100</width>
 										<font>CAPTION2</font>
@@ -208,25 +248,14 @@
 							</control>
 
 							<!-- Watched indicator -->
-							<control type="group">
-								<visible>Integer.IsGreater(ListItem.PlayCount,0)</visible>
-								<top>PADDING_MULT_50</top>
-								<right>PADDING_MULT_30</right>
-								<width>SIZE_LIST_WATCHED_ICON</width>
-								<height>SIZE_LIST_WATCHED_ICON</height>
-
-								<control type="image">
-									<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/icons/check-inverse.png</texture>
-									<aspectratio align="left">keep</aspectratio>
-								</control>
-								<control type="image">
-									<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
-									<aspectratio align="left">keep</aspectratio>
-								</control>
-							</control>
+							<include content="ArtListsWatchedIcon">
+								<param name="offset_top">OFFSET_TOP_LANDSCAPE_STRIP_ICON</param>
+								<param name="offset_right">OFFSET_RIGHT_LANDSCAPE_STRIP_ICON</param>
+							</include>
 
 							<!-- Info -->
 							<control type="group">
+								<visible>$PARAM[showinfo]</visible>
 								<top>OFFSET_LANDSCAPE_STRIP_INFO</top>
 
 								<control type="group">
@@ -338,6 +367,11 @@
 								<param name="offset_top">OFFSET_TOP_POSTER_STRIP_ICON</param>
 								<param name="offset_right">OFFSET_RIGHT_POSTER_STRIP_ICON</param>
 							</include>
+							<!-- Remaining indicator -->
+							<include content="ArtListsRemainingIcon">
+								<param name="offset_top">OFFSET_TOP_POSTER_STRIP_ICON</param>
+								<param name="offset_right">OFFSET_RIGHT_POSTER_STRIP_ICON</param>
+							</include>
 						</control>
 					</itemlayout>
 
@@ -359,6 +393,11 @@
 
 							<!-- Watched indicator -->
 							<include content="ArtListsWatchedIcon">
+								<param name="offset_top">OFFSET_TOP_POSTER_STRIP_ICON</param>
+								<param name="offset_right">OFFSET_RIGHT_POSTER_STRIP_ICON</param>
+							</include>
+							<!-- Remaining indicator -->
+							<include content="ArtListsRemainingIcon">
 								<param name="offset_top">OFFSET_TOP_POSTER_STRIP_ICON</param>
 								<param name="offset_right">OFFSET_RIGHT_POSTER_STRIP_ICON</param>
 							</include>
@@ -610,7 +649,7 @@
 							<control type="image">
 								<width>WIDTH_ALBUM</width>
 								<height>HEIGHT_ALBUM</height>
-								<texture fallback="1080p/fallback/album.png" background="true" diffuse="1080p/diffuse/album.png">$PARAM[art]</texture>
+								<texture fallback="1080p/fallback/square.png" background="true" diffuse="1080p/diffuse/square.png">$PARAM[art]</texture>
 								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
 								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
 								<aspectratio scalediffuse="false">scale</aspectratio>
@@ -632,7 +671,7 @@
 							<control type="image">
 								<width>WIDTH_ALBUM</width>
 								<height>HEIGHT_ALBUM</height>
-								<texture fallback="1080p/fallback/album.png" background="true" diffuse="1080p/diffuse/album.png">$PARAM[art]</texture>
+								<texture fallback="1080p/fallback/square.png" background="true" diffuse="1080p/diffuse/square.png">$PARAM[art]</texture>
 								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
 								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
 								<aspectratio scalediffuse="false">scale</aspectratio>
