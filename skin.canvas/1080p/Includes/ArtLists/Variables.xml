@@ -12,13 +12,15 @@
 	<constant name="WIDTH_LANDSCAPE">462</constant>
 	<constant name="WIDTH_LANDSCAPE_STRIP_ITEM_CONTAINER">450</constant>
 	<constant name="HEIGHT_LANDSCAPE_STRIP_CONTAINER">480</constant>
-	<constant name="OFFSET_LANDSCAPE_STRIP_INFO">235</constant>
+	<constant name="OFFSET_LANDSCAPE_STRIP_INFO">245</constant>
 
 	<constant name="HEIGHT_ALBUM">260</constant>
 	<constant name="WIDTH_ALBUM">260</constant>
 	<constant name="WIDTH_ALBUM_STRIP_ITEM_CONTAINER">240</constant>
 	<constant name="HEIGHT_ALBUM_STRIP_CONTAINER">360</constant>
-	<constant name="OFFSET_ALBUM_STRIP_INFO">235</constant>
+	<constant name="WIDTH_ALBUM_WALL_ITEM_CONTAINER">256</constant>
+	<constant name="HEIGHT_ALBUM_WALL_CONTAINER">310</constant>
+	<constant name="OFFSET_ALBUM_INFO">235</constant>
 	<constant name="HEIGHT_ALBUM_WALL_CONTENT">650</constant>
 	<constant name="OFFSET_ALBUM_WALL_CONTENT">380</constant>
 
@@ -27,10 +29,17 @@
 
 	<constant name="SIZE_LIST_WATCHED_ICON">50</constant>
 	<constant name="SIZE_LIST_RUNNING_ICON">70</constant>
-	<constant name="OFFSET_TOP_LANDSCAPE_STRIP_ICON">48</constant>
+	<constant name="OFFSET_TOP_LANDSCAPE_STRIP_ICON">212</constant>
 	<constant name="OFFSET_RIGHT_LANDSCAPE_STRIP_ICON">36</constant>
-	<constant name="OFFSET_TOP_POSTER_STRIP_ICON">48</constant>
+	<constant name="OFFSET_TOP_POSTER_STRIP_ICON">332</constant>
 	<constant name="OFFSET_RIGHT_POSTER_STRIP_ICON">28</constant>
-	<constant name="OFFSET_TOP_POSTER_WALL_ICON">48</constant>
+	<constant name="OFFSET_TOP_POSTER_WALL_ICON">332</constant>
 	<constant name="OFFSET_RIGHT_POSTER_WALL_ICON">38</constant>
+
+	<constant name="WIDTH_POSTER_PROGRESS">200</constant>
+	<constant name="WIDTH_LANDSCAPE_PROGRESS">396</constant>
+	<constant name="OFFSET_TOP_LANDSCAPE_PROGRESS">224</constant>
+	<constant name="OFFSET_LEFT_LANDSCAPE_PROGRESS">231</constant>
+	<constant name="OFFSET_TOP_POSTER_PROGRESS">341</constant>
+	<constant name="OFFSET_LEFT_POSTER_PROGRESS">133</constant>
 </includes>

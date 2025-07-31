@@ -22,6 +22,13 @@
 		<pulseonselect>false</pulseonselect>
 	</default>
 
+	<!-- Progress -->
+	<default type="progress">
+		<height>12</height>
+		<texturebg colordiffuse="FOREGROUND_DARK" border="6">1080p/progress/bg.png</texturebg>
+		<midtexture colordiffuse="FOREGROUND_ACCENT" border="6">1080p/progress/mid.png</midtexture>
+	</default>
+
 	<!--<default type="image">
 		<texture></texture>
 		<aspectratio>stretch</aspectratio>
@@ -32,31 +39,11 @@
 		<timeperimage>7000</timeperimage>
 		<randomize>true</randomize>
 	</default>
-	<default type="label">
-		<label></label>
-		<align>left</align>
-		<font>font13</font>
-		<textcolor>white</textcolor>
-		<disabledcolor>disabled</disabledcolor>
-		<selectedcolor>selected</selectedcolor>
-		<scroll>false</scroll>
-		<scrollspeed>40</scrollspeed>
-	</default>
 	<default type="fadelabel">
 		<align>left</align>
 		<font>font13</font>
 		<textcolor>white</textcolor>
 		<disabledcolor>disabled</disabledcolor>
-	</default>
-	<default type="button">
-		<texturefocus border="21" colordiffuse="button_focus">buttons/button-fo.png</texturefocus>
-		<texturenofocus border="21">buttons/button-nofo.png</texturenofocus>
-		<font>font13</font>
-		<textcolor>white</textcolor>
-		<disabledcolor>disabled</disabledcolor>
-		<textoffsetx>7</textoffsetx>
-		<aligny>center</aligny>
-		<pulseonselect>no</pulseonselect>
 	</default>
 	<default type="togglebutton">
 		<texturefocus border="21" colordiffuse="button_focus">buttons/button-fo.png</texturefocus>
@@ -72,13 +59,6 @@
 		<align>left</align>
 		<textcolor>white</textcolor>
 		<font>font13</font>
-	</default>
-	<default type="progress">
-		<texturebg border="3">progress/texturebg_border_white.png</texturebg>
-		<midtexture colordiffuse="button_focus" border="3">progress/texturebg_white.png</midtexture>
-		<lefttexture></lefttexture>
-		<righttexture></righttexture>
-		<overlaytexture></overlaytexture>
 	</default>
 	<default type="spincontrol">
 		<textureup colordiffuse="disabled">buttons/spinctrl/arrow-light-up.png</textureup>

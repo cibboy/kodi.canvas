@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--todo: progress indicators-->
 <includes>
 	<include file="Includes/ArtLists/Variables.xml" />
+	<include file="Includes/ArtLists/Expressions.xml" />
 
 	<!-- Watched indicator -->
 	<include name="ArtListsWatchedIcon">
@@ -17,51 +17,67 @@
 				<height>SIZE_LIST_WATCHED_ICON</height>
 
 				<control type="image">
-					<width>79%</width>
-					<height>79%</height>
-					<centertop>49%</centertop>
-					<centerright>51%</centerright>
-					<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/diffuse/circle.png</texture>
-					<aspectratio align="left">keep</aspectratio>
+					<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/icons/circle.png</texture>
 				</control>
 				<control type="image">
 					<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
-					<aspectratio align="left">keep</aspectratio>
 				</control>
 			</control>
 		</definition>
 	</include>
 
-	<!-- Remaining indicator -->
-	<include name="ArtListsRemainingIcon">
+	<!-- Episodes indicator -->
+	<include name="ArtListsEpisodesIcon">
 		<param name="offset_top"></param>
 		<param name="offset_right"></param>
 		<param name="text"></param>
 
 		<definition>
 			<control type="group">
-				<visible>Integer.IsEqual(ListItem.PlayCount,0)</visible>
+				<visible>$EXP[IsTVShowOrSeason] + Integer.IsEqual(ListItem.PlayCount,0)</visible>
 				<centertop>$PARAM[offset_top]</centertop>
 				<centerright>$PARAM[offset_right]</centerright>
 				<width>SIZE_LIST_RUNNING_ICON</width>
 				<height>SIZE_LIST_RUNNING_ICON</height>
 
+				<!-- Progress icon (dark background, empty circle, progress)-->
 				<control type="image">
-					<width>54%</width>
-					<height>54%</height>
-					<centertop>50%</centertop>
-					<centerright>50%</centerright>
-					<texture colordiffuse="BACKGROUND_OPAQUE50">1080p/diffuse/circle.png</texture>
-					<aspectratio align="left">keep</aspectratio>
-				</control>
-				<control type="image">
-					<texture colordiffuse="FOREGROUND_DARK">1080p/progress/circle-100.png</texture>
-					<aspectratio align="left">keep</aspectratio>
+					<texture colordiffuse="BACKGROUND_OPAQUE50">1080p/progress/circle-bg.png</texture>
 				</control>
 				<control type="image">
 					<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-$INFO[ListItem.Property(WatchedPercentage)].png</texture>
-					<aspectratio align="left">keep</aspectratio>
 				</control>
+
+				<!-- Number of episodes -->
+				<control type="label">
+					<centertop>48%</centertop>
+					<centerright>50%</centerright>
+					<width>auto</width>
+					<height>FONT_SIZE_LABEL</height>
+					<aligny>center</aligny>
+					<align>center</align>
+					<font>LABEL</font>
+					<textcolor>HIGHLIGHT</textcolor>
+					<label>$INFO[ListItem.Property(UnWatchedEpisodes)]</label>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Progress indicator -->
+	<include name="ArtListsProgress">
+		<param name="width"></param>
+		<param name="offset_top"></param>
+		<param name="offset_left"></param>
+
+		<definition>
+			<!-- Progress bar -->
+			<control type="progress">
+				<visible>$EXP[IsVideo] + Integer.IsGreater(ListItem.Property(WatchedPercentage)) + Integer.IsEqual(ListItem.PlayCount,0)</visible>
+				<width>$PARAM[width]</width>
+				<centertop>$PARAM[offset_top]</centertop>
+				<centerleft>$PARAM[offset_left]</centerleft>
+				<info>ListItem.Property(WatchedPercentage)</info>
 			</control>
 		</definition>
 	</include>
@@ -69,10 +85,15 @@
 
 	<!-- Poster -->
 	<include name="ArtListsPoster">
+		<param name="id"></param>
 		<param name="art"></param>
 
 		<definition>
 			<control type="image">
+				<include content="FocusZoomAnimation">
+					<param name="reference_id"></param>
+				</include>
+
 				<width>WIDTH_POSTER</width>
 				<height>HEIGHT_POSTER</height>
 				<texture fallback="1080p/fallback/poster.png" background="true" diffuse="1080p/diffuse/poster.png">$PARAM[art]</texture>
@@ -85,10 +106,15 @@
 
 	<!-- Album -->
 	<include name="ArtListsAlbum">
+		<param name="id"></param>
 		<param name="art"></param>
 
 		<definition>
 			<control type="image">
+				<include content="FocusZoomAnimation">
+					<param name="reference_id"></param>
+				</include>
+
 				<width>WIDTH_ALBUM</width>
 				<height>HEIGHT_ALBUM</height>
 				<texture fallback="1080p/fallback/square.png" background="true" diffuse="1080p/diffuse/square.png">$PARAM[art]</texture>
@@ -101,10 +127,15 @@
 
 	<!-- Landscape -->
 	<include name="ArtListsLandscape">
+		<param name="id"></param>
 		<param name="art"></param>
 
 		<definition>
 			<control type="image">
+				<include content="FocusZoomAnimation">
+					<param name="reference_id"></param>
+				</include>
+
 				<width>WIDTH_LANDSCAPE</width>
 				<height>HEIGHT_LANDSCAPE</height>
 				<texture fallback="1080p/fallback/landscape.png" background="true" diffuse="1080p/diffuse/landscape.png">$PARAM[art]</texture>
@@ -156,6 +187,7 @@
 						<control type="group">
 							<!-- Landscape item -->
 							<include content="ArtListsLandscape">
+								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
 							</include>
 
@@ -163,6 +195,12 @@
 							<include content="ArtListsWatchedIcon">
 								<param name="offset_top">OFFSET_TOP_LANDSCAPE_STRIP_ICON</param>
 								<param name="offset_right">OFFSET_RIGHT_LANDSCAPE_STRIP_ICON</param>
+							</include>
+							<!-- Progress -->
+							<include content="ArtListsProgress">
+								<param name="width">WIDTH_LANDSCAPE_PROGRESS</param>
+								<param name="offset_top">OFFSET_TOP_LANDSCAPE_PROGRESS</param>
+								<param name="offset_left">OFFSET_LEFT_LANDSCAPE_PROGRESS</param>
 							</include>
 
 							<!-- Info -->
@@ -228,9 +266,6 @@
 					
 					<focusedlayout width="WIDTH_LANDSCAPE_STRIP_ITEM_CONTAINER" height="HEIGHT_LANDSCAPE">
 						<control type="group">
-							<animation type="Focus"><effect type="zoom" start="100" end="110" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
-							<animation type="Unfocus"><effect type="zoom" start="110" end="100" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
-
 							<!-- Update selected item info -->
 							<control type="button">
 								<include content="Hidden" />
@@ -238,19 +273,21 @@
 							</control>
 
 							<!-- Landscape item -->
-							<control type="image">
-								<width>WIDTH_LANDSCAPE</width>
-								<height>HEIGHT_LANDSCAPE</height>
-								<texture fallback="1080p/fallback/landscape.png" background="true" diffuse="1080p/diffuse/landscape.png">$PARAM[art]</texture>
-								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
-								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
-								<aspectratio scalediffuse="false">scale</aspectratio>
-							</control>
+							<include content="ArtListsLandscape">
+								<param name="id">$PARAM[id]</param>
+								<param name="art">$PARAM[art]</param>
+							</include>
 
 							<!-- Watched indicator -->
 							<include content="ArtListsWatchedIcon">
 								<param name="offset_top">OFFSET_TOP_LANDSCAPE_STRIP_ICON</param>
 								<param name="offset_right">OFFSET_RIGHT_LANDSCAPE_STRIP_ICON</param>
+							</include>
+							<!-- Progress -->
+							<include content="ArtListsProgress">
+								<param name="width">WIDTH_LANDSCAPE_PROGRESS</param>
+								<param name="offset_top">OFFSET_TOP_LANDSCAPE_PROGRESS</param>
+								<param name="offset_left">OFFSET_LEFT_LANDSCAPE_PROGRESS</param>
 							</include>
 
 							<!-- Info -->
@@ -359,6 +396,7 @@
 						<control type="group">
 							<!-- Poster -->
 							<include content="ArtListsPoster">
+								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
 							</include>
 
@@ -367,19 +405,22 @@
 								<param name="offset_top">OFFSET_TOP_POSTER_STRIP_ICON</param>
 								<param name="offset_right">OFFSET_RIGHT_POSTER_STRIP_ICON</param>
 							</include>
-							<!-- Remaining indicator -->
-							<include content="ArtListsRemainingIcon">
+							<!-- Episodes indicator -->
+							<include content="ArtListsEpisodesIcon">
 								<param name="offset_top">OFFSET_TOP_POSTER_STRIP_ICON</param>
 								<param name="offset_right">OFFSET_RIGHT_POSTER_STRIP_ICON</param>
+							</include>
+							<!-- Progress -->
+							<include content="ArtListsProgress">
+								<param name="width">WIDTH_POSTER_PROGRESS</param>
+								<param name="offset_top">OFFSET_TOP_POSTER_PROGRESS</param>
+								<param name="offset_left">OFFSET_LEFT_POSTER_PROGRESS</param>
 							</include>
 						</control>
 					</itemlayout>
 
 					<focusedlayout width="WIDTH_POSTER_STRIP_ITEM_CONTAINER" height="HEIGHT_POSTER">
 						<control type="group">
-							<animation type="Focus"><effect type="zoom" start="100" end="110" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
-							<animation type="Unfocus"><effect type="zoom" start="110" end="100" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
-
 							<!-- Update selected item info -->
 							<control type="button">
 								<include content="Hidden" />
@@ -388,6 +429,7 @@
 
 							<!-- Poster -->
 							<include content="ArtListsPoster">
+								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
 							</include>
 
@@ -396,10 +438,16 @@
 								<param name="offset_top">OFFSET_TOP_POSTER_STRIP_ICON</param>
 								<param name="offset_right">OFFSET_RIGHT_POSTER_STRIP_ICON</param>
 							</include>
-							<!-- Remaining indicator -->
-							<include content="ArtListsRemainingIcon">
+							<!-- Episodes indicator -->
+							<include content="ArtListsEpisodesIcon">
 								<param name="offset_top">OFFSET_TOP_POSTER_STRIP_ICON</param>
 								<param name="offset_right">OFFSET_RIGHT_POSTER_STRIP_ICON</param>
+							</include>
+							<!-- Progress -->
+							<include content="ArtListsProgress">
+								<param name="width">200</param>
+								<param name="offset_top">OFFSET_TOP_POSTER_PROGRESS</param>
+								<param name="offset_left">OFFSET_LEFT_POSTER_PROGRESS</param>
 							</include>
 						</control>
 					</focusedlayout>
@@ -451,12 +499,13 @@
 						<control type="group">
 							<!-- Album item -->
 							<include content="ArtListsAlbum">
+								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
 							</include>
 
 							<!-- Info -->
 							<control type="group">
-								<top>OFFSET_ALBUM_STRIP_INFO</top>
+								<top>OFFSET_ALBUM_INFO</top>
 
 								<control type="group">
 									<top>SIZE_ITEM_SHADOW_SQUARE</top>
@@ -487,9 +536,6 @@
 
 					<focusedlayout width="WIDTH_ALBUM_STRIP_ITEM_CONTAINER" height="HEIGHT_ALBUM_STRIP_CONTAINER">
 						<control type="group">
-							<animation type="Focus"><effect type="zoom" start="100" end="110" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
-							<animation type="Unfocus"><effect type="zoom" start="110" end="100" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
-
 							<!-- Update selected item info -->
 							<control type="button">
 								<include content="Hidden" />
@@ -498,12 +544,13 @@
 							
 							<!-- Album item -->
 							<include content="ArtListsAlbum">
+								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
 							</include>
 
 							<!-- Info -->
 							<control type="group">
-								<top>OFFSET_ALBUM_STRIP_INFO</top>
+								<top>OFFSET_ALBUM_INFO</top>
 
 								<control type="group">
 									<top>SIZE_ITEM_SHADOW_SQUARE</top>
@@ -572,6 +619,7 @@
 						<control type="group">
 							<!-- Poster -->
 							<include content="ArtListsPoster">
+								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
 							</include>
 
@@ -580,14 +628,22 @@
 								<param name="offset_top">OFFSET_TOP_POSTER_WALL_ICON</param>
 								<param name="offset_right">OFFSET_RIGHT_POSTER_WALL_ICON</param>
 							</include>
+							<!-- Episodes indicator -->
+							<include content="ArtListsEpisodesIcon">
+								<param name="offset_top">OFFSET_TOP_POSTER_WALL_ICON</param>
+								<param name="offset_right">OFFSET_RIGHT_POSTER_WALL_ICON</param>
+							</include>
+							<!-- Progress -->
+							<include content="ArtListsProgress">
+								<param name="width">WIDTH_POSTER_PROGRESS</param>
+								<param name="offset_top">OFFSET_TOP_POSTER_PROGRESS</param>
+								<param name="offset_left">OFFSET_LEFT_POSTER_PROGRESS</param>
+							</include>
 						</control>
 					</itemlayout>
 
 					<focusedlayout width="WIDTH_POSTER_WALL_ITEM_CONTAINER" height="HEIGHT_POSTER">
 						<control type="group">
-							<animation type="Focus"><effect type="zoom" start="100" end="110" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
-							<animation type="Unfocus"><effect type="zoom" start="110" end="100" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
-
 							<!-- Update selected item info -->
 							<control type="button">
 								<include content="Hidden" />
@@ -596,6 +652,7 @@
 
 							<!-- Poster -->
 							<include content="ArtListsPoster">
+								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
 							</include>
 
@@ -603,6 +660,17 @@
 							<include content="ArtListsWatchedIcon">
 								<param name="offset_top">OFFSET_TOP_POSTER_WALL_ICON</param>
 								<param name="offset_right">OFFSET_RIGHT_POSTER_WALL_ICON</param>
+							</include>
+							<!-- Episodes indicator -->
+							<include content="ArtListsEpisodesIcon">
+								<param name="offset_top">OFFSET_TOP_POSTER_WALL_ICON</param>
+								<param name="offset_right">OFFSET_RIGHT_POSTER_WALL_ICON</param>
+							</include>
+							<!-- Progress -->
+							<include content="ArtListsProgress">
+								<param name="width">WIDTH_POSTER_PROGRESS</param>
+								<param name="offset_top">OFFSET_TOP_POSTER_PROGRESS</param>
+								<param name="offset_left">OFFSET_LEFT_POSTER_PROGRESS</param>
 							</include>
 						</control>
 					</focusedlayout>
@@ -620,6 +688,8 @@
 		<param name="label"></param>
 		<param name="content"></param>
 		<param name="art"></param>
+		<param name="info1"></param>
+		<param name="info2"></param>
 		<param name="onfocus">noop</param>
 		<param name="onchange">noop</param>
 		<param name="onback">noop</param>
@@ -644,37 +714,86 @@
 					<onup>$PARAM[onup]</onup>
 					<ondown>$PARAM[ondown]</ondown>
 
-					<itemlayout width="WIDTH_ALBUM" height="HEIGHT_ALBUM">
+					<itemlayout width="WIDTH_ALBUM_WALL_ITEM_CONTAINER" height="HEIGHT_ALBUM_WALL_CONTAINER">
 						<control type="group">
-							<control type="image">
-								<width>WIDTH_ALBUM</width>
-								<height>HEIGHT_ALBUM</height>
-								<texture fallback="1080p/fallback/square.png" background="true" diffuse="1080p/diffuse/square.png">$PARAM[art]</texture>
-								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
-								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
-								<aspectratio scalediffuse="false">scale</aspectratio>
+							<!-- Album item -->
+							<include content="ArtListsAlbum">
+								<param name="id">$PARAM[id]</param>
+								<param name="art">$PARAM[art]</param>
+							</include>
+
+							<!-- Info -->
+							<control type="group">
+								<top>OFFSET_ALBUM_INFO</top>
+
+								<control type="group">
+									<top>SIZE_ITEM_SHADOW_SQUARE</top>
+									<left>SIZE_ITEM_SHADOW_SQUARE</left>
+									<right>SIZE_ITEM_SHADOW_SQUARE</right>
+
+									<!-- Info line 1 -->
+									<control type="label">
+										<scroll>false</scroll>
+										<width>auto</width>
+										<font>LABEL</font>
+										<textcolor>HIGHLIGHT</textcolor>
+										<label>$PARAM[info1]</label>
+									</control>
+									<!-- Info line 2 -->
+									<control type="label">
+										<top>FONT_SIZE_CAPTION</top>
+										<scroll>false</scroll>
+										<width>auto</width>
+										<font>LABEL</font>
+										<textcolor>FOREGROUND</textcolor>
+										<label>$PARAM[info2]</label>
+									</control>
+								</control>
 							</control>
 						</control>
 					</itemlayout>
 
-					<focusedlayout width="WIDTH_ALBUM" height="HEIGHT_ALBUM">
+					<focusedlayout width="WIDTH_ALBUM_WALL_ITEM_CONTAINER" height="HEIGHT_ALBUM_WALL_CONTAINER">
 						<control type="group">
-							<animation type="Focus"><effect type="zoom" start="100" end="110" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
-							<animation type="Unfocus"><effect type="zoom" start="110" end="100" time="ANIMATION_FAST" tween="cubic" easing="out" center="auto" /></animation>
-
 							<!-- Update selected item info -->
 							<control type="button">
 								<include content="Hidden" />
 								<onfocus>$PARAM[onchange]</onfocus>
 							</control>
 
-							<control type="image">
-								<width>WIDTH_ALBUM</width>
-								<height>HEIGHT_ALBUM</height>
-								<texture fallback="1080p/fallback/square.png" background="true" diffuse="1080p/diffuse/square.png">$PARAM[art]</texture>
-								<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
-								<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
-								<aspectratio scalediffuse="false">scale</aspectratio>
+							<!-- Album item -->
+							<include content="ArtListsAlbum">
+								<param name="id">$PARAM[id]</param>
+								<param name="art">$PARAM[art]</param>
+							</include>
+
+							<!-- Info -->
+							<control type="group">
+								<top>OFFSET_ALBUM_INFO</top>
+
+								<control type="group">
+									<top>SIZE_ITEM_SHADOW_SQUARE</top>
+									<left>SIZE_ITEM_SHADOW_SQUARE</left>
+									<right>SIZE_ITEM_SHADOW_SQUARE</right>
+
+									<!-- Info line 1 -->
+									<control type="label">
+										<scroll>false</scroll>
+										<width>auto</width>
+										<font>LABEL</font>
+										<textcolor>HIGHLIGHT</textcolor>
+										<label>$PARAM[info1]</label>
+									</control>
+									<!-- Info line 2 -->
+									<control type="label">
+										<top>FONT_SIZE_CAPTION</top>
+										<scroll>false</scroll>
+										<width>auto</width>
+										<font>LABEL</font>
+										<textcolor>FOREGROUND</textcolor>
+										<label>$PARAM[info2]</label>
+									</control>
+								</control>
 							</control>
 						</control>
 					</focusedlayout>

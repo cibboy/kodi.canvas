@@ -8,6 +8,7 @@ TODO:
 - creare possibilità di sbiancare la cache in temp
   - prima posizionare le immagini in temp/canvas.images e mp3 in temp/canvas.sound (da fare più avanti, quando si può testare il primo loading)
 
+
 Guidelines:
 https://medium.com/you-i-tv/designing-for-10ft-ceeb202c1315
 

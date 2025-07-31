@@ -43,7 +43,7 @@
 				</control>
 				<!-- Menu -->
 				<control type="list" id="1">
-					<top>200</top>
+					<top>220</top>
 					<width>100</width>
 					<bottom>0</bottom>
 					<autoscroll>false</autoscroll>
@@ -336,6 +336,8 @@
 							<param name="label">Music</param>
 							<param name="content">plugin://script.canvas.helper/songs/?listid=140</param>
 							<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
+							<param name="info1">$INFO[ListItem.Title]</param>
+							<param name="info2">$INFO[ListItem.Album]</param>
 							<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,music,140)</param>
 							<param name="onback">SetFocus(1,4)</param>
 							<param name="onleft">SetFocus(1,4)</param>

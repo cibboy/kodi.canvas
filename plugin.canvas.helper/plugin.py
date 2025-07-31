@@ -14,7 +14,8 @@ movie_properties_query = ['art', 'title', 'year', 'resume', 'plot', 'studio', 's
 tvshow_properties_query = ['art', 'title', 'year', 'mpaa', 'genre', 'plot', 'studio', 'season', 'episode', 'watchedepisodes', 'playcount']
 season_properties_query = ['art', 'showtitle', 'title', 'season', 'episode', 'watchedepisodes', 'playcount']
 episode_properties_query = ['art', 'showtitle', 'title', 'season', 'episode', 'firstaired', 'studio', 'resume', 'streamdetails', 'plot', 'playcount']
-song_properties_query = ['title', 'year', 'art', 'album', 'artist', 'duration', 'track', 'genre']
+album_properties_query = ['art', 'displayartist', 'genre', 'title', 'year']#todo#, 'albumduration', 'albumlabel', 'description', 'mood', 'style', 'theme'
+song_properties_query = ['title', 'year', 'art', 'album', 'displayartist', 'duration', 'track', 'genre']
 
 # Calls a JSON-RPC method agains Kodi.
 def call_rpc(method, params=None):
@@ -283,9 +284,31 @@ def get_episode_listitem(episode):
     return li
 
 # Build a listitem for music albums.
-def get_album_listitem():
-    #todo
-    a = 0
+def get_album_listitem(album):
+    # Create album-type listitem.
+    li = xbmcgui.ListItem(label=album['title'])
+    li.setProperty('ItemType', 'album')
+
+    # Set internal properties.
+    li.setArt(album['art'])
+    musicinfo = li.getMusicInfoTag()
+    musicinfo.setTitle(album['title'])
+    musicinfo.setYear(album['year'])
+    musicinfo.setArtist(album['displayartist'])
+    musicinfo.setGenres(album['genre'])
+    #musicinfo.setDuration(song['albumduration'])
+
+    # Get custom art.
+    blur = get_blurred(album['art'].get('fanart', ''))
+
+    # Compute duration visual string.
+    #duration = get_formatted_timespan(song['albumduration'], include_seconds=True)
+
+    # Set custom properties.
+    #li.setProperty('DurationString', duration)
+    li.setProperty('BlurArt', blur)
+
+    return li
 
 # Build a listitem for songs.
 def get_song_listitem(song):
@@ -301,7 +324,7 @@ def get_song_listitem(song):
     musicinfo.setDuration(song['duration'])
     musicinfo.setAlbum(song['album'])
     musicinfo.setTrack(song['track'])
-    musicinfo.setArtist(', '.join(song['artist']))
+    musicinfo.setArtist(song['displayartist'])
     musicinfo.setGenres(song['genre'])
 
     # Get custom art.
@@ -310,17 +333,12 @@ def get_song_listitem(song):
     # Compute duration visual string.
     duration = get_formatted_timespan(song['duration'], include_seconds=True)
 
-     # Set custom properties.
+    # Set custom properties.
     li.setProperty('DurationString', duration)
     li.setProperty('BlurArt', blur)
     li.setProperty('Track', str(song['track']))
 
     return li
-
-# Build a listitem for pictures.
-def get_picture_listitem():
-    #todo
-    a = 0
 
 # Create a list of continue watching items: movies in progress, episodes in progress,
 # TV shows in progress. It collapses TV shows and episodes into one single item if
@@ -595,8 +613,8 @@ def list_seasons(params):
     if listid is not None:
         window.setProperty(f"ListLoading.{listid}", 'false')
 
-# Create a list of songs.
-def list_songs(params):
+# Create a list of albums.
+def list_albums(params):
     listid = params.get('listid', None)
     window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
     # Set loading.
@@ -610,12 +628,60 @@ def list_songs(params):
     query = {
         # Sort by requested sort, with requested order.
         'sort': { 'order': order, 'method': sort },
+        # Get important TV show properties.
+        'properties': album_properties_query
+    }
+    # If limit specified, add to call.
+    if limit > 0:
+        query['limits'] = { 'start': 0, 'end': limit }
+
+    # Load albums.
+    albums = call_rpc('AudioLibrary.GetAlbums', query).get('albums', [])
+
+    # For each album found add to list.
+    for album in albums:
+        li = get_album_listitem(album)
+        xbmcplugin.addDirectoryItem(
+            handle=handle,
+            url=album['title'],#todo
+            listitem=li,
+            isFolder=True
+        )
+
+    xbmcplugin.endOfDirectory(handle)
+
+    # Set loading.
+    if listid is not None:
+        window.setProperty(f"ListLoading.{listid}", 'false')
+
+# Create a list of songs.
+def list_songs(params):
+    listid = params.get('listid', None)
+    window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
+    # Set loading.
+    if listid is not None:
+        window.setProperty(f"ListLoading.{listid}", 'true')
+
+    sort = params.get('sort', 'title')
+    order = params.get('order', 'ascending')
+    limit = int(params.get('limit', 0))
+    albumid = params.get('albumid', None)
+    album = params.get('album', None)
+
+    query = {
+        # Sort by requested sort, with requested order.
+        'sort': { 'order': order, 'method': sort },
         # Get important movie properties.
         'properties': song_properties_query
     }
      # If limit specified, add to call.
     if limit > 0:
         query['limits'] = { 'start': 0, 'end': limit }
+     # If album specified, add to call.
+    if albumid is not None:
+        query['filter'] = { 'field': 'albumid', 'operator': 'is', 'value': albumid }
+    elif album is not None:
+        query['filter'] = { 'field': 'album', 'operator': 'is', 'value': album }
 
     # Load songs.
     songs = call_rpc('AudioLibrary.GetSongs', query).get('songs', [])
@@ -665,5 +731,7 @@ if __name__ == '__main__':
         list_tvshows(params)
     elif method == 'seasons':
         list_seasons(params)
+    elif method == 'albums':
+        list_albums(params)
     elif method == 'songs':
         list_songs(params)

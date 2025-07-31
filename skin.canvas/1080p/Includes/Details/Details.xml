@@ -212,8 +212,14 @@
 							<top>OFFSET_TOP_DETAILS_WATCHED_ICON</top>
 							<left>OFFSET_LEFT_DETAILS_WATCHED_ICON</left>
 							<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
-							<aspectratio align="left">keep</aspectratio>
 						</control>
+					</include>
+
+					<!-- All new -->
+					<include content="DetailsInfoTag">
+						<param name="text">All new</param>
+						<param name="visible">!$EXP[IsDetailsWatched] + $EXP[IsAllNew]</param>
+						<param name="textcolor">FOREGROUND_ACCENT</param>
 					</include>
 
 					<!-- Episodes remaining -->
@@ -230,20 +236,12 @@
 							<left>OFFSET_LEFT_DETAILS_PERCENT_ICON</left>
 							
 							<control type="image">
-								<texture colordiffuse="FOREGROUND_DARK">1080p/progress/circle-100.png</texture>
-								<aspectratio align="left">keep</aspectratio>
+								<texture colordiffuse="FOREGROUND_OPAQUE10">1080p/progress/circle-100.png</texture>
 							</control>
 							<control type="image">
 								<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-$VAR[DetailsWatchedPercentage].png</texture>
-								<aspectratio align="left">keep</aspectratio>
 							</control>
 						</control>
-					</include>
-
-					<!-- All new -->
-					<include content="DetailsInfoTagWithIcon">
-						<param name="text">All new</param>
-						<param name="visible">!$EXP[IsDetailsWatched] + $EXP[IsAllNew]</param>
 					</include>
 
 					<!-- Time remaining -->
@@ -260,12 +258,10 @@
 							<left>OFFSET_LEFT_DETAILS_PERCENT_ICON</left>
 							
 							<control type="image">
-								<texture colordiffuse="FOREGROUND_DARK">1080p/progress/circle-100.png</texture>
-								<aspectratio align="left">keep</aspectratio>
+								<texture colordiffuse="FOREGROUND_OPAQUE10">1080p/progress/circle-100.png</texture>
 							</control>
 							<control type="image">
 								<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-$VAR[DetailsWatchedPercentage].png</texture>
-								<aspectratio align="left">keep</aspectratio>
 							</control>
 						</control>
 					</include>

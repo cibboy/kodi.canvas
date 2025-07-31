@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<!-- Is TV show/season? -->
+	<expression name="IsTVShowOrSeason">
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),120)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),130)]
+	</expression>
+
+	<!-- Is video? -->
+	<expression name="IsVideo">
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),101)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),102)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),103)] |
+		[String.IsEqual(Window(home).Property(Home.ActiveListId),110)]
+	</expression>
+</includes>
