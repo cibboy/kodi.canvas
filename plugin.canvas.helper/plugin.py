@@ -1,4 +1,4 @@
-import sys, time
+import sys
 import json
 import xbmc
 import xbmcgui
@@ -350,9 +350,6 @@ def list_continue_watching(params):
     if listid is not None:
         window.setProperty(f"ListLoading.{listid}", 'true')
 
-    #todo: temp test (remove anche dell'import)
-    #time.sleep(5)
-
     # In progress movies.
     movies = call_rpc('VideoLibrary.GetMovies', {
         'filter': {'field': 'inprogress', 'operator': 'is', 'value': "true"},
@@ -702,6 +699,22 @@ def list_songs(params):
     if listid is not None:
         window.setProperty(f"ListLoading.{listid}", 'false')
 
+# Create a list of pictures.
+def list_pictures(params):
+    listid = params.get('listid', None)
+    window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
+    # Set loading.
+    if listid is not None:
+        window.setProperty(f"ListLoading.{listid}", 'true')
+
+    #todo
+
+    xbmcplugin.endOfDirectory(handle)
+
+    # Set loading.
+    if listid is not None:
+        window.setProperty(f"ListLoading.{listid}", 'false')
+
 if __name__ == '__main__':
     # Parse the full plugin URL.
     parsed = urlparse(sys.argv[0])
@@ -735,3 +748,5 @@ if __name__ == '__main__':
         list_albums(params)
     elif method == 'songs':
         list_songs(params)
+    elif method == 'pictures':
+        list_pictures(params)

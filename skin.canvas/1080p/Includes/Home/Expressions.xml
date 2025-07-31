@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<!-- Is loading ongoing on home? -->
+	<expression name="IsHomeLoading">
+		String.IsEqual(Window.Property(ListLoading.101),true) |
+		String.IsEqual(Window.Property(ListLoading.102),true) |
+		String.IsEqual(Window.Property(ListLoading.103),true) |
+		String.IsEqual(Window.Property(ListLoading.104),true) |
+		String.IsEqual(Window.Property(ListLoading.110),true) |
+		String.IsEqual(Window.Property(ListLoading.120),true) |
+		String.IsEqual(Window.Property(ListLoading.130),true) |
+		String.IsEqual(Window.Property(ListLoading.140),true) |
+		String.IsEqual(Window.Property(ListLoading.150),true)
+	</expression>
+
+	<!-- Is active page "home"? -->
+	<expression name="IsHomeActivePageHome">String.IsEqual(Window.Property(Home.ActivePage),home)</expression>
+	<!-- Is active page "movies"? -->
+	<expression name="IsHomeActivePageMovies">String.IsEqual(Window.Property(Home.ActivePage),movies)</expression>
+	<!-- Is active page "tvshows"? -->
+	<expression name="IsHomeActivePageTvShows">String.IsEqual(Window.Property(Home.ActivePage),tvshows)</expression>
+	<!-- Is active page "yoga"? -->
+	<expression name="IsHomeActivePageYoga">String.IsEqual(Window.Property(Home.ActivePage),yoga)</expression>
+	<!-- Is active page "music"? -->
+	<expression name="IsHomeActivePageMusic">String.IsEqual(Window.Property(Home.ActivePage),music)</expression>
+	<!-- Is active page "pictures"? -->
+	<expression name="IsHomeActivePagePictures">String.IsEqual(Window.Property(Home.ActivePage),pictures)</expression>
+</includes>

@@ -4,7 +4,7 @@ TOFIX:
 
 TODO:
 - rifare diffuse shadow (per seguire meglio i border radius più stretto che uso)
-- gestione loading liste (per cui ora c'è il supporto tramite window property)
+- gestione liste vuote
 - creare possibilità di sbiancare la cache in temp
   - prima posizionare le immagini in temp/canvas.images e mp3 in temp/canvas.sound (da fare più avanti, quando si può testare il primo loading)
 

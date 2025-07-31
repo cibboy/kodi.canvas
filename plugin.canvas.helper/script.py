@@ -58,12 +58,23 @@ def init_home():
 
     # Run only once.
     if window.getProperty('Home.InitDone') != 'true':
+        # Set list loading.
+        window.setProperty('ListLoading.101', 'true')
+        window.setProperty('ListLoading.102', 'true')
+        window.setProperty('ListLoading.103', 'true')
+        window.setProperty('ListLoading.104', 'true')
+        window.setProperty('ListLoading.110', 'true')
+        window.setProperty('ListLoading.120', 'true')
+        window.setProperty('ListLoading.130', 'true')
+        window.setProperty('ListLoading.140', 'true')
+        #window.setProperty('ListLoading.150', 'true')
         # Clear window properties.
         window.clearProperty('Home.ActivePage.home')
         window.clearProperty('Home.ActivePage.movies')
         window.clearProperty('Home.ActivePage.tvshows')
         window.clearProperty('Home.ActivePage.yoga')
         window.clearProperty('Home.ActivePage.music')
+        window.clearProperty('Home.ActivePage.pictures')
         window.clearProperty('Home.ActivePage')
         window.clearProperty('Home.ActiveListId')
         # Set first run done.

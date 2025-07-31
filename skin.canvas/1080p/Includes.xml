@@ -33,6 +33,8 @@
 	<constant name="SCREEN_CENTER_X">960</constant>
 	<constant name="SCREEN_HEIGHT">1080</constant>
 	<constant name="SCREEN_WIDTH">1920</constant>
+	<constant name="SCREEN_HEIGHT_HALF">540</constant>
+	<constant name="SCREEN_WIDTH_HALF">960</constant>
 	<constant name="SCREEN_HEIGHT_PADDED">1030</constant>
 	<constant name="SCREEN_WIDTH_PADDED">1870</constant>
 	<constant name="SCREEN_HEIGHT_DOUBLE_PADDED">980</constant>
@@ -57,4 +59,5 @@
 	<include file="Includes/TopBar.xml" />
 	<include file="Includes/ArtLists/ArtLists.xml" />
 	<include file="Includes/Details/Details.xml" />
+	<include file="Includes/Home/Home.xml" />
 </includes>
