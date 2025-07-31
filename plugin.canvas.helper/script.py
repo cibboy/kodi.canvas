@@ -69,12 +69,21 @@ def init_home():
         # Set first run done.
         window.setProperty('Home.InitDone', 'true')
 
+# Opens DialogButtonMenu.xml. Equivalent to ActivateWindow(shutdownmenu), but works
+# with onback from home and later using a button to move to another window.
+def open_home_sidemenu():
+    dialog = xbmcgui.Window(10111)  # DialogButtonMenu.xml
+    dialog.show()
+
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         method = sys.argv[1]
         # Reset home status.
         if method == 'init_home':
             init_home()
+        # Opens side menu in home.
+        elif method == 'open_home_sidemenu':
+            open_home_sidemenu()
         # Handle window property updates when changing the selected main menu item.
         elif method == 'onchange_home_menu':
             onchange_home_menu(sys.argv[2])

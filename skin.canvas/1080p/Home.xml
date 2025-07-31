@@ -2,6 +2,7 @@
 <window>
 	<onload>RunScript(script.canvas.helper,init_home)</onload>
 	<defaultcontrol>1</defaultcontrol>
+
 	<controls>
 		<!-- Background -->
 		<include content="Background">
@@ -50,7 +51,7 @@
 					
 					<onright>$INFO[Container(1).ListItem.Property(onright)]</onright>
 					<onclick>$INFO[Container(1).ListItem.Property(onclick)]</onclick>
-					<onback>ActivateWindow(shutdownmenu)</onback>
+					<onback>RunScript(script.canvas.helper,open_home_sidemenu)</onback>
 
 					<focusedlayout height="90">
 						<control type="button">
@@ -133,7 +134,7 @@
 							<thumb>1080p/icons/menu.png</thumb>
 							<property name="name">menu</property>
 							<property name="onright">noop</property>
-							<property name="onclick">ActivateWindow(shutdownmenu)</property>
+							<property name="onclick">RunScript(script.canvas.helper,open_home_sidemenu)</property>
 						</item>
 					</content>
 				</control>
