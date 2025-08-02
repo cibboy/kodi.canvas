@@ -1,28 +1,50 @@
 import sys
-import xbmcgui
+import xbmc, xbmcgui
+from common import list_objects
 
-#todo: actual implementation of search according to filled components
-# Returns the default list ID for each page on home, taking into consideration
-# potential empty lists. It DOES NOT return the currently active list for that list.
-def find_home_active_id(page):
+# Given a set of IDs, find the first one with content using custom window properties.
+def find_home_next_content(ids, window, hint=None):
+    # If we have a hint, make sure it has content.
+    if hint is not None and hint != '':
+        if window.getProperty(f"List.{hint}.HasContent") == 'true':
+            return hint
+
+    # Otherwise use list of IDs in sequence to find first ID with content.
+    for i in ids:
+        if window.getProperty(f"List.{i}.HasContent") == 'true':
+            return i
+    
+    return None
+
+# Returns the active list ID for each page on home, taking into consideration
+# potential empty lists. For multi-list pages, it first checks for an ID already
+# set in custom property and returns it if it has content.
+def find_home_active_id(page, window):
+    page_active_id = window.getProperty(f"Home.ActivePage.{page}")
+
     # Home.
     if page == 'home':
-        return '101'
+        return find_home_next_content(['101', '102', '103', '104'], window, page_active_id)
     # Movies.
     elif page == 'movies':
-        return '110'
+        if page_active_id is not None and page_active_id != '': return page_active_id
+        else: return '110'
     # TV shows.
     elif page == 'tvshows':
-        return '120'
+        if page_active_id is not None and page_active_id != '': return page_active_id
+        else: return '120'
     # TV shows.
     elif page == 'yoga':
-        return '130'
+        if page_active_id is not None and page_active_id != '': return page_active_id
+        else: return '130'
     # Music.
     elif page == 'music':
-        return '140'
+        if page_active_id is not None and page_active_id != '': return page_active_id
+        else: return '140'
     # Pictures.
     elif page == 'pictures':
-        return '150'
+        if page_active_id is not None and page_active_id != '': return page_active_id
+        else: return '150'
 
 # When changing the focused item in the home menu.
 def onchange_home_menu(page):
@@ -32,11 +54,8 @@ def onchange_home_menu(page):
 
     window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
 
-    # For multilist page, find the list that last had focus in that page (or the default one).
-    page_active_id = window.getProperty(f"Home.ActivePage.{page}")
-    if page_active_id is None or page_active_id == '':
-        page_active_id = find_home_active_id(page)
-    page_active_id = str(page_active_id)
+    # Find the list that last had focus and has content in that page (or the default one).
+    page_active_id = find_home_active_id(page, window)
 
     # Update window properties.
     window.setProperty(f"Home.ActivePage.{page}", page_active_id)
@@ -44,13 +63,38 @@ def onchange_home_menu(page):
     window.setProperty('Home.ActiveListId', page_active_id)
 
 # When changing the focused list inside a page on home.
-def onfocus_home_page_item(page, list_id):
+def onfocus_home_page_item(page, listid):
     window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
 
     # Update window properties.
-    window.setProperty(f"Home.ActivePage.{page}", str(list_id))
+    window.setProperty(f"Home.ActivePage.{page}", str(listid))
     window.setProperty('Home.ActivePage', page)
-    window.setProperty('Home.ActiveListId', str(list_id))
+    window.setProperty('Home.ActiveListId', str(listid))
+
+# When moving up or down inside the "home" page on home.
+def onmove_home_page_item(listid, direction):
+    window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
+
+    if listid == '101' and direction == 'down':
+        id = find_home_next_content(['102', '103', '104'], window)
+        if id is not None: xbmc.executebuiltin(f"SetFocus({id})")
+    elif listid == '102':
+        if direction == 'up':
+            id = find_home_next_content(['101'], window)
+            if id is not None: xbmc.executebuiltin(f"SetFocus({id})")
+        elif direction == 'down':
+            id = find_home_next_content(['103', '104'], window)
+            if id is not None: xbmc.executebuiltin(f"SetFocus({id})")
+    elif listid == '103':
+        if direction == 'up':
+            id = find_home_next_content(['102', '101'], window)
+            if id is not None: xbmc.executebuiltin(f"SetFocus({id})")
+        elif direction == 'down':
+            id = find_home_next_content(['104'], window)
+            if id is not None: xbmc.executebuiltin(f"SetFocus({id})")
+    elif listid == '104' and direction == 'up':
+        id = find_home_next_content(['103', '102', '101'], window)
+        if id is not None: xbmc.executebuiltin(f"SetFocus({id})")
 
 # Reset home status.
 def init_home():
@@ -59,15 +103,19 @@ def init_home():
     # Run only once.
     if window.getProperty('Home.InitDone') != 'true':
         # Set list loading.
-        window.setProperty('ListLoading.101', 'true')
-        window.setProperty('ListLoading.102', 'true')
-        window.setProperty('ListLoading.103', 'true')
-        window.setProperty('ListLoading.104', 'true')
-        window.setProperty('ListLoading.110', 'true')
-        window.setProperty('ListLoading.120', 'true')
-        window.setProperty('ListLoading.130', 'true')
-        window.setProperty('ListLoading.140', 'true')
-        #window.setProperty('ListLoading.150', 'true')
+        window.setProperty('List.101.IsLoading', 'true')
+        window.setProperty('List.102.IsLoading', 'true')
+        window.setProperty('List.103.IsLoading', 'true')
+        window.setProperty('List.104.IsLoading', 'true')
+        window.setProperty('List.110.IsLoading', 'true')
+        window.setProperty('List.120.IsLoading', 'true')
+        window.setProperty('List.130.IsLoading', 'true')
+        window.setProperty('List.140.IsLoading', 'true')
+        window.setProperty('List.150.IsLoading', 'true')
+        #list_objects('continue_watching', {}, 0)
+        #list_objects('recently_added_tvshow_episodes', {}, 0)
+        #list_objects('movies', {'sort': 'dateadded', 'order': 'descending', 'limit': 25}, 0)
+        #list_objects('songs', {'sort': 'dateadded', 'order': 'descending', 'limit': 25}, 0)
         # Clear window properties.
         window.clearProperty('Home.ActivePage.home')
         window.clearProperty('Home.ActivePage.movies')
@@ -101,3 +149,6 @@ if __name__ == '__main__':
         # Handle window property updates when focusing on a different list inside the same home page.
         elif method == 'onfocus_home_page_item':
             onfocus_home_page_item(sys.argv[2], sys.argv[3])
+        # Handle moving up or down inside the same home page.
+        elif method == 'onmove_home_page_item':
+            onmove_home_page_item(sys.argv[2], sys.argv[3])

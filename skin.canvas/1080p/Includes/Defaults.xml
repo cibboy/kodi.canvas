@@ -11,13 +11,14 @@
 	<!-- Button -->
 	<default type="button">
 		<width>auto</width>
-		<height>55</height>
+		<height>HEIGHT_BUTTON_DEFAULT</height>
 		<texturefocus colordiffuse="FOREGROUND_ACCENT">diffuse.png</texturefocus>
 		<texturenofocus colordiffuse="BACKGROUND_OPAQUE50">diffuse.png</texturenofocus>
 		<font>BODY</font>
 		<textcolor>FOREGROUND</textcolor>
 		<disabledcolor>FOREGROUND_OPAQUE35</disabledcolor>
 		<textoffsetx>7</textoffsetx>
+		<align>center</align>
 		<aligny>center</aligny>
 		<pulseonselect>false</pulseonselect>
 	</default>
@@ -25,7 +26,7 @@
 	<!-- Progress -->
 	<default type="progress">
 		<height>12</height>
-		<texturebg colordiffuse="FOREGROUND_DARK" border="6">1080p/progress/bg.png</texturebg>
+		<texturebg colordiffuse="BACKGROUND_OPAQUE50" border="6">1080p/progress/bg.png</texturebg>
 		<midtexture colordiffuse="FOREGROUND_ACCENT" border="6">1080p/progress/mid.png</midtexture>
 	</default>
 

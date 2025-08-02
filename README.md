@@ -1,10 +1,17 @@
 TOFIX:
 - aggiunto genre audio in plugin (potenzialmente una lista, quindi bisognerà fare delle prove con ulteriore scraping e aggiornamento tag mp3, che è stata aggiunta alla details info line 2)
-- al boot è sul menu principale (corretto) con info del primo elemento del continue watching, ma poi refresha e va sul secondo
+- home side menu non ha gli angoli arrotondati sul overlay perchè c'è scalediffuse su aspectratio
 
 TODO:
 - rifare diffuse shadow (per seguire meglio i border radius più stretto che uso)
-- gestione liste vuote
+- rivedere home onload e loading, suggestion:
+  - always, non one shot
+  - loading è uno per tutti, non uno per lista
+  - spostare caricamento liste in py a parte
+  - home_init chiama il caricamento liste (come fanno le liste con plugin://)
+  - il caricamento liste non setta loading/done
+  - loading/done fatto da home_init
+- home menu onright deve essere conditional sul !loading
 - creare possibilità di sbiancare la cache in temp
   - prima posizionare le immagini in temp/canvas.images e mp3 in temp/canvas.sound (da fare più avanti, quando si può testare il primo loading)
 

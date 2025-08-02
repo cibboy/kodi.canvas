@@ -87,19 +87,43 @@
 	<include name="ArtListsPoster">
 		<param name="id"></param>
 		<param name="art"></param>
+		<param name="offset_top_icon">OFFSET_TOP_POSTER_STRIP_ICON</param>
+		<param name="offset_right_icon">OFFSET_RIGHT_POSTER_STRIP_ICON</param>
+		<param name="offset_top_progress">OFFSET_TOP_POSTER_PROGRESS</param>
+		<param name="offset_left_progress">OFFSET_LEFT_POSTER_PROGRESS</param>
 
 		<definition>
-			<control type="image">
+			<control type="group">
 				<include content="FocusZoomAnimation">
 					<param name="reference_id"></param>
 				</include>
 
-				<width>WIDTH_POSTER</width>
-				<height>HEIGHT_POSTER</height>
-				<texture fallback="1080p/fallback/poster.png" background="true" diffuse="1080p/diffuse/poster.png">$PARAM[art]</texture>
-				<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
-				<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
-				<aspectratio scalediffuse="false">scale</aspectratio>
+				<!-- Poster image -->
+				<control type="image">
+					<width>WIDTH_POSTER</width>
+					<height>HEIGHT_POSTER</height>
+					<texture fallback="1080p/fallback/poster.png" background="true" diffuse="1080p/diffuse/poster.png">$PARAM[art]</texture>
+					<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
+					<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+				</control>
+				
+				<!-- Watched indicator -->
+				<include content="ArtListsWatchedIcon">
+					<param name="offset_top">$PARAM[offset_top_icon]</param>
+					<param name="offset_right">$PARAM[offset_right_icon]</param>
+				</include>
+				<!-- Episodes indicator -->
+				<include content="ArtListsEpisodesIcon">
+					<param name="offset_top">$PARAM[offset_top_icon]</param>
+					<param name="offset_right">$PARAM[offset_right_icon]</param>
+				</include>
+				<!-- Progress -->
+				<include content="ArtListsProgress">
+					<param name="width">WIDTH_POSTER_PROGRESS</param>
+					<param name="offset_top">$PARAM[offset_top_progress]</param>
+					<param name="offset_left">$PARAM[offset_left_progress]</param>
+				</include>
 			</control>
 		</definition>
 	</include>
@@ -131,17 +155,32 @@
 		<param name="art"></param>
 
 		<definition>
-			<control type="image">
+			<control type="group">
 				<include content="FocusZoomAnimation">
 					<param name="reference_id"></param>
 				</include>
 
-				<width>WIDTH_LANDSCAPE</width>
-				<height>HEIGHT_LANDSCAPE</height>
-				<texture fallback="1080p/fallback/landscape.png" background="true" diffuse="1080p/diffuse/landscape.png">$PARAM[art]</texture>
-				<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
-				<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
-				<aspectratio scalediffuse="false">scale</aspectratio>
+				<!-- Landscape image -->
+				<control type="image">
+					<width>WIDTH_LANDSCAPE</width>
+					<height>HEIGHT_LANDSCAPE</height>
+					<texture fallback="1080p/fallback/landscape.png" background="true" diffuse="1080p/diffuse/landscape.png">$PARAM[art]</texture>
+					<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
+					<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+				</control>
+
+				<!-- Watched indicator -->
+				<include content="ArtListsWatchedIcon">
+					<param name="offset_top">OFFSET_TOP_LANDSCAPE_STRIP_ICON</param>
+					<param name="offset_right">OFFSET_RIGHT_LANDSCAPE_STRIP_ICON</param>
+				</include>
+				<!-- Progress -->
+				<include content="ArtListsProgress">
+					<param name="width">WIDTH_LANDSCAPE_PROGRESS</param>
+					<param name="offset_top">OFFSET_TOP_LANDSCAPE_PROGRESS</param>
+					<param name="offset_left">OFFSET_LEFT_LANDSCAPE_PROGRESS</param>
+				</include>
 			</control>
 		</definition>
 	</include>
@@ -189,18 +228,6 @@
 							<include content="ArtListsLandscape">
 								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
-							</include>
-
-							<!-- Watched indicator -->
-							<include content="ArtListsWatchedIcon">
-								<param name="offset_top">OFFSET_TOP_LANDSCAPE_STRIP_ICON</param>
-								<param name="offset_right">OFFSET_RIGHT_LANDSCAPE_STRIP_ICON</param>
-							</include>
-							<!-- Progress -->
-							<include content="ArtListsProgress">
-								<param name="width">WIDTH_LANDSCAPE_PROGRESS</param>
-								<param name="offset_top">OFFSET_TOP_LANDSCAPE_PROGRESS</param>
-								<param name="offset_left">OFFSET_LEFT_LANDSCAPE_PROGRESS</param>
 							</include>
 
 							<!-- Info -->
@@ -255,6 +282,7 @@
 									<control type="label">
 										<left>PADDING_MULT_10</left>
 										<top>HEIGHT_CLEARLOGO_SMALL</top>
+										<width>340</width>
 										<font>CAPTION2</font>
 										<textcolor>FOREGROUND</textcolor>
 										<label>$INFO[ListItem.Title]</label>
@@ -276,18 +304,6 @@
 							<include content="ArtListsLandscape">
 								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
-							</include>
-
-							<!-- Watched indicator -->
-							<include content="ArtListsWatchedIcon">
-								<param name="offset_top">OFFSET_TOP_LANDSCAPE_STRIP_ICON</param>
-								<param name="offset_right">OFFSET_RIGHT_LANDSCAPE_STRIP_ICON</param>
-							</include>
-							<!-- Progress -->
-							<include content="ArtListsProgress">
-								<param name="width">WIDTH_LANDSCAPE_PROGRESS</param>
-								<param name="offset_top">OFFSET_TOP_LANDSCAPE_PROGRESS</param>
-								<param name="offset_left">OFFSET_LEFT_LANDSCAPE_PROGRESS</param>
 							</include>
 
 							<!-- Info -->
@@ -331,7 +347,7 @@
 									</control>
 									<!-- Season/episode -->
 									<control type="label">
-										<right>0</right>
+										<right>-8</right>
 										<top>HEIGHT_CLEARLOGO_SMALL</top>
 										<width>100</width>
 										<font>CAPTION2</font>
@@ -342,6 +358,7 @@
 									<control type="label">
 										<left>PADDING_MULT_10</left>
 										<top>HEIGHT_CLEARLOGO_SMALL</top>
+										<width>340</width>
 										<font>CAPTION2</font>
 										<textcolor>FOREGROUND</textcolor>
 										<label>$INFO[ListItem.Title]</label>
@@ -399,23 +416,6 @@
 								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
 							</include>
-
-							<!-- Watched indicator -->
-							<include content="ArtListsWatchedIcon">
-								<param name="offset_top">OFFSET_TOP_POSTER_STRIP_ICON</param>
-								<param name="offset_right">OFFSET_RIGHT_POSTER_STRIP_ICON</param>
-							</include>
-							<!-- Episodes indicator -->
-							<include content="ArtListsEpisodesIcon">
-								<param name="offset_top">OFFSET_TOP_POSTER_STRIP_ICON</param>
-								<param name="offset_right">OFFSET_RIGHT_POSTER_STRIP_ICON</param>
-							</include>
-							<!-- Progress -->
-							<include content="ArtListsProgress">
-								<param name="width">WIDTH_POSTER_PROGRESS</param>
-								<param name="offset_top">OFFSET_TOP_POSTER_PROGRESS</param>
-								<param name="offset_left">OFFSET_LEFT_POSTER_PROGRESS</param>
-							</include>
 						</control>
 					</itemlayout>
 
@@ -431,23 +431,6 @@
 							<include content="ArtListsPoster">
 								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
-							</include>
-
-							<!-- Watched indicator -->
-							<include content="ArtListsWatchedIcon">
-								<param name="offset_top">OFFSET_TOP_POSTER_STRIP_ICON</param>
-								<param name="offset_right">OFFSET_RIGHT_POSTER_STRIP_ICON</param>
-							</include>
-							<!-- Episodes indicator -->
-							<include content="ArtListsEpisodesIcon">
-								<param name="offset_top">OFFSET_TOP_POSTER_STRIP_ICON</param>
-								<param name="offset_right">OFFSET_RIGHT_POSTER_STRIP_ICON</param>
-							</include>
-							<!-- Progress -->
-							<include content="ArtListsProgress">
-								<param name="width">200</param>
-								<param name="offset_top">OFFSET_TOP_POSTER_PROGRESS</param>
-								<param name="offset_left">OFFSET_LEFT_POSTER_PROGRESS</param>
 							</include>
 						</control>
 					</focusedlayout>
@@ -621,23 +604,10 @@
 							<include content="ArtListsPoster">
 								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
-							</include>
-
-							<!-- Watched indicator -->
-							<include content="ArtListsWatchedIcon">
-								<param name="offset_top">OFFSET_TOP_POSTER_WALL_ICON</param>
-								<param name="offset_right">OFFSET_RIGHT_POSTER_WALL_ICON</param>
-							</include>
-							<!-- Episodes indicator -->
-							<include content="ArtListsEpisodesIcon">
-								<param name="offset_top">OFFSET_TOP_POSTER_WALL_ICON</param>
-								<param name="offset_right">OFFSET_RIGHT_POSTER_WALL_ICON</param>
-							</include>
-							<!-- Progress -->
-							<include content="ArtListsProgress">
-								<param name="width">WIDTH_POSTER_PROGRESS</param>
-								<param name="offset_top">OFFSET_TOP_POSTER_PROGRESS</param>
-								<param name="offset_left">OFFSET_LEFT_POSTER_PROGRESS</param>
+								<param name="offset_top_icon">OFFSET_TOP_POSTER_WALL_ICON</param>
+								<param name="offset_right_icon">OFFSET_RIGHT_POSTER_WALL_ICON</param>
+								<param name="offset_top_progress">OFFSET_TOP_POSTER_PROGRESS</param>
+								<param name="offset_left_progress">OFFSET_LEFT_POSTER_PROGRESS</param>
 							</include>
 						</control>
 					</itemlayout>
@@ -654,23 +624,10 @@
 							<include content="ArtListsPoster">
 								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
-							</include>
-
-							<!-- Watched indicator -->
-							<include content="ArtListsWatchedIcon">
-								<param name="offset_top">OFFSET_TOP_POSTER_WALL_ICON</param>
-								<param name="offset_right">OFFSET_RIGHT_POSTER_WALL_ICON</param>
-							</include>
-							<!-- Episodes indicator -->
-							<include content="ArtListsEpisodesIcon">
-								<param name="offset_top">OFFSET_TOP_POSTER_WALL_ICON</param>
-								<param name="offset_right">OFFSET_RIGHT_POSTER_WALL_ICON</param>
-							</include>
-							<!-- Progress -->
-							<include content="ArtListsProgress">
-								<param name="width">WIDTH_POSTER_PROGRESS</param>
-								<param name="offset_top">OFFSET_TOP_POSTER_PROGRESS</param>
-								<param name="offset_left">OFFSET_LEFT_POSTER_PROGRESS</param>
+								<param name="offset_top_icon">OFFSET_TOP_POSTER_WALL_ICON</param>
+								<param name="offset_right_icon">OFFSET_RIGHT_POSTER_WALL_ICON</param>
+								<param name="offset_top_progress">OFFSET_TOP_POSTER_PROGRESS</param>
+								<param name="offset_left_progress">OFFSET_LEFT_POSTER_PROGRESS</param>
 							</include>
 						</control>
 					</focusedlayout>
@@ -682,7 +639,6 @@
 	</include>
 
 	<!-- Vertical wall of album elements, with label and filters (for focused status) -->
-	<!--todo: aggiungere item label come albumstrip-->
 	<include name="AlbumWall">
 		<param name="id"></param>
 		<param name="label"></param>
@@ -799,6 +755,43 @@
 					</focusedlayout>
 
 					<content>$PARAM[content]</content>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Vertical wall of poster elements, with label and filters (for focused status) -->
+	<include name="EmptyArtListFallback">
+		<param name="id"></param>
+		<param name="label"></param>
+		<param name="button_label"></param>
+		<param name="onclick">noop</param>
+		<param name="onback">noop</param>
+		<param name="onleft">noop</param>
+
+		<definition>
+			<control type="group">
+				<width>WIDTH_FALLBACK_CONTENT</width>
+				<height>SCREEN_HEIGHT_PADDED</height>
+				<top>OFFSET_AFTER_DETAILS</top>
+				<centerleft>50%</centerleft>
+
+				<control type="label">
+					<width>WIDTH_FALLBACK_CONTENT</width>
+					<height>FONT_SIZE_BODY</height>
+					<centerright>50%</centerright>
+					<align>center</align>
+					<font>SUBTITLE</font>
+					<label>$PARAM[label]</label>
+				</control>
+				<control type="button" id="$PARAM[id]">
+					<width>WIDTH_FALLBACK_CONTENT</width>
+					<top>FONT_SIZE_TITLE1</top>
+					<centerright>50%</centerright>
+					<label>$PARAM[button_label]</label>
+					<onclick>$PARAM[onclick]</onclick>
+					<onback>$PARAM[onback]</onback>
+					<onleft>$PARAM[onleft]</onleft>
 				</control>
 			</control>
 		</definition>

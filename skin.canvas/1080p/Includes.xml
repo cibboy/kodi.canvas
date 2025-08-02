@@ -8,6 +8,7 @@
 
 	<!-- Constants: padding -->
 	<constant name="PADDING_BASE">50</constant>
+	<constant name="PADDING_BASE_NEG">-50</constant>
 	<constant name="PADDING_HALF">25</constant>
 	<constant name="PADDING_MULT_10">5</constant>
 	<constant name="PADDING_MULT_20">10</constant>
@@ -27,6 +28,8 @@
 
 	<constant name="HEIGHT_STUDIO_LOGO">80</constant>
 	<constant name="WIDTH_STUDIO_LOGO">120</constant>
+
+	<constant name="HEIGHT_BUTTON_DEFAULT">55</constant>
 
 	<!-- Constants: screen-related sizes -->
 	<constant name="SCREEN_CENTER_Y">540</constant>

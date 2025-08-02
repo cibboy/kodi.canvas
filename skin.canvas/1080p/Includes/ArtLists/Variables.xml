@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 	<!-- Constants -->
+	<constant name="HEIGHT_FALLBACK_CONTENT">590</constant>
+	<constant name="WIDTH_FALLBACK_CONTENT">400</constant>
+
 	<constant name="HEIGHT_POSTER">380</constant>
 	<constant name="WIDTH_POSTER">266</constant>
 	<constant name="WIDTH_POSTER_STRIP_ITEM_CONTAINER">246</constant>
