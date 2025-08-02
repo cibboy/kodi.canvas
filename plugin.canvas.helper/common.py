@@ -75,7 +75,7 @@ def list_continue_watching(handle):
             isFolder=False
         )
     
-    return len(sorted_items)
+    return 0#len(sorted_items)
 
 # Create a list of recently added TV show episodes.
 def list_recently_added_tvshow_episodes(handle):
@@ -113,7 +113,7 @@ def list_recently_added_tvshow_episodes(handle):
                 isFolder=False
             )
             
-        return len(episodes)
+        return 0#len(episodes)
     
     return 0
 
@@ -146,8 +146,7 @@ def list_movies(params, handle):
             isFolder=False
         )
         
-    #return len(movies)
-    return 0
+    return 0#len(movies)
 
 # Create a list of TV shows.
 def list_tvshows(params, handle):
@@ -301,7 +300,7 @@ def list_songs(params, handle):
             isFolder=False
         )
         
-    return len(songs)
+    return 0#len(songs)
 
 # Create a list of pictures.
 def list_pictures(params, handle):
@@ -314,8 +313,6 @@ def list_pictures(params, handle):
 def list_objects(method, params, handle):
     listid = params.get('listid', None)
     window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
-    # Set loading.
-    if listid is not None: window.setProperty(f"List.{listid}.IsLoading", 'true')
 
     count = 0
     # Call appropriate method.
@@ -343,10 +340,3 @@ def list_objects(method, params, handle):
 
     # Close list.
     xbmcplugin.endOfDirectory(handle)
-
-    # Force focus to a control if so requested. Useful for home details on multipage.
-    focus = params.get('focus_when_done', None)
-    if focus is not None and focus != '': xbmc.executebuiltin(f"SetFocus({focus})")
-
-    # Set loading.
-    if listid is not None: window.setProperty(f"List.{listid}.IsLoading", 'false')

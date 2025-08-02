@@ -1,35 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 	<!-- Is loading ongoing on home? -->
-	<expression name="IsHomeLoading">
-		String.IsEqual(Window(home).Property(List.101.IsLoading),true) |
-		String.IsEqual(Window(home).Property(List.102.IsLoading),true) |
-		String.IsEqual(Window(home).Property(List.103.IsLoading),true) |
-		String.IsEqual(Window(home).Property(List.104.IsLoading),true) |
-		String.IsEqual(Window(home).Property(List.110.IsLoading),true) |
-		String.IsEqual(Window(home).Property(List.120.IsLoading),true) |
-		String.IsEqual(Window(home).Property(List.130.IsLoading),true) |
-		String.IsEqual(Window(home).Property(List.140.IsLoading),true) |
-		String.IsEqual(Window(home).Property(List.150.IsLoading),true)
-	</expression>
-	<!-- Is continue watching loading? -->
-	<expression name="IsHomeContinueWatchingLoading">String.IsEqual(Window(home).Property(List.101.IsLoading),true)</expression>
-	<!-- Is recently added episodes loading? -->
-	<expression name="IsHomeRecentEpisodesLoading">String.IsEqual(Window(home).Property(List.102.IsLoading),true)</expression>
-	<!-- Is recently added movies loading? -->
-	<expression name="IsHomeRecentMoviesLoading">String.IsEqual(Window(home).Property(List.103.IsLoading),true)</expression>
-	<!-- Is recently added music loading? -->
-	<expression name="IsHomeRecentMusicLoading">String.IsEqual(Window(home).Property(List.104.IsLoading),true)</expression>
-	<!-- Is movies loading? -->
-	<expression name="IsHomeMoviesLoading">String.IsEqual(Window(home).Property(List.110.IsLoading),true)</expression>
-	<!-- Is tvshows loading? -->
-	<expression name="IsHomeTvShowsLoading">String.IsEqual(Window(home).Property(List.120.IsLoading),true)</expression>
-	<!-- Is yoga loading? -->
-	<expression name="IsHomeYogaLoading">String.IsEqual(Window(home).Property(List.130.IsLoading),true)</expression>
-	<!-- Is music loading? -->
-	<expression name="IsHomeMusicLoading">String.IsEqual(Window(home).Property(List.140.IsLoading),true)</expression>
-	<!-- Is pictures loading? -->
-	<expression name="IsHomePicturesLoading">String.IsEqual(Window(home).Property(List.150.IsLoading),true)</expression>
+	<expression name="IsHomeLoading">String.IsEqual(Window(home).Property(Home.IsLoading),true)</expression>
 
 	<!-- Is active page "home"? -->
 	<expression name="IsHomeActivePageHome">String.IsEqual(Window(home).Property(Home.ActivePage),home)</expression>

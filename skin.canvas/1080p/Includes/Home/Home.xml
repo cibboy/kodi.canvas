@@ -168,6 +168,19 @@
 						<itemgap>OFFSET_HOME_STRIP</itemgap>
 						<usecontrolcoords>true</usecontrolcoords>
 
+						<!-- Empty list fallback -->
+						<control type="group">
+							<visible>!$EXP[HasHomeContinueWatchingContent] + !$EXP[HasHomeRecentEpisodesContent] + !$EXP[HasHomeRecentMoviesContent] + !$EXP[HasHomeRecentMusicContent]</visible>
+							<include content="EmptyArtListFallback">
+								<param name="id">110</param>
+								<param name="label">Start with some content</param>
+								<param name="button_label">Add content</param>
+								<param name="onclick">noop</param>
+								<param name="onback">SetFocus(1,0)</param>
+								<param name="onleft">SetFocus(1,0)</param>
+							</include>
+						</control>
+
 						<!-- Continue watching -->
 						<control type="group">
 							<visible>$EXP[HasHomeContinueWatchingContent]</visible>
@@ -179,7 +192,7 @@
 							<include content="PosterStrip">
 								<param name="id">101</param>
 								<param name="label">Continue watching</param>
-								<param name="content">plugin://script.canvas.helper/continue_watching/?listid=101&amp;focus_when_done=1</param>
+								<param name="content">plugin://script.canvas.helper/continue_watching/?listid=101</param>
 								<param name="art">$INFO[ListItem.Art(poster)]</param>
 								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,101)</param>
 								<param name="onback">SetFocus(1,0)</param>
@@ -199,7 +212,7 @@
 							<include content="LandscapeStrip">
 								<param name="id">102</param>
 								<param name="label">Recently added episodes</param>
-								<param name="content">plugin://script.canvas.helper/recently_added_tvshow_episodes/?listid=102&amp;focus_when_done=1</param>
+								<param name="content">plugin://script.canvas.helper/recently_added_tvshow_episodes/?listid=102</param>
 								<param name="art">$INFO[ListItem.Art(thumb)]</param>
 								<param name="showinfo">true</param>
 								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,102)</param>
@@ -221,7 +234,7 @@
 							<include content="PosterStrip">
 								<param name="id">103</param>
 								<param name="label">Recently added movies</param>
-								<param name="content">plugin://script.canvas.helper/movies/?sort=dateadded&amp;order=descending&amp;limit=25&amp;listid=103&amp;focus_when_done=1</param>
+								<param name="content">plugin://script.canvas.helper/movies/?sort=dateadded&amp;order=descending&amp;limit=25&amp;listid=103</param>
 								<param name="art">$INFO[ListItem.Art(poster)]</param>
 								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,103)</param>
 								<param name="onback">SetFocus(1,0)</param>
@@ -242,7 +255,7 @@
 							<include content="AlbumStrip">
 								<param name="id">104</param>
 								<param name="label">Recently added music</param>
-								<param name="content">plugin://script.canvas.helper/songs/?sort=dateadded&amp;order=descending&amp;limit=25&amp;listid=104&amp;focus_when_done=1</param>
+								<param name="content">plugin://script.canvas.helper/songs/?sort=dateadded&amp;order=descending&amp;limit=25&amp;listid=104</param>
 								<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
 								<param name="info1">$INFO[ListItem.Title]</param>
 								<param name="info2">$INFO[ListItem.Album]</param>
@@ -283,7 +296,7 @@
 							<include content="PosterWall">
 								<param name="id">110</param>
 								<param name="label">Movies</param>
-								<param name="content">plugin://script.canvas.helper/movies/?listid=110&amp;focus_when_done=1</param>
+								<param name="content">plugin://script.canvas.helper/movies/?listid=110</param>
 								<param name="art">$INFO[ListItem.Art(poster)]</param>
 								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,movies,110)</param>
 								<param name="onback">SetFocus(1,1)</param>
@@ -306,7 +319,7 @@
 						<include content="PosterWall">
 							<param name="id">120</param>
 							<param name="label">TV Shows</param>
-							<param name="content">plugin://script.canvas.helper/tvshows/?exclude=Yoga with Adriene&amp;listid=120&amp;focus_when_done=1</param>
+							<param name="content">plugin://script.canvas.helper/tvshows/?exclude=Yoga with Adriene&amp;listid=120</param>
 							<param name="art">$INFO[ListItem.Art(poster)]</param>
 							<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,tvshows,120)</param>
 							<param name="onback">SetFocus(1,2)</param>
@@ -330,7 +343,7 @@
 						<include content="PosterStrip">
 							<param name="id">130</param>
 							<param name="label"></param>
-							<param name="content">plugin://script.canvas.helper/seasons/?showtitle=Yoga with Adriene&amp;listid=130&amp;focus_when_done=1</param>
+							<param name="content">plugin://script.canvas.helper/seasons/?showtitle=Yoga with Adriene&amp;listid=130</param>
 							<param name="art">$INFO[ListItem.Art(poster)]</param>
 							<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,yoga,130)</param>
 							<param name="onback">SetFocus(1,3)</param>
@@ -352,7 +365,7 @@
 						<include content="AlbumWall">
 							<param name="id">140</param>
 							<param name="label">Music</param>
-							<param name="content">plugin://script.canvas.helper/songs/?listid=140&amp;focus_when_done=1</param>
+							<param name="content">plugin://script.canvas.helper/songs/?listid=140</param>
 							<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
 							<param name="info1">$INFO[ListItem.Title]</param>
 							<param name="info2">$INFO[ListItem.Album]</param>
@@ -376,7 +389,7 @@
 						<include content="AlbumWall">
 							<param name="id">150</param>
 							<param name="label">Music</param>
-							<param name="content">plugin://script.canvas.helper/pictures/?listid=150&amp;focus_when_done=1</param>
+							<param name="content">plugin://script.canvas.helper/pictures/?listid=150</param>
 							<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
 							<param name="info1">$INFO[ListItem.Title]</param>
 							<param name="info2">$INFO[ListItem.Album]</param>

@@ -4,16 +4,12 @@ TOFIX:
 
 TODO:
 - rifare diffuse shadow (per seguire meglio i border radius più stretto che uso)
-- rivedere home onload e loading, suggestion:
-  - always, non one shot
-  - loading è uno per tutti, non uno per lista
-  - spostare caricamento liste in py a parte
-  - home_init chiama il caricamento liste (come fanno le liste con plugin://)
-  - il caricamento liste non setta loading/done
-  - loading/done fatto da home_init
-- home menu onright deve essere conditional sul !loading
 - creare possibilità di sbiancare la cache in temp
   - prima posizionare le immagini in temp/canvas.images e mp3 in temp/canvas.sound (da fare più avanti, quando si può testare il primo loading)
+
+
+Always Getting Over You, Angela Ammons, American Pie 2
+
 
 
 Guidelines:

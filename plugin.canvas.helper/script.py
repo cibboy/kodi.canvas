@@ -99,34 +99,27 @@ def onmove_home_page_item(listid, direction):
 # Reset home status.
 def init_home():
     window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
+    xbmc.executebuiltin('SetFocus(1,0)')
 
-    # Run only once.
-    if window.getProperty('Home.InitDone') != 'true':
-        # Set list loading.
-        window.setProperty('List.101.IsLoading', 'true')
-        window.setProperty('List.102.IsLoading', 'true')
-        window.setProperty('List.103.IsLoading', 'true')
-        window.setProperty('List.104.IsLoading', 'true')
-        window.setProperty('List.110.IsLoading', 'true')
-        window.setProperty('List.120.IsLoading', 'true')
-        window.setProperty('List.130.IsLoading', 'true')
-        window.setProperty('List.140.IsLoading', 'true')
-        window.setProperty('List.150.IsLoading', 'true')
-        #list_objects('continue_watching', {}, 0)
-        #list_objects('recently_added_tvshow_episodes', {}, 0)
-        #list_objects('movies', {'sort': 'dateadded', 'order': 'descending', 'limit': 25}, 0)
-        #list_objects('songs', {'sort': 'dateadded', 'order': 'descending', 'limit': 25}, 0)
-        # Clear window properties.
-        window.clearProperty('Home.ActivePage.home')
-        window.clearProperty('Home.ActivePage.movies')
-        window.clearProperty('Home.ActivePage.tvshows')
-        window.clearProperty('Home.ActivePage.yoga')
-        window.clearProperty('Home.ActivePage.music')
-        window.clearProperty('Home.ActivePage.pictures')
-        window.clearProperty('Home.ActivePage')
-        window.clearProperty('Home.ActiveListId')
-        # Set first run done.
-        window.setProperty('Home.InitDone', 'true')
+    # Preload lists.
+    window.setProperty('Home.IsLoading', 'true')
+    list_objects('continue_watching', {'listid': 101}, 1)   # Continue watching
+    list_objects('recently_added_tvshow_episodes', {'listid': 102}, 2)  # Recently added episodes
+    list_objects('movies', {'listid': 103, 'sort': 'dateadded', 'order': 'descending', 'limit': 25}, 3) # Recently added movies
+    list_objects('songs', {'listid': 104, 'sort': 'dateadded', 'order': 'descending', 'limit': 25}, 4)  # Recently added music
+    list_objects('movies', {'listid': 110}, 10)     # All movies
+    list_objects('tvshows', {'listid': 120, 'exclude': 'Yoga with Adriene'}, 20)    # All TV shows
+    list_objects('seasons', {'listid': 130, 'showtitle': 'Yoga with Adriene'}, 30)  # Yoga
+    list_objects('songs', {'listid': 140}, 40)      # All music
+    list_objects('pictures', {'listid': 150}, 50)   # Pictures
+    window.setProperty('Home.IsLoading', 'false')
+    
+    # Briefly set focus on the first available home item, then return to the main menu.
+    # This allows to properly set focuses as well as loading the right item details
+    # for when the focus is on the main menu instead of the items themeselves.
+    focus = find_home_next_content(['101', '102', '103', '104'], window)
+    xbmc.executebuiltin(f"SetFocus({focus},0)")
+    xbmc.executebuiltin('SetFocus(1,0)')
 
 # Opens DialogButtonMenu.xml. Equivalent to ActivateWindow(shutdownmenu), but works
 # with onback from home and later using a button to move to another window.
