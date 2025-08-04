@@ -3,12 +3,16 @@ TOFIX:
 - home side menu non ha gli angoli arrotondati sul overlay perchè c'è scalediffuse su aspectratio
 
 TODO:
-- rifare diffuse shadow (per seguire meglio i border radius più stretto che uso)
+- manca il caricamento della lista pictures
 - creare possibilità di sbiancare la cache in temp
   - prima posizionare le immagini in temp/canvas.images e mp3 in temp/canvas.sound (da fare più avanti, quando si può testare il primo loading)
 
 
-Always Getting Over You, Angela Ammons, American Pie 2
+not in spotify:
+- Always Getting Over You, Angela Ammons, American Pie 2
+- Right Here, Right Now, Fatboy Slim, You've Come a Long Way, Baby
+in spotify:
+- Wake me up, Avicii (al momento live, ma non è bella)
 
 
 
@@ -36,7 +40,7 @@ Docs:
 - https://kodi.wiki/view/Video_management
 	- https://kodi.wiki/view/HOW-TO:Modify_automatic_watch_and_resume_points
 
-<!--?xsp={"rules":{"and":[{"field":"title","operator":"is","value":["$INFO[Window(home).Property(videoinfo_encoded_title)]"]%7d]},"type":"tvshows"}-->
+<!--?xsp={"rules":{"and":[{"field":"title","operator":"is","value":["$INFO[Window.Property(videoinfo_encoded_title)]"]%7d]},"type":"tvshows"}-->
 <!--?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22title%22%2c%22operator%22%3a%22doesnotcontain%22%2c%22value%22%3a%5b%22Pitt%22%5d%7d%5d%7d%2c%22type%22%3a%22tvshows%22%7d-->
 
 

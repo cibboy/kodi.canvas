@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<variable name="HomeIcon"><value>1080p/icons/home.png</value></variable>
+	<variable name="MoviesIcon"><value>1080p/icons/movies.png</value></variable>
+	<variable name="TVShowsIcon"><value>1080p/icons/tvshows.png</value></variable>
+	<variable name="YogaIcon"><value>1080p/icons/yoga.png</value></variable>
+	<variable name="MusicIcon"><value>1080p/icons/music.png</value></variable>
+	<variable name="PicturesIcon"><value>1080p/icons/pictures.png</value></variable>
+	<variable name="MenuIcon"><value>1080p/icons/menu.png</value></variable>
+
+	<!-- Constants -->
+	<constant name="HEIGHT_FALLBACK_CONTENT">590</constant>
+	<constant name="WIDTH_FALLBACK_CONTENT">800</constant>
+</includes>

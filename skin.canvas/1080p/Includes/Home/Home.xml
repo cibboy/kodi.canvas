@@ -1,13 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
+	<include file="Includes/Home/Variables.xml" />
 	<include file="Includes/Home/Expressions.xml" />
+
+	<!-- Fallback element for when there is no content in a page -->
+	<include name="HomeEmptyPageFallback">
+		<param name="id"></param>
+		<param name="title"></param>
+		<param name="icon"></param>
+		<param name="information"></param>
+		<param name="button"></param>
+		<param name="onclick">noop</param>
+		<param name="onback">noop</param>
+		<param name="onleft">noop</param>
+
+		<definition>
+			<control type="group">
+				<width>WIDTH_FALLBACK_CONTENT</width>
+				<height>HEIGHT_FALLBACK_CONTENT</height>
+				<centertop>50%</centertop>
+				<centerleft>50%</centerleft>
+
+				<control type="image">
+					<width>100</width>
+					<height>100</height>
+					<centerleft>50%</centerleft>
+					<texture colordiffuse="FOREGROUND">$PARAM[icon]</texture>
+				</control>
+				<control type="label">
+					<width>WIDTH_FALLBACK_CONTENT</width>
+					<height>FONT_SIZE_BODY</height>
+					<top>100</top>
+					<centerright>50%</centerright>
+					<align>center</align>
+					<font>TITLE2</font>
+					<label>$PARAM[title]</label>
+				</control>
+				<control type="label">
+					<width>WIDTH_FALLBACK_CONTENT</width>
+					<height>FONT_SIZE_BODY</height>
+					<top>220</top>
+					<centerright>50%</centerright>
+					<align>center</align>
+					<font>BODY</font>
+					<label>$PARAM[information]</label>
+				</control>
+				<control type="button" id="$PARAM[id]">
+					<width>300</width>
+					<top>290</top>
+					<centerright>50%</centerright>
+					<label>$PARAM[button]</label>
+					<onclick>$PARAM[onclick]</onclick>
+					<onback>$PARAM[onback]</onback>
+					<onleft>$PARAM[onleft]</onleft>
+				</control>
+			</control>
+		</definition>
+	</include>
 
 	<!-- Main menu -->
 	<include name="HomeMainMenu">
 		<definition>
 			<control type="group">
 				<!-- Left/right shift + fade when the main menu loses/gains focus -->
-				<visible>Control.HasFocus(1)</visible>
+				<visible>Control.HasFocus(1) | Control.HasFocus(9999)</visible>
 				<include content="ShowHideFadeSlideHorizontalAnimation">
 					<param name="slide_amount">-200</param>
 					<param name="speed">ANIMATION_MID</param>
@@ -16,6 +72,15 @@
 				<left>PADDING_BASE</left>
 				<top>PADDING_BASE</top>
 				<bottom>PADDING_BASE</bottom>
+
+				<!-- Hidden button to steal focus while loading -->
+				<control type="button" id="9999">
+					<include content="Hidden" />
+					<!-- Fallback for endless loading -->
+					<onback>RunScript(script.canvas.helper,open_home_sidemenu)</onback>
+					<!-- Fallback for side menu opening while loading -->
+					<ondown condition="!$EXP[IsHomeLoading]">SetFocus(1)</ondown>
+				</control>
 
 				<!-- Logo -->
 				<control type="image">
@@ -71,49 +136,49 @@
 					<content>
 						<!-- Home -->
 						<item id="1">
-							<thumb>1080p/icons/home.png</thumb>
+							<thumb>$VAR[HomeIcon]</thumb>
 							<property name="name">home</property>
 							<property name="onright">SetFocus(100)</property>
 							<property name="onclick">SetFocus(100)</property>
 						</item>
 						<!-- Movies -->
 						<item id="2">
-							<thumb>1080p/icons/movies.png</thumb>
+							<thumb>$VAR[MoviesIcon]</thumb>
 							<property name="name">movies</property>
 							<property name="onright">SetFocus(110)</property>
 							<property name="onclick">SetFocus(110)</property>
 						</item>
 						<!-- TV shows -->
 						<item id="3">
-							<thumb>1080p/icons/tvshows.png</thumb>
+							<thumb>$VAR[TVShowsIcon]</thumb>
 							<property name="name">tvshows</property>
 							<property name="onright">SetFocus(120)</property>
 							<property name="onclick">SetFocus(120)</property>
 						</item>
 						<!-- Yoga -->
 						<item id="4">
-							<thumb>1080p/icons/yoga.png</thumb>
+							<thumb>$VAR[YogaIcon]</thumb>
 							<property name="name">yoga</property>
 							<property name="onright">SetFocus(130)</property>
 							<property name="onclick">SetFocus(130)</property>
 						</item>
 						<!-- Music -->
 						<item id="5">
-							<thumb>1080p/icons/music.png</thumb>
+							<thumb>$VAR[MusicIcon]</thumb>
 							<property name="name">music</property>
 							<property name="onright">SetFocus(140)</property>
 							<property name="onclick">SetFocus(140)</property>
 						</item>
 						<!-- Pictures -->
 						<item id="6">
-							<thumb>1080p/icons/pictures.png</thumb>
+							<thumb>$VAR[PicturesIcon]</thumb>
 							<property name="name">pictures</property>
 							<property name="onright">SetFocus(150)</property>
 							<property name="onclick">SetFocus(150)</property>
 						</item>
 						<!-- Menu -->
 						<item id="7">
-							<thumb>1080p/icons/menu.png</thumb>
+							<thumb>$VAR[MenuIcon]</thumb>
 							<property name="name">menu</property>
 							<property name="onright">noop</property>
 							<property name="onclick">RunScript(script.canvas.helper,open_home_sidemenu)</property>
@@ -151,124 +216,131 @@
 
 				<!-- Selection details -->
 				<include content="SelectionDetails">
-					<param name="visible">!$EXP[IsHomeActivePagePictures] + !$EXP[IsHomeLoading]</param>
+					<param name="visible">$EXP[HomeShowDetails]</param>
 				</include>
 
 				<!-- Items -->
 				<control type="group">
 					<!-- Home -->
-					<control type="grouplist" id="100">
+					<control type="group">
 						<visible>$EXP[IsHomeActivePageHome] + !$EXP[IsHomeLoading]</visible>
 						<include content="ShowHideFadeSlideVerticalAnimation">
 							<param name="slide_amount">200</param>
 							<param name="speed">ANIMATION_SLOW</param>
 						</include>
 
-						<top>OFFSET_AFTER_DETAILS</top>
-						<itemgap>OFFSET_HOME_STRIP</itemgap>
-						<usecontrolcoords>true</usecontrolcoords>
-
 						<!-- Empty list fallback -->
 						<control type="group">
-							<visible>!$EXP[HasHomeContinueWatchingContent] + !$EXP[HasHomeRecentEpisodesContent] + !$EXP[HasHomeRecentMoviesContent] + !$EXP[HasHomeRecentMusicContent]</visible>
-							<include content="EmptyArtListFallback">
-								<param name="id">110</param>
-								<param name="label">Start with some content</param>
-								<param name="button_label">Add content</param>
+							<visible>!$EXP[HasHomePageHomeContent]</visible>
+							<include content="FocusFadeAnimation">
+								<param name="reference_id">100</param>
+							</include>
+
+							<include content="HomeEmptyPageFallback">
+								<param name="id">100</param>
+								<param name="information">Start with some content</param>
+								<param name="button">Add content</param>
 								<param name="onclick">noop</param>
 								<param name="onback">SetFocus(1,0)</param>
 								<param name="onleft">SetFocus(1,0)</param>
 							</include>
 						</control>
 
-						<!-- Continue watching -->
-						<control type="group">
-							<visible>$EXP[HasHomeContinueWatchingContent]</visible>
-							<include content="FocusFadeAnimation">
-								<param name="reference_id">101</param>
-							</include>
-							<height>HEIGHT_HOME_STRIP</height>
+						<control type="grouplist" id="100">
+							<visible>$EXP[HasHomePageHomeContent]</visible>
+							<top>OFFSET_AFTER_DETAILS</top>
+							<itemgap>OFFSET_HOME_STRIP</itemgap>
+							<usecontrolcoords>true</usecontrolcoords>
 
-							<include content="PosterStrip">
-								<param name="id">101</param>
-								<param name="label">Continue watching</param>
-								<param name="content">plugin://script.canvas.helper/continue_watching/?listid=101</param>
-								<param name="art">$INFO[ListItem.Art(poster)]</param>
-								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,101)</param>
-								<param name="onback">SetFocus(1,0)</param>
-								<param name="onleft">SetFocus(1,0)</param>
-								<param name="ondown">RunScript(script.canvas.helper,onmove_home_page_item,101,down)</param>
-							</include>
-						</control>
+							<!-- Continue watching -->
+							<control type="group">
+								<visible>$EXP[HasHomeContinueWatchingContent]</visible>
+								<include content="FocusFadeAnimation">
+									<param name="reference_id">101</param>
+								</include>
+								<height>HEIGHT_HOME_STRIP</height>
 
-						<!-- Recently added episodes -->
-						<control type="group">
-							<visible>$EXP[HasHomeRecentEpisodesContent]</visible>
-							<include content="FocusFadeAnimation">
-								<param name="reference_id">102</param>
-							</include>
-							<height>HEIGHT_HOME_STRIP</height>
+								<include content="PosterStrip">
+									<param name="id">101</param>
+									<param name="label">Continue watching</param>
+									<param name="content">plugin://script.canvas.helper/continue_watching/?listid=101</param>
+									<param name="art">$INFO[ListItem.Art(poster)]</param>
+									<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,101)</param>
+									<param name="onback">SetFocus(1,0)</param>
+									<param name="onleft">SetFocus(1,0)</param>
+									<param name="ondown">RunScript(script.canvas.helper,onmove_home_page_item,101,down)</param>
+								</include>
+							</control>
 
-							<include content="LandscapeStrip">
-								<param name="id">102</param>
-								<param name="label">Recently added episodes</param>
-								<param name="content">plugin://script.canvas.helper/recently_added_tvshow_episodes/?listid=102</param>
-								<param name="art">$INFO[ListItem.Art(thumb)]</param>
-								<param name="showinfo">true</param>
-								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,102)</param>
-								<param name="onback">SetFocus(1,0)</param>
-								<param name="onleft">SetFocus(1,0)</param>
-								<param name="onup">RunScript(script.canvas.helper,onmove_home_page_item,102,up)</param>
-								<param name="ondown">RunScript(script.canvas.helper,onmove_home_page_item,102,down)</param>
-							</include>
-						</control>
+							<!-- Recently added episodes -->
+							<control type="group">
+								<visible>$EXP[HasHomeRecentEpisodesContent]</visible>
+								<include content="FocusFadeAnimation">
+									<param name="reference_id">102</param>
+								</include>
+								<height>HEIGHT_HOME_STRIP</height>
 
-						<!-- Recently added movies -->
-						<control type="group">
-							<visible>$EXP[HasHomeRecentMoviesContent]</visible>
-							<include content="FocusFadeAnimation">
-								<param name="reference_id">103</param>
-							</include>
-							<height>HEIGHT_HOME_STRIP</height>
+								<include content="LandscapeStrip">
+									<param name="id">102</param>
+									<param name="label">Recently added episodes</param>
+									<param name="content">plugin://script.canvas.helper/recently_added_tvshow_episodes/?listid=102</param>
+									<param name="art">$INFO[ListItem.Art(thumb)]</param>
+									<param name="showinfo">true</param>
+									<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,102)</param>
+									<param name="onback">SetFocus(1,0)</param>
+									<param name="onleft">SetFocus(1,0)</param>
+									<param name="onup">RunScript(script.canvas.helper,onmove_home_page_item,102,up)</param>
+									<param name="ondown">RunScript(script.canvas.helper,onmove_home_page_item,102,down)</param>
+								</include>
+							</control>
 
-							<include content="PosterStrip">
-								<param name="id">103</param>
-								<param name="label">Recently added movies</param>
-								<param name="content">plugin://script.canvas.helper/movies/?sort=dateadded&amp;order=descending&amp;limit=25&amp;listid=103</param>
-								<param name="art">$INFO[ListItem.Art(poster)]</param>
-								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,103)</param>
-								<param name="onback">SetFocus(1,0)</param>
-								<param name="onleft">SetFocus(1,0)</param>
-								<param name="onup">RunScript(script.canvas.helper,onmove_home_page_item,103,up)</param>
-								<param name="ondown">RunScript(script.canvas.helper,onmove_home_page_item,103,down)</param>
-							</include>
-						</control>
+							<!-- Recently added movies -->
+							<control type="group">
+								<visible>$EXP[HasHomeRecentMoviesContent]</visible>
+								<include content="FocusFadeAnimation">
+									<param name="reference_id">103</param>
+								</include>
+								<height>HEIGHT_HOME_STRIP</height>
 
-						<!-- Recently added music -->
-						<control type="group">
-							<visible>$EXP[HasHomeRecentMusicContent]</visible>
-							<include content="FocusFadeAnimation">
-								<param name="reference_id">104</param>
-							</include>
-							<height>HEIGHT_HOME_STRIP</height>
+								<include content="PosterStrip">
+									<param name="id">103</param>
+									<param name="label">Recently added movies</param>
+									<param name="content">plugin://script.canvas.helper/movies/?sort=dateadded&amp;order=descending&amp;limit=25&amp;listid=103</param>
+									<param name="art">$INFO[ListItem.Art(poster)]</param>
+									<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,103)</param>
+									<param name="onback">SetFocus(1,0)</param>
+									<param name="onleft">SetFocus(1,0)</param>
+									<param name="onup">RunScript(script.canvas.helper,onmove_home_page_item,103,up)</param>
+									<param name="ondown">RunScript(script.canvas.helper,onmove_home_page_item,103,down)</param>
+								</include>
+							</control>
 
-							<include content="AlbumStrip">
-								<param name="id">104</param>
-								<param name="label">Recently added music</param>
-								<param name="content">plugin://script.canvas.helper/songs/?sort=dateadded&amp;order=descending&amp;limit=25&amp;listid=104</param>
-								<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
-								<param name="info1">$INFO[ListItem.Title]</param>
-								<param name="info2">$INFO[ListItem.Album]</param>
-								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,104)</param>
-								<param name="onback">SetFocus(1,0)</param>
-								<param name="onleft">SetFocus(1,0)</param>
-								<param name="onup">RunScript(script.canvas.helper,onmove_home_page_item,104,up)</param>
-							</include>
+							<!-- Recently added music -->
+							<control type="group">
+								<visible>$EXP[HasHomeRecentMusicContent]</visible>
+								<include content="FocusFadeAnimation">
+									<param name="reference_id">104</param>
+								</include>
+								<height>HEIGHT_HOME_STRIP</height>
+
+								<include content="AlbumStrip">
+									<param name="id">104</param>
+									<param name="label">Recently added music</param>
+									<param name="content">plugin://script.canvas.helper/songs/?sort=dateadded&amp;order=descending&amp;limit=25&amp;listid=104</param>
+									<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
+									<param name="info1">$INFO[ListItem.Title]</param>
+									<param name="info2">$INFO[ListItem.Album]</param>
+									<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,104)</param>
+									<param name="onback">SetFocus(1,0)</param>
+									<param name="onleft">SetFocus(1,0)</param>
+									<param name="onup">RunScript(script.canvas.helper,onmove_home_page_item,104,up)</param>
+								</include>
+							</control>
 						</control>
 					</control>
 
 					<!-- Movies -->
-					<control type="group">
+					<control type="group" id="110">
 						<visible>$EXP[IsHomeActivePageMovies] + !$EXP[IsHomeLoading]</visible>
 						<include content="ShowHideFadeSlideVerticalAnimation">
 							<param name="slide_amount">200</param>
@@ -281,10 +353,12 @@
 						<!-- Empty list fallback -->
 						<control type="group">
 							<visible>!$EXP[HasHomeMoviesContent]</visible>
-							<include content="EmptyArtListFallback">
-								<param name="id">110</param>
-								<param name="label">No movies present</param>
-								<param name="button_label">Add movies</param>
+							<include content="HomeEmptyPageFallback">
+								<param name="id"></param>
+								<param name="title">Movies</param>
+								<param name="icon">$VAR[MoviesIcon]</param>
+								<param name="information">No content found</param>
+								<param name="button">Add movies</param>
 								<param name="onclick">noop</param>
 								<param name="onback">SetFocus(1,1)</param>
 								<param name="onleft">SetFocus(1,1)</param>
@@ -294,11 +368,11 @@
 						<control type="group">
 							<visible>$EXP[HasHomeMoviesContent]</visible>
 							<include content="PosterWall">
-								<param name="id">110</param>
+								<param name="id">111</param>
 								<param name="label">Movies</param>
-								<param name="content">plugin://script.canvas.helper/movies/?listid=110</param>
+								<param name="content">plugin://script.canvas.helper/movies/?listid=111</param>
 								<param name="art">$INFO[ListItem.Art(poster)]</param>
-								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,movies,110)</param>
+								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,movies,111)</param>
 								<param name="onback">SetFocus(1,1)</param>
 								<param name="onleft">SetFocus(1,1)</param>
 							</include>
@@ -306,7 +380,7 @@
 					</control>
 
 					<!-- TV shows -->
-					<control type="group">
+					<control type="group" id="120">
 						<visible>$EXP[IsHomeActivePageTvShows] + !$EXP[IsHomeLoading]</visible>
 						<include content="ShowHideFadeSlideVerticalAnimation">
 							<param name="slide_amount">200</param>
@@ -316,19 +390,37 @@
 							<param name="reference_id">120</param>
 						</include>
 
-						<include content="PosterWall">
-							<param name="id">120</param>
-							<param name="label">TV Shows</param>
-							<param name="content">plugin://script.canvas.helper/tvshows/?exclude=Yoga with Adriene&amp;listid=120</param>
-							<param name="art">$INFO[ListItem.Art(poster)]</param>
-							<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,tvshows,120)</param>
-							<param name="onback">SetFocus(1,2)</param>
-							<param name="onleft">SetFocus(1,2)</param>
-						</include>
+						<!-- Empty list fallback -->
+						<control type="group">
+							<visible>!$EXP[HasHomeTvShowsContent]</visible>
+							<include content="HomeEmptyPageFallback">
+								<param name="id"></param>
+								<param name="title">TV Shows</param>
+								<param name="icon">$VAR[TVShowsIcon]</param>
+								<param name="information">No content found</param>
+								<param name="button">Add TV Shows</param>
+								<param name="onclick">noop</param>
+								<param name="onback">SetFocus(1,2)</param>
+								<param name="onleft">SetFocus(1,2)</param>
+							</include>
+						</control>
+						<!-- Actual TV shows -->
+						<control type="group">
+							<visible>$EXP[HasHomeTvShowsContent]</visible>
+							<include content="PosterWall">
+								<param name="id">121</param>
+								<param name="label">TV Shows</param>
+								<param name="content">plugin://script.canvas.helper/tvshows/?exclude=Yoga with Adriene&amp;listid=121</param>
+								<param name="art">$INFO[ListItem.Art(poster)]</param>
+								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,tvshows,121)</param>
+								<param name="onback">SetFocus(1,2)</param>
+								<param name="onleft">SetFocus(1,2)</param>
+							</include>
+						</control>
 					</control>
 
 					<!-- Yoga With Adriene -->
-					<control type="group">
+					<control type="group" id="130">
 						<visible>$EXP[IsHomeActivePageYoga] + !$EXP[IsHomeLoading]</visible>
 						<include content="ShowHideFadeSlideVerticalAnimation">
 							<param name="slide_amount">200</param>
@@ -338,21 +430,39 @@
 							<param name="reference_id">130</param>
 						</include>
 
-						<top>OFFSET_AFTER_DETAILS</top>
+						<!-- Empty list fallback -->
+						<control type="group">
+							<visible>!$EXP[HasHomeYogaContent]</visible>
+							<include content="HomeEmptyPageFallback">
+								<param name="id"></param>
+								<param name="title">Yoga with Adriene</param>
+								<param name="icon">$VAR[YogaIcon]</param>
+								<param name="information">No content found</param>
+								<param name="button">Add yoga</param>
+								<param name="onclick">noop</param>
+								<param name="onback">SetFocus(1,3)</param>
+								<param name="onleft">SetFocus(1,3)</param>
+							</include>
+						</control>
+						<!-- Actual Yoga With Adriene -->
+						<control type="group">
+							<visible>$EXP[HasHomeYogaContent]</visible>
+							<top>OFFSET_AFTER_DETAILS</top>
 
-						<include content="PosterStrip">
-							<param name="id">130</param>
-							<param name="label"></param>
-							<param name="content">plugin://script.canvas.helper/seasons/?showtitle=Yoga with Adriene&amp;listid=130</param>
-							<param name="art">$INFO[ListItem.Art(poster)]</param>
-							<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,yoga,130)</param>
-							<param name="onback">SetFocus(1,3)</param>
-							<param name="onleft">SetFocus(1,3)</param>
-						</include>
+							<include content="PosterStrip">
+								<param name="id">131</param>
+								<param name="label"></param>
+								<param name="content">plugin://script.canvas.helper/seasons/?showtitle=Yoga with Adriene&amp;listid=131</param>
+								<param name="art">$INFO[ListItem.Art(poster)]</param>
+								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,yoga,131)</param>
+								<param name="onback">SetFocus(1,3)</param>
+								<param name="onleft">SetFocus(1,3)</param>
+							</include>
+						</control>
 					</control>
 
 					<!-- Music -->
-					<control type="group">
+					<control type="group" id="140">
 						<visible>$EXP[IsHomeActivePageMusic] + !$EXP[IsHomeLoading]</visible>
 						<include content="ShowHideFadeSlideVerticalAnimation">
 							<param name="slide_amount">200</param>
@@ -362,21 +472,39 @@
 							<param name="reference_id">140</param>
 						</include>
 
-						<include content="AlbumWall">
-							<param name="id">140</param>
-							<param name="label">Music</param>
-							<param name="content">plugin://script.canvas.helper/songs/?listid=140</param>
-							<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
-							<param name="info1">$INFO[ListItem.Title]</param>
-							<param name="info2">$INFO[ListItem.Album]</param>
-							<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,music,140)</param>
-							<param name="onback">SetFocus(1,4)</param>
-							<param name="onleft">SetFocus(1,4)</param>
-						</include>
+						<!-- Empty list fallback -->
+						<control type="group">
+							<visible>!$EXP[HasHomeMusicContent]</visible>
+							<include content="HomeEmptyPageFallback">
+								<param name="id"></param>
+								<param name="title">Music</param>
+								<param name="icon">$VAR[MusicIcon]</param>
+								<param name="information">No content found</param>
+								<param name="button">Add music</param>
+								<param name="onclick">noop</param>
+								<param name="onback">SetFocus(1,4)</param>
+								<param name="onleft">SetFocus(1,4)</param>
+							</include>
+						</control>
+						<!-- Actual music -->
+						<control type="group">
+							<visible>$EXP[HasHomeMusicContent]</visible>
+							<include content="AlbumWall">
+								<param name="id">141</param>
+								<param name="label">Music</param>
+								<param name="content">plugin://script.canvas.helper/songs/?listid=141</param>
+								<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
+								<param name="info1">$INFO[ListItem.Title]</param>
+								<param name="info2">$INFO[ListItem.Album]</param>
+								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,music,141)</param>
+								<param name="onback">SetFocus(1,4)</param>
+								<param name="onleft">SetFocus(1,4)</param>
+							</include>
+						</control>
 					</control>
 
 					<!-- Pictures -->
-					<control type="group">
+					<control type="group" id="150">
 						<visible>$EXP[IsHomeActivePagePictures] + !$EXP[IsHomeLoading]</visible>
 						<include content="ShowHideFadeSlideVerticalAnimation">
 							<param name="slide_amount">200</param>
@@ -386,17 +514,35 @@
 							<param name="reference_id">150</param>
 						</include>
 
-						<include content="AlbumWall">
-							<param name="id">150</param>
-							<param name="label">Music</param>
-							<param name="content">plugin://script.canvas.helper/pictures/?listid=150</param>
-							<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
-							<param name="info1">$INFO[ListItem.Title]</param>
-							<param name="info2">$INFO[ListItem.Album]</param>
-							<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,music,150)</param>
-							<param name="onback">SetFocus(1,5)</param>
-							<param name="onleft">SetFocus(1,5)</param>
-						</include>
+						<!-- Empty list fallback -->
+						<control type="group">
+							<visible>!$EXP[HasHomePicturesContent]</visible>
+							<include content="HomeEmptyPageFallback">
+								<param name="id"></param>
+								<param name="title">Pictures</param>
+								<param name="icon">$VAR[PicturesIcon]</param>
+								<param name="information">No content found</param>
+								<param name="button">Add pictures</param>
+								<param name="onclick">noop</param>
+								<param name="onback">SetFocus(1,5)</param>
+								<param name="onleft">SetFocus(1,5)</param>
+							</include>
+						</control>
+						<!-- Actual pictures -->
+						<control type="group">
+							<visible>$EXP[HasHomePicturesContent]</visible>
+								<include content="AlbumWall">
+								<param name="id">151</param>
+								<param name="label">Music</param>
+								<param name="content">plugin://script.canvas.helper/pictures/?listid=151</param>
+								<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
+								<param name="info1">$INFO[ListItem.Title]</param>
+								<param name="info2">$INFO[ListItem.Album]</param>
+								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,music,151)</param>
+								<param name="onback">SetFocus(1,5)</param>
+								<param name="onleft">SetFocus(1,5)</param>
+							</include>
+						</control>
 					</control>
 				</control>
 			</control>

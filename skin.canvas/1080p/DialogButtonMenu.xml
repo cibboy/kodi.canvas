@@ -50,6 +50,7 @@
 				<font>subtitle</font>
 				<textcolor>AAFFFFFF</textcolor>-->
 				<label>Quit</label>
+				<onclick>Close</onclick>
 				<onclick>Quit()</onclick>
 				<ondown>2</ondown>
 			</control>
@@ -63,6 +64,7 @@
 				<font>subtitle</font>
 				<textcolor>AAFFFFFF</textcolor>-->
 				<label>InterfaceSettings</label>
+				<onclick>Close</onclick>
 				<onclick>ActivateWindow(interfacesettings)</onclick>
 				<onup>1</onup>
 			</control>

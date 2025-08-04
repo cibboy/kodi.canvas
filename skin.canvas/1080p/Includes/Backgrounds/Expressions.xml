@@ -2,7 +2,7 @@
 <includes>
 	<!-- Is music? -->
 	<expression name="IsBackgroundMusic">
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),104)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),140)]
+		[String.IsEqual(Window.Property(Home.ActiveListId),104)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),140)]
 	</expression>
 </includes>

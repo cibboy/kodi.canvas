@@ -294,7 +294,7 @@
 					
 					<focusedlayout width="WIDTH_LANDSCAPE_STRIP_ITEM_CONTAINER" height="HEIGHT_LANDSCAPE">
 						<control type="group">
-							<!-- Update selected item info -->
+							<!-- Onchange action -->
 							<control type="button">
 								<include content="Hidden" />
 								<onfocus>$PARAM[onchange]</onfocus>
@@ -421,7 +421,7 @@
 
 					<focusedlayout width="WIDTH_POSTER_STRIP_ITEM_CONTAINER" height="HEIGHT_POSTER">
 						<control type="group">
-							<!-- Update selected item info -->
+							<!-- Onchange action -->
 							<control type="button">
 								<include content="Hidden" />
 								<onfocus>$PARAM[onchange]</onfocus>
@@ -519,7 +519,7 @@
 
 					<focusedlayout width="WIDTH_ALBUM_STRIP_ITEM_CONTAINER" height="HEIGHT_ALBUM_STRIP_CONTAINER">
 						<control type="group">
-							<!-- Update selected item info -->
+							<!-- Onchange action -->
 							<control type="button">
 								<include content="Hidden" />
 								<onfocus>$PARAM[onchange]</onfocus>
@@ -614,7 +614,7 @@
 
 					<focusedlayout width="WIDTH_POSTER_WALL_ITEM_CONTAINER" height="HEIGHT_POSTER">
 						<control type="group">
-							<!-- Update selected item info -->
+							<!-- Onchange action -->
 							<control type="button">
 								<include content="Hidden" />
 								<onfocus>$PARAM[onchange]</onfocus>
@@ -711,7 +711,7 @@
 
 					<focusedlayout width="WIDTH_ALBUM_WALL_ITEM_CONTAINER" height="HEIGHT_ALBUM_WALL_CONTAINER">
 						<control type="group">
-							<!-- Update selected item info -->
+							<!-- Onchange action -->
 							<control type="button">
 								<include content="Hidden" />
 								<onfocus>$PARAM[onchange]</onfocus>
@@ -755,43 +755,6 @@
 					</focusedlayout>
 
 					<content>$PARAM[content]</content>
-				</control>
-			</control>
-		</definition>
-	</include>
-
-	<!-- Vertical wall of poster elements, with label and filters (for focused status) -->
-	<include name="EmptyArtListFallback">
-		<param name="id"></param>
-		<param name="label"></param>
-		<param name="button_label"></param>
-		<param name="onclick">noop</param>
-		<param name="onback">noop</param>
-		<param name="onleft">noop</param>
-
-		<definition>
-			<control type="group">
-				<width>WIDTH_FALLBACK_CONTENT</width>
-				<height>SCREEN_HEIGHT_PADDED</height>
-				<top>OFFSET_AFTER_DETAILS</top>
-				<centerleft>50%</centerleft>
-
-				<control type="label">
-					<width>WIDTH_FALLBACK_CONTENT</width>
-					<height>FONT_SIZE_BODY</height>
-					<centerright>50%</centerright>
-					<align>center</align>
-					<font>SUBTITLE</font>
-					<label>$PARAM[label]</label>
-				</control>
-				<control type="button" id="$PARAM[id]">
-					<width>WIDTH_FALLBACK_CONTENT</width>
-					<top>FONT_SIZE_TITLE1</top>
-					<centerright>50%</centerright>
-					<label>$PARAM[button_label]</label>
-					<onclick>$PARAM[onclick]</onclick>
-					<onback>$PARAM[onback]</onback>
-					<onleft>$PARAM[onleft]</onleft>
 				</control>
 			</control>
 		</definition>

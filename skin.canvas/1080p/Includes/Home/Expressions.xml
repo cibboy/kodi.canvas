@@ -32,13 +32,26 @@
 	<!-- Has recently added music content? -->
 	<expression name="HasHomeRecentMusicContent">String.IsEqual(Window(home).Property(List.104.HasContent),true)</expression>
 	<!-- Has movies content? -->
-	<expression name="HasHomeMoviesContent">String.IsEqual(Window(home).Property(List.110.HasContent),true)</expression>
+	<expression name="HasHomeMoviesContent">String.IsEqual(Window(home).Property(List.111.HasContent),true)</expression>
 	<!-- Has tv shows content? -->
-	<expression name="HasHomeTvShowsContent">String.IsEqual(Window(home).Property(List.120.HasContent),true)</expression>
+	<expression name="HasHomeTvShowsContent">String.IsEqual(Window(home).Property(List.121.HasContent),true)</expression>
 	<!-- Has yoga content? -->
-	<expression name="HasHomeYogaContent">String.IsEqual(Window(home).Property(List.130.HasContent),true)</expression>
+	<expression name="HasHomeYogaContent">String.IsEqual(Window(home).Property(List.131.HasContent),true)</expression>
 	<!-- Has music content? -->
-	<expression name="HasHomeMusicContent">String.IsEqual(Window(home).Property(List.140.HasContent),true)</expression>
+	<expression name="HasHomeMusicContent">String.IsEqual(Window(home).Property(List.141.HasContent),true)</expression>
 	<!-- Has pictures content? -->
-	<expression name="HasHomePicturesContent">String.IsEqual(Window(home).Property(List.150.HasContent),true)</expression>
+	<expression name="HasHomePicturesContent">String.IsEqual(Window(home).Property(List.151.HasContent),true)</expression>
+
+	<!-- Show details? -->
+	<expression name="HomeShowDetails">
+		[!$EXP[IsHomeActivePagePictures] + !$EXP[IsHomeLoading]] +
+		[
+			[$EXP[IsHomeActivePageHome] + $EXP[HasHomePageHomeContent]] |
+			[$EXP[IsHomeActivePageMovies] + $EXP[HasHomeMoviesContent]] |
+			[$EXP[IsHomeActivePageTvShows] + $EXP[HasHomeTvShowsContent]] |
+			[$EXP[IsHomeActivePageYoga] + $EXP[HasHomeYogaContent]] |
+			[$EXP[IsHomeActivePageMusic] + $EXP[HasHomeMusicContent]] |
+			[$EXP[IsHomeActivePagePictures] + $EXP[HasHomePicturesContent]]
+		]
+	</expression>
 </includes>

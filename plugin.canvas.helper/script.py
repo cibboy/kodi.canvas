@@ -28,23 +28,23 @@ def find_home_active_id(page, window):
     # Movies.
     elif page == 'movies':
         if page_active_id is not None and page_active_id != '': return page_active_id
-        else: return '110'
+        else: return '111'
     # TV shows.
     elif page == 'tvshows':
         if page_active_id is not None and page_active_id != '': return page_active_id
-        else: return '120'
+        else: return '121'
     # TV shows.
     elif page == 'yoga':
         if page_active_id is not None and page_active_id != '': return page_active_id
-        else: return '130'
+        else: return '131'
     # Music.
     elif page == 'music':
         if page_active_id is not None and page_active_id != '': return page_active_id
-        else: return '140'
+        else: return '141'
     # Pictures.
     elif page == 'pictures':
         if page_active_id is not None and page_active_id != '': return page_active_id
-        else: return '150'
+        else: return '151'
 
 # When changing the focused item in the home menu.
 def onchange_home_menu(page):
@@ -99,7 +99,11 @@ def onmove_home_page_item(listid, direction):
 # Reset home status.
 def init_home():
     window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
+
+    # Move to the first menu item to reset things, then
+    # immediately to the hidden button while loading.
     xbmc.executebuiltin('SetFocus(1,0)')
+    xbmc.executebuiltin('SetFocus(9999)')
 
     # Preload lists.
     window.setProperty('Home.IsLoading', 'true')
@@ -108,10 +112,10 @@ def init_home():
     list_objects('movies', {'listid': 103, 'sort': 'dateadded', 'order': 'descending', 'limit': 25}, 3) # Recently added movies
     list_objects('songs', {'listid': 104, 'sort': 'dateadded', 'order': 'descending', 'limit': 25}, 4)  # Recently added music
     list_objects('movies', {'listid': 110}, 10)     # All movies
-    list_objects('tvshows', {'listid': 120, 'exclude': 'Yoga with Adriene'}, 20)    # All TV shows
-    list_objects('seasons', {'listid': 130, 'showtitle': 'Yoga with Adriene'}, 30)  # Yoga
-    list_objects('songs', {'listid': 140}, 40)      # All music
-    list_objects('pictures', {'listid': 150}, 50)   # Pictures
+    list_objects('tvshows', {'listid': 121, 'exclude': 'Yoga with Adriene'}, 20)    # All TV shows
+    list_objects('seasons', {'listid': 131, 'showtitle': 'Yoga with Adriene'}, 30)  # Yoga
+    list_objects('songs', {'listid': 141}, 40)      # All music
+    list_objects('pictures', {'listid': 151}, 50)   # Pictures
     window.setProperty('Home.IsLoading', 'false')
     
     # Briefly set focus on the first available home item, then return to the main menu.

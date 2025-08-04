@@ -75,7 +75,7 @@ def list_continue_watching(handle):
             isFolder=False
         )
     
-    return 0#len(sorted_items)
+    return len(sorted_items)
 
 # Create a list of recently added TV show episodes.
 def list_recently_added_tvshow_episodes(handle):
@@ -113,7 +113,7 @@ def list_recently_added_tvshow_episodes(handle):
                 isFolder=False
             )
             
-        return 0#len(episodes)
+        return len(episodes)
     
     return 0
 
@@ -146,7 +146,7 @@ def list_movies(params, handle):
             isFolder=False
         )
         
-    return 0#len(movies)
+    return len(movies)
 
 # Create a list of TV shows.
 def list_tvshows(params, handle):
@@ -300,7 +300,7 @@ def list_songs(params, handle):
             isFolder=False
         )
         
-    return 0#len(songs)
+    return len(songs)
 
 # Create a list of pictures.
 def list_pictures(params, handle):

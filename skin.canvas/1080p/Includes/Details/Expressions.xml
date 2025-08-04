@@ -12,14 +12,14 @@
 		- Music
 	-->
 	<expression name="HasDetailsClearlogo">
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),101) + !String.IsEmpty(Container(101).ListItem.Property(Clearlogo.Big))] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.Property(Clearlogo.Big))] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.Property(Clearlogo.Big))] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),104) + !String.IsEmpty(Container(104).ListItem.Property(Clearlogo.Big))] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),110) + !String.IsEmpty(Container(110).ListItem.Property(Clearlogo.Big))] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),120) + !String.IsEmpty(Container(120).ListItem.Property(Clearlogo.Big))] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),130) + !String.IsEmpty(Container(130).ListItem.Property(Clearlogo.Big))] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),140) + !String.IsEmpty(Container(140).ListItem.Property(Clearlogo.Big))]
+		[String.IsEqual(Window.Property(Home.ActiveListId),101) + !String.IsEmpty(Container(101).ListItem.Property(Clearlogo.Big))] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.Property(Clearlogo.Big))] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.Property(Clearlogo.Big))] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),104) + !String.IsEmpty(Container(104).ListItem.Property(Clearlogo.Big))] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),111) + !String.IsEmpty(Container(111).ListItem.Property(Clearlogo.Big))] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),121) + !String.IsEmpty(Container(121).ListItem.Property(Clearlogo.Big))] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),131) + !String.IsEmpty(Container(131).ListItem.Property(Clearlogo.Big))] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),141) + !String.IsEmpty(Container(141).ListItem.Property(Clearlogo.Big))]
 	</expression>
 
 	<!--
@@ -31,11 +31,11 @@
 		- Music
 	-->
 	<expression name="HasDetailsSubtitle">
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(ItemType),episode) + !String.IsEmpty(Container(101).ListItem.Title)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.Title)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),104) + !String.IsEmpty(Container(104).ListItem.Album)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),130) + !String.IsEmpty(Container(130).ListItem.Title)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),140) + !String.IsEmpty(Container(140).ListItem.Album)]
+		[String.IsEqual(Window.Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(ItemType),episode) + !String.IsEmpty(Container(101).ListItem.Title)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.Title)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),104) + !String.IsEmpty(Container(104).ListItem.Album)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),131) + !String.IsEmpty(Container(131).ListItem.Title)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),141) + !String.IsEmpty(Container(141).ListItem.Album)]
 	</expression>
 
 	<!--
@@ -47,11 +47,11 @@
 		- Yoga
 	-->
 	<expression name="HasDetailsResolution">
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),101) + !String.IsEmpty(Container(101).ListItem.VideoResolution)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.VideoResolution)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.VideoResolution)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),110) + !String.IsEmpty(Container(110).ListItem.VideoResolution)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),130) + !String.IsEmpty(Container(130).ListItem.VideoResolution)]
+		[String.IsEqual(Window.Property(Home.ActiveListId),101) + !String.IsEmpty(Container(101).ListItem.VideoResolution)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.VideoResolution)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.VideoResolution)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),111) + !String.IsEmpty(Container(111).ListItem.VideoResolution)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),131) + !String.IsEmpty(Container(131).ListItem.VideoResolution)]
 	</expression>
 
 	<!--
@@ -63,11 +63,11 @@
 		- Yoga
 	-->
 	<expression name="HasDetailsHdr">
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),101) + !String.IsEmpty(Container(101).ListItem.HdrType)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.HdrType)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.HdrType)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),110) + !String.IsEmpty(Container(110).ListItem.HdrType)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),130) + !String.IsEmpty(Container(130).ListItem.HdrType)]
+		[String.IsEqual(Window.Property(Home.ActiveListId),101) + !String.IsEmpty(Container(101).ListItem.HdrType)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.HdrType)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.HdrType)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),111) + !String.IsEmpty(Container(111).ListItem.HdrType)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),131) + !String.IsEmpty(Container(131).ListItem.HdrType)]
 	</expression>
 
 	<!--
@@ -79,11 +79,11 @@
 		- Yoga
 	-->
 	<expression name="HasDetailsAudioChannels">
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),101) + !String.IsEmpty(Container(101).ListItem.Property(AudioChannels))] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.Property(AudioChannels))] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.Property(AudioChannels))] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),110) + !String.IsEmpty(Container(110).ListItem.Property(AudioChannels))] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),130) + !String.IsEmpty(Container(130).ListItem.Property(AudioChannels))]
+		[String.IsEqual(Window.Property(Home.ActiveListId),101) + !String.IsEmpty(Container(101).ListItem.Property(AudioChannels))] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.Property(AudioChannels))] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.Property(AudioChannels))] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),111) + !String.IsEmpty(Container(111).ListItem.Property(AudioChannels))] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),131) + !String.IsEmpty(Container(131).ListItem.Property(AudioChannels))]
 	</expression>
 
 	<!--
@@ -96,12 +96,12 @@
 		- Music
 	-->
 	<expression name="HasDetailsYear">
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(ItemType),movie) + !String.IsEmpty(Container(101).ListItem.Year)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.Year)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),104) + !String.IsEmpty(Container(104).ListItem.Year)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),110) + !String.IsEmpty(Container(110).ListItem.Year)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),120) + !String.IsEmpty(Container(120).ListItem.Year)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),140) + !String.IsEmpty(Container(140).ListItem.Year)]
+		[String.IsEqual(Window.Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(ItemType),movie) + !String.IsEmpty(Container(101).ListItem.Year)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.Year)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),104) + !String.IsEmpty(Container(104).ListItem.Year)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),111) + !String.IsEmpty(Container(111).ListItem.Year)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),121) + !String.IsEmpty(Container(121).ListItem.Year)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),141) + !String.IsEmpty(Container(141).ListItem.Year)]
 	</expression>
 
 	<!--
@@ -110,8 +110,8 @@
 		- Recently added episodes
 	-->
 	<expression name="HasDetailsEpisode">
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(ItemType),episode) + !String.IsEmpty(Container(101).ListItem.Season) + !String.IsEmpty(Container(101).ListItem.Episode)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.Season) + !String.IsEmpty(Container(102).ListItem.Episode)]
+		[String.IsEqual(Window.Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(ItemType),episode) + !String.IsEmpty(Container(101).ListItem.Season) + !String.IsEmpty(Container(101).ListItem.Episode)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.Season) + !String.IsEmpty(Container(102).ListItem.Episode)]
 	</expression>
 
 	<!--
@@ -120,8 +120,8 @@
 		- Recently added episodes
 	-->
 	<expression name="HasDetailsPremiered">
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(ItemType),episode) + !String.IsEmpty(Container(101).ListItem.Premiered)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.Premiered)]
+		[String.IsEqual(Window.Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(ItemType),episode) + !String.IsEmpty(Container(101).ListItem.Premiered)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.Premiered)]
 	</expression>
 
 	<!--
@@ -130,8 +130,8 @@
 		- Music
 	-->
 	<expression name="HasDetailsArtist">
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),104) + !String.IsEmpty(Container(104).ListItem.Artist)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),140) + !String.IsEmpty(Container(140).ListItem.Artist)]
+		[String.IsEqual(Window.Property(Home.ActiveListId),104) + !String.IsEmpty(Container(104).ListItem.Artist)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),141) + !String.IsEmpty(Container(141).ListItem.Artist)]
 	</expression>
 
 	<!--
@@ -144,12 +144,12 @@
 		- Music
 	-->
 	<expression name="HasDetailsDuration">
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),101) + !String.IsEmpty(Container(101).ListItem.Property(DurationString))] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.Property(DurationString))] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.Property(DurationString))] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),104) + !String.IsEmpty(Container(104).ListItem.Property(DurationString))] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),110) + !String.IsEmpty(Container(110).ListItem.Property(DurationString))] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),140) + !String.IsEmpty(Container(140).ListItem.Property(DurationString))]
+		[String.IsEqual(Window.Property(Home.ActiveListId),101) + !String.IsEmpty(Container(101).ListItem.Property(DurationString))] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.Property(DurationString))] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.Property(DurationString))] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),104) + !String.IsEmpty(Container(104).ListItem.Property(DurationString))] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),111) + !String.IsEmpty(Container(111).ListItem.Property(DurationString))] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),141) + !String.IsEmpty(Container(141).ListItem.Property(DurationString))]
 	</expression>
 
 	<!--
@@ -162,12 +162,12 @@
 		- Yoga
 	-->
 	<expression name="HasDetailsMpaa">
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),101) + !String.IsEmpty(Container(101).ListItem.Mpaa)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.Mpaa)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.Mpaa)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),110) + !String.IsEmpty(Container(110).ListItem.Mpaa)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),120) + !String.IsEmpty(Container(120).ListItem.Mpaa)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),130) + !String.IsEmpty(Container(130).ListItem.Mpaa)]
+		[String.IsEqual(Window.Property(Home.ActiveListId),101) + !String.IsEmpty(Container(101).ListItem.Mpaa)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.Mpaa)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.Mpaa)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),111) + !String.IsEmpty(Container(111).ListItem.Mpaa)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),121) + !String.IsEmpty(Container(121).ListItem.Mpaa)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),131) + !String.IsEmpty(Container(131).ListItem.Mpaa)]
 	</expression>
 
 	<!--
@@ -175,7 +175,7 @@
 		- TV shows
 	-->
 	<expression name="HasDetailsStatus">
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),120) + !String.IsEmpty(Container(120).ListItem.Status)]
+		[String.IsEqual(Window.Property(Home.ActiveListId),121) + !String.IsEmpty(Container(121).ListItem.Status)]
 	</expression>
 
 	<!--
@@ -184,8 +184,8 @@
 		- Music
 	-->
 	<expression name="HasDetailsTrack">
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),104) + !String.IsEmpty(Container(104).ListItem.Property(Track))] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),140) + !String.IsEmpty(Container(140).ListItem.Property(Track))]
+		[String.IsEqual(Window.Property(Home.ActiveListId),104) + !String.IsEmpty(Container(104).ListItem.Property(Track))] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),141) + !String.IsEmpty(Container(141).ListItem.Property(Track))]
 	</expression>
 
 	<!--
@@ -198,12 +198,12 @@
 		- Music
 	-->
 	<expression name="HasDetailsGenre">
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(ItemType),movie) + !String.IsEmpty(Container(101).ListItem.Genre)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.Genre)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),104) + !String.IsEmpty(Container(104).ListItem.Genre)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),110) + !String.IsEmpty(Container(110).ListItem.Genre)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),120) + !String.IsEmpty(Container(120).ListItem.Genre)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),140) + !String.IsEmpty(Container(140).ListItem.Genre)]
+		[String.IsEqual(Window.Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(ItemType),movie) + !String.IsEmpty(Container(101).ListItem.Genre)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.Genre)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),104) + !String.IsEmpty(Container(104).ListItem.Genre)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),111) + !String.IsEmpty(Container(111).ListItem.Genre)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),121) + !String.IsEmpty(Container(121).ListItem.Genre)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),141) + !String.IsEmpty(Container(141).ListItem.Genre)]
 	</expression>
 
 	<!--
@@ -216,12 +216,12 @@
 		- Yoga
 	-->
 	<expression name="IsDetailsWatched">
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),101) + Integer.IsGreater(Container(101).ListItem.PlayCount,0)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),102) + Integer.IsGreater(Container(102).ListItem.PlayCount,0)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),103) + Integer.IsGreater(Container(103).ListItem.PlayCount,0)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),110) + Integer.IsGreater(Container(110).ListItem.PlayCount,0)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),120) + Integer.IsGreater(Container(120).ListItem.PlayCount,0)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),130) + Integer.IsGreater(Container(130).ListItem.PlayCount,0)]
+		[String.IsEqual(Window.Property(Home.ActiveListId),101) + Integer.IsGreater(Container(101).ListItem.PlayCount,0)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),102) + Integer.IsGreater(Container(102).ListItem.PlayCount,0)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),103) + Integer.IsGreater(Container(103).ListItem.PlayCount,0)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),111) + Integer.IsGreater(Container(111).ListItem.PlayCount,0)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),121) + Integer.IsGreater(Container(121).ListItem.PlayCount,0)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),131) + Integer.IsGreater(Container(131).ListItem.PlayCount,0)]
 	</expression>
 
 	<!--
@@ -232,10 +232,10 @@
 		- Movies
 	-->
 	<expression name="HasDetailsTimeRemaining">
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),101) + !String.IsEmpty(Container(101).ListItem.Property(TimeRemainingString))] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.Property(TimeRemainingString))] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.Property(TimeRemainingString))] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),110) + !String.IsEmpty(Container(110).ListItem.Property(TimeRemainingString))]
+		[String.IsEqual(Window.Property(Home.ActiveListId),101) + !String.IsEmpty(Container(101).ListItem.Property(TimeRemainingString))] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),102) + !String.IsEmpty(Container(102).ListItem.Property(TimeRemainingString))] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),103) + !String.IsEmpty(Container(103).ListItem.Property(TimeRemainingString))] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),111) + !String.IsEmpty(Container(111).ListItem.Property(TimeRemainingString))]
 	</expression>
 
 	<!--
@@ -244,8 +244,8 @@
 		- Yoga
 	-->
 	<expression name="HasDetailsEpisodesRemaining">
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),120) + Integer.IsEqual(Container(120).ListItem.PlayCount,0)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),130) + Integer.IsEqual(Container(130).ListItem.PlayCount,0)]
+		[String.IsEqual(Window.Property(Home.ActiveListId),121) + Integer.IsEqual(Container(121).ListItem.PlayCount,0)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),131) + Integer.IsEqual(Container(131).ListItem.PlayCount,0)]
 	</expression>
 
 	<!--
@@ -254,7 +254,7 @@
 		- Yoga
 	-->
 	<expression name="IsAllNew">
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),120) + Integer.IsEqual(Container(120).ListItem.Property(WatchedEpisodes),0)] |
-		[String.IsEqual(Window(home).Property(Home.ActiveListId),130) + Integer.IsEqual(Container(130).ListItem.Property(WatchedEpisodes),0)]
+		[String.IsEqual(Window.Property(Home.ActiveListId),121) + Integer.IsEqual(Container(121).ListItem.Property(WatchedEpisodes),0)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),131) + Integer.IsEqual(Container(131).ListItem.Property(WatchedEpisodes),0)]
 	</expression>
 </includes>

@@ -50,7 +50,7 @@
 			<texturenofocus />-->
 			<width>300</width>
 			<height>100</height>
-			<label></label>
+			<label>$VAR[DetailsTitle]</label>
 			<!--<textcolor>FF00FF00</textcolor>
 			<font>body</font>
 			<textoffsetx>20</textoffsetx>

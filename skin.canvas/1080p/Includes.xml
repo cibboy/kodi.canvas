@@ -29,7 +29,7 @@
 	<constant name="HEIGHT_STUDIO_LOGO">80</constant>
 	<constant name="WIDTH_STUDIO_LOGO">120</constant>
 
-	<constant name="HEIGHT_BUTTON_DEFAULT">55</constant>
+	<constant name="HEIGHT_BUTTON_DEFAULT">60</constant>
 
 	<!-- Constants: screen-related sizes -->
 	<constant name="SCREEN_CENTER_Y">540</constant>

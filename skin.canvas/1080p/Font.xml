@@ -3,6 +3,11 @@
 	<!-- Sizes also defined in Includes.xml for element heights -->
 	<fontset id="Default">
 		<font>
+			<name>BUTTON</name>
+			<filename>Geologica-SemiBold.ttf</filename>
+			<size>30</size>
+		</font>
+		<font>
 			<name>TITLE1</name>
 			<filename>Geologica-SemiBold.ttf</filename>
 			<size>75</size>
