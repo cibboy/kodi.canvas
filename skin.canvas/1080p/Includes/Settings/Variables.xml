@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<variable name="InterfaceIcon"><value>1080p/icons/interface.png</value></variable>
+	<variable name="SystemIcon"><value>1080p/icons/system.png</value></variable>
+	<variable name="ServicesIcon"><value>1080p/icons/services.png</value></variable>
+	<variable name="PlayerIcon"><value>1080p/icons/player.png</value></variable>
+	<variable name="LibraryIcon"><value>1080p/icons/library.png</value></variable>
+	<variable name="AddonsIcon"><value>1080p/icons/box.png</value></variable>
+
+	<!-- Constants -->
+	<constant name="WIDTH_BACKGROUND_SPLIT">1200</constant>
+	<constant name="WIDTH_BACKGROUND_SPLIT_REMAINING">720</constant>
+
+	<constant name="PADDING_SETTINGS_VERTICAL">80</constant>
+	<constant name="PADDING_SETTINGS_WIDE_SIDE">100</constant>
+	<constant name="PADDING_SETTINGS_NARROW_SIDE">80</constant>
+	
+	<constant name="OFFSET_SETTINGS_OPTIONS_START">150</constant>
+
+	<constant name="SIZE_SETTINGS_ICON">40</constant>
+	<constant name="HEIGHT_SETTINGS_OPTION_CONTAINER">120</constant>
+	<constant name="HEIGHT_SETTINGS_OPTION">150</constant>
+	<constant name="HEIGHT_SETTINGS_OPTION_CONTENT">70</constant>
+	<constant name="OFFSET_SETTINGS_OPTIONS_CONTENT">100</constant>
+	<constant name="PADDING_SETTINGS_OPTION_VERTICAL">40</constant>
+	<constant name="PADDING_SETTINGS_OPTION_HORIZONTAL">60</constant>
+
+	<constant name="WIDTH_SETTINGS_GROUPLIST_OPTION_NARROW">560</constant>	<!-- If we use 100% we lose the right border somehow... -->
+	<constant name="GAP_SETTINGS_GROUPLIST_OPTION">-30</constant>
+</includes>

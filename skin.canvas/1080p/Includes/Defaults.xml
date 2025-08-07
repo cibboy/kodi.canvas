@@ -12,16 +12,14 @@
 	<default type="button">
 		<width>auto</width>
 		<height>HEIGHT_BUTTON_DEFAULT</height>
-		<texturefocus colordiffuse="FOREGROUND_ACCENT" border="SIZE_ITEM_SHADOW_SQUARE">1080p/diffuse/button.png</texturefocus>
-		<texturenofocus colordiffuse="BACKGROUND_OPAQUE50" border="SIZE_ITEM_SHADOW_SQUARE">1080p/diffuse/button.png</texturenofocus>
-		<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
-		<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
+		<texturefocus colordiffuse="FOREGROUND_ACCENT" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texturefocus>
+		<texturenofocus colordiffuse="BACKGROUND_OPAQUE50" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texturenofocus>
 		<font>BUTTON</font>
 		<textcolor>FOREGROUND</textcolor>
 		<focusedcolor>FOREGROUND_INVERSE</focusedcolor>
 		<disabledcolor>FOREGROUND_OPAQUE35</disabledcolor>
 		<textoffsety>4</textoffsety>
-		<textoffsetx>18</textoffsetx>
+		<textoffsetx>38</textoffsetx>
 		<align>center</align>
 		<aligny>center</aligny>
 		<pulseonselect>false</pulseonselect>

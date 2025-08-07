@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<include file="Includes/Settings/Variables.xml" />
+
+	<!-- Settings background -->
+	<include name="SettingsBackgroundSplit">
+		<param name="main_id"></param>
+
+		<definition>
+			<!-- Background color -->
+			<control type="image">
+				<width>SCREEN_WIDTH</width>
+				<height>SCREEN_HEIGHT</height>
+				<texture colordiffuse="BACKGROUND_SETTINGS_TINT">1080p/diffuse/noise.png</texture>
+			</control>
+			<control type="group">
+				<!--
+					When the main settings don't have focus, the split inverts.
+					The slide amount should be equivalent to window width - (narrow side * 2) (1920 - 1440).
+				-->
+				<animation type="Conditional" condition="!Control.HasFocus($PARAM[main_id])">
+					<effect type="slide" end="-480,0" time="ANIMATION_SLOW" tween="cubic" easing="out" />
+				</animation>
+				<animation type="Conditional" condition="Control.HasFocus($PARAM[main_id])">
+					<effect type="slide" end="0,0" time="ANIMATION_SLOW" tween="cubic" easing="out" />
+				</animation>
+
+				<!-- Left -->
+				<control type="image">
+					<width>WIDTH_BACKGROUND_SPLIT</width>
+					<height>SCREEN_HEIGHT</height>
+					<texture colordiffuse="BACKGROUND_OPAQUE20">diffuse.png</texture>
+				</control>
+				<!-- Right -->
+				<control type="image">
+					<left>WIDTH_BACKGROUND_SPLIT</left>
+					<width>WIDTH_BACKGROUND_SPLIT</width>
+					<height>SCREEN_HEIGHT</height>
+					<texture colordiffuse="BACKGROUND_OPAQUE10">diffuse.png</texture>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Content for fake option button with icon -->
+	<include name="SettingsOptionContentWithIcon">
+		<param name="icon_circle_color">BACKGROUND_OPAQUE20</param>
+		<param name="icon_color">BACKGROUND_INVERSE_OPAQUE50</param>
+		<param name="text_color">FOREGROUND_OPAQUE75</param>
+
+		<definition>
+			<control type="group">
+				<top>PADDING_SETTINGS_OPTION_VERTICAL</top>
+				<bottom>PADDING_SETTINGS_OPTION_VERTICAL</bottom>
+				<left>PADDING_SETTINGS_OPTION_HORIZONTAL</left>
+				<right>PADDING_SETTINGS_OPTION_HORIZONTAL</right>
+
+				<!-- Icon -->
+				<control type="group">
+					<width>HEIGHT_SETTINGS_OPTION_CONTENT</width>
+					<height>HEIGHT_SETTINGS_OPTION_CONTENT</height>
+
+					<control type="image">
+						<centertop>50%</centertop>
+						<centerleft>50%</centerleft>
+						<texture colordiffuse="$PARAM[icon_circle_color]">1080p/diffuse/circle.png</texture>
+					</control>
+					<control type="image">
+						<width>SIZE_SETTINGS_ICON</width>
+						<height>SIZE_SETTINGS_ICON</height>
+						<centertop>50%</centertop>
+						<centerleft>50%</centerleft>
+						<texture colordiffuse="$PARAM[icon_color]">$INFO[ListItem.Art(thumb)]</texture>
+					</control>
+				</control>
+
+				<!-- Labels -->
+				<control type="group">
+					<height>HEIGHT_SETTINGS_OPTION_CONTENT</height>
+					<left>OFFSET_SETTINGS_OPTIONS_CONTENT</left>
+					<right>PADDING_SETTINGS_OPTION_HORIZONTAL</right>
+
+					<control type="label">
+						<top>-10</top>
+						<font>BODY_STRONG</font>
+						<textcolor>$PARAM[text_color]</textcolor>
+						<label>$INFO[ListItem.Property(title)]</label>
+					</control>
+					<control type="label">
+						<top>FONT_SIZE_BODY</top>
+						<font>CAPTION</font>
+						<textcolor>$PARAM[text_color]</textcolor>
+						<label>$INFO[ListItem.Property(description)]</label>
+					</control>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Main settings categories -->
+	<include name="MainSettings">
+		<param name="id"></param>
+		<param name="subpage_id"></param>
+
+		<definition>
+			<control type="group">
+				<width>WIDTH_BACKGROUND_SPLIT</width>
+				<height>SCREEN_HEIGHT</height>
+
+				<control type="group">
+					<top>PADDING_SETTINGS_VERTICAL</top>
+					<bottom>PADDING_SETTINGS_VERTICAL</bottom>
+					<left>PADDING_SETTINGS_WIDE_SIDE</left>
+					<right>PADDING_SETTINGS_WIDE_SIDE</right>
+
+					<control type="label">
+						<width>auto</width>
+						<height>FONT_SIZE_TITLE1</height>
+						<right>16</right>
+						<left>16</left>
+						<font>TITLE1</font>
+						<label>Settings</label>
+					</control>
+
+					<control type="list" id="$PARAM[id]">
+						<top>OFFSET_SETTINGS_OPTIONS_START</top>
+						<bottom>0</bottom>
+						<left>0</left>
+						<right>0</right>
+						<autoscroll>false</autoscroll>
+						
+						<onright>SetFocus($PARAM[subpage_id])</onright>
+						<onclick>SetFocus($PARAM[subpage_id])</onclick>
+
+						<focusedlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+							<control type="button">
+								<include content="Hidden" />
+								<onfocus>ReplaceWindow($INFO[ListItem.Property(page)])</onfocus>
+							</control>
+
+							<!-- Fake button for selection -->
+							<control type="group">
+								<!-- Fake button selection -->
+								<control type="image">
+									<height>HEIGHT_SETTINGS_OPTION</height>
+									<texture colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texture>
+								</control>
+								<!-- Content -->
+								<include content="SettingsOptionContentWithIcon">
+									<param name="icon_circle_color">BACKGROUND_INVERSE_OPAQUE90</param>
+									<param name="icon_color">FOREGROUND_INVERSE</param>
+									<param name="text_color">FOREGROUND_INVERSE</param>
+								</include>
+							</control>
+						</focusedlayout>
+
+						<itemlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+							<include content="SettingsOptionContentWithIcon" />
+						</itemlayout>
+
+						<content>
+							<!-- Interface -->
+							<item id="1">
+								<thumb>$VAR[InterfaceIcon]</thumb>
+								<property name="title">Interface</property>
+								<property name="description">Skin, regional, screensaver</property>
+								<property name="page">interfacesettings</property>
+							</item>
+							<!-- System -->
+							<item id="2">
+								<thumb>$VAR[SystemIcon]</thumb>
+								<property name="title">System</property>
+								<property name="description">Video, audio, input, logging</property>
+								<property name="page">systemsettings</property>
+							</item>
+							<!-- Services -->
+							<item id="3">
+								<thumb>$VAR[ServicesIcon]</thumb>
+								<property name="title">Services</property>
+								<property name="description">Remote, protocols, caching</property>
+								<property name="page">servicesettings</property>
+							</item>
+							<!-- Player -->
+							<item id="4">
+								<thumb>$VAR[PlayerIcon]</thumb>
+								<property name="title">Player</property>
+								<property name="description">Playback, OSD</property>
+								<property name="page">playersettings</property>
+							</item>
+							<!-- Library -->
+							<item id="5">
+								<thumb>$VAR[LibraryIcon]</thumb>
+								<property name="title">Library</property>
+								<property name="description">Library management and options</property>
+								<property name="page">mediasettings</property>
+							</item>
+							<!-- Addons -->
+							<item id="6">
+								<thumb>$VAR[AddonsIcon]</thumb>
+								<property name="title">Addons</property>
+								<property name="description">Addon management</property>
+								<property name="page">addonbrowser</property>
+							</item>
+						</content>
+					</control>
+				</control>
+			</control>
+		</definition>
+	</include>
+</includes>

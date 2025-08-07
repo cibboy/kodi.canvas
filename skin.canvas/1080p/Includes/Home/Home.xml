@@ -29,7 +29,7 @@
 				</control>
 				<control type="label">
 					<width>WIDTH_FALLBACK_CONTENT</width>
-					<height>FONT_SIZE_BODY</height>
+					<height>FONT_SIZE_TITLE2</height>
 					<top>100</top>
 					<centerright>50%</centerright>
 					<align>center</align>

@@ -1,66 +1,136 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-	<!--<defaultcontrol>1</defaultcontrol>-->
+	<defaultcontrol>1000</defaultcontrol>
+
 	<controls>
-		<!-- Background -->
-		<include content="Background">
-			<param name="top_left">CC4D3F2F</param>
-			<param name="top_right">CC4D4336</param>
-			<param name="bottom_left">CC4D492B</param>
-			<param name="bottom_right">CC464D47</param>
+		<!-- Background (structure split) -->
+		<include content="SettingsBackgroundSplit">
+			<param name="main_id">1000</param>
 		</include>
 
+		<!-- Content structure -->
 		<control type="group">
-			<control type="grouplist" id="5">
-				<description>control area</description>
-				<top>133</top>
-				<left>470</left>
-				<pagecontrol>60</pagecontrol>
-				<right>0</right>
-				<bottom>137</bottom>
-				<onleft>3</onleft>
-				<onright>60</onright>
-				<onup>5</onup>
-				<ondown>5</ondown>
+			<animation type="Conditional" condition="!Control.HasFocus(1000)">
+				<effect type="slide" end="-1200,0" time="ANIMATION_SLOW" tween="cubic" easing="out" />
+			</animation>
+			<animation type="Conditional" condition="Control.HasFocus(1000)">
+				<effect type="slide" end="0,0" time="ANIMATION_SLOW" tween="cubic" easing="out" />
+			</animation>
+
+			<!-- Main categories (left side) -->
+			<include content="MainSettings">
+				<param name="id">1000</param>
+				<param name="subpage_id">3</param>
+			</include>
+
+			<!-- List of pages (right side when main settings are visible, left otherwise) -->
+			<control type="group">
+				<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+				<height>SCREEN_HEIGHT</height>
+				<left>WIDTH_BACKGROUND_SPLIT</left>
+
+				<!-- Chevron -->
+				<control type="image">
+					<include content="FocusFadeAnimation">
+						<param name="start">0</param>
+						<param name="end">100</param>
+						<param name="reference_id">1000</param>
+					</include>
+
+					<width>60</width>
+					<height>60</height>
+					<left>PADDING_HALF</left>
+					<centertop>50%</centertop>
+					<texture colordiffuse="FOREGROUND_OPAQUE10" flipx="true">1080p/icons/Chevron.png</texture>
+					<aspectratio>keep</aspectratio>
+				</control>
+
+				<control type="group">
+					<top>PADDING_SETTINGS_VERTICAL</top>
+					<bottom>PADDING_SETTINGS_VERTICAL</bottom>
+					<right>PADDING_SETTINGS_NARROW_SIDE</right>
+					<left>PADDING_SETTINGS_NARROW_SIDE</left>
+
+					<!-- Page name -->
+					<control type="label" id="2">
+						<width>auto</width>
+						<height>FONT_SIZE_TITLE1</height>
+						<right>16</right>
+						<left>16</left>
+						<font>TITLE1</font>
+						<label></label>
+					</control>
+
+					<!-- Pages -->
+					<control type="grouplist" id="3">
+						<top>OFFSET_SETTINGS_OPTIONS_START</top>
+						<itemgap>GAP_SETTINGS_GROUPLIST_OPTION</itemgap>
+						<onleft>SetFocus(1000)</onleft>
+						<onright>SetFocus(5)</onright>
+					</control>
+				</control>
 			</control>
-			<!--<control type="image">
-				<left>470</left>
-				<top>130</top>
-				<right>0</right>
-				<height>200</height>
-				<texture colordiffuse="foreground_accent" border="2">1080p/menu/yoga.png</texture>
+
+			<!-- List of options (right side when main settings are not visible) -->
+			<control type="group">
+				<width>WIDTH_BACKGROUND_SPLIT</width>
+				<height>SCREEN_HEIGHT</height>
+				<left>SCREEN_WIDTH</left>
+
+				<control type="group">
+					<top>PADDING_SETTINGS_VERTICAL</top>
+					<bottom>PADDING_SETTINGS_VERTICAL</bottom>
+					<right>PADDING_SETTINGS_WIDE_SIDE</right>
+					<left>PADDING_SETTINGS_WIDE_SIDE</left>
+
+					<!-- Setting description -->
+					<control type="textbox" id="6">
+						<description>description area</description>
+						<left>0</left>
+						<right>0</right>
+						<!--<bottom>25</bottom>-->
+						<height>90</height>
+						<font>BODY_STRONG</font>
+						<align>justify</align>
+						<textcolor>FOREGROUND_DARK</textcolor>
+						<autoscroll time="3000" delay="5000" repeat="5000">true</autoscroll>
+					</control>
+
+					<!-- Selected page options -->
+					<control type="grouplist" id="5">
+						<top>OFFSET_SETTINGS_OPTIONS_START</top>
+						<itemgap>GAP_SETTINGS_GROUPLIST_OPTION</itemgap>
+						<onleft>SetFocus(3)</onleft>
+					</control>
+				</control>
 			</control>
-			<control type="image">
-				<left>470</left>
-				<bottom>135</bottom>
-				<right>0</right>
-				<height>200</height>
-				<texture colordiffuse="foreground_accent" border="2">1080p/menu/music.png</texture>
-			</control>-->
 		</control>
 
+		<!-- Page button -->
+		<control type="button" id="10">
+			<width>WIDTH_SETTINGS_GROUPLIST_OPTION_NARROW</width>
+			<height>HEIGHT_SETTINGS_OPTION</height>
+			<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texturefocus>
+			<texturenofocus></texturenofocus>
+			<textoffsety>PADDING_SETTINGS_OPTION_VERTICAL</textoffsety>
+			<textoffsetx>PADDING_SETTINGS_OPTION_HORIZONTAL</textoffsetx>
+			<focusedcolor>FOREGROUND_INVERSE</focusedcolor>
+			<textcolor>FOREGROUND_OPAQUE75</textcolor>
+			<align>left</align>
+			<onclick>SetFocus(5)</onclick>
+		</control>
+
+		<!-- Option button -->
 		<control type="button" id="7">
-			<!--<description>Default Button</description>
-			<top>0</top>
-			<height>50</height>
-			<aligny>center</aligny>
-			<invalidcolor>foreground</invalidcolor>
-			<selectedcolor>highlight</selectedcolor>
-			<texturefocus colordiffuse="background">1080p/menu/home.png</texturefocus>
-			<texturenofocus />-->
-			<width>300</width>
-			<height>100</height>
-			<label>$VAR[DetailsTitle]</label>
-			<!--<textcolor>FF00FF00</textcolor>
-			<font>body</font>
-			<textoffsetx>20</textoffsetx>
-			<onclick></onclick>
-			<wrapmultiline>false</wrapmultiline>
-			<align>center</align>
-			<texturefocus border="40" colordiffuse="FFFF0000">diffuse.png</texturefocus>
-			<texturenofocus border="40">diffuse.png</texturenofocus>
-			<visible>true</visible>
-			<enable>true</enable>-->
+			<width>100%</width>
+			<height>HEIGHT_SETTINGS_OPTION</height>
+			<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texturefocus>
+			<texturenofocus></texturenofocus>
+			<textoffsety>PADDING_SETTINGS_OPTION_VERTICAL</textoffsety>
+			<textoffsetx>PADDING_SETTINGS_OPTION_HORIZONTAL</textoffsetx>
+			<focusedcolor>FOREGROUND_INVERSE</focusedcolor>
+			<textcolor>FOREGROUND_OPAQUE75</textcolor>
+			<align>left</align>
 		</control>
 
 		<!--<control type="radiobutton" id="8">
@@ -222,5 +292,10 @@
 			<description>breadcrumbs label</description>
 			<visible>True</visible>
 		</control>-->
+
+		<!-- Clock -->
+		<include content="TopBar">
+			<param name="show_background">false</param>
+		</include>
 	</controls>
 </window>

@@ -6,7 +6,6 @@
 	<controls>
 		<!-- Background -->
 		<include content="Background">
-			<param name="art">$VAR[HomeBackgroundArt]</param>
 			<param name="show_art">!String.IsEqual(Window.Property(Home.ActivePage),pictures)</param>
 		</include>
 

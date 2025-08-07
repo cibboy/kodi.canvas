@@ -65,7 +65,8 @@
 				<textcolor>AAFFFFFF</textcolor>-->
 				<label>InterfaceSettings</label>
 				<onclick>Close</onclick>
-				<onclick>ActivateWindow(interfacesettings)</onclick>
+				<!--<onclick>ActivateWindow(interfacesettings)</onclick>-->
+				<onclick>ActivateWindow(settings)</onclick>
 				<onup>1</onup>
 			</control>
 		</control>
