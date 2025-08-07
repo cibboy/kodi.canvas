@@ -47,6 +47,7 @@
 		<param name="icon_circle_color">BACKGROUND_OPAQUE20</param>
 		<param name="icon_color">BACKGROUND_INVERSE_OPAQUE50</param>
 		<param name="text_color">FOREGROUND_OPAQUE75</param>
+		<param name="description_color">FOREGROUND_OPAQUE50</param>
 
 		<definition>
 			<control type="group">
@@ -89,7 +90,7 @@
 					<control type="label">
 						<top>FONT_SIZE_BODY</top>
 						<font>CAPTION</font>
-						<textcolor>$PARAM[text_color]</textcolor>
+						<textcolor>$PARAM[description_color]</textcolor>
 						<label>$INFO[ListItem.Property(description)]</label>
 					</control>
 				</control>
@@ -150,6 +151,7 @@
 									<param name="icon_circle_color">BACKGROUND_INVERSE_OPAQUE90</param>
 									<param name="icon_color">FOREGROUND_INVERSE</param>
 									<param name="text_color">FOREGROUND_INVERSE</param>
+									<param name="description_color">FOREGROUND_INVERSE_OPAQUE75</param>
 								</include>
 							</control>
 						</focusedlayout>

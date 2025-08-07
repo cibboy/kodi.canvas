@@ -101,19 +101,22 @@
 					<onback condition="!Player.HasMedia">RunScript(script.canvas.helper,open_home_sidemenu)</onback>
 
 					<focusedlayout height="90">
+						<!-- Hidden onfocus control -->
 						<control type="button">
 							<include content="Hidden" />
 							<onfocus>RunScript(script.canvas.helper,onchange_home_menu,$INFO[Container(1).ListItem.Property(name)])</onfocus>
 						</control>
+						<!-- Circle background -->
 						<control type="image">
 							<width>120</width>
 							<height>120</height>
 							<centertop>50%</centertop>
 							<centerleft>50%</centerleft>
 							<texture colordiffuse="FOREGROUND_ACCENT">1080p/diffuse/circle.png</texture>
-							<bordertexture border="SIZE_ITEM_SHADOW_CIRCLE_DOUBLE" colordiffuse="BACKGROUND_OPAQUE75">1080p/diffuse/shadow_circle.png</bordertexture>
+							<bordertexture border="SIZE_ITEM_SHADOW_CIRCLE_DOUBLE" colordiffuse="BACKGROUND_OPAQUE75">1080p/diffuse/shadow-circle.png</bordertexture>
 							<bordersize>SIZE_ITEM_SHADOW_CIRCLE</bordersize>
 						</control>
+						<!-- Icon -->
 						<control type="image">
 							<width>45</width>
 							<height>45</height>
@@ -124,6 +127,7 @@
 					</focusedlayout>
 
 					<itemlayout height="90">
+						<!-- Icon -->
 						<control type="image">
 							<width>45</width>
 							<height>45</height>

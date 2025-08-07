@@ -103,7 +103,7 @@
 					<width>WIDTH_POSTER</width>
 					<height>HEIGHT_POSTER</height>
 					<texture fallback="1080p/fallback/poster.png" background="true" diffuse="1080p/diffuse/poster.png">$PARAM[art]</texture>
-					<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
+					<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-square.png</bordertexture>
 					<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
 					<aspectratio scalediffuse="false">scale</aspectratio>
 				</control>
@@ -142,7 +142,7 @@
 				<width>WIDTH_ALBUM</width>
 				<height>HEIGHT_ALBUM</height>
 				<texture fallback="1080p/fallback/square.png" background="true" diffuse="1080p/diffuse/square.png">$PARAM[art]</texture>
-				<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
+				<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-square.png</bordertexture>
 				<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
 				<aspectratio scalediffuse="false">scale</aspectratio>
 			</control>
@@ -165,7 +165,7 @@
 					<width>WIDTH_LANDSCAPE</width>
 					<height>HEIGHT_LANDSCAPE</height>
 					<texture fallback="1080p/fallback/landscape.png" background="true" diffuse="1080p/diffuse/landscape.png">$PARAM[art]</texture>
-					<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
+					<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-square.png</bordertexture>
 					<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
 					<aspectratio scalediffuse="false">scale</aspectratio>
 				</control>

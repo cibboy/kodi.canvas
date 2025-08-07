@@ -24,7 +24,13 @@
 	<constant name="OFFSET_SETTINGS_OPTIONS_CONTENT">100</constant>
 	<constant name="PADDING_SETTINGS_OPTION_VERTICAL">40</constant>
 	<constant name="PADDING_SETTINGS_OPTION_HORIZONTAL">60</constant>
+	<constant name="GAP_SETTINGS_GROUPLIST_OPTION">-30</constant>
 
 	<constant name="WIDTH_SETTINGS_GROUPLIST_OPTION_NARROW">560</constant>	<!-- If we use 100% we lose the right border somehow... -->
-	<constant name="GAP_SETTINGS_GROUPLIST_OPTION">-30</constant>
+
+	<constant name="WIDTH_SETTINGS_OPTION_WIDE">1000</constant>
+	<constant name="HEIGHT_SETTINGS_CAPTION">100</constant>
+	<constant name="OFFSET_SETTINGS_CAPTION">80</constant>
+	<constant name="OFFSET_SETTINGS_OPTION_RADIO_WIDE">920</constant>
+	<constant name="PADDING_SETTINGS_OPTIONS_VERTICAL_WIDE">55</constant>
 </includes>

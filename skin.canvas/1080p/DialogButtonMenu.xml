@@ -30,7 +30,7 @@
 				<height>100%</height>
 				<texture border="PADDING_HALF" colordiffuse="BACKGROUND_DIALOG">1080p/diffuse/square.png</texture>
 				<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
-				<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow_square.png</bordertexture>
+				<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-square.png</bordertexture>
 			</control>
 			<control type="image">
 				<width>100%</width>

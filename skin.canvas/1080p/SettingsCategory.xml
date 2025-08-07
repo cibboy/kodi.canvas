@@ -41,10 +41,11 @@
 					<height>60</height>
 					<left>PADDING_HALF</left>
 					<centertop>50%</centertop>
-					<texture colordiffuse="FOREGROUND_OPAQUE10" flipx="true">1080p/icons/Chevron.png</texture>
+					<texture colordiffuse="FOREGROUND_OPAQUE10" flipx="true">1080p/icons/chevron-right.png</texture>
 					<aspectratio>keep</aspectratio>
 				</control>
 
+				<!-- List with title -->
 				<control type="group">
 					<top>PADDING_SETTINGS_VERTICAL</top>
 					<bottom>PADDING_SETTINGS_VERTICAL</bottom>
@@ -65,9 +66,24 @@
 					<control type="grouplist" id="3">
 						<top>OFFSET_SETTINGS_OPTIONS_START</top>
 						<itemgap>GAP_SETTINGS_GROUPLIST_OPTION</itemgap>
+						<usecontrolcoords>true</usecontrolcoords>
 						<onleft>SetFocus(1000)</onleft>
 						<onright>SetFocus(5)</onright>
 					</control>
+				</control>
+
+				<!-- Page button -->
+				<control type="button" id="10">
+					<width>WIDTH_SETTINGS_GROUPLIST_OPTION_NARROW</width>
+					<height>HEIGHT_SETTINGS_OPTION</height>
+					<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texturefocus>
+					<texturenofocus></texturenofocus>
+					<textoffsety>PADDING_SETTINGS_OPTION_VERTICAL</textoffsety>
+					<textoffsetx>PADDING_SETTINGS_OPTION_HORIZONTAL</textoffsetx>
+					<focusedcolor>FOREGROUND_INVERSE</focusedcolor>
+					<textcolor>FOREGROUND_OPAQUE75</textcolor>
+					<align>left</align>
+					<onclick>SetFocus(5)</onclick>
 				</control>
 			</control>
 
@@ -77,18 +93,19 @@
 				<height>SCREEN_HEIGHT</height>
 				<left>SCREEN_WIDTH</left>
 
+				<!-- List with description -->
 				<control type="group">
-					<top>PADDING_SETTINGS_VERTICAL</top>
+					<top>PADDING_SETTINGS_OPTIONS_VERTICAL_WIDE</top>
 					<bottom>PADDING_SETTINGS_VERTICAL</bottom>
 					<right>PADDING_SETTINGS_WIDE_SIDE</right>
 					<left>PADDING_SETTINGS_WIDE_SIDE</left>
 
 					<!-- Setting description -->
+					<!--todo-->
 					<control type="textbox" id="6">
 						<description>description area</description>
 						<left>0</left>
 						<right>0</right>
-						<!--<bottom>25</bottom>-->
 						<height>90</height>
 						<font>BODY_STRONG</font>
 						<align>justify</align>
@@ -100,37 +117,43 @@
 					<control type="grouplist" id="5">
 						<top>OFFSET_SETTINGS_OPTIONS_START</top>
 						<itemgap>GAP_SETTINGS_GROUPLIST_OPTION</itemgap>
+						<usecontrolcoords>true</usecontrolcoords>
 						<onleft>SetFocus(3)</onleft>
 					</control>
 				</control>
+
+				<!-- Section label -->
+				<control type="label" id="14">
+					<height>HEIGHT_SETTINGS_CAPTION</height>
+					<left>PADDING_SETTINGS_OPTION_HORIZONTAL</left>
+					<top>OFFSET_SETTINGS_CAPTION</top>
+					<label></label>
+					<align>left</align>
+					<font>SETTINGS_CAPTION</font>
+					<textcolor>FOREGROUND_ACCENT_ALT</textcolor>
+				</control>
+
+				<!-- Option button -->
+				<control type="button" id="7">
+					<width>WIDTH_SETTINGS_OPTION_WIDE</width>
+					<height>HEIGHT_SETTINGS_OPTION</height>
+					<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texturefocus>
+					<texturenofocus></texturenofocus>
+					<textoffsety>PADDING_SETTINGS_OPTION_VERTICAL</textoffsety>
+					<textoffsetx>PADDING_SETTINGS_OPTION_HORIZONTAL</textoffsetx>
+					<focusedcolor>FOREGROUND_INVERSE</focusedcolor>
+					<textcolor>FOREGROUND_OPAQUE75</textcolor>
+					<align>left</align>
+				</control>
+				
+				<control type="radiobutton" id="8">
+					<width>WIDTH_SETTINGS_OPTION_WIDE</width>
+					<height>HEIGHT_SETTINGS_OPTION</height>
+					<textoffsety>PADDING_SETTINGS_OPTION_VERTICAL</textoffsety>
+					<textoffsetx>PADDING_SETTINGS_OPTION_HORIZONTAL</textoffsetx>
+					<radioposx>OFFSET_SETTINGS_OPTION_RADIO_WIDE</radioposx>
+				</control>
 			</control>
-		</control>
-
-		<!-- Page button -->
-		<control type="button" id="10">
-			<width>WIDTH_SETTINGS_GROUPLIST_OPTION_NARROW</width>
-			<height>HEIGHT_SETTINGS_OPTION</height>
-			<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texturefocus>
-			<texturenofocus></texturenofocus>
-			<textoffsety>PADDING_SETTINGS_OPTION_VERTICAL</textoffsety>
-			<textoffsetx>PADDING_SETTINGS_OPTION_HORIZONTAL</textoffsetx>
-			<focusedcolor>FOREGROUND_INVERSE</focusedcolor>
-			<textcolor>FOREGROUND_OPAQUE75</textcolor>
-			<align>left</align>
-			<onclick>SetFocus(5)</onclick>
-		</control>
-
-		<!-- Option button -->
-		<control type="button" id="7">
-			<width>100%</width>
-			<height>HEIGHT_SETTINGS_OPTION</height>
-			<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texturefocus>
-			<texturenofocus></texturenofocus>
-			<textoffsety>PADDING_SETTINGS_OPTION_VERTICAL</textoffsety>
-			<textoffsetx>PADDING_SETTINGS_OPTION_HORIZONTAL</textoffsetx>
-			<focusedcolor>FOREGROUND_INVERSE</focusedcolor>
-			<textcolor>FOREGROUND_OPAQUE75</textcolor>
-			<align>left</align>
 		</control>
 
 		<!--<control type="radiobutton" id="8">

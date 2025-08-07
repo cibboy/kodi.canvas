@@ -76,5 +76,11 @@
 			<size>16</size>
 			<linespacing>1.05</linespacing>
 		</font>
+		<font>
+			<name>SETTINGS_CAPTION</name>
+			<filename>Geologica-Bold.ttf</filename>
+			<size>24</size>
+			<style>uppercase</style>
+		</font>
 	</fontset>
 </fonts>

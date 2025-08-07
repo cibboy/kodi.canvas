@@ -18,9 +18,35 @@
 		<textcolor>FOREGROUND</textcolor>
 		<focusedcolor>FOREGROUND_INVERSE</focusedcolor>
 		<disabledcolor>FOREGROUND_OPAQUE35</disabledcolor>
+		<invalidcolor>FOREGROUND_ERROR</invalidcolor>
 		<textoffsety>4</textoffsety>
 		<textoffsetx>38</textoffsetx>
 		<align>center</align>
+		<aligny>center</aligny>
+		<pulseonselect>false</pulseonselect>
+	</default>
+
+	<!-- Radio button -->
+	<default type="radiobutton">
+		<width>auto</width>
+		<height>HEIGHT_BUTTON_DEFAULT</height>
+		<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texturefocus>
+		<texturenofocus></texturenofocus>
+		<textureradioonfocus colordiffuse="FOREGROUND_ACCENT_ALT">1080p/controls/check-on.png</textureradioonfocus>
+		<textureradioonnofocus colordiffuse="FOREGROUND_ACCENT_OPAQUE50">1080p/controls/check-on.png</textureradioonnofocus>
+		<textureradioondisabled colordiffuse="FOREGROUND_OPAQUE35">1080p/controls/check-on.png</textureradioondisabled>
+		<textureradioofffocus colordiffuse="FOREGROUND_ACCENT_ALT">1080p/controls/check-off.png</textureradioofffocus>
+		<textureradiooffnofocus colordiffuse="FOREGROUND_ACCENT_OPAQUE50">1080p/controls/check-off.png</textureradiooffnofocus>
+		<textureradiooffdisabled colordiffuse="FOREGROUND_OPAQUE35">1080p/controls/check-off.png</textureradiooffdisabled>
+		<font>BUTTON</font>
+		<textcolor>FOREGROUND_OPAQUE75</textcolor>
+		<focusedcolor>FOREGROUND_INVERSE</focusedcolor>
+		<disabledcolor>FOREGROUND_OPAQUE35</disabledcolor>
+		<textoffsety>4</textoffsety>
+		<textoffsetx>38</textoffsetx>
+		<radiowidth>24</radiowidth>
+		<radioheight>24</radioheight>
+		<align>left</align>
 		<aligny>center</aligny>
 		<pulseonselect>false</pulseonselect>
 	</default>

@@ -11,8 +11,18 @@
 	<color name="FOREGROUND_OPAQUE10">1ABEBEBE</color>
 	<color name="FOREGROUND_DARK">FF999999</color>
 	<color name="FOREGROUND_INVERSE">FF313131</color>
+	<color name="FOREGROUND_INVERSE_OPAQUE75">BF313131</color>
 
 	<color name="FOREGROUND_ACCENT">FFE5A00D</color>
+	<color name="FOREGROUND_ACCENT_OPAQUE90">E4E5A00D</color>
+	<color name="FOREGROUND_ACCENT_OPAQUE75">BFE5A00D</color>
+	<color name="FOREGROUND_ACCENT_OPAQUE50">7FE5A00D</color>
+	<color name="FOREGROUND_ACCENT_OPAQUE35">59E5A00D</color>
+	<color name="FOREGROUND_ACCENT_OPAQUE20">33E5A00D</color>
+	<color name="FOREGROUND_ACCENT_OPAQUE10">1AE5A00D</color>
+	<color name="FOREGROUND_ACCENT_ALT">FF7B5C1B</color>
+
+	<color name="FOREGROUND_ERROR">ff992a2a</color>
 
 	<!-- Backgrounds -->
 	<color name="BACKGROUND">FF000000</color>
