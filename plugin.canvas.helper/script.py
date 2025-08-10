@@ -125,11 +125,14 @@ def init_home():
     xbmc.executebuiltin(f"SetFocus({focus},0)")
     xbmc.executebuiltin('SetFocus(1,0)')
 
-# Opens DialogButtonMenu.xml. Equivalent to ActivateWindow(shutdownmenu), but works
-# with onback from home and later using a button to move to another window.
-def open_home_sidemenu():
-    dialog = xbmcgui.Window(10111)  # DialogButtonMenu.xml
-    dialog.show()
+# Navigates to the active settings page (interface settings as fallback)
+# using the last visited page from window properies.
+def home_to_active_settings(page):
+    if page is None or page == '':
+        page = 'appearancesettings'
+    
+    xbmc.log(page,xbmc.LOGINFO)
+    xbmc.executebuiltin(f"ActivateWindow({page})")
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
@@ -137,9 +140,9 @@ if __name__ == '__main__':
         # Reset home status.
         if method == 'init_home':
             init_home()
-        # Opens side menu in home.
-        elif method == 'open_home_sidemenu':
-            open_home_sidemenu()
+        # Navigates to active settings page from modal menu on home.
+        elif method == 'home_to_active_settings':
+            home_to_active_settings(sys.argv[2])
         # Handle window property updates when changing the selected main menu item.
         elif method == 'onchange_home_menu':
             onchange_home_menu(sys.argv[2])

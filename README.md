@@ -1,16 +1,15 @@
 TOFIX:
 - aggiunto genre audio in plugin (potenzialmente una lista, quindi bisognerà fare delle prove con ulteriore scraping e aggiornamento tag mp3, che è stata aggiunta alla details info line 2)
 - home side menu non ha gli angoli arrotondati sul overlay perchè c'è scalediffuse su aspectratio
-- transizione loading/non loading shifta anche in orizzontale (perchè il focus non è su control id 1?), sistemare
-- bottombar mostra la studio icon prima che finisca il loading
-- progress bar su posters/landscape scompaiono quando si mostra il menù principale (con quit, opzioni...)
-- settings: andare su non prima pagina, uscire, rientrare: focus non su prima pagina, ma parte destra è relativo a prima pagina (perchè si passa da settings con redirect?)
-- capire se si può ottimizzare la parte main settings e se tutte le costanti servono
+- bottombar mostra la studio icon prima che finisca il loading, e background stessa cosa con fanart:
+  - forse risolvibile facendosi passare l'info come parametro e spostare la variabile sulla home, così è condizionale al loading
 
 TODO:
 - manca il caricamento della lista pictures
+- estrarre la brightness dall'immagine di blur e salvare l'info in una proprietà del listitem (e nel nome dell'immagine) in modo da poter invertire il colore testo dei details e nomi strip home
 - creare possibilità di sbiancare la cache in temp
   - prima posizionare le immagini in temp/canvas.images e mp3 in temp/canvas.sound (da fare più avanti, quando si può testare il primo loading)
+- capire se investire il tempo per farsi da 0 le impostazioni come Android TV usando JSON-RPC (vedi AndroidTVSettings.md)
 
 - skin settings (skinsettings) > sub of interface?
 x interface (interfacesettings)
@@ -19,7 +18,7 @@ x player (playersettings)
 x system (systemsettings)
 x services (servicesettings)
 - pvr, profiles, file manager
-x addons (addonbrowser!)
+- addons (addonbrowser!)
 - information (systeminfo)
 - event log (eventlog)
 - settings level, where?
@@ -31,6 +30,7 @@ not in spotify:
 - Right Here, Right Now, Fatboy Slim, You've Come a Long Way, Baby
 in spotify:
 - Wake me up, Avicii (al momento live, ma non è bella)
+- Maria, Ricky Martin (c'è, ma l'altra è la versione veloce)
 
 
 

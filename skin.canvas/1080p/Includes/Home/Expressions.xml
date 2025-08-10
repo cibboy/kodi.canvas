@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
+	<!--
+		Has left menu focus?
+		Consider true the following conditions:
+		- Focus on actual left menu
+		- Focus on "focus steal" inside left menu (when loading)
+		- Focus on modal menu (only accessible through left menu)
+	-->
+	<expression name="HasHomeMenuFocus">Control.HasFocus(1) | Control.HasFocus(9999) | Control.HasFocus(1000)</expression>
+
 	<!-- Is loading ongoing on home? -->
 	<expression name="IsHomeLoading">String.IsEqual(Window(home).Property(Home.IsLoading),true)</expression>
 

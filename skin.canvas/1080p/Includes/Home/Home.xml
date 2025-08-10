@@ -21,12 +21,14 @@
 				<centertop>50%</centertop>
 				<centerleft>50%</centerleft>
 
+				<!-- Icon -->
 				<control type="image">
 					<width>100</width>
 					<height>100</height>
 					<centerleft>50%</centerleft>
 					<texture colordiffuse="FOREGROUND">$PARAM[icon]</texture>
 				</control>
+				<!-- Page title -->
 				<control type="label">
 					<width>WIDTH_FALLBACK_CONTENT</width>
 					<height>FONT_SIZE_TITLE2</height>
@@ -36,19 +38,30 @@
 					<font>TITLE2</font>
 					<label>$PARAM[title]</label>
 				</control>
+				<!-- Empty message -->
 				<control type="label">
 					<width>WIDTH_FALLBACK_CONTENT</width>
 					<height>FONT_SIZE_BODY</height>
 					<top>220</top>
 					<centerright>50%</centerright>
+
 					<align>center</align>
 					<font>BODY</font>
 					<label>$PARAM[information]</label>
 				</control>
+				<!-- Action button -->
 				<control type="button" id="$PARAM[id]">
 					<width>300</width>
+					<height>120</height>
 					<top>290</top>
 					<centerright>50%</centerright>
+
+					<texturefocus colordiffuse="FOREGROUND_ACCENT" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texturefocus>
+					<texturenofocus colordiffuse="BACKGROUND_OPAQUE50" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texturenofocus>
+					<textoffsety>4</textoffsety>
+					<textoffsetx>38</textoffsetx>
+					<textcolor>FOREGROUND</textcolor>
+					<align>center</align>
 					<label>$PARAM[button]</label>
 					<onclick>$PARAM[onclick]</onclick>
 					<onback>$PARAM[onback]</onback>
@@ -62,8 +75,8 @@
 	<include name="HomeMainMenu">
 		<definition>
 			<control type="group">
-				<!-- Left/right shift + fade when the main menu loses/gains focus -->
-				<visible>Control.HasFocus(1) | Control.HasFocus(9999)</visible>
+				<!-- Left/right shift + fade when the main menu loses/gains focus (except for "focus steal" and modal menu) -->
+				<visible>$EXP[HasHomeMenuFocus]</visible>
 				<include content="ShowHideFadeSlideHorizontalAnimation">
 					<param name="slide_amount">-200</param>
 					<param name="speed">ANIMATION_MID</param>
@@ -77,7 +90,7 @@
 				<control type="button" id="9999">
 					<include content="Hidden" />
 					<!-- Fallback for endless loading -->
-					<onback>RunScript(script.canvas.helper,open_home_sidemenu)</onback>
+					<onback>SetFocus(1000)</onback>
 					<!-- Fallback for side menu opening while loading -->
 					<ondown condition="!$EXP[IsHomeLoading]">SetFocus(1)</ondown>
 				</control>
@@ -98,7 +111,7 @@
 					
 					<onright>$INFO[Container(1).ListItem.Property(onright)]</onright>
 					<onclick>$INFO[Container(1).ListItem.Property(onclick)]</onclick>
-					<onback condition="!Player.HasMedia">RunScript(script.canvas.helper,open_home_sidemenu)</onback>
+					<onback condition="!Player.HasMedia">SetFocus(1000)</onback>
 
 					<focusedlayout height="90">
 						<!-- Hidden onfocus control -->
@@ -185,7 +198,7 @@
 							<thumb>$VAR[MenuIcon]</thumb>
 							<property name="name">menu</property>
 							<property name="onright">noop</property>
-							<property name="onclick">RunScript(script.canvas.helper,open_home_sidemenu)</property>
+							<property name="onclick">SetFocus(1000)</property>
 						</item>
 					</content>
 				</control>
@@ -210,7 +223,7 @@
 
 			<control type="group">
 				<!-- Left/right shift when the main menu loses/gains focus -->
-				<animation condition="Control.HasFocus(1)" reversible="true">
+				<animation condition="$EXP[HasHomeMenuFocus]" reversible="true">
 					<effect type="slide" end="150,0" time="ANIMATION_MID" tween="cubic" easing="out" />
 				</animation>
 
@@ -551,5 +564,90 @@
 				</control>
 			</control>
 		</definition>
+	</include>
+
+	<!-- Modal menu -->
+	<include name="HomeModalMenu">
+		<control type="group">
+			<!-- Darkening layer (with fade) -->
+			<control type="group">
+				<visible>Control.HasFocus(1000)</visible>
+				<include content="DarkeningLayer" />
+			</control>
+
+			<!-- Actual menu --><!--todo-->
+			<control type="group">
+				<visible>Control.HasFocus(1000)</visible>
+				<!-- Slide in from the side -->
+				<include content="ShowHideFadeSlideHorizontalAnimation">
+					<param name="slide_amount">300</param>
+					<param name="speed">ANIMATION_MID</param>
+				</include>
+
+				<width>600</width>
+				<height>100%</height>
+				<right>0</right>
+
+				<!-- Background -->
+				<control type="image">
+					<width>100%</width>
+					<height>100%</height>
+					<texture border="PADDING_HALF" colordiffuse="BACKGROUND_DIALOG">1080p/diffuse/square.png</texture>
+					<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
+					<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-square.png</bordertexture>
+				</control>
+				<control type="image">
+					<width>100%</width>
+					<height>100%</height>
+					<texture border="PADDING_HALF" colordiffuse="BACKGROUND" diffuse="1080p/diffuse/legibility.png">1080p/diffuse/square.png</texture>
+					<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
+					<aspectratio scalediffuse="true">scale</aspectratio>
+				</control>
+
+				<control type="list" id="1000">
+					<top>PADDING_BASE</top>
+					<left>PADDING_BASE</left>
+
+					<onback>SetFocus(1)</onback>
+					<onclick>$INFO[ListItem.Property(onclick)]</onclick>
+
+					<itemlayout height="100">
+						<control type="label">
+							<label>$INFO[ListItem.Label]</label>
+						</control>
+					</itemlayout>
+					<focusedlayout height="100">
+						<control type="button">
+							<label>$INFO[ListItem.Label]</label>
+						</control>
+					</focusedlayout>
+
+					<content>
+						<item id="1">
+							<thumb>$VAR[MenuIcon]</thumb>
+							<label>Quit</label>
+							<property name="onclick">Quit()</property>
+						</item>
+						<item id="2">
+							<thumb>$VAR[MenuIcon]</thumb>
+							<label>Settings</label>
+							<property name="onclick">RunScript(script.canvas.helper,home_to_active_settings,$INFO[Window(settings).Property(Settings.ActivePage)])</property>
+						</item>
+						<!--todo update library, quit, shutdown, addons, file manager, systeminfo-->
+					</content>
+				</control>
+			</control>
+
+			<!-- Clock (no animation) -->
+			<control type="group">
+				<visible>Control.HasFocus(1000)</visible>
+				<include content="ShowHideFadeAnimation">
+				</include>
+
+				<include content="TopBar">
+					<param name="show_background">false</param>
+				</include>
+			</control>
+		</control>
 	</include>
 </includes>

@@ -10,8 +10,10 @@
 	<color name="FOREGROUND_OPAQUE20">33BEBEBE</color>
 	<color name="FOREGROUND_OPAQUE10">1ABEBEBE</color>
 	<color name="FOREGROUND_DARK">FF999999</color>
+	<color name="FOREGROUND_DARKER">FF555555</color>
 	<color name="FOREGROUND_INVERSE">FF313131</color>
 	<color name="FOREGROUND_INVERSE_OPAQUE75">BF313131</color>
+	<color name="FOREGROUND_INVERSE_OPAQUE50">7F313131</color>
 
 	<color name="FOREGROUND_ACCENT">FFE5A00D</color>
 	<color name="FOREGROUND_ACCENT_OPAQUE90">E4E5A00D</color>

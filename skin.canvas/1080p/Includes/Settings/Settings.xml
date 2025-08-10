@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 	<include file="Includes/Settings/Variables.xml" />
+	<include file="Includes/Settings/Expressions.xml" />
 
 	<!-- Settings background -->
 	<include name="SettingsBackgroundSplit">
-		<param name="main_id"></param>
-
 		<definition>
 			<!-- Background color -->
 			<control type="image">
@@ -15,13 +14,13 @@
 			</control>
 			<control type="group">
 				<!--
-					When the main settings don't have focus, the split inverts.
+					When the main sections don't have focus, the split inverts.
 					The slide amount should be equivalent to window width - (narrow side * 2) (1920 - 1440).
 				-->
-				<animation type="Conditional" condition="!Control.HasFocus($PARAM[main_id])">
+				<animation type="Conditional" condition="!$EXP[HasSettingSectionsFocus]">
 					<effect type="slide" end="-480,0" time="ANIMATION_SLOW" tween="cubic" easing="out" />
 				</animation>
-				<animation type="Conditional" condition="Control.HasFocus($PARAM[main_id])">
+				<animation type="Conditional" condition="$EXP[HasSettingSectionsFocus]">
 					<effect type="slide" end="0,0" time="ANIMATION_SLOW" tween="cubic" easing="out" />
 				</animation>
 
@@ -46,15 +45,18 @@
 	<include name="SettingsOptionContentWithIcon">
 		<param name="icon_circle_color">BACKGROUND_OPAQUE20</param>
 		<param name="icon_color">BACKGROUND_INVERSE_OPAQUE50</param>
+		<param name="icon">$INFO[ListItem.Art(thumb)]</param>
 		<param name="text_color">FOREGROUND_OPAQUE75</param>
+		<param name="text">$INFO[ListItem.Property(title)]</param>
 		<param name="description_color">FOREGROUND_OPAQUE50</param>
+		<param name="description">$INFO[ListItem.Property(description)]</param>
 
 		<definition>
 			<control type="group">
-				<top>PADDING_SETTINGS_OPTION_VERTICAL</top>
-				<bottom>PADDING_SETTINGS_OPTION_VERTICAL</bottom>
-				<left>PADDING_SETTINGS_OPTION_HORIZONTAL</left>
-				<right>PADDING_SETTINGS_OPTION_HORIZONTAL</right>
+				<top>PADDING_BUTTON_VERTICAL</top>
+				<bottom>PADDING_BUTTON_VERTICAL</bottom>
+				<left>PADDING_BUTTON_HORIZONTAL</left>
+				<right>PADDING_BUTTON_HORIZONTAL</right>
 
 				<!-- Icon -->
 				<control type="group">
@@ -71,7 +73,7 @@
 						<height>SIZE_SETTINGS_ICON</height>
 						<centertop>50%</centertop>
 						<centerleft>50%</centerleft>
-						<texture colordiffuse="$PARAM[icon_color]">$INFO[ListItem.Art(thumb)]</texture>
+						<texture colordiffuse="$PARAM[icon_color]">$PARAM[icon]</texture>
 					</control>
 				</control>
 
@@ -79,19 +81,21 @@
 				<control type="group">
 					<height>HEIGHT_SETTINGS_OPTION_CONTENT</height>
 					<left>OFFSET_SETTINGS_OPTIONS_CONTENT</left>
-					<right>PADDING_SETTINGS_OPTION_HORIZONTAL</right>
+					<right>PADDING_BUTTON_HORIZONTAL</right>
 
+					<!-- First text line -->
 					<control type="label">
 						<top>-10</top>
 						<font>BODY_STRONG</font>
 						<textcolor>$PARAM[text_color]</textcolor>
-						<label>$INFO[ListItem.Property(title)]</label>
+						<label>$PARAM[text]</label>
 					</control>
+					<!-- Second text line -->
 					<control type="label">
 						<top>FONT_SIZE_BODY</top>
 						<font>CAPTION</font>
 						<textcolor>$PARAM[description_color]</textcolor>
-						<label>$INFO[ListItem.Property(description)]</label>
+						<label>$PARAM[description]</label>
 					</control>
 				</control>
 			</control>
@@ -100,10 +104,11 @@
 
 	<!-- Main settings categories -->
 	<include name="MainSettings">
-		<param name="id"></param>
-		<param name="subpage_id"></param>
+		<param name="id">1000</param>
+		<param name="subpage_id">3</param>
 
 		<definition>
+			<!-- Nested groups for proper sizes/padding -->
 			<control type="group">
 				<width>WIDTH_BACKGROUND_SPLIT</width>
 				<height>SCREEN_HEIGHT</height>
@@ -114,36 +119,41 @@
 					<left>PADDING_SETTINGS_WIDE_SIDE</left>
 					<right>PADDING_SETTINGS_WIDE_SIDE</right>
 
+					<!-- Title -->
 					<control type="label">
 						<width>auto</width>
 						<height>FONT_SIZE_TITLE1</height>
-						<right>16</right>
-						<left>16</left>
+						<right>PADDING_SETTINGS_TITLE</right>
+						<left>PADDING_SETTINGS_TITLE</left>
 						<font>TITLE1</font>
 						<label>Settings</label>
 					</control>
 
-					<control type="list" id="$PARAM[id]">
+					<!-- List of sections -->
+					<control type="list" id="1000">
 						<top>OFFSET_SETTINGS_OPTIONS_START</top>
-						<bottom>0</bottom>
 						<left>0</left>
 						<right>0</right>
 						<autoscroll>false</autoscroll>
 						
-						<onright>SetFocus($PARAM[subpage_id])</onright>
-						<onclick>SetFocus($PARAM[subpage_id])</onclick>
+						<onright>SetFocus(3)</onright>
+						<onclick>SetFocus(3)</onclick>
+						<onup>SetFocus(20)</onup>
+						<ondown>SetFocus(20)</ondown>
 
 						<focusedlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
 							<control type="button">
 								<include content="Hidden" />
+								<onfocus>SetProperty(Settings.ActivePage,$INFO[ListItem.Property(page)],settings)</onfocus>
 								<onfocus>ReplaceWindow($INFO[ListItem.Property(page)])</onfocus>
 							</control>
 
-							<!-- Fake button for selection -->
+							<!-- Fake button for selection (only when focus is in the actual list, not when on expert button) -->
 							<control type="group">
+								<visible>Control.HasFocus(1000)</visible>
 								<!-- Fake button selection -->
 								<control type="image">
-									<height>HEIGHT_SETTINGS_OPTION</height>
+									<height>HEIGHT_BUTTON_DEFAULT</height>
 									<texture colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texture>
 								</control>
 								<!-- Content -->
@@ -154,6 +164,10 @@
 									<param name="description_color">FOREGROUND_INVERSE_OPAQUE75</param>
 								</include>
 							</control>
+							<control type="group">
+								<visible>!Control.HasFocus(1000)</visible>
+								<include content="SettingsOptionContentWithIcon" />
+							</control>
 						</focusedlayout>
 
 						<itemlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
@@ -163,47 +177,84 @@
 						<content>
 							<!-- Interface -->
 							<item id="1">
-								<thumb>$VAR[InterfaceIcon]</thumb>
+								<thumb>$VAR[SettingsInterfaceIcon]</thumb>
 								<property name="title">Interface</property>
 								<property name="description">Skin, regional, screensaver</property>
-								<property name="page">interfacesettings</property>
+								<property name="page">appearancesettings</property>
 							</item>
 							<!-- System -->
 							<item id="2">
-								<thumb>$VAR[SystemIcon]</thumb>
+								<thumb>$VAR[SettingsSystemIcon]</thumb>
 								<property name="title">System</property>
 								<property name="description">Video, audio, input, logging</property>
 								<property name="page">systemsettings</property>
 							</item>
 							<!-- Services -->
 							<item id="3">
-								<thumb>$VAR[ServicesIcon]</thumb>
+								<thumb>$VAR[SettingsServicesIcon]</thumb>
 								<property name="title">Services</property>
 								<property name="description">Remote, protocols, caching</property>
 								<property name="page">servicesettings</property>
 							</item>
 							<!-- Player -->
 							<item id="4">
-								<thumb>$VAR[PlayerIcon]</thumb>
+								<thumb>$VAR[SettingsPlayerIcon]</thumb>
 								<property name="title">Player</property>
 								<property name="description">Playback, OSD</property>
 								<property name="page">playersettings</property>
 							</item>
 							<!-- Library -->
 							<item id="5">
-								<thumb>$VAR[LibraryIcon]</thumb>
+								<thumb>$VAR[SettingsLibraryIcon]</thumb>
 								<property name="title">Library</property>
 								<property name="description">Library management and options</property>
 								<property name="page">mediasettings</property>
 							</item>
-							<!-- Addons -->
-							<item id="6">
-								<thumb>$VAR[AddonsIcon]</thumb>
-								<property name="title">Addons</property>
-								<property name="description">Addon management</property>
-								<property name="page">addonbrowser</property>
-							</item>
 						</content>
+					</control>
+
+					<!-- Settings level -->
+					<control type="group">
+						<top>OFFSET_SETTINGS_EXPERT_START</top>
+
+						<!-- Actual button -->
+						<control type="radiobutton" id="20">
+							<width>WIDTH_SETTINGS_OPTION_WIDE</width>
+							<textureradioonfocus />
+							<textureradioonnofocus />
+							<textureradioondisabled />
+							<textureradioofffocus />
+							<textureradiooffnofocus />
+							<textureradiooffdisabled />
+							<aligny>top</aligny>
+							<textoffsety>30</textoffsety>
+							<textoffsetx>OFFSET_SETTINGS_EXPERT_CONTENT</textoffsetx>
+							<radioposx>PADDING_BUTTON_HORIZONTAL</radioposx>
+							<onup>SetFocus(1000,4)</onup>
+							<ondown>SetFocus(1000,0)</ondown>
+							<onclick>settingslevelchange</onclick>
+						</control>
+
+						<control type="group">
+							<visible>Control.HasFocus(20)</visible>
+							<include content="SettingsOptionContentWithIcon">
+								<param name="icon_circle_color">BACKGROUND_INVERSE_OPAQUE90</param>
+								<param name="icon_color">FOREGROUND_INVERSE</param>
+								<param name="icon">$VAR[SettingsComplexityLevel]</param>
+								<param name="text_color">FOREGROUND_INVERSE</param>
+								<param name="text"> </param>
+								<param name="description_color">FOREGROUND_INVERSE_OPAQUE75</param>
+								<param name="description">Settings complexity level</param>
+							</include>
+						</control>
+						<control type="group">
+							<visible>!Control.HasFocus(20)</visible>
+							<include content="SettingsOptionContentWithIcon">
+								<param name="icon">$VAR[SettingsComplexityLevel]</param>
+								<param name="text"> </param>
+								<param name="description">Settings complexity level</param>
+							</include>
+						</control>
 					</control>
 				</control>
 			</control>

@@ -3,8 +3,8 @@
 	<include file="Includes/Backgrounds/Variables.xml" />
 	<include file="Includes/Backgrounds/Expressions.xml" />
 
-	<!-- Full screen background -->
-	<include name="Background">
+	<!-- Full screen background with quadrant blur -->
+	<include name="BackgroundQuadrantBlur">
 		<param name="show_art">true</param>
 
 		<definition>
@@ -130,6 +130,9 @@
 			</control>
 		</definition>
 	</include>
+
+	<!-- Full screen background with direct blur -->
+	<!--todo-->
 
 	<!-- Full screen darkening layer -->
 	<include name="DarkeningLayer">

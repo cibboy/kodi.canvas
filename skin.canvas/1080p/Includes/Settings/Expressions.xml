@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<!-- Is any settings page active? -->
+	<expression name="IsAnySettingsPageActive">
+		Window.IsActive(appearancesettings) |
+		Window.IsActive(systemsettings) |
+		Window.IsActive(servicesettings) |
+		Window.IsActive(playersettings) |
+		Window.IsActive(mediasettings)
+	</expression>
+
+	<!--
+		Has main section list focus?
+		Consider:
+		- Section list (ID: 1000)
+		- Expert level (ID: 20)
+	-->
+	<expression name="HasSettingSectionsFocus">
+		Control.HasFocus(1000) |
+		Control.HasFocus(20)
+	</expression>
+</includes>

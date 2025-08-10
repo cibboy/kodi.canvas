@@ -4,24 +4,19 @@
 
 	<controls>
 		<!-- Background (structure split) -->
-		<include content="SettingsBackgroundSplit">
-			<param name="main_id">1000</param>
-		</include>
+		<include content="SettingsBackgroundSplit" />
 
 		<!-- Content structure -->
 		<control type="group">
-			<animation type="Conditional" condition="!Control.HasFocus(1000)">
+			<animation type="Conditional" condition="!$EXP[HasSettingSectionsFocus]">
 				<effect type="slide" end="-1200,0" time="ANIMATION_SLOW" tween="cubic" easing="out" />
 			</animation>
-			<animation type="Conditional" condition="Control.HasFocus(1000)">
+			<animation type="Conditional" condition="$EXP[HasSettingSectionsFocus]">
 				<effect type="slide" end="0,0" time="ANIMATION_SLOW" tween="cubic" easing="out" />
 			</animation>
 
 			<!-- Main categories (left side) -->
-			<include content="MainSettings">
-				<param name="id">1000</param>
-				<param name="subpage_id">3</param>
-			</include>
+			<include content="MainSettings" />
 
 			<!-- List of pages (right side when main settings are visible, left otherwise) -->
 			<control type="group">
@@ -29,7 +24,76 @@
 				<height>SCREEN_HEIGHT</height>
 				<left>WIDTH_BACKGROUND_SPLIT</left>
 
-				<!-- Chevron -->
+				<!-- List with title -->
+				<control type="group">
+					<top>PADDING_SETTINGS_VERTICAL</top>
+					<bottom>PADDING_SETTINGS_VERTICAL</bottom>
+					<right>PADDING_SETTINGS_NARROW_SIDE</right>
+					<left>PADDING_SETTINGS_NARROW_SIDE</left>
+
+					<!-- Page name -->
+					<control type="label" id="2">
+						<width>auto</width>
+						<height>FONT_SIZE_TITLE1</height>
+						<right>PADDING_SETTINGS_TITLE</right>
+						<left>PADDING_SETTINGS_TITLE</left>
+						<font>TITLE1</font>
+						<label></label>
+					</control>
+
+					<!-- Pages -->
+					<control type="group">
+						<top>OFFSET_SETTINGS_OPTIONS_START</top>
+
+						<!-- List of options -->
+						<control type="grouplist" id="3">
+							<itemgap>GAP_SETTINGS_GROUPLIST_OPTION</itemgap>
+							<usecontrolcoords>true</usecontrolcoords>
+							<onleft>SetFocus(1000)</onleft>
+							<onright>SetFocus(5)</onright>
+						</control>
+
+						<!-- Chevron up (more items) -->
+						<control type="image">
+							<visible>Integer.IsGreater(Container(3).NumItems,6)</visible>
+
+							<width>60</width>
+							<height>60</height>
+							<top>PADDING_GROUPLIST_NARROW_VERTICAL_CHEVRON</top>
+							<centerleft>50%</centerleft>
+							<texture colordiffuse="FOREGROUND_OPAQUE10">1080p/icons/chevron-up.png</texture>
+							<aspectratio>keep</aspectratio>
+						</control>
+
+						<!-- Chevron down (more items) -->
+						<control type="image">
+							<visible>Integer.IsGreater(Container(3).NumItems,6)</visible>
+
+							<width>60</width>
+							<height>60</height>
+							<bottom>PADDING_GROUPLIST_NARROW_VERTICAL_CHEVRON</bottom>
+							<centerleft>50%</centerleft>
+							<texture colordiffuse="FOREGROUND_OPAQUE10" flipy="true">1080p/icons/chevron-up.png</texture>
+							<aspectratio>keep</aspectratio>
+						</control>
+					</control>
+				</control>
+
+				<!-- Page button -->
+				<control type="button" id="10">
+					<width>WIDTH_SETTINGS_GROUPLIST_NARROW_OPTION</width>
+					<height>HEIGHT_BUTTON_DEFAULT</height>
+					<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texturefocus>
+					<texturenofocus />
+					<textoffsety>PADDING_BUTTON_VERTICAL</textoffsety>
+					<textoffsetx>PADDING_BUTTON_HORIZONTAL</textoffsetx>
+					<focusedcolor>FOREGROUND_INVERSE</focusedcolor>
+					<textcolor>FOREGROUND_OPAQUE75</textcolor>
+					<align>left</align>
+					<onclick>SetFocus(5)</onclick>
+				</control>
+
+				<!-- Chevron left -->
 				<control type="image">
 					<include content="FocusFadeAnimation">
 						<param name="start">0</param>
@@ -43,47 +107,6 @@
 					<centertop>50%</centertop>
 					<texture colordiffuse="FOREGROUND_OPAQUE10" flipx="true">1080p/icons/chevron-right.png</texture>
 					<aspectratio>keep</aspectratio>
-				</control>
-
-				<!-- List with title -->
-				<control type="group">
-					<top>PADDING_SETTINGS_VERTICAL</top>
-					<bottom>PADDING_SETTINGS_VERTICAL</bottom>
-					<right>PADDING_SETTINGS_NARROW_SIDE</right>
-					<left>PADDING_SETTINGS_NARROW_SIDE</left>
-
-					<!-- Page name -->
-					<control type="label" id="2">
-						<width>auto</width>
-						<height>FONT_SIZE_TITLE1</height>
-						<right>16</right>
-						<left>16</left>
-						<font>TITLE1</font>
-						<label></label>
-					</control>
-
-					<!-- Pages -->
-					<control type="grouplist" id="3">
-						<top>OFFSET_SETTINGS_OPTIONS_START</top>
-						<itemgap>GAP_SETTINGS_GROUPLIST_OPTION</itemgap>
-						<usecontrolcoords>true</usecontrolcoords>
-						<onleft>SetFocus(1000)</onleft>
-						<onright>SetFocus(5)</onright>
-					</control>
-				</control>
-
-				<!-- Page button -->
-				<control type="button" id="10">
-					<width>WIDTH_SETTINGS_GROUPLIST_OPTION_NARROW</width>
-					<height>HEIGHT_SETTINGS_OPTION</height>
-					<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texturefocus>
-					<texturenofocus></texturenofocus>
-					<textoffsety>PADDING_SETTINGS_OPTION_VERTICAL</textoffsety>
-					<textoffsetx>PADDING_SETTINGS_OPTION_HORIZONTAL</textoffsetx>
-					<focusedcolor>FOREGROUND_INVERSE</focusedcolor>
-					<textcolor>FOREGROUND_OPAQUE75</textcolor>
-					<align>left</align>
-					<onclick>SetFocus(5)</onclick>
 				</control>
 			</control>
 
@@ -101,31 +124,58 @@
 					<left>PADDING_SETTINGS_WIDE_SIDE</left>
 
 					<!-- Setting description -->
-					<!--todo-->
-					<control type="textbox" id="6">
-						<description>description area</description>
-						<left>0</left>
-						<right>0</right>
-						<height>90</height>
-						<font>BODY_STRONG</font>
-						<align>justify</align>
-						<textcolor>FOREGROUND_DARK</textcolor>
-						<autoscroll time="3000" delay="5000" repeat="5000">true</autoscroll>
+					<control type="group">
+						<top>PADDING_BASE</top>
+						<height>100</height>
+
+						<!-- Icon -->
+						<control type="image">
+							<visible>!String.IsEmpty(Control.GetLabel(6))</visible>
+							<width>SIZE_SETTINGS_ICON</width>
+							<height>SIZE_SETTINGS_ICON</height>
+							<top>PADDING_MULT_10</top>
+							<left>PADDING_SETTINGS_NARROW_SIDE</left>
+							<texture colordiffuse="FOREGROUND_DARK">1080p/icons/info.png</texture>
+						</control>
+
+						<!-- Description -->
+						<control type="textbox" id="6">
+							<left>PADDING_LEFT_SETTINGS_INFO</left>
+							<right>PADDING_LEFT_SETTINGS_INFO</right>
+							<height>100</height>
+							<font>CAPTION</font>
+							<textcolor>FOREGROUND_DARK</textcolor>
+							<autoscroll time="3000" delay="5000" repeat="5000">true</autoscroll>
+						</control>
 					</control>
 
 					<!-- Selected page options -->
-					<control type="grouplist" id="5">
+					<control type="group">
 						<top>OFFSET_SETTINGS_OPTIONS_START</top>
-						<itemgap>GAP_SETTINGS_GROUPLIST_OPTION</itemgap>
-						<usecontrolcoords>true</usecontrolcoords>
-						<onleft>SetFocus(3)</onleft>
+
+						<!-- List of options -->
+						<control type="grouplist" id="5">
+							<itemgap>GAP_SETTINGS_GROUPLIST_OPTION</itemgap>
+							<usecontrolcoords>true</usecontrolcoords>
+							<pagecontrol>60</pagecontrol>
+							<onleft>SetFocus(3)</onleft>
+							<onright>SetFocus(60)</onright>
+						</control>
+
+						<!-- List scrollbar -->
+						<control type="scrollbar" id="60">
+							<top>PADDING_BASE</top>
+							<bottom>PADDING_DOUBLE</bottom>
+							<right>PADDING_BASE_NEG</right>
+							<onleft>SetFocus(5)</onleft>
+						</control>
 					</control>
 				</control>
 
-				<!-- Section label -->
+				<!-- Section name -->
 				<control type="label" id="14">
 					<height>HEIGHT_SETTINGS_CAPTION</height>
-					<left>PADDING_SETTINGS_OPTION_HORIZONTAL</left>
+					<left>PADDING_BUTTON_HORIZONTAL</left>
 					<top>OFFSET_SETTINGS_CAPTION</top>
 					<label></label>
 					<align>left</align>
@@ -136,185 +186,31 @@
 				<!-- Option button -->
 				<control type="button" id="7">
 					<width>WIDTH_SETTINGS_OPTION_WIDE</width>
-					<height>HEIGHT_SETTINGS_OPTION</height>
-					<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texturefocus>
-					<texturenofocus></texturenofocus>
-					<textoffsety>PADDING_SETTINGS_OPTION_VERTICAL</textoffsety>
-					<textoffsetx>PADDING_SETTINGS_OPTION_HORIZONTAL</textoffsetx>
-					<focusedcolor>FOREGROUND_INVERSE</focusedcolor>
-					<textcolor>FOREGROUND_OPAQUE75</textcolor>
-					<align>left</align>
 				</control>
 				
+				<!-- Radio button -->
 				<control type="radiobutton" id="8">
 					<width>WIDTH_SETTINGS_OPTION_WIDE</width>
-					<height>HEIGHT_SETTINGS_OPTION</height>
-					<textoffsety>PADDING_SETTINGS_OPTION_VERTICAL</textoffsety>
-					<textoffsetx>PADDING_SETTINGS_OPTION_HORIZONTAL</textoffsetx>
 					<radioposx>OFFSET_SETTINGS_OPTION_RADIO_WIDE</radioposx>
+				</control>
+
+				<!-- Spin button -->
+				<control type="spincontrolex" id="9">
+					<width>WIDTH_SETTINGS_OPTION_WIDE</width>
+					<spinposx>OFFSET_SETTINGS_OPTION_SPIN_WIDE</spinposx>
+				</control>
+
+				<!-- Slider button -->
+				<control type="sliderex" id="13">
+					<width>WIDTH_SETTINGS_OPTION_WIDE</width>
+				</control>
+
+				<!-- Color button -->
+				<control type="colorbutton" id="15">
+					<width>WIDTH_SETTINGS_OPTION_WIDE</width>
 				</control>
 			</control>
 		</control>
-
-		<!--<control type="radiobutton" id="8">
-			<description>Default RadioButton</description>
-			<top>0</top>
-			<height>50</height>
-			<aligny>center</aligny>
-			<invalidcolor>foreground</invalidcolor>
-			<selectedcolor>highlight</selectedcolor>
-			<texturefocus colordiffuse="background">1080p/menu/home.png</texturefocus>
-			<texturenofocus />
-		</control>
-
-		<control type="spincontrolex" id="9">
-			<description>Default SpinControlex</description>
-			<top>0</top>
-			<height>50</height>
-			<aligny>center</aligny>
-			<invalidcolor>foreground</invalidcolor>
-			<selectedcolor>highlight</selectedcolor>
-			<texturefocus colordiffuse="background">1080p/menu/home.png</texturefocus>
-			<texturenofocus />
-			<aligny>center</aligny>
-		</control>
-
-		<control type="sliderex" id="13">
-			<description>Default Slider</description>
-			<top>0</top>
-			<height>50</height>
-			<aligny>center</aligny>
-			<invalidcolor>foreground</invalidcolor>
-			<selectedcolor>highlight</selectedcolor>
-			<texturefocus colordiffuse="background">1080p/menu/home.png</texturefocus>
-			<texturenofocus />
-			<aligny>center</aligny>
-		</control>
-
-		<control type="image" id="11">
-			<description>separator image</description>
-			<height>300</height>
-			<width>300</width>
-			<texture colordiffuse="AAAAAAAA" border="3">1080p/menu/menu.png</texture>
-		</control>
-
-		<control type="label" id="14">
-			<description>Default Label</description>
-			<width>1450</width>
-			<textoffsetx>45</textoffsetx>
-			<top>0</top>
-			<height>50</height>
-			<label></label>
-			<align>center</align>
-			<aligny>center</aligny>
-			<font>body</font>
-			<textcolor>foreground</textcolor>
-			<shadowcolor>background</shadowcolor>
-		</control>
-
-		<control type="colorbutton" id="15">
-			<description>Default ColorButton</description>
-			<description>Default Button</description>
-			<top>0</top>
-			<height>50</height>
-			<width>200</width>
-			<aligny>center</aligny>
-			<invalidcolor>foreground</invalidcolor>
-			<selectedcolor>highlight</selectedcolor>
-			<texturefocus colordiffuse="background">diffuse.png</texturefocus>
-			<texturenofocus />
-		</control>
-
-		<control type="group">
-			<control type="grouplist" id="3">
-				<description>button area</description>
-				<left>0</left>
-				<top>130</top>
-				<width>470</width>
-				<height>810</height>
-				<usecontrolcoords>true</usecontrolcoords>
-				<onleft>5</onleft>
-				<onright>5</onright>
-				<onup>3</onup>
-				<ondown>20</ondown>
-			</control>
-			<control type="button" id="10">
-				<description>Default Button</description>
-				<top>0</top>
-				<height>50</height>
-				<width>200</width>
-				<aligny>center</aligny>
-				<invalidcolor>foreground</invalidcolor>
-				<selectedcolor>highlight</selectedcolor>
-				<texturefocus colordiffuse="background">1080p/menu/yoga.png</texturefocus>
-				<texturenofocus />
-			</control>
-		</control>
-
-		<control type="group">
-			<right>0</right>
-			<top>133</top>
-			<bottom>137</bottom>
-			<width>60</width>
-			<control type="scrollbar" id="60">
-				<right>0</right>
-				<top>0</top>
-				<bottom>0</bottom>
-				<width>12</width>
-				<orientation>vertical</orientation>
-				<texturesliderbackground />
-				<animation effect="slide" end="6,0" time="300" tween="sine" easing="inout" condition="!Control.HasFocus(60)">conditional</animation>
-				<onleft>5</onleft>
-				<onright>5</onright>
-				<animation effect="fade" start="0" end="100" time="200" delay="300">Visible</animation>
-				<animation effect="fade" start="100" end="0" time="200">Hidden</animation>
-				<animation effect="fade" start="0" end="100" delay="300" time="320">WindowOpen</animation>
-				<animation effect="fade" start="100" end="0" time="150">WindowClose</animation>
-				<hitrect x="0" y="0" w="60" h="100%" />
-			</control>
-		</control>
-
-		<control type="radiobutton" id="20">
-			<width>470</width>
-			<left>0</left>
-			<bottom>70</bottom>
-			<height>90</height>
-			<aligny>center</aligny>
-			<onclick>SettingsLevelChange</onclick>
-			<textoffsetx>100</textoffsetx>
-			<textoffsety>0</textoffsety>
-			<texturefocus colordiffuse="foreground">diffuse.png</texturefocus>
-			<texturenofocus />
-			<radioposx>40</radioposx>
-			<radioposy>0</radioposy>
-			<radiowidth>40</radiowidth>
-			<radioheight>40</radioheight>
-			<onleft>5</onleft>
-			<onright>5</onright>
-			<onup>3</onup>
-			<ondown>3</ondown>
-			<textureradioonfocus>1080p/menu/tv.png</textureradioonfocus>
-			<textureradioonnofocus>1080p/menu/movies.png</textureradioonnofocus>
-			<textureradioofffocus>1080p/menu/pictures.png</textureradioofffocus>
-			<textureradiooffnofocus>1080p/menu/menu.png</textureradiooffnofocus>
-		</control>
-
-		<control type="textbox" id="6">
-			<description>description area</description>
-			<left>510</left>
-			<bottom>25</bottom>
-			<right>60</right>
-			<height>104</height>
-			<font>body</font>
-			<align>justify</align>
-			<textcolor>highlight</textcolor>
-			<autoscroll time="3000" delay="5000" repeat="5000">true</autoscroll>
-		</control>
-
-		<control type="label" id="2">
-			<description>breadcrumbs label</description>
-			<visible>True</visible>
-		</control>-->
 
 		<!-- Clock -->
 		<include content="TopBar">

@@ -5,7 +5,7 @@
 
 	<controls>
 		<!-- Background -->
-		<include content="Background">
+		<include content="BackgroundQuadrantBlur">
 			<param name="show_art">!String.IsEqual(Window.Property(Home.ActivePage),pictures)</param>
 		</include>
 
@@ -32,6 +32,9 @@
 
 			<!-- Bottom bar -->
 			<include content="BottomBar" />
+
+			<!-- Right modal menu -->
+			<include content="HomeModalMenu" />
 		</control>
 	</controls>
 </window>
