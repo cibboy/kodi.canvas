@@ -23,6 +23,57 @@
 	</expression>
 
 	<!--
+		Is the most suited text color again blur background light/mid/dark?
+		- Continue watching
+		- Recently added episodes
+		- Recently added movies
+		- Recently added music
+		- Movies
+		- TV shows (season if available, show otherwise)
+		- Yoga
+		- Music
+	-->
+	<expression name="IsDetailsBestTextColorLight">
+		[String.IsEqual(Window.Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(BlurArt.TextColor),light)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),102) + String.IsEqual(Container(102).ListItem.Property(BlurArt.TextColor),light)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),103) + String.IsEqual(Container(103).ListItem.Property(BlurArt.TextColor),light)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),104) + String.IsEqual(Container(104).ListItem.Property(BlurArt.TextColor),light)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),111) + String.IsEqual(Container(111).ListItem.Property(BlurArt.TextColor),light)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),121) + String.IsEqual(Container(121).ListItem.Property(BlurArt.TextColor),light)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),131) + [
+			[!String.IsEmpty(Container(131).ListItem.Property(BlurArt.Season)) + String.IsEqual(Container(131).ListItem.Property(BlurArt.Season.TextColor),light)] |
+			[String.IsEmpty(Container(131).ListItem.Property(BlurArt.Season)) + !String.IsEmpty(Container(131).ListItem.Property(BlurArt.TvShow)) + String.IsEqual(Container(131).ListItem.Property(BlurArt.TvShow.TextColor),light)]
+		]] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),141) + String.IsEqual(Container(141).ListItem.Property(BlurArt.TextColor),light)]
+	</expression>
+	<expression name="IsDetailsBestTextColorMid">
+		[String.IsEqual(Window.Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(BlurArt.TextColor),mid)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),102) + String.IsEqual(Container(102).ListItem.Property(BlurArt.TextColor),mid)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),103) + String.IsEqual(Container(103).ListItem.Property(BlurArt.TextColor),mid)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),104) + String.IsEqual(Container(104).ListItem.Property(BlurArt.TextColor),mid)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),111) + String.IsEqual(Container(111).ListItem.Property(BlurArt.TextColor),mid)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),121) + String.IsEqual(Container(121).ListItem.Property(BlurArt.TextColor),mid)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),131) + [
+			[!String.IsEmpty(Container(131).ListItem.Property(BlurArt.Season)) + String.IsEqual(Container(131).ListItem.Property(BlurArt.Season.TextColor),mid)] |
+			[String.IsEmpty(Container(131).ListItem.Property(BlurArt.Season)) + !String.IsEmpty(Container(131).ListItem.Property(BlurArt.TvShow)) + String.IsEqual(Container(131).ListItem.Property(BlurArt.TvShow.TextColor),mid)]
+		]] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),141) + String.IsEqual(Container(141).ListItem.Property(BlurArt.TextColor),mid)]
+	</expression>
+	<expression name="IsDetailsBestTextColorDark">
+		[String.IsEqual(Window.Property(Home.ActiveListId),101) + String.IsEqual(Container(101).ListItem.Property(BlurArt.TextColor),dark)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),102) + String.IsEqual(Container(102).ListItem.Property(BlurArt.TextColor),dark)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),103) + String.IsEqual(Container(103).ListItem.Property(BlurArt.TextColor),dark)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),104) + String.IsEqual(Container(104).ListItem.Property(BlurArt.TextColor),dark)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),111) + String.IsEqual(Container(111).ListItem.Property(BlurArt.TextColor),dark)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),121) + String.IsEqual(Container(121).ListItem.Property(BlurArt.TextColor),dark)] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),131) + [
+			[!String.IsEmpty(Container(131).ListItem.Property(BlurArt.Season)) + String.IsEqual(Container(131).ListItem.Property(BlurArt.Season.TextColor),dark)] |
+			[String.IsEmpty(Container(131).ListItem.Property(BlurArt.Season)) + !String.IsEmpty(Container(131).ListItem.Property(BlurArt.TvShow)) + String.IsEqual(Container(131).ListItem.Property(BlurArt.TvShow.TextColor),dark)]
+		]] |
+		[String.IsEqual(Window.Property(Home.ActiveListId),141) + String.IsEqual(Container(141).ListItem.Property(BlurArt.TextColor),dark)]
+	</expression>
+
+	<!--
 		Has subtitle?
 		- Continue watching
 		- Recently added episodes

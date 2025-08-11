@@ -9,11 +9,6 @@
 			<param name="show_art">!String.IsEqual(Window.Property(Home.ActivePage),pictures)</param>
 		</include>
 
-		<!-- Dark overlay on the left to improve legibility of text -->
-		<include content="LegibilityDarkeningLayer">
-			<param name="visible">!Control.HasFocus(1)</param>
-		</include>
-
 		<!-- Dark overlay to background for when the menu has focus -->
 		<include content="DarkeningLayer">
 			<param name="visible">Control.HasFocus(1)</param>

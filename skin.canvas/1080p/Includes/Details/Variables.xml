@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
+	<!-- Text color (based on bright blur art or not) -->
+	<variable name="DetailsTextColor">
+		<!-- Light color -->
+		<value condition="$EXP[IsDetailsBestTextColorLight]">FOREGROUND_CONTRAST_LIGHT</value>
+		<!-- Mid color -->
+		<value condition="$EXP[IsDetailsBestTextColorMid]">FOREGROUND_CONTRAST_MID</value>
+		<!-- Dark color -->
+		<value condition="$EXP[IsDetailsBestTextColorDark]">FOREGROUND_CONTRAST_DARK</value>
+		<!-- Fallback -->
+		<value>FOREGROUND_CONTRAST_LIGHT</value>
+	</variable>
+	<variable name="DetailsTextHighlightColor">
+		<!-- Light color -->
+		<value condition="$EXP[IsDetailsBestTextColorLight]">HIGHLIGHT_CONTRAST_LIGHT</value>
+		<!-- Mid color -->
+		<value condition="$EXP[IsDetailsBestTextColorMid]">HIGHLIGHT_CONTRAST_MID</value>
+		<!-- Dark color -->
+		<value condition="$EXP[IsDetailsBestTextColorDark]">HIGHLIGHT_CONTRAST_DARK</value>
+		<!-- Fallback -->
+		<value>HIGHLIGHT_CONTRAST_LIGHT</value>
+	</variable>
+
 	<!-- Clearlogo -->
 	<variable name="DetailsClearlogo">
 		<!-- Continue watching -->

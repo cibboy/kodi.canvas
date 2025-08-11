@@ -93,17 +93,17 @@ def get_movie_listitem(movie):
         videoinfo.addVideoStream(stream)
     for audio in movie['streamdetails']['audio']:
         stream = xbmc.AudioStreamDetail(
-            video.get('channels', 0),
-            video.get('codec', ''),
-            video.get('language', '')
+            audio.get('channels', 0),
+            audio.get('codec', ''),
+            audio.get('language', '')
         )
         videoinfo.addAudioStream(stream)
     for sub in movie['streamdetails']['subtitle']:
-        stream = xbmc.SubtitleStreamDetail(video.get('language', ''))
+        stream = xbmc.SubtitleStreamDetail(sub.get('language', ''))
         videoinfo.addSubtitleStream(stream)
 
     # Get custom art.
-    blur = get_blurred(movie['art'].get('fanart', ''))
+    blur, color = get_blurred(movie['art'].get('fanart', ''))
     clearlogo, clearlogo_small = get_cropped_clearlogo(movie['art'].get('clearlogo', ''))
 
     # Compute duration visual string.
@@ -133,6 +133,7 @@ def get_movie_listitem(movie):
     li.setProperty('TimeRemainingString', time_remaining)
     li.setProperty('WatchedPercentage', str(watched_percentage))
     li.setProperty('BlurArt', blur)
+    li.setProperty('BlurArt.TextColor', color)
     li.setProperty('Clearlogo.Big', clearlogo)
 
     return li
@@ -156,7 +157,7 @@ def get_tvshow_listitem(tvshow):
     videoinfo.setPlaycount(tvshow['playcount'])
 
     # Get custom art.
-    blur = get_blurred(tvshow['art'].get('fanart', ''))
+    blur, color = get_blurred(tvshow['art'].get('fanart', ''))
     clearlogo, clearlogo_small = get_cropped_clearlogo(tvshow['art'].get('clearlogo', ''), True)
 
     # Compute watched stats.
@@ -181,6 +182,7 @@ def get_tvshow_listitem(tvshow):
     li.setProperty('UnWatchedEpisodes', str(unwatched))
     li.setProperty('WatchedPercentage', str(watched_percentage))
     li.setProperty('BlurArt', blur)
+    li.setProperty('BlurArt.TextColor', color)
     li.setProperty('Clearlogo.Big', clearlogo)
     li.setProperty('Clearlogo.Small', clearlogo_small)
 
@@ -204,8 +206,8 @@ def get_season_listitem(season):
     videoinfo.setPlaycount(season['playcount'])
 
     # Get custom art.
-    tvshow_blur = get_blurred(season.get('tvshow', {'art': {}})['art'].get('fanart', ''))
-    season_blur = get_blurred(season['art'].get('fanart', ''))
+    tvshow_blur, tvshow_color = get_blurred(season.get('tvshow', {'art': {}})['art'].get('fanart', ''))
+    season_blur, season_color = get_blurred(season['art'].get('fanart', ''))
     clearlogo, clearlogo_small = get_cropped_clearlogo(season.get('tvshow', {'art': {}})['art'].get('clearlogo', ''), True)
 
     # Compute watched stats.
@@ -231,6 +233,8 @@ def get_season_listitem(season):
     li.setProperty('WatchedPercentage', str(watched_percentage))
     li.setProperty('BlurArt.TvShow', tvshow_blur)
     li.setProperty('BlurArt.Season', season_blur)
+    li.setProperty('BlurArt.TvShow.TextColor', tvshow_color)
+    li.setProperty('BlurArt.Season.TextColor',season_color)
     li.setProperty('Clearlogo.Big', clearlogo)
     li.setProperty('Clearlogo.Small', clearlogo_small)
 
@@ -269,18 +273,18 @@ def get_episode_listitem(episode):
         videoinfo.addVideoStream(stream)
     for audio in episode['streamdetails']['audio']:
         stream = xbmc.AudioStreamDetail(
-            video.get('channels', 0),
-            video.get('codec', ''),
-            video.get('language', '')
+            audio.get('channels', 0),
+            audio.get('codec', ''),
+            audio.get('language', '')
         )
         videoinfo.addAudioStream(stream)
     for sub in episode['streamdetails']['subtitle']:
-        stream = xbmc.SubtitleStreamDetail(video.get('language', ''))
+        stream = xbmc.SubtitleStreamDetail(sub.get('language', ''))
         videoinfo.addSubtitleStream(stream)
 
     # Get custom art.
-    tvshow_blur = get_blurred(episode['art'].get('tvshow.fanart', ''))
-    season_blur = get_blurred(episode['art'].get('season.fanart', ''))
+    tvshow_blur, tvshow_color = get_blurred(episode['art'].get('tvshow.fanart', ''))
+    season_blur, season_color = get_blurred(episode['art'].get('season.fanart', ''))
     clearlogo, clearlogo_small = get_cropped_clearlogo(episode['art'].get('tvshow.clearlogo', ''), True)
 
     # Compute duration visual string.
@@ -312,6 +316,8 @@ def get_episode_listitem(episode):
     li.setProperty('WatchedPercentage', str(watched_percentage))
     li.setProperty('BlurArt.TvShow', tvshow_blur)
     li.setProperty('BlurArt.Season', season_blur)
+    li.setProperty('BlurArt.TvShow.TextColor', tvshow_color)
+    li.setProperty('BlurArt.Season.TextColor',season_color)
     li.setProperty('Clearlogo.Big', clearlogo)
     li.setProperty('Clearlogo.Small', clearlogo_small)
 
@@ -333,7 +339,7 @@ def get_album_listitem(album):
     #musicinfo.setDuration(song['albumduration'])
 
     # Get custom art.
-    blur = get_blurred(album['art'].get('fanart', ''))
+    blur, color = get_blurred(album['art'].get('fanart', ''))
 
     # Compute duration visual string.
     #duration = get_formatted_timespan(song['albumduration'], include_seconds=True)
@@ -341,6 +347,7 @@ def get_album_listitem(album):
     # Set custom properties.
     #li.setProperty('DurationString', duration)
     li.setProperty('BlurArt', blur)
+    li.setProperty('BlurArt.TextColor', color)
 
     return li
 
@@ -362,7 +369,7 @@ def get_song_listitem(song):
     musicinfo.setGenres(song['genre'])
 
     # Get custom art.
-    blur = get_blurred(song['art'].get('album.thumb', ''))
+    blur, color = get_blurred(song['art'].get('album.thumb', ''))
 
     # Compute duration visual string.
     duration = get_formatted_timespan(song['duration'], include_seconds=True)
@@ -370,6 +377,7 @@ def get_song_listitem(song):
     # Set custom properties.
     li.setProperty('DurationString', duration)
     li.setProperty('BlurArt', blur)
+    li.setProperty('BlurArt.TextColor', color)
     li.setProperty('Track', str(song['track']))
 
     return li

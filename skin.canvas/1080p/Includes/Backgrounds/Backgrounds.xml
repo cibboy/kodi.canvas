@@ -158,24 +158,4 @@
 			</control>
 		</definition>
 	</include>
-
-	<!-- Legibility darkening layer -->
-	<include name="LegibilityDarkeningLayer">
-		<param name="visible">true</param>
-		<param name="fade_speed">ANIMATION_SLOW</param>
-
-		<definition>
-			<control type="image">
-				<visible>$PARAM[visible]</visible>
-				<include content="ShowHideFadeAnimation">
-					<param name="speed">ANIMATION_MID</param>
-				</include>
-
-				<width>100%</width>
-				<height>100%</height>
-				<fadetime>$PARAM[fade_speed]</fadetime>
-				<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/diffuse/legibility.png</texture>
-			</control>
-		</definition>
-	</include>
 </includes>

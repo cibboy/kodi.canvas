@@ -633,7 +633,7 @@
 							<label>Settings</label>
 							<property name="onclick">RunScript(script.canvas.helper,home_to_active_settings,$INFO[Window(settings).Property(Settings.ActivePage)])</property>
 						</item>
-						<!--todo update library, quit, shutdown, addons, file manager, systeminfo-->
+						<!--todo update library, quit, shutdown, update libraries, addons, file manager, systeminfo-->
 					</content>
 				</control>
 			</control>
