@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 	<include file="Includes/Details/Variables.xml" />
-	<include file="Includes/Details/Expressions.xml" />
 
 	<!-- Infoline text -->
 	<include name="DetailsInfoText">
 		<param name="text"></param>
+		<param name="textcolor">FOREGROUND</param>
 		<param name="visible">true</param>
 
 		<definition>
@@ -17,7 +17,7 @@
 
 				<font>CAPTION_STRONG</font>
 				<aligny>center</aligny>
-				<textcolor>$VAR[DetailsTextColor]</textcolor>
+				<textcolor>$PARAM[textcolor]</textcolor>
 				<label>$PARAM[text]</label>
 			</control>
 		</definition>
@@ -85,6 +85,45 @@
 	<!-- Details -->
 	<include name="SelectionDetails">
 		<param name="visible">true</param>
+		<param name="clearlogo"></param>
+		<param name="title"></param>
+		<param name="has_clearlogo">false</param>
+		<param name="subtitle"></param>
+		<param name="has_subtitle">false</param>
+		<param name="resolution"></param>
+		<param name="has_resolution">false</param>
+		<param name="hdr"></param>
+		<param name="has_hdr">false</param>
+		<param name="channels"></param>
+		<param name="has_channels">false</param>
+		<param name="year"></param>
+		<param name="has_year">false</param>
+		<param name="episode"></param>
+		<param name="has_episode">false</param>
+		<param name="premiered"></param>
+		<param name="has_premiered">false</param>
+		<param name="artist"></param>
+		<param name="has_artist">false</param>
+		<param name="duration"></param>
+		<param name="has_duration">false</param>
+		<param name="mpaa"></param>
+		<param name="has_mpaa">false</param>
+		<param name="status"></param>
+		<param name="has_status">false</param>
+		<param name="track"></param>
+		<param name="has_track">false</param>
+		<param name="is_watched">false</param>
+		<param name="is_allnew">false</param>
+		<param name="episodes_remaining"></param>
+		<param name="has_episodes_remaining">false</param>
+		<param name="time_remaining"></param>
+		<param name="has_time_remaining">false</param>
+		<param name="percentage_watched"></param>
+		<param name="genre"></param>
+		<param name="has_genre">false</param>
+		<param name="plot"></param>
+		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
+		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
 
 		<definition>
 			<control type="grouplist">
@@ -100,36 +139,34 @@
 
 					<!-- Title (if clearlogo not available) -->
 					<control type="label">
-						<visible>!$EXP[HasDetailsClearlogo]</visible>
+						<visible>!$PARAM[has_clearlogo]</visible>
 
 						<width>1000</width>
 						<height>HEIGHT_CLEARLOGO_BIG</height>
 						<aligny>center</aligny>
 						<font>TITLE1</font>
-						<textcolor>$VAR[DetailsTextHighlightColor]</textcolor>
-						<label>$VAR[DetailsTitle]</label>
+						<textcolor>$PARAM[highlight_color]</textcolor>
+						<label>$PARAM[title]</label>
 					</control>
 					<!-- Clearlogo -->
 					<control type="image">
-						<visible>$EXP[HasDetailsClearlogo]</visible>
-
 						<width>WIDTH_CLEARLOGO_BIG</width>
 						<height>HEIGHT_CLEARLOGO_BIG</height>
 						<fadetime>ANIMATION_FAST</fadetime>
-						<texture background="true">$VAR[DetailsClearlogo]</texture>
+						<texture background="true">$PARAM[clearlogo]</texture>
 						<aspectratio align="left">keep</aspectratio>
 					</control>
 				</control>
 
 				<!-- Subtitle -->
 				<control type="label">
-					<visible>$EXP[HasDetailsSubtitle]</visible>
+					<visible>$PARAM[has_subtitle]</visible>
 
 					<width>1000</width>
 					<height>HEIGHT_DETAILS_SUBTITLE</height>
 					<font>SUBTITLE</font>
-					<textcolor>$VAR[DetailsTextHighlightColor]</textcolor>
-					<label>$VAR[DetailsSubtitle]</label>
+					<textcolor>$PARAM[highlight_color]</textcolor>
+					<label>$PARAM[subtitle]</label>
 				</control>
 
 				<!-- Info line 1 -->
@@ -141,66 +178,74 @@
 
 					<!-- Resolution -->
 					<include content="DetailsInfoTag">
-						<param name="text">$VAR[DetailsResolution]</param>
-						<param name="visible">$EXP[HasDetailsResolution]</param>
+						<param name="text">$PARAM[resolution]</param>
+						<param name="visible">$PARAM[has_resolution]</param>
 					</include>
 					<!-- HDR -->
 					<include content="DetailsInfoTag">
-						<param name="text">$VAR[DetailsHdr]</param>
-						<param name="visible">$EXP[HasDetailsHdr]</param>
+						<param name="text">$PARAM[hdr]</param>
+						<param name="visible">$PARAM[has_hdr]</param>
 					</include>
 					<!-- Audio channels -->
 					<include content="DetailsInfoTag">
-						<param name="text">$VAR[DetailsAudioChannels]</param>
-						<param name="visible">$EXP[HasDetailsAudioChannels]</param>
+						<param name="text">$PARAM[channels]</param>
+						<param name="visible">$PARAM[has_channels]</param>
 					</include>
 
 					<!-- Year -->
 					<include content="DetailsInfoText">
-						<param name="text">$VAR[DetailsYear]</param>
-						<param name="visible">$EXP[HasDetailsYear]</param>
+						<param name="text">$PARAM[year]</param>
+						<param name="textcolor">$PARAM[foreground_color]</param>
+						<param name="visible">$PARAM[has_year]</param>
 					</include>
 					<!-- Episode -->
 					<include content="DetailsInfoText">
-						<param name="text">$VAR[DetailsEpisode]</param>
-						<param name="visible">$EXP[HasDetailsEpisode]</param>
+						<param name="text">$PARAM[episode]</param>
+						<param name="textcolor">$PARAM[foreground_color]</param>
+						<param name="visible">$PARAM[has_episode]</param>
 					</include>
 					<!-- Premiered -->
 					<include content="DetailsInfoText">
-						<param name="text">$VAR[DetailsPremiered]</param>
-						<param name="visible">$EXP[HasDetailsPremiered]</param>
+						<param name="text">$PARAM[premiered]</param>
+						<param name="textcolor">$PARAM[foreground_color]</param>
+						<param name="visible">$PARAM[has_premiered]</param>
 					</include>
 					<!-- Artist -->
 					<include content="DetailsInfoText">
-						<param name="text">$VAR[DetailsArtist]</param>
-						<param name="visible">$EXP[HasDetailsArtist]</param>
+						<param name="text">$PARAM[artist]</param>
+						<param name="textcolor">$PARAM[foreground_color]</param>
+						<param name="visible">$PARAM[has_artist]</param>
 					</include>
 					<!-- Duration -->
 					<include content="DetailsInfoText">
-						<param name="text">$VAR[DetailsDuration]</param>
-						<param name="visible">$EXP[HasDetailsDuration]</param>
+						<param name="text">$PARAM[duration]</param>
+						<param name="textcolor">$PARAM[foreground_color]</param>
+						<param name="visible">$PARAM[has_duration]</param>
 					</include>
 					<!-- Mpaa -->
 					<include content="DetailsInfoText">
-						<param name="text">$VAR[DetailsMpaa]</param>
-						<param name="visible">$EXP[HasDetailsMpaa]</param>
+						<param name="text">$PARAM[mpaa]</param>
+						<param name="textcolor">$PARAM[foreground_color]</param>
+						<param name="visible">$PARAM[has_mpaa]</param>
 					</include>
 					<!-- Status -->
 					<include content="DetailsInfoText">
-						<param name="text">$VAR[DetailsStatus]</param>
-						<param name="visible">$EXP[HasDetailsStatus]</param>
+						<param name="text">$PARAM[status]</param>
+						<param name="textcolor">$PARAM[foreground_color]</param>
+						<param name="visible">$PARAM[has_status]</param>
 					</include>
 					<!-- Track -->
 					<include content="DetailsInfoText">
-						<param name="text">$VAR[DetailsTrack]</param>
-						<param name="visible">$EXP[HasDetailsTrack]</param>
+						<param name="text">$PARAM[track]</param>
+						<param name="textcolor">$PARAM[foreground_color]</param>
+						<param name="visible">$PARAM[has_track]</param>
 					</include>
 
 					<!-- Watched status -->
 					<include content="DetailsInfoTagWithIcon">
 						<!-- Text has space for icon -->
 						<param name="text">      Watched</param>
-						<param name="visible">$EXP[IsDetailsWatched]</param>
+						<param name="visible">$PARAM[is_watched]</param>
 
 						<!-- Icon -->
 						<control type="image">
@@ -215,15 +260,15 @@
 					<!-- All new -->
 					<include content="DetailsInfoTag">
 						<param name="text">All new</param>
-						<param name="visible">!$EXP[IsDetailsWatched] + $EXP[IsAllNew]</param>
+						<param name="visible">!$PARAM[is_watched] + $PARAM[is_allnew]</param>
 						<param name="textcolor">FOREGROUND_ACCENT</param>
 					</include>
 
 					<!-- Episodes remaining -->
 					<include content="DetailsInfoTagWithIcon">
 						<!-- Text has space for icon -->
-						<param name="text">      $VAR[DetailsEpisodesRemaining]</param>
-						<param name="visible">!$EXP[IsDetailsWatched] + $EXP[HasDetailsEpisodesRemaining] + !$EXP[IsAllNew]</param>
+						<param name="text">      $PARAM[episodes_remaining]</param>
+						<param name="visible">!$PARAM[is_watched] + $PARAM[has_episodes_remaining] + !$PARAM[is_allnew]</param>
 
 						<!-- Round icon -->
 						<control type="group">
@@ -236,7 +281,7 @@
 								<texture colordiffuse="FOREGROUND_OPAQUE10">1080p/progress/circle-100.png</texture>
 							</control>
 							<control type="image">
-								<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-$VAR[DetailsWatchedPercentage].png</texture>
+								<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-$PARAM[percentage_watched].png</texture>
 							</control>
 						</control>
 					</include>
@@ -244,8 +289,8 @@
 					<!-- Time remaining -->
 					<include content="DetailsInfoTagWithIcon">
 						<!-- Text has space for icon -->
-						<param name="text">      $VAR[DetailsTimeRemaining]</param>
-						<param name="visible">$EXP[HasDetailsTimeRemaining]</param>
+						<param name="text">      $PARAM[time_remaining]</param>
+						<param name="visible">$PARAM[has_time_remaining]</param>
 
 						<!-- Round icon -->
 						<control type="group">
@@ -258,7 +303,7 @@
 								<texture colordiffuse="FOREGROUND_OPAQUE10">1080p/progress/circle-100.png</texture>
 							</control>
 							<control type="image">
-								<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-$VAR[DetailsWatchedPercentage].png</texture>
+								<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-$PARAM[percentage_watched].png</texture>
 							</control>
 						</control>
 					</include>
@@ -266,7 +311,7 @@
 
 				<!-- Info line 2 -->
 				<control type="grouplist">
-					<visible>$EXP[HasDetailsGenre]</visible>
+					<visible>$PARAM[has_genre]</visible>
 
 					<orientation>horizontal</orientation>
 					<itemgap>PADDING_MULT_30</itemgap>
@@ -274,8 +319,9 @@
 
 					<!-- Genre -->
 					<include content="DetailsInfoText">
-						<param name="text">$VAR[DetailsGenre]</param>
-						<param name="visible">$EXP[HasDetailsGenre]</param>
+						<param name="text">$PARAM[genre]</param>
+						<param name="textcolor">$PARAM[foreground_color]</param>
+						<param name="visible">$PARAM[has_genre]</param>
 					</include>
 				</control>
 
@@ -286,8 +332,8 @@
 					<top>10</top>
 
 					<font>BODY2</font>
-					<textcolor>$VAR[DetailsTextColor]</textcolor>
-					<label>$VAR[DetailsSummary]</label>
+					<textcolor>$PARAM[foreground_color]</textcolor>
+					<label>$PARAM[plot]</label>
 				</control>
 			</control>
 		</definition>

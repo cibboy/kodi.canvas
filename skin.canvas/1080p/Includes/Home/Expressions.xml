@@ -2,10 +2,11 @@
 <includes>
 	<!--
 		Has left menu focus?
-		Consider true the following conditions:
+		Consider true any of the following conditions:
 		- Focus on actual left menu
 		- Focus on "focus steal" inside left menu (when loading)
 		- Focus on modal menu (only accessible through left menu)
+		- Focus on filter menu (todo)
 	-->
 	<expression name="HasHomeMenuFocus">Control.HasFocus(1) | Control.HasFocus(9999) | Control.HasFocus(1000)</expression>
 
@@ -51,6 +52,30 @@
 	<!-- Has pictures content? -->
 	<expression name="HasHomePicturesContent">String.IsEqual(Window(home).Property(List.151.HasContent),true)</expression>
 
+	<!-- Is continue watching active? -->
+	<expression name="IsHomeContinueWatchingActive">String.IsEqual(Window(home).Property(Home.ActiveListId),101)</expression>
+	<!-- Is recently added episodes active? -->
+	<expression name="IsHomeRecentlyAddedEpisodesActive">String.IsEqual(Window(home).Property(Home.ActiveListId),102)</expression>
+	<!-- Is recently added movies active? -->
+	<expression name="IsHomeRecentlyAddedMoviesActive">String.IsEqual(Window(home).Property(Home.ActiveListId),103)</expression>
+	<!-- Is recently added music active? -->
+	<expression name="IsHomeRecentlyAddedMusicActive">String.IsEqual(Window(home).Property(Home.ActiveListId),104)</expression>
+	<!-- Is movies active? -->
+	<expression name="IsHomeMoviesActive">String.IsEqual(Window(home).Property(Home.ActiveListId),111)</expression>
+	<!-- Is TV shows active? -->
+	<expression name="IsHomeTVShowsActive">String.IsEqual(Window(home).Property(Home.ActiveListId),121)</expression>
+	<!-- Is yoga active? -->
+	<expression name="IsHomeYogaActive">String.IsEqual(Window(home).Property(Home.ActiveListId),131)</expression>
+	<!-- Is music active? -->
+	<expression name="IsHomeMusicActive">String.IsEqual(Window(home).Property(Home.ActiveListId),141)</expression>
+	<!-- Is pictures active? -->
+	<expression name="IsHomePicturesActive">String.IsEqual(Window(home).Property(Home.ActiveListId),151)</expression>
+
+	<!-- Is continue watching a movie? -->
+	<expression name="IsHomeContinueWatchingMovie">String.IsEqual(Container(101).ListItem.Property(ItemType),movie)</expression>
+	<!-- Is continue watching an episode? -->
+	<expression name="IsHomeContinueWatchingEpisode">String.IsEqual(Container(101).ListItem.Property(ItemType),episode)</expression>
+
 	<!-- Show details? -->
 	<expression name="HomeShowDetails">
 		[!$EXP[IsHomeActivePagePictures] + !$EXP[IsHomeLoading]] +
@@ -62,5 +87,323 @@
 			[$EXP[IsHomeActivePageMusic] + $EXP[HasHomeMusicContent]] |
 			[$EXP[IsHomeActivePagePictures] + $EXP[HasHomePicturesContent]]
 		]
+	</expression>
+
+	<!--
+		Has clearlogo?
+		- Continue watching
+		- Recently added episodes
+		- Recently added movies
+		- Recently added music
+		- Movies
+		- TV shows
+		- Yoga
+		- Music
+	-->
+	<expression name="HasHomeDetailsClearlogo">
+		[$EXP[IsHomeContinueWatchingActive] + !String.IsEmpty(Container(101).ListItem.Property(Clearlogo.Big))] |
+		[$EXP[IsHomeRecentlyAddedEpisodesActive] + !String.IsEmpty(Container(102).ListItem.Property(Clearlogo.Big))] |
+		[$EXP[IsHomeRecentlyAddedMoviesActive] + !String.IsEmpty(Container(103).ListItem.Property(Clearlogo.Big))] |
+		[$EXP[IsHomeRecentlyAddedMusicActive] + !String.IsEmpty(Container(104).ListItem.Property(Clearlogo.Big))] |
+		[$EXP[IsHomeMoviesActive] + !String.IsEmpty(Container(111).ListItem.Property(Clearlogo.Big))] |
+		[$EXP[IsHomeTVShowsActive] + !String.IsEmpty(Container(121).ListItem.Property(Clearlogo.Big))] |
+		[$EXP[IsHomeYogaActive] + !String.IsEmpty(Container(131).ListItem.Property(Clearlogo.Big))] |
+		[$EXP[IsHomeMusicActive] + !String.IsEmpty(Container(141).ListItem.Property(Clearlogo.Big))]
+	</expression>
+
+	<!--
+		Has subtitle?
+		- Continue watching
+		- Recently added episodes
+		- Recently added music
+		- Yoga
+		- Music
+	-->
+	<expression name="HasHomeDetailsSubtitle">
+		[$EXP[IsHomeContinueWatchingActive] + $EXP[IsHomeContinueWatchingEpisode] + !String.IsEmpty(Container(101).ListItem.Title)] |
+		[$EXP[IsHomeRecentlyAddedEpisodesActive] + !String.IsEmpty(Container(102).ListItem.Title)] |
+		[$EXP[IsHomeRecentlyAddedMusicActive] + !String.IsEmpty(Container(104).ListItem.Album)] |
+		[$EXP[IsHomeYogaActive] + !String.IsEmpty(Container(131).ListItem.Title)] |
+		[$EXP[IsHomeMusicActive] + !String.IsEmpty(Container(141).ListItem.Album)]
+	</expression>
+
+	<!--
+		Has resolution?
+		- Continue watching
+		- Recently added episodes
+		- Recently added movies
+		- Movies
+		- Yoga
+	-->
+	<expression name="HasHomeDetailsResolution">
+		[$EXP[IsHomeContinueWatchingActive] + !String.IsEmpty(Container(101).ListItem.VideoResolution)] |
+		[$EXP[IsHomeRecentlyAddedEpisodesActive] + !String.IsEmpty(Container(102).ListItem.VideoResolution)] |
+		[$EXP[IsHomeRecentlyAddedMoviesActive] + !String.IsEmpty(Container(103).ListItem.VideoResolution)] |
+		[$EXP[IsHomeMoviesActive] + !String.IsEmpty(Container(111).ListItem.VideoResolution)] |
+		[$EXP[IsHomeYogaActive] + !String.IsEmpty(Container(131).ListItem.VideoResolution)]
+	</expression>
+
+	<!--
+		Has HDR?
+		- Continue watching
+		- Recently added episodes
+		- Recently added movies
+		- Movies
+		- Yoga
+	-->
+	<expression name="HasHomeDetailsHdr">
+		[$EXP[IsHomeContinueWatchingActive] + !String.IsEmpty(Container(101).ListItem.HdrType)] |
+		[$EXP[IsHomeRecentlyAddedEpisodesActive] + !String.IsEmpty(Container(102).ListItem.HdrType)] |
+		[$EXP[IsHomeRecentlyAddedMoviesActive] + !String.IsEmpty(Container(103).ListItem.HdrType)] |
+		[$EXP[IsHomeMoviesActive] + !String.IsEmpty(Container(111).ListItem.HdrType)] |
+		[$EXP[IsHomeYogaActive] + !String.IsEmpty(Container(131).ListItem.HdrType)]
+	</expression>
+
+	<!--
+		Has audio channels?
+		- Continue watching
+		- Recently added episodes
+		- Recently added movies
+		- Movies
+		- Yoga
+	-->
+	<expression name="HasHomeDetailsAudioChannels">
+		[$EXP[IsHomeContinueWatchingActive] + !String.IsEmpty(Container(101).ListItem.Property(AudioChannels))] |
+		[$EXP[IsHomeRecentlyAddedEpisodesActive] + !String.IsEmpty(Container(102).ListItem.Property(AudioChannels))] |
+		[$EXP[IsHomeRecentlyAddedMoviesActive] + !String.IsEmpty(Container(103).ListItem.Property(AudioChannels))] |
+		[$EXP[IsHomeMoviesActive] + !String.IsEmpty(Container(111).ListItem.Property(AudioChannels))] |
+		[$EXP[IsHomeYogaActive] + !String.IsEmpty(Container(131).ListItem.Property(AudioChannels))]
+	</expression>
+
+	<!--
+		Has year?
+		- Continue watching (movies)
+		- Recently added movies
+		- Recently added music
+		- Movies
+		- TV shows
+		- Music
+	-->
+	<expression name="HasHomeDetailsYear">
+		[$EXP[IsHomeContinueWatchingActive] + $EXP[IsHomeContinueWatchingMovie] + !String.IsEmpty(Container(101).ListItem.Year)] |
+		[$EXP[IsHomeRecentlyAddedMoviesActive] + !String.IsEmpty(Container(103).ListItem.Year)] |
+		[$EXP[IsHomeRecentlyAddedMusicActive] + !String.IsEmpty(Container(104).ListItem.Year)] |
+		[$EXP[IsHomeMoviesActive] + !String.IsEmpty(Container(111).ListItem.Year)] |
+		[$EXP[IsHomeTVShowsActive] + !String.IsEmpty(Container(121).ListItem.Year)] |
+		[$EXP[IsHomeMusicActive] + !String.IsEmpty(Container(141).ListItem.Year)]
+	</expression>
+
+	<!--
+		Has episode?
+		- Continue watching (episodes)
+		- Recently added episodes
+	-->
+	<expression name="HasHomeDetailsEpisode">
+		[$EXP[IsHomeContinueWatchingActive] + $EXP[IsHomeContinueWatchingEpisode] + !String.IsEmpty(Container(101).ListItem.Season) + !String.IsEmpty(Container(101).ListItem.Episode)] |
+		[$EXP[IsHomeRecentlyAddedEpisodesActive] + !String.IsEmpty(Container(102).ListItem.Season) + !String.IsEmpty(Container(102).ListItem.Episode)]
+	</expression>
+
+	<!--
+		Has premiered?
+		- Continue watching (episodes)
+		- Recently added episodes
+	-->
+	<expression name="HasHomeDetailsPremiered">
+		[$EXP[IsHomeContinueWatchingActive] + $EXP[IsHomeContinueWatchingEpisode] + !String.IsEmpty(Container(101).ListItem.Premiered)] |
+		[$EXP[IsHomeRecentlyAddedEpisodesActive] + !String.IsEmpty(Container(102).ListItem.Premiered)]
+	</expression>
+
+	<!--
+		Has artist?
+		- Recently added music
+		- Music
+	-->
+	<expression name="HasHomeDetailsArtist">
+		[$EXP[IsHomeRecentlyAddedMusicActive] + !String.IsEmpty(Container(104).ListItem.Artist)] |
+		[$EXP[IsHomeMusicActive] + !String.IsEmpty(Container(141).ListItem.Artist)]
+	</expression>
+
+	<!--
+		Has duration?
+		- Continue watching
+		- Recently added episodes
+		- Recently added movies
+		- Recently added music
+		- Movies
+		- Music
+	-->
+	<expression name="HasHomeDetailsDuration">
+		[$EXP[IsHomeContinueWatchingActive] + !String.IsEmpty(Container(101).ListItem.Property(DurationString))] |
+		[$EXP[IsHomeRecentlyAddedEpisodesActive] + !String.IsEmpty(Container(102).ListItem.Property(DurationString))] |
+		[$EXP[IsHomeRecentlyAddedMoviesActive] + !String.IsEmpty(Container(103).ListItem.Property(DurationString))] |
+		[$EXP[IsHomeRecentlyAddedMusicActive] + !String.IsEmpty(Container(104).ListItem.Property(DurationString))] |
+		[$EXP[IsHomeMoviesActive] + !String.IsEmpty(Container(111).ListItem.Property(DurationString))] |
+		[$EXP[IsHomeMusicActive] + !String.IsEmpty(Container(141).ListItem.Property(DurationString))]
+	</expression>
+
+	<!--
+		Has MPAA?
+		- Continue watching
+		- Recently added episodes
+		- Recently added movies
+		- Movies
+		- TV shows
+		- Yoga
+	-->
+	<expression name="HasHomeDetailsMpaa">
+		[$EXP[IsHomeContinueWatchingActive] + !String.IsEmpty(Container(101).ListItem.Mpaa)] |
+		[$EXP[IsHomeRecentlyAddedEpisodesActive] + !String.IsEmpty(Container(102).ListItem.Mpaa)] |
+		[$EXP[IsHomeRecentlyAddedMoviesActive] + !String.IsEmpty(Container(103).ListItem.Mpaa)] |
+		[$EXP[IsHomeMoviesActive] + !String.IsEmpty(Container(111).ListItem.Mpaa)] |
+		[$EXP[IsHomeTVShowsActive] + !String.IsEmpty(Container(121).ListItem.Mpaa)] |
+		[$EXP[IsHomeYogaActive] + !String.IsEmpty(Container(131).ListItem.Mpaa)]
+	</expression>
+
+	<!--
+		Has status?
+		- TV shows
+	-->
+	<expression name="HasHomeDetailsStatus">
+		[$EXP[IsHomeTVShowsActive] + !String.IsEmpty(Container(121).ListItem.Status)]
+	</expression>
+
+	<!--
+		Has track?
+		- Recently added music
+		- Music
+	-->
+	<expression name="HasHomeDetailsTrack">
+		[$EXP[IsHomeRecentlyAddedMusicActive] + !String.IsEmpty(Container(104).ListItem.Property(Track))] |
+		[$EXP[IsHomeMusicActive] + !String.IsEmpty(Container(141).ListItem.Property(Track))]
+	</expression>
+
+	<!--
+		Has genre?
+		- Continue watching (movies)
+		- Recently added movies
+		- Recently added music
+		- Movies
+		- TV shows
+		- Music
+	-->
+	<expression name="HasHomeDetailsGenre">
+		[$EXP[IsHomeContinueWatchingActive] + $EXP[IsHomeContinueWatchingMovie] + !String.IsEmpty(Container(101).ListItem.Genre)] |
+		[$EXP[IsHomeRecentlyAddedMoviesActive] + !String.IsEmpty(Container(103).ListItem.Genre)] |
+		[$EXP[IsHomeRecentlyAddedMusicActive] + !String.IsEmpty(Container(104).ListItem.Genre)] |
+		[$EXP[IsHomeMoviesActive] + !String.IsEmpty(Container(111).ListItem.Genre)] |
+		[$EXP[IsHomeTVShowsActive] + !String.IsEmpty(Container(121).ListItem.Genre)] |
+		[$EXP[IsHomeMusicActive] + !String.IsEmpty(Container(141).ListItem.Genre)]
+	</expression>
+
+	<!--
+		Is watched?
+		- Continue watching
+		- Recently added episodes
+		- Recently added movies
+		- Movies
+		- TV shows
+		- Yoga
+	-->
+	<expression name="IsHomeDetailsWatched">
+		[$EXP[IsHomeContinueWatchingActive] + Integer.IsGreater(Container(101).ListItem.PlayCount,0)] |
+		[$EXP[IsHomeRecentlyAddedEpisodesActive] + Integer.IsGreater(Container(102).ListItem.PlayCount,0)] |
+		[$EXP[IsHomeRecentlyAddedMoviesActive] + Integer.IsGreater(Container(103).ListItem.PlayCount,0)] |
+		[$EXP[IsHomeMoviesActive] + Integer.IsGreater(Container(111).ListItem.PlayCount,0)] |
+		[$EXP[IsHomeTVShowsActive] + Integer.IsGreater(Container(121).ListItem.PlayCount,0)] |
+		[$EXP[IsHomeYogaActive] + Integer.IsGreater(Container(131).ListItem.PlayCount,0)]
+	</expression>
+
+	<!--
+		Has time remaining?
+		- Continue watching
+		- Recently added episodes
+		- Recently added movies
+		- Movies
+	-->
+	<expression name="HasHomeDetailsTimeRemaining">
+		[$EXP[IsHomeContinueWatchingActive] + !String.IsEmpty(Container(101).ListItem.Property(TimeRemainingString))] |
+		[$EXP[IsHomeRecentlyAddedEpisodesActive] + !String.IsEmpty(Container(102).ListItem.Property(TimeRemainingString))] |
+		[$EXP[IsHomeRecentlyAddedMoviesActive] + !String.IsEmpty(Container(103).ListItem.Property(TimeRemainingString))] |
+		[$EXP[IsHomeMoviesActive] + !String.IsEmpty(Container(111).ListItem.Property(TimeRemainingString))]
+	</expression>
+
+	<!--
+		Has episodes remaining?
+		- TV shows
+		- Yoga
+	-->
+	<expression name="HasHomeDetailsEpisodesRemaining">
+		[$EXP[IsHomeTVShowsActive] + Integer.IsEqual(Container(121).ListItem.PlayCount,0)] |
+		[$EXP[IsHomeYogaActive] + Integer.IsEqual(Container(131).ListItem.PlayCount,0)]
+	</expression>
+
+	<!--
+		Is all new?
+		- TV shows
+		- Yoga
+	-->
+	<expression name="IsHomeDetailsAllNew">
+		[$EXP[IsHomeTVShowsActive] + Integer.IsEqual(Container(121).ListItem.Property(WatchedEpisodes),0)] |
+		[$EXP[IsHomeYogaActive] + Integer.IsEqual(Container(131).ListItem.Property(WatchedEpisodes),0)]
+	</expression>
+
+	<!--
+		Is the most suited text color again blur background light/mid/dark?
+		- Continue watching
+		- Recently added episodes
+		- Recently added movies
+		- Recently added music
+		- Movies
+		- TV shows (season if available, show otherwise)
+		- Yoga
+		- Music
+	-->
+	<expression name="IsHomeDetailsBestTextColorLight">
+		[$EXP[IsHomeContinueWatchingActive] + [
+			[$EXP[IsHomeContinueWatchingMovie] + String.IsEqual(Container(101).ListItem.Property(BlurArt.TextColor),light)] |
+			[$EXP[IsHomeContinueWatchingEpisode] + String.IsEqual(Container(101).ListItem.Property(BlurArt.TvShow.TextColor),light)]
+		]] |
+		[$EXP[IsHomeRecentlyAddedEpisodesActive] + String.IsEqual(Container(102).ListItem.Property(BlurArt.TvShow.TextColor),light)] |
+		[$EXP[IsHomeRecentlyAddedMoviesActive] + String.IsEqual(Container(103).ListItem.Property(BlurArt.TextColor),light)] |
+		[$EXP[IsHomeRecentlyAddedMusicActive] + String.IsEqual(Container(104).ListItem.Property(BlurArt.TextColor),light)] |
+		[$EXP[IsHomeMoviesActive] + String.IsEqual(Container(111).ListItem.Property(BlurArt.TextColor),light)] |
+		[$EXP[IsHomeTVShowsActive] + String.IsEqual(Container(121).ListItem.Property(BlurArt.TextColor),light)] |
+		[$EXP[IsHomeYogaActive] + [
+			[!String.IsEmpty(Container(131).ListItem.Property(BlurArt.Season)) + String.IsEqual(Container(131).ListItem.Property(BlurArt.Season.TextColor),light)] |
+			[String.IsEmpty(Container(131).ListItem.Property(BlurArt.Season)) + !String.IsEmpty(Container(131).ListItem.Property(BlurArt.TvShow)) + String.IsEqual(Container(131).ListItem.Property(BlurArt.TvShow.TextColor),light)]
+		]] |
+		[$EXP[IsHomeMusicActive] + String.IsEqual(Container(141).ListItem.Property(BlurArt.TextColor),light)]
+	</expression>
+	<expression name="IsHomeDetailsBestTextColorMid">
+		[$EXP[IsHomeContinueWatchingActive] + [
+			[$EXP[IsHomeContinueWatchingMovie] + String.IsEqual(Container(101).ListItem.Property(BlurArt.TextColor),mid)] |
+			[$EXP[IsHomeContinueWatchingEpisode] + String.IsEqual(Container(101).ListItem.Property(BlurArt.TvShow.TextColor),mid)]
+		]] |
+		[$EXP[IsHomeRecentlyAddedEpisodesActive] + String.IsEqual(Container(102).ListItem.Property(BlurArt.TvShow.TextColor),mid)] |
+		[$EXP[IsHomeRecentlyAddedMoviesActive] + String.IsEqual(Container(103).ListItem.Property(BlurArt.TextColor),mid)] |
+		[$EXP[IsHomeRecentlyAddedMusicActive] + String.IsEqual(Container(104).ListItem.Property(BlurArt.TextColor),mid)] |
+		[$EXP[IsHomeMoviesActive] + String.IsEqual(Container(111).ListItem.Property(BlurArt.TextColor),mid)] |
+		[$EXP[IsHomeTVShowsActive] + String.IsEqual(Container(121).ListItem.Property(BlurArt.TextColor),mid)] |
+		[$EXP[IsHomeYogaActive] + [
+			[!String.IsEmpty(Container(131).ListItem.Property(BlurArt.Season)) + String.IsEqual(Container(131).ListItem.Property(BlurArt.Season.TextColor),mid)] |
+			[String.IsEmpty(Container(131).ListItem.Property(BlurArt.Season)) + !String.IsEmpty(Container(131).ListItem.Property(BlurArt.TvShow)) + String.IsEqual(Container(131).ListItem.Property(BlurArt.TvShow.TextColor),mid)]
+		]] |
+		[$EXP[IsHomeMusicActive] + String.IsEqual(Container(141).ListItem.Property(BlurArt.TextColor),mid)]
+	</expression>
+	<expression name="IsHomeDetailsBestTextColorDark">
+		[$EXP[IsHomeContinueWatchingActive] + [
+			[$EXP[IsHomeContinueWatchingMovie] + String.IsEqual(Container(101).ListItem.Property(BlurArt.TextColor),dark)] |
+			[$EXP[IsHomeContinueWatchingEpisode] + String.IsEqual(Container(101).ListItem.Property(BlurArt.TvShow.TextColor),dark)]
+		]] |
+		[$EXP[IsHomeRecentlyAddedEpisodesActive] + String.IsEqual(Container(102).ListItem.Property(BlurArt.TvShow.TextColor),dark)] |
+		[$EXP[IsHomeRecentlyAddedMoviesActive] + String.IsEqual(Container(103).ListItem.Property(BlurArt.TextColor),dark)] |
+		[$EXP[IsHomeRecentlyAddedMusicActive] + String.IsEqual(Container(104).ListItem.Property(BlurArt.TextColor),dark)] |
+		[$EXP[IsHomeMoviesActive] + String.IsEqual(Container(111).ListItem.Property(BlurArt.TextColor),dark)] |
+		[$EXP[IsHomeTVShowsActive] + String.IsEqual(Container(121).ListItem.Property(BlurArt.TextColor),dark)] |
+		[$EXP[IsHomeYogaActive] + [
+			[!String.IsEmpty(Container(131).ListItem.Property(BlurArt.Season)) + String.IsEqual(Container(131).ListItem.Property(BlurArt.Season.TextColor),dark)] |
+			[String.IsEmpty(Container(131).ListItem.Property(BlurArt.Season)) + !String.IsEmpty(Container(131).ListItem.Property(BlurArt.TvShow)) + String.IsEqual(Container(131).ListItem.Property(BlurArt.TvShow.TextColor),dark)]
+		]] |
+		[$EXP[IsHomeMusicActive] + String.IsEqual(Container(141).ListItem.Property(BlurArt.TextColor),dark)]
 	</expression>
 </includes>

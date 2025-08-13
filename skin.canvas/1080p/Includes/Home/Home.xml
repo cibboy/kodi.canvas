@@ -234,6 +234,45 @@
 				<!-- Selection details -->
 				<include content="SelectionDetails">
 					<param name="visible">$EXP[HomeShowDetails]</param>
+					<param name="clearlogo">$VAR[HomeDetailsClearlogo]</param>
+					<param name="title">$VAR[HomeDetailsTitle]</param>
+					<param name="has_clearlogo">$EXP[HasHomeDetailsClearlogo]</param>
+					<param name="subtitle">$VAR[HomeDetailsSubtitle]</param>
+					<param name="has_subtitle">$EXP[HasHomeDetailsSubtitle]</param>
+					<param name="resolution">$VAR[HomeDetailsResolution]</param>
+					<param name="has_resolution">$EXP[HasHomeDetailsResolution]</param>
+					<param name="hdr">$VAR[HomeDetailsHdr]</param>
+					<param name="has_hdr">$EXP[HasHomeDetailsHdr]</param>
+					<param name="channels">$VAR[HomeDetailsAudioChannels]</param>
+					<param name="has_channels">$EXP[HasHomeDetailsAudioChannels]</param>
+					<param name="year">$VAR[HomeDetailsYear]</param>
+					<param name="has_year">$EXP[HasHomeDetailsYear]</param>
+					<param name="episode">$VAR[HomeDetailsEpisode]</param>
+					<param name="has_episode">$EXP[HasHomeDetailsEpisode]</param>
+					<param name="premiered">$VAR[HomeDetailsPremiered]</param>
+					<param name="has_premiered">$EXP[HasHomeDetailsPremiered]</param>
+					<param name="artist">$VAR[HomeDetailsArtist]</param>
+					<param name="has_artist">$EXP[HasHomeDetailsArtist]</param>
+					<param name="duration">$VAR[HomeDetailsDuration]</param>
+					<param name="has_duration">$EXP[HasHomeDetailsDuration]</param>
+					<param name="mpaa">$VAR[HomeDetailsMpaa]</param>
+					<param name="has_mpaa">$EXP[HasHomeDetailsMpaa]</param>
+					<param name="status">$VAR[HomeDetailsStatus]</param>
+					<param name="has_status">$EXP[HasHomeDetailsStatus]</param>
+					<param name="track">$VAR[HomeDetailsTrack]</param>
+					<param name="has_track">$EXP[HasHomeDetailsTrack]</param>
+					<param name="is_watched">$EXP[IsHomeDetailsWatched]</param>
+					<param name="is_allnew">$EXP[IsHomeDetailsAllNew]</param>
+					<param name="episodes_remaining">$VAR[HomeDetailsEpisodesRemaining]</param>
+					<param name="has_episodes_remaining">$EXP[HasHomeDetailsEpisodesRemaining]</param>
+					<param name="time_remaining">$VAR[HomeDetailsTimeRemaining]</param>
+					<param name="has_time_remaining">$EXP[HasHomeDetailsTimeRemaining]</param>
+					<param name="percentage_watched">$VAR[HomeDetailsWatchedPercentage]</param>
+					<param name="genre">$VAR[HomeDetailsGenre]</param>
+					<param name="has_genre">$EXP[HasHomeDetailsGenre]</param>
+					<param name="plot">$VAR[HomeDetailsSummary]</param>
+					<param name="foreground_color">$VAR[HomeDetailsTextForegroundColor]</param>
+					<param name="highlight_color">$VAR[HomeDetailsTextHighlightColor]</param>
 				</include>
 
 				<!-- Items -->
@@ -282,6 +321,8 @@
 									<param name="label">Continue watching</param>
 									<param name="content">plugin://script.canvas.helper/continue_watching/?listid=101</param>
 									<param name="art">$INFO[ListItem.Art(poster)]</param>
+									<param name="foreground_color">$VAR[HomeDetailsTextForegroundColor]</param>
+									<param name="highlight_color">$VAR[HomeDetailsTextHighlightColor]</param>
 									<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,101)</param>
 									<param name="onback">SetFocus(1,0)</param>
 									<param name="onleft">SetFocus(1,0)</param>
@@ -303,6 +344,8 @@
 									<param name="content">plugin://script.canvas.helper/recently_added_tvshow_episodes/?listid=102</param>
 									<param name="art">$INFO[ListItem.Art(thumb)]</param>
 									<param name="showinfo">true</param>
+									<param name="foreground_color">$VAR[HomeDetailsTextForegroundColor]</param>
+									<param name="highlight_color">$VAR[HomeDetailsTextHighlightColor]</param>
 									<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,102)</param>
 									<param name="onback">SetFocus(1,0)</param>
 									<param name="onleft">SetFocus(1,0)</param>
@@ -324,6 +367,8 @@
 									<param name="label">Recently added movies</param>
 									<param name="content">plugin://script.canvas.helper/movies/?sort=dateadded&amp;order=descending&amp;limit=25&amp;listid=103</param>
 									<param name="art">$INFO[ListItem.Art(poster)]</param>
+									<param name="foreground_color">$VAR[HomeDetailsTextForegroundColor]</param>
+									<param name="highlight_color">$VAR[HomeDetailsTextHighlightColor]</param>
 									<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,103)</param>
 									<param name="onback">SetFocus(1,0)</param>
 									<param name="onleft">SetFocus(1,0)</param>
@@ -347,6 +392,8 @@
 									<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
 									<param name="info1">$INFO[ListItem.Title]</param>
 									<param name="info2">$INFO[ListItem.Album]</param>
+									<param name="foreground_color">$VAR[HomeDetailsTextForegroundColor]</param>
+									<param name="highlight_color">$VAR[HomeDetailsTextHighlightColor]</param>
 									<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,104)</param>
 									<param name="onback">SetFocus(1,0)</param>
 									<param name="onleft">SetFocus(1,0)</param>
@@ -389,6 +436,8 @@
 								<param name="label">Movies</param>
 								<param name="content">plugin://script.canvas.helper/movies/?listid=111</param>
 								<param name="art">$INFO[ListItem.Art(poster)]</param>
+								<param name="foreground_color">$VAR[HomeDetailsTextForegroundColor]</param>
+								<param name="highlight_color">$VAR[HomeDetailsTextHighlightColor]</param>
 								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,movies,111)</param>
 								<param name="onback">SetFocus(1,1)</param>
 								<param name="onleft">SetFocus(1,1)</param>
@@ -429,6 +478,8 @@
 								<param name="label">TV Shows</param>
 								<param name="content">plugin://script.canvas.helper/tvshows/?exclude=Yoga with Adriene&amp;listid=121</param>
 								<param name="art">$INFO[ListItem.Art(poster)]</param>
+								<param name="foreground_color">$VAR[HomeDetailsTextForegroundColor]</param>
+								<param name="highlight_color">$VAR[HomeDetailsTextHighlightColor]</param>
 								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,tvshows,121)</param>
 								<param name="onback">SetFocus(1,2)</param>
 								<param name="onleft">SetFocus(1,2)</param>
@@ -471,6 +522,8 @@
 								<param name="label"></param>
 								<param name="content">plugin://script.canvas.helper/seasons/?showtitle=Yoga with Adriene&amp;listid=131</param>
 								<param name="art">$INFO[ListItem.Art(poster)]</param>
+								<param name="foreground_color">$VAR[HomeDetailsTextForegroundColor]</param>
+								<param name="highlight_color">$VAR[HomeDetailsTextHighlightColor]</param>
 								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,yoga,131)</param>
 								<param name="onback">SetFocus(1,3)</param>
 								<param name="onleft">SetFocus(1,3)</param>
@@ -513,6 +566,8 @@
 								<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
 								<param name="info1">$INFO[ListItem.Title]</param>
 								<param name="info2">$INFO[ListItem.Album]</param>
+								<param name="foreground_color">$VAR[HomeDetailsTextForegroundColor]</param>
+								<param name="highlight_color">$VAR[HomeDetailsTextHighlightColor]</param>
 								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,music,141)</param>
 								<param name="onback">SetFocus(1,4)</param>
 								<param name="onleft">SetFocus(1,4)</param>
@@ -555,6 +610,8 @@
 								<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
 								<param name="info1">$INFO[ListItem.Title]</param>
 								<param name="info2">$INFO[ListItem.Album]</param>
+								<param name="foreground_color">$VAR[HomeDetailsTextForegroundColor]</param>
+								<param name="highlight_color">$VAR[HomeDetailsTextHighlightColor]</param>
 								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,music,151)</param>
 								<param name="onback">SetFocus(1,5)</param>
 								<param name="onleft">SetFocus(1,5)</param>

@@ -1,23 +1,12 @@
 TOFIX:
 - aggiunto genre audio in plugin (potenzialmente una lista, quindi bisognerà fare delle prove con ulteriore scraping e aggiornamento tag mp3, che è stata aggiunta alla details info line 2)
+- si è persa un po' di leggibilità sulle stringhe delle strip (vedi ad esempio con the pitt), considerare di usare 4 colori, e ritestare tutto il calcolo via plugin
 - home side menu non ha gli angoli arrotondati sul overlay perchè c'è scalediffuse su aspectratio
 - bottombar mostra la studio icon prima che finisca il loading, e background stessa cosa con fanart:
   - forse risolvibile facendosi passare l'info come parametro e spostare la variabile sulla home, così è condizionale al loading
 
 TODO:
-- spostare più in basso l'inizio delle wall
 - manca il caricamento della lista pictures
-- estrarre la brightness dall'immagine di blur e salvare l'info in una proprietà del listitem (e nel nome dell'immagine) in modo da poter invertire il colore testo dei details e nomi strip home
-  fatto solo per details (mancano label delle strip - sotto gli elementi e titolo della strip), ma non completo:
-  - continue watching potrebbe non funzionare correttamente
-  - quelli bright mettono testo nero, ma non dovrebbero farlo finchè il menù ha focus (perchè c'è il diffuse che scurisce molto)
-  - contrast sbagliato:
-    x Captain Phillips (thumb: 5ab3a880)
-    x Captain America: The First Avenger (thumb: 6b136b33)
-    x 27 Dresses (thumb: 44254806)
-    - Memento
-    - Morning Glory
-    - The Lake House (thumb: 97a36aeb)
 - Sorting include "The", da capire se si vuole togliere come in Plex
 - creare possibilità di sbiancare la cache in temp
   - prima posizionare blur in temp/canvas.blur, clearlogo in temp/canvas.clearlogo e mp3 in temp/canvas.sound (da fare più avanti, quando si può testare il primo loading)

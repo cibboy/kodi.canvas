@@ -154,6 +154,7 @@ def get_tvshow_listitem(tvshow):
     videoinfo.setGenres(tvshow['genre'])
     videoinfo.setEpisode(tvshow['episode'])
     videoinfo.setSeason(tvshow['season'])
+    #videoinfo.setTvShowStatus(tvshow['status'])
     videoinfo.setPlaycount(tvshow['playcount'])
 
     # Get custom art.

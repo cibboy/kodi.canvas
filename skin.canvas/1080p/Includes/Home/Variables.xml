@@ -1,5 +1,294 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
+	<!-- Text color (based on bright blur art or not) -->
+	<variable name="HomeDetailsTextForegroundColor">
+		<!-- Light color -->
+		<value condition="$EXP[IsHomeDetailsBestTextColorLight] + !$EXP[HasHomeMenuFocus]">FOREGROUND_CONTRAST_LIGHT</value>
+		<!-- Mid color -->
+		<value condition="$EXP[IsHomeDetailsBestTextColorMid] + !$EXP[HasHomeMenuFocus]">FOREGROUND_CONTRAST_MID</value>
+		<!-- Dark color -->
+		<value condition="$EXP[IsHomeDetailsBestTextColorDark] + !$EXP[HasHomeMenuFocus]">FOREGROUND_CONTRAST_DARK</value>
+		<!-- Fallback -->
+		<value>FOREGROUND_CONTRAST_LIGHT</value>
+	</variable>
+	<variable name="HomeDetailsTextHighlightColor">
+		<!-- Light color -->
+		<value condition="$EXP[IsHomeDetailsBestTextColorLight] + !$EXP[HasHomeMenuFocus]">HIGHLIGHT_CONTRAST_LIGHT</value>
+		<!-- Mid color -->
+		<value condition="$EXP[IsHomeDetailsBestTextColorMid] + !$EXP[HasHomeMenuFocus]">HIGHLIGHT_CONTRAST_MID</value>
+		<!-- Dark color -->
+		<value condition="$EXP[IsHomeDetailsBestTextColorDark] + !$EXP[HasHomeMenuFocus]">HIGHLIGHT_CONTRAST_DARK</value>
+		<!-- Fallback -->
+		<value>HIGHLIGHT_CONTRAST_LIGHT</value>
+	</variable>
+
+	<!-- Clearlogo -->
+	<variable name="HomeDetailsClearlogo">
+		<!-- Continue watching -->
+		<value condition="$EXP[IsHomeContinueWatchingActive]">$INFO[Container(101).ListItem.Property(Clearlogo.Big)]</value>
+		<!-- Recently added episodes -->
+		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive]">$INFO[Container(102).ListItem.Property(Clearlogo.Big)]</value>
+		<!-- Recently added movies -->
+		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive]">$INFO[Container(103).ListItem.Property(Clearlogo.Big)]</value>
+		<!-- Recently added music -->
+		<value condition="$EXP[IsHomeRecentlyAddedMusicActive]">$INFO[Container(104).ListItem.Property(Clearlogo.Big)]</value>
+		<!-- Movies -->
+		<value condition="$EXP[IsHomeMoviesActive]">$INFO[Container(111).ListItem.Property(Clearlogo.Big)]</value>
+		<!-- TV shows -->
+		<value condition="$EXP[IsHomeTVShowsActive]">$INFO[Container(121).ListItem.Property(Clearlogo.Big)]</value>
+		<!-- Yoga -->
+		<value condition="$EXP[IsHomeYogaActive]">$INFO[Container(131).ListItem.Property(Clearlogo.Big)]</value>
+		<!-- Music -->
+		<value condition="$EXP[IsHomeMusicActive]">$INFO[Container(141).ListItem.Property(Clearlogo.Big)]</value>
+	</variable>
+
+	<!-- Title -->
+	<variable name="HomeDetailsTitle">
+		<!-- Continue watching -->
+		<value condition="$EXP[IsHomeContinueWatchingActive] + $EXP[IsHomeContinueWatchingEpisode]">$INFO[Container(101).ListItem.TVShowTitle]</value>
+		<value condition="$EXP[IsHomeContinueWatchingActive]">$INFO[Container(101).ListItem.Title]</value>
+		<!-- Recently added episodes -->
+		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive]">$INFO[Container(102).ListItem.TVShowTitle]</value>
+		<!-- Recently added movies -->
+		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive]">$INFO[Container(103).ListItem.Title]</value>
+		<!-- Recently added music -->
+		<value condition="$EXP[IsHomeRecentlyAddedMusicActive]">$INFO[Container(104).ListItem.Title]</value>
+		<!-- Movies -->
+		<value condition="$EXP[IsHomeMoviesActive]">$INFO[Container(111).ListItem.Title]</value>
+		<!-- TV shows -->
+		<value condition="$EXP[IsHomeTVShowsActive]">$INFO[Container(121).ListItem.Title]</value>
+		<!-- Yoga -->
+		<value condition="$EXP[IsHomeYogaActive]">$INFO[Container(131).ListItem.TVShowTitle]</value>
+		<!-- Music -->
+		<value condition="$EXP[IsHomeMusicActive]">$INFO[Container(141).ListItem.Title]</value>
+	</variable>
+
+	<!-- Subtitle -->
+	<variable name="HomeDetailsSubtitle">
+		<!-- Continue watching -->
+		<value condition="$EXP[IsHomeContinueWatchingActive] + $EXP[IsHomeContinueWatchingEpisode]">$INFO[Container(101).ListItem.Title]</value>
+		<!-- Recently added episodes -->
+		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive]">$INFO[Container(102).ListItem.Title]</value>
+		<!-- Recently added music -->
+		<value condition="$EXP[IsHomeRecentlyAddedMusicActive]">$INFO[Container(104).ListItem.Album]</value>
+		<!-- Yoga -->
+		<value condition="$EXP[IsHomeYogaActive]">$INFO[Container(131).ListItem.Title]</value>
+		<!-- Music -->
+		<value condition="$EXP[IsHomeMusicActive]">$INFO[Container(141).ListItem.Album]</value>
+	</variable>
+
+	<!-- Resolution -->
+	<variable name="HomeDetailsResolution">
+		<!-- Continue watching -->
+		<value condition="$EXP[IsHomeContinueWatchingActive]">$INFO[Container(101).ListItem.VideoResolution]</value>
+		<!-- Recently added episodes -->
+		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive]">$INFO[Container(102).ListItem.VideoResolution]</value>
+		<!-- Recently added movies -->
+		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive]">$INFO[Container(103).ListItem.VideoResolution]</value>
+		<!-- Movies -->
+		<value condition="$EXP[IsHomeMoviesActive]">$INFO[Container(111).ListItem.VideoResolution]</value>
+		<!-- Yoga -->
+		<value condition="$EXP[IsHomeYogaActive]">$INFO[Container(131).ListItem.VideoResolution]</value>
+	</variable>
+
+	<!-- HDR -->
+	<variable name="HomeDetailsHdr">
+		<!-- Continue watching -->
+		<value condition="$EXP[IsHomeContinueWatchingActive] + String.IsEqual(Container(101).ListItem.HdrType,hdr10)">HDR</value>
+		<value condition="$EXP[IsHomeContinueWatchingActive] + String.IsEqual(Container(101).ListItem.HdrType,dolbyvision)">Dolby Vision</value>
+		<value condition="$EXP[IsHomeContinueWatchingActive] + String.IsEqual(Container(101).ListItem.HdrType,hlg)">HLG</value>
+		<value condition="$EXP[IsHomeContinueWatchingActive]">[UPPERCASE]$INFO[Container(101).ListItem.HdrType][/UPPERCASE]</value>
+		<!-- Recently added episodes -->
+		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive] + String.IsEqual(Container(102).ListItem.HdrType,hdr10)">HDR</value>
+		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive] + String.IsEqual(Container(102).ListItem.HdrType,dolbyvision)">Dolby Vision</value>
+		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive] + String.IsEqual(Container(102).ListItem.HdrType,hlg)">HLG</value>
+		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive]">[UPPERCASE]$INFO[Container(102).ListItem.HdrType][/UPPERCASE]</value>
+		<!-- Recently added movies -->
+		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive] + String.IsEqual(Container(103).ListItem.HdrType,hdr10)">HDR</value>
+		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive] + String.IsEqual(Container(103).ListItem.HdrType,dolbyvision)">Dolby Vision</value>
+		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive] + String.IsEqual(Container(103).ListItem.HdrType,hlg)">HLG</value>
+		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive]">[UPPERCASE]$INFO[Container(103).ListItem.HdrType][/UPPERCASE]</value>
+		<!-- Movies -->
+		<value condition="$EXP[IsHomeMoviesActive] + String.IsEqual(Container(111).ListItem.HdrType,hdr10)">HDR</value>
+		<value condition="$EXP[IsHomeMoviesActive] + String.IsEqual(Container(111).ListItem.HdrType,dolbyvision)">Dolby Vision</value>
+		<value condition="$EXP[IsHomeMoviesActive] + String.IsEqual(Container(111).ListItem.HdrType,hlg)">HLG</value>
+		<value condition="$EXP[IsHomeMoviesActive]">[UPPERCASE]$INFO[Container(111).ListItem.HdrType][/UPPERCASE]</value>
+		<!-- Yoga -->
+		<value condition="$EXP[IsHomeYogaActive] + String.IsEqual(Container(131).ListItem.HdrType,hdr10)">HDR</value>
+		<value condition="$EXP[IsHomeYogaActive] + String.IsEqual(Container(131).ListItem.HdrType,dolbyvision)">Dolby Vision</value>
+		<value condition="$EXP[IsHomeYogaActive] + String.IsEqual(Container(131).ListItem.HdrType,hlg)">HLG</value>
+		<value condition="$EXP[IsHomeYogaActive]">[UPPERCASE]$INFO[Container(131).ListItem.HdrType][/UPPERCASE]</value>
+	</variable>
+
+	<!-- Audio channels -->
+	<variable name="HomeDetailsAudioChannels">
+		<!-- Continue watching -->
+		<value condition="$EXP[IsHomeContinueWatchingActive]">$INFO[Container(101).ListItem.Property(AudioChannels)]</value>
+		<!-- Recently added episodes -->
+		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive]">$INFO[Container(102).ListItem.Property(AudioChannels)]</value>
+		<!-- Recently added movies -->
+		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive]">$INFO[Container(103).ListItem.Property(AudioChannels)]</value>
+		<!-- Movies -->
+		<value condition="$EXP[IsHomeMoviesActive]">$INFO[Container(111).ListItem.Property(AudioChannels)]</value>
+		<!-- Yoga -->
+		<value condition="$EXP[IsHomeYogaActive]">$INFO[Container(131).ListItem.Property(AudioChannels)]</value>
+	</variable>
+
+	<!-- Year -->
+	<variable name="HomeDetailsYear">
+		<!-- Continue watching (movies) -->
+		<value condition="$EXP[IsHomeContinueWatchingActive] + $EXP[IsHomeContinueWatchingMovie]">$INFO[Container(101).ListItem.Year]</value>
+		<!-- Recently added movies -->
+		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive]">$INFO[Container(103).ListItem.Year]</value>
+		<!-- Recently added music -->
+		<value condition="$EXP[IsHomeRecentlyAddedMusicActive]">$INFO[Container(104).ListItem.Year]</value>
+		<!-- Movies -->
+		<value condition="$EXP[IsHomeMoviesActive]">$INFO[Container(111).ListItem.Year]</value>
+		<!-- TV shows -->
+		<value condition="$EXP[IsHomeTVShowsActive]">$INFO[Container(121).ListItem.Year]</value>
+		<!-- Music -->
+		<value condition="$EXP[IsHomeMusicActive]">$INFO[Container(141).ListItem.Year]</value>
+	</variable>
+
+	<!-- Episode -->
+	<variable name="HomeDetailsEpisode">
+		<!-- Continue watching (episodes) -->
+		<value condition="$EXP[IsHomeContinueWatchingActive] + $EXP[IsHomeContinueWatchingEpisode]">S$INFO[Container(101).ListItem.Season]·E$INFO[Container(101).ListItem.Episode]</value>
+		<!-- Recently added episodes -->
+		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive]">S$INFO[Container(102).ListItem.Season]·E$INFO[Container(102).ListItem.Episode]</value>
+	</variable>
+
+	<!-- Premiered -->
+	<variable name="HomeDetailsPremiered">
+		<!-- Continue watching (episodes) -->
+		<value condition="$EXP[IsHomeContinueWatchingActive] + $EXP[IsHomeContinueWatchingEpisode]">$INFO[Container(101).ListItem.Premiered]</value>
+		<!-- Recently added episodes -->
+		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive]">$INFO[Container(102).ListItem.Premiered]</value>
+	</variable>
+
+	<!-- Artist -->
+	<variable name="HomeDetailsArtist">
+		<!-- Recently added music -->
+		<value condition="$EXP[IsHomeRecentlyAddedMusicActive]">$INFO[Container(104).ListItem.Artist]</value>
+		<!-- Music -->
+		<value condition="$EXP[IsHomeMusicActive]">$INFO[Container(141).ListItem.Artist]</value>
+	</variable>
+
+	<!-- Duration -->
+	<variable name="HomeDetailsDuration">
+		<!-- Continue watching -->
+		<value condition="$EXP[IsHomeContinueWatchingActive]">$INFO[Container(101).ListItem.Property(DurationString)]</value>
+		<!-- Recently added episodes -->
+		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive]">$INFO[Container(102).ListItem.Property(DurationString)]</value>
+		<!-- Recently added movies -->
+		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive]">$INFO[Container(103).ListItem.Property(DurationString)]</value>
+		<!-- Recently added music -->
+		<value condition="$EXP[IsHomeRecentlyAddedMusicActive]">$INFO[Container(104).ListItem.Property(DurationString)]</value>
+		<!-- Movies -->
+		<value condition="$EXP[IsHomeMoviesActive]">$INFO[Container(111).ListItem.Property(DurationString)]</value>
+		<!-- Music -->
+		<value condition="$EXP[IsHomeMusicActive]">$INFO[Container(141).ListItem.Property(DurationString)]</value>
+	</variable>
+
+	<!-- Mpaa -->
+	<variable name="HomeDetailsMpaa">
+		<!-- Continue watching -->
+		<value condition="$EXP[IsHomeContinueWatchingActive]">$INFO[Container(101).ListItem.Mpaa]</value>
+		<!-- Recently added episodes -->
+		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive]">$INFO[Container(102).ListItem.Mpaa]</value>
+		<!-- Recently added movies -->
+		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive]">$INFO[Container(103).ListItem.Mpaa]</value>
+		<!-- Movies -->
+		<value condition="$EXP[IsHomeMoviesActive]">$INFO[Container(111).ListItem.Mpaa]</value>
+		<!-- TV shows -->
+		<value condition="$EXP[IsHomeTVShowsActive]">$INFO[Container(121).ListItem.Mpaa]</value>
+		<!-- Yoga -->
+		<value condition="$EXP[IsHomeYogaActive]">$INFO[Container(131).ListItem.Mpaa]</value>
+	</variable>
+
+	<!-- Status -->
+	<variable name="HomeDetailsStatus">
+		<!-- TV shows -->
+		<value condition="$EXP[IsHomeTVShowsActive]">$INFO[Container(121).ListItem.Status]</value>
+	</variable>
+
+	<!-- Track -->
+	<variable name="HomeDetailsTrack">
+		<!-- Recently added music -->
+		<value condition="$EXP[IsHomeRecentlyAddedMusicActive]">Track $NUMBER[$INFO[Container(104).ListItem.Property(Track)]]</value>
+		<!-- Music -->
+		<value condition="$EXP[IsHomeMusicActive]">Track $NUMBER[$INFO[Container(141).ListItem.Property(Track)]]</value>
+	</variable>
+
+	<!-- Genre -->
+	<variable name="HomeDetailsGenre">
+		<!-- Continue watching (movies) -->
+		<value condition="$EXP[IsHomeContinueWatchingActive] + $EXP[IsHomeContinueWatchingMovie]">$INFO[Container(101).ListItem.Genre]</value>
+		<!-- Recently added movies -->
+		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive]">$INFO[Container(103).ListItem.Genre]</value>
+		<!-- Recently added music -->
+		<value condition="$EXP[IsHomeRecentlyAddedMusicActive]">$INFO[Container(104).ListItem.Genre]</value>
+		<!-- Movies -->
+		<value condition="$EXP[IsHomeMoviesActive]">$INFO[Container(111).ListItem.Genre]</value>
+		<!-- TV shows -->
+		<value condition="$EXP[IsHomeTVShowsActive]">$INFO[Container(121).ListItem.Genre]</value>
+		<!-- Music -->
+		<value condition="$EXP[IsHomeMusicActive]">$INFO[Container(141).ListItem.Genre]</value>
+	</variable>
+
+	<!-- Time remaining -->
+	<variable name="HomeDetailsTimeRemaining">
+		<!-- Continue watching -->
+		<value condition="$EXP[IsHomeContinueWatchingActive]">$INFO[Container(101).ListItem.Property(TimeRemainingString)] left</value>
+		<!-- Recently added episodes -->
+		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive]">$INFO[Container(102).ListItem.Property(TimeRemainingString)] left</value>
+		<!-- Recently added movies -->
+		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive]">$INFO[Container(103).ListItem.Property(TimeRemainingString)] left</value>
+		<!-- Movies -->
+		<value condition="$EXP[IsHomeMoviesActive]">$INFO[Container(111).ListItem.Property(TimeRemainingString)] left</value>
+	</variable>
+
+	<!-- Episodes remaining -->
+	<variable name="HomeDetailsEpisodesRemaining">
+		<!-- TV shows -->
+		<value condition="$EXP[IsHomeTVShowsActive]">$INFO[Container(121).ListItem.Property(WatchedEpisodes)] of $INFO[Container(121).ListItem.Property(TotalEpisodes)] watched</value>
+		<!-- Yoga -->
+		<value condition="$EXP[IsHomeYogaActive]">$INFO[Container(131).ListItem.Property(WatchedEpisodes)] of $INFO[Container(131).ListItem.Property(TotalEpisodes)] watched</value>
+	</variable>
+
+	<!-- Watched percentage -->
+	<variable name="HomeDetailsWatchedPercentage">
+		<!-- Continue watching -->
+		<value condition="$EXP[IsHomeContinueWatchingActive]">$INFO[Container(101).ListItem.Property(WatchedPercentage)]</value>
+		<!-- Recently added episodes -->
+		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive]">$INFO[Container(102).ListItem.Property(WatchedPercentage)]</value>
+		<!-- Recently added movies -->
+		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive]">$INFO[Container(103).ListItem.Property(WatchedPercentage)]</value>
+		<!-- Movies -->
+		<value condition="$EXP[IsHomeMoviesActive]">$INFO[Container(111).ListItem.Property(WatchedPercentage)]</value>
+		<!-- TV shows -->
+		<value condition="$EXP[IsHomeTVShowsActive]">$INFO[Container(121).ListItem.Property(WatchedPercentage)]</value>
+		<!-- Yoga -->
+		<value condition="$EXP[IsHomeYogaActive]">$INFO[Container(131).ListItem.Property(WatchedPercentage)]</value>
+	</variable>
+
+	<!-- Plot -->
+	<variable name="HomeDetailsSummary">
+		<!-- Continue watching -->
+		<value condition="$EXP[IsHomeContinueWatchingActive]">$INFO[Container(101).ListItem.Plot]</value>
+		<!-- Recently added episodes -->
+		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive]">$INFO[Container(102).ListItem.Plot]</value>
+		<!-- Recently added movies -->
+		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive]">$INFO[Container(103).ListItem.Plot]</value>
+		<!-- Movies -->
+		<value condition="$EXP[IsHomeMoviesActive]">$INFO[Container(111).ListItem.Plot]</value>
+		<!-- TV shows -->
+		<value condition="$EXP[IsHomeTVShowsActive]">$INFO[Container(121).ListItem.Plot]</value>
+		<!-- Yoga -->
+		<value condition="$EXP[IsHomeYogaActive]">$INFO[Container(131).ListItem.Plot]</value>
+	</variable>
+
+	<!-- Icons -->
 	<variable name="HomeIcon"><value>1080p/icons/home.png</value></variable>
 	<variable name="MoviesIcon"><value>1080p/icons/movies.png</value></variable>
 	<variable name="TVShowsIcon"><value>1080p/icons/tvshows.png</value></variable>

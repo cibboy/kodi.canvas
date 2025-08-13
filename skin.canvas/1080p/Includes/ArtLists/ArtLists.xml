@@ -193,6 +193,8 @@
 		<param name="content"></param>
 		<param name="art"></param>
 		<param name="showinfo">false</param>
+		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
+		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
 		<param name="onfocus">noop</param>
 		<param name="onchange">noop</param>
 		<param name="onback">noop</param>
@@ -207,7 +209,7 @@
 
 				<control type="label">
 					<font>BODY_STRONG</font>
-					<textcolor>FOREGROUND</textcolor>
+					<textcolor>$PARAM[foreground_color]</textcolor>
 					<label>$PARAM[label]</label>
 				</control>
 
@@ -255,7 +257,7 @@
 											<height>HEIGHT_CLEARLOGO_SMALL</height>
 											<font>BODY_STRONG</font>
 											<aligny>center</aligny>
-											<textcolor>HIGHLIGHT</textcolor>
+											<textcolor>$PARAM[highlight_color]</textcolor>
 											<label>$INFO[ListItem.TVShowTitle]</label>
 										</control>
 										<!-- Clearlogo -->
@@ -275,7 +277,7 @@
 										<top>HEIGHT_CLEARLOGO_SMALL</top>
 										<width>100</width>
 										<font>CAPTION2</font>
-										<textcolor>FOREGROUND</textcolor>
+										<textcolor>$PARAM[foreground_color]</textcolor>
 										<label>S$INFO[ListItem.Season]·E$INFO[ListItem.Episode]</label>
 									</control>
 									<!-- Episode title -->
@@ -284,7 +286,7 @@
 										<top>HEIGHT_CLEARLOGO_SMALL</top>
 										<width>340</width>
 										<font>CAPTION2</font>
-										<textcolor>FOREGROUND</textcolor>
+										<textcolor>$PARAM[foreground_color]</textcolor>
 										<label>$INFO[ListItem.Title]</label>
 									</control>
 								</control>
@@ -331,7 +333,7 @@
 											<height>HEIGHT_CLEARLOGO_SMALL</height>
 											<font>BODY_STRONG</font>
 											<aligny>center</aligny>
-											<textcolor>HIGHLIGHT</textcolor>
+											<textcolor>$PARAM[highlight_color]</textcolor>
 											<label>$INFO[ListItem.TVShowTitle]</label>
 										</control>
 										<!-- Clearlogo -->
@@ -351,7 +353,7 @@
 										<top>HEIGHT_CLEARLOGO_SMALL</top>
 										<width>100</width>
 										<font>CAPTION2</font>
-										<textcolor>FOREGROUND</textcolor>
+										<textcolor>$PARAM[foreground_color]</textcolor>
 										<label>S$INFO[ListItem.Season]·E$INFO[ListItem.Episode]</label>
 									</control>
 									<!-- Episode title -->
@@ -360,7 +362,7 @@
 										<top>HEIGHT_CLEARLOGO_SMALL</top>
 										<width>340</width>
 										<font>CAPTION2</font>
-										<textcolor>FOREGROUND</textcolor>
+										<textcolor>$PARAM[foreground_color]</textcolor>
 										<label>$INFO[ListItem.Title]</label>
 									</control>
 								</control>
@@ -380,6 +382,8 @@
 		<param name="label"></param>
 		<param name="content"></param>
 		<param name="art"></param>
+		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
+		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
 		<param name="onfocus">noop</param>
 		<param name="onchange">noop</param>
 		<param name="onback">noop</param>
@@ -394,7 +398,7 @@
 
 				<control type="label">
 					<font>BODY_STRONG</font>
-					<textcolor>FOREGROUND</textcolor>
+					<textcolor>$PARAM[foreground_color]</textcolor>
 					<label>$PARAM[label]</label>
 				</control>
 
@@ -449,6 +453,8 @@
 		<param name="art"></param>
 		<param name="info1"></param>
 		<param name="info2"></param>
+		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
+		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
 		<param name="onfocus">noop</param>
 		<param name="onchange">noop</param>
 		<param name="onback">noop</param>
@@ -463,7 +469,7 @@
 
 				<control type="label">
 					<font>BODY_STRONG</font>
-					<textcolor>FOREGROUND</textcolor>
+					<textcolor>$PARAM[foreground_color]</textcolor>
 					<label>$PARAM[label]</label>
 				</control>
 
@@ -500,7 +506,7 @@
 										<scroll>false</scroll>
 										<width>auto</width>
 										<font>LABEL</font>
-										<textcolor>HIGHLIGHT</textcolor>
+										<textcolor>$PARAM[highlight_color]</textcolor>
 										<label>$PARAM[info1]</label>
 									</control>
 									<!-- Info line 2 -->
@@ -509,7 +515,7 @@
 										<scroll>false</scroll>
 										<width>auto</width>
 										<font>LABEL</font>
-										<textcolor>FOREGROUND</textcolor>
+										<textcolor>$PARAM[foreground_color]</textcolor>
 										<label>$PARAM[info2]</label>
 									</control>
 								</control>
@@ -545,7 +551,7 @@
 										<scroll>false</scroll>
 										<width>auto</width>
 										<font>LABEL</font>
-										<textcolor>HIGHLIGHT</textcolor>
+										<textcolor>$PARAM[highlight_color]</textcolor>
 										<label>$PARAM[info1]</label>
 									</control>
 									<!-- Info line 2 -->
@@ -554,7 +560,7 @@
 										<scroll>false</scroll>
 										<width>auto</width>
 										<font>LABEL</font>
-										<textcolor>FOREGROUND</textcolor>
+										<textcolor>$PARAM[foreground_color]</textcolor>
 										<label>$PARAM[info2]</label>
 									</control>
 								</control>
@@ -574,6 +580,8 @@
 		<param name="label"></param>
 		<param name="content"></param>
 		<param name="art"></param>
+		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
+		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
 		<param name="onfocus">noop</param>
 		<param name="onchange">noop</param>
 		<param name="onback">noop</param>
@@ -587,7 +595,7 @@
 				<height>SCREEN_HEIGHT_PADDED</height>
 
 				<control type="panel" id="$PARAM[id]">
-					<top>OFFSET_AFTER_DETAILS</top>
+					<top>OFFSET_POSTER_WALL_CONTENT</top>
 					<height>HEIGHT_POSTER_WALL_CONTENT</height>
 					<autoscroll>false</autoscroll>
 					<orientation>vertical</orientation>
@@ -646,6 +654,8 @@
 		<param name="art"></param>
 		<param name="info1"></param>
 		<param name="info2"></param>
+		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
+		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
 		<param name="onfocus">noop</param>
 		<param name="onchange">noop</param>
 		<param name="onback">noop</param>
@@ -692,7 +702,7 @@
 										<scroll>false</scroll>
 										<width>auto</width>
 										<font>LABEL</font>
-										<textcolor>HIGHLIGHT</textcolor>
+										<textcolor>$PARAM[highlight_color]</textcolor>
 										<label>$PARAM[info1]</label>
 									</control>
 									<!-- Info line 2 -->
@@ -701,7 +711,7 @@
 										<scroll>false</scroll>
 										<width>auto</width>
 										<font>LABEL</font>
-										<textcolor>FOREGROUND</textcolor>
+										<textcolor>$PARAM[foreground_color]</textcolor>
 										<label>$PARAM[info2]</label>
 									</control>
 								</control>
@@ -737,7 +747,7 @@
 										<scroll>false</scroll>
 										<width>auto</width>
 										<font>LABEL</font>
-										<textcolor>HIGHLIGHT</textcolor>
+										<textcolor>$PARAM[highlight_color]</textcolor>
 										<label>$PARAM[info1]</label>
 									</control>
 									<!-- Info line 2 -->
@@ -746,7 +756,7 @@
 										<scroll>false</scroll>
 										<width>auto</width>
 										<font>LABEL</font>
-										<textcolor>FOREGROUND</textcolor>
+										<textcolor>$PARAM[foreground_color]</textcolor>
 										<label>$PARAM[info2]</label>
 									</control>
 								</control>
