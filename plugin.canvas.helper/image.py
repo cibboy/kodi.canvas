@@ -24,7 +24,7 @@ def contrast_ratio(text_rgb, bg_rgb):
     return (lighter + 0.05) / (darker + 0.05)
 
 # Gets the most suitable color for text, given the background image (blurred).
-def get_inverse_from_contrast(img):
+def get_best_contrast_color(img):
     quantile = 0.10
 
     # Further downsize and get the pixels.
@@ -33,9 +33,10 @@ def get_inverse_from_contrast(img):
 
     # Get an RGB array of candidate text colors
     candidates = {
-        "light": ImageColor.getrgb("#AAAAAA"),  # Willingly darker than actual color, for better results in computation.
-        "mid": ImageColor.getrgb("#464646"),
-        "dark": ImageColor.getrgb("#313131")
+        "lighter": ImageColor.getrgb("#BEBEBE"),
+        "light": ImageColor.getrgb("#999999"),
+        "dark": ImageColor.getrgb("#575757"),
+        "darker": ImageColor.getrgb("#313131")
     }
 
     # Get contrast ratios for each candidate, using different metrics.
@@ -54,7 +55,7 @@ def get_inverse_from_contrast(img):
     # Pick the best score (using p10 metric).
     best = max(scores.items(), key=lambda kv: kv[1]["p10"])
 
-    # Return true if best color is #313131 (requires inversion).
+    # Return best color.
     return best[0]
 
 # Searches the required image, returns its full path and potential edited cache path.
@@ -97,19 +98,22 @@ def get_blurred(imgPath):
         # Compute output paths from input path.
         folder = xbmcvfs.translatePath('special://temp/temp/canvas.blur/')
         path = xbmcvfs.translatePath('special://temp/temp/canvas.blur/' + thumb.replace('.png', '.jpg').replace('.jpeg', '.jpg'))
+        lighter = path.replace('.jpg', '-lighter.jpg')
         light = path.replace('.jpg', '-light.jpg')
-        mid = path.replace('.jpg', '-mid.jpg')
         dark = path.replace('.jpg', '-dark.jpg')
+        darker = path.replace('.jpg', '-darker.jpg')
         # Create folder if missing.
         if not os.path.exists(folder): os.makedirs(folder)
 
         # Check if output already present. If so, use it.
-        if xbmcvfs.exists(light):
+        if xbmcvfs.exists(lighter):
+            return (lighter, 'lighter')
+        elif xbmcvfs.exists(light):
             return (light, 'light')
-        elif xbmcvfs.exists(mid):
-            return (mid, 'mid')
         elif xbmcvfs.exists(dark):
             return (dark, 'dark')
+        elif xbmcvfs.exists(darker):
+            return (darker, 'darker')
 
         # Resize and blur.
         with xbmcvfs.File(xbmcvfs.translatePath(full_path), 'rb') as f:
@@ -121,20 +125,23 @@ def get_blurred(imgPath):
         # Compute a contrast ratio between the blurred image and reference
         # text colors, in order to understand which text color is best
         # suited against the background.
-        color = get_inverse_from_contrast(img)
+        color = get_best_contrast_color(img)
 
         # Save output and return output path according to contrast ratio.
-        if color == 'light':
+        if color == 'lighter':
+            img.save(lighter, 'JPEG')
+            return (lighter, 'lighter')
+        elif color == 'light':
             img.save(light, 'JPEG')
             return (light, 'light')
-        elif color == 'mid':
-            img.save(mid, 'JPEG')
-            return (mid, 'mid')
         elif color == 'dark':
             img.save(dark, 'JPEG')
             return (dark, 'dark')
+        elif color == 'darker':
+            img.save(darker, 'JPEG')
+            return (darker, 'darker')
     except:
-        return ('', 'light')
+        return ('', 'lighter')
 
 # Takes an clearlogo path, crops it to the actual content, saves in into temp and returns the new path.
 # It creates 2 version, the original size, cropped, and a smaller one, cropped as well.

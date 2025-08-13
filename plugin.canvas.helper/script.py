@@ -131,7 +131,6 @@ def home_to_active_settings(page):
     if page is None or page == '':
         page = 'appearancesettings'
     
-    xbmc.log(page,xbmc.LOGINFO)
     xbmc.executebuiltin(f"ActivateWindow({page})")
 
 if __name__ == '__main__':

@@ -2,24 +2,28 @@
 <includes>
 	<!-- Text color (based on bright blur art or not) -->
 	<variable name="HomeDetailsTextForegroundColor">
+		<!-- Lighter color -->
+		<value condition="$EXP[IsHomeDetailsBestTextColorLighter] + !$EXP[HasHomeMenuFocus]">FOREGROUND_CONTRAST_LIGHTER</value>
 		<!-- Light color -->
 		<value condition="$EXP[IsHomeDetailsBestTextColorLight] + !$EXP[HasHomeMenuFocus]">FOREGROUND_CONTRAST_LIGHT</value>
-		<!-- Mid color -->
-		<value condition="$EXP[IsHomeDetailsBestTextColorMid] + !$EXP[HasHomeMenuFocus]">FOREGROUND_CONTRAST_MID</value>
 		<!-- Dark color -->
 		<value condition="$EXP[IsHomeDetailsBestTextColorDark] + !$EXP[HasHomeMenuFocus]">FOREGROUND_CONTRAST_DARK</value>
+		<!-- Darker color -->
+		<value condition="$EXP[IsHomeDetailsBestTextColorDarker] + !$EXP[HasHomeMenuFocus]">FOREGROUND_CONTRAST_DARKER</value>
 		<!-- Fallback -->
-		<value>FOREGROUND_CONTRAST_LIGHT</value>
+		<value>FOREGROUND_CONTRAST_LIGHTER</value>
 	</variable>
 	<variable name="HomeDetailsTextHighlightColor">
 		<!-- Light color -->
+		<value condition="$EXP[IsHomeDetailsBestTextColorLighter] + !$EXP[HasHomeMenuFocus]">HIGHLIGHT_CONTRAST_LIGHTER</value>
+		<!-- Light color -->
 		<value condition="$EXP[IsHomeDetailsBestTextColorLight] + !$EXP[HasHomeMenuFocus]">HIGHLIGHT_CONTRAST_LIGHT</value>
-		<!-- Mid color -->
-		<value condition="$EXP[IsHomeDetailsBestTextColorMid] + !$EXP[HasHomeMenuFocus]">HIGHLIGHT_CONTRAST_MID</value>
 		<!-- Dark color -->
 		<value condition="$EXP[IsHomeDetailsBestTextColorDark] + !$EXP[HasHomeMenuFocus]">HIGHLIGHT_CONTRAST_DARK</value>
+		<!-- Darker color -->
+		<value condition="$EXP[IsHomeDetailsBestTextColorDarker] + !$EXP[HasHomeMenuFocus]">HIGHLIGHT_CONTRAST_DARKER</value>
 		<!-- Fallback -->
-		<value>HIGHLIGHT_CONTRAST_LIGHT</value>
+		<value>HIGHLIGHT_CONTRAST_LIGHTER</value>
 	</variable>
 
 	<!-- Clearlogo -->
