@@ -411,7 +411,7 @@
 							<param name="speed">ANIMATION_SLOW</param>
 						</include>
 						<include content="FocusFadeAnimation">
-							<param name="reference_id">110</param>
+							<param name="reference_id">111</param>
 						</include>
 
 						<!-- Empty list fallback -->
@@ -453,7 +453,7 @@
 							<param name="speed">ANIMATION_SLOW</param>
 						</include>
 						<include content="FocusFadeAnimation">
-							<param name="reference_id">120</param>
+							<param name="reference_id">121</param>
 						</include>
 
 						<!-- Empty list fallback -->
@@ -495,7 +495,7 @@
 							<param name="speed">ANIMATION_SLOW</param>
 						</include>
 						<include content="FocusFadeAnimation">
-							<param name="reference_id">130</param>
+							<param name="reference_id">131</param>
 						</include>
 
 						<!-- Empty list fallback -->
@@ -539,7 +539,7 @@
 							<param name="speed">ANIMATION_SLOW</param>
 						</include>
 						<include content="FocusFadeAnimation">
-							<param name="reference_id">140</param>
+							<param name="reference_id">141</param>
 						</include>
 
 						<!-- Empty list fallback -->
@@ -583,7 +583,7 @@
 							<param name="speed">ANIMATION_SLOW</param>
 						</include>
 						<include content="FocusFadeAnimation">
-							<param name="reference_id">150</param>
+							<param name="reference_id">151</param>
 						</include>
 
 						<!-- Empty list fallback -->

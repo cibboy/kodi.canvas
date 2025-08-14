@@ -2,11 +2,10 @@ TOFIX:
 - aggiunto genre audio in plugin (potenzialmente una lista, quindi bisognerà fare delle prove con ulteriore scraping e aggiornamento tag mp3, che è stata aggiunta alla details info line 2)
 - home side menu non ha gli angoli arrotondati sul overlay perchè c'è scalediffuse su aspectratio
 - tuning dei colori contrast (soprattutto dark, vedi captain phillips)
-- capire come mai le strip e le wall sono leggermente trasparenti anche con il focus
 
 TODO:
 - manca il caricamento della lista pictures
-- Sorting include "The", da capire se si vuole togliere come in Plex
+- sorting include "The", bisognerebbe usare il sorttitle, ma è stringa vuota
 - creare possibilità di sbiancare la cache in temp
   - prima posizionare blur in temp/canvas.blur, clearlogo in temp/canvas.clearlogo e mp3 in temp/canvas.sound (da fare più avanti, quando si può testare il primo loading)
 - capire se investire il tempo per farsi da 0 le impostazioni come Android TV usando JSON-RPC (vedi AndroidTVSettings.md)
