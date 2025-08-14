@@ -1,106 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
-	<include file="Includes/Backgrounds/Variables.xml" />
-	<include file="Includes/Backgrounds/Expressions.xml" />
-
 	<!-- Full screen background with quadrant blur -->
 	<include name="BackgroundQuadrantBlur">
+		<param name="visible">true</param>
+		<param name="art"></param>
 		<param name="show_art">true</param>
+		<param name="blur"></param>
+		<param name="blur_mode">standard</param>
 
 		<definition>
 			<control type="group">
+				<visible>$PARAM[visible]</visible>
+				<include content="ShowHideFadeAnimation">
+					<param name="speed">ANIMATION_CRAWL</param>
+				</include>
+
 				<!-- Background blur quadrants -->
 				<control type="group">
-					<include content="ShowHideFadeAnimation">
-						<param name="speed">ANIMATION_CRAWL</param>
-					</include>
-
-					<!-- Fallback -->
-					<control type="image">
-						<width>100%</width>
-						<height>100%</height>
-						<texture>1080p/fallback/bg.png</texture>
-					</control>
 					<!-- Left -->
 					<control type="group">
 						<!-- Top (videos first, the music) -->
 						<control type="image">
-							<visible>!$EXP[IsBackgroundMusic]</visible>
+							<visible>String.IsEqual($PARAM[blur_mode],standard)</visible>
 							<width>67%</width>
 							<height>67%</height>
 							<right>67%</right>
 							<bottom>33%</bottom>
 							<fadetime>ANIMATION_CRAWL</fadetime>
-							<texture flipx="true" flipy="false">$VAR[BlurArt]</texture>
+							<texture flipx="true" flipy="false">$PARAM[blur]</texture>
 						</control>
 						<control type="image">
-							<visible>$EXP[IsBackgroundMusic]</visible>
+							<visible>String.IsEqual($PARAM[blur_mode],music)</visible>
 							<width>75%</width>
 							<height>67%</height>
 							<right>25%</right>
 							<bottom>33%</bottom>
 							<fadetime>ANIMATION_CRAWL</fadetime>
-							<texture flipx="true" flipy="false">$VAR[BlurArt]</texture>
+							<texture flipx="true" flipy="false">$PARAM[blur]</texture>
 						</control>
 						<!-- Bottom (videos first, the music) -->
 						<control type="image">
-							<visible>!$EXP[IsBackgroundMusic]</visible>
+							<visible>String.IsEqual($PARAM[blur_mode],standard)</visible>
 							<width>67%</width>
 							<height>67%</height>
 							<right>67%</right>
 							<top>67%</top>
 							<fadetime>ANIMATION_CRAWL</fadetime>
-							<texture flipx="true" flipy="true">$VAR[BlurArt]</texture>
+							<texture flipx="true" flipy="true">$PARAM[blur]</texture>
 						</control>
 						<control type="image">
-							<visible>$EXP[IsBackgroundMusic]</visible>
+							<visible>String.IsEqual($PARAM[blur_mode],music)</visible>
 							<width>75%</width>
 							<height>67%</height>
 							<right>25%</right>
 							<top>67%</top>
 							<fadetime>ANIMATION_CRAWL</fadetime>
-							<texture flipx="true" flipy="true">$VAR[BlurArt]</texture>
+							<texture flipx="true" flipy="true">$PARAM[blur]</texture>
 						</control>
 					</control>
 					<!-- Right -->
 					<control type="group">
 						<!-- Top (videos first, the music) -->
 						<control type="image">
-							<visible>!$EXP[IsBackgroundMusic]</visible>
+							<visible>String.IsEqual($PARAM[blur_mode],standard)</visible>
 							<width>67%</width>
 							<height>67%</height>
 							<left>33%</left>
 							<bottom>33%</bottom>
 							<fadetime>ANIMATION_CRAWL</fadetime>
-							<texture flipx="false" flipy="false">$VAR[BlurArt]</texture>
+							<texture flipx="false" flipy="false">$PARAM[blur]</texture>
 						</control>
 						<control type="image">
-							<visible>$EXP[IsBackgroundMusic]</visible>
+							<visible>String.IsEqual($PARAM[blur_mode],music)</visible>
 							<width>75%</width>
 							<height>67%</height>
 							<left>75%</left>
 							<bottom>33%</bottom>
 							<fadetime>ANIMATION_CRAWL</fadetime>
-							<texture flipx="false" flipy="false">$VAR[BlurArt]</texture>
+							<texture flipx="false" flipy="false">$PARAM[blur]</texture>
 						</control>
 						<!-- Bottom (videos first, the music) -->
 						<control type="image">
-							<visible>!$EXP[IsBackgroundMusic]</visible>
+							<visible>String.IsEqual($PARAM[blur_mode],standard)</visible>
 							<width>67%</width>
 							<height>67%</height>
 							<left>33%</left>
 							<top>67%</top>
 							<fadetime>ANIMATION_CRAWL</fadetime>
-							<texture flipx="false" flipy="true">$VAR[BlurArt]</texture>
+							<texture flipx="false" flipy="true">$PARAM[blur]</texture>
 						</control>
 						<control type="image">
-							<visible>$EXP[IsBackgroundMusic]</visible>
+							<visible>String.IsEqual($PARAM[blur_mode],music)</visible>
 							<width>75%</width>
 							<height>67%</height>
 							<left>75%</left>
 							<top>67%</top>
 							<fadetime>ANIMATION_CRAWL</fadetime>
-							<texture flipx="false" flipy="true">$VAR[BlurArt]</texture>
+							<texture flipx="false" flipy="true">$PARAM[blur]</texture>
 						</control>
 					</control>
 					<!-- Darkening overlay -->
@@ -124,7 +120,7 @@
 					<top>0</top>
 					<right>0</right>
 					<fadetime>ANIMATION_SLOW</fadetime>
-					<texture diffuse="1080p/diffuse/fanart.png" background="true">$VAR[BackgroundArt]</texture>
+					<texture diffuse="1080p/diffuse/fanart.png" background="true">$PARAM[art]</texture>
 					<aspectratio align="right">keep</aspectratio>
 				</control>
 			</control>
@@ -132,7 +128,35 @@
 	</include>
 
 	<!-- Full screen background with direct blur -->
-	<!--todo-->
+	<include name="BackgroundSingleBlur">
+		<param name="visible">true</param>
+		<param name="blur"></param>
+
+		<definition>
+			<control type="group">
+				<visible>$PARAM[visible]</visible>
+				<include content="ShowHideFadeAnimation">
+					<param name="speed">ANIMATION_CRAWL</param>
+				</include>
+
+				<!-- Blur -->
+				<control type="image">
+					<width>100%</width>
+					<height>100%</height>
+					<fadetime>ANIMATION_CRAWL</fadetime>
+					<texture>$PARAM[blur]</texture>
+				</control>
+
+				<!-- Darkening overlay -->
+				<control type="image">
+					<width>100%</width>
+					<height>100%</height>
+					<fadetime>ANIMATION_CRAWL</fadetime>
+					<texture colordiffuse="BACKGROUND_OPAQUE10" diffuse="1080p/diffuse/background.png">diffuse.png</texture>
+				</control>
+			</control>
+		</definition>
+	</include>
 
 	<!-- Full screen darkening layer -->
 	<include name="DarkeningLayer">

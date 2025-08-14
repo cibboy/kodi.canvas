@@ -4,9 +4,18 @@
 	<defaultcontrol>1</defaultcontrol>
 
 	<controls>
-		<!-- Background -->
+		<!-- Background (fallback/default + blur quadrants/art) -->
+		<control type="image">
+			<width>100%</width>
+			<height>100%</height>
+			<texture>1080p/fallback/bg.png</texture>
+		</control>
 		<include content="BackgroundQuadrantBlur">
-			<param name="show_art">!String.IsEqual(Window.Property(Home.ActivePage),pictures)</param>
+			<param name="visible">!$EXP[IsHomeLoading]</param>
+			<param name="art">$VAR[HomeBackgroundArt]</param>
+			<param name="show_art">!$EXP[IsHomeActivePagePictures]</param>
+			<param name="blur">$VAR[HomeBlurArt]</param>
+			<param name="blur_mode">$VAR[HomeBlurArtMode]</param>
 		</include>
 
 		<!-- Dark overlay to background for when the menu has focus -->
@@ -26,7 +35,11 @@
 			<include content="TopBar" />
 
 			<!-- Bottom bar -->
-			<include content="BottomBar" />
+			<include content="BottomBar">
+				<param name="show">$EXP[HasHomeDetailsStudio] + !$EXP[IsHomeLoading]</param>
+				<param name="show_studio">$EXP[HasHomeDetailsStudio]</param>
+				<param name="studio">$VAR[HomeDetailsStudio]</param>
+			</include>
 
 			<!-- Right modal menu -->
 			<include content="HomeModalMenu" />

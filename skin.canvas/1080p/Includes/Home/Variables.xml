@@ -26,6 +26,24 @@
 		<value>HIGHLIGHT_CONTRAST_LIGHTER</value>
 	</variable>
 
+	<!-- Studio -->
+	<variable name="HomeDetailsStudio">
+		<!-- Continue watching -->
+		<value condition="$EXP[IsHomeContinueWatchingActive]">1080p/studios/$INFO[Container(101).ListItem.Studio].png</value>
+		<!-- Recently added episodes -->
+		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive]">1080p/studios/$INFO[Container(102).ListItem.Studio].png</value>
+		<!-- Recently added movies -->
+		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive]">1080p/studios/$INFO[Container(103).ListItem.Studio].png</value>
+		<!-- Recently added music -->
+		<value condition="$EXP[IsHomeRecentlyAddedMusicActive]">1080p/studios/$INFO[Container(104).ListItem.Studio].png</value>
+		<!-- Movies -->
+		<value condition="$EXP[IsHomeMoviesActive]">1080p/studios/$INFO[Container(111).ListItem.Studio].png</value>
+		<!-- Yoga -->
+		<value condition="$EXP[IsHomeYogaActive]">1080p/studios/$INFO[Container(131).ListItem.Studio].png</value>
+		<!-- Music -->
+		<value condition="$EXP[IsHomeMusicActive]">1080p/studios/$INFO[Container(141).ListItem.Studio].png</value>
+	</variable>
+
 	<!-- Clearlogo -->
 	<variable name="HomeDetailsClearlogo">
 		<!-- Continue watching -->
@@ -290,6 +308,58 @@
 		<value condition="$EXP[IsHomeTVShowsActive]">$INFO[Container(121).ListItem.Plot]</value>
 		<!-- Yoga -->
 		<value condition="$EXP[IsHomeYogaActive]">$INFO[Container(131).ListItem.Plot]</value>
+	</variable>
+
+	<!-- Top-right art -->
+	<variable name="HomeBackgroundArt">
+		<!-- Continue watching -->
+		<value condition="$EXP[IsHomeContinueWatchingActive] + $EXP[IsHomeContinueWatchingEpisode]">$INFO[Container(101).ListItem.Art(tvshow.fanart)]</value>
+		<value condition="$EXP[IsHomeContinueWatchingActive]">$INFO[Container(101).ListItem.Art(fanart)]</value>
+		<!-- Recently added episodes -->
+		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive]">$INFO[Container(102).ListItem.Art(tvshow.fanart)]</value>
+		<!-- Recently added movies -->
+		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive]">$INFO[Container(103).ListItem.Art(fanart)]</value>
+		<!-- Recently added music -->
+		<value condition="$EXP[IsHomeRecentlyAddedMusicActive]">$INFO[Container(104).ListItem.Art(album.thumb)]</value>
+		<!-- Movies -->
+		<value condition="$EXP[IsHomeMoviesActive]">$INFO[Container(111).ListItem.Art(fanart)]</value>
+		<!-- TV shows -->
+		<value condition="$EXP[IsHomeTVShowsActive]">$INFO[Container(121).ListItem.Art(fanart)]</value>
+		<!-- Yoga -->
+		<value condition="$EXP[IsHomeYogaActive] + !String.IsEmpty(Container(131).ListItem.Art(fanart))">$INFO[Container(131).ListItem.Art(fanart)]</value>
+		<value condition="$EXP[IsHomeYogaActive]">$INFO[Container(131).ListItem.Art(tvshow.fanart)]</value>
+		<!-- Music -->
+		<value condition="$EXP[IsHomeMusicActive]">$INFO[Container(141).ListItem.Art(album.thumb)]</value>
+	</variable>
+
+	<!-- Full screen background blur -->
+	<variable name="HomeBlurArt">
+		<!-- Continue watching -->
+		<value condition="$EXP[IsHomeContinueWatchingActive] + $EXP[IsHomeContinueWatchingEpisode]">$INFO[Container(101).ListItem.Property(BlurArt.TvShow)]</value>
+		<value condition="$EXP[IsHomeContinueWatchingActive]">$INFO[Container(101).ListItem.Property(BlurArt)]</value>
+		<!-- Recently added episodes -->
+		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive]">$INFO[Container(102).ListItem.Property(BlurArt.TvShow)]</value>
+		<!-- Recently added movies -->
+		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive]">$INFO[Container(103).ListItem.Property(BlurArt)]</value>
+		<!-- Recently added music -->
+		<value condition="$EXP[IsHomeRecentlyAddedMusicActive]">$INFO[Container(104).ListItem.Property(BlurArt)]</value>
+		<!-- Movies -->
+		<value condition="$EXP[IsHomeMoviesActive]">$INFO[Container(111).ListItem.Property(BlurArt)]</value>
+		<!-- TV shows -->
+		<value condition="$EXP[IsHomeTVShowsActive]">$INFO[Container(121).ListItem.Property(BlurArt)]</value>
+		<!-- Yoga -->
+		<value condition="$EXP[IsHomeYogaActive] + !String.IsEmpty(Container(131).ListItem.Property(BlurArt.Season))">$INFO[Container(131).ListItem.Property(BlurArt.Season)]</value>
+		<value condition="$EXP[IsHomeYogaActive]">$INFO[Container(131).ListItem.Property(BlurArt.TvShow)]</value>
+		<!-- Music -->
+		<value condition="$EXP[IsHomeMusicActive]">$INFO[Container(141).ListItem.Property(BlurArt)]</value>
+	</variable>
+
+	<!-- Full screen background blur mode -->
+	<variable name="HomeBlurArtMode">
+		<!-- Recently added music or music -->
+		<value condition="$EXP[IsHomeRecentlyAddedMusicActive] | $EXP[IsHomeMusicActive]">music</value>
+		<!-- Else -->
+		<value>standard</value>
 	</variable>
 
 	<!-- Icons -->

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
-	<include file="Includes/BottomBar/Variables.xml" />
-	<include file="Includes/BottomBar/Expressions.xml" />
-
 	<include name="BottomBar">
+		<param name="show">false</param>
+		<param name="show_studio">false</param>
+		<param name="studio"></param>
+
 		<definition>
 			<control type="group">
-				<visible>$EXP[HasBottomBarStudio]</visible>
+				<visible>$PARAM[show]</visible>
 				<include content="ShowHideFadeAnimation" />
 
 				<bottom>0</bottom>
@@ -21,12 +22,13 @@
 
 				<!-- Studio logo -->
 				<control type="image">
+					<visible>$PARAM[show_studio]</visible>
 					<width>WIDTH_STUDIO_LOGO</width>
 					<height>HEIGHT_STUDIO_LOGO</height>
 					<right>PADDING_BASE</right>
 					<bottom>PADDING_MULT_120</bottom>
 					<fadetime>ANIMATION_MID</fadetime>
-					<texture>1080p/studios/$VAR[BottomBarStudio].png</texture>
+					<texture>$PARAM[studio]</texture>
 				</control>
 			</control>
 		</definition>

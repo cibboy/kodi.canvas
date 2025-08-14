@@ -1,8 +1,6 @@
 TOFIX:
 - aggiunto genre audio in plugin (potenzialmente una lista, quindi bisognerà fare delle prove con ulteriore scraping e aggiornamento tag mp3, che è stata aggiunta alla details info line 2)
 - home side menu non ha gli angoli arrotondati sul overlay perchè c'è scalediffuse su aspectratio
-- bottombar mostra la studio icon prima che finisca il loading, e background stessa cosa con fanart:
-  - forse risolvibile facendosi passare l'info come parametro e spostare la variabile sulla home, così è condizionale al loading
 - tuning dei colori contrast (soprattutto dark, vedi captain phillips)
 - capire come mai le strip e le wall sono leggermente trasparenti anche con il focus
 

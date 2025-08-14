@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<includes>
-	<!-- Is music? -->
-	<expression name="IsBackgroundMusic">
-		[String.IsEqual(Window.Property(Home.ActiveListId),104)] |
-		[String.IsEqual(Window.Property(Home.ActiveListId),140)]
-	</expression>
-</includes>

@@ -698,8 +698,7 @@
 			<!-- Clock (no animation) -->
 			<control type="group">
 				<visible>Control.HasFocus(1000)</visible>
-				<include content="ShowHideFadeAnimation">
-				</include>
+				<include content="ShowHideFadeAnimation" />
 
 				<include content="TopBar">
 					<param name="show_background">false</param>

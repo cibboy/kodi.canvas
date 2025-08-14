@@ -90,6 +90,28 @@
 	</expression>
 
 	<!--
+		Has studio?
+		- Continue watching
+		- Recently added episodes
+		- Recently added movies
+		- Recently added music
+		- Movies
+		- TV shows
+		- Yoga
+		- Music
+	-->
+	<expression name="HasHomeDetailsStudio">
+		[$EXP[IsHomeContinueWatchingActive] + !String.IsEmpty(Container(101).ListItem.Studio)] |
+		[$EXP[IsHomeRecentlyAddedEpisodesActive] + !String.IsEmpty(Container(102).ListItem.Studio)] |
+		[$EXP[IsHomeRecentlyAddedMoviesActive] + !String.IsEmpty(Container(103).ListItem.Studio)] |
+		[$EXP[IsHomeRecentlyAddedMusicActive] + !String.IsEmpty(Container(104).ListItem.Studio)] |
+		[$EXP[IsHomeMoviesActive] + !String.IsEmpty(Container(111).ListItem.Studio)] |
+		[$EXP[IsHomeTVShowsActive] + !String.IsEmpty(Container(121).ListItem.Studio)] |
+		[$EXP[IsHomeYogaActive] + !String.IsEmpty(Container(131).ListItem.Studio)] |
+		[$EXP[IsHomeMusicActive] + !String.IsEmpty(Container(141).ListItem.Studio)]
+	</expression>
+
+	<!--
 		Has clearlogo?
 		- Continue watching
 		- Recently added episodes
