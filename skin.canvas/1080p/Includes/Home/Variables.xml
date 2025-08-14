@@ -38,6 +38,8 @@
 		<value condition="$EXP[IsHomeRecentlyAddedMusicActive]">1080p/studios/$INFO[Container(104).ListItem.Studio].png</value>
 		<!-- Movies -->
 		<value condition="$EXP[IsHomeMoviesActive]">1080p/studios/$INFO[Container(111).ListItem.Studio].png</value>
+		<!-- TV Shows -->
+		<value condition="$EXP[IsHomeTVShowsActive]">1080p/studios/$INFO[Container(121).ListItem.Studio].png</value>
 		<!-- Yoga -->
 		<value condition="$EXP[IsHomeYogaActive]">1080p/studios/$INFO[Container(131).ListItem.Studio].png</value>
 		<!-- Music -->

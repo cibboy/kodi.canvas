@@ -75,6 +75,8 @@
 	<expression name="IsHomeContinueWatchingMovie">String.IsEqual(Container(101).ListItem.Property(ItemType),movie)</expression>
 	<!-- Is continue watching an episode? -->
 	<expression name="IsHomeContinueWatchingEpisode">String.IsEqual(Container(101).ListItem.Property(ItemType),episode)</expression>
+	<!-- Is active type music? -->
+	<expression name="IsHomeActiveTypeMusic">$EXP[IsHomeRecentlyAddedMusicActive] | $EXP[IsHomeMusicActive]</expression>
 
 	<!-- Show details? -->
 	<expression name="HomeShowDetails">
@@ -295,8 +297,8 @@
 		- Music
 	-->
 	<expression name="HasHomeDetailsTrack">
-		[$EXP[IsHomeRecentlyAddedMusicActive] + !String.IsEmpty(Container(104).ListItem.Property(Track))] |
-		[$EXP[IsHomeMusicActive] + !String.IsEmpty(Container(141).ListItem.Property(Track))]
+		[$EXP[IsHomeRecentlyAddedMusicActive] + !String.IsEmpty(Container(104).ListItem.Property(Track)) + !String.IsEqual(Container(104).ListItem.Property(Track),0)] |
+		[$EXP[IsHomeMusicActive] + !String.IsEmpty(Container(141).ListItem.Property(Track)) + !String.IsEqual(Container(141).ListItem.Property(Track),0)]
 	</expression>
 
 	<!--

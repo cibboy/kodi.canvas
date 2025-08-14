@@ -6,7 +6,7 @@
 		<param name="art"></param>
 		<param name="show_art">true</param>
 		<param name="blur"></param>
-		<param name="blur_mode">standard</param>
+		<param name="blur_mode_squareoffset">false</param>
 
 		<definition>
 			<control type="group">
@@ -21,7 +21,7 @@
 					<control type="group">
 						<!-- Top (videos first, the music) -->
 						<control type="image">
-							<visible>String.IsEqual($PARAM[blur_mode],standard)</visible>
+							<visible>!$PARAM[blur_mode_squareoffset]</visible>
 							<width>67%</width>
 							<height>67%</height>
 							<right>67%</right>
@@ -30,7 +30,7 @@
 							<texture flipx="true" flipy="false">$PARAM[blur]</texture>
 						</control>
 						<control type="image">
-							<visible>String.IsEqual($PARAM[blur_mode],music)</visible>
+							<visible>$PARAM[blur_mode_squareoffset]</visible>
 							<width>75%</width>
 							<height>67%</height>
 							<right>25%</right>
@@ -40,7 +40,7 @@
 						</control>
 						<!-- Bottom (videos first, the music) -->
 						<control type="image">
-							<visible>String.IsEqual($PARAM[blur_mode],standard)</visible>
+							<visible>!$PARAM[blur_mode_squareoffset]</visible>
 							<width>67%</width>
 							<height>67%</height>
 							<right>67%</right>
@@ -49,7 +49,7 @@
 							<texture flipx="true" flipy="true">$PARAM[blur]</texture>
 						</control>
 						<control type="image">
-							<visible>String.IsEqual($PARAM[blur_mode],music)</visible>
+							<visible>$PARAM[blur_mode_squareoffset]</visible>
 							<width>75%</width>
 							<height>67%</height>
 							<right>25%</right>
@@ -62,7 +62,7 @@
 					<control type="group">
 						<!-- Top (videos first, the music) -->
 						<control type="image">
-							<visible>String.IsEqual($PARAM[blur_mode],standard)</visible>
+							<visible>!$PARAM[blur_mode_squareoffset]</visible>
 							<width>67%</width>
 							<height>67%</height>
 							<left>33%</left>
@@ -71,7 +71,7 @@
 							<texture flipx="false" flipy="false">$PARAM[blur]</texture>
 						</control>
 						<control type="image">
-							<visible>String.IsEqual($PARAM[blur_mode],music)</visible>
+							<visible>$PARAM[blur_mode_squareoffset]</visible>
 							<width>75%</width>
 							<height>67%</height>
 							<left>75%</left>
@@ -81,7 +81,7 @@
 						</control>
 						<!-- Bottom (videos first, the music) -->
 						<control type="image">
-							<visible>String.IsEqual($PARAM[blur_mode],standard)</visible>
+							<visible>!$PARAM[blur_mode_squareoffset]</visible>
 							<width>67%</width>
 							<height>67%</height>
 							<left>33%</left>
@@ -90,7 +90,7 @@
 							<texture flipx="false" flipy="true">$PARAM[blur]</texture>
 						</control>
 						<control type="image">
-							<visible>String.IsEqual($PARAM[blur_mode],music)</visible>
+							<visible>$PARAM[blur_mode_squareoffset]</visible>
 							<width>75%</width>
 							<height>67%</height>
 							<left>75%</left>

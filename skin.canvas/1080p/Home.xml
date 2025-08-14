@@ -15,12 +15,12 @@
 			<param name="art">$VAR[HomeBackgroundArt]</param>
 			<param name="show_art">!$EXP[IsHomeActivePagePictures]</param>
 			<param name="blur">$VAR[HomeBlurArt]</param>
-			<param name="blur_mode">$VAR[HomeBlurArtMode]</param>
+			<param name="blur_mode_squareoffset">$EXP[IsHomeActiveTypeMusic]</param>
 		</include>
 
 		<!-- Dark overlay to background for when the menu has focus -->
 		<include content="DarkeningLayer">
-			<param name="visible">Control.HasFocus(1)</param>
+			<param name="visible">$EXP[HasHomeMenuFocus]</param>
 		</include>
 
 		<!-- Window contents -->
