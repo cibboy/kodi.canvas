@@ -1,7 +1,6 @@
 TOFIX:
 - aggiunto genre audio in plugin (potenzialmente una lista, quindi bisognerà fare delle prove con ulteriore scraping e aggiornamento tag mp3, che è stata aggiunta alla details info line 2)
 - home side menu non ha gli angoli arrotondati sul overlay perchè c'è scalediffuse su aspectratio
-- tuning dei colori contrast (soprattutto dark, vedi captain phillips)
 
 TODO:
 - manca il caricamento della lista pictures
