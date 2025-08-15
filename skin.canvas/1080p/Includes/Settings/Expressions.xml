@@ -9,6 +9,32 @@
 		Window.IsActive(mediasettings)
 	</expression>
 
+	<!-- Is interface settings page active? -->
+	<expression name="IsInterfaceSettingsPageActive">Window.IsActive(appearancesettings)</expression>
+	<!-- Is system settings page active? -->
+	<expression name="IsSystemSettingsPageActive">Window.IsActive(systemsettings)</expression>
+	<!-- Is service settings page active? -->
+	<expression name="IsServiceSettingsPageActive">Window.IsActive(servicesettings)</expression>
+	<!-- Is player settings page active? -->
+	<expression name="IsPlayerSettingsPageActive">Window.IsActive(playersettings)</expression>
+	<!-- Is media settings page active? -->
+	<expression name="IsMediaSettingsPageActive">Window.IsActive(mediasettings)</expression>
+
+	<!-- Is DialogSelect active in settings? -->
+	<expression name="IsSettingsDialogSelectActive">
+		[
+			Window.IsActive(appearancesettings) |
+			Window.IsActive(systemsettings) |
+			Window.IsActive(servicesettings) |
+			Window.IsActive(playersettings) |
+			Window.IsActive(mediasettings)
+		] +
+		Window.IsDialogTopmost(selectdialog)
+	</expression>
+
+	<!-- Is DialogSelect icon type a circle? -->
+	<expression name="IsSettingsDialogSelectIconTypeCircle">!String.IsEmpty(ListItem.Icon) + !String.IsEqual(ListItem.Icon,DefaultAddon.png)</expression>
+
 	<!--
 		Has main section list focus?
 		Consider:

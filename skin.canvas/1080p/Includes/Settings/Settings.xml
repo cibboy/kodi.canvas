@@ -45,10 +45,13 @@
 	<include name="SettingsOptionContentWithIcon">
 		<param name="icon_circle_color">BACKGROUND_OPAQUE20</param>
 		<param name="icon_color">BACKGROUND_INVERSE_OPAQUE50</param>
+		<param name="icon_type_circle">false</param>
 		<param name="icon">$INFO[ListItem.Art(thumb)]</param>
 		<param name="text_color">FOREGROUND_OPAQUE75</param>
+		<param name="text_color_selected">FOREGROUND_ACCENT_OPAQUE75</param>
 		<param name="text">$INFO[ListItem.Property(title)]</param>
 		<param name="description_color">FOREGROUND_OPAQUE50</param>
+		<param name="description_color_selected">FOREGROUND_ACCENT_OPAQUE50</param>
 		<param name="description">$INFO[ListItem.Property(description)]</param>
 
 		<definition>
@@ -63,17 +66,29 @@
 					<width>HEIGHT_SETTINGS_OPTION_CONTENT</width>
 					<height>HEIGHT_SETTINGS_OPTION_CONTENT</height>
 
+					<!-- Background -->
 					<control type="image">
 						<centertop>50%</centertop>
 						<centerleft>50%</centerleft>
 						<texture colordiffuse="$PARAM[icon_circle_color]">1080p/diffuse/circle.png</texture>
 					</control>
+					<!-- Icon (not circle) -->
 					<control type="image">
+						<visible>!$PARAM[icon_type_circle]</visible>
 						<width>SIZE_SETTINGS_ICON</width>
 						<height>SIZE_SETTINGS_ICON</height>
 						<centertop>50%</centertop>
 						<centerleft>50%</centerleft>
 						<texture colordiffuse="$PARAM[icon_color]">$PARAM[icon]</texture>
+					</control>
+					<!-- Icon (circle) -->
+					<control type="image">
+						<visible>$PARAM[icon_type_circle]</visible>
+						<width>HEIGHT_SETTINGS_OPTION_CONTENT</width>
+						<height>HEIGHT_SETTINGS_OPTION_CONTENT</height>
+						<centertop>50%</centertop>
+						<centerleft>50%</centerleft>
+						<texture colordiffuse="$PARAM[icon_color]" diffuse="1080p/diffuse/circle.png">$PARAM[icon]</texture>
 					</control>
 				</control>
 
@@ -81,13 +96,13 @@
 				<control type="group">
 					<height>HEIGHT_SETTINGS_OPTION_CONTENT</height>
 					<left>OFFSET_SETTINGS_OPTIONS_CONTENT</left>
-					<right>PADDING_BUTTON_HORIZONTAL</right>
 
 					<!-- First text line -->
 					<control type="label">
 						<top>-10</top>
 						<font>BODY_STRONG</font>
 						<textcolor>$PARAM[text_color]</textcolor>
+						<selectedcolor>$PARAM[text_color_selected]</selectedcolor>
 						<label>$PARAM[text]</label>
 					</control>
 					<!-- Second text line -->
@@ -95,6 +110,7 @@
 						<top>FONT_SIZE_BODY</top>
 						<font>CAPTION</font>
 						<textcolor>$PARAM[description_color]</textcolor>
+						<selectedcolor>$PARAM[description_color_selected]</selectedcolor>
 						<label>$PARAM[description]</label>
 					</control>
 				</control>
@@ -240,7 +256,7 @@
 							<include content="SettingsOptionContentWithIcon">
 								<param name="icon_circle_color">BACKGROUND_INVERSE_OPAQUE90</param>
 								<param name="icon_color">FOREGROUND_INVERSE</param>
-								<param name="icon">$VAR[SettingsComplexityLevel]</param>
+								<param name="icon">$VAR[SettingsComplexityLevelIcon]</param>
 								<param name="text_color">FOREGROUND_INVERSE</param>
 								<param name="text"> </param>
 								<param name="description_color">FOREGROUND_INVERSE_OPAQUE75</param>
@@ -250,7 +266,7 @@
 						<control type="group">
 							<visible>!Control.HasFocus(20)</visible>
 							<include content="SettingsOptionContentWithIcon">
-								<param name="icon">$VAR[SettingsComplexityLevel]</param>
+								<param name="icon">$VAR[SettingsComplexityLevelIcon]</param>
 								<param name="text"> </param>
 								<param name="description">Settings complexity level</param>
 							</include>
@@ -259,5 +275,320 @@
 				</control>
 			</control>
 		</definition>
+	</include>
+
+	<!-- Actual settings (dynamic content) -->
+	<include name="DynamicSettings">
+		<!-- List of pages (right side when main settings are visible, left otherwise) -->
+		<control type="group">
+			<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+			<height>SCREEN_HEIGHT</height>
+			<left>WIDTH_BACKGROUND_SPLIT</left>
+
+			<!-- List with title -->
+			<control type="group">
+				<!-- Hide when DialogSelect is visible (DialogSelect content will be here) -->
+				<visible>!$EXP[IsSettingsDialogSelectActive]</visible>
+				<include content="ShowHideFadeSlideHorizontalAnimation" />
+
+				<top>PADDING_SETTINGS_VERTICAL</top>
+				<bottom>PADDING_SETTINGS_VERTICAL</bottom>
+				<right>PADDING_SETTINGS_NARROW_SIDE</right>
+				<left>PADDING_SETTINGS_NARROW_SIDE</left>
+
+				<!-- Page name -->
+				<control type="label" id="2">
+					<width>auto</width>
+					<height>FONT_SIZE_TITLE1</height>
+					<right>PADDING_SETTINGS_TITLE</right>
+					<left>PADDING_SETTINGS_TITLE</left>
+					<font>TITLE1</font>
+					<label></label>
+				</control>
+
+				<!-- Pages -->
+				<control type="group">
+					<top>OFFSET_SETTINGS_OPTIONS_START</top>
+
+					<!-- List of options -->
+					<control type="grouplist" id="3">
+						<itemgap>GAP_SETTINGS_LIST_OPTION</itemgap>
+						<usecontrolcoords>true</usecontrolcoords>
+						<onleft>SetFocus(1000)</onleft>
+						<onright>SetFocus(5)</onright>
+					</control>
+
+					<!-- Chevron up (more items) -->
+					<control type="image">
+						<visible>Integer.IsGreater(Container(3).NumItems,6)</visible>
+
+						<width>60</width>
+						<height>60</height>
+						<top>PADDING_GROUPLIST_NARROW_VERTICAL_CHEVRON</top>
+						<centerleft>50%</centerleft>
+						<texture colordiffuse="FOREGROUND_OPAQUE10">1080p/icons/chevron-up.png</texture>
+						<aspectratio>keep</aspectratio>
+					</control>
+
+					<!-- Chevron down (more items) -->
+					<control type="image">
+						<visible>Integer.IsGreater(Container(3).NumItems,6)</visible>
+
+						<width>60</width>
+						<height>60</height>
+						<bottom>PADDING_GROUPLIST_NARROW_VERTICAL_CHEVRON</bottom>
+						<centerleft>50%</centerleft>
+						<texture colordiffuse="FOREGROUND_OPAQUE10" flipy="true">1080p/icons/chevron-up.png</texture>
+						<aspectratio>keep</aspectratio>
+					</control>
+				</control>
+			</control>
+
+			<!-- Page button -->
+			<control type="button" id="10">
+				<width>WIDTH_SETTINGS_GROUPLIST_NARROW_OPTION</width>
+				<height>HEIGHT_BUTTON_DEFAULT</height>
+				<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texturefocus>
+				<texturenofocus />
+				<textoffsety>PADDING_BUTTON_VERTICAL</textoffsety>
+				<textoffsetx>PADDING_BUTTON_HORIZONTAL</textoffsetx>
+				<focusedcolor>FOREGROUND_INVERSE</focusedcolor>
+				<textcolor>FOREGROUND_OPAQUE75</textcolor>
+				<align>left</align>
+				<onclick>SetFocus(5)</onclick>
+			</control>
+
+			<!-- Chevron left -->
+			<control type="image">
+				<visible>!$EXP[IsSettingsDialogSelectActive]</visible>
+				<include content="ShowHideFadeAnimation" />
+				<include content="FocusFadeAnimation">
+					<param name="start">0</param>
+					<param name="end">100</param>
+					<param name="reference_id">1000</param>
+				</include>
+
+				<width>60</width>
+				<height>60</height>
+				<left>PADDING_HALF</left>
+				<centertop>50%</centertop>
+				<texture colordiffuse="FOREGROUND_OPAQUE10" flipx="true">1080p/icons/chevron-right.png</texture>
+				<aspectratio>keep</aspectratio>
+			</control>
+		</control>
+
+		<!-- List of options (right side when main settings are not visible) -->
+		<control type="group">
+			<width>WIDTH_BACKGROUND_SPLIT</width>
+			<height>SCREEN_HEIGHT</height>
+			<left>SCREEN_WIDTH</left>
+
+			<!-- List with description -->
+			<control type="group">
+				<top>PADDING_SETTINGS_OPTIONS_VERTICAL_WIDE</top>
+				<bottom>PADDING_SETTINGS_VERTICAL</bottom>
+				<right>PADDING_SETTINGS_WIDE_SIDE</right>
+				<left>PADDING_SETTINGS_WIDE_SIDE</left>
+
+				<!-- Setting description -->
+				<control type="group">
+					<top>PADDING_BASE</top>
+					<height>100</height>
+
+					<!-- Icon -->
+					<control type="image">
+						<visible>!String.IsEmpty(Control.GetLabel(6))</visible>
+						<width>SIZE_SETTINGS_ICON</width>
+						<height>SIZE_SETTINGS_ICON</height>
+						<top>PADDING_MULT_10</top>
+						<left>PADDING_SETTINGS_NARROW_SIDE</left>
+						<texture colordiffuse="FOREGROUND_DARK">1080p/icons/info.png</texture>
+					</control>
+
+					<!-- Description -->
+					<control type="textbox" id="6">
+						<left>PADDING_LEFT_SETTINGS_INFO</left>
+						<right>PADDING_LEFT_SETTINGS_INFO</right>
+						<height>100</height>
+						<font>CAPTION</font>
+						<textcolor>FOREGROUND_DARK</textcolor>
+						<autoscroll time="3000" delay="5000" repeat="5000">true</autoscroll>
+					</control>
+				</control>
+
+				<!-- Selected page options -->
+				<control type="group">
+					<top>OFFSET_SETTINGS_OPTIONS_START</top>
+
+					<!-- List of options -->
+					<control type="grouplist" id="5">
+						<itemgap>GAP_SETTINGS_LIST_OPTION</itemgap>
+						<usecontrolcoords>true</usecontrolcoords>
+						<pagecontrol>60</pagecontrol>
+						<onleft>SetFocus(3)</onleft>
+						<onright>SetFocus(60)</onright>
+					</control>
+
+					<!-- List scrollbar -->
+					<control type="scrollbar" id="60">
+						<top>PADDING_BASE</top>
+						<bottom>PADDING_DOUBLE</bottom>
+						<right>PADDING_BASE_NEG</right>
+						<onleft>SetFocus(5)</onleft>
+					</control>
+				</control>
+			</control>
+
+			<!-- Section name -->
+			<control type="label" id="14">
+				<height>HEIGHT_SETTINGS_CAPTION</height>
+				<left>PADDING_BUTTON_HORIZONTAL</left>
+				<top>OFFSET_SETTINGS_CAPTION</top>
+				<label></label>
+				<align>left</align>
+				<font>SETTINGS_CAPTION</font>
+				<textcolor>FOREGROUND_ACCENT_ALT</textcolor>
+			</control>
+
+			<!-- Option button -->
+			<control type="button" id="7">
+				<width>WIDTH_SETTINGS_OPTION_WIDE</width>
+			</control>
+			
+			<!-- Radio button -->
+			<control type="radiobutton" id="8">
+				<width>WIDTH_SETTINGS_OPTION_WIDE</width>
+				<radioposx>OFFSET_SETTINGS_OPTION_RADIO_WIDE</radioposx>
+			</control>
+
+			<!-- Spin button -->
+			<control type="spincontrolex" id="9">
+				<width>WIDTH_SETTINGS_OPTION_WIDE</width>
+				<spinposx>OFFSET_SETTINGS_OPTION_SPIN_WIDE</spinposx>
+			</control>
+
+			<!-- Slider button -->
+			<control type="sliderex" id="13">
+				<width>WIDTH_SETTINGS_OPTION_WIDE</width>
+			</control>
+
+			<!-- Color button -->
+			<control type="colorbutton" id="15">
+				<width>WIDTH_SETTINGS_OPTION_WIDE</width>
+			</control>
+		</control>
+	</include>
+
+	<!-- DialogSelect for settings (integrated) -->
+	<include name="SettingsDialogSelect">
+		<control type="group">
+			<include content="ShowHideFadeSlideHorizontalAnimation">
+				<param name="slide_amount">-100</param>
+				<param name="visible_condition">WindowOpen</param>
+				<param name="hidden_condition">WindowCLose</param>
+			</include>
+
+			<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+			<height>SCREEN_HEIGHT</height>
+
+			<!-- List with title -->
+			<control type="group">
+				<top>PADDING_SETTINGS_VERTICAL</top>
+				<bottom>PADDING_SETTINGS_VERTICAL</bottom>
+				<right>PADDING_SETTINGS_NARROW_SIDE</right>
+				<left>PADDING_SETTINGS_NARROW_SIDE</left>
+
+				<!-- Page name -->
+				<control type="label" id="1">
+					<width>560</width>
+					<height>FONT_SIZE_TITLE1</height>
+					<right>PADDING_SETTINGS_TITLE</right>
+					<left>PADDING_SETTINGS_TITLE</left>
+					<font>TITLE1</font>
+					<label></label>
+				</control>
+
+				<!-- Pages -->
+				<control type="group">
+					<top>OFFSET_SETTINGS_OPTIONS_START</top>
+
+					<!-- List of options -->
+					<control type="list" id="3">
+						<itemgap>GAP_SETTINGS_LIST_OPTION</itemgap>
+						<usecontrolcoords>true</usecontrolcoords>
+
+						<onleft>Close</onleft>
+						<onright>Close</onright>
+
+						<focusedlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+							<!-- Fake button selection -->
+							<control type="image">
+								<height>HEIGHT_BUTTON_DEFAULT</height>
+								<texture colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texture>
+							</control>
+							<!-- Content -->
+							<include content="SettingsOptionContentWithIcon">
+								<param name="icon_color">FFFFFFFF</param>
+								<param name="icon_type_circle">$EXP[IsSettingsDialogSelectIconTypeCircle]</param>
+								<param name="icon">$VAR[SettingsDialogSelectIcon]</param>
+								<param name="text_color">FOREGROUND_INVERSE</param>
+								<param name="text_color_selected">FOREGROUND_ACCENT_ALT</param>
+								<param name="text">$INFO[ListItem.Label]</param>
+								<param name="description_color">FOREGROUND_INVERSE_OPAQUE75</param>
+								<param name="description_color_selected">FOREGROUND_ACCENT_ALT_OPAQUE75</param>
+								<param name="description">$INFO[ListItem.Label2]</param>
+							</include>
+						</focusedlayout>
+
+						<itemlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+							<include content="SettingsOptionContentWithIcon">
+								<param name="icon_type_circle">$EXP[IsSettingsDialogSelectIconTypeCircle]</param>
+								<param name="icon">$VAR[SettingsDialogSelectIcon]</param>
+								<param name="text">$INFO[ListItem.Label]</param>
+								<param name="description">$INFO[ListItem.Label2]</param>
+							</include>
+						</itemlayout>
+					</control>
+
+					<!-- List of addons -->
+					<control type="list" id="6">
+						<itemgap>GAP_SETTINGS_LIST_OPTION</itemgap>
+						<usecontrolcoords>true</usecontrolcoords>
+
+						<onleft>Close</onleft>
+						<onright>Close</onright>
+
+						<focusedlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+							<!-- Fake button selection -->
+							<control type="image">
+								<height>HEIGHT_BUTTON_DEFAULT</height>
+								<texture colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texture>
+							</control>
+							<!-- Content -->
+							<include content="SettingsOptionContentWithIcon">
+								<param name="icon_color">FFFFFFFF</param>
+								<param name="icon_type_circle">$EXP[IsSettingsDialogSelectIconTypeCircle]</param>
+								<param name="icon">$VAR[SettingsDialogSelectIcon]</param>
+								<param name="text_color">FOREGROUND_INVERSE</param>
+								<param name="text_color_selected">FOREGROUND_ACCENT_ALT</param>
+								<param name="text">$INFO[ListItem.Label]</param>
+								<param name="description_color">FOREGROUND_INVERSE_OPAQUE75</param>
+								<param name="description_color_selected">FOREGROUND_ACCENT_ALT_OPAQUE75</param>
+								<param name="description">$INFO[ListItem.Label2]</param>
+							</include>
+						</focusedlayout>
+
+						<itemlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+							<include content="SettingsOptionContentWithIcon">
+								<param name="icon_type_circle">$EXP[IsSettingsDialogSelectIconTypeCircle]</param>
+								<param name="icon">$VAR[SettingsDialogSelectIcon]</param>
+								<param name="text">$INFO[ListItem.Label]</param>
+								<param name="description">$INFO[ListItem.Label2]</param>
+							</include>
+						</itemlayout>
+					</control>
+				</control>
+			</control>
+		</control>
 	</include>
 </includes>

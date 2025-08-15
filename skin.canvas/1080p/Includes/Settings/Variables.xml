@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
+	<!-- Icons -->
 	<variable name="SettingsInterfaceIcon"><value>1080p/icons/interface.png</value></variable>
 	<variable name="SettingsSystemIcon"><value>1080p/icons/system.png</value></variable>
 	<variable name="SettingsServicesIcon"><value>1080p/icons/services.png</value></variable>
 	<variable name="SettingsPlayerIcon"><value>1080p/icons/player.png</value></variable>
 	<variable name="SettingsLibraryIcon"><value>1080p/icons/library.png</value></variable>
-	<variable name="SettingsAddonsIcon"><value>1080p/icons/box.png</value></variable>
 
-	<!-- Settings complexity level -->
-	<variable name="SettingsComplexityLevel">
-        <value condition="String.StartsWith(Control.GetLabel(20),$LOCALIZE[10039])">1080p/icons/settings-expert.png</value>
-        <value condition="String.StartsWith(Control.GetLabel(20),$LOCALIZE[10038])">1080p/icons/settings-advanced.png</value>
-        <value condition="String.StartsWith(Control.GetLabel(20),$LOCALIZE[10037])">1080p/icons/settings-standard.png</value>
-        <value condition="String.StartsWith(Control.GetLabel(20),$LOCALIZE[10036])">1080p/icons/settings-basic.png</value>
-    </variable>
+	<!-- Settings complexity level icon -->
+	<variable name="SettingsComplexityLevelIcon">
+		<value condition="String.StartsWith(Control.GetLabel(20),$LOCALIZE[10039])">1080p/icons/settings-expert.png</value>
+		<value condition="String.StartsWith(Control.GetLabel(20),$LOCALIZE[10038])">1080p/icons/settings-advanced.png</value>
+		<value condition="String.StartsWith(Control.GetLabel(20),$LOCALIZE[10037])">1080p/icons/settings-standard.png</value>
+		<value condition="String.StartsWith(Control.GetLabel(20),$LOCALIZE[10036])">1080p/icons/settings-basic.png</value>
+	</variable>
+
+	<!-- DialogSelect icons for settings -->
+	<variable name="SettingsDialogSelectIcon">
+		<value condition="!String.IsEmpty(ListItem.Icon) + !String.IsEqual(ListItem.Icon,DefaultAddon.png)">$INFO[ListItem.Icon]</value>
+		<value condition="[String.IsEmpty(ListItem.Icon) | String.IsEqual(ListItem.Icon,DefaultAddon.png)] + $EXP[IsInterfaceSettingsPageActive]">1080p/icons/interface.png</value>
+		<value condition="[String.IsEmpty(ListItem.Icon) | String.IsEqual(ListItem.Icon,DefaultAddon.png)] + $EXP[IsSystemSettingsPageActive]">1080p/icons/system.png</value>
+		<value condition="[String.IsEmpty(ListItem.Icon) | String.IsEqual(ListItem.Icon,DefaultAddon.png)] + $EXP[IsServiceSettingsPageActive]">1080p/icons/services.png</value>
+		<value condition="[String.IsEmpty(ListItem.Icon) | String.IsEqual(ListItem.Icon,DefaultAddon.png)] + $EXP[IsPlayerSettingsPageActive]">1080p/icons/player.png</value>
+		<value condition="[String.IsEmpty(ListItem.Icon) | String.IsEqual(ListItem.Icon,DefaultAddon.png)] + $EXP[IsMediaSettingsPageActive]">1080p/icons/library.png</value>
+		<!--todo: other types according to actual option (i.e. Fonts should be an icon of font)-->
+	</variable>
 
 	<!-- Constants -->
 	<constant name="WIDTH_BACKGROUND_SPLIT">1200</constant>
@@ -33,7 +44,7 @@
 	<constant name="HEIGHT_SETTINGS_OPTION_CONTENT">70</constant>
 	<constant name="OFFSET_SETTINGS_OPTIONS_CONTENT">100</constant>
 	<constant name="OFFSET_SETTINGS_EXPERT_CONTENT">160</constant>	<!-- Standard option offset + standard button padding = 100 + 60 -->
-	<constant name="GAP_SETTINGS_GROUPLIST_OPTION">-30</constant>
+	<constant name="GAP_SETTINGS_LIST_OPTION">-30</constant>
 
 	<constant name="WIDTH_SETTINGS_GROUPLIST_NARROW_OPTION">560</constant>	<!-- If we use 100% we lose the right border somehow... -->
 	<constant name="PADDING_GROUPLIST_NARROW_VERTICAL_CHEVRON">-40</constant>

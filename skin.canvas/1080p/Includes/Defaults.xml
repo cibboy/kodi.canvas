@@ -6,6 +6,7 @@
 		<font>BODY</font>
 		<scroll>false</scroll>
 		<textcolor>FOREGROUND</textcolor>
+		<selectedcolor>FOREGROUND_ACCENT</selectedcolor>
 	</default>
 
 	<!-- Button -->
