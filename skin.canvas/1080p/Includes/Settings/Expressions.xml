@@ -32,8 +32,8 @@
 		Window.IsDialogTopmost(selectdialog)
 	</expression>
 
-	<!-- Is DialogSelect icon type a circle? -->
-	<expression name="IsSettingsDialogSelectIconTypeCircle">!String.IsEmpty(ListItem.Icon) + !String.IsEqual(ListItem.Icon,DefaultAddon.png)</expression>
+	<!-- Has DialogSelect an actual icon? -->
+	<expression name="HasSettingsDialogSelectIcon">!String.IsEmpty(ListItem.Icon) + !String.IsEqual(ListItem.Icon,DefaultAddon.png)</expression>
 
 	<!--
 		Has main section list focus?

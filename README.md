@@ -1,12 +1,31 @@
 TOFIX:
 - aggiunto genre audio in plugin (potenzialmente una lista, quindi bisognerà fare delle prove con ulteriore scraping e aggiornamento tag mp3, che è stata aggiunta alla details info line 2)
 - home side menu non ha gli angoli arrotondati sul overlay perchè c'è scalediffuse su aspectratio
+- finire icone di variabile SettingsDialogSelectIcon (solo quelle con vera icona, le altre devono essere senza e quindi bisogna togliere il posto dell'icona, ma a questo punto conviene usare l'include dell'icona solo per quelle con icona, per le altre basta fare un include diverso?)
+- rendere scrollabili le label dei "pulsanti" opzioni (quelli con icona) e del titolo della sezione
 
 TODO:
+- dialog in settings da fare:
+  - SettingsScreenCalibration.xml: system > display
+  - DialogSettings.xml (per master lock? courtesy screen "not supported"): interface > master lock
+  - DialogGameControllers.xml (courtesy screen "not supported"): system > input
+  - DialogColorPicker.xml: player > subtitles > color/border color
+  - MyVideoNav.xml: media > library > videos
+  - MyMusicNav.xml: media > library > music
+  - MyPics.xml: media > library > pictures
+  - DialogSelect.xml
+    - peripherals: system > input
+  - Generici (o quasi)
+    - DialogKeyboard.xml (dove serve digitare, ad esempio system > internet > proxy > server)
+    - AddonBrowser.xml: system > addons > manage dependencies
+    - DialogConfirm.xml (ad esempio system > addons > remove all orphaned dependencies)
+    - FileBrowser.xml (ad esempio system > logging > screenshot folder)
+    - Eventlog.xml: system > logging > show event log
+    - DialogAddonSettings.xml (ad esempio player > discs > encoder > setting)
+- Creare in Dialogs.xml il bg del flyout, da usare sia nei dialog generici, che nei flyout sulla home (filtri, shutdown menu)
 - manca il caricamento della lista pictures
 - sorting include "The", bisognerebbe usare il sorttitle, ma è stringa vuota
 - creare possibilità di sbiancare la cache in temp
-  - prima posizionare blur in temp/canvas.blur, clearlogo in temp/canvas.clearlogo e mp3 in temp/canvas.sound (da fare più avanti, quando si può testare il primo loading)
 - capire se investire il tempo per farsi da 0 le impostazioni come Android TV usando JSON-RPC (vedi AndroidTVSettings.md)
 
 - skin settings (skinsettings) > sub of interface?

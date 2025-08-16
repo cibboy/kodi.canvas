@@ -41,7 +41,7 @@
 		</definition>
 	</include>
 
-	<!-- Content for fake option button with icon -->
+	<!-- Content for fake option button with icon (multiline) -->
 	<include name="SettingsOptionContentWithIcon">
 		<param name="icon_circle_color">BACKGROUND_OPAQUE20</param>
 		<param name="icon_color">BACKGROUND_INVERSE_OPAQUE50</param>
@@ -53,6 +53,7 @@
 		<param name="description_color">FOREGROUND_OPAQUE50</param>
 		<param name="description_color_selected">FOREGROUND_ACCENT_OPAQUE50</param>
 		<param name="description">$INFO[ListItem.Property(description)]</param>
+		<param name="scroll">false</param>
 
 		<definition>
 			<control type="group">
@@ -88,7 +89,7 @@
 						<height>HEIGHT_SETTINGS_OPTION_CONTENT</height>
 						<centertop>50%</centertop>
 						<centerleft>50%</centerleft>
-						<texture colordiffuse="$PARAM[icon_color]" diffuse="1080p/diffuse/circle.png">$PARAM[icon]</texture>
+						<texture diffuse="1080p/diffuse/circle.png">$PARAM[icon]</texture>
 					</control>
 				</control>
 
@@ -99,11 +100,12 @@
 
 					<!-- First text line -->
 					<control type="label">
-						<top>-10</top>
+						<top>OFFSET_SETTINGS_OPTION_TITLE</top>
 						<font>BODY_STRONG</font>
 						<textcolor>$PARAM[text_color]</textcolor>
 						<selectedcolor>$PARAM[text_color_selected]</selectedcolor>
 						<label>$PARAM[text]</label>
+						<scroll>$PARAM[scroll]</scroll>
 					</control>
 					<!-- Second text line -->
 					<control type="label">
@@ -112,8 +114,101 @@
 						<textcolor>$PARAM[description_color]</textcolor>
 						<selectedcolor>$PARAM[description_color_selected]</selectedcolor>
 						<label>$PARAM[description]</label>
+						<scroll>$PARAM[scroll]</scroll>
 					</control>
 				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Content for fake option button with selection mark (single line) -->
+	<include name="SettingsOptionContentWithSelection">
+		<param name="selectionmark_color">FOREGROUND_ACCENT_OPAQUE75</param>
+		<param name="is_selected">false</param>
+		<param name="text_color">FOREGROUND_OPAQUE75</param>
+		<param name="text_color_selected">FOREGROUND_ACCENT_OPAQUE75</param>
+		<param name="text">$INFO[ListItem.Label]</param>
+		<param name="text_scroll">false</param>
+
+		<definition>
+			<control type="group">
+				<top>PADDING_BUTTON_VERTICAL</top>
+				<bottom>PADDING_BUTTON_VERTICAL</bottom>
+				<left>PADDING_BUTTON_HORIZONTAL</left>
+				<right>PADDING_BUTTON_HORIZONTAL</right>
+
+				<!-- Selection mark -->
+				<control type="group">
+					<width>HEIGHT_SETTINGS_OPTION_CONTENT</width>
+					<height>HEIGHT_SETTINGS_OPTION_CONTENT</height>
+
+					<!-- Selection mark (selected) -->
+					<control type="image">
+						<visible>$PARAM[is_selected]</visible>
+						<width>SIZE_SETTINGS_SELECTIONMARK</width>
+						<height>SIZE_SETTINGS_SELECTIONMARK</height>
+						<centertop>50%</centertop>
+						<centerleft>50%</centerleft>
+						<texture colordiffuse="$PARAM[selectionmark_color]">1080p/controls/check-on.png</texture>
+					</control>
+					<!-- Selection mark (not selected) -->
+					<control type="image">
+						<visible>!$PARAM[is_selected]</visible>
+						<width>SIZE_SETTINGS_SELECTIONMARK</width>
+						<height>SIZE_SETTINGS_SELECTIONMARK</height>
+						<centertop>50%</centertop>
+						<centerleft>50%</centerleft>
+						<texture colordiffuse="$PARAM[selectionmark_color]">1080p/controls/check-off.png</texture>
+					</control>
+				</control>
+
+				<!-- Label -->
+				<control type="group">
+					<height>HEIGHT_SETTINGS_OPTION_CONTENT</height>
+					<left>OFFSET_SETTINGS_OPTIONS_SELECTIONMARK_CONTENT</left>
+
+					<!-- Text -->
+					<control type="label">
+						<centertop>OFFSET_SETTINGS_OPTION_TITLE_SINGLELINE</centertop>
+						<font>BODY_STRONG</font>
+						<textcolor>$PARAM[text_color]</textcolor>
+						<selectedcolor>$PARAM[text_color_selected]</selectedcolor>
+						<label>$PARAM[text]</label>
+						<scroll>$PARAM[text_scroll]</scroll>
+					</control>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Chevrons up/down for lists without scrollbar -->
+	<include name="SettingsUpDownChevrons">
+		<param name="visible_up">false</param>
+		<param name="visible_down">false</param>
+
+		<definition>
+			<!-- Chevron up (more items) -->
+			<control type="image">
+				<visible>$PARAM[visible_up]</visible>
+
+				<width>60</width>
+				<height>60</height>
+				<top>PADDING_LIST_NARROW_VERTICAL_CHEVRON</top>
+				<centerleft>50%</centerleft>
+				<texture colordiffuse="FOREGROUND_OPAQUE10">1080p/icons/chevron-up.png</texture>
+				<aspectratio>keep</aspectratio>
+			</control>
+
+			<!-- Chevron down (more items) -->
+			<control type="image">
+				<visible>$PARAM[visible_down]</visible>
+
+				<width>60</width>
+				<height>60</height>
+				<bottom>PADDING_LIST_NARROW_VERTICAL_CHEVRON</bottom>
+				<centerleft>50%</centerleft>
+				<texture colordiffuse="FOREGROUND_OPAQUE10" flipy="true">1080p/icons/chevron-up.png</texture>
+				<aspectratio>keep</aspectratio>
 			</control>
 		</definition>
 	</include>
@@ -194,35 +289,35 @@
 							<!-- Interface -->
 							<item id="1">
 								<thumb>$VAR[SettingsInterfaceIcon]</thumb>
-								<property name="title">Interface</property>
+								<property name="title">$LOCALIZE[14206]</property>
 								<property name="description">Skin, regional, screensaver</property>
 								<property name="page">appearancesettings</property>
 							</item>
 							<!-- System -->
 							<item id="2">
 								<thumb>$VAR[SettingsSystemIcon]</thumb>
-								<property name="title">System</property>
+								<property name="title">$LOCALIZE[13000]</property>
 								<property name="description">Video, audio, input, logging</property>
 								<property name="page">systemsettings</property>
 							</item>
 							<!-- Services -->
 							<item id="3">
 								<thumb>$VAR[SettingsServicesIcon]</thumb>
-								<property name="title">Services</property>
+								<property name="title">$LOCALIZE[14036]</property>
 								<property name="description">Remote, protocols, caching</property>
 								<property name="page">servicesettings</property>
 							</item>
 							<!-- Player -->
 							<item id="4">
 								<thumb>$VAR[SettingsPlayerIcon]</thumb>
-								<property name="title">Player</property>
+								<property name="title">$LOCALIZE[14200]</property>
 								<property name="description">Playback, OSD</property>
 								<property name="page">playersettings</property>
 							</item>
 							<!-- Library -->
 							<item id="5">
 								<thumb>$VAR[SettingsLibraryIcon]</thumb>
-								<property name="title">Library</property>
+								<property name="title">$LOCALIZE[14211]</property>
 								<property name="description">Library management and options</property>
 								<property name="page">mediasettings</property>
 							</item>
@@ -318,33 +413,15 @@
 						<onright>SetFocus(5)</onright>
 					</control>
 
-					<!-- Chevron up (more items) -->
-					<control type="image">
-						<visible>Integer.IsGreater(Container(3).NumItems,6)</visible>
-
-						<width>60</width>
-						<height>60</height>
-						<top>PADDING_GROUPLIST_NARROW_VERTICAL_CHEVRON</top>
-						<centerleft>50%</centerleft>
-						<texture colordiffuse="FOREGROUND_OPAQUE10">1080p/icons/chevron-up.png</texture>
-						<aspectratio>keep</aspectratio>
-					</control>
-
-					<!-- Chevron down (more items) -->
-					<control type="image">
-						<visible>Integer.IsGreater(Container(3).NumItems,6)</visible>
-
-						<width>60</width>
-						<height>60</height>
-						<bottom>PADDING_GROUPLIST_NARROW_VERTICAL_CHEVRON</bottom>
-						<centerleft>50%</centerleft>
-						<texture colordiffuse="FOREGROUND_OPAQUE10" flipy="true">1080p/icons/chevron-up.png</texture>
-						<aspectratio>keep</aspectratio>
-					</control>
+					<!-- Chevrons up/down if more content is available -->
+					<include content="SettingsUpDownChevrons">
+						<param name="visible_up">Integer.IsGreater(Container(3).NumItems,6)</param>
+						<param name="visible_down">Integer.IsGreater(Container(3).NumItems,6)</param>
+					</include>
 				</control>
 			</control>
 
-			<!-- Page button -->
+			<!-- Page option template -->
 			<control type="button" id="10">
 				<width>WIDTH_SETTINGS_GROUPLIST_NARROW_OPTION</width>
 				<height>HEIGHT_BUTTON_DEFAULT</height>
@@ -498,7 +575,7 @@
 				<right>PADDING_SETTINGS_NARROW_SIDE</right>
 				<left>PADDING_SETTINGS_NARROW_SIDE</left>
 
-				<!-- Page name -->
+				<!-- Option name -->
 				<control type="label" id="1">
 					<width>560</width>
 					<height>FONT_SIZE_TITLE1</height>
@@ -508,7 +585,7 @@
 					<label></label>
 				</control>
 
-				<!-- Pages -->
+				<!-- Options -->
 				<control type="group">
 					<top>OFFSET_SETTINGS_OPTIONS_START</top>
 
@@ -516,6 +593,7 @@
 					<control type="list" id="3">
 						<itemgap>GAP_SETTINGS_LIST_OPTION</itemgap>
 						<usecontrolcoords>true</usecontrolcoords>
+						<height>HEIGHT_SETTINGS_DIALOG_LIST</height>
 
 						<onleft>Close</onleft>
 						<onright>Close</onright>
@@ -526,26 +604,21 @@
 								<height>HEIGHT_BUTTON_DEFAULT</height>
 								<texture colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texture>
 							</control>
+
 							<!-- Content -->
-							<include content="SettingsOptionContentWithIcon">
-								<param name="icon_color">FFFFFFFF</param>
-								<param name="icon_type_circle">$EXP[IsSettingsDialogSelectIconTypeCircle]</param>
-								<param name="icon">$VAR[SettingsDialogSelectIcon]</param>
+							<include content="SettingsOptionContentWithSelection">
+								<param name="selectionmark_color">FOREGROUND_ACCENT_ALT</param>
+								<param name="is_selected">ListItem.IsSelected</param>
 								<param name="text_color">FOREGROUND_INVERSE</param>
 								<param name="text_color_selected">FOREGROUND_ACCENT_ALT</param>
-								<param name="text">$INFO[ListItem.Label]</param>
-								<param name="description_color">FOREGROUND_INVERSE_OPAQUE75</param>
-								<param name="description_color_selected">FOREGROUND_ACCENT_ALT_OPAQUE75</param>
-								<param name="description">$INFO[ListItem.Label2]</param>
+								<param name="text_scroll">true</param>
 							</include>
 						</focusedlayout>
 
 						<itemlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
-							<include content="SettingsOptionContentWithIcon">
-								<param name="icon_type_circle">$EXP[IsSettingsDialogSelectIconTypeCircle]</param>
-								<param name="icon">$VAR[SettingsDialogSelectIcon]</param>
-								<param name="text">$INFO[ListItem.Label]</param>
-								<param name="description">$INFO[ListItem.Label2]</param>
+							<include content="SettingsOptionContentWithSelection">
+								<param name="is_selected">ListItem.IsSelected</param>
+								<param name="text_scroll">false</param>
 							</include>
 						</itemlayout>
 					</control>
@@ -554,6 +627,7 @@
 					<control type="list" id="6">
 						<itemgap>GAP_SETTINGS_LIST_OPTION</itemgap>
 						<usecontrolcoords>true</usecontrolcoords>
+						<height>HEIGHT_SETTINGS_DIALOG_LIST</height>
 
 						<onleft>Close</onleft>
 						<onright>Close</onright>
@@ -566,8 +640,9 @@
 							</control>
 							<!-- Content -->
 							<include content="SettingsOptionContentWithIcon">
-								<param name="icon_color">FFFFFFFF</param>
-								<param name="icon_type_circle">$EXP[IsSettingsDialogSelectIconTypeCircle]</param>
+								<param name="icon_circle_color">BACKGROUND_INVERSE_OPAQUE90</param>
+								<param name="icon_color">FOREGROUND_INVERSE</param>
+								<param name="icon_type_circle">$EXP[HasSettingsDialogSelectIcon]</param>
 								<param name="icon">$VAR[SettingsDialogSelectIcon]</param>
 								<param name="text_color">FOREGROUND_INVERSE</param>
 								<param name="text_color_selected">FOREGROUND_ACCENT_ALT</param>
@@ -575,18 +650,28 @@
 								<param name="description_color">FOREGROUND_INVERSE_OPAQUE75</param>
 								<param name="description_color_selected">FOREGROUND_ACCENT_ALT_OPAQUE75</param>
 								<param name="description">$INFO[ListItem.Label2]</param>
+								<param name="single_line">String.IsEmpty(ListItem.Label2)</param>
+								<param name="scroll">true</param>
 							</include>
 						</focusedlayout>
 
 						<itemlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
 							<include content="SettingsOptionContentWithIcon">
-								<param name="icon_type_circle">$EXP[IsSettingsDialogSelectIconTypeCircle]</param>
+								<param name="icon_type_circle">$EXP[HasSettingsDialogSelectIcon]</param>
 								<param name="icon">$VAR[SettingsDialogSelectIcon]</param>
 								<param name="text">$INFO[ListItem.Label]</param>
 								<param name="description">$INFO[ListItem.Label2]</param>
+								<param name="single_line">String.IsEmpty(ListItem.Label2)</param>
+								<param name="scroll">false</param>
 							</include>
 						</itemlayout>
 					</control>
+
+					<!-- Chevrons up/down if more content is available -->
+					<include content="SettingsUpDownChevrons">
+						<param name="visible_up">[Control.HasFocus(3) + Integer.IsGreater(Container(3).NumItems,6)] | [Control.HasFocus(6) + Integer.IsGreater(Container(6).NumItems,6)]</param>
+						<param name="visible_down">[Control.HasFocus(3) + Integer.IsGreater(Container(3).NumItems,6)] | [Control.HasFocus(6) + Integer.IsGreater(Container(6).NumItems,6)]</param>
+					</include>
 				</control>
 			</control>
 		</control>
