@@ -111,6 +111,7 @@
 					
 					<onright>$INFO[Container(1).ListItem.Property(onright)]</onright>
 					<onclick>$INFO[Container(1).ListItem.Property(onclick)]</onclick>
+					<!-- Open flyout if not playing something in background -->
 					<onback condition="!Player.HasMedia">SetFocus(1000)</onback>
 
 					<focusedlayout height="90">
@@ -623,8 +624,8 @@
 		</definition>
 	</include>
 
-	<!-- Modal menu -->
-	<include name="HomeModalMenu">
+	<!-- Flyout menu -->
+	<include name="HomeFlyoutMenu">
 		<control type="group">
 			<!-- Darkening layer (with fade) -->
 			<control type="group">
@@ -666,6 +667,7 @@
 					<left>PADDING_BASE</left>
 
 					<onback>SetFocus(1)</onback>
+					<onclick>SetFocus(1)</onclick>
 					<onclick>$INFO[ListItem.Property(onclick)]</onclick>
 
 					<itemlayout height="100">

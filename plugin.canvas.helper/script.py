@@ -117,6 +117,7 @@ def init_home():
     list_objects('songs', {'listid': 141}, 40)      # All music
     list_objects('pictures', {'listid': 151}, 50)   # Pictures
     window.setProperty('Home.IsLoading', 'false')
+    window.setProperty('Home.HasLoaded', 'true')
     
     # Briefly set focus on the first available home item, then return to the main menu.
     # This allows to properly set focuses as well as loading the right item details

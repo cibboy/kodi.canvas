@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-	<onload>RunScript(script.canvas.helper,init_home)</onload>
+	<onload condition="!String.IsEqual(Window(home).Property(Home.HasLoaded),true)">RunScript(script.canvas.helper,init_home)</onload>
 	<defaultcontrol>1</defaultcontrol>
 
 	<controls>
@@ -42,7 +42,7 @@
 			</include>
 
 			<!-- Right modal menu -->
-			<include content="HomeModalMenu" />
+			<include content="HomeFlyoutMenu" />
 		</control>
 	</controls>
 </window>
