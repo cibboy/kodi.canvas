@@ -22,17 +22,11 @@ TODO:
 - sorting include "The", bisognerebbe usare il sorttitle, ma è stringa vuota
 - creare possibilità di sbiancare la cache in temp
 
-- skin settings (skinsettings) > sub of interface?
-x interface (interfacesettings)
-x media library (mediasettings)
-x player (playersettings)
-x system (systemsettings)
-x services (servicesettings)
+- skin settings (skinsettings) > sub of interface
 - pvr, profiles, file manager
-- addons (addonbrowser!)
+- addons (addonbrowser)
 - information (systeminfo)
 - event log (eventlog)
-- settings level, where?
 
 
 

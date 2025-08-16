@@ -613,8 +613,9 @@
 						<usecontrolcoords>true</usecontrolcoords>
 						<height>HEIGHT_SETTINGS_DIALOG_LIST</height>
 
-						<onleft>Close</onleft>
-						<onright>Close</onright>
+						<!-- Close dialog on left, right, by simulating a click on OK (necessary for multiselects) -->
+						<onleft>SendClick(5)</onleft>
+						<onright>SendClick(5)</onright>
 
 						<focusedlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
 							<!-- Fake button selection -->
