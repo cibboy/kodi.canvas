@@ -13,7 +13,7 @@
 	<default type="button">
 		<width>auto</width>
 		<height>HEIGHT_BUTTON_DEFAULT</height>
-		<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texturefocus>
+		<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
 		<texturenofocus />
 		<font>BUTTON</font>
 		<textcolor>FOREGROUND_OPAQUE75</textcolor>
@@ -31,7 +31,7 @@
 	<default type="radiobutton">
 		<width>auto</width>
 		<height>HEIGHT_BUTTON_DEFAULT</height>
-		<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texturefocus>
+		<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
 		<texturenofocus />
 		<textureradioonfocus colordiffuse="FOREGROUND_ACCENT_ALT">1080p/controls/check-on.png</textureradioonfocus>
 		<textureradioonnofocus colordiffuse="FOREGROUND_OPAQUE35">1080p/controls/check-on.png</textureradioonnofocus>
@@ -56,7 +56,7 @@
 	<default type="spincontrolex">
 		<width>auto</width>
 		<height>HEIGHT_BUTTON_DEFAULT</height>
-		<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texturefocus>
+		<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
 		<texturenofocus />
 		<textureup colordiffuse="FOREGROUND_INVERSE">1080p/controls/spin-up.png</textureup>
 		<textureupfocus colordiffuse="FOREGROUND_ACCENT_ALT">1080p/controls/spin-up.png</textureupfocus>
@@ -82,7 +82,7 @@
 	<default type="sliderex">
 		<width>auto</width>
 		<height>HEIGHT_BUTTON_DEFAULT</height>
-		<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texturefocus>
+		<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
 		<texturenofocus />
 		<texturesliderbar colordiffuse="FOREGROUND_INVERSE" border="6">1080p/progress/bg.png</texturesliderbar>
 		<texturesliderbardisabled colordiffuse="FOREGROUND_OPAQUE35" border="6">1080p/progress/bg.png</texturesliderbardisabled>
@@ -107,7 +107,7 @@
 	<default type="colorbutton">
 		<width>auto</width>
 		<height>HEIGHT_BUTTON_DEFAULT</height>
-		<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">1080p/controls/button.png</texturefocus>
+		<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
 		<texturenofocus />
 		<texturecolormask>1080p/controls/colorpicker.png</texturecolormask>
 		<texturecolordisabledmask colordiffuse="FOREGROUND_OPAQUE35">1080p/controls/colorpicker.png</texturecolordisabledmask>

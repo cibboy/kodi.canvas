@@ -48,10 +48,22 @@
 			Window.IsDialogTopmost(yesnodialog)
 		]
 	</expression>
+	<!-- Is DialogColorPicker active in settings? -->
+	<expression name="IsSettingsDialogColorPickerActive">
+		[
+			Window.IsActive(appearancesettings) |
+			Window.IsActive(systemsettings) |
+			Window.IsActive(servicesettings) |
+			Window.IsActive(playersettings) |
+			Window.IsActive(mediasettings)
+		] +
+		Window.IsDialogTopmost(dialogcolorpicker)
+	</expression>
 	<!-- Is any dialog active in settings? -->
 	<expression name="IsSettingsAnyDialogActive">
 		$EXP[IsSettingsDialogSelectActive] |
-		$EXP[IsSettingsDialogConfirmActive]
+		$EXP[IsSettingsDialogConfirmActive] |
+		$EXP[IsSettingsDialogColorPickerActive]
 	</expression>
 
 	<!-- Has DialogSelect an actual icon? -->

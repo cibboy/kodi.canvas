@@ -147,4 +147,50 @@
 			</control>
 		</control>
 	</include>
+
+	<!--todo-->
+	<include name="StandardDialogColorPicker">
+		<control type="group">
+			<height>400</height>
+			<centertop>50%</centertop>
+			<centerleft>50%</centerleft>
+			<width>915</width>
+			<control type="label" id="1">
+				<left>30</left>
+				<top>82</top>
+				<width>855</width>
+				<height>165</height>
+				<label></label>
+			</control>
+			<control type="button" id="7">
+				<width>300</width>
+				<height>100</height>
+				<label></label>
+				<font>body</font>
+				<textoffsetx>20</textoffsetx>
+				<onclick></onclick>
+				<wrapmultiline>false</wrapmultiline>
+				<align>center</align>
+				<texturefocus border="40" colordiffuse="FFFF0000">diffuse.png</texturefocus>
+				<texturenofocus border="40">diffuse.png</texturenofocus>
+				<visible>true</visible>
+				<enable>true</enable>
+			</control>
+			<control type="panel" id="6">
+				<left>0</left>
+				<top>290</top>
+				<width>915</width>
+				<itemlayout height="80" width="80">
+					<control type="image">
+						<texture colordiffuse="$INFO[ListItem.Label2]">diffuse.png</texture>
+					</control>
+				</itemlayout>
+				<focusedlayout height="80" width="80">
+					<control type="image">
+						<texture colordiffuse="$INFO[ListItem.Label2]">diffuse.png</texture>
+					</control>
+				</focusedlayout>
+			</control>
+		</control>
+	</include>
 </includes>

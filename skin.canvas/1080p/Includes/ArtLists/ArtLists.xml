@@ -103,8 +103,8 @@
 					<width>WIDTH_POSTER</width>
 					<height>HEIGHT_POSTER</height>
 					<texture fallback="1080p/fallback/poster.png" background="true" diffuse="1080p/diffuse/poster.png">$PARAM[art]</texture>
-					<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-square.png</bordertexture>
-					<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
+					<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-art.png</bordertexture>
+					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
 					<aspectratio scalediffuse="false">scale</aspectratio>
 				</control>
 				
@@ -142,8 +142,8 @@
 				<width>WIDTH_ALBUM</width>
 				<height>HEIGHT_ALBUM</height>
 				<texture fallback="1080p/fallback/square.png" background="true" diffuse="1080p/diffuse/square.png">$PARAM[art]</texture>
-				<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-square.png</bordertexture>
-				<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
+				<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-art.png</bordertexture>
+				<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
 				<aspectratio scalediffuse="false">scale</aspectratio>
 			</control>
 		</definition>
@@ -165,8 +165,8 @@
 					<width>WIDTH_LANDSCAPE</width>
 					<height>HEIGHT_LANDSCAPE</height>
 					<texture fallback="1080p/fallback/landscape.png" background="true" diffuse="1080p/diffuse/landscape.png">$PARAM[art]</texture>
-					<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-square.png</bordertexture>
-					<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
+					<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-art.png</bordertexture>
+					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
 					<aspectratio scalediffuse="false">scale</aspectratio>
 				</control>
 
@@ -238,9 +238,9 @@
 								<top>OFFSET_LANDSCAPE_STRIP_INFO</top>
 
 								<control type="group">
-									<top>SIZE_ITEM_SHADOW_SQUARE</top>
-									<left>SIZE_ITEM_SHADOW_SQUARE</left>
-									<right>SIZE_ITEM_SHADOW_SQUARE</right>
+									<top>SIZE_ITEM_SHADOW_ART</top>
+									<left>SIZE_ITEM_SHADOW_ART</left>
+									<right>SIZE_ITEM_SHADOW_ART</right>
 									<width>100%</width>
 
 									<!-- Title/clearlogo -->
@@ -314,9 +314,9 @@
 								<top>OFFSET_LANDSCAPE_STRIP_INFO</top>
 
 								<control type="group">
-									<top>SIZE_ITEM_SHADOW_SQUARE</top>
-									<left>SIZE_ITEM_SHADOW_SQUARE</left>
-									<right>SIZE_ITEM_SHADOW_SQUARE</right>
+									<top>SIZE_ITEM_SHADOW_ART</top>
+									<left>SIZE_ITEM_SHADOW_ART</left>
+									<right>SIZE_ITEM_SHADOW_ART</right>
 									<width>100%</width>
 
 									<!-- Title/clearlogo -->
@@ -497,9 +497,9 @@
 								<top>OFFSET_ALBUM_INFO</top>
 
 								<control type="group">
-									<top>SIZE_ITEM_SHADOW_SQUARE</top>
-									<left>SIZE_ITEM_SHADOW_SQUARE</left>
-									<right>SIZE_ITEM_SHADOW_SQUARE</right>
+									<top>SIZE_ITEM_SHADOW_ART</top>
+									<left>SIZE_ITEM_SHADOW_ART</left>
+									<right>SIZE_ITEM_SHADOW_ART</right>
 
 									<!-- Info line 1 -->
 									<control type="label">
@@ -542,9 +542,9 @@
 								<top>OFFSET_ALBUM_INFO</top>
 
 								<control type="group">
-									<top>SIZE_ITEM_SHADOW_SQUARE</top>
-									<left>SIZE_ITEM_SHADOW_SQUARE</left>
-									<right>SIZE_ITEM_SHADOW_SQUARE</right>
+									<top>SIZE_ITEM_SHADOW_ART</top>
+									<left>SIZE_ITEM_SHADOW_ART</left>
+									<right>SIZE_ITEM_SHADOW_ART</right>
 
 									<!-- Info line 1 -->
 									<control type="label">
@@ -693,9 +693,9 @@
 								<top>OFFSET_ALBUM_INFO</top>
 
 								<control type="group">
-									<top>SIZE_ITEM_SHADOW_SQUARE</top>
-									<left>SIZE_ITEM_SHADOW_SQUARE</left>
-									<right>SIZE_ITEM_SHADOW_SQUARE</right>
+									<top>SIZE_ITEM_SHADOW_ART</top>
+									<left>SIZE_ITEM_SHADOW_ART</left>
+									<right>SIZE_ITEM_SHADOW_ART</right>
 
 									<!-- Info line 1 -->
 									<control type="label">
@@ -738,9 +738,9 @@
 								<top>OFFSET_ALBUM_INFO</top>
 
 								<control type="group">
-									<top>SIZE_ITEM_SHADOW_SQUARE</top>
-									<left>SIZE_ITEM_SHADOW_SQUARE</left>
-									<right>SIZE_ITEM_SHADOW_SQUARE</right>
+									<top>SIZE_ITEM_SHADOW_ART</top>
+									<left>SIZE_ITEM_SHADOW_ART</left>
+									<right>SIZE_ITEM_SHADOW_ART</right>
 
 									<!-- Info line 1 -->
 									<control type="label">

@@ -76,5 +76,7 @@
 	<constant name="OFFSET_SETTINGS_OPTION_TITLE_SINGLELINE">38</constant>
 
 	<constant name="SIZE_SETTINGS_DIALOG_SELECTIONMARK">24</constant>
+	<constant name="SIZE_SETTINGS_DIALOG_COLOR">90</constant>
+	<constant name="SIZE_SETTINGS_DIALOG_COLOR_PADDED">88</constant>
 	<constant name="OFFSET_SETTINGS_DIALOG_OPTIONS_SELECTIONMARK_CONTENT">80</constant>
 </includes>
