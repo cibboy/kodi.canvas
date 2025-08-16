@@ -77,4 +77,74 @@
 			</focusedlayout>
 		</control>
 	</include>
+
+	<!--todo-->
+	<include name="StandardDialogConfirm">
+		<control type="group">
+			<height>400</height>
+			<centertop>50%</centertop>
+			<centerleft>50%</centerleft>
+			<width>915</width>
+			<control type="textbox" id="9">
+				<left>30</left>
+				<top>82</top>
+				<width>855</width>
+				<height>165</height>
+				<label></label>
+				<autoscroll time="3000" delay="4000" repeat="5000">true</autoscroll>
+			</control>
+			<control type="progress" id="20">
+				<left>30</left>
+				<top>262</top>
+				<width>855</width>
+				<height>24</height>
+				<info>System.Progressbar</info>
+			</control>
+			<control type="grouplist" id="9000">
+				<orientation>horizontal</orientation>
+				<left>0</left>
+				<top>290</top>
+				<width>915</width>
+				<align>center</align>
+				<control type="button" id="11">
+					<width>300</width>
+					<height>100</height>
+					<label></label>
+					<font>body</font>
+					<textoffsetx>20</textoffsetx>
+					<onclick></onclick>
+					<wrapmultiline>false</wrapmultiline>
+					<align>center</align>
+					<texturefocus border="40" colordiffuse="FFFF0000">diffuse.png</texturefocus>
+					<texturenofocus border="40">diffuse.png</texturenofocus>
+					<visible>true</visible>
+					<enable>true</enable>
+				</control>
+				<control type="button" id="10">
+					<width>300</width>
+					<height>100</height>
+					<label></label>
+					<font>body</font>
+					<textoffsetx>20</textoffsetx>
+					<onclick></onclick>
+					<wrapmultiline>false</wrapmultiline>
+					<align>center</align>
+					<visible>true</visible>
+					<enable>true</enable>
+				</control>
+				<control type="button" id="12">
+					<width>300</width>
+					<height>100</height>
+					<label></label>
+					<font>body</font>
+					<textoffsetx>20</textoffsetx>
+					<onclick></onclick>
+					<wrapmultiline>false</wrapmultiline>
+					<align>center</align>
+					<visible>true</visible>
+					<enable>true</enable>
+				</control>
+			</control>
+		</control>
+	</include>
 </includes>

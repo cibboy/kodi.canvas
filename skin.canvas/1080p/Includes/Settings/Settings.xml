@@ -145,8 +145,8 @@
 					<!-- Selection mark (selected) -->
 					<control type="image">
 						<visible>$PARAM[is_selected]</visible>
-						<width>SIZE_SETTINGS_SELECTIONMARK</width>
-						<height>SIZE_SETTINGS_SELECTIONMARK</height>
+						<width>SIZE_SETTINGS_DIALOG_SELECTIONMARK</width>
+						<height>SIZE_SETTINGS_DIALOG_SELECTIONMARK</height>
 						<centertop>50%</centertop>
 						<centerleft>50%</centerleft>
 						<texture colordiffuse="$PARAM[selectionmark_color]">1080p/controls/check-on.png</texture>
@@ -154,8 +154,8 @@
 					<!-- Selection mark (not selected) -->
 					<control type="image">
 						<visible>!$PARAM[is_selected]</visible>
-						<width>SIZE_SETTINGS_SELECTIONMARK</width>
-						<height>SIZE_SETTINGS_SELECTIONMARK</height>
+						<width>SIZE_SETTINGS_DIALOG_SELECTIONMARK</width>
+						<height>SIZE_SETTINGS_DIALOG_SELECTIONMARK</height>
 						<centertop>50%</centertop>
 						<centerleft>50%</centerleft>
 						<texture colordiffuse="$PARAM[selectionmark_color]">1080p/controls/check-off.png</texture>
@@ -165,7 +165,7 @@
 				<!-- Label -->
 				<control type="group">
 					<height>HEIGHT_SETTINGS_OPTION_CONTENT</height>
-					<left>OFFSET_SETTINGS_OPTIONS_SELECTIONMARK_CONTENT</left>
+					<left>OFFSET_SETTINGS_DIALOG_OPTIONS_SELECTIONMARK_CONTENT</left>
 
 					<!-- Text -->
 					<control type="label">
@@ -382,8 +382,8 @@
 
 			<!-- List with title -->
 			<control type="group">
-				<!-- Hide when DialogSelect is visible (DialogSelect content will be here) -->
-				<visible>!$EXP[IsSettingsDialogSelectActive]</visible>
+				<!-- Hide when a dialog is visible (the dialog's content will be here) -->
+				<visible>!$EXP[IsSettingsAnyDialogActive]</visible>
 				<include content="ShowHideFadeSlideHorizontalAnimation" />
 
 				<top>PADDING_SETTINGS_VERTICAL</top>
@@ -437,7 +437,7 @@
 
 			<!-- Chevron left -->
 			<control type="image">
-				<visible>!$EXP[IsSettingsDialogSelectActive]</visible>
+				<visible>!$EXP[IsSettingsAnyDialogActive]</visible>
 				<include content="ShowHideFadeAnimation" />
 				<include content="FocusFadeAnimation">
 					<param name="start">0</param>
@@ -672,6 +672,80 @@
 						<param name="visible_up">[Control.HasFocus(3) + Integer.IsGreater(Container(3).NumItems,6)] | [Control.HasFocus(6) + Integer.IsGreater(Container(6).NumItems,6)]</param>
 						<param name="visible_down">[Control.HasFocus(3) + Integer.IsGreater(Container(3).NumItems,6)] | [Control.HasFocus(6) + Integer.IsGreater(Container(6).NumItems,6)]</param>
 					</include>
+				</control>
+			</control>
+		</control>
+	</include>
+
+	<!-- DialogConfirm for settings (integrated) -->
+	<include name="SettingsDialogConfirm">
+		<control type="group">
+			<include content="ShowHideFadeSlideHorizontalAnimation">
+				<param name="slide_amount">-100</param>
+				<param name="visible_condition">WindowOpen</param>
+				<param name="hidden_condition">WindowCLose</param>
+			</include>
+
+			<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+			<height>SCREEN_HEIGHT</height>
+
+			<!-- List with title -->
+			<control type="group">
+				<top>PADDING_SETTINGS_VERTICAL</top>
+				<bottom>PADDING_SETTINGS_VERTICAL</bottom>
+				<right>PADDING_SETTINGS_NARROW_SIDE</right>
+				<left>PADDING_SETTINGS_NARROW_SIDE</left>
+
+				<!-- Option name -->
+				<control type="label" id="1">
+					<width>560</width>
+					<height>FONT_SIZE_TITLE1</height>
+					<right>PADDING_SETTINGS_TITLE</right>
+					<left>PADDING_SETTINGS_TITLE</left>
+					<font>TITLE1</font>
+					<label></label>
+				</control>
+
+				<!-- Content -->
+				<control type="grouplist">
+					<top>OFFSET_SETTINGS_OPTIONS_START</top>
+					<usecontrolcoords>true</usecontrolcoords>
+
+					<!-- Message -->
+					<control type="textbox" id="9">
+						<height>100</height>
+						<right>PADDING_SETTINGS_TITLE</right>
+						<left>PADDING_SETTINGS_TITLE</left>
+						<font>BODY</font>
+						<textcolor>FOREGROUND_DARK</textcolor>
+						<autoscroll time="3000" delay="5000" repeat="5000">true</autoscroll>
+					</control>
+
+					<!-- Fake padding -->
+					<control type="label">
+						<height>PADDING_BASE</height>
+					</control>
+
+					<!-- Yes/Ok -->
+					<control type="button" id="11">
+						<width>WIDTH_SETTINGS_GROUPLIST_NARROW_OPTION</width>
+						<onleft>Close</onleft>
+						<onright>Close</onright>
+					</control>
+
+					<!-- No -->
+					<control type="button" id="10">
+						<width>WIDTH_SETTINGS_GROUPLIST_NARROW_OPTION</width>
+						<onleft>Close</onleft>
+						<onright>Close</onright>
+					</control>
+					
+					<!-- Future -->
+					<control type="button" id="12">
+						<width>WIDTH_SETTINGS_GROUPLIST_NARROW_OPTION</width>
+						<onleft>Close</onleft>
+						<onright>Close</onright>
+					</control>
 				</control>
 			</control>
 		</control>

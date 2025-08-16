@@ -29,7 +29,29 @@
 			Window.IsActive(playersettings) |
 			Window.IsActive(mediasettings)
 		] +
-		Window.IsDialogTopmost(selectdialog)
+		[
+			Window.IsDialogTopmost(selectdialog) |
+			Window.IsDialogTopmost(peripherals)
+		]
+	</expression>
+	<!-- Is DialogConfirm active in settings? -->
+	<expression name="IsSettingsDialogConfirmActive">
+		[
+			Window.IsActive(appearancesettings) |
+			Window.IsActive(systemsettings) |
+			Window.IsActive(servicesettings) |
+			Window.IsActive(playersettings) |
+			Window.IsActive(mediasettings)
+		] +
+		[
+			Window.IsDialogTopmost(okdialog) |
+			Window.IsDialogTopmost(yesnodialog)
+		]
+	</expression>
+	<!-- Is any dialog active in settings? -->
+	<expression name="IsSettingsAnyDialogActive">
+		$EXP[IsSettingsDialogSelectActive] |
+		$EXP[IsSettingsDialogConfirmActive]
 	</expression>
 
 	<!-- Has DialogSelect an actual icon? -->
