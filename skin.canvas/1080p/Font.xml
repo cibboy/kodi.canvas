@@ -82,5 +82,15 @@
 			<size>24</size>
 			<style>uppercase</style>
 		</font>
+		<font>
+			<name>CLOCK</name>
+			<filename>Montserrat-SemiBold.ttf</filename>
+			<size>38</size>
+		</font>
+		<font>
+			<name>ETACLOCK</name>
+			<filename>Montserrat-SemiBold.ttf</filename>
+			<size>24</size>
+		</font>
 	</fontset>
 </fonts>

@@ -5,27 +5,43 @@
 
 		<definition>
 			<control type="group">
-				<height>360</height>
+				<height>400</height>
 
 				<!-- Darkening -->
 				<control type="image">
 					<visible>$PARAM[show_background]</visible>
 					<width>100%</width>
-					<height>360</height>
+					<height>400</height>
 					<fadetime>ANIMATION_SLOW</fadetime>
 					<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/diffuse/corner.png</texture>
 				</control>
 
-				<!-- Clock -->
-				<control type="label">
-					<top>PADDING_BASE</top>
-					<right>PADDING_BASE</right>
-					<align>right</align>
-					<aligny>center</aligny>
-					<height>FONT_SIZE_SUBTITLE</height>
-					<font>SUBTITLE</font>
-					<textcolor>FOREGROUND_OPAQUE75</textcolor>
-					<label>$INFO[System.Time]</label>
+				<!-- Clocks -->
+				<control type="group">
+					<top>PADDING_MULT_140</top>
+					<right>PADDING_MULT_150</right>
+
+					<!-- Clock -->
+					<control type="label">
+						<align>right</align>
+						<aligny>center</aligny>
+						<height>FONT_SIZE_SUBTITLE</height>
+						<font>CLOCK</font>
+						<textcolor>FOREGROUND_OPAQUE75</textcolor>
+						<label>$INFO[System.Time]</label>
+					</control>
+
+					<!-- ETA -->
+					<control type="label">
+						<visible>Player.HasMedia</visible>
+						<top>35</top>
+						<align>right</align>
+						<aligny>center</aligny>
+						<height>FONT_SIZE_SUBTITLE</height>
+						<font>ETACLOCK</font>
+						<textcolor>FOREGROUND_OPAQUE50</textcolor>
+						<label>$INFO[Player.FinishTime]</label>
+					</control>
 				</control>
 			</control>
 		</definition>

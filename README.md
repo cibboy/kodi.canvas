@@ -1,6 +1,5 @@
 TOFIX:
 - aggiunto genre audio in plugin (potenzialmente una lista, quindi bisognerà fare delle prove con ulteriore scraping e aggiornamento tag mp3, che è stata aggiunta alla details info line 2)
-- home side menu non ha gli angoli arrotondati sul overlay perchè c'è scalediffuse su aspectratio
 
 TODO:
 - dialog in settings da fare:
@@ -17,7 +16,6 @@ TODO:
     - FileBrowser.xml (ad esempio system > logging > screenshot folder)
     - Eventlog.xml: system > logging > show event log
     - DialogAddonSettings.xml (ad esempio player > discs > encoder > setting)
-- Creare in Dialogs.xml il bg del flyout, da usare sia nei dialog generici, che nei flyout sulla home (filtri, shutdown menu)
 - manca il caricamento della lista pictures
 - sorting include "The", bisognerebbe usare il sorttitle, ma è stringa vuota
 - creare possibilità di sbiancare la cache in temp

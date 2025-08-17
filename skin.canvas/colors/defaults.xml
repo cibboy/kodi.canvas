@@ -49,8 +49,6 @@
 	<color name="BACKGROUND_OPAQUE35">59000000</color>
 	<color name="BACKGROUND_OPAQUE20">33000000</color>
 	<color name="BACKGROUND_OPAQUE10">1A000000</color>
-	<color name="BACKGROUND_DIALOG">FF252525</color>
-	<color name="BACKGROUND_SETTINGS_TINT">FF1F2329</color>
 	<color name="BACKGROUND_INVERSE">FFBEBEBE</color>
 	<color name="BACKGROUND_INVERSE_OPAQUE90">E5BEBEBE</color>
 	<color name="BACKGROUND_INVERSE_OPAQUE75">BFBEBEBE</color>
@@ -58,4 +56,7 @@
 	<color name="BACKGROUND_INVERSE_OPAQUE35">59BEBEBE</color>
 	<color name="BACKGROUND_INVERSE_OPAQUE20">33BEBEBE</color>
 	<color name="BACKGROUND_INVERSE_OPAQUE10">1ABEBEBE</color>
+
+	<color name="BACKGROUND_DIALOG">FF202020</color>
+	<color name="BACKGROUND_SETTINGS_TINT">FF1F2329</color>
 </colors>

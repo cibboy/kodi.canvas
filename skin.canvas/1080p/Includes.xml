@@ -14,9 +14,10 @@
 	<constant name="PADDING_MULT_10">5</constant>
 	<constant name="PADDING_MULT_20">10</constant>
 	<constant name="PADDING_MULT_30">15</constant>
-	<constant name="PADDING_MULT_50">25</constant>
 	<constant name="PADDING_MULT_60">30</constant>
 	<constant name="PADDING_MULT_120">60</constant>
+	<constant name="PADDING_MULT_140">70</constant>
+	<constant name="PADDING_MULT_150">75</constant>
 
 	<!-- Constants: sizes -->
 	<constant name="SIZE_ITEM_SHADOW_ART">20</constant>
@@ -65,6 +66,7 @@
 	<include file="Includes/Backgrounds.xml" />
 	<include file="Includes/BottomBar.xml" />
 	<include file="Includes/TopBar.xml" />
+	<include file="Includes/Dialogs/Dialogs.xml" />
 	<include file="Includes/ArtLists/ArtLists.xml" />
 	<include file="Includes/Details/Details.xml" />
 	<include file="Includes/Home/Home.xml" />

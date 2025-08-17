@@ -16,8 +16,8 @@
 
 		<definition>
 			<control type="group">
-				<width>WIDTH_FALLBACK_CONTENT</width>
-				<height>HEIGHT_FALLBACK_CONTENT</height>
+				<width>WIDTH_HOME_FALLBACK_CONTENT</width>
+				<height>HEIGHT_HOME_FALLBACK_CONTENT</height>
 				<centertop>50%</centertop>
 				<centerleft>50%</centerleft>
 
@@ -30,7 +30,7 @@
 				</control>
 				<!-- Page title -->
 				<control type="label">
-					<width>WIDTH_FALLBACK_CONTENT</width>
+					<width>WIDTH_HOME_FALLBACK_CONTENT</width>
 					<height>FONT_SIZE_TITLE2</height>
 					<top>100</top>
 					<centerright>50%</centerright>
@@ -40,7 +40,7 @@
 				</control>
 				<!-- Empty message -->
 				<control type="label">
-					<width>WIDTH_FALLBACK_CONTENT</width>
+					<width>WIDTH_HOME_FALLBACK_CONTENT</width>
 					<height>FONT_SIZE_BODY</height>
 					<top>220</top>
 					<centerright>50%</centerright>
@@ -90,7 +90,7 @@
 				<control type="button" id="9999">
 					<include content="Hidden" />
 					<!-- Fallback for endless loading -->
-					<onback>SetFocus(1000)</onback>
+					<onback>SetFocus(1001,0)</onback>
 					<!-- Fallback for side menu opening while loading -->
 					<ondown condition="!$EXP[IsHomeLoading]">SetFocus(1)</ondown>
 				</control>
@@ -112,7 +112,7 @@
 					<onright>$INFO[Container(1).ListItem.Property(onright)]</onright>
 					<onclick>$INFO[Container(1).ListItem.Property(onclick)]</onclick>
 					<!-- Open flyout if not playing something in background -->
-					<onback condition="!Player.HasMedia">SetFocus(1000)</onback>
+					<onback condition="!Player.HasMedia">SetFocus(1001,0)</onback>
 
 					<focusedlayout height="90">
 						<!-- Hidden onfocus control -->
@@ -199,7 +199,7 @@
 							<thumb>$VAR[MenuIcon]</thumb>
 							<property name="name">menu</property>
 							<property name="onright">noop</property>
-							<property name="onclick">SetFocus(1000)</property>
+							<property name="onclick">SetFocus(1001,0)</property>
 						</item>
 					</content>
 				</control>
@@ -272,8 +272,8 @@
 					<param name="genre">$VAR[HomeDetailsGenre]</param>
 					<param name="has_genre">$EXP[HasHomeDetailsGenre]</param>
 					<param name="plot">$VAR[HomeDetailsSummary]</param>
-					<param name="foreground_color">$VAR[HomeDetailsTextForegroundColor]</param>
-					<param name="highlight_color">$VAR[HomeDetailsTextHighlightColor]</param>
+					<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
+					<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
 				</include>
 
 				<!-- Items -->
@@ -322,8 +322,8 @@
 									<param name="label">Continue watching</param>
 									<param name="content">plugin://script.canvas.helper/continue_watching/?listid=101</param>
 									<param name="art">$INFO[ListItem.Art(poster)]</param>
-									<param name="foreground_color">$VAR[HomeDetailsTextForegroundColor]</param>
-									<param name="highlight_color">$VAR[HomeDetailsTextHighlightColor]</param>
+									<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
+									<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
 									<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,101)</param>
 									<param name="onback">SetFocus(1,0)</param>
 									<param name="onleft">SetFocus(1,0)</param>
@@ -345,8 +345,8 @@
 									<param name="content">plugin://script.canvas.helper/recently_added_tvshow_episodes/?listid=102</param>
 									<param name="art">$INFO[ListItem.Art(thumb)]</param>
 									<param name="showinfo">true</param>
-									<param name="foreground_color">$VAR[HomeDetailsTextForegroundColor]</param>
-									<param name="highlight_color">$VAR[HomeDetailsTextHighlightColor]</param>
+									<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
+									<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
 									<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,102)</param>
 									<param name="onback">SetFocus(1,0)</param>
 									<param name="onleft">SetFocus(1,0)</param>
@@ -368,8 +368,8 @@
 									<param name="label">Recently added movies</param>
 									<param name="content">plugin://script.canvas.helper/movies/?sort=dateadded&amp;order=descending&amp;limit=25&amp;listid=103</param>
 									<param name="art">$INFO[ListItem.Art(poster)]</param>
-									<param name="foreground_color">$VAR[HomeDetailsTextForegroundColor]</param>
-									<param name="highlight_color">$VAR[HomeDetailsTextHighlightColor]</param>
+									<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
+									<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
 									<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,103)</param>
 									<param name="onback">SetFocus(1,0)</param>
 									<param name="onleft">SetFocus(1,0)</param>
@@ -393,8 +393,8 @@
 									<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
 									<param name="info1">$INFO[ListItem.Title]</param>
 									<param name="info2">$INFO[ListItem.Album]</param>
-									<param name="foreground_color">$VAR[HomeDetailsTextForegroundColor]</param>
-									<param name="highlight_color">$VAR[HomeDetailsTextHighlightColor]</param>
+									<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
+									<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
 									<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,104)</param>
 									<param name="onback">SetFocus(1,0)</param>
 									<param name="onleft">SetFocus(1,0)</param>
@@ -437,8 +437,8 @@
 								<param name="label">Movies</param>
 								<param name="content">plugin://script.canvas.helper/movies/?listid=111</param>
 								<param name="art">$INFO[ListItem.Art(poster)]</param>
-								<param name="foreground_color">$VAR[HomeDetailsTextForegroundColor]</param>
-								<param name="highlight_color">$VAR[HomeDetailsTextHighlightColor]</param>
+								<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
+								<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
 								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,movies,111)</param>
 								<param name="onback">SetFocus(1,1)</param>
 								<param name="onleft">SetFocus(1,1)</param>
@@ -479,8 +479,8 @@
 								<param name="label">TV Shows</param>
 								<param name="content">plugin://script.canvas.helper/tvshows/?exclude=Yoga with Adriene&amp;listid=121</param>
 								<param name="art">$INFO[ListItem.Art(poster)]</param>
-								<param name="foreground_color">$VAR[HomeDetailsTextForegroundColor]</param>
-								<param name="highlight_color">$VAR[HomeDetailsTextHighlightColor]</param>
+								<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
+								<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
 								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,tvshows,121)</param>
 								<param name="onback">SetFocus(1,2)</param>
 								<param name="onleft">SetFocus(1,2)</param>
@@ -523,8 +523,8 @@
 								<param name="label"></param>
 								<param name="content">plugin://script.canvas.helper/seasons/?showtitle=Yoga with Adriene&amp;listid=131</param>
 								<param name="art">$INFO[ListItem.Art(poster)]</param>
-								<param name="foreground_color">$VAR[HomeDetailsTextForegroundColor]</param>
-								<param name="highlight_color">$VAR[HomeDetailsTextHighlightColor]</param>
+								<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
+								<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
 								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,yoga,131)</param>
 								<param name="onback">SetFocus(1,3)</param>
 								<param name="onleft">SetFocus(1,3)</param>
@@ -567,8 +567,8 @@
 								<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
 								<param name="info1">$INFO[ListItem.Title]</param>
 								<param name="info2">$INFO[ListItem.Album]</param>
-								<param name="foreground_color">$VAR[HomeDetailsTextForegroundColor]</param>
-								<param name="highlight_color">$VAR[HomeDetailsTextHighlightColor]</param>
+								<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
+								<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
 								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,music,141)</param>
 								<param name="onback">SetFocus(1,4)</param>
 								<param name="onleft">SetFocus(1,4)</param>
@@ -611,8 +611,8 @@
 								<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
 								<param name="info1">$INFO[ListItem.Title]</param>
 								<param name="info2">$INFO[ListItem.Album]</param>
-								<param name="foreground_color">$VAR[HomeDetailsTextForegroundColor]</param>
-								<param name="highlight_color">$VAR[HomeDetailsTextHighlightColor]</param>
+								<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
+								<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
 								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,music,151)</param>
 								<param name="onback">SetFocus(1,5)</param>
 								<param name="onleft">SetFocus(1,5)</param>
@@ -624,88 +624,221 @@
 		</definition>
 	</include>
 
-	<!-- Flyout menu -->
-	<include name="HomeFlyoutMenu">
-		<control type="group">
-			<!-- Darkening layer (with fade) -->
+
+	<!-- Content for fake button with icon in flyout -->
+	<include name="HomeButtonContentWithIconForFlyout">
+		<param name="icon_circle_color">BACKGROUND_OPAQUE20</param>
+		<param name="icon_color">BACKGROUND_INVERSE_OPAQUE50</param>
+		<param name="icon">$INFO[ListItem.Art(thumb)]</param>
+		<param name="text_color">FOREGROUND_OPAQUE75</param>
+		<param name="text">$INFO[ListItem.Label]</param>
+
+		<definition>
 			<control type="group">
-				<visible>Control.HasFocus(1000)</visible>
-				<include content="DarkeningLayer" />
+				<top>PADDING_HOME_FLYOUT_BUTTON_VERTICAL</top>
+				<bottom>PADDING_HOME_FLYOUT_BUTTON_VERTICAL</bottom>
+				<left>PADDING_BUTTON_VERTICAL</left>
+				<right>PADDING_BUTTON_VERTICAL</right>
+
+				<!-- Icon -->
+				<control type="group">
+					<width>HEIGHT_HOME_FLYOUT_BUTTON_CONTENT</width>
+					<height>HEIGHT_HOME_FLYOUT_BUTTON_CONTENT</height>
+
+					<!-- Background -->
+					<control type="image">
+						<centertop>50%</centertop>
+						<centerleft>50%</centerleft>
+						<texture colordiffuse="$PARAM[icon_circle_color]">1080p/diffuse/circle.png</texture>
+					</control>
+					<!-- Icon -->
+					<control type="image">
+						<width>SIZE_HOME_FLYOUT_ICON</width>
+						<height>SIZE_HOME_FLYOUT_ICON</height>
+						<centertop>50%</centertop>
+						<centerleft>50%</centerleft>
+						<texture colordiffuse="$PARAM[icon_color]">$PARAM[icon]</texture>
+					</control>
+				</control>
+
+				<!-- Labels -->
+				<control type="group">
+					<height>HEIGHT_HOME_FLYOUT_BUTTON_CONTENT</height>
+					<left>OFFSET_HOME_FLYOUT_BUTTON_CONTENT</left>
+
+					<!-- First text line -->
+					<control type="label">
+						<top>OFFSET_HOME_FLYOUT_BUTTON_TEXT</top>
+						<font>BODY_STRONG</font>
+						<textcolor>$PARAM[text_color]</textcolor>
+						<label>$PARAM[text]</label>
+					</control>
+				</control>
 			</control>
+		</definition>
+	</include>
 
-			<!-- Actual menu --><!--todo-->
+	<!-- Fake icon button in flyout -->
+	<include name="HomeIconButtonForFlyout">
+		<param name="icon_circle_color">BACKGROUND_OPAQUE20</param>
+		<param name="icon_color">BACKGROUND_INVERSE_OPAQUE50</param>
+		<param name="icon">$INFO[ListItem.Art(thumb)]</param>
+
+		<definition>
 			<control type="group">
-				<visible>Control.HasFocus(1000)</visible>
-				<!-- Slide in from the side -->
-				<include content="ShowHideFadeSlideHorizontalAnimation">
-					<param name="slide_amount">300</param>
-					<param name="speed">ANIMATION_MID</param>
-				</include>
-
-				<width>600</width>
-				<height>100%</height>
-				<right>0</right>
+				<width>HEIGHT_HOME_FLYOUT_BUTTON_CONTENT</width>
+				<height>HEIGHT_HOME_FLYOUT_BUTTON_CONTENT</height>
 
 				<!-- Background -->
 				<control type="image">
-					<width>100%</width>
-					<height>100%</height>
-					<texture border="PADDING_HALF" colordiffuse="BACKGROUND_DIALOG">1080p/diffuse/square.png</texture>
-					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
-					<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-art.png</bordertexture>
+					<centertop>50%</centertop>
+					<centerleft>50%</centerleft>
+					<texture colordiffuse="$PARAM[icon_circle_color]">1080p/diffuse/circle.png</texture>
 				</control>
+				<!-- Icon -->
 				<control type="image">
-					<width>100%</width>
-					<height>100%</height>
-					<texture border="PADDING_HALF" colordiffuse="BACKGROUND" diffuse="1080p/diffuse/legibility.png">1080p/diffuse/square.png</texture>
-					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
-					<aspectratio scalediffuse="true">scale</aspectratio>
+					<width>SIZE_HOME_FLYOUT_ICON</width>
+					<height>SIZE_HOME_FLYOUT_ICON</height>
+					<centertop>50%</centertop>
+					<centerleft>50%</centerleft>
+					<texture colordiffuse="$PARAM[icon_color]">$PARAM[icon]</texture>
 				</control>
+			</control>
+		</definition>
+	</include>
 
+
+	<!-- Flyout menu -->
+	<include name="HomeFlyoutMenu">
+		<include content="StandardFlyoutBase">
+			<param name="visible">$EXP[HasHomeFlyoutFocus]</param>
+
+			<include content="StandardFlyoutStructure">
+				<param name="visible">$EXP[HasHomeFlyoutFocus]</param>
+
+				<!-- Horizontal list of icon buttons -->
 				<control type="list" id="1000">
-					<top>PADDING_BASE</top>
-					<left>PADDING_BASE</left>
+					<top>OFFSET_HOME_FLYOUT_HORIZONTAL_LIST_TOP</top>
+					<left>OFFSET_HOME_FLYOUT_HORIZONTAL_LIST_LEFT</left>
+					<orientation>horizontal</orientation>
 
 					<onback>SetFocus(1)</onback>
+					<ondown>SetFocus(1001,0)</ondown>
 					<onclick>SetFocus(1)</onclick>
 					<onclick>$INFO[ListItem.Property(onclick)]</onclick>
 
-					<itemlayout height="100">
-						<control type="label">
-							<label>$INFO[ListItem.Label]</label>
-						</control>
+					<itemlayout height="SIZE_HOME_FLYOUT_ICONBUTTON_CONTAINER" width="SIZE_HOME_FLYOUT_ICONBUTTON_CONTAINER">
+						<include content="HomeIconButtonForFlyout" />
 					</itemlayout>
-					<focusedlayout height="100">
-						<control type="button">
-							<label>$INFO[ListItem.Label]</label>
+					<focusedlayout height="SIZE_HOME_FLYOUT_ICONBUTTON_CONTAINER" width="SIZE_HOME_FLYOUT_ICONBUTTON_CONTAINER">
+						<!-- When the list is actually focused -->
+						<control type="group">
+							<visible>Control.HasFocus(1000)</visible>
+							<include content="HomeIconButtonForFlyout">
+								<param name="icon_circle_color">BACKGROUND_INVERSE_OPAQUE90</param>
+								<param name="icon_color">FOREGROUND_INVERSE</param>
+							</include>
+						</control>
+						<!-- When the list is not actually focused -->
+						<control type="group">
+							<visible>!Control.HasFocus(1000)</visible>
+							<include content="HomeIconButtonForFlyout" />
 						</control>
 					</focusedlayout>
 
 					<content>
+						<!-- Settings -->
 						<item id="1">
-							<thumb>$VAR[MenuIcon]</thumb>
+							<thumb>$VAR[SettingsIcon]</thumb>
+							<property name="onclick">RunScript(script.canvas.helper,home_to_active_settings,$INFO[Window(settings).Property(Settings.ActivePage)])</property>
+						</item>
+					</content>
+				</control>
+
+				<!-- Vertical list of buttons -->
+				<control type="list" id="1001">
+					<top>OFFSET_HOME_FLYOUT_LIST</top>
+					<bottom>PADDING_BASE</bottom>
+					<left>PADDING_HALF</left>
+					<right>PADDING_HALF</right>
+
+					<onback>SetFocus(1)</onback>
+					<onup>SetFocus(1000,0)</onup>
+					<onclick>SetFocus(1)</onclick>
+					<onclick>$INFO[ListItem.Property(onclick)]</onclick>
+
+					<itemlayout height="HEIGHT_HOME_FLYOUT_BUTTON_CONTAINER">
+						<include content="HomeButtonContentWithIconForFlyout" />
+					</itemlayout>
+					<focusedlayout height="HEIGHT_HOME_FLYOUT_BUTTON_CONTAINER">
+						<!-- When the list is actually focused -->
+						<control type="group">
+							<visible>Control.HasFocus(1001)</visible>
+							<!-- Fake button selection -->
+							<control type="image">
+								<height>HEIGHT_HOME_FLYOUT_BUTTON</height>
+								<texture colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texture>
+							</control>
+							<!-- Content -->
+							<include content="HomeButtonContentWithIconForFlyout">
+								<param name="icon_circle_color">BACKGROUND_INVERSE_OPAQUE90</param>
+								<param name="icon_color">FOREGROUND_INVERSE</param>
+								<param name="text_color">FOREGROUND_INVERSE</param>
+							</include>
+						</control>
+						<!-- When the list is actually focused -->
+						<control type="group">
+							<visible>!Control.HasFocus(1001)</visible>
+							<include content="HomeButtonContentWithIconForFlyout" />
+						</control>
+					</focusedlayout>
+
+					<content>
+						<!-- Shutdown -->
+						<item id="1">
+							<thumb>$VAR[ShutdownIcon]</thumb>
+							<label>Shutdown</label>
+							<property name="onclick">PowerDown()</property>
+						</item>
+						<!-- Exit -->
+						<item id="2">
+							<thumb>$VAR[QuitIcon]</thumb>
 							<label>Quit</label>
 							<property name="onclick">Quit()</property>
 						</item>
-						<item id="2">
-							<thumb>$VAR[MenuIcon]</thumb>
-							<label>Settings</label>
-							<property name="onclick">RunScript(script.canvas.helper,home_to_active_settings,$INFO[Window(settings).Property(Settings.ActivePage)])</property>
+						<!-- Update libraries -->
+						<item id="3">
+							<thumb>$VAR[UpdateLibrariesIcon]</thumb>
+							<label>Update libraries</label>
+							<property name="onclick">UpdateLibrary()</property>
 						</item>
-						<!--todo update library, quit, shutdown, update libraries, addons, file manager, systeminfo-->
+						<!-- Reload home -->
+						<item id="4">
+							<thumb>$VAR[ReloadHomeIcon]</thumb>
+							<label>Reload home</label>
+							<property name="onclick">RunScript(script.canvas.helper,init_home)</property>
+						</item>
+						<!-- Addons -->
+						<item id="5">
+							<thumb>$VAR[AddonsIcon]</thumb>
+							<label>Addons</label>
+							<property name="onclick">ActivateWindow(addonbrowser)</property>
+						</item>
+						<!-- File manager -->
+						<item id="6">
+							<thumb>$VAR[FileManagerIcon]</thumb>
+							<label>File manager</label>
+							<property name="onclick">ActivateWindow(filebrowser)</property>
+						</item>
+						<!-- System info -->
+						<item id="7">
+							<thumb>$VAR[SystemInfoIcon]</thumb>
+							<label>System info</label>
+							<property name="onclick">ActivateWindow(systeminfo)</property>
+						</item>
 					</content>
 				</control>
-			</control>
-
-			<!-- Clock (no animation) -->
-			<control type="group">
-				<visible>Control.HasFocus(1000)</visible>
-				<include content="ShowHideFadeAnimation" />
-
-				<include content="TopBar">
-					<param name="show_background">false</param>
-				</include>
-			</control>
-		</control>
+			</include>
+		</include>
 	</include>
 </includes>

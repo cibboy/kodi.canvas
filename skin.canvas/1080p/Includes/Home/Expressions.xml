@@ -6,9 +6,17 @@
 		- Focus on actual left menu
 		- Focus on "focus steal" inside left menu (when loading)
 		- Focus on modal menu (only accessible through left menu)
-		- Focus on filter menu (todo)
+		- Focus on filter menu
 	-->
-	<expression name="HasHomeMenuFocus">Control.HasFocus(1) | Control.HasFocus(9999) | Control.HasFocus(1000)</expression>
+	<expression name="HasHomeMenuFocus">Control.HasFocus(1) | Control.HasFocus(9999) | $EXP[HasHomeFlyoutFocus]</expression>
+	<!--
+		Has flyout focus?
+		Consider true any of the following conditions:
+		- Shutdown horizontal options
+		- Shutdown vertical options
+		- Filters (todo)
+	-->
+	<expression name="HasHomeFlyoutFocus">Control.HasFocus(1000) | Control.HasFocus(1001)</expression>
 
 	<!-- Is loading ongoing on home? -->
 	<expression name="IsHomeLoading">String.IsEqual(Window(home).Property(Home.IsLoading),true)</expression>

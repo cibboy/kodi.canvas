@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
-	<!-- Text color (based on bright blur art or not) -->
-	<variable name="HomeDetailsTextForegroundColor">
+	<!-- Contrast text color (against blur art) -->
+	<variable name="HomeContrastTextForegroundColor">
 		<!-- Lighter color -->
 		<value condition="$EXP[IsHomeDetailsBestTextColorLighter] + !$EXP[HasHomeMenuFocus]">FOREGROUND_CONTRAST_LIGHTER</value>
 		<!-- Light color -->
@@ -13,7 +13,7 @@
 		<!-- Fallback -->
 		<value>FOREGROUND_CONTRAST_LIGHTER</value>
 	</variable>
-	<variable name="HomeDetailsTextHighlightColor">
+	<variable name="HomeContrastTextHighlightColor">
 		<!-- Light color -->
 		<value condition="$EXP[IsHomeDetailsBestTextColorLighter] + !$EXP[HasHomeMenuFocus]">HIGHLIGHT_CONTRAST_LIGHTER</value>
 		<!-- Light color -->
@@ -372,8 +372,28 @@
 	<variable name="MusicIcon"><value>1080p/icons/music.png</value></variable>
 	<variable name="PicturesIcon"><value>1080p/icons/pictures.png</value></variable>
 	<variable name="MenuIcon"><value>1080p/icons/menu.png</value></variable>
+	<variable name="SettingsIcon"><value>1080p/icons/settings.png</value></variable>
+	<variable name="QuitIcon"><value>1080p/icons/exit.png</value></variable>
+	<variable name="ShutdownIcon"><value>1080p/icons/shutdown.png</value></variable>
+	<variable name="UpdateLibrariesIcon"><value>1080p/icons/refresh.png</value></variable>
+	<variable name="ReloadHomeIcon"><value>1080p/icons/reload.png</value></variable>
+	<variable name="AddonsIcon"><value>1080p/icons/box.png</value></variable>
+	<variable name="FileManagerIcon"><value>1080p/icons/folder.png</value></variable>
+	<variable name="SystemInfoIcon"><value>1080p/icons/systeminfo.png</value></variable>
 
 	<!-- Constants -->
-	<constant name="HEIGHT_FALLBACK_CONTENT">590</constant>
-	<constant name="WIDTH_FALLBACK_CONTENT">800</constant>
+	<constant name="HEIGHT_HOME_FALLBACK_CONTENT">590</constant>
+	<constant name="WIDTH_HOME_FALLBACK_CONTENT">800</constant>
+
+	<constant name="SIZE_HOME_FLYOUT_ICON">40</constant>
+	<constant name="SIZE_HOME_FLYOUT_ICONBUTTON_CONTAINER">80</constant>
+	<constant name="HEIGHT_HOME_FLYOUT_BUTTON_CONTAINER">105</constant>
+	<constant name="HEIGHT_HOME_FLYOUT_BUTTON">140</constant>
+	<constant name="HEIGHT_HOME_FLYOUT_BUTTON_CONTENT">70</constant>
+	<constant name="PADDING_HOME_FLYOUT_BUTTON_VERTICAL">35</constant>
+	<constant name="OFFSET_HOME_FLYOUT_BUTTON_CONTENT">90</constant>
+	<constant name="OFFSET_HOME_FLYOUT_BUTTON_TEXT">7</constant>
+	<constant name="OFFSET_HOME_FLYOUT_LIST">152</constant>
+	<constant name="OFFSET_HOME_FLYOUT_HORIZONTAL_LIST_TOP">52</constant>
+	<constant name="OFFSET_HOME_FLYOUT_HORIZONTAL_LIST_LEFT">65</constant>
 </includes>
