@@ -9,10 +9,10 @@
 		<!-- Content structure -->
 		<control type="group">
 			<animation type="Conditional" condition="!$EXP[HasSettingSectionsFocus]">
-				<effect type="slide" end="-1200,0" time="ANIMATION_SLOW" tween="cubic" easing="out" />
+				<effect type="slide" end="-1200,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
 			</animation>
 			<animation type="Conditional" condition="$EXP[HasSettingSectionsFocus]">
-				<effect type="slide" end="0,0" time="ANIMATION_SLOW" tween="cubic" easing="out" />
+				<effect type="slide" end="0,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
 			</animation>
 
 			<!-- Main categories (left side) -->

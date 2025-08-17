@@ -25,6 +25,9 @@
 
 		<!-- Window contents -->
 		<control type="group">
+			<!-- First open animation -->
+			<animation effect="zoom" start="110" end="100" time="ANIMATION_SLOW" tween="circle" easing="out" center="auto">WindowOpen</animation>
+
 			<!-- Main menu -->
 			<include content="HomeMainMenu" />
 

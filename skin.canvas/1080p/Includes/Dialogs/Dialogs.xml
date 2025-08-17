@@ -205,10 +205,9 @@
 				<visible>$PARAM[visible]</visible>
 
 				<!-- Darkening layer (with fade) -->
-				<control type="group">
-					<visible>$PARAM[visible]</visible>
-					<include content="DarkeningLayer" />
-				</control>
+				<include content="DarkeningLayer">
+					<param name="visible">$PARAM[visible]</param>
+				</include>
 
 				<!-- Flyout background -->
 				<include content="StandardFlyoutStructure">

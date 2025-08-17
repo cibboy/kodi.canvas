@@ -225,7 +225,7 @@
 			<control type="group">
 				<!-- Left/right shift when the main menu loses/gains focus -->
 				<animation condition="$EXP[HasHomeMenuFocus]" reversible="true">
-					<effect type="slide" end="150,0" time="ANIMATION_MID" tween="cubic" easing="out" />
+					<effect type="slide" end="150,0" time="ANIMATION_MID" tween="circle" easing="out" />
 				</animation>
 
 				<!-- Padding + menu + padding -->

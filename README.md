@@ -47,6 +47,7 @@ Docs:
 - https://kodi.wiki/view/InfoLabels
 - https://kodi.wiki/view/Artwork/Accessing_with_skins_and_JSON-RPC
 - https://xbmc.github.io/docs.kodi.tv/master/kodi-base/d0/d3e/page__list_of_built_in_functions.html
+- https://xbmc.github.io/docs.kodi.tv/master/kodi-base/d4/d8c/_skin__timers.html
 - https://kodi.wiki/view/Smart_playlists/XSP_Method
 - https://kodi.wiki/view/Party_Mode
 - https://kodi.wiki/view/Artwork/Cache
