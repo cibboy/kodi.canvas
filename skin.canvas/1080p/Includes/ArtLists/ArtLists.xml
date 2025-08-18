@@ -195,6 +195,7 @@
 		<param name="showinfo">false</param>
 		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
 		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
+		<param name="onclick">noop</param>
 		<param name="onfocus">noop</param>
 		<param name="onchange">noop</param>
 		<param name="onback">noop</param>
@@ -217,6 +218,7 @@
 					<top>PADDING_MULT_120</top>
 					<autoscroll>false</autoscroll>
 					<orientation>horizontal</orientation>
+					<onclick>$PARAM[onclick]</onclick>
 					<onfocus>$PARAM[onfocus]</onfocus>
 					<onback>$PARAM[onback]</onback>
 					<onleft>$PARAM[onleft]</onleft>
@@ -384,6 +386,7 @@
 		<param name="art"></param>
 		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
 		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
+		<param name="onclick">noop</param>
 		<param name="onfocus">noop</param>
 		<param name="onchange">noop</param>
 		<param name="onback">noop</param>
@@ -406,6 +409,7 @@
 					<top>PADDING_MULT_120</top>
 					<autoscroll>false</autoscroll>
 					<orientation>horizontal</orientation>
+					<onclick>$PARAM[onclick]</onclick>
 					<onfocus>$PARAM[onfocus]</onfocus>
 					<onback>$PARAM[onback]</onback>
 					<onleft>$PARAM[onleft]</onleft>
@@ -455,6 +459,7 @@
 		<param name="info2"></param>
 		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
 		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
+		<param name="onclick">noop</param>
 		<param name="onfocus">noop</param>
 		<param name="onchange">noop</param>
 		<param name="onback">noop</param>
@@ -477,6 +482,7 @@
 					<top>PADDING_MULT_120</top>
 					<autoscroll>false</autoscroll>
 					<orientation>horizontal</orientation>
+					<onclick>$PARAM[onclick]</onclick>
 					<onfocus>$PARAM[onfocus]</onfocus>
 					<onback>$PARAM[onback]</onback>
 					<onleft>$PARAM[onleft]</onleft>
@@ -582,6 +588,7 @@
 		<param name="art"></param>
 		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
 		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
+		<param name="onclick">noop</param>
 		<param name="onfocus">noop</param>
 		<param name="onchange">noop</param>
 		<param name="onback">noop</param>
@@ -599,6 +606,7 @@
 					<height>HEIGHT_POSTER_WALL_CONTENT</height>
 					<autoscroll>false</autoscroll>
 					<orientation>vertical</orientation>
+					<onclick>$PARAM[onclick]</onclick>
 					<onfocus>$PARAM[onfocus]</onfocus>
 					<onback>$PARAM[onback]</onback>
 					<onleft>$PARAM[onleft]</onleft>
@@ -656,6 +664,7 @@
 		<param name="info2"></param>
 		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
 		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
+		<param name="onclick">noop</param>
 		<param name="onfocus">noop</param>
 		<param name="onchange">noop</param>
 		<param name="onback">noop</param>
@@ -673,6 +682,7 @@
 					<height>HEIGHT_ALBUM_WALL_CONTENT</height>
 					<autoscroll>false</autoscroll>
 					<orientation>vertical</orientation>
+					<onclick>$PARAM[onclick]</onclick>
 					<onfocus>$PARAM[onfocus]</onfocus>
 					<onback>$PARAM[onback]</onback>
 					<onleft>$PARAM[onleft]</onleft>

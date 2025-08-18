@@ -134,6 +134,15 @@ def home_to_active_settings(page):
     
     xbmc.executebuiltin(f"ActivateWindow({page})")
 
+
+# Handles onclick event on media item that requires navigating to the media details custom window.
+def onclick_media_item(item_type, item_id):
+    # Set properties on destination window, then navigate there.
+    xbmc.executebuiltin(f"SetProperty(ItemDetails.Type,{item_type},1101)")
+    xbmc.executebuiltin(f"SetProperty(ItemDetails.Id,{item_id},1101)")
+    xbmc.executebuiltin('ActivateWindow(1101)')
+
+
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         method = sys.argv[1]
@@ -152,3 +161,7 @@ if __name__ == '__main__':
         # Handle moving up or down inside the same home page.
         elif method == 'onmove_home_page_item':
             onmove_home_page_item(sys.argv[2], sys.argv[3])
+        
+        # Handle onclick event on media item that requires navigating to the media details custom window.
+        elif method == 'onclick_media_item':
+            onclick_media_item(sys.argv[2], sys.argv[3])

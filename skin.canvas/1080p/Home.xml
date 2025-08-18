@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
+	<!-- Load lists on first open -->
 	<onload condition="!String.IsEqual(Window(home).Property(Home.HasLoaded),true)">RunScript(script.canvas.helper,init_home)</onload>
 	<defaultcontrol>1</defaultcontrol>
 

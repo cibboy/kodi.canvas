@@ -104,7 +104,7 @@
 						<width>100%</width>
 						<height>100%</height>
 						<fadetime>ANIMATION_CRAWL</fadetime>
-						<texture colordiffuse="BACKGROUND_OPAQUE10" diffuse="1080p/diffuse/background.png">diffuse.png</texture>
+						<texture colordiffuse="BACKGROUND_OPAQUE50" diffuse="1080p/diffuse/background.png">diffuse.png</texture>
 					</control>
 				</control>
 

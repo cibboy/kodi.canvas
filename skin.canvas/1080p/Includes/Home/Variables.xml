@@ -26,6 +26,7 @@
 		<value>HIGHLIGHT_CONTRAST_LIGHTER</value>
 	</variable>
 
+
 	<!-- Studio -->
 	<variable name="HomeDetailsStudio">
 		<!-- Continue watching -->
@@ -247,17 +248,17 @@
 	<!-- Genre -->
 	<variable name="HomeDetailsGenre">
 		<!-- Continue watching (movies) -->
-		<value condition="$EXP[IsHomeContinueWatchingActive] + $EXP[IsHomeContinueWatchingMovie]">$INFO[Container(101).ListItem.Genre]</value>
+		<value condition="$EXP[IsHomeContinueWatchingActive] + $EXP[IsHomeContinueWatchingMovie]">$INFO[Container(101).ListItem.Property(FormattedGenre)]</value>
 		<!-- Recently added movies -->
-		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive]">$INFO[Container(103).ListItem.Genre]</value>
+		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive]">$INFO[Container(103).ListItem.Property(FormattedGenre)]</value>
 		<!-- Recently added music -->
-		<value condition="$EXP[IsHomeRecentlyAddedMusicActive]">$INFO[Container(104).ListItem.Genre]</value>
+		<value condition="$EXP[IsHomeRecentlyAddedMusicActive]">$INFO[Container(104).ListItem.Property(FormattedGenre)]</value>
 		<!-- Movies -->
-		<value condition="$EXP[IsHomeMoviesActive]">$INFO[Container(111).ListItem.Genre]</value>
+		<value condition="$EXP[IsHomeMoviesActive]">$INFO[Container(111).ListItem.Property(FormattedGenre)]</value>
 		<!-- TV shows -->
-		<value condition="$EXP[IsHomeTVShowsActive]">$INFO[Container(121).ListItem.Genre]</value>
+		<value condition="$EXP[IsHomeTVShowsActive]">$INFO[Container(121).ListItem.Property(FormattedGenre)]</value>
 		<!-- Music -->
-		<value condition="$EXP[IsHomeMusicActive]">$INFO[Container(141).ListItem.Genre]</value>
+		<value condition="$EXP[IsHomeMusicActive]">$INFO[Container(141).ListItem.Property(FormattedGenre)]</value>
 	</variable>
 
 	<!-- Time remaining -->
@@ -312,6 +313,7 @@
 		<value condition="$EXP[IsHomeYogaActive]">$INFO[Container(131).ListItem.Plot]</value>
 	</variable>
 
+
 	<!-- Top-right art -->
 	<variable name="HomeBackgroundArt">
 		<!-- Continue watching -->
@@ -364,6 +366,29 @@
 		<value>standard</value>
 	</variable>
 
+
+	<!-- Item onclick action -->
+	<variable name="HomeMediaOnClickAction">
+		<!-- Continue watching -->
+		<value condition="$EXP[IsHomeContinueWatchingActive] + $EXP[IsHomeContinueWatchingEpisode]">RunScript(script.canvas.helper,onclick_media_item,episode,$INFO[ListItem.DBID])</value>
+		<value condition="$EXP[IsHomeContinueWatchingActive]">RunScript(script.canvas.helper,onclick_media_item,movie,$INFO[ListItem.DBID])</value>
+		<!-- Recently added episodes -->
+		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive]">RunScript(script.canvas.helper,onclick_media_item,episode,$INFO[ListItem.DBID])</value>
+		<!-- Recently added movies -->
+		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive]">RunScript(script.canvas.helper,onclick_media_item,movie,$INFO[ListItem.DBID])</value>
+		<!-- Recently added music -->
+		<value condition="$EXP[IsHomeRecentlyAddedMusicActive]"></value><!--todo: direct play-->
+		<!-- Movies -->
+		<value condition="$EXP[IsHomeMoviesActive]">RunScript(script.canvas.helper,onclick_media_item,movie,$INFO[ListItem.DBID])</value>
+		<!-- TV shows -->
+		<value condition="$EXP[IsHomeTVShowsActive]">RunScript(script.canvas.helper,onclick_media_item,tvshow,$INFO[ListItem.DBID])</value>
+		<!-- Yoga -->
+		<value condition="$EXP[IsHomeYogaActive]">RunScript(script.canvas.helper,onclick_media_item,season,$INFO[ListItem.DBID])</value>
+		<!-- Music -->
+		<value condition="$EXP[IsHomeMusicActive]"></value><!--todo: direct play, unless album-->
+	</variable>
+
+
 	<!-- Icons -->
 	<variable name="HomeIcon"><value>1080p/icons/home.png</value></variable>
 	<variable name="MoviesIcon"><value>1080p/icons/movies.png</value></variable>
@@ -380,6 +405,7 @@
 	<variable name="AddonsIcon"><value>1080p/icons/box.png</value></variable>
 	<variable name="FileManagerIcon"><value>1080p/icons/folder.png</value></variable>
 	<variable name="SystemInfoIcon"><value>1080p/icons/systeminfo.png</value></variable>
+
 
 	<!-- Constants -->
 	<constant name="HEIGHT_HOME_FALLBACK_CONTENT">590</constant>

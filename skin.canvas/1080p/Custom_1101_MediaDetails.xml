@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="window" id="1101">
+	<controls>
+		<!-- Background (fallback/default + blur quadrants/art) -->
+		<control type="image">
+			<width>100%</width>
+			<height>100%</height>
+			<texture>1080p/fallback/bg.png</texture>
+		</control>
+		<!--<include content="BackgroundQuadrantBlur">
+			<param name="visible">!$EXP[IsHomeLoading]</param>
+			<param name="art">$VAR[HomeBackgroundArt]</param>
+			<param name="show_art">!$EXP[IsHomeActivePagePictures]</param>
+			<param name="blur">$VAR[HomeBlurArt]</param>
+			<param name="blur_mode_squareoffset">$EXP[IsHomeActiveTypeMusic]</param>
+		</include>-->
+
+		<control type="label">
+			<height>50</height>
+			<label>##$INFO[Window(1101).Property(ItemDetails.Type)]§§$INFO[Window(1101).Property(ItemDetails.Id)]çç</label>
+		</control>
+	</controls>
+</window>
