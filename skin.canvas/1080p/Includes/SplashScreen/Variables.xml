@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<!-- Constants -->
+	<constant name="SPLASH_BGSLIDE_TIME">750</constant>
+	<constant name="SPLASH_BGSLIDE_DELAY">1500</constant>
+	<constant name="SPLASH_LOGOTEXTFADE_TIME">1000</constant>
+	<constant name="SPLASH_LOGOTEXTFADE_DELAY">500</constant>
+	<constant name="SPLASH_LOGOCOLORFADE_TIME">800</constant>
+	<constant name="SPLASH_LOGOCOLORFADE_DELAY">1950</constant>
+	<constant name="SPLASH_TEXTCOLORFADE_DELAY">1550</constant>
+	<constant name="SPLASH_LOGOZOOM_TIME">1000</constant>
+	<constant name="SPLASH_LOGOZOOM_DELAY">1950</constant>
+</includes>

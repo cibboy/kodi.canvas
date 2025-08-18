@@ -92,5 +92,10 @@
 			<filename>Montserrat-SemiBold.ttf</filename>
 			<size>24</size>
 		</font>
+		<font>
+			<name>LOGO</name>
+			<filename>Geologica-SemiBold.ttf</filename>
+			<size>200</size>
+		</font>
 	</fontset>
 </fonts>

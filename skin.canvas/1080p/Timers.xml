@@ -3,7 +3,7 @@
 	<!-- Splash screen redirection-->
 	<timer>
 		<name>splashredirect</name>
-		<stop>Integer.IsGreaterOrEqual(Skin.TimerElapsedSecs(splashredirect),2)</stop>
+		<stop>Integer.IsGreaterOrEqual(Skin.TimerElapsedSecs(splashredirect),3)</stop>
 		<onstop>ReplaceWindow(home)</onstop>
 		<!--todo: conditional onstop, redirect either to home or first run window-->
 	</timer>

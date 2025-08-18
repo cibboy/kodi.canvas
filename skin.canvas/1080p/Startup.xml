@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-	<!--<onload>ReplaceWindow(home)</onload>-->
-	<onload>Skin.TimerStart(splashredirect)</onload>
-	
-	<controls>
-		<control type="label">
-			<height>50</height>
-			<label>Canvas</label>
-		</control>
-	</controls>
+	<onload>ReplaceWindow(1199)</onload>
+	<controls />
 </window>

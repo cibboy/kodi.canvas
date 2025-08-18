@@ -144,7 +144,8 @@
 		<midtexture colordiffuse="FOREGROUND_ACCENT" border="6">1080p/progress/mid.png</midtexture>
 	</default>
 
-	<!--<default type="image">
+	<!--todo
+	<default type="image">
 		<texture></texture>
 		<aspectratio>stretch</aspectratio>
 	</default>

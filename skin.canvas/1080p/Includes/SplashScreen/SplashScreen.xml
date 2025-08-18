@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<include file="Includes/SplashScreen/Variables.xml" />
+
+	<!-- Background -->
+	<include name="SplashBackground">
+		<control type="image">
+			<!-- Slide in after logo fade in -->
+			<animation effect="slide" start="SCREEN_WIDTH,0" end="0,0" time="SPLASH_BGSLIDE_TIME" delay="SPLASH_BGSLIDE_DELAY" tween="circle" easing="out">WindowOpen</animation>
+
+			<width>SCREEN_WIDTH</width>
+			<height>SCREEN_HEIGHT</height>
+
+			<texture colordiffuse="FOREGROUND_ACCENT">1080p/diffuse/splash.png</texture>
+		</control>
+	</include>
+
+	<!-- Logo -->
+	<include name="SplashLogo">
+		<param name="color">HIGHLIGHT</param>
+
+		<definition>
+			<!-- Kodi logo -->
+			<control type="image">
+				<width>150</width>
+				<height>150</height>
+				<centerleft>50%</centerleft>
+				<centertop>320</centertop>
+
+				<texture colordiffuse="$PARAM[color]">special://xbmc/media/vendor_icon.png</texture>
+				<aspectratio>keep</aspectratio>
+			</control>
+
+			<!-- Kodi name -->
+			<control type="label">
+				<height>200</height>
+				<width>800</width>
+				<centertop>50%</centertop>
+				<centerleft>50%</centerleft>
+
+				<font>LOGO</font>
+				<textcolor>$PARAM[color]</textcolor>
+				<align>center</align>
+				<aligny>center</aligny>
+				<label>KODI</label>
+			</control>
+		</definition>
+	</include>
+
+	<!-- With Canvas -->
+	<include name="SplashCanvas">
+		<param name="color">HIGHLIGHT</param>
+
+		<definition>
+			<!-- With Canvas label -->
+			<control type="label">
+				<height>50</height>
+				<width>100</width>
+				<top>980</top>
+				<left>1670</left>
+
+				<font>CAPTION_STRONG</font>
+				<textcolor>$PARAM[color]</textcolor>
+				<align>left</align>
+				<aligny>center</aligny>
+				<label>with</label>
+			</control>
+			<control type="label">
+				<height>50</height>
+				<width>150</width>
+				<top>977</top>
+				<left>1740</left>
+
+				<font>BODY_STRONG</font>
+				<textcolor>$PARAM[color]</textcolor>
+				<align>left</align>
+				<aligny>center</aligny>
+				<label>Canvas</label>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Splash screen -->
+	<include name="SplashScreen">
+		<control type="group">
+			<!-- Background -->
+			<include content="SplashBackground" />
+
+			<!-- Logo -->
+			<control type="group">
+				<!-- White -->
+				<control type="group">
+					<!-- Fade in, initiate fade out during background slide in (to give way to the dark one), the zoom in -->
+					<animation type="WindowOpen">
+						<effect type="fade" start="0" end="100" time="SPLASH_LOGOTEXTFADE_TIME" delay="SPLASH_LOGOTEXTFADE_DELAY" tween="circle" easing="in" />
+						<effect type="fade" start="100" end="0" time="SPLASH_LOGOCOLORFADE_TIME" delay="SPLASH_LOGOCOLORFADE_DELAY" tween="circle" easing="out" />
+						<effect type="zoom" start="110" end="100" time="SPLASH_LOGOZOOM_TIME" delay="SPLASH_LOGOZOOM_DELAY" tween="back" easing="out" center="auto" />
+					</animation>
+
+					<include content="SplashLogo">
+						<param name="color">HIGHLIGHT</param>
+					</include>
+				</control>
+
+				<!-- Accent -->
+				<control type="group">
+					<!-- Initiate fade in during background slide in (for better contrast), the zoom in -->
+					<animation type="WindowOpen">
+						<effect type="fade" start="0" end="100" time="SPLASH_LOGOCOLORFADE_TIME" delay="SPLASH_LOGOCOLORFADE_DELAY" tween="circle" easing="out" />
+						<effect type="zoom" start="110" end="100" time="SPLASH_LOGOZOOM_TIME" delay="SPLASH_LOGOZOOM_DELAY" tween="back" easing="out" center="auto" />
+					</animation>
+
+					<include content="SplashLogo">
+						<param name="color">BACKGROUND_SETTINGS_TINT</param>
+					</include>
+				</control>
+			</control>
+		</control>
+
+		<!-- Logo -->
+		<control type="group">
+			<!-- White -->
+			<control type="group">
+				<!-- Fade in, initiate fade out during background slide in (to give way to the dark one) -->
+				<animation type="WindowOpen">
+					<effect type="fade" start="0" end="100" time="SPLASH_LOGOTEXTFADE_TIME" delay="SPLASH_LOGOTEXTFADE_DELAY" tween="circle" easing="in" />
+					<effect type="fade" start="100" end="0" time="SPLASH_LOGOCOLORFADE_TIME" delay="SPLASH_TEXTCOLORFADE_DELAY" tween="circle" easing="out" />
+				</animation>
+
+				<include content="SplashCanvas">
+					<param name="color">HIGHLIGHT</param>
+				</include>
+			</control>
+
+			<!-- Accent -->
+			<control type="group">
+				<!-- Initiate fade in during background slide in (for better contrast) -->
+				<animation type="WindowOpen">
+					<effect type="fade" start="0" end="100" time="SPLASH_LOGOCOLORFADE_TIME" delay="SPLASH_TEXTCOLORFADE_DELAY" tween="circle" easing="out" />
+				</animation>
+
+				<include content="SplashCanvas">
+					<param name="color">BACKGROUND_SETTINGS_TINT</param>
+				</include>
+			</control>
+		</control>
+	</include>
+</includes>

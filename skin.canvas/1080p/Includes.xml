@@ -66,6 +66,7 @@
 	<include file="Includes/Backgrounds.xml" />
 	<include file="Includes/BottomBar.xml" />
 	<include file="Includes/TopBar.xml" />
+	<include file="Includes/SplashScreen/SplashScreen.xml" />
 	<include file="Includes/Dialogs/Dialogs.xml" />
 	<include file="Includes/ArtLists/ArtLists.xml" />
 	<include file="Includes/Details/Details.xml" />
