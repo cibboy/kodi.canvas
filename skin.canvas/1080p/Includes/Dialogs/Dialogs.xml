@@ -213,17 +213,26 @@
 				<include content="StandardFlyoutStructure">
 					<param name="visible">$PARAM[visible]</param>
 
+					<!-- Background with shadow -->
 					<control type="image">
 						<width>100%</width>
 						<height>100%</height>
 						<texture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND_DIALOG">1080p/controls/button.png</texture>
 					</control>
+					<!-- Diffuse overlay -->
 					<control type="image">
 						<width>100%</width>
 						<height>100%</height>
 						<texture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND" diffuse="1080p/diffuse/box.png" flipy="true" flipx="true">1080p/diffuse/background.png</texture>
 						<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
 						<aspectratio scalediffuse="true">scale</aspectratio>
+					</control>
+					<!-- Border -->
+					<control type="image">
+						<width>100%</width>
+						<height>100%</height>
+						<texture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="05FFFFFF">1080p/diffuse/square-outline.png</texture>
+						<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
 					</control>
 				</include>
 
