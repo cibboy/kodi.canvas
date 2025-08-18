@@ -825,7 +825,7 @@
 						<item id="4">
 							<thumb>$VAR[ReloadHomeIcon]</thumb>
 							<label>Reload home</label>
-							<property name="onclick">RunScript(script.canvas.helper,init_home)</property>
+							<property name="onclick">ReloadSkin()</property>
 						</item>
 						<!-- Addons -->
 						<item id="5">
