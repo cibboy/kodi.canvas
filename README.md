@@ -1,5 +1,16 @@
 TOFIX:
 - aggiunto genre audio in plugin (potenzialmente una lista, quindi bisognerà fare delle prove con ulteriore scraping e aggiornamento tag mp3, che è stata aggiunta alla details info line 2)
+- aggiungere ombra (del colore opposto? del più vicino?) nel plot dei details (su tv è meno leggibile, soprattutto il nero)
+  - capire se è meglio un font più bold o un utilizzo più aggressivo dei colori chiari
+- aggiungere ulteriore delay all'inizio delle animazioni dello splash screen
+- cambiare leggermente splash screen:
+  - bg image è singolo blade, non full width ma solo quello che serve
+  - risultato sempre a 2 blade sovrapposti
+  - parte il primo blade
+  - il secondo blade parte qualche decimo dopo il primo, per sfasarli
+  - occhio ai tempi di conversione da bianco a nero del testo centrale e di quello a dx
+  - "Canvas" è troppo distante da "with"
+- c'è ancora qualcosa senza angoli arrotondati sul flyout (in basso, mettere sfondo blur chiaro)
 
 TODO:
 - dialog in settings da fare:
@@ -19,6 +30,7 @@ TODO:
 - manca il caricamento della lista pictures
 - sorting include "The", bisognerebbe usare il sorttitle, ma è stringa vuota
 - creare possibilità di sbiancare la cache in temp
+- ricordarsi nel setup iniziale di gestire anche advancedsettings.xml per la questione rimozione splash screen originale
 
 - skin settings (skinsettings) > sub of interface
 - pvr, profiles, file manager

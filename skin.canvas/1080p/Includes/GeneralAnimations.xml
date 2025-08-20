@@ -78,4 +78,15 @@
 			<animation type="Unfocus"><effect type="zoom" start="$PARAM[amount]" end="100" time="$PARAM[speed]" tween="circle" easing="out" center="auto" condition="Control.HasFocus($PARAM[reference_id])"/></animation>
 		</definition>
 	</include>
+
+	<!-- Immediately hide with transparency (useful for faking a non visible control without really hiding it, i.e. lists that need reload) -->
+	<include name="HideWithTransparency">
+		<param name="condition_visible">true</param>
+		<param name="condition_hidden">false</param>
+
+		<definition>
+			<animation effect="fade" start="100" end="100" time="0" tween="linear" easing="inout" condition="$PARAM[condition_visible]" reversible="false">Conditional</animation>
+			<animation effect="fade" start="0" end="0" time="0" tween="linear" easing="inout" condition="$PARAM[condition_hidden]" reversible="false">Conditional</animation>
+		</definition>
+	</include>
 </includes>

@@ -1,7 +1,7 @@
 import sys
 import xbmc
 from urllib.parse import urlparse, parse_qsl
-from common import list_objects
+from media import list_media
 
 handle = int(sys.argv[1])
 
@@ -25,4 +25,4 @@ if __name__ == '__main__':
     # Example result: params == {'param1': 'value1', 'param2': 'value2'}
 
     # Generate list.
-    list_objects(method, params, handle)
+    list_media(method, params, handle)

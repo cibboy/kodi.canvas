@@ -1,6 +1,6 @@
 import sys
 import xbmc, xbmcgui
-from common import list_objects
+from media import list_media
 
 # Given a set of IDs, find the first one with content using custom window properties.
 def find_home_next_content(ids, window, hint=None):
@@ -20,7 +20,7 @@ def find_home_next_content(ids, window, hint=None):
 # potential empty lists. For multi-list pages, it first checks for an ID already
 # set in custom property and returns it if it has content.
 def find_home_active_id(page, window):
-    page_active_id = window.getProperty(f"Home.ActivePage.{page}")
+    page_active_id = window.getProperty(f"ActivePage.{page}")
 
     # Home.
     if page == 'home':
@@ -58,18 +58,18 @@ def onchange_home_menu(page):
     page_active_id = find_home_active_id(page, window)
 
     # Update window properties.
-    window.setProperty(f"Home.ActivePage.{page}", page_active_id)
-    window.setProperty('Home.ActivePage', page)
-    window.setProperty('Home.ActiveListId', page_active_id)
+    window.setProperty(f"ActivePage.{page}", page_active_id)
+    window.setProperty('ActivePage', page)
+    window.setProperty('ActiveListId', page_active_id)
 
 # When changing the focused list inside a page on home.
 def onfocus_home_page_item(page, listid):
     window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
 
     # Update window properties.
-    window.setProperty(f"Home.ActivePage.{page}", str(listid))
-    window.setProperty('Home.ActivePage', page)
-    window.setProperty('Home.ActiveListId', str(listid))
+    window.setProperty(f"ActivePage.{page}", str(listid))
+    window.setProperty('ActivePage', page)
+    window.setProperty('ActiveListId', str(listid))
 
 # When moving up or down inside the "home" page on home.
 def onmove_home_page_item(listid, direction):
@@ -96,34 +96,24 @@ def onmove_home_page_item(listid, direction):
         id = find_home_next_content(['103', '102', '101'], window)
         if id is not None: xbmc.executebuiltin(f"SetFocus({id})")
 
-# Reset home status.
-def init_home():
+# Reload home status.
+def reload_home():
     window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
 
-    # Move to the first menu item to reset things, then
-    # immediately to the hidden button while loading.
-    xbmc.executebuiltin('SetFocus(1,0)')
-    xbmc.executebuiltin('SetFocus(9999)')
+    # Pretend load on home page items, so the loading animation is smoother.
+    window.setProperty('IsLoading.101', 'true')
+    window.setProperty('IsLoading.102', 'true')
+    window.setProperty('IsLoading.103', 'true')
+    window.setProperty('IsLoading.104', 'true')
 
-    # Preload lists.
-    window.setProperty('Home.IsLoading', 'true')
-    list_objects('continue_watching', {'listid': 101}, 1)   # Continue watching
-    list_objects('recently_added_tvshow_episodes', {'listid': 102}, 2)  # Recently added episodes
-    list_objects('movies', {'listid': 103, 'sort': 'dateadded', 'order': 'descending', 'limit': 25}, 3) # Recently added movies
-    list_objects('songs', {'listid': 104, 'sort': 'dateadded', 'order': 'descending', 'limit': 25}, 4)  # Recently added music
-    list_objects('movies', {'listid': 110}, 10)     # All movies
-    list_objects('tvshows', {'listid': 121, 'exclude': 'Yoga with Adriene'}, 20)    # All TV shows
-    list_objects('seasons', {'listid': 131, 'showtitle': 'Yoga with Adriene'}, 30)  # Yoga
-    list_objects('songs', {'listid': 141}, 40)      # All music
-    list_objects('pictures', {'listid': 151}, 50)   # Pictures
-    window.setProperty('Home.IsLoading', 'false')
-    window.setProperty('Home.HasLoaded', 'true')
-    
-    # Briefly set focus on the first available home item, then return to the main menu.
-    # This allows to properly set focuses as well as loading the right item details
-    # for when the focus is on the main menu instead of the items themeselves.
-    focus = find_home_next_content(['101', '102', '103', '104'], window)
-    xbmc.executebuiltin(f"SetFocus({focus},0)")
+    # Update nonce to force lists to reload.
+    nonce = window.getProperty('Nonce')
+    if nonce is None or nonce == '': nonce = 0
+    else: nonce = int(nonce)
+    nonce += 1
+    window.setProperty('Nonce', str(nonce))
+
+    # Focus back to first element of menu (home).
     xbmc.executebuiltin('SetFocus(1,0)')
 
 # Navigates to the active settings page (interface settings as fallback)
@@ -146,9 +136,9 @@ def onclick_media_item(item_type, item_id):
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         method = sys.argv[1]
-        # Reset home status.
-        if method == 'init_home':
-            init_home()
+        # Reload home.
+        if method == 'reload_home':
+            reload_home()
         # Navigates to active settings page from modal menu on home.
         elif method == 'home_to_active_settings':
             home_to_active_settings(sys.argv[2])

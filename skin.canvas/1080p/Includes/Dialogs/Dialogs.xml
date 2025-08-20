@@ -231,7 +231,7 @@
 					<control type="image">
 						<width>100%</width>
 						<height>100%</height>
-						<texture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="05FFFFFF">1080p/diffuse/square-outline.png</texture>
+						<texture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="FOREGROUND_OPAQUE5">1080p/diffuse/square-outline.png</texture>
 						<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
 					</control>
 				</include>

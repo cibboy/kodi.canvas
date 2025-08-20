@@ -75,7 +75,7 @@
 	<include name="HomeMainMenu">
 		<definition>
 			<control type="group">
-				<!-- Left/right shift + fade when the main menu loses/gains focus (except for "focus steal" and modal menu) -->
+				<!-- Left/right shift + fade when the main menu loses/gains focus -->
 				<visible>$EXP[HasHomeMenuFocus]</visible>
 				<include content="ShowHideFadeSlideHorizontalAnimation">
 					<param name="slide_amount">-200</param>
@@ -85,15 +85,6 @@
 				<left>PADDING_BASE</left>
 				<top>PADDING_BASE</top>
 				<bottom>PADDING_BASE</bottom>
-
-				<!-- Hidden button to steal focus while loading -->
-				<control type="button" id="9999">
-					<include content="Hidden" />
-					<!-- Fallback for endless loading -->
-					<onback>SetFocus(1001,0)</onback>
-					<!-- Fallback for side menu opening while loading -->
-					<ondown condition="!$EXP[IsHomeLoading]">SetFocus(1)</ondown>
-				</control>
 
 				<!-- Logo -->
 				<control type="image">
@@ -109,8 +100,8 @@
 					<bottom>0</bottom>
 					<autoscroll>false</autoscroll>
 					
-					<onright>$INFO[Container(1).ListItem.Property(onright)]</onright>
-					<onclick>$INFO[Container(1).ListItem.Property(onclick)]</onclick>
+					<onright condition="!$EXP[IsHomeLoading]">$INFO[Container(1).ListItem.Property(onright)]</onright>
+					<onclick condition="!$EXP[IsHomeLoading]">$INFO[Container(1).ListItem.Property(onclick)]</onclick>
 					<!-- Open flyout if not playing something in background -->
 					<onback condition="!Player.HasMedia">SetFocus(1001,0)</onback>
 
@@ -280,10 +271,16 @@
 				<control type="group">
 					<!-- Home -->
 					<control type="group">
-						<visible>$EXP[IsHomeActivePageHome] + !$EXP[IsHomeLoading]</visible>
+						<visible>$EXP[IsHomeActivePageHome]</visible>
+						<!-- Visibility animation -->
 						<include content="ShowHideFadeSlideVerticalAnimation">
 							<param name="slide_amount">200</param>
 							<param name="speed">ANIMATION_SLOW</param>
+						</include>
+						<!-- Hide while loading -->
+						<include content="HideWithTransparency">
+							<param name="condition_visible">!$EXP[IsHomeLoading]</param>
+							<param name="condition_hidden">$EXP[IsHomeLoading]</param>
 						</include>
 
 						<!-- Empty list fallback -->
@@ -304,14 +301,25 @@
 						</control>
 
 						<control type="grouplist" id="100">
-							<visible>$EXP[HasHomePageHomeContent]</visible>
+							<!-- Hide if there is no content -->
+							<include content="HideWithTransparency">
+								<param name="condition_visible">$EXP[HasHomePageHomeContent]</param>
+								<param name="condition_hidden">!$EXP[HasHomePageHomeContent]</param>
+							</include>
+
 							<top>OFFSET_AFTER_DETAILS</top>
 							<itemgap>OFFSET_HOME_STRIP</itemgap>
 							<usecontrolcoords>true</usecontrolcoords>
 
 							<!-- Continue watching -->
 							<control type="group">
-								<visible>$EXP[HasHomeContinueWatchingContent]</visible>
+								<!-- Visible if there is content OR if loading (allows to reload hidden lists because empty) -->
+								<visible>$EXP[HasHomeContinueWatchingContent] | $EXP[IsHomeLoading]</visible>
+								<!-- Hide if there is no content -->
+								<include content="HideWithTransparency">
+									<param name="condition_visible">$EXP[HasHomeContinueWatchingContent]</param>
+									<param name="condition_hidden">!$EXP[HasHomeContinueWatchingContent]</param>
+								</include>
 								<include content="FocusFadeAnimation">
 									<param name="reference_id">101</param>
 								</include>
@@ -320,7 +328,7 @@
 								<include content="PosterStrip">
 									<param name="id">101</param>
 									<param name="label">Continue watching</param>
-									<param name="content">plugin://script.canvas.helper/continue_watching/?listid=101</param>
+									<param name="content">$VAR[HomeContinueWatchingContentUrl]</param>
 									<param name="art">$INFO[ListItem.Art(poster)]</param>
 									<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
 									<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
@@ -334,7 +342,13 @@
 
 							<!-- Recently added episodes -->
 							<control type="group">
-								<visible>$EXP[HasHomeRecentEpisodesContent]</visible>
+								<!-- Visible if there is content OR if loading (allows to reload hidden lists because empty) -->
+								<visible>$EXP[HasHomeRecentEpisodesContent] | $EXP[IsHomeLoading]</visible>
+								<!-- Hide if there is no content -->
+								<include content="HideWithTransparency">
+									<param name="condition_visible">$EXP[HasHomeRecentEpisodesContent]</param>
+									<param name="condition_hidden">!$EXP[HasHomeRecentEpisodesContent]</param>
+								</include>
 								<include content="FocusFadeAnimation">
 									<param name="reference_id">102</param>
 								</include>
@@ -343,7 +357,7 @@
 								<include content="LandscapeStrip">
 									<param name="id">102</param>
 									<param name="label">Recently added episodes</param>
-									<param name="content">plugin://script.canvas.helper/recently_added_tvshow_episodes/?listid=102</param>
+									<param name="content">$VAR[HomeRecentEpisodesContentUrl]</param>
 									<param name="art">$INFO[ListItem.Art(thumb)]</param>
 									<param name="showinfo">true</param>
 									<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
@@ -359,7 +373,13 @@
 
 							<!-- Recently added movies -->
 							<control type="group">
-								<visible>$EXP[HasHomeRecentMoviesContent]</visible>
+								<!-- Visible if there is content OR if loading (allows to reload hidden lists because empty) -->
+								<visible>$EXP[HasHomeRecentMoviesContent] | $EXP[IsHomeLoading]</visible>
+								<!-- Hide if there is no content -->
+								<include content="HideWithTransparency">
+									<param name="condition_visible">$EXP[HasHomeRecentMoviesContent]</param>
+									<param name="condition_hidden">!$EXP[HasHomeRecentMoviesContent]</param>
+								</include>
 								<include content="FocusFadeAnimation">
 									<param name="reference_id">103</param>
 								</include>
@@ -368,7 +388,7 @@
 								<include content="PosterStrip">
 									<param name="id">103</param>
 									<param name="label">Recently added movies</param>
-									<param name="content">plugin://script.canvas.helper/movies/?sort=dateadded&amp;order=descending&amp;limit=25&amp;listid=103</param>
+									<param name="content">$VAR[HomeRecentMoviesContentUrl]</param>
 									<param name="art">$INFO[ListItem.Art(poster)]</param>
 									<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
 									<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
@@ -383,7 +403,13 @@
 
 							<!-- Recently added music -->
 							<control type="group">
-								<visible>$EXP[HasHomeRecentMusicContent]</visible>
+								<!-- Visible if there is content OR if loading (allows to reload hidden lists because empty) -->
+								<visible>$EXP[HasHomeRecentMusicContent] | $EXP[IsHomeLoading]</visible>
+								<!-- Hide if there is no content -->
+								<include content="HideWithTransparency">
+									<param name="condition_visible">$EXP[HasHomeRecentMusicContent]</param>
+									<param name="condition_hidden">!$EXP[HasHomeRecentMusicContent]</param>
+								</include>
 								<include content="FocusFadeAnimation">
 									<param name="reference_id">104</param>
 								</include>
@@ -392,7 +418,7 @@
 								<include content="AlbumStrip">
 									<param name="id">104</param>
 									<param name="label">Recently added music</param>
-									<param name="content">plugin://script.canvas.helper/songs/?sort=dateadded&amp;order=descending&amp;limit=25&amp;listid=104</param>
+									<param name="content">$VAR[HomeRecentSongsContentUrl]</param>
 									<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
 									<param name="info1">$INFO[ListItem.Title]</param>
 									<param name="info2">$INFO[ListItem.Album]</param>
@@ -410,13 +436,18 @@
 
 					<!-- Movies -->
 					<control type="group" id="110">
-						<visible>$EXP[IsHomeActivePageMovies] + !$EXP[IsHomeLoading]</visible>
+						<visible>$EXP[IsHomeActivePageMovies]</visible>
 						<include content="ShowHideFadeSlideVerticalAnimation">
 							<param name="slide_amount">200</param>
 							<param name="speed">ANIMATION_SLOW</param>
 						</include>
 						<include content="FocusFadeAnimation">
 							<param name="reference_id">111</param>
+						</include>
+						<!-- Hide while loading -->
+						<include content="HideWithTransparency">
+							<param name="condition_visible">!$EXP[IsHomeLoading]</param>
+							<param name="condition_hidden">$EXP[IsHomeLoading]</param>
 						</include>
 
 						<!-- Empty list fallback -->
@@ -435,11 +466,17 @@
 						</control>
 						<!-- Actual movies -->
 						<control type="group">
-							<visible>$EXP[HasHomeMoviesContent]</visible>
+							<!-- Visible if there is content OR if loading (allows to reload hidden lists because empty) -->
+							<visible>$EXP[HasHomeMoviesContent] | $EXP[IsHomeLoading]</visible>
+							<!-- Hide if there is no content -->
+							<include content="HideWithTransparency">
+								<param name="condition_visible">$EXP[HasHomeMoviesContent]</param>
+								<param name="condition_hidden">!$EXP[HasHomeMoviesContent]</param>
+							</include>
 							<include content="PosterWall">
 								<param name="id">111</param>
 								<param name="label">Movies</param>
-								<param name="content">plugin://script.canvas.helper/movies/?listid=111</param>
+								<param name="content">$VAR[HomeMoviesContentUrl]</param>
 								<param name="art">$INFO[ListItem.Art(poster)]</param>
 								<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
 								<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
@@ -453,13 +490,18 @@
 
 					<!-- TV shows -->
 					<control type="group" id="120">
-						<visible>$EXP[IsHomeActivePageTvShows] + !$EXP[IsHomeLoading]</visible>
+						<visible>$EXP[IsHomeActivePageTvShows]</visible>
 						<include content="ShowHideFadeSlideVerticalAnimation">
 							<param name="slide_amount">200</param>
 							<param name="speed">ANIMATION_SLOW</param>
 						</include>
 						<include content="FocusFadeAnimation">
 							<param name="reference_id">121</param>
+						</include>
+						<!-- Hide while loading -->
+						<include content="HideWithTransparency">
+							<param name="condition_visible">!$EXP[IsHomeLoading]</param>
+							<param name="condition_hidden">$EXP[IsHomeLoading]</param>
 						</include>
 
 						<!-- Empty list fallback -->
@@ -478,11 +520,17 @@
 						</control>
 						<!-- Actual TV shows -->
 						<control type="group">
-							<visible>$EXP[HasHomeTvShowsContent]</visible>
+							<!-- Visible if there is content OR if loading (allows to reload hidden lists because empty) -->
+							<visible>$EXP[HasHomeTvShowsContent] | $EXP[IsHomeLoading]</visible>
+							<!-- Hide if there is no content -->
+							<include content="HideWithTransparency">
+								<param name="condition_visible">$EXP[HasHomeTvShowsContent]</param>
+								<param name="condition_hidden">!$EXP[HasHomeTvShowsContent]</param>
+							</include>
 							<include content="PosterWall">
 								<param name="id">121</param>
 								<param name="label">TV Shows</param>
-								<param name="content">plugin://script.canvas.helper/tvshows/?exclude=Yoga with Adriene&amp;listid=121</param>
+								<param name="content">$VAR[HomeTVShowsContentUrl]</param>
 								<param name="art">$INFO[ListItem.Art(poster)]</param>
 								<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
 								<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
@@ -504,6 +552,11 @@
 						<include content="FocusFadeAnimation">
 							<param name="reference_id">131</param>
 						</include>
+						<!-- Hide while loading -->
+						<include content="HideWithTransparency">
+							<param name="condition_visible">!$EXP[IsHomeLoading]</param>
+							<param name="condition_hidden">$EXP[IsHomeLoading]</param>
+						</include>
 
 						<!-- Empty list fallback -->
 						<control type="group">
@@ -521,13 +574,19 @@
 						</control>
 						<!-- Actual Yoga With Adriene -->
 						<control type="group">
-							<visible>$EXP[HasHomeYogaContent]</visible>
+							<!-- Visible if there is content OR if loading (allows to reload hidden lists because empty) -->
+							<visible>$EXP[HasHomeYogaContent] | $EXP[IsHomeLoading]</visible>
+							<!-- Hide if there is no content -->
+							<include content="HideWithTransparency">
+								<param name="condition_visible">$EXP[HasHomeYogaContent]</param>
+								<param name="condition_hidden">!$EXP[HasHomeYogaContent]</param>
+							</include>
 							<top>OFFSET_AFTER_DETAILS</top>
 
 							<include content="PosterStrip">
 								<param name="id">131</param>
 								<param name="label"></param>
-								<param name="content">plugin://script.canvas.helper/seasons/?showtitle=Yoga with Adriene&amp;listid=131</param>
+								<param name="content">$VAR[HomeYogaContentUrl]</param>
 								<param name="art">$INFO[ListItem.Art(poster)]</param>
 								<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
 								<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
@@ -549,6 +608,11 @@
 						<include content="FocusFadeAnimation">
 							<param name="reference_id">141</param>
 						</include>
+						<!-- Hide while loading -->
+						<include content="HideWithTransparency">
+							<param name="condition_visible">!$EXP[IsHomeLoading]</param>
+							<param name="condition_hidden">$EXP[IsHomeLoading]</param>
+						</include>
 
 						<!-- Empty list fallback -->
 						<control type="group">
@@ -566,11 +630,17 @@
 						</control>
 						<!-- Actual music -->
 						<control type="group">
-							<visible>$EXP[HasHomeMusicContent]</visible>
+							<!-- Visible if there is content OR if loading (allows to reload hidden lists because empty) -->
+							<visible>$EXP[HasHomeMusicContent] | $EXP[IsHomeLoading]</visible>
+							<!-- Hide if there is no content -->
+							<include content="HideWithTransparency">
+								<param name="condition_visible">$EXP[HasHomeMusicContent]</param>
+								<param name="condition_hidden">!$EXP[HasHomeMusicContent]</param>
+							</include>
 							<include content="AlbumWall">
 								<param name="id">141</param>
 								<param name="label">Music</param>
-								<param name="content">plugin://script.canvas.helper/songs/?listid=141</param>
+								<param name="content">$VAR[HomeMusicContentUrl]</param>
 								<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
 								<param name="info1">$INFO[ListItem.Title]</param>
 								<param name="info2">$INFO[ListItem.Album]</param>
@@ -594,6 +664,11 @@
 						<include content="FocusFadeAnimation">
 							<param name="reference_id">151</param>
 						</include>
+						<!-- Hide while loading -->
+						<include content="HideWithTransparency">
+							<param name="condition_visible">!$EXP[IsHomeLoading]</param>
+							<param name="condition_hidden">$EXP[IsHomeLoading]</param>
+						</include>
 
 						<!-- Empty list fallback -->
 						<control type="group">
@@ -611,11 +686,17 @@
 						</control>
 						<!-- Actual pictures -->
 						<control type="group">
-							<visible>$EXP[HasHomePicturesContent]</visible>
-								<include content="AlbumWall">
+							<!-- Visible if there is content OR if loading (allows to reload hidden lists because empty) -->
+							<visible>$EXP[HasHomePicturesContent] | $EXP[IsHomeLoading]</visible>
+							<!-- Hide if there is no content -->
+							<include content="HideWithTransparency">
+								<param name="condition_visible">$EXP[HasHomePicturesContent]</param>
+								<param name="condition_hidden">!$EXP[HasHomePicturesContent]</param>
+							</include>
+							<include content="AlbumWall">
 								<param name="id">151</param>
 								<param name="label">Music</param>
-								<param name="content">plugin://script.canvas.helper/pictures/?listid=151</param>
+								<param name="content">$VAR[HomePicturesContentUrl]</param>
 								<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
 								<param name="info1">$INFO[ListItem.Title]</param>
 								<param name="info2">$INFO[ListItem.Album]</param>
@@ -825,7 +906,8 @@
 						<item id="4">
 							<thumb>$VAR[ReloadHomeIcon]</thumb>
 							<label>Reload home</label>
-							<property name="onclick">ReloadSkin()</property>
+							<!-- Use script to change window property Nonce, used in lists dynamic content, so it gets refreshed -->
+							<property name="onclick">RunScript(script.canvas.helper,reload_home)</property>
 						</item>
 						<!-- Addons -->
 						<item id="5">

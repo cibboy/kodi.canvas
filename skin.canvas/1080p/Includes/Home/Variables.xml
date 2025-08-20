@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
+	<!-- List content URLs -->
+	<variable name="HomeContinueWatchingContentUrl"><value>plugin://script.canvas.helper/continue_watching/?listid=101&amp;refocus_when_done=0&amp;nonce=$INFO[Window(home).Property(Nonce)]</value></variable>
+	<variable name="HomeRecentEpisodesContentUrl"><value>plugin://script.canvas.helper/recently_added_tvshow_episodes/?listid=102&amp;refocus_when_done=0&amp;nonce=$INFO[Window(home).Property(Nonce)]</value></variable>
+	<variable name="HomeRecentMoviesContentUrl"><value>plugin://script.canvas.helper/movies/?sort=dateadded&amp;order=descending&amp;limit=25&amp;listid=103&amp;refocus_when_done=0&amp;nonce=$INFO[Window(home).Property(Nonce)]</value></variable>
+	<variable name="HomeRecentSongsContentUrl"><value>plugin://script.canvas.helper/songs/?sort=dateadded&amp;order=descending&amp;limit=25&amp;listid=104&amp;refocus_when_done=0&amp;nonce=$INFO[Window(home).Property(Nonce)]</value></variable>
+	<variable name="HomeMoviesContentUrl"><value>plugin://script.canvas.helper/movies/?listid=111&amp;refocus_when_done=1&amp;nonce=$INFO[Window(home).Property(Nonce)]</value></variable>
+	<variable name="HomeTVShowsContentUrl"><value>plugin://script.canvas.helper/tvshows/?exclude=Yoga with Adriene&amp;listid=121&amp;refocus_when_done=2&amp;nonce=$INFO[Window(home).Property(Nonce)]</value></variable>
+	<variable name="HomeYogaContentUrl"><value>plugin://script.canvas.helper/seasons/?showtitle=Yoga with Adriene&amp;listid=131&amp;refocus_when_done=3&amp;nonce=$INFO[Window(home).Property(Nonce)]</value></variable>
+	<variable name="HomeMusicContentUrl"><value>plugin://script.canvas.helper/songs/?listid=141&amp;refocus_when_done=4&amp;nonce=$INFO[Window(home).Property(Nonce)]</value></variable>
+	<variable name="HomePicturesContentUrl"><value>plugin://script.canvas.helper/pictures/?listid=151&amp;refocus_when_done=5&amp;nonce=$INFO[Window(home).Property(Nonce)]</value></variable>
+
+
 	<!-- Contrast text color (against blur art) -->
 	<variable name="HomeContrastTextForegroundColor">
 		<!-- Lighter color -->

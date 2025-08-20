@@ -641,3 +641,64 @@ def list_pictures(params, handle):
     pictures = []
     
     return len(pictures)
+
+
+# Scaffolding for list generation.
+def list_media(method, params, handle):
+    listid = params.get('listid', None)
+    windowid = xbmcgui.getCurrentWindowId()
+    window = xbmcgui.Window(windowid)
+
+    # Set loading indicator for list.
+    if listid is not None: window.setProperty(f"IsLoading.{listid}", 'true')
+
+    count = 0
+    # Call appropriate method.
+    if method == 'continue_watching':
+        count = list_continue_watching(handle)
+    elif method == 'recently_added_tvshow_episodes':
+        count = list_recently_added_tvshow_episodes(handle)
+    elif method == 'movies':
+        count = list_movies(params, handle)
+    elif method == 'tvshows':
+        count = list_tvshows(params, handle)
+    elif method == 'seasons':
+        count = list_seasons(params, handle)
+    elif method == 'albums':
+        count = list_albums(params, handle)
+    elif method == 'songs':
+        count = list_songs(params, handle)
+    elif method == 'pictures':
+        count = list_pictures(params, handle)
+
+    # Use custom property to indicate there is content, so visibility can be set
+    # on that property and work properly.
+    if count > 0: window.setProperty(f"List.{listid}.HasContent", 'true')
+    else: window.setProperty(f"List.{listid}.HasContent", 'false')
+
+    # Set loading indicator for list to false.
+    if listid is not None: window.setProperty(f"IsLoading.{listid}", 'false')
+
+    # If on home, look for refocus parameter. This is a hint on to which
+    # menu item to refocus when  done loading.
+    # It's necessary to load details when the focus is not on lists.
+    if windowid == 10000:
+        refocus = params.get('refocus_when_done', None)
+        
+        if refocus is not None:
+            expected_page = ''
+            # Populate expected page.
+            if refocus == '0': expected_page = 'home'
+            elif refocus == '1': expected_page = 'movies'
+            elif refocus == '2': expected_page = 'tvshows'
+            elif refocus == '3': expected_page = 'yoga'
+            elif refocus == '4': expected_page = 'music'
+            elif refocus == '5': expected_page = 'pictures'
+
+            # Refocus on requested ID if the expected page is the active one.
+            active_page = window.getProperty('ActivePage')
+            if active_page == expected_page:
+                xbmc.executebuiltin(f"SetFocus(1,{refocus})")
+
+    # Close list.
+    xbmcplugin.endOfDirectory(handle)
