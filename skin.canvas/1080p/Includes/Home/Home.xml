@@ -100,8 +100,11 @@
 					<bottom>0</bottom>
 					<autoscroll>false</autoscroll>
 					
-					<onright condition="!$EXP[IsHomeLoading]">$INFO[Container(1).ListItem.Property(onright)]</onright>
-					<onclick condition="!$EXP[IsHomeLoading]">$INFO[Container(1).ListItem.Property(onclick)]</onclick>
+					<!-- Standard item onright and onclick -->
+					<onright condition="!$EXP[IsHomeLoading] + !String.IsEqual(Container(1).ListItem.Property(name),menu)">$INFO[Container(1).ListItem.Property(onright)]</onright>
+					<onclick condition="!$EXP[IsHomeLoading] + !String.IsEqual(Container(1).ListItem.Property(name),menu)">$INFO[Container(1).ListItem.Property(onclick)]</onclick>
+					<!-- Menu item onclick -->
+					<onclick condition="String.IsEqual(Container(1).ListItem.Property(name),menu)">SetFocus(1001,0)</onclick>
 					<!-- Open flyout if not playing something in background -->
 					<onback condition="!Player.HasMedia">SetFocus(1001,0)</onback>
 
@@ -189,8 +192,6 @@
 						<item id="7">
 							<thumb>$VAR[MenuIcon]</thumb>
 							<property name="name">menu</property>
-							<property name="onright">noop</property>
-							<property name="onclick">SetFocus(1001,0)</property>
 						</item>
 					</content>
 				</control>
@@ -801,11 +802,9 @@
 	<!-- Flyout menu -->
 	<include name="HomeFlyoutMenu">
 		<include content="StandardFlyoutBase">
-			<param name="visible">$EXP[HasHomeFlyoutFocus]</param>
+			<param name="visible">$EXP[IsHomeMenuFlyoutVisible]</param>
 
 			<include content="StandardFlyoutStructure">
-				<param name="visible">$EXP[HasHomeFlyoutFocus]</param>
-
 				<!-- Horizontal list of icon buttons -->
 				<control type="list" id="1000">
 					<top>OFFSET_HOME_FLYOUT_HORIZONTAL_LIST_TOP</top>

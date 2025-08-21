@@ -7,15 +7,17 @@
 		- Focus on modal menu (only accessible through left menu)
 		- Focus on filter menu
 	-->
-	<expression name="HasHomeMenuFocus">Control.HasFocus(1) | $EXP[HasHomeFlyoutFocus]</expression>
+	<expression name="HasHomeMenuFocus">Control.HasFocus(1) | $EXP[IsHomeFlyoutVisible]</expression>
+	<!-- Is menu flyout visible? -->
+	<expression name="IsHomeMenuFlyoutVisible">Control.HasFocus(1000) | Control.HasFocus(1001)</expression>
+	<!-- Is filter flyout visible? -->
+	<expression name="IsHomeFilterFlyoutVisible">false</expression><!--todo-->
 	<!--
-		Has flyout focus?
-		Consider true any of the following conditions:
-		- Shutdown horizontal options
-		- Shutdown vertical options
-		- Filters (todo)
+		Is any flyout visible? Consider:
+		- Menu flyout
+		- Filter flyout
 	-->
-	<expression name="HasHomeFlyoutFocus">Control.HasFocus(1000) | Control.HasFocus(1001)</expression>
+	<expression name="IsHomeFlyoutVisible">$EXP[IsHomeMenuFlyoutVisible] | $EXP[IsHomeFilterFlyoutVisible]</expression>
 
 	<!-- Is loading ongoing on home? -->
 	<expression name="IsHomeLoading">
