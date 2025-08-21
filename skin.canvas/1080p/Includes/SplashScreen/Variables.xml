@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 	<!-- Constants -->
+	<constant name="WIDTH_SPLASH_BG">1635</constant>
+	<constant name="WIDTH_SPLASH_BG2_SLIDE">730</constant>
+
 	<constant name="SPLASH_BGSLIDE_TIME">750</constant>
-	<constant name="SPLASH_BGSLIDE_DELAY">1500</constant>
+	<constant name="SPLASH_BG1SLIDE_DELAY">3000</constant>
+	<constant name="SPLASH_BG2SLIDE_DELAY">3300</constant>
 	<constant name="SPLASH_LOGOTEXTFADE_TIME">1000</constant>
-	<constant name="SPLASH_LOGOTEXTFADE_DELAY">500</constant>
+	<constant name="SPLASH_LOGOTEXTFADE_DELAY">2000</constant>
 	<constant name="SPLASH_LOGOCOLORFADE_TIME">800</constant>
-	<constant name="SPLASH_LOGOCOLORFADE_DELAY">1950</constant>
-	<constant name="SPLASH_TEXTCOLORFADE_DELAY">1550</constant>
+	<constant name="SPLASH_LOGOCOLORFADE_DELAY">3450</constant>
+	<constant name="SPLASH_TEXTCOLORFADE_DELAY">3050</constant>
 	<constant name="SPLASH_LOGOZOOM_TIME">1000</constant>
-	<constant name="SPLASH_LOGOZOOM_DELAY">1950</constant>
+	<constant name="SPLASH_LOGOZOOM_DELAY">3450</constant>
 </includes>

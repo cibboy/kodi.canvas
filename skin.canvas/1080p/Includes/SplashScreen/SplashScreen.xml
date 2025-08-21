@@ -4,14 +4,27 @@
 
 	<!-- Background -->
 	<include name="SplashBackground">
+		<!-- Layer 1 -->
 		<control type="image">
 			<!-- Slide in after logo fade in -->
-			<animation effect="slide" start="SCREEN_WIDTH,0" end="0,0" time="SPLASH_BGSLIDE_TIME" delay="SPLASH_BGSLIDE_DELAY" tween="circle" easing="out">WindowOpen</animation>
+			<animation effect="slide" start="WIDTH_SPLASH_BG,0" end="0,0" time="SPLASH_BGSLIDE_TIME" delay="SPLASH_BG1SLIDE_DELAY" tween="circle" easing="out">WindowOpen</animation>
 
-			<width>SCREEN_WIDTH</width>
+			<width>WIDTH_SPLASH_BG</width>
 			<height>SCREEN_HEIGHT</height>
+			<right>0</right>
 
 			<texture colordiffuse="FOREGROUND_ACCENT">1080p/diffuse/splash.png</texture>
+		</control>
+		<!-- Layer 2 -->
+		<control type="image">
+			<!-- Slide in after logo fade in with a delay -->
+			<animation effect="slide" start="WIDTH_SPLASH_BG,0" end="WIDTH_SPLASH_BG2_SLIDE,0" time="SPLASH_BGSLIDE_TIME" delay="SPLASH_BG2SLIDE_DELAY" tween="circle" easing="out">WindowOpen</animation>
+
+			<width>WIDTH_SPLASH_BG</width>
+			<height>SCREEN_HEIGHT</height>
+			<right>0</right>
+
+			<texture colordiffuse="FOREGROUND_ACCENT2">1080p/diffuse/splash.png</texture>
 		</control>
 	</include>
 
@@ -69,7 +82,7 @@
 				<height>50</height>
 				<width>150</width>
 				<top>977</top>
-				<left>1740</left>
+				<left>1730</left>
 
 				<font>BODY_STRONG</font>
 				<textcolor>$PARAM[color]</textcolor>

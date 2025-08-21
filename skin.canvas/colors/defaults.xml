@@ -39,6 +39,7 @@
 	<color name="FOREGROUND_ACCENT_ALT_OPAQUE35">597B5C1B</color>
 	<color name="FOREGROUND_ACCENT_ALT_OPAQUE20">337B5C1B</color>
 	<color name="FOREGROUND_ACCENT_ALT_OPAQUE10">1A7B5C1B</color>
+	<color name="FOREGROUND_ACCENT2" color="#b67f09ff">BFB67F09</color>
 
 	<color name="FOREGROUND_ERROR">ff992a2a</color>
 
