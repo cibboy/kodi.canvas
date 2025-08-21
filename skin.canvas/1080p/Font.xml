@@ -36,7 +36,7 @@
 		</font>
 		<font>
 			<name>BODY2</name>
-			<filename>Geologica-Thin.ttf</filename>
+			<filename>Geologica-Regular.ttf</filename>
 			<size>28</size>
 			<linespacing>1.1</linespacing>
 		</font>
@@ -54,7 +54,7 @@
 		</font>
 		<font>
 			<name>CAPTION_STRONG</name>
-			<filename>Geologica-Bold.ttf</filename>
+			<filename>Geologica-ExtraBold.ttf</filename>
 			<size>24</size>
 			<linespacing>1.05</linespacing>
 		</font>

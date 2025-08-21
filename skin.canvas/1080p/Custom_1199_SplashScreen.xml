@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window type="window" id="1199">
-	<onload>Skin.TimerStart(splashredirect)</onload>
-	
-	<backgroundcolor>BACKGROUND_SETTINGS_TINT</backgroundcolor>
+	<onload>Skin.TimerStart(splashredirect)</onload>	
 	<animation effect="fade" start="100" end="0" time="ANIMATION_SLOW" tween="circle" easing="out">WindowClose</animation>
 
 	<controls>

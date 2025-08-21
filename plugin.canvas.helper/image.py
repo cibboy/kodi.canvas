@@ -3,35 +3,68 @@ import xbmc, xbmcvfs
 import urllib.request as urllib
 from PIL import Image, ImageFilter, ImageColor
 
-# Computes luminance of an RGB value.
-def relative_luminance(rgb):
-    def linearize_channel(c):
-        x = c / 255.0
-        return x / 12.92 if x <= 0.03928 else ((x + 0.055) / 1.055) ** 2.4
-    
-    r, g, b = rgb
-    R = linearize_channel(r)
-    G = linearize_channel(g)
-    B = linearize_channel(b)
-    return 0.2126 * R + 0.7152 * G + 0.0722 * B
+# Converts an sRGB channel (0-255) to linear light (0-1).
+def srgb_to_linear(c):
+    c = c / 255.0
+    return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
 
-# Computes the contrast ratio between 2 colors.
-def contrast_ratio(text_rgb, bg_rgb):
+# Computes the relative lumnance of an RGB pixel.
+def relative_luminance(rgb):
+    r, g, b = rgb
+    R = srgb_to_linear(r)
+    G = srgb_to_linear(g)
+    B = srgb_to_linear(b)
+    return 0.2126729 * R + 0.7151522 * G + 0.0721750 * B
+
+# Computes APCA contrast given 2 reference colors.
+# APCA should be best for perceived contrast.
+def apca_contrast(text_rgb, bg_rgb):
+    # Constants from APCA v0.98g.
+    blk_thr = 0.022
+    scale_boost = 1.14
+    scale_norm = 1.14
+    lo_clip = 0.1
+
     Lt = relative_luminance(text_rgb)
     Lb = relative_luminance(bg_rgb)
-    lighter = max(Lt, Lb)
-    darker  = min(Lt, Lb)
-    return (lighter + 0.05) / (darker + 0.05)
+
+    # Apply low-clip (avoid noise in near-black).
+    if Lt < blk_thr:
+        Lt += (blk_thr - Lt) ** 1.414
+    if Lb < blk_thr:
+        Lb += (blk_thr - Lb) ** 1.414
+
+    # Contrast polarity matters in APCA.
+    if abs(Lt - Lb) < lo_clip:
+        return 0  # Too close to be legible.
+
+    if Lb > Lt:
+        # Dark text on light background.
+        contrast = (Lb ** 0.56 - Lt ** 0.57) * scale_norm * 100
+    else:
+        # Light text on dark background.
+        contrast = (Lb ** 0.65 - Lt ** 0.62) * scale_boost * 100
+
+    return contrast
 
 # Gets the most suitable color for text, given the background image (blurred).
-def get_best_contrast_color(img):
-    quantile = 0.10
-
-    # Further downsize and get the pixels.
-    res_img = img.convert("RGB").resize((64, 36), Image.BILINEAR)
+def get_best_contrast_color(img, thumb, path):
+    # Further downsize and get the pixels of the left 33%, top 67% of the image.
+    # This is the part where most of the text will be drawn upon (the blurred
+    # background is x-flipped where the details go).
+    width = 64
+    height = 36
+    # Calculate crop boundaries.
+    left = 0
+    top = 0
+    right = width * 0.33
+    bottom = height * 0.67
+    # Resize, then crop.
+    res_img = img.convert("RGB").resize((width, height), Image.BILINEAR)
+    res_img = res_img.crop((left, top, right, bottom))
     pixels = list(res_img.getdata())
 
-    # Get an RGB array of candidate text colors
+    # Get an RGB array of candidate text colors.
     candidates = {
         "lighter": ImageColor.getrgb("#BEBEBE"),
         "light": ImageColor.getrgb("#999999"),
@@ -40,20 +73,16 @@ def get_best_contrast_color(img):
     }
 
     # Get contrast ratios for each candidate, using different metrics.
+    quantile = 0.2
     scores = {}
     for label, color in candidates.items():
-        contrasts = [contrast_ratio(color, px) for px in pixels]
+        contrasts = [apca_contrast(color, px) for px in pixels]
         contrasts.sort()
         idx = int(quantile * len(contrasts))
-        scores[label] = {
-            "p10": contrasts[idx],
-            "median": contrasts[len(contrasts) // 2],
-            "worst": contrasts[0],
-            "best": contrasts[-1]
-        }
+        scores[label] = abs(contrasts[idx])
 
     # Pick the best score (using p10 metric).
-    best = max(scores.items(), key=lambda kv: kv[1]["p10"])
+    best = max(scores.items(), key=lambda kv: kv[1])
 
     # Return best color.
     return best[0]
@@ -125,7 +154,7 @@ def get_blurred(imgPath):
         # Compute a contrast ratio between the blurred image and reference
         # text colors, in order to understand which text color is best
         # suited against the background.
-        color = get_best_contrast_color(img)
+        color = get_best_contrast_color(img, thumb, path)
 
         # Save output and return output path according to contrast ratio.
         if color == 'lighter':

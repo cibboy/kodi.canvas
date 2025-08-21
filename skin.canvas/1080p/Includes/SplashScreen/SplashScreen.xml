@@ -4,6 +4,16 @@
 
 	<!-- Background -->
 	<include name="SplashBackground">
+		<!-- Full background -->
+		<control type="image">
+			<!-- Fade in with logo -->
+			<animation effect="fade" start="0" end="100" time="ANIMATION_SLOW" delay="SPLASH_LOGOTEXTFADE_DELAY" tween="circle" easing="in">WindowOpen</animation>
+
+			<width>SCREEN_WIDTH</width>
+			<height>SCREEN_HEIGHT</height>
+
+			<texture colordiffuse="BACKGROUND_SETTINGS_TINT">diffuse.png</texture>
+		</control>
 		<!-- Layer 1 -->
 		<control type="image">
 			<!-- Slide in after logo fade in -->
