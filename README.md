@@ -2,7 +2,6 @@ TOFIX:
 - aggiunto genre audio in plugin (potenzialmente una lista, quindi bisognerà fare delle prove con ulteriore scraping e aggiornamento tag mp3, che è stata aggiunta alla details info line 2)
 - aggiungere ombra (del colore opposto? del più vicino?) nel plot dei details (su tv è meno leggibile, soprattutto il nero)
   - capire se è meglio un font più bold o un utilizzo più aggressivo dei colori chiari
-- c'è ancora qualcosa senza angoli arrotondati sul flyout (in basso, mettere sfondo blur chiaro)
 
 TODO:
 - dialog in settings da fare:

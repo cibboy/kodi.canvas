@@ -39,7 +39,7 @@
 	<color name="FOREGROUND_ACCENT_ALT_OPAQUE35">597B5C1B</color>
 	<color name="FOREGROUND_ACCENT_ALT_OPAQUE20">337B5C1B</color>
 	<color name="FOREGROUND_ACCENT_ALT_OPAQUE10">1A7B5C1B</color>
-	<color name="FOREGROUND_ACCENT2" color="#b67f09ff">BFB67F09</color>
+	<color name="FOREGROUND_ACCENT2">BFB67F09</color>
 
 	<color name="FOREGROUND_ERROR">ff992a2a</color>
 
@@ -59,6 +59,6 @@
 	<color name="BACKGROUND_INVERSE_OPAQUE20">33BEBEBE</color>
 	<color name="BACKGROUND_INVERSE_OPAQUE10">1ABEBEBE</color>
 
-	<color name="BACKGROUND_DIALOG">FF202020</color>
+	<color name="BACKGROUND_DIALOG" color="#15171bff">FF15171B</color>
 	<color name="BACKGROUND_SETTINGS_TINT">FF1F2329</color>
 </colors>
