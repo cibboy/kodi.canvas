@@ -82,12 +82,12 @@
 					<param name="speed">ANIMATION_MID</param>
 				</include>
 
-				<left>PADDING_BASE</left>
 				<top>PADDING_BASE</top>
 				<bottom>PADDING_BASE</bottom>
 
 				<!-- Logo -->
 				<control type="image">
+					<left>PADDING_BASE</left>
 					<width>100</width>
 					<height>70</height>
 					<texture colordiffuse="HIGHLIGHT">special://xbmc/media/vendor_icon.png</texture>
@@ -96,11 +96,12 @@
 				<!-- Menu -->
 				<control type="list" id="1">
 					<top>220</top>
-					<width>100</width>
+					<width>150</width>
 					<bottom>0</bottom>
 					<autoscroll>false</autoscroll>
 					
-					<!-- Standard item onright and onclick -->
+					<!-- Standard item onleft, onright and onclick -->
+					<onleft condition="!$EXP[IsHomeLoading] + String.IsEqual(Container(1).ListItem.Property(has_filter),true)">SetFocus(1100)</onleft>
 					<onright condition="!$EXP[IsHomeLoading] + !String.IsEqual(Container(1).ListItem.Property(name),menu)">$INFO[Container(1).ListItem.Property(onright)]</onright>
 					<onclick condition="!$EXP[IsHomeLoading] + !String.IsEqual(Container(1).ListItem.Property(name),menu)">$INFO[Container(1).ListItem.Property(onclick)]</onclick>
 					<!-- Menu item onclick -->
@@ -109,39 +110,60 @@
 					<onback condition="!Player.HasMedia">SetFocus(1001,0)</onback>
 
 					<focusedlayout height="90">
-						<!-- Hidden onfocus control -->
-						<control type="button">
-							<include content="Hidden" />
-							<onfocus>RunScript(script.canvas.helper,onchange_home_menu,$INFO[Container(1).ListItem.Property(name)])</onfocus>
+						<control type="group">
+							<left>PADDING_BASE</left>
+
+							<!-- Hidden onfocus control -->
+							<control type="button">
+								<include content="Hidden" />
+								<onfocus>RunScript(script.canvas.helper,onchange_home_menu,$INFO[Container(1).ListItem.Property(name)])</onfocus>
+							</control>
+
+							<!-- Circle background -->
+							<control type="image">
+								<width>120</width>
+								<height>120</height>
+								<centertop>50%</centertop>
+								<centerleft>50%</centerleft>
+								<texture colordiffuse="FOREGROUND_ACCENT">1080p/diffuse/circle.png</texture>
+								<bordertexture border="SIZE_ITEM_SHADOW_CIRCLE_DOUBLE" colordiffuse="BACKGROUND_OPAQUE75">1080p/diffuse/shadow-circle.png</bordertexture>
+								<bordersize>SIZE_ITEM_SHADOW_CIRCLE</bordersize>
+							</control>
+							<!-- Icon -->
+							<control type="image">
+								<width>45</width>
+								<height>45</height>
+								<centertop>50%</centertop>
+								<centerleft>50%</centerleft>
+								<texture colordiffuse="BACKGROUND_OPAQUE75">$INFO[ListItem.Art(thumb)]</texture>
+							</control>
 						</control>
-						<!-- Circle background -->
+
+						<!-- Chevron left (if there is filter) -->
 						<control type="image">
-							<width>120</width>
-							<height>120</height>
-							<centertop>50%</centertop>
-							<centerleft>50%</centerleft>
-							<texture colordiffuse="FOREGROUND_ACCENT">1080p/diffuse/circle.png</texture>
-							<bordertexture border="SIZE_ITEM_SHADOW_CIRCLE_DOUBLE" colordiffuse="BACKGROUND_OPAQUE75">1080p/diffuse/shadow-circle.png</bordertexture>
-							<bordersize>SIZE_ITEM_SHADOW_CIRCLE</bordersize>
-						</control>
-						<!-- Icon -->
-						<control type="image">
+							<visible>String.IsEqual(Container(1).ListItem.Property(has_filter),true)</visible>
+
 							<width>45</width>
 							<height>45</height>
+							<left>PADDING_MULT_20</left>
 							<centertop>50%</centertop>
-							<centerleft>50%</centerleft>
-							<texture colordiffuse="BACKGROUND_OPAQUE75">$INFO[ListItem.Art(thumb)]</texture>
+							<texture colordiffuse="FOREGROUND_OPAQUE35" flipx="true">1080p/icons/chevron-right.png</texture>
+							<aspectratio>keep</aspectratio>
 						</control>
 					</focusedlayout>
 
 					<itemlayout height="90">
-						<!-- Icon -->
-						<control type="image">
-							<width>45</width>
-							<height>45</height>
-							<centertop>50%</centertop>
-							<centerleft>50%</centerleft>
-							<texture colordiffuse="FOREGROUND_OPAQUE50">$INFO[ListItem.Art(thumb)]</texture>
+						<control type="group">
+							<left>PADDING_BASE</left>
+
+							<!-- Icon -->
+							<control type="image">
+								<width>45</width>
+								<height>45</height>
+								<centertop>50%</centertop>
+								<centerleft>50%</centerleft>
+								<texture colordiffuse="FOREGROUND_OPAQUE50">$INFO[ListItem.Art(thumb)]</texture>
+							</control>
 						</control>
 					</itemlayout>
 
@@ -157,6 +179,7 @@
 						<item id="2">
 							<thumb>$VAR[MoviesIcon]</thumb>
 							<property name="name">movies</property>
+							<property name="has_filter">true</property>
 							<property name="onright">SetFocus(110)</property>
 							<property name="onclick">SetFocus(110)</property>
 						</item>
@@ -164,6 +187,7 @@
 						<item id="3">
 							<thumb>$VAR[TVShowsIcon]</thumb>
 							<property name="name">tvshows</property>
+							<property name="has_filter">true</property>
 							<property name="onright">SetFocus(120)</property>
 							<property name="onclick">SetFocus(120)</property>
 						</item>
@@ -171,6 +195,7 @@
 						<item id="4">
 							<thumb>$VAR[YogaIcon]</thumb>
 							<property name="name">yoga</property>
+							<property name="has_filter">true</property>
 							<property name="onright">SetFocus(130)</property>
 							<property name="onclick">SetFocus(130)</property>
 						</item>
@@ -178,6 +203,7 @@
 						<item id="5">
 							<thumb>$VAR[MusicIcon]</thumb>
 							<property name="name">music</property>
+							<property name="has_filter">true</property>
 							<property name="onright">SetFocus(140)</property>
 							<property name="onclick">SetFocus(140)</property>
 						</item>
@@ -185,6 +211,7 @@
 						<item id="6">
 							<thumb>$VAR[PicturesIcon]</thumb>
 							<property name="name">pictures</property>
+							<property name="has_filter">true</property>
 							<property name="onright">SetFocus(150)</property>
 							<property name="onclick">SetFocus(150)</property>
 						</item>
@@ -483,6 +510,7 @@
 								<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
 								<param name="onclick">$VAR[HomeMediaOnClickAction]</param>
 								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,movies,111)</param>
+								<param name="onchange">RunScript(script.canvas.helper,onchange_home_focus_mediaitem,$VAR[HomeBackgroundArt],$VAR[HomeBlurArt],$VAR[HomeContrastTextForegroundColor],$VAR[HomeContrastTextHighlightColor])</param>
 								<param name="onback">SetFocus(1,1)</param>
 								<param name="onleft">SetFocus(1,1)</param>
 							</include>
@@ -800,7 +828,7 @@
 
 
 	<!-- Flyout menu -->
-	<include name="HomeFlyoutMenu">
+	<include name="HomeMenuFlyout">
 		<include content="StandardFlyoutBase">
 			<param name="visible">$EXP[IsHomeMenuFlyoutVisible]</param>
 
@@ -927,6 +955,27 @@
 							<property name="onclick">ActivateWindow(systeminfo)</property>
 						</item>
 					</content>
+				</control>
+			</include>
+		</include>
+	</include>
+
+	<!-- Flyout menu -->
+	<include name="HomeFilterFlyout">
+		<include content="StandardFlyoutBase">
+			<param name="visible">$EXP[IsHomeFilterFlyoutVisible]</param>
+
+			<include content="StandardFlyoutStructure">
+				<control type="grouplist">
+					<control type="label">
+						<label>$VAR[test]</label>
+					</control>
+					<control type="button" id="1100">
+						<onback>SetFocus(1)</onback>
+						<onleft>SetFocus(1)</onleft>
+						<onright>SetFocus(1)</onright>
+						<label>Filter</label>
+					</control>
 				</control>
 			</include>
 		</include>

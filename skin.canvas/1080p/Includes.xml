@@ -71,5 +71,6 @@
 	<include file="Includes/ArtLists/ArtLists.xml" />
 	<include file="Includes/Details/Details.xml" />
 	<include file="Includes/Home/Home.xml" />
+	<include file="Includes/MediaNav/MediaNav.xml" />
 	<include file="Includes/Settings/Settings.xml" />
 </includes>

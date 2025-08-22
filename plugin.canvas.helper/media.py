@@ -452,34 +452,61 @@ def list_recently_added_tvshow_episodes(handle):
 
 # Create a list of movies.
 def list_movies(params, handle):
-    sort = params.get('sort', 'title')
-    order = params.get('order', 'ascending')
-    limit = int(params.get('limit', 0))
+    id = params.get('movieid', None)
+    
+    # If requesting a specific movie through id, get it directly.
+    if id is not None:
+        query = {
+            'movieid': int(id),
+            # Get important movie properties.
+            'properties': movie_properties_query
+        }
+        movie = call_rpc('VideoLibrary.GetMovieDetails', query).get('moviedetails', None)
 
-    query = {
-        # Sort by requested sort, with requested order.
-        'sort': { 'order': order, 'method': sort },
-        # Get important movie properties.
-        'properties': movie_properties_query
-    }
-     # If limit specified, add to call.
-    if limit > 0:
-        query['limits'] = { 'start': 0, 'end': limit }
+        # Add to list the item.
+        if movie is not None:
+            li = get_movie_listitem(movie)
+            xbmcplugin.addDirectoryItem(
+                handle=handle,
+                url=movie['title'],
+                listitem=li,
+                isFolder=False
+            )
 
-    # Load movies.
-    movies = call_rpc('VideoLibrary.GetMovies', query).get('movies', [])
-
-    # For each movie found add to list.
-    for movie in movies:
-        li = get_movie_listitem(movie)
-        xbmcplugin.addDirectoryItem(
-            handle=handle,
-            url=movie['title'],
-            listitem=li,
-            isFolder=False
-        )
+            return 1
         
-    return len(movies)
+        return 0
+
+    # Otherwise handle list.
+    else:
+        sort = params.get('sort', 'title')
+        order = params.get('order', 'ascending')
+        limit = int(params.get('limit', 0))
+
+        query = {
+            # Sort by requested sort, with requested order.
+            'sort': { 'order': order, 'method': sort },
+            # Get important movie properties.
+            'properties': movie_properties_query
+        }
+        # If limit specified, add to call.
+        if limit > 0:
+            query['limits'] = { 'start': 0, 'end': limit }
+
+        # Load movies.
+        movies = call_rpc('VideoLibrary.GetMovies', query).get('movies', [])
+
+        # For each movie found add to list.
+        for movie in movies:
+            li = get_movie_listitem(movie)
+            xbmcplugin.addDirectoryItem(
+                handle=handle,
+                url=movie['title'],
+                listitem=li,
+                isFolder=False
+            )
+            
+        return len(movies)
 
 # Create a list of TV shows.
 def list_tvshows(params, handle):

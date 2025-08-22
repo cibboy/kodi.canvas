@@ -7,12 +7,14 @@
 		<param name="show_art">true</param>
 		<param name="blur"></param>
 		<param name="blur_mode_squareoffset">false</param>
+		<param name="fadetime">ANIMATION_CRAWL</param>
+		<param name="art_fadetime">ANIMATION_SLOW</param>
 
 		<definition>
 			<control type="group">
 				<visible>$PARAM[visible]</visible>
 				<include content="ShowHideFadeAnimation">
-					<param name="speed">ANIMATION_CRAWL</param>
+					<param name="speed">$PARAM[fadetime]</param>
 				</include>
 
 				<!-- Background blur quadrants -->
@@ -26,7 +28,7 @@
 							<height>67%</height>
 							<right>67%</right>
 							<bottom>33%</bottom>
-							<fadetime>ANIMATION_CRAWL</fadetime>
+							<fadetime>$PARAM[fadetime]</fadetime>
 							<texture flipx="true" flipy="false">$PARAM[blur]</texture>
 						</control>
 						<control type="image">
@@ -35,7 +37,7 @@
 							<height>67%</height>
 							<right>25%</right>
 							<bottom>33%</bottom>
-							<fadetime>ANIMATION_CRAWL</fadetime>
+							<fadetime>$PARAM[fadetime]</fadetime>
 							<texture flipx="true" flipy="false">$PARAM[blur]</texture>
 						</control>
 						<!-- Bottom (videos first, the music) -->
@@ -45,7 +47,7 @@
 							<height>67%</height>
 							<right>67%</right>
 							<top>67%</top>
-							<fadetime>ANIMATION_CRAWL</fadetime>
+							<fadetime>$PARAM[fadetime]</fadetime>
 							<texture flipx="true" flipy="true">$PARAM[blur]</texture>
 						</control>
 						<control type="image">
@@ -67,7 +69,7 @@
 							<height>67%</height>
 							<left>33%</left>
 							<bottom>33%</bottom>
-							<fadetime>ANIMATION_CRAWL</fadetime>
+							<fadetime>$PARAM[fadetime]</fadetime>
 							<texture flipx="false" flipy="false">$PARAM[blur]</texture>
 						</control>
 						<control type="image">
@@ -76,7 +78,7 @@
 							<height>67%</height>
 							<left>75%</left>
 							<bottom>33%</bottom>
-							<fadetime>ANIMATION_CRAWL</fadetime>
+							<fadetime>$PARAM[fadetime]</fadetime>
 							<texture flipx="false" flipy="false">$PARAM[blur]</texture>
 						</control>
 						<!-- Bottom (videos first, the music) -->
@@ -86,7 +88,7 @@
 							<height>67%</height>
 							<left>33%</left>
 							<top>67%</top>
-							<fadetime>ANIMATION_CRAWL</fadetime>
+							<fadetime>$PARAM[fadetime]</fadetime>
 							<texture flipx="false" flipy="true">$PARAM[blur]</texture>
 						</control>
 						<control type="image">
@@ -95,7 +97,7 @@
 							<height>67%</height>
 							<left>75%</left>
 							<top>67%</top>
-							<fadetime>ANIMATION_CRAWL</fadetime>
+							<fadetime>$PARAM[fadetime]</fadetime>
 							<texture flipx="false" flipy="true">$PARAM[blur]</texture>
 						</control>
 					</control>
@@ -103,7 +105,7 @@
 					<control type="image">
 						<width>100%</width>
 						<height>100%</height>
-						<fadetime>ANIMATION_CRAWL</fadetime>
+						<fadetime>$PARAM[fadetime]</fadetime>
 						<texture colordiffuse="BACKGROUND_OPAQUE50" diffuse="1080p/diffuse/background.png">diffuse.png</texture>
 					</control>
 				</control>
@@ -112,14 +114,14 @@
 				<control type="image">
 					<visible>$PARAM[show_art]</visible>
 					<include content="ShowHideFadeAnimation">
-						<param name="speed">ANIMATION_CRAWL</param>
+						<param name="speed">$PARAM[fadetime]</param>
 					</include>
 
 					<width>67%</width>
 					<height>67%</height>
 					<top>0</top>
 					<right>0</right>
-					<fadetime>ANIMATION_SLOW</fadetime>
+					<fadetime>$PARAM[art_fadetime]</fadetime>
 					<texture diffuse="1080p/diffuse/fanart.png" background="true">$PARAM[art]</texture>
 					<aspectratio align="right">keep</aspectratio>
 				</control>
@@ -131,19 +133,20 @@
 	<include name="BackgroundSingleBlur">
 		<param name="visible">true</param>
 		<param name="blur"></param>
+		<param name="fadetime">ANIMATION_CRAWL</param>
 
 		<definition>
 			<control type="group">
 				<visible>$PARAM[visible]</visible>
 				<include content="ShowHideFadeAnimation">
-					<param name="speed">ANIMATION_CRAWL</param>
+					<param name="speed">$PARAM[fadetime]</param>
 				</include>
 
 				<!-- Blur -->
 				<control type="image">
 					<width>100%</width>
 					<height>100%</height>
-					<fadetime>ANIMATION_CRAWL</fadetime>
+					<fadetime>$PARAM[fadetime]</fadetime>
 					<texture>$PARAM[blur]</texture>
 				</control>
 
@@ -151,7 +154,7 @@
 				<control type="image">
 					<width>100%</width>
 					<height>100%</height>
-					<fadetime>ANIMATION_CRAWL</fadetime>
+					<fadetime>$PARAM[fadetime]</fadetime>
 					<texture colordiffuse="BACKGROUND_OPAQUE10" diffuse="1080p/diffuse/background.png">diffuse.png</texture>
 				</control>
 			</control>

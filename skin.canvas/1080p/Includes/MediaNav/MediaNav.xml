@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<include file="Includes/MediaNav/Variables.xml" />
+	<include file="Includes/MediaNav/Expressions.xml" />
+
+	<!-- Background definition -->
+	<include name="MediaNavBackground">
+		<definition>
+			<!-- Background (fallback/default + blur quadrants/art) -->
+			<control type="image">
+				<width>100%</width>
+				<height>100%</height>
+				<texture>1080p/fallback/bg.png</texture>
+			</control>
+			<include content="BackgroundQuadrantBlur">
+				<param name="visible">!$EXP[IsMediaNavMusicAlbum] + !$EXP[IsMediaNavPictureAlbum]</param>
+				<param name="art">$INFO[Window(1101).Property(ItemDetails.Art)]</param>
+				<param name="blur">$INFO[Window(1101).Property(ItemDetails.Blur)]</param>
+				<param name="fadetime">0</param>
+				<param name="art_fadetime">0</param>
+			</include>
+			<!-- Background (full size blur for music albums) -->
+			<include name="BackgroundSingleBlur">
+				<param name="visible">$EXP[IsMediaNavMusicAlbum] | $EXP[IsMediaNavPictureAlbum]</param>
+				<param name="blur">$INFO[Window(1101).Property(ItemDetails.Blur)]</param>
+				<param name="fadetime">ANIMATION_CRAWL</param>
+			</include>
+		</definition>
+	</include>
+
+	<!-- Hidden list of single item to show media details page -->
+	<include name="MediaNavMovieFakeList">
+		<definition>
+			<control type="fixedlist" id="1">
+				<visible>$EXP[IsMediaNavMovie]</visible>
+				<include content="Hidden" />
+
+				<itemlayout width="0" height="0" />
+				<focusedlayout width="0" height="0" />
+
+				<content>plugin://script.canvas.helper/movies/?movieid=$INFO[Window(1101).Property(ItemDetails.Id)]&amp;listid=1</content>
+			</control>
+		</definition>
+	</include>
+</includes>

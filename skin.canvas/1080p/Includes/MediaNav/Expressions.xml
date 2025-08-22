@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<!-- What type of media are we showing? -->
+	<expression name="IsMediaNavMovie">String.IsEqual(Window(1101).Property(ItemDetails.Type),movie)</expression>
+	<expression name="IsMediaNavTVShow">String.IsEqual(Window(1101).Property(ItemDetails.Type),tvshow)</expression>
+	<expression name="IsMediaNavSeason">String.IsEqual(Window(1101).Property(ItemDetails.Type),season)</expression>
+	<expression name="IsMediaNavEpisode">String.IsEqual(Window(1101).Property(ItemDetails.Type),episode)</expression>
+	<expression name="IsMediaNavMusicAlbum">String.IsEqual(Window(1101).Property(ItemDetails.Type),album)</expression>
+	<expression name="IsMediaNavPictureAlbum">String.IsEqual(Window(1101).Property(ItemDetails.Type),picture_album)</expression>
+
+
+	<!-- Is loading done? -->
+	<expression name="IsMediaNavDoneLoading">
+		!String.IsEqual(Window(1101).Property(IsLoading.1),true) +
+		!String.IsEqual(Window(1101).Property(IsLoading.2),true) +
+		!String.IsEqual(Window(1101).Property(IsLoading.3),true) +
+		!String.IsEqual(Window(1101).Property(IsLoading.4),true)
+	</expression>
+
+
+	<!-- Has studio? -->
+	<expression name="HasMediaNavDetailsStudio">
+		[$EXP[IsMediaNavMovie] + !String.IsEmpty(Container(1).ListItem.Studio)] |
+		[$EXP[IsMediaNavTVShow] + !String.IsEmpty(Container(2).ListItem.Studio)] |
+		[$EXP[IsMediaNavSeason] + !String.IsEmpty(Container(2).ListItem.Studio)] |
+		[$EXP[IsMediaNavEpisode] + !String.IsEmpty(Container(2).ListItem.Studio)]
+	</expression>
+
+	<!-- Has clearlogo? -->
+	<expression name="HasMediaNavDetailsClearlogo">
+		[$EXP[IsMediaNavMovie] + !String.IsEmpty(Container(1).ListItem.Property(Clearlogo.Big))] |
+		[$EXP[IsMediaNavTVShow] + !String.IsEmpty(Container(2).ListItem.Property(Clearlogo.Big))] |
+		[$EXP[IsMediaNavSeason] + !String.IsEmpty(Container(2).ListItem.Property(Clearlogo.Big))] |
+		[$EXP[IsMediaNavEpisode] + !String.IsEmpty(Container(2).ListItem.Property(Clearlogo.Big))]
+	</expression>
+
+	<!-- Has subtitle? -->
+	<expression name="HasMediaNavDetailsSubtitle">
+		[$EXP[IsMediaNavSeason] + !String.IsEmpty(Container(2).ListItem.Title)] |
+		[$EXP[IsMediaNavEpisode] + !String.IsEmpty(Container(2).ListItem.Title)]
+	</expression>
+
+	<!-- Has resolution? -->
+	<expression name="HasMediaNavDetailsResolution">
+		[$EXP[IsMediaNavMovie] + !String.IsEmpty(Container(1).ListItem.VideoResolution)] |
+		[$EXP[IsMediaNavEpisode] + !String.IsEmpty(Container(2).ListItem.VideoResolution)]
+	</expression>
+
+	<!-- Has HDR? -->
+	<expression name="HasMediaNavDetailsHdr">
+		[$EXP[IsMediaNavMovie] + !String.IsEmpty(Container(1).ListItem.HdrType)] |
+		[$EXP[IsMediaNavEpisode] + !String.IsEmpty(Container(2).ListItem.HdrType)]
+	</expression>
+
+	<!-- Has audio channels? -->
+	<expression name="HasMediaNavDetailsAudioChannels">
+		[$EXP[IsMediaNavMovie] + !String.IsEmpty(Container(1).ListItem.Property(AudioChannels))] |
+		[$EXP[IsMediaNavEpisode] + !String.IsEmpty(Container(2).ListItem.Property(AudioChannels))]
+	</expression>
+
+	<!-- Has year? -->
+	<expression name="HasMediaNavDetailsYear">
+		[$EXP[IsMediaNavMovie] + !String.IsEmpty(Container(1).ListItem.Year)] |
+		[$EXP[IsMediaNavTVShow] + !String.IsEmpty(Container(2).ListItem.Year)]
+	</expression>
+
+	<!-- Has episode? -->
+	<expression name="HasMediaNavDetailsEpisode">
+		[$EXP[IsMediaNavEpisode] + !String.IsEmpty(Container(2).ListItem.Season) + !String.IsEmpty(Container(2).ListItem.Episode)]
+	</expression>
+
+	<!-- Has premiered? -->
+	<expression name="HasMediaNavDetailsPremiered">
+		[$EXP[IsMediaNavEpisode] + !String.IsEmpty(Container(2).ListItem.Premiered)]
+	</expression>
+
+	<!-- Has duration? -->
+	<expression name="HasMediaNavDetailsDuration">
+		[$EXP[IsMediaNavMovie] + !String.IsEmpty(Container(1).ListItem.Property(DurationString))] |
+		[$EXP[IsMediaNavEpisode] + !String.IsEmpty(Container(2).ListItem.Property(DurationString))]
+	</expression>
+
+	<!-- Has MPAA? -->
+	<expression name="HasMediaNavDetailsMpaa">
+		[$EXP[IsMediaNavMovie] + !String.IsEmpty(Container(1).ListItem.Mpaa)] |
+		[$EXP[IsMediaNavTVShow] + !String.IsEmpty(Container(2).ListItem.Mpaa)] |
+		[$EXP[IsMediaNavSeason] + !String.IsEmpty(Container(2).ListItem.Mpaa)] |
+		[$EXP[IsMediaNavEpisode] + !String.IsEmpty(Container(2).ListItem.Mpaa)]
+	</expression>
+
+	<!-- Has status? -->
+	<expression name="HasMediaNavDetailsStatus">
+		[$EXP[IsMediaNavTVShow] + !String.IsEmpty(Container(2).ListItem.Status)]
+	</expression>
+
+	<!-- Has genre? -->
+	<expression name="HasMediaNavDetailsGenre">
+		[$EXP[IsMediaNavMovie] + !String.IsEmpty(Container(1).ListItem.Genre)] |
+		[$EXP[IsMediaNavTVShow] + !String.IsEmpty(Container(2).ListItem.Genre)]
+	</expression>
+
+	<!-- Is watched? -->
+	<expression name="IsMediaNavDetailsWatched">
+		[$EXP[IsMediaNavMovie] + Integer.IsGreater(Container(1).ListItem.PlayCount,0)] |
+		[$EXP[IsMediaNavTVShow] + Integer.IsGreater(Container(2).ListItem.PlayCount,0)] |
+		[$EXP[IsMediaNavSeason] + Integer.IsGreater(Container(2).ListItem.PlayCount,0)] |
+		[$EXP[IsMediaNavEpisode] + Integer.IsGreater(Container(2).ListItem.PlayCount,0)]
+	</expression>
+
+	<!-- Has time remaining? -->
+	<expression name="HasMediaNavDetailsTimeRemaining">
+		[$EXP[IsMediaNavMovie] + !String.IsEmpty(Container(1).ListItem.Property(TimeRemainingString))] |
+		[$EXP[IsMediaNavEpisode] + !String.IsEmpty(Container(2).ListItem.Property(TimeRemainingString))]
+	</expression>
+
+	<!-- Has episodes remaining? -->
+	<expression name="HasMediaNavDetailsEpisodesRemaining">
+		[$EXP[IsMediaNavTVShow] + Integer.IsEqual(Container(2).ListItem.PlayCount,0)] |
+		[$EXP[IsMediaNavSeason] + Integer.IsEqual(Container(2).ListItem.PlayCount,0)]
+	</expression>
+
+	<!-- Is all new? -->
+	<expression name="IsMediaNavDetailsAllNew">
+		[$EXP[IsMediaNavTVShow] + Integer.IsEqual(Container(2).ListItem.Property(WatchedEpisodes),0)] |
+		[$EXP[IsMediaNavSeason] + Integer.IsEqual(Container(2).ListItem.Property(WatchedEpisodes),0)]
+	</expression>
+</includes>

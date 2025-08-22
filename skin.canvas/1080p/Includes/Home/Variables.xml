@@ -382,22 +382,36 @@
 	<!-- Item onclick action -->
 	<variable name="HomeMediaOnClickAction">
 		<!-- Continue watching -->
-		<value condition="$EXP[IsHomeContinueWatchingActive] + $EXP[IsHomeContinueWatchingEpisode]">RunScript(script.canvas.helper,onclick_media_item,episode,$INFO[ListItem.DBID])</value>
-		<value condition="$EXP[IsHomeContinueWatchingActive]">RunScript(script.canvas.helper,onclick_media_item,movie,$INFO[ListItem.DBID])</value>
+		<value condition="$EXP[IsHomeContinueWatchingActive] + $EXP[IsHomeContinueWatchingEpisode]">RunScript(script.canvas.helper,onclick_media_item,episode,$INFO[ListItem.DBID],)</value>
+		<value condition="$EXP[IsHomeContinueWatchingActive]">RunScript(script.canvas.helper,onclick_media_item,movie,$INFO[ListItem.DBID],)</value>
 		<!-- Recently added episodes -->
-		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive]">RunScript(script.canvas.helper,onclick_media_item,episode,$INFO[ListItem.DBID])</value>
+		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive]">RunScript(script.canvas.helper,onclick_media_item,episode,$INFO[ListItem.DBID],)</value>
 		<!-- Recently added movies -->
-		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive]">RunScript(script.canvas.helper,onclick_media_item,movie,$INFO[ListItem.DBID])</value>
+		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive]">RunScript(script.canvas.helper,onclick_media_item,movie,$INFO[ListItem.DBID],)</value>
 		<!-- Recently added music -->
 		<value condition="$EXP[IsHomeRecentlyAddedMusicActive]"></value><!--todo: direct play-->
 		<!-- Movies -->
-		<value condition="$EXP[IsHomeMoviesActive]">RunScript(script.canvas.helper,onclick_media_item,movie,$INFO[ListItem.DBID])</value>
+		<value condition="$EXP[IsHomeMoviesActive]">RunScript(script.canvas.helper,onclick_media_item,movie,$INFO[ListItem.DBID],)</value>
 		<!-- TV shows -->
-		<value condition="$EXP[IsHomeTVShowsActive]">RunScript(script.canvas.helper,onclick_media_item,tvshow,$INFO[ListItem.DBID])</value>
+		<value condition="$EXP[IsHomeTVShowsActive]">RunScript(script.canvas.helper,onclick_media_item,tvshow,$INFO[ListItem.DBID],)</value>
 		<!-- Yoga -->
-		<value condition="$EXP[IsHomeYogaActive]">RunScript(script.canvas.helper,onclick_media_item,season,$INFO[ListItem.DBID])</value>
+		<value condition="$EXP[IsHomeYogaActive]">RunScript(script.canvas.helper,onclick_media_item,season,$INFO[ListItem.DBID],)</value>
 		<!-- Music -->
 		<value condition="$EXP[IsHomeMusicActive]"></value><!--todo: direct play, unless album-->
+	</variable>
+
+
+	<!--todo: test for filter section detection-->
+	<variable name="test">
+		<value condition="$EXP[IsHomeMoviesActive]">movies</value>
+		<!-- TV shows -->
+		<value condition="$EXP[IsHomeTVShowsActive]">tv shows</value>
+		<!-- Yoga -->
+		<value condition="$EXP[IsHomeYogaActive]">yoga</value>
+		<!-- Music -->
+		<value condition="$EXP[IsHomeMusicActive]">music</value>
+		<!-- Pictures -->
+		<value condition="$EXP[IsHomePicturesActive]">pictures</value>
 	</variable>
 
 

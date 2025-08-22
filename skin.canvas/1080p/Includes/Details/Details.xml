@@ -124,6 +124,7 @@
 		<param name="plot"></param>
 		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
 		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
+		<param name="clearlogo_fadetime">ANIMATION_FAST</param>
 
 		<definition>
 			<control type="grouplist">
@@ -152,7 +153,7 @@
 					<control type="image">
 						<width>WIDTH_CLEARLOGO_BIG</width>
 						<height>HEIGHT_CLEARLOGO_BIG</height>
-						<fadetime>ANIMATION_FAST</fadetime>
+						<fadetime>$PARAM[clearlogo_fadetime]</fadetime>
 						<texture background="true">$PARAM[clearlogo]</texture>
 						<aspectratio align="left">keep</aspectratio>
 					</control>

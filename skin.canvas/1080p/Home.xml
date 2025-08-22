@@ -43,8 +43,9 @@
 				<param name="studio">$VAR[HomeDetailsStudio]</param>
 			</include>
 
-			<!-- Right modal menu -->
-			<include content="HomeFlyoutMenu" />
+			<!-- Right modal menus -->
+			<include content="HomeMenuFlyout" />
+			<include content="HomeFilterFlyout" />
 		</control>
 	</controls>
 </window>

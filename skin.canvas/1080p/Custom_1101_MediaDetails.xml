@@ -1,23 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window type="window" id="1101">
 	<controls>
-		<!-- Background (fallback/default + blur quadrants/art) -->
-		<control type="image">
-			<width>100%</width>
-			<height>100%</height>
-			<texture>1080p/fallback/bg.png</texture>
-		</control>
-		<!--<include content="BackgroundQuadrantBlur">
-			<param name="visible">!$EXP[IsHomeLoading]</param>
-			<param name="art">$VAR[HomeBackgroundArt]</param>
-			<param name="show_art">!$EXP[IsHomeActivePagePictures]</param>
-			<param name="blur">$VAR[HomeBlurArt]</param>
-			<param name="blur_mode_squareoffset">$EXP[IsHomeActiveTypeMusic]</param>
-		</include>-->
+		<!-- Background -->
+		<include content="MediaNavBackground" />
 
-		<control type="label">
-			<height>50</height>
-			<label>##$INFO[Window(1101).Property(ItemDetails.Type)]§§$INFO[Window(1101).Property(ItemDetails.Id)]çç</label>
+		<!-- Content -->
+		<control type="group">
+			<top>PADDING_BASE</top>
+			<left>PADDING_BASE</left>
+
+			<!-- Selection details (not for albums) -->
+			<include content="SelectionDetails">
+				<param name="visible">$EXP[IsMediaNavDoneLoading] + !$EXP[IsMediaNavMusicAlbum] + !$EXP[IsMediaNavPictureAlbum]</param>
+				<param name="clearlogo">$VAR[MediaNavDetailsClearlogo]</param>
+				<param name="title">$VAR[MediaNavDetailsTitle]</param>
+				<param name="has_clearlogo">$EXP[HasMediaNavDetailsClearlogo]</param>
+				<param name="subtitle">$VAR[MediaNavDetailsSubtitle]</param>
+				<param name="has_subtitle">$EXP[HasMediaNavDetailsSubtitle]</param>
+				<param name="resolution">$VAR[MediaNavDetailsResolution]</param>
+				<param name="has_resolution">$EXP[HasMediaNavDetailsResolution]</param>
+				<param name="hdr">$VAR[MediaNavDetailsHdr]</param>
+				<param name="has_hdr">$EXP[HasMediaNavDetailsHdr]</param>
+				<param name="channels">$VAR[MediaNavDetailsAudioChannels]</param>
+				<param name="has_channels">$EXP[HasMediaNavDetailsAudioChannels]</param>
+				<param name="year">$VAR[MediaNavDetailsYear]</param>
+				<param name="has_year">$EXP[HasMediaNavDetailsYear]</param>
+				<param name="episode">$VAR[MediaNavDetailsEpisode]</param>
+				<param name="has_episode">$EXP[HasMediaNavDetailsEpisode]</param>
+				<param name="premiered">$VAR[MediaNavDetailsPremiered]</param>
+				<param name="has_premiered">$EXP[HasMediaNavDetailsPremiered]</param>
+				<param name="duration">$VAR[MediaNavDetailsDuration]</param>
+				<param name="has_duration">$EXP[HasMediaNavDetailsDuration]</param>
+				<param name="mpaa">$VAR[MediaNavDetailsMpaa]</param>
+				<param name="has_mpaa">$EXP[HasMediaNavDetailsMpaa]</param>
+				<param name="status">$VAR[MediaNavDetailsStatus]</param>
+				<param name="has_status">$EXP[HasMediaNavDetailsStatus]</param>
+				<param name="is_watched">$EXP[IsMediaNavDetailsWatched]</param>
+				<param name="is_allnew">$EXP[IsMediaNavDetailsAllNew]</param>
+				<param name="episodes_remaining">$VAR[MediaNavDetailsEpisodesRemaining]</param>
+				<param name="has_episodes_remaining">$EXP[HasMediaNavDetailsEpisodesRemaining]</param>
+				<param name="time_remaining">$VAR[MediaNavDetailsTimeRemaining]</param>
+				<param name="has_time_remaining">$EXP[HasMediaNavDetailsTimeRemaining]</param>
+				<param name="percentage_watched">$VAR[MediaNavDetailsWatchedPercentage]</param>
+				<param name="genre">$VAR[MediaNavDetailsGenre]</param>
+				<param name="has_genre">$EXP[HasMediaNavDetailsGenre]</param>
+				<param name="plot">$VAR[MediaNavDetailsSummary]</param>
+				<param name="foreground_color">$INFO[Window(1101).Property(ItemDetails.ForegroundColor)]</param>
+				<param name="highlight_color">$INFO[Window(1101).Property(ItemDetails.HighlightColor)]</param>
+				<param name="clearlogo_fadetime">0</param>
+			</include>
+
+			<!-- Fake list for when the item is a movie -->
+			<include content="MediaNavMovieFakeList" />
 		</control>
+
+		<!-- Clock -->
+		<include content="TopBar" />
+
+		<!-- Bottom bar -->
+		<include content="BottomBar">
+			<param name="show">$EXP[HasMediaNavDetailsStudio] + $EXP[IsMediaNavDoneLoading]</param>
+			<param name="show_studio">$EXP[HasMediaNavDetailsStudio]</param>
+			<param name="studio">$VAR[MediaNavDetailsStudio]</param>
+		</include>
 	</controls>
 </window>
