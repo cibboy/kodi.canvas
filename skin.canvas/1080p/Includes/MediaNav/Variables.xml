@@ -1,170 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
+	<!-- Contrast text color (against blur art) -->
+	<variable name="MediaNavContrastTextForegroundColor">
+		<!-- Lighter color -->
+		<value condition="$EXP[IsMediaNavDetailsBestTextColorLighter]">FOREGROUND_CONTRAST_LIGHTER</value>
+		<!-- Light color -->
+		<value condition="$EXP[IsMediaNavDetailsBestTextColorLight]">FOREGROUND_CONTRAST_LIGHT</value>
+		<!-- Dark color -->
+		<value condition="$EXP[IsMediaNavDetailsBestTextColorDark]">FOREGROUND_CONTRAST_DARK</value>
+		<!-- Darker color -->
+		<value condition="$EXP[IsMediaNavDetailsBestTextColorDarker]">FOREGROUND_CONTRAST_DARKER</value>
+		<!-- Fallback -->
+		<value>FOREGROUND_CONTRAST_LIGHTER</value>
+	</variable>
+	<variable name="MediaNavContrastTextHighlightColor">
+		<!-- Light color -->
+		<value condition="$EXP[IsMediaNavDetailsBestTextColorLighter]">HIGHLIGHT_CONTRAST_LIGHTER</value>
+		<!-- Light color -->
+		<value condition="$EXP[IsMediaNavDetailsBestTextColorLight]">HIGHLIGHT_CONTRAST_LIGHT</value>
+		<!-- Dark color -->
+		<value condition="$EXP[IsMediaNavDetailsBestTextColorDark]">HIGHLIGHT_CONTRAST_DARK</value>
+		<!-- Darker color -->
+		<value condition="$EXP[IsMediaNavDetailsBestTextColorDarker]">HIGHLIGHT_CONTRAST_DARKER</value>
+		<!-- Fallback -->
+		<value>HIGHLIGHT_CONTRAST_LIGHTER</value>
+	</variable>
+
+
 	<!-- Studio -->
 	<variable name="MediaNavDetailsStudio">
-		<!-- Movies -->
-		<value condition="$EXP[IsMediaNavMovie]">1080p/studios/$INFO[Container(1).ListItem.Studio].png</value>
-		<!-- TV Shows -->
-		<value condition="$EXP[IsMediaNavTVShow]">1080p/studios/$INFO[Container(2).ListItem.Studio].png</value>
-		<!-- Season -->
-		<value condition="$EXP[IsMediaNavSeason]">1080p/studios/$INFO[Container(2).ListItem.Studio].png</value>
-		<!-- Episode -->
-		<value condition="$EXP[IsMediaNavEpisode]">1080p/studios/$INFO[Container(2).ListItem.Studio].png</value>
+		<!-- Carryover -->
+		<value>$INFO[Window(1101).Property(CarryOver.Studio)]</value>
 	</variable>
 
 	<!-- Clearlogo -->
 	<variable name="MediaNavDetailsClearlogo">
-		<!-- Movies -->
-		<value condition="$EXP[IsMediaNavMovie]">$INFO[Container(1).ListItem.Property(Clearlogo.Big)]</value>
-		<!-- TV Shows -->
-		<value condition="$EXP[IsMediaNavTVShow]">$INFO[Container(2).ListItem.Property(Clearlogo.Big)]</value>
-		<!-- Season -->
-		<value condition="$EXP[IsMediaNavSeason]">$INFO[Container(2).ListItem.Property(Clearlogo.Big)]</value>
-		<!-- Episode -->
-		<value condition="$EXP[IsMediaNavEpisode]">$INFO[Container(2).ListItem.Property(Clearlogo.Big)]</value>
+		<!-- Carryover -->
+		<value>$INFO[Window(1101).Property(CarryOver.Clearlogo)]</value>
 	</variable>
 
 	<!-- Title -->
 	<variable name="MediaNavDetailsTitle">
-		<!-- Movies -->
-		<value condition="$EXP[IsMediaNavMovie]">$INFO[Container(1).ListItem.Title]</value>
-		<!-- TV Shows -->
-		<value condition="$EXP[IsMediaNavTVShow]">$INFO[Container(2).ListItem.TVShowTitle]</value>
-		<!-- Season -->
-		<value condition="$EXP[IsMediaNavSeason]">$INFO[Container(2).ListItem.TVShowTitle]</value>
-		<!-- Episode -->
-		<value condition="$EXP[IsMediaNavEpisode]">$INFO[Container(2).ListItem.TVShowTitle]</value>
+		<!-- Carryover -->
+		<value>$INFO[Window(1101).Property(CarryOver.Title)]</value>
 	</variable>
 
 	<!-- Subtitle -->
 	<variable name="MediaNavDetailsSubtitle">
-		<!-- Season -->
-		<value condition="$EXP[IsMediaNavSeason]">$INFO[Container(2).ListItem.Title]</value>
-		<!-- Episode -->
-		<value condition="$EXP[IsMediaNavEpisode]">$INFO[Container(2).ListItem.Title]</value>
+		<!-- Carryover -->
+		<value>$INFO[Window(1101).Property(CarryOver.Subtitle)]</value>
 	</variable>
 
 	<!-- Resolution -->
 	<variable name="MediaNavDetailsResolution">
-		<!-- Movies -->
-		<value condition="$EXP[IsMediaNavMovie]">$INFO[Container(1).ListItem.VideoResolution]</value>
-		<!-- Episode -->
-		<value condition="$EXP[IsMediaNavEpisode]">$INFO[Container(2).ListItem.VideoResolution]</value>
+		<!-- Carryover -->
+		<value>$INFO[Window(1101).Property(CarryOver.Resolution)]</value>
 	</variable>
 
 	<!-- HDR -->
 	<variable name="MediaNavDetailsHdr">
-		<!-- Movies -->
-		<value condition="$EXP[IsMediaNavMovie] + String.IsEqual(Container(1).ListItem.HdrType,hdr10)">HDR</value>
-		<value condition="$EXP[IsMediaNavMovie] + String.IsEqual(Container(1).ListItem.HdrType,dolbyvision)">Dolby Vision</value>
-		<value condition="$EXP[IsMediaNavMovie] + String.IsEqual(Container(1).ListItem.HdrType,hlg)">HLG</value>
-		<value condition="$EXP[IsMediaNavMovie]">[UPPERCASE]$INFO[Container(101).ListItem.HdrType][/UPPERCASE]</value>
-		<!-- Episodes -->
-		<value condition="$EXP[IsMediaNavEpisode] + String.IsEqual(Container(2).ListItem.HdrType,hdr10)">HDR</value>
-		<value condition="$EXP[IsMediaNavEpisode] + String.IsEqual(Container(2).ListItem.HdrType,dolbyvision)">Dolby Vision</value>
-		<value condition="$EXP[IsMediaNavEpisode] + String.IsEqual(Container(2).ListItem.HdrType,hlg)">HLG</value>
-		<value condition="$EXP[IsMediaNavEpisode]">[UPPERCASE]$INFO[Container(2).ListItem.HdrType][/UPPERCASE]</value>
+		<!-- Carryover -->
+		<value>$INFO[Window(1101).Property(CarryOver.Hdr)]</value>
 	</variable>
 
 	<!-- Audio channels -->
 	<variable name="MediaNavDetailsAudioChannels">
-		<!-- Movies -->
-		<value condition="$EXP[IsMediaNavMovie]">$INFO[Container(1).ListItem.Property(AudioChannels)]</value>
-		<!-- Episode -->
-		<value condition="$EXP[IsMediaNavEpisode]">$INFO[Container(2).ListItem.Property(AudioChannels)]</value>
+		<!-- Carryover -->
+		<value>$INFO[Window(1101).Property(CarryOver.AudioChannels)]</value>
 	</variable>
 
 	<!-- Year -->
 	<variable name="MediaNavDetailsYear">
-		<!-- Movies -->
-		<value condition="$EXP[IsMediaNavMovie]">$INFO[Container(1).ListItem.Year]</value>
-		<!-- TV Shows -->
-		<value condition="$EXP[IsMediaNavTVShow]">$INFO[Container(2).ListItem.Year]</value>
+		<!-- Carryover -->
+		<value>$INFO[Window(1101).Property(CarryOver.Year)]</value>
 	</variable>
 
 	<!-- Episode -->
 	<variable name="MediaNavDetailsEpisode">
-		<!-- Episode -->
-		<value condition="$EXP[IsMediaNavEpisode]">S$INFO[Container(2).ListItem.Season]·E$INFO[Container(2).ListItem.Episode]</value>
+		<!-- Carryover -->
+		<value>$INFO[Window(1101).Property(CarryOver.Episode)]</value>
 	</variable>
 
 	<!-- Premiered -->
 	<variable name="MediaNavDetailsPremiered">
-		<!-- Episode -->
-		<value condition="$EXP[IsMediaNavEpisode]">$INFO[Container(2).ListItem.Premiered]</value>
+		<!-- Carryover -->
+		<value>$INFO[Window(1101).Property(CarryOver.Premiered)]</value>
 	</variable>
 
 	<!-- Duration -->
 	<variable name="MediaNavDetailsDuration">
-		<!-- Movies -->
-		<value condition="$EXP[IsMediaNavMovie]">$INFO[Container(1).ListItem.Property(DurationString)]</value>
-		<!-- Episode -->
-		<value condition="$EXP[IsMediaNavEpisode]">$INFO[Container(2).ListItem.Property(DurationString)]</value>
+		<!-- Carryover -->
+		<value>$INFO[Window(1101).Property(CarryOver.Duration)]</value>
 	</variable>
 
 	<!-- Mpaa -->
 	<variable name="MediaNavDetailsMpaa">
-		<!-- Movies -->
-		<value condition="$EXP[IsMediaNavMovie]">$INFO[Container(1).ListItem.Mpaa]</value>
-		<!-- TV Shows -->
-		<value condition="$EXP[IsMediaNavTVShow]">$INFO[Container(2).ListItem.Mpaa]</value>
-		<!-- Season -->
-		<value condition="$EXP[IsMediaNavSeason]">$INFO[Container(2).ListItem.Mpaa]</value>
-		<!-- Episode -->
-		<value condition="$EXP[IsMediaNavEpisode]">$INFO[Container(2).ListItem.Mpaa]</value>
+		<!-- Carryover -->
+		<value>$INFO[Window(1101).Property(CarryOver.Mpaa)]</value>
 	</variable>
 
 	<!-- Status -->
 	<variable name="MediaNavDetailsStatus">
-		<!-- TV shows -->
-		<value condition="$EXP[IsMediaNavTVShow]">$INFO[Container(2).ListItem.Status]</value>
+		<!-- Carryover -->
+		<value>$INFO[Window(1101).Property(CarryOver.Status)]</value>
 	</variable>
 
 	<!-- Genre -->
 	<variable name="MediaNavDetailsGenre">
-		<!-- Movies -->
-		<value condition="$EXP[IsMediaNavMovie]">$INFO[Container(1).ListItem.Property(FormattedGenre)]</value>
-		<!-- TV Shows -->
-		<value condition="$EXP[IsMediaNavTVShow]">$INFO[Container(2).ListItem.Property(FormattedGenre)]</value>
+		<!-- Carryover -->
+		<value>$INFO[Window(1101).Property(CarryOver.Genre)]</value>
 	</variable>
 
 	<!-- Time remaining -->
 	<variable name="MediaNavDetailsTimeRemaining">
-		<!-- Movies -->
-		<value condition="$EXP[IsMediaNavMovie]">$INFO[Container(1).ListItem.Property(TimeRemainingString)] left</value>
-		<!-- Episode -->
-		<value condition="$EXP[IsMediaNavEpisode]">$INFO[Container(2).ListItem.Property(TimeRemainingString)] left</value>
+		<!-- Carryover -->
+		<value>$INFO[Window(1101).Property(CarryOver.TimeRemaining)]</value>
 	</variable>
 
 	<!-- Episodes remaining -->
 	<variable name="MediaNavDetailsEpisodesRemaining">
-		<!-- TV Shows -->
-		<value condition="$EXP[IsMediaNavTVShow]">$INFO[Container(2).ListItem.Property(WatchedEpisodes)] of $INFO[Container(2).ListItem.Property(TotalEpisodes)] watched</value>
-		<!-- Season -->
-		<value condition="$EXP[IsMediaNavSeason]">$INFO[Container(2).ListItem.Property(WatchedEpisodes)] of $INFO[Container(2).ListItem.Property(TotalEpisodes)] watched</value>
+		<!-- Carryover -->
+		<value>$INFO[Window(1101).Property(CarryOver.EpisodesRemaining)]</value>
 	</variable>
 
 	<!-- Watched percentage -->
 	<variable name="MediaNavDetailsWatchedPercentage">
-		<!-- Movies -->
-		<value condition="$EXP[IsMediaNavMovie]">$INFO[Container(1).ListItem.Property(WatchedPercentage)]</value>
-		<!-- TV Shows -->
-		<value condition="$EXP[IsMediaNavTVShow]">$INFO[Container(2).ListItem.Property(WatchedPercentage)]</value>
-		<!-- Season -->
-		<value condition="$EXP[IsMediaNavSeason]">$INFO[Container(2).ListItem.Property(WatchedPercentage)]</value>
-		<!-- Episode -->
-		<value condition="$EXP[IsMediaNavEpisode]">$INFO[Container(2).ListItem.Property(WatchedPercentage)]</value>
+		<!-- Carryover -->
+		<value>$INFO[Window(1101).Property(CarryOver.WatchedPercentage)]</value>
 	</variable>
 
 	<!-- Plot -->
 	<variable name="MediaNavDetailsSummary">
-		<!-- Movies -->
-		<value condition="$EXP[IsMediaNavMovie]">$INFO[Container(1).ListItem.Plot]</value>
-		<!-- TV Shows -->
-		<value condition="$EXP[IsMediaNavTVShow]">$INFO[Container(2).ListItem.Plot]</value>
-		<!-- Season -->
-		<value condition="$EXP[IsMediaNavSeason]">$INFO[Container(2).ListItem.Plot]</value>
-		<!-- Episode -->
-		<value condition="$EXP[IsMediaNavEpisode]">$INFO[Container(2).ListItem.Plot]</value>
+		<!-- Carryover -->
+		<value>$INFO[Window(1101).Property(CarryOver.Summary)]</value>
 	</variable>
 </includes>

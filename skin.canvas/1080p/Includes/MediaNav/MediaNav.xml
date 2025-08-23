@@ -14,32 +14,61 @@
 			</control>
 			<include content="BackgroundQuadrantBlur">
 				<param name="visible">!$EXP[IsMediaNavMusicAlbum] + !$EXP[IsMediaNavPictureAlbum]</param>
-				<param name="art">$INFO[Window(1101).Property(ItemDetails.Art)]</param>
-				<param name="blur">$INFO[Window(1101).Property(ItemDetails.Blur)]</param>
+				<param name="art">$INFO[Window(1101).Property(CarryOver.Art)]</param>
+				<param name="blur">$INFO[Window(1101).Property(CarryOver.Blur)]</param>
 				<param name="fadetime">0</param>
 				<param name="art_fadetime">0</param>
 			</include>
 			<!-- Background (full size blur for music albums) -->
 			<include name="BackgroundSingleBlur">
 				<param name="visible">$EXP[IsMediaNavMusicAlbum] | $EXP[IsMediaNavPictureAlbum]</param>
-				<param name="blur">$INFO[Window(1101).Property(ItemDetails.Blur)]</param>
+				<param name="blur">$INFO[Window(1101).Property(CarryOver.Blur)]</param>
 				<param name="fadetime">ANIMATION_CRAWL</param>
 			</include>
 		</definition>
 	</include>
 
-	<!-- Hidden list of single item to show media details page -->
-	<include name="MediaNavMovieFakeList">
+	<!-- Selection details definition -->
+	<include name="MediaNavSelectionDetails">
 		<definition>
-			<control type="fixedlist" id="1">
-				<visible>$EXP[IsMediaNavMovie]</visible>
-				<include content="Hidden" />
-
-				<itemlayout width="0" height="0" />
-				<focusedlayout width="0" height="0" />
-
-				<content>plugin://script.canvas.helper/movies/?movieid=$INFO[Window(1101).Property(ItemDetails.Id)]&amp;listid=1</content>
-			</control>
+			<include content="SelectionDetails">
+				<param name="visible">!$EXP[IsMediaNavMusicAlbum] + !$EXP[IsMediaNavPictureAlbum]</param>
+				<param name="clearlogo">$VAR[MediaNavDetailsClearlogo]</param>
+				<param name="title">$VAR[MediaNavDetailsTitle]</param>
+				<param name="has_clearlogo">$EXP[HasMediaNavDetailsClearlogo]</param>
+				<param name="subtitle">$VAR[MediaNavDetailsSubtitle]</param>
+				<param name="has_subtitle">$EXP[HasMediaNavDetailsSubtitle]</param>
+				<param name="resolution">$VAR[MediaNavDetailsResolution]</param>
+				<param name="has_resolution">$EXP[HasMediaNavDetailsResolution]</param>
+				<param name="hdr">$VAR[MediaNavDetailsHdr]</param>
+				<param name="has_hdr">$EXP[HasMediaNavDetailsHdr]</param>
+				<param name="channels">$VAR[MediaNavDetailsAudioChannels]</param>
+				<param name="has_channels">$EXP[HasMediaNavDetailsAudioChannels]</param>
+				<param name="year">$VAR[MediaNavDetailsYear]</param>
+				<param name="has_year">$EXP[HasMediaNavDetailsYear]</param>
+				<param name="episode">$VAR[MediaNavDetailsEpisode]</param>
+				<param name="has_episode">$EXP[HasMediaNavDetailsEpisode]</param>
+				<param name="premiered">$VAR[MediaNavDetailsPremiered]</param>
+				<param name="has_premiered">$EXP[HasMediaNavDetailsPremiered]</param>
+				<param name="duration">$VAR[MediaNavDetailsDuration]</param>
+				<param name="has_duration">$EXP[HasMediaNavDetailsDuration]</param>
+				<param name="mpaa">$VAR[MediaNavDetailsMpaa]</param>
+				<param name="has_mpaa">$EXP[HasMediaNavDetailsMpaa]</param>
+				<param name="status">$VAR[MediaNavDetailsStatus]</param>
+				<param name="has_status">$EXP[HasMediaNavDetailsStatus]</param>
+				<param name="is_watched">$EXP[IsMediaNavDetailsWatched]</param>
+				<param name="is_allnew">$EXP[IsMediaNavDetailsAllNew]</param>
+				<param name="episodes_remaining">$VAR[MediaNavDetailsEpisodesRemaining]</param>
+				<param name="has_episodes_remaining">$EXP[HasMediaNavDetailsEpisodesRemaining]</param>
+				<param name="time_remaining">$VAR[MediaNavDetailsTimeRemaining]</param>
+				<param name="has_time_remaining">$EXP[HasMediaNavDetailsTimeRemaining]</param>
+				<param name="percentage_watched">$VAR[MediaNavDetailsWatchedPercentage]</param>
+				<param name="genre">$VAR[MediaNavDetailsGenre]</param>
+				<param name="has_genre">$EXP[HasMediaNavDetailsGenre]</param>
+				<param name="plot">$VAR[MediaNavDetailsSummary]</param>
+				<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
+				<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
+			</include>
 		</definition>
 	</include>
 </includes>

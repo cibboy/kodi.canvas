@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="window" id="1101">
+	<onload>RunScript(script.canvas.helper,test)</onload>
+
+	<controls>
+		<!-- Background -->
+		<include content="MediaNavBackground" />
+
+		<!-- Content -->
+		<control type="group">
+			<top>PADDING_BASE</top>
+			<left>PADDING_MULT_120</left>
+
+			<!-- Selection details (not for albums) -->
+			<include content="MediaNavSelectionDetails" />
+		</control>
+
+		<!-- Clock -->
+		<include content="TopBar" />
+
+		<!-- Bottom bar -->
+		<include content="BottomBar"><!--todo: consider carryover-->
+			<param name="show">$EXP[HasMediaNavDetailsStudio]</param>
+			<param name="show_studio">$EXP[HasMediaNavDetailsStudio]</param>
+			<param name="studio">$VAR[MediaNavDetailsStudio]</param>
+		</include>
+	</controls>
+</window>

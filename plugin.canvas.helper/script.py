@@ -1,5 +1,6 @@
 import sys
 import xbmc, xbmcgui
+from datetime import datetime
 
 # Given a set of IDs, find the first one with content using custom window properties.
 def find_home_next_content(ids, window, hint=None):
@@ -61,15 +62,6 @@ def onchange_home_menu(page):
     window.setProperty('ActivePage', page)
     window.setProperty('ActiveListId', page_active_id)
 
-# onchange event for a list (i.e. changing focused element).
-# This should pre-prepare MediaNav background in case we navigate there.
-def onchange_home_focus_mediaitem(fanart, blur, foreground_color, highlight_color):
-    # Set properties on MediaNav page.
-    xbmc.executebuiltin(f"SetProperty(ItemDetails.Art,{fanart},1101)")
-    xbmc.executebuiltin(f"SetProperty(ItemDetails.Blur,{blur},1101)")
-    xbmc.executebuiltin(f"SetProperty(ItemDetails.ForegroundColor,{foreground_color},1101)")
-    xbmc.executebuiltin(f"SetProperty(ItemDetails.HighlightColor,{highlight_color},1101)")
-
 # When changing the focused list inside a page on home.
 def onfocus_home_page_item(page, listid):
     window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
@@ -115,11 +107,7 @@ def reload_home():
     window.setProperty('IsLoading.104', 'true')
 
     # Update nonce to force lists to reload.
-    nonce = window.getProperty('Nonce')
-    if nonce is None or nonce == '': nonce = 0
-    else: nonce = int(nonce)
-    nonce += 1
-    window.setProperty('Nonce', str(nonce))
+    window.setProperty('Nonce', str(datetime.utcnow().strftime('%Y%m%d%H%M%S')))
 
     # Focus back to first element of menu (home).
     xbmc.executebuiltin('SetFocus(1,0)')
@@ -154,10 +142,6 @@ if __name__ == '__main__':
         # Handle window property updates when changing the selected main menu item.
         elif method == 'onchange_home_menu':
             onchange_home_menu(sys.argv[2])
-        # Handle onchange event for a list (i.e. changing focused element).
-        # This should pre-prepare MediaNav background in case we navigate there.
-        elif method == 'onchange_home_focus_mediaitem':
-            onchange_home_focus_mediaitem(sys.argv[2], sys.argv[3],sys.argv[4], sys.argv[5])
         # Handle window property updates when focusing on a different list inside the same home page.
         elif method == 'onfocus_home_page_item':
             onfocus_home_page_item(sys.argv[2], sys.argv[3])

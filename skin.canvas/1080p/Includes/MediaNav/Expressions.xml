@@ -9,119 +9,61 @@
 	<expression name="IsMediaNavPictureAlbum">String.IsEqual(Window(1101).Property(ItemDetails.Type),picture_album)</expression>
 
 
-	<!-- Is loading done? -->
-	<expression name="IsMediaNavDoneLoading">
-		!String.IsEqual(Window(1101).Property(IsLoading.1),true) +
-		!String.IsEqual(Window(1101).Property(IsLoading.2),true) +
-		!String.IsEqual(Window(1101).Property(IsLoading.3),true) +
-		!String.IsEqual(Window(1101).Property(IsLoading.4),true)
-	</expression>
-
-
 	<!-- Has studio? -->
-	<expression name="HasMediaNavDetailsStudio">
-		[$EXP[IsMediaNavMovie] + !String.IsEmpty(Container(1).ListItem.Studio)] |
-		[$EXP[IsMediaNavTVShow] + !String.IsEmpty(Container(2).ListItem.Studio)] |
-		[$EXP[IsMediaNavSeason] + !String.IsEmpty(Container(2).ListItem.Studio)] |
-		[$EXP[IsMediaNavEpisode] + !String.IsEmpty(Container(2).ListItem.Studio)]
-	</expression>
+	<expression name="HasMediaNavDetailsStudio">String.IsEqual(Window(1101).Property(CarryOver.Studio.Exists),true)</expression>
 
 	<!-- Has clearlogo? -->
-	<expression name="HasMediaNavDetailsClearlogo">
-		[$EXP[IsMediaNavMovie] + !String.IsEmpty(Container(1).ListItem.Property(Clearlogo.Big))] |
-		[$EXP[IsMediaNavTVShow] + !String.IsEmpty(Container(2).ListItem.Property(Clearlogo.Big))] |
-		[$EXP[IsMediaNavSeason] + !String.IsEmpty(Container(2).ListItem.Property(Clearlogo.Big))] |
-		[$EXP[IsMediaNavEpisode] + !String.IsEmpty(Container(2).ListItem.Property(Clearlogo.Big))]
-	</expression>
+	<expression name="HasMediaNavDetailsClearlogo">String.IsEqual(Window(1101).Property(CarryOver.Clearlogo.Exists),true)</expression>
 
 	<!-- Has subtitle? -->
-	<expression name="HasMediaNavDetailsSubtitle">
-		[$EXP[IsMediaNavSeason] + !String.IsEmpty(Container(2).ListItem.Title)] |
-		[$EXP[IsMediaNavEpisode] + !String.IsEmpty(Container(2).ListItem.Title)]
-	</expression>
+	<expression name="HasMediaNavDetailsSubtitle">String.IsEqual(Window(1101).Property(CarryOver.Subtitle.Exists),true)</expression>
 
 	<!-- Has resolution? -->
-	<expression name="HasMediaNavDetailsResolution">
-		[$EXP[IsMediaNavMovie] + !String.IsEmpty(Container(1).ListItem.VideoResolution)] |
-		[$EXP[IsMediaNavEpisode] + !String.IsEmpty(Container(2).ListItem.VideoResolution)]
-	</expression>
+	<expression name="HasMediaNavDetailsResolution">String.IsEqual(Window(1101).Property(CarryOver.Resolution.Exists),true)</expression>
 
 	<!-- Has HDR? -->
-	<expression name="HasMediaNavDetailsHdr">
-		[$EXP[IsMediaNavMovie] + !String.IsEmpty(Container(1).ListItem.HdrType)] |
-		[$EXP[IsMediaNavEpisode] + !String.IsEmpty(Container(2).ListItem.HdrType)]
-	</expression>
+	<expression name="HasMediaNavDetailsHdr">String.IsEqual(Window(1101).Property(CarryOver.Hdr.Exists),true)</expression>
 
 	<!-- Has audio channels? -->
-	<expression name="HasMediaNavDetailsAudioChannels">
-		[$EXP[IsMediaNavMovie] + !String.IsEmpty(Container(1).ListItem.Property(AudioChannels))] |
-		[$EXP[IsMediaNavEpisode] + !String.IsEmpty(Container(2).ListItem.Property(AudioChannels))]
-	</expression>
+	<expression name="HasMediaNavDetailsAudioChannels">String.IsEqual(Window(1101).Property(CarryOver.AudioChannels.Exists),true)</expression>
 
 	<!-- Has year? -->
-	<expression name="HasMediaNavDetailsYear">
-		[$EXP[IsMediaNavMovie] + !String.IsEmpty(Container(1).ListItem.Year)] |
-		[$EXP[IsMediaNavTVShow] + !String.IsEmpty(Container(2).ListItem.Year)]
-	</expression>
+	<expression name="HasMediaNavDetailsYear">String.IsEqual(Window(1101).Property(CarryOver.Year.Exists),true)</expression>
 
 	<!-- Has episode? -->
-	<expression name="HasMediaNavDetailsEpisode">
-		[$EXP[IsMediaNavEpisode] + !String.IsEmpty(Container(2).ListItem.Season) + !String.IsEmpty(Container(2).ListItem.Episode)]
-	</expression>
+	<expression name="HasMediaNavDetailsEpisode">String.IsEqual(Window(1101).Property(CarryOver.Episode.Exists),true)</expression>
 
 	<!-- Has premiered? -->
-	<expression name="HasMediaNavDetailsPremiered">
-		[$EXP[IsMediaNavEpisode] + !String.IsEmpty(Container(2).ListItem.Premiered)]
-	</expression>
+	<expression name="HasMediaNavDetailsPremiered">String.IsEqual(Window(1101).Property(CarryOver.Premiered.Exists),true)</expression>
 
 	<!-- Has duration? -->
-	<expression name="HasMediaNavDetailsDuration">
-		[$EXP[IsMediaNavMovie] + !String.IsEmpty(Container(1).ListItem.Property(DurationString))] |
-		[$EXP[IsMediaNavEpisode] + !String.IsEmpty(Container(2).ListItem.Property(DurationString))]
-	</expression>
+	<expression name="HasMediaNavDetailsDuration">String.IsEqual(Window(1101).Property(CarryOver.Duration.Exists),true)</expression>
 
 	<!-- Has MPAA? -->
-	<expression name="HasMediaNavDetailsMpaa">
-		[$EXP[IsMediaNavMovie] + !String.IsEmpty(Container(1).ListItem.Mpaa)] |
-		[$EXP[IsMediaNavTVShow] + !String.IsEmpty(Container(2).ListItem.Mpaa)] |
-		[$EXP[IsMediaNavSeason] + !String.IsEmpty(Container(2).ListItem.Mpaa)] |
-		[$EXP[IsMediaNavEpisode] + !String.IsEmpty(Container(2).ListItem.Mpaa)]
-	</expression>
+	<expression name="HasMediaNavDetailsMpaa">String.IsEqual(Window(1101).Property(CarryOver.Mpaa.Exists),true)</expression>
 
 	<!-- Has status? -->
-	<expression name="HasMediaNavDetailsStatus">
-		[$EXP[IsMediaNavTVShow] + !String.IsEmpty(Container(2).ListItem.Status)]
-	</expression>
+	<expression name="HasMediaNavDetailsStatus">String.IsEqual(Window(1101).Property(CarryOver.Status.Exists),true)</expression>
 
 	<!-- Has genre? -->
-	<expression name="HasMediaNavDetailsGenre">
-		[$EXP[IsMediaNavMovie] + !String.IsEmpty(Container(1).ListItem.Genre)] |
-		[$EXP[IsMediaNavTVShow] + !String.IsEmpty(Container(2).ListItem.Genre)]
-	</expression>
+	<expression name="HasMediaNavDetailsGenre">String.IsEqual(Window(1101).Property(CarryOver.Genre.Exists),true)</expression>
 
 	<!-- Is watched? -->
-	<expression name="IsMediaNavDetailsWatched">
-		[$EXP[IsMediaNavMovie] + Integer.IsGreater(Container(1).ListItem.PlayCount,0)] |
-		[$EXP[IsMediaNavTVShow] + Integer.IsGreater(Container(2).ListItem.PlayCount,0)] |
-		[$EXP[IsMediaNavSeason] + Integer.IsGreater(Container(2).ListItem.PlayCount,0)] |
-		[$EXP[IsMediaNavEpisode] + Integer.IsGreater(Container(2).ListItem.PlayCount,0)]
-	</expression>
+	<expression name="IsMediaNavDetailsWatched">String.IsEqual(Window(1101).Property(CarryOver.IsWatched),true)</expression>
 
 	<!-- Has time remaining? -->
-	<expression name="HasMediaNavDetailsTimeRemaining">
-		[$EXP[IsMediaNavMovie] + !String.IsEmpty(Container(1).ListItem.Property(TimeRemainingString))] |
-		[$EXP[IsMediaNavEpisode] + !String.IsEmpty(Container(2).ListItem.Property(TimeRemainingString))]
-	</expression>
+	<expression name="HasMediaNavDetailsTimeRemaining">String.IsEqual(Window(1101).Property(CarryOver.TimeRemaining.Exists),true)</expression>
 
 	<!-- Has episodes remaining? -->
-	<expression name="HasMediaNavDetailsEpisodesRemaining">
-		[$EXP[IsMediaNavTVShow] + Integer.IsEqual(Container(2).ListItem.PlayCount,0)] |
-		[$EXP[IsMediaNavSeason] + Integer.IsEqual(Container(2).ListItem.PlayCount,0)]
-	</expression>
+	<expression name="HasMediaNavDetailsEpisodesRemaining">String.IsEqual(Window(1101).Property(CarryOver.EpisodesRemaining.Exists),true)</expression>
 
 	<!-- Is all new? -->
-	<expression name="IsMediaNavDetailsAllNew">
-		[$EXP[IsMediaNavTVShow] + Integer.IsEqual(Container(2).ListItem.Property(WatchedEpisodes),0)] |
-		[$EXP[IsMediaNavSeason] + Integer.IsEqual(Container(2).ListItem.Property(WatchedEpisodes),0)]
-	</expression>
+	<expression name="IsMediaNavDetailsAllNew">String.IsEqual(Window(1101).Property(CarryOver.IsAllNew),true)</expression>
+
+
+	<!-- Is the most suited text color again blur background lighter/light/dark/darker? -->
+	<expression name="IsMediaNavDetailsBestTextColorLighter">String.IsEqual(Window(1101).Property(CarryOver.Colors.IsLighter),true)</expression>
+	<expression name="IsMediaNavDetailsBestTextColorLight">String.IsEqual(Window(1101).Property(CarryOver.Colors.IsLight),true)</expression>
+	<expression name="IsMediaNavDetailsBestTextColorDark">String.IsEqual(Window(1101).Property(CarryOver.Colors.IsDark),true)</expression>
+	<expression name="IsMediaNavDetailsBestTextColorDarker">String.IsEqual(Window(1101).Property(CarryOver.Colors.IsDarker),true)</expression>
 </includes>
