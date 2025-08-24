@@ -3,7 +3,7 @@
 	<include file="Includes/MediaNav/Variables.xml" />
 	<include file="Includes/MediaNav/Expressions.xml" />
 
-	<!-- Background definition -->
+	<!-- Background -->
 	<include name="MediaNavBackground">
 		<definition>
 			<!-- Background (fallback/default + blur quadrants/art) -->
@@ -28,7 +28,7 @@
 		</definition>
 	</include>
 
-	<!-- Selection details definition -->
+	<!-- Selection details -->
 	<include name="MediaNavSelectionDetails">
 		<definition>
 			<include content="SelectionDetails">
@@ -69,6 +69,13 @@
 				<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
 				<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
 			</include>
+		</definition>
+	</include>
+
+	<!-- Action button list -->
+	<include name="MediaNavActionButtons">
+		<definition>
+			
 		</definition>
 	</include>
 </includes>

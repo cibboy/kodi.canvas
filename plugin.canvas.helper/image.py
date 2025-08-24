@@ -48,7 +48,7 @@ def apca_contrast(text_rgb, bg_rgb):
     return contrast
 
 # Gets the most suitable color for text, given the background image (blurred).
-def get_best_contrast_color(img, thumb, path):
+def get_best_contrast_color(img):
     # Further downsize and get the pixels of the left 33%, top 67% of the image.
     # This is the part where most of the text will be drawn upon (the blurred
     # background is x-flipped where the details go).
@@ -66,10 +66,8 @@ def get_best_contrast_color(img, thumb, path):
 
     # Get an RGB array of candidate text colors.
     candidates = {
-        "lighter": ImageColor.getrgb("#BEBEBE"),
-        "light": ImageColor.getrgb("#999999"),
-        "dark": ImageColor.getrgb("#575757"),
-        "darker": ImageColor.getrgb("#313131")
+        "light": ImageColor.getrgb("#BEBEBE"),
+        "dark": ImageColor.getrgb("#313131")
     }
 
     # Get contrast ratios for each candidate, using different metrics.
@@ -127,50 +125,38 @@ def get_blurred(imgPath):
         # Compute output paths from input path.
         folder = xbmcvfs.translatePath('special://temp/temp/canvas.blur/')
         path = xbmcvfs.translatePath('special://temp/temp/canvas.blur/' + thumb.replace('.png', '.jpg').replace('.jpeg', '.jpg'))
-        lighter = path.replace('.jpg', '-lighter.jpg')
-        light = path.replace('.jpg', '-light.jpg')
-        dark = path.replace('.jpg', '-dark.jpg')
-        darker = path.replace('.jpg', '-darker.jpg')
+        light = path.replace('.jpg', '-l.jpg')
+        dark = path.replace('.jpg', '-d.jpg')
         # Create folder if missing.
         if not os.path.exists(folder): os.makedirs(folder)
 
         # Check if output already present. If so, use it.
-        if xbmcvfs.exists(lighter):
-            return (lighter, 'lighter')
         elif xbmcvfs.exists(light):
             return (light, 'light')
         elif xbmcvfs.exists(dark):
             return (dark, 'dark')
-        elif xbmcvfs.exists(darker):
-            return (darker, 'darker')
 
         # Resize and blur.
         with xbmcvfs.File(xbmcvfs.translatePath(full_path), 'rb') as f:
             image_bytes = f.readBytes()
         img = Image.open(io.BytesIO(image_bytes))
-        img = img.resize((int(480), int(270)), Image.LANCZOS)
+        img = img.resize((int(720), int(405)), Image.LANCZOS)
         img = img.filter(ImageFilter.GaussianBlur(radius=float(80)))
 
         # Compute a contrast ratio between the blurred image and reference
         # text colors, in order to understand which text color is best
         # suited against the background.
-        color = get_best_contrast_color(img, thumb, path)
+        color = get_best_contrast_color(img)
 
         # Save output and return output path according to contrast ratio.
-        if color == 'lighter':
-            img.save(lighter, 'JPEG')
-            return (lighter, 'lighter')
-        elif color == 'light':
+        if color == 'light':
             img.save(light, 'JPEG')
             return (light, 'light')
         elif color == 'dark':
             img.save(dark, 'JPEG')
             return (dark, 'dark')
-        elif color == 'darker':
-            img.save(darker, 'JPEG')
-            return (darker, 'darker')
     except:
-        return ('', 'lighter')
+        return ('', 'light')
 
 # Takes an clearlogo path, crops it to the actual content, saves in into temp and returns the new path.
 # It creates 2 version, the original size, cropped, and a smaller one, cropped as well.

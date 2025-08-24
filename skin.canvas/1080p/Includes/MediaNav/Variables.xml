@@ -2,28 +2,20 @@
 <includes>
 	<!-- Contrast text color (against blur art) -->
 	<variable name="MediaNavContrastTextForegroundColor">
-		<!-- Lighter color -->
-		<value condition="$EXP[IsMediaNavDetailsBestTextColorLighter]">FOREGROUND_CONTRAST_LIGHTER</value>
 		<!-- Light color -->
 		<value condition="$EXP[IsMediaNavDetailsBestTextColorLight]">FOREGROUND_CONTRAST_LIGHT</value>
 		<!-- Dark color -->
 		<value condition="$EXP[IsMediaNavDetailsBestTextColorDark]">FOREGROUND_CONTRAST_DARK</value>
-		<!-- Darker color -->
-		<value condition="$EXP[IsMediaNavDetailsBestTextColorDarker]">FOREGROUND_CONTRAST_DARKER</value>
 		<!-- Fallback -->
-		<value>FOREGROUND_CONTRAST_LIGHTER</value>
+		<value>FOREGROUND_CONTRAST_LIGHT</value>
 	</variable>
 	<variable name="MediaNavContrastTextHighlightColor">
-		<!-- Light color -->
-		<value condition="$EXP[IsMediaNavDetailsBestTextColorLighter]">HIGHLIGHT_CONTRAST_LIGHTER</value>
 		<!-- Light color -->
 		<value condition="$EXP[IsMediaNavDetailsBestTextColorLight]">HIGHLIGHT_CONTRAST_LIGHT</value>
 		<!-- Dark color -->
 		<value condition="$EXP[IsMediaNavDetailsBestTextColorDark]">HIGHLIGHT_CONTRAST_DARK</value>
-		<!-- Darker color -->
-		<value condition="$EXP[IsMediaNavDetailsBestTextColorDarker]">HIGHLIGHT_CONTRAST_DARKER</value>
 		<!-- Fallback -->
-		<value>HIGHLIGHT_CONTRAST_LIGHTER</value>
+		<value>HIGHLIGHT_CONTRAST_LIGHT</value>
 	</variable>
 
 

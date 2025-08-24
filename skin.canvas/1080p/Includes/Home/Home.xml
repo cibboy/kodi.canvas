@@ -1039,13 +1039,9 @@
 		<onclick condition="Window.Is(home) + $EXP[IsHomeDetailsAllNew]">SetProperty(CarryOver.IsAllNew,true,1101)</onclick>
 		<onclick condition="Window.Is(home) + !$EXP[IsHomeDetailsAllNew]">SetProperty(CarryOver.IsAllNew,false,1101)</onclick>
 		<onclick condition="Window.Is(home)">SetProperty(CarryOver.Summary,$VAR[HomeDetailsSummaryEscaped],1101)</onclick>
-		<onclick condition="Window.Is(home) + $EXP[IsHomeDetailsBestTextColorLighter]">SetProperty(CarryOver.Colors.IsLighter,true,1101)</onclick>
-		<onclick condition="Window.Is(home) + !$EXP[IsHomeDetailsBestTextColorLighter]">SetProperty(CarryOver.Colors.IsLighter,false,1101)</onclick>
 		<onclick condition="Window.Is(home) + $EXP[IsHomeDetailsBestTextColorLight]">SetProperty(CarryOver.Colors.IsLight,true,1101)</onclick>
 		<onclick condition="Window.Is(home) + !$EXP[IsHomeDetailsBestTextColorLight]">SetProperty(CarryOver.Colors.IsLight,false,1101)</onclick>
 		<onclick condition="Window.Is(home) + $EXP[IsHomeDetailsBestTextColorDark]">SetProperty(CarryOver.Colors.IsDark,true,1101)</onclick>
 		<onclick condition="Window.Is(home) + !$EXP[IsHomeDetailsBestTextColorDark]">SetProperty(CarryOver.Colors.IsDark,false,1101)</onclick>
-		<onclick condition="Window.Is(home) + $EXP[IsHomeDetailsBestTextColorDarker]">SetProperty(CarryOver.Colors.IsDarker,true,1101)</onclick>
-		<onclick condition="Window.Is(home) + !$EXP[IsHomeDetailsBestTextColorDarker]">SetProperty(CarryOver.Colors.IsDarker,false,1101)</onclick>
 	</include>
 </includes>

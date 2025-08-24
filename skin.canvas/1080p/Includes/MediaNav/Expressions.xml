@@ -61,9 +61,7 @@
 	<expression name="IsMediaNavDetailsAllNew">String.IsEqual(Window(1101).Property(CarryOver.IsAllNew),true)</expression>
 
 
-	<!-- Is the most suited text color again blur background lighter/light/dark/darker? -->
-	<expression name="IsMediaNavDetailsBestTextColorLighter">String.IsEqual(Window(1101).Property(CarryOver.Colors.IsLighter),true)</expression>
+	<!-- Is the most suited text color again blur background light/dark? -->
 	<expression name="IsMediaNavDetailsBestTextColorLight">String.IsEqual(Window(1101).Property(CarryOver.Colors.IsLight),true)</expression>
 	<expression name="IsMediaNavDetailsBestTextColorDark">String.IsEqual(Window(1101).Property(CarryOver.Colors.IsDark),true)</expression>
-	<expression name="IsMediaNavDetailsBestTextColorDarker">String.IsEqual(Window(1101).Property(CarryOver.Colors.IsDarker),true)</expression>
 </includes>

@@ -19,7 +19,7 @@
 		<include content="TopBar" />
 
 		<!-- Bottom bar -->
-		<include content="BottomBar"><!--todo: consider carryover-->
+		<include content="BottomBar">
 			<param name="show">$EXP[HasMediaNavDetailsStudio]</param>
 			<param name="show_studio">$EXP[HasMediaNavDetailsStudio]</param>
 			<param name="studio">$VAR[MediaNavDetailsStudio]</param>
