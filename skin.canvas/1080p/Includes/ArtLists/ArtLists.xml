@@ -17,7 +17,7 @@
 				<height>SIZE_LIST_WATCHED_ICON</height>
 
 				<control type="image">
-					<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/icons/circle.png</texture>
+					<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/icons/watched-bg.png</texture>
 				</control>
 				<control type="image">
 					<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>

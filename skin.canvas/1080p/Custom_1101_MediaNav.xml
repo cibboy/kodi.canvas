@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window type="window" id="1101">
-	<onload>RunScript(script.canvas.helper,test)</onload>
+	<defaultcontrol always="true">9999</defaultcontrol>
 
 	<controls>
+		<!-- Default button to force redirect either to play or resume action button -->
+		<control type="button" id="9999">
+			<onfocus condition="$EXP[HasMediaNavActionPlay]">SetFocus(10)</onfocus>
+			<onfocus condition="$EXP[HasMediaNavActionResume]">SetFocus(11)</onfocus>
+		</control>
+
 		<!-- Background -->
 		<include content="MediaNavBackground" />
 
@@ -13,6 +19,14 @@
 
 			<!-- Selection details (not for albums) -->
 			<include content="MediaNavSelectionDetails" />
+
+			<!-- Actual content after selection details -->
+			<control type="group">
+				<top>OFFSET_AFTER_DETAILS</top>
+
+				<!-- Action buttons -->
+				<include content="MediaNavActionButtons" />
+			</control>
 		</control>
 
 		<!-- Clock -->

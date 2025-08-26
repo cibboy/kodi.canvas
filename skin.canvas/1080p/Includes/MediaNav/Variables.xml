@@ -18,6 +18,16 @@
 		<value>HIGHLIGHT_CONTRAST_LIGHT</value>
 	</variable>
 
+	<!-- Contrast color for buttons (against blur art) -->
+	<variable name="MediaNavContrastButtonColor">
+		<!-- Light color -->
+		<value condition="$EXP[IsMediaNavDetailsBestTextColorLight]">FOREGROUND_OPAQUE50</value>
+		<!-- Dark color -->
+		<value condition="$EXP[IsMediaNavDetailsBestTextColorDark]">FOREGROUND_INVERSE_OPAQUE50</value>
+		<!-- Fallback -->
+		<value>FOREGROUND_OPAQUE50</value>
+	</variable>
+
 
 	<!-- Studio -->
 	<variable name="MediaNavDetailsStudio">
@@ -126,4 +136,38 @@
 		<!-- Carryover -->
 		<value>$INFO[Window(1101).Property(CarryOver.Summary)]</value>
 	</variable>
+
+
+	<!--
+		Action button labels.
+		Defining them as variables allows to hide the text when not focused.
+		They include space for margin from icon.
+	-->
+	<variable name="MediaNavPlayButtonLabel"><value condition="Control.HasFocus(10)">  Play</value></variable>
+	<variable name="MediaNavResumeButtonLabel"><value condition="Control.HasFocus(11)">  Resume</value></variable>
+	<variable name="MediaNavPlayFromStartButtonLabel"><value condition="Control.HasFocus(12)">  Play from start</value></variable>
+	<variable name="MediaNavMarkAsUnwatchedButtonLabel"><value condition="Control.HasFocus(13)">  Mark as unwatched</value></variable>
+	<variable name="MediaNavMarkAsWatchedButtonLabel"><value condition="Control.HasFocus(14)">  Mark as watched</value></variable>
+	<variable name="MediaNavInfoButtonLabel"><value condition="Control.HasFocus(15)">  Info</value></variable>
+	<variable name="MediaNavMoreButtonLabel"><value condition="Control.HasFocus(16)">  More</value></variable>
+
+
+	<!-- Icons -->
+	<variable name="MediaNavPlayIcon"><value>1080p/icons/playc.png</value></variable>
+	<variable name="MediaNavResumeIcon"><value>1080p/icons/resume.png</value></variable>
+	<variable name="MediaNavPlayFromStartIcon"><value>1080p/icons/replay.png</value></variable>
+	<variable name="MediaNavWatchedIcon"><value>1080p/icons/check.png</value></variable>
+	<variable name="MediaNavUnwatchedIcon"><value>1080p/icons/check-empty.png</value></variable>
+	<variable name="MediaNavInfoIcon"><value>1080p/icons/info.png</value></variable>
+	<variable name="MediaNavMoreIcon"><value>1080p/icons/more.png</value></variable>
+
+
+	<!-- Constants -->
+	<constant name="HEIGHT_MEDIANAV_ACTIONBUTTON">80</constant>
+	<constant name="WIDTH_MEDIANAV_ACTIONBUTTON_START">70</constant>
+	<constant name="WIDTH_MEDIANAV_ACTIONBUTTON_END">40</constant>
+	<constant name="SIZE_MEDIANAV_ACTIONBUTTON_ICON">45</constant>
+	<constant name="WIDTH_MEDIANAV_ACTIONBUTTON_ICON_UNFOCUSED">90</constant>
+	<constant name="OFFSET_MEDIANAV_ACTIONBUTTON_ICON_TOP">18</constant>
+	<constant name="OFFSET_MEDIANAV_ACTIONBUTTON_ICON_LEFT_FOCUSED">-45</constant>
 </includes>

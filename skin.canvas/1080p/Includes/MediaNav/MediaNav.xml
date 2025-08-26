@@ -75,7 +75,124 @@
 	<!-- Action button list -->
 	<include name="MediaNavActionButtons">
 		<definition>
-			
+			<control type="grouplist" id="1">
+				<itemgap>0</itemgap>
+				<orientation>horizontal</orientation>
+				<usecontrolcoords>true</usecontrolcoords>
+				<defaultcontrol always="true">10</defaultcontrol>
+
+				<!-- Play -->
+				<include content="MediaNavActionButton" condition="$EXP[HasMediaNavActionPlay]">
+					<param name="id">10</param>
+					<param name="icon">$VAR[MediaNavPlayIcon]</param>
+					<param name="label">$VAR[MediaNavPlayButtonLabel]</param>
+				</include>
+				<!-- Resume -->
+				<include content="MediaNavActionButton" condition="$EXP[HasMediaNavActionResume]">
+					<param name="id">11</param>
+					<param name="icon">$VAR[MediaNavResumeIcon]</param>
+					<param name="label">$VAR[MediaNavResumeButtonLabel]</param>
+				</include>
+				<!-- Play from start -->
+				<include content="MediaNavActionButton" condition="$EXP[HasMediaNavActionPlayFromStart]">
+					<param name="id">12</param>
+					<param name="icon">$VAR[MediaNavPlayFromStartIcon]</param>
+					<param name="label">$VAR[MediaNavPlayFromStartButtonLabel]</param>
+				</include>
+				<!-- Mark as unwatched -->
+				<include content="MediaNavActionButton" condition="$EXP[HasMediaNavActionMarkAsUnwatched]">
+					<param name="id">13</param>
+					<param name="icon">$VAR[MediaNavWatchedIcon]</param>
+					<param name="label">$VAR[MediaNavMarkAsUnwatchedButtonLabel]</param>
+				</include>
+				<!-- Mark as watched -->
+				<include content="MediaNavActionButton" condition="$EXP[HasMediaNavActionMarkAsWatched]">
+					<param name="id">14</param>
+					<param name="icon">$VAR[MediaNavUnwatchedIcon]</param>
+					<param name="label">$VAR[MediaNavMarkAsWatchedButtonLabel]</param>
+				</include>
+				<!-- Info -->
+				<include content="MediaNavActionButton">
+					<param name="id">15</param>
+					<param name="icon">$VAR[MediaNavInfoIcon]</param>
+					<param name="label">$VAR[MediaNavInfoButtonLabel]</param>
+				</include>
+				<!-- More -->
+				<include content="MediaNavActionButton">
+					<param name="id">16</param>
+					<param name="icon">$VAR[MediaNavMoreIcon]</param>
+					<param name="label">$VAR[MediaNavMoreButtonLabel]</param>
+				</include>
+			</control>
+		</definition>
+	</include>
+
+	<!--
+		Action button. When unfocused it's just an icon, when focused it has a background
+		and text.
+
+		It's a workaround: can't use a group because we need autowidth from the button,
+		but the button control is not flexible enough to include an icon (togglebutton
+		doesn't support autowidth -.-).
+		
+		So we use a sequence of controls, most images, assign an id based on the selected
+		button's id so navigation inside the grouplist works as expected and use negative
+		<left> values (together with <usecontrolcoords> to true in grouplist) as to
+		pack/overlap controls as needed.
+	-->
+	<include name="MediaNavActionButton">
+		<param name="id"></param>
+		<param name="icon"></param>
+		<param name="label"></param>
+
+		<definition>
+			<!-- Icon when button is not focused -->
+			<control type="image" id="$PARAM[id]0">
+				<visible>!Control.HasFocus($PARAM[id])</visible>
+				<top>OFFSET_MEDIANAV_ACTIONBUTTON_ICON_TOP</top>
+				<width>WIDTH_MEDIANAV_ACTIONBUTTON_ICON_UNFOCUSED</width>
+				<height>SIZE_MEDIANAV_ACTIONBUTTON_ICON</height>
+				<texture colordiffuse="$VAR[MediaNavContrastButtonColor]">$PARAM[icon]</texture>
+				<aspectratio>keep</aspectratio>
+			</control>
+
+			<!-- Left part of the button (with space for icon) when focused -->
+			<control type="image" id="$PARAM[id]1">
+				<visible>Control.HasFocus($PARAM[id])</visible>
+				<width>WIDTH_MEDIANAV_ACTIONBUTTON_START</width>
+				<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
+				<texture colordiffuse="FOREGROUND_ACCENT">1080p/controls/round-button-extended-start.png</texture>
+			</control>
+			<!-- Icon when focused -->
+			<control type="image" id="$PARAM[id]2">
+				<visible>Control.HasFocus($PARAM[id])</visible>
+				<left>OFFSET_MEDIANAV_ACTIONBUTTON_ICON_LEFT_FOCUSED</left>
+				<top>OFFSET_MEDIANAV_ACTIONBUTTON_ICON_TOP</top>
+				<width>SIZE_MEDIANAV_ACTIONBUTTON_ICON</width>
+				<height>SIZE_MEDIANAV_ACTIONBUTTON_ICON</height>
+				<texture colordiffuse="BACKGROUND_OPAQUE75">$PARAM[icon]</texture>
+				<onclick><!--todo--><onclick>
+			</control>
+			<!-- Actual button (with autowidth text) -->
+			<control type="button" id="$PARAM[id]">
+				<visible>true</visible>
+				<width>auto</width>
+				<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
+				<texturefocus colordiffuse="FOREGROUND_ACCENT">1080p/controls/round-button-middle.png</texturefocus>
+				<textcolor>$VAR[MediaNavContrastButtonColor]</textcolor>
+				<font>BODY2_STRONG</font>
+				<focusedcolor>BACKGROUND_OPAQUE75</focusedcolor>
+				<textoffsety>0</textoffsety>
+				<textoffsetx>0</textoffsetx>
+				<label>$PARAM[label]</label>
+			</control>
+			<!-- Right part of the button when focused -->
+			<control type="image" id="$PARAM[id]3">
+				<visible>Control.HasFocus($PARAM[id])</visible>
+				<width>WIDTH_MEDIANAV_ACTIONBUTTON_END</width>
+				<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
+				<texture colordiffuse="FOREGROUND_ACCENT" flipx="true">1080p/controls/round-button-start.png</texture>
+			</control>
 		</definition>
 	</include>
 </includes>

@@ -64,4 +64,32 @@
 	<!-- Is the most suited text color again blur background light/dark? -->
 	<expression name="IsMediaNavDetailsBestTextColorLight">String.IsEqual(Window(1101).Property(CarryOver.Colors.IsLight),true)</expression>
 	<expression name="IsMediaNavDetailsBestTextColorDark">String.IsEqual(Window(1101).Property(CarryOver.Colors.IsDark),true)</expression>
+
+
+	<!--
+		Has play action?
+		- All new
+		- No time remaining and no episodes remaining
+	-->
+	<expression name="HasMediaNavActionPlay">
+		[!$EXP[HasMediaNavDetailsTimeRemaining] + !$EXP[HasMediaNavDetailsEpisodesRemaining]] |
+		$EXP[IsMediaNavDetailsAllNew]
+	</expression>
+	<!--
+		Has resume action?
+		- Has time or episodes remaining
+		- Is not all new
+		- Is not watched
+	-->
+	<expression name="HasMediaNavActionResume">
+		[$EXP[HasMediaNavDetailsTimeRemaining] | $EXP[HasMediaNavDetailsEpisodesRemaining]] +
+		!$EXP[IsMediaNavDetailsAllNew] +
+		!$EXP[IsMediaNavDetailsWatched]
+	</expression>
+	<!-- Has play from start action? -->
+	<expression name="HasMediaNavActionPlayFromStart">$EXP[HasMediaNavDetailsTimeRemaining]</expression>
+	<!-- Has mark as unwatched action? -->
+	<expression name="HasMediaNavActionMarkAsUnwatched">$EXP[IsMediaNavDetailsWatched]</expression>
+	<!-- Has mark as watched action? -->
+	<expression name="HasMediaNavActionMarkAsWatched">!$EXP[IsMediaNavDetailsWatched]</expression>
 </includes>

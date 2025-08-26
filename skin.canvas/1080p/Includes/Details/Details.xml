@@ -254,7 +254,7 @@
 							<height>SIZE_DETAILS_WATCHED_ICON</height>
 							<top>OFFSET_TOP_DETAILS_WATCHED_ICON</top>
 							<left>OFFSET_LEFT_DETAILS_WATCHED_ICON</left>
-							<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
+							<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/watched.png</texture>
 						</control>
 					</include>
 

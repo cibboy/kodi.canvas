@@ -481,7 +481,7 @@
 						<height>SIZE_SETTINGS_ICON</height>
 						<top>PADDING_MULT_10</top>
 						<left>PADDING_SETTINGS_NARROW_SIDE</left>
-						<texture colordiffuse="FOREGROUND_DARK">1080p/icons/info.png</texture>
+						<texture colordiffuse="FOREGROUND_DARK">1080p/icons/info-empty.png</texture>
 					</control>
 
 					<!-- Description -->

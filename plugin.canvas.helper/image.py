@@ -140,7 +140,7 @@ def get_blurred(imgPath):
         with xbmcvfs.File(xbmcvfs.translatePath(full_path), 'rb') as f:
             image_bytes = f.readBytes()
         img = Image.open(io.BytesIO(image_bytes))
-        img = img.resize((int(720), int(405)), Image.LANCZOS)
+        img = img.resize((int(480), int(270)), Image.LANCZOS)
         img = img.filter(ImageFilter.GaussianBlur(radius=float(80)))
 
         # Compute a contrast ratio between the blurred image and reference
