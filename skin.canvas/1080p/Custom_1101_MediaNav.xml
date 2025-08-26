@@ -26,6 +26,14 @@
 
 				<!-- Action buttons -->
 				<include content="MediaNavActionButtons" />
+
+				<!-- Lists -->
+				<control type="grouplist" id="100">
+					<top>100</top>
+
+					<!-- Season list (for TV shows) -->
+					<include content="MediaNavSeasonList" condition="$EXP[IsMediaNavTVShow]" />
+				</control>
 			</control>
 		</control>
 

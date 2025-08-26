@@ -72,6 +72,7 @@
 		</definition>
 	</include>
 
+
 	<!-- Action button list -->
 	<include name="MediaNavActionButtons">
 		<definition>
@@ -80,6 +81,8 @@
 				<orientation>horizontal</orientation>
 				<usecontrolcoords>true</usecontrolcoords>
 				<defaultcontrol always="true">10</defaultcontrol>
+
+				<ondown>SetFocus(100)</ondown>
 
 				<!-- Play -->
 				<include content="MediaNavActionButton" condition="$EXP[HasMediaNavActionPlay]">
@@ -171,7 +174,7 @@
 				<width>SIZE_MEDIANAV_ACTIONBUTTON_ICON</width>
 				<height>SIZE_MEDIANAV_ACTIONBUTTON_ICON</height>
 				<texture colordiffuse="BACKGROUND_OPAQUE75">$PARAM[icon]</texture>
-				<onclick><!--todo--><onclick>
+				<onclick><!--todo--></onclick>
 			</control>
 			<!-- Actual button (with autowidth text) -->
 			<control type="button" id="$PARAM[id]">
@@ -195,4 +198,29 @@
 			</control>
 		</definition>
 	</include>
+
+
+	<!-- Season list -->
+	<include name="MediaNavSeasonList">
+		<include content="PosterStrip">
+			<param name="id">101</param>
+			<param name="label">Seasons</param>
+			<!--<param name="content">plugin://script.canvas.helper/seasons/?showid=$INFO[Window(1101).Property(ItemDetails.Id)]</param>-->
+			<param name="content">plugin://script.canvas.helper/seasons/?showtitle=$VAR[MediaNavDetailsTitle]</param>
+			<param name="art">$INFO[ListItem.Art(poster)]</param>
+			<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
+			<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
+			<!--<param name="onclick">$VAR[HomeMediaOnClickAction]</param>
+			<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,yoga,131)</param>
+			<param name="onback">SetFocus(1,3)</param>
+			<param name="onleft">SetFocus(1,3)</param>-->
+			<param name="onup">SetFocus(1)</param>
+		</include>
+	</include>
+
+	<!-- Episode list -->
+	<!--todo-->
+
+	<!-- Actor list -->
+	<!--todo-->
 </includes>
