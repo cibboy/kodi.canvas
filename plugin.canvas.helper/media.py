@@ -423,6 +423,7 @@ def list_continue_watching(handle):
     
     return len(sorted_items)
 
+#todo: integrate into list_episodes()?
 # Create a list of recently added TV show episodes.
 def list_recently_added_tvshow_episodes(handle):
     # Load first 25 episodes not from Yoga with Adriene.
@@ -532,51 +533,115 @@ def list_tvshows(params, handle):
 # Create a list of seasons.
 def list_seasons(params, handle):
     showtitle = params.get('showtitle', None)
+    tvshowid = int(params.get('tvshowid', -1))
+
+    tvshow = None
     
-    # Filter on TV show title must be set.
-    if showtitle is not None:
+    # Filter on TV show ID.
+    if tvshowid > -1:
+        tvshow = call_rpc('VideoLibrary.GetTVShowDetails', {
+            'tvshowid': tvshowid,
+            # Get important TV show properties.
+            'properties': ['mpaa', 'studio', 'plot', 'art']
+        }).get('tvshowdetails', None)
+
+    # Otherwise filter on TV show title.
+    elif showtitle is not None:
         # Find reference TV show.
-        tvshow = call_rpc('VideoLibrary.GetTVShows', {
+        shows = call_rpc('VideoLibrary.GetTVShows', {
             # Filter on title.
             'filter': {'field': 'title', 'operator': 'is', 'value': showtitle},
             # Get important TV show properties.
             'properties': ['mpaa', 'studio', 'plot', 'art']
         }).get('tvshows', [])
 
-        if len(tvshow) > 0:
-            tvshow = tvshow[0]
+        if len(shows) > 0:
+            tvshow = shows[0]
 
-            sort = params.get('sort', 'season')
-            order = params.get('order', 'ascending')
-            limit = int(params.get('limit', 0))
-            query = {
-                # Filter by TV show.
-                'tvshowid': tvshow['tvshowid'],
-                # Get important season properties.
-                'properties': season_properties_query
-            }
-            # If limit specified, add to call.
-            if limit > 0:
-                query['limits'] = { 'start': 0, 'end': limit }
+    # Add items if show found.
+    if tvshow is not None:
+        sort = params.get('sort', 'season')
+        order = params.get('order', 'ascending')
+        limit = int(params.get('limit', 0))
+        query = {
+            # Filter by TV show.
+            'tvshowid': tvshow['tvshowid'],
+            # Get important season properties.
+            'properties': season_properties_query
+        }
+        # If limit specified, add to call.
+        if limit > 0:
+            query['limits'] = { 'start': 0, 'end': limit }
 
-            # Get seasons.
-            seasons = call_rpc('VideoLibrary.GetSeasons', query).get('seasons', [])
-            # Sort by requested sort, with requested order (JSON-RPC sorting might not work on season number...).
-            seasons.sort(key=lambda s:s[sort], reverse=(order == 'descending'))
+        # Get seasons.
+        seasons = call_rpc('VideoLibrary.GetSeasons', query).get('seasons', [])
+        # Sort by requested sort, with requested order (JSON-RPC sorting might not work on season number...).
+        seasons.sort(key=lambda s:s[sort], reverse=(order == 'descending'))
 
-            # For each season, add to list.
-            for season in seasons:
-                season['tvshow'] = tvshow
-                li = get_season_listitem(season)
-                xbmcplugin.addDirectoryItem(
-                    handle=handle,
-                    url=season['title'],
-                    listitem=li,
-                    isFolder=True
-                )
+        # For each season, add to list.
+        for season in seasons:
+            season['tvshow'] = tvshow
+            li = get_season_listitem(season)
+            xbmcplugin.addDirectoryItem(
+                handle=handle,
+                url=season['title'],
+                listitem=li,
+                isFolder=True
+            )
 
-            return len(seasons)
+        return len(seasons)
 
+    return 0
+
+# Create a list of episodes.
+#todo
+def list_episodes(params, handle):
+    details = call_rpc('VideoLibrary.GetSeasonDetails', {
+        'seasonid': int(params.get('id', -1)),
+        'properties': ['tvshowid', 'title']
+    }).get('seasondetails', [])
+
+    #details = call_rpc('VideoLibrary.GetEpisodeDetails', {
+    #    'episodeid': int(params.get('id', -1)),
+    #    'properties': ['tvshowid', 'seasonid', 'title']
+    #}).get('episodedetails', [])
+
+    ## Load first 25 episodes not from Yoga with Adriene.
+    #episodes = call_rpc('VideoLibrary.GetEpisodes', {
+    #    # Exclude Yoga with Adriene.
+    #    'filter': {'field': 'tvshow', 'operator': 'isnot', 'value': "Yoga with Adriene"},
+    #    # Sort by date added, descending.
+    #    'sort': {'order': 'descending', 'method': 'dateadded'},
+    #    # Pick first 25.
+    #    'limits': {'start': 0, 'end': 25},
+    #    # Only get TV show title.
+    #    'properties': episode_properties_query
+    #}).get('episodes', [])
+#
+    #if len(episodes) > 0:
+    #    # Load all TV shows with title and MPAA (to be added to the episode).
+    #    all_shows = call_rpc('VideoLibrary.GetTVShows', {
+    #        # Only get TV show title and rating for later use.
+    #        'properties': ['title', 'mpaa']
+    #    }).get('tvshows', [])
+    #    # Create map of shows.
+    #    shows = {}
+    #    for s in all_shows:
+    #        shows[s['title']] = s
+#
+    #    # For each episode ID found, add to list.
+    #    for episode in episodes:
+    #        episode['tvshow'] = shows[episode['showtitle']]
+    #        li = get_episode_listitem(episode)
+    #        xbmcplugin.addDirectoryItem(
+    #            handle=handle,
+    #            url=episode['title'],
+    #            listitem=li,
+    #            isFolder=False
+    #        )
+    #        
+    #    return len(episodes)
+    
     return 0
 
 # Create a list of albums.
@@ -658,33 +723,21 @@ def list_pictures(params, handle):
 
 # Create a list of actors.
 def list_actors(params, handle):
-    # Retrieve type from parameters.
+    # Retrieve type and ID from parameters.
     type = params.get('type', None)
+    id = int(params.get('id', -1))
 
-    items = []
+    item = None
 
-    # Movies and TV shows work with title.
-    if type == 'movie' or type == 'tvshow':
-        title = params.get('title', None)
+    # Movies.
+    if type == 'movie' and id > -1:
+        item = call_rpc('VideoLibrary.GetMovieDetails', { 'movieid': id, 'properties': ['cast'] }).get('moviedetails', None)
+    # TV shows.
+    if type == 'tvshow':
+        item = call_rpc('VideoLibrary.GetTVShowDetails', { 'tvshowid': id, 'properties': ['cast'] }).get('tvshowdetails', None)
 
-        if title is not None:
-            query = {
-                # Filter on title.
-                'filter': {'field': 'title', 'operator': 'is', 'value': title},
-                'properties': ['cast']
-            }
-
-            if type == 'movie':
-                # Load movies.
-                items = call_rpc('VideoLibrary.GetMovies', query).get('movies', [])
-            elif type == 'tvshow':
-                # Load movies.
-                items = call_rpc('VideoLibrary.GetTVShows', query).get('tvshows', [])
-
-    # Get first result and work with that.
-    if len(items) > 0:
-        item = items[0]
-
+    # Add actors.
+    if item is not None:
         # For each actor found add to list.
         actors = item.get('cast', [])
         for actor in actors:
@@ -722,6 +775,8 @@ def list_media(method, params, handle):
         count = list_tvshows(params, handle)
     elif method == 'seasons':
         count = list_seasons(params, handle)
+    elif method == 'episodes':
+        count = list_episodes(params, handle)
     elif method == 'albums':
         count = list_albums(params, handle)
     elif method == 'songs':

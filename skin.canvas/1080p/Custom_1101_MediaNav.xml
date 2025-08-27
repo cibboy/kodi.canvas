@@ -39,14 +39,17 @@
 					<!-- Season list (for TV shows) -->
 					<include content="MediaNavSeasonList" condition="$EXP[IsMediaNavTVShow]" />
 
+					<!-- Episode list (for seasons and episodes) -->
+					<include content="MediaNavEpisodeList" condition="$EXP[IsMediaNavSeason] | $EXP[IsMediaNavEpisode]" />
+
 					<!-- Actor list (for movies) -->
 					<include content="MediaNavActorList" condition="$EXP[IsMediaNavMovie]">
-						<param name="content">plugin://script.canvas.helper/actors/?type=movie&amp;title=$VAR[MediaNavDetailsTitle]</param>
+						<param name="content">plugin://script.canvas.helper/actors/?type=movie&amp;id=$INFO[Window(1101).Property(ItemDetails.Id)]</param>
 						<param name="onup">SetFocus(1)</param>
 					</include>
 					<!-- Actor list (for TV shows) -->
 					<include content="MediaNavActorList" condition="$EXP[IsMediaNavTVShow]">
-						<param name="content">plugin://script.canvas.helper/actors/?type=tvshow&amp;title=$VAR[MediaNavDetailsTitle]</param>
+						<param name="content">plugin://script.canvas.helper/actors/?type=tvshow&amp;id=$INFO[Window(1101).Property(ItemDetails.Id)]</param>
 						<param name="onup">SetFocus(101)</param>
 					</include>
 				</control>

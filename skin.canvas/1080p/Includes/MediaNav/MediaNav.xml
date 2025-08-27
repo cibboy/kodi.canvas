@@ -224,21 +224,30 @@
 		<include content="PosterStrip">
 			<param name="id">101</param>
 			<param name="label">Seasons</param>
-			<param name="content">plugin://script.canvas.helper/seasons/?showtitle=$VAR[MediaNavDetailsTitle]</param>
+			<param name="content">plugin://script.canvas.helper/seasons/?tvshowid=$INFO[Window(1101).Property(ItemDetails.Id)]</param>
 			<param name="art">$INFO[ListItem.Art(poster)]</param>
 			<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
 			<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
-			<!--<param name="onclick">$VAR[HomeMediaOnClickAction]</param>
-			<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,yoga,131)</param>
-			<param name="onback">SetFocus(1,3)</param>
-			<param name="onleft">SetFocus(1,3)</param>-->
+			<!--todo<param name="onclick">$VAR[HomeMediaOnClickAction]</param>-->
 			<param name="onup">SetFocus(1)</param>
 			<param name="ondown">SetFocus(111)</param>
 		</include>
 	</include>
 
 	<!-- Episode list -->
-	<!--todo-->
+	<include name="MediaNavEpisodeList">
+		<include content="LandscapeStrip">
+			<param name="id">102</param>
+			<param name="label"></param>
+			<param name="content">plugin://script.canvas.helper/episodes/?id=$INFO[Window(1101).Property(ItemDetails.Id)]</param>
+			<param name="art">$INFO[ListItem.Art(poster)]</param>
+			<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
+			<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
+			<!--todo<param name="onclick">$VAR[HomeMediaOnClickAction]</param>-->
+			<param name="onup">SetFocus(1)</param>
+			<param name="ondown">SetFocus(111)</param>
+		</include>
+	</include>
 
 	<!-- Actor list -->
 	<include name="MediaNavActorList">
@@ -255,10 +264,6 @@
 				<param name="info2">$INFO[ListItem.Property(Role)]</param>
 				<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
 				<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
-				<!--<param name="onclick">$VAR[HomeMediaOnClickAction]</param>
-				<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,yoga,131)</param>
-				<param name="onback">SetFocus(1,3)</param>
-				<param name="onleft">SetFocus(1,3)</param>-->
 				<param name="onup">$PARAM[onup]</param>
 			</include>
 		</definition>

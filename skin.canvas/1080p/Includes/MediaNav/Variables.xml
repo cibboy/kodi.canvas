@@ -160,17 +160,6 @@
 	<variable name="MediaNavMoreButtonLabel"><value condition="Control.HasFocus(16)">  More</value></variable>
 
 
-	<!-- Actor list content url -->
-	<variable name="MediaNavActorListContent">
-		<!-- Movies -->
-		<value condition="$EXP[IsMediaNavMovie]">plugin://script.canvas.helper/actors/?type=movie&amp;title=$VAR[MediaNavDetailsTitle]</value>
-		<!-- TV shows -->
-		<value condition="$EXP[IsMediaNavTVShow]">plugin://script.canvas.helper/actors/?type=tvshow&amp;title=$VAR[MediaNavDetailsTitle]</value>
-		<!-- Episodes (applies also to seasons, as they show all season episodes) -->
-		<value condition="$EXP[IsMediaNavEpisode]">plugin://script.canvas.helper/actors/?type=episode</value>
-	</variable>
-
-
 	<!-- Icons -->
 	<variable name="MediaNavPlayIcon"><value>1080p/icons/playc.png</value></variable>
 	<variable name="MediaNavResumeIcon"><value>1080p/icons/resume.png</value></variable>
