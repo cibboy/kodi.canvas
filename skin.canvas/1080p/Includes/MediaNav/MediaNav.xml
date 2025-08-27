@@ -251,21 +251,16 @@
 
 	<!-- Actor list -->
 	<include name="MediaNavActorList">
-		<param name="content"></param>
-		<param name="onup">SetFocus(1)</param>
-
-		<definition>
-			<include content="PersonStrip">
-				<param name="id">111</param>
-				<param name="label">Cast</param>
-				<param name="content">$PARAM[content]</param>
-				<param name="art">$INFO[ListItem.Property(Thumbnail)]</param>
-				<param name="info1">$INFO[ListItem.Property(Name)]</param>
-				<param name="info2">$INFO[ListItem.Property(Role)]</param>
-				<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
-				<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
-				<param name="onup">$PARAM[onup]</param>
-			</include>
-		</definition>
+		<include content="PersonStrip">
+			<param name="id">111</param>
+			<param name="label">Cast</param>
+			<param name="content">plugin://script.canvas.helper/actors/?type=$INFO[Window(1101).Property(ItemDetails.Type)]&amp;id=$INFO[Window(1101).Property(ItemDetails.Id)]</param>
+			<param name="art">$INFO[ListItem.Property(Thumbnail)]</param>
+			<param name="info1">$INFO[ListItem.Property(Name)]</param>
+			<param name="info2">$INFO[ListItem.Property(Role)]</param>
+			<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
+			<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
+			<param name="onup">SetFocus($VAR[MediaNavActorNavigateUpId])</param>
+		</include>
 	</include>
 </includes>

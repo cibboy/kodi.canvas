@@ -160,6 +160,17 @@
 	<variable name="MediaNavMoreButtonLabel"><value condition="Control.HasFocus(16)">  More</value></variable>
 
 
+	<!-- Onup from actor list, according to media type -->
+	<variable name="MediaNavActorNavigateUpId">
+		<!-- Movies -->
+		<value condition="$EXP[IsMediaNavMovie]">1</value>
+		<!-- TV shows -->
+		<value condition="$EXP[IsMediaNavTVShow]">101</value>
+		<!-- Episodes (applies also to seasons, as they show all season episodes) -->
+		<value condition="$EXP[IsMediaNavEpisode]">102</value>
+	</variable>
+
+
 	<!-- Icons -->
 	<variable name="MediaNavPlayIcon"><value>1080p/icons/playc.png</value></variable>
 	<variable name="MediaNavResumeIcon"><value>1080p/icons/resume.png</value></variable>
