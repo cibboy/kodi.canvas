@@ -341,6 +341,19 @@ def get_song_listitem(song):
 
     return li
 
+# Build a listitem for actors.
+def get_actor_listitem(actor):
+    # Create song-type listitem.
+    li = xbmcgui.ListItem(label=actor['name'])
+    li.setProperty('ItemType', 'person')
+
+    # Set custom properties.
+    li.setProperty('Name', actor['name'])
+    li.setProperty('Role', actor['role'])
+    li.setProperty('Thumbnail', actor.get('thumbnail', ''))
+
+    return li
+
 
 # Create a list of continue watching items: movies in progress, episodes in progress,
 # TV shows in progress. It collapses TV shows and episodes into one single item if
@@ -643,6 +656,51 @@ def list_pictures(params, handle):
     return len(pictures)
 
 
+# Create a list of actors.
+def list_actors(params, handle):
+    # Retrieve type from parameters.
+    type = params.get('type', None)
+
+    items = []
+
+    # Movies and TV shows work with title.
+    if type == 'movie' or type == 'tvshow':
+        title = params.get('title', None)
+
+        if title is not None:
+            query = {
+                # Filter on title.
+                'filter': {'field': 'title', 'operator': 'is', 'value': title},
+                'properties': ['cast']
+            }
+
+            if type == 'movie':
+                # Load movies.
+                items = call_rpc('VideoLibrary.GetMovies', query).get('movies', [])
+            elif type == 'tvshow':
+                # Load movies.
+                items = call_rpc('VideoLibrary.GetTVShows', query).get('tvshows', [])
+
+    # Get first result and work with that.
+    if len(items) > 0:
+        item = items[0]
+
+        # For each actor found add to list.
+        actors = item.get('cast', [])
+        for actor in actors:
+            li = get_actor_listitem(actor)
+            xbmcplugin.addDirectoryItem(
+                handle=handle,
+                url=actor['name'],
+                listitem=li,
+                isFolder=False
+            )
+            
+        return len(actors)
+    
+    return 0
+
+
 # Scaffolding for list generation.
 def list_media(method, params, handle):
     listid = params.get('listid', None)
@@ -670,6 +728,9 @@ def list_media(method, params, handle):
         count = list_songs(params, handle)
     elif method == 'pictures':
         count = list_pictures(params, handle)
+
+    elif method == 'actors':
+        count = list_actors(params, handle)
 
     # Use custom property to indicate there is content, so visibility can be set
     # on that property and work properly.

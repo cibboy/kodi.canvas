@@ -25,6 +25,12 @@
 	<constant name="HEIGHT_ALBUM_WALL_CONTENT">650</constant>
 	<constant name="OFFSET_ALBUM_WALL_CONTENT">380</constant>
 
+	<constant name="HEIGHT_PERSON">260</constant>
+	<constant name="WIDTH_PERSON">260</constant>
+	<constant name="WIDTH_PERSON_STRIP_ITEM_CONTAINER">240</constant>
+	<constant name="HEIGHT_PERSON_STRIP_CONTAINER">490</constant>
+	<constant name="OFFSET_PERSON_INFO">235</constant>
+
 	<constant name="HEIGHT_CLEARLOGO_SMALL">30</constant>
 	<constant name="WIDTH_CLEARLOGO_SMALL">200</constant>
 

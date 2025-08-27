@@ -126,8 +126,8 @@
 								<centertop>50%</centertop>
 								<centerleft>50%</centerleft>
 								<texture colordiffuse="FOREGROUND_ACCENT">1080p/diffuse/circle.png</texture>
-								<bordertexture border="SIZE_ITEM_SHADOW_CIRCLE_DOUBLE" colordiffuse="BACKGROUND_OPAQUE75">1080p/diffuse/shadow-circle.png</bordertexture>
-								<bordersize>SIZE_ITEM_SHADOW_CIRCLE</bordersize>
+								<bordertexture border="SIZE_ITEM_SHADOW_SMALLCIRCLE_DOUBLE" colordiffuse="BACKGROUND_OPAQUE75">1080p/diffuse/shadow-circle-small.png</bordertexture>
+								<bordersize>SIZE_ITEM_SHADOW_SMALLCIRCLE</bordersize>
 							</control>
 							<!-- Icon -->
 							<control type="image">
@@ -447,8 +447,7 @@
 									<param name="label">Recently added music</param>
 									<param name="content">$VAR[HomeRecentSongsContentUrl]</param>
 									<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
-									<param name="info1">$INFO[ListItem.Title]</param>
-									<param name="info2">$INFO[ListItem.Album]</param>
+									<param name="info">$INFO[ListItem.Title]</param>
 									<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
 									<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
 									<param name="onclick">$VAR[HomeMediaOnClickAction]</param>
@@ -669,8 +668,7 @@
 								<param name="label">Music</param>
 								<param name="content">$VAR[HomeMusicContentUrl]</param>
 								<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
-								<param name="info1">$INFO[ListItem.Title]</param>
-								<param name="info2">$INFO[ListItem.Album]</param>
+								<param name="info">$INFO[ListItem.Title]</param>
 								<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
 								<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
 								<param name="onclick">$VAR[HomeMediaOnClickAction]</param>
@@ -725,8 +723,7 @@
 								<param name="label">Music</param>
 								<param name="content">$VAR[HomePicturesContentUrl]</param>
 								<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
-								<param name="info1">$INFO[ListItem.Title]</param>
-								<param name="info2">$INFO[ListItem.Album]</param>
+								<param name="info">$INFO[ListItem.Title]</param>
 								<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
 								<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
 								<param name="onclick">$VAR[HomeMediaOnClickAction]</param>

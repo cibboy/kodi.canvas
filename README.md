@@ -1,8 +1,5 @@
 TOFIX:
 - aggiunto genre audio in plugin (potenzialmente una lista, quindi bisognerà fare delle prove con ulteriore scraping e aggiornamento tag mp3, che è stata aggiunta alla details info line 2)
-- aggiungere ombra (del colore opposto? del più vicino?) nel plot dei details (su tv è meno leggibile, soprattutto il nero)
-  - capire se è meglio un font più bold o un utilizzo più aggressivo dei colori chiari
-- album strip/wall: mettere solo titolo, non anche album (e font + grande, così si legge poco)
 - settings di destra, quando c'è dialog aperto dovrebbero avere meno opacity
 - in medianav le liste sotto non dovrebbero essere visibili finchè in fase di caricamento (impostare flag loading a true prima di navigarci?)
 - considerare posizionamento diverso icona watched/progress su art

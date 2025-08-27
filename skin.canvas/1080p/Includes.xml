@@ -22,8 +22,10 @@
 	<!-- Constants: sizes -->
 	<constant name="SIZE_ITEM_SHADOW_ART">20</constant>
 	<constant name="SIZE_ITEM_SHADOW_ART_DOUBLE">40</constant>
-	<constant name="SIZE_ITEM_SHADOW_CIRCLE">25</constant>
-	<constant name="SIZE_ITEM_SHADOW_CIRCLE_DOUBLE">50</constant>
+	<constant name="SIZE_ITEM_SHADOW_CIRCLE">20</constant>
+	<constant name="SIZE_ITEM_SHADOW_CIRCLE_DOUBLE">38</constant>
+	<constant name="SIZE_ITEM_SHADOW_SMALLCIRCLE">25</constant>
+	<constant name="SIZE_ITEM_SHADOW_SMALLCIRCLE_DOUBLE">50</constant>
 	<constant name="SIZE_ITEM_SHADOW_SQUARE">18</constant>
 	<constant name="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">36</constant>
 

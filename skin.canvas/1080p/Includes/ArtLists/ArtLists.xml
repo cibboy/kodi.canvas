@@ -94,9 +94,7 @@
 
 		<definition>
 			<control type="group">
-				<include content="FocusZoomAnimation">
-					<param name="reference_id"></param>
-				</include>
+				<include content="FocusZoomAnimation" />
 
 				<!-- Poster image -->
 				<control type="image">
@@ -135,13 +133,11 @@
 
 		<definition>
 			<control type="image">
-				<include content="FocusZoomAnimation">
-					<param name="reference_id"></param>
-				</include>
+				<include content="FocusZoomAnimation" />
 
 				<width>WIDTH_ALBUM</width>
 				<height>HEIGHT_ALBUM</height>
-				<texture fallback="1080p/fallback/square.png" background="true" diffuse="1080p/diffuse/square.png">$PARAM[art]</texture>
+				<texture fallback="1080p/fallback/album.png" background="true" diffuse="1080p/diffuse/square.png">$PARAM[art]</texture>
 				<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-art.png</bordertexture>
 				<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
 				<aspectratio scalediffuse="false">scale</aspectratio>
@@ -156,9 +152,7 @@
 
 		<definition>
 			<control type="group">
-				<include content="FocusZoomAnimation">
-					<param name="reference_id"></param>
-				</include>
+				<include content="FocusZoomAnimation" />
 
 				<!-- Landscape image -->
 				<control type="image">
@@ -181,6 +175,27 @@
 					<param name="offset_top">OFFSET_TOP_LANDSCAPE_PROGRESS</param>
 					<param name="offset_left">OFFSET_LEFT_LANDSCAPE_PROGRESS</param>
 				</include>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Person -->
+	<include name="ArtListsPerson">
+		<param name="id"></param>
+		<param name="art"></param>
+
+		<definition>
+			<control type="image">
+				<include content="FocusZoomAnimation">
+					<param name="amount">115</param>
+				</include>
+
+				<width>WIDTH_PERSON</width>
+				<height>HEIGHT_PERSON</height>
+				<texture fallback="1080p/fallback/person.png" background="true" diffuse="1080p/diffuse/circle.png">$PARAM[art]</texture>
+				<bordertexture border="SIZE_ITEM_SHADOW_CIRCLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-circle.png</bordertexture>
+				<bordersize>SIZE_ITEM_SHADOW_CIRCLE_DOUBLE</bordersize>
+				<aspectratio scalediffuse="false">scale</aspectratio>
 			</control>
 		</definition>
 	</include>
@@ -457,8 +472,7 @@
 		<param name="label"></param>
 		<param name="content"></param>
 		<param name="art"></param>
-		<param name="info1"></param>
-		<param name="info2"></param>
+		<param name="info"></param>
 		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
 		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
 		<param name="onclick">noop</param>
@@ -510,22 +524,13 @@
 									<left>SIZE_ITEM_SHADOW_ART</left>
 									<right>SIZE_ITEM_SHADOW_ART</right>
 
-									<!-- Info line 1 -->
+									<!-- Info line -->
 									<control type="label">
 										<scroll>false</scroll>
 										<width>auto</width>
-										<font>LABEL</font>
+										<font>CAPTION</font>
 										<textcolor>$PARAM[highlight_color]</textcolor>
-										<label>$PARAM[info1]</label>
-									</control>
-									<!-- Info line 2 -->
-									<control type="label">
-										<top>FONT_SIZE_CAPTION</top>
-										<scroll>false</scroll>
-										<width>auto</width>
-										<font>LABEL</font>
-										<textcolor>$PARAM[foreground_color]</textcolor>
-										<label>$PARAM[info2]</label>
+										<label>$PARAM[info]</label>
 									</control>
 								</control>
 							</control>
@@ -555,22 +560,13 @@
 									<left>SIZE_ITEM_SHADOW_ART</left>
 									<right>SIZE_ITEM_SHADOW_ART</right>
 
-									<!-- Info line 1 -->
+									<!-- Info line -->
 									<control type="label">
-										<scroll>false</scroll>
 										<width>auto</width>
-										<font>LABEL</font>
+										<font>CAPTION</font>
 										<textcolor>$PARAM[highlight_color]</textcolor>
-										<label>$PARAM[info1]</label>
-									</control>
-									<!-- Info line 2 -->
-									<control type="label">
-										<top>FONT_SIZE_CAPTION</top>
-										<scroll>false</scroll>
-										<width>auto</width>
-										<font>LABEL</font>
-										<textcolor>$PARAM[foreground_color]</textcolor>
-										<label>$PARAM[info2]</label>
+										<label>$PARAM[info]</label>
+										<scroll>true</scroll>
 									</control>
 								</control>
 							</control>
@@ -582,6 +578,121 @@
 			</control>
 		</definition>
 	</include>
+
+	<!-- Horizontal strip of person elements, with label -->
+	<include name="PersonStrip">
+		<param name="id"></param>
+		<param name="label"></param>
+		<param name="content"></param>
+		<param name="art"></param>
+		<param name="info1"></param>
+		<param name="info2"></param>
+		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
+		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
+		<param name="onup">noop</param>
+
+		<definition>
+			<control type="group">
+				<height>HEIGHT_PERSON_STRIP_CONTAINER</height>
+
+				<control type="label">
+					<font>BODY_STRONG</font>
+					<textcolor>$PARAM[foreground_color]</textcolor>
+					<label>$PARAM[label]</label>
+				</control>
+
+				<control type="fixedlist" id="$PARAM[id]">
+					<top>PADDING_MULT_120</top>
+					<autoscroll>false</autoscroll>
+					<orientation>horizontal</orientation>
+
+					<onclick>noop</onclick><!--todo: actor page with list of movies/show he/she participates in?-->
+					<onup>$PARAM[onup]</onup>
+
+					<itemlayout width="WIDTH_PERSON_STRIP_ITEM_CONTAINER" height="HEIGHT_PERSON_STRIP_CONTAINER">
+						<control type="group">
+							<!-- Album item -->
+							<include content="ArtListsPerson">
+								<param name="id">$PARAM[id]</param>
+								<param name="art">$PARAM[art]</param>
+							</include>
+
+							<!-- Info -->
+							<control type="group">
+								<top>OFFSET_PERSON_INFO</top>
+
+								<control type="group">
+									<top>SIZE_ITEM_SHADOW_ART</top>
+									<left>SIZE_ITEM_SHADOW_ART</left>
+									<right>SIZE_ITEM_SHADOW_ART</right>
+
+									<!-- Info line 1 -->
+									<control type="label">
+										<scroll>false</scroll>
+										<width>auto</width>
+										<font>CAPTION</font>
+										<textcolor>$PARAM[highlight_color]</textcolor>
+										<label>$PARAM[info1]</label>
+									</control>
+									<!-- Info line 2 -->
+									<control type="label">
+										<top>FONT_SIZE_BODY</top>
+										<scroll>false</scroll>
+										<width>auto</width>
+										<font>CAPTION2</font>
+										<textcolor>$PARAM[foreground_color]</textcolor>
+										<label>$PARAM[info2]</label>
+									</control>
+								</control>
+							</control>
+						</control>
+					</itemlayout>
+
+					<focusedlayout width="WIDTH_PERSON_STRIP_ITEM_CONTAINER" height="HEIGHT_PERSON_STRIP_CONTAINER">
+						<control type="group">
+							<!-- Album item -->
+							<include content="ArtListsPerson">
+								<param name="id">$PARAM[id]</param>
+								<param name="art">$PARAM[art]</param>
+							</include>
+
+							<!-- Info -->
+							<control type="group">
+								<top>OFFSET_PERSON_INFO</top>
+
+								<control type="group">
+									<top>SIZE_ITEM_SHADOW_ART</top>
+									<left>SIZE_ITEM_SHADOW_ART</left>
+									<right>SIZE_ITEM_SHADOW_ART</right>
+
+									<!-- Info line 1 -->
+									<control type="label">
+										<width>auto</width>
+										<font>CAPTION</font>
+										<textcolor>$PARAM[highlight_color]</textcolor>
+										<label>$PARAM[info1]</label>
+										<scroll>true</scroll>
+									</control>
+									<!-- Info line 2 -->
+									<control type="label">
+										<top>FONT_SIZE_BODY</top>
+										<width>auto</width>
+										<font>CAPTION2</font>
+										<textcolor>$PARAM[foreground_color]</textcolor>
+										<label>$PARAM[info2]</label>
+										<scroll>true</scroll>
+									</control>
+								</control>
+							</control>
+						</control>
+					</focusedlayout>
+
+					<content>$PARAM[content]</content>
+				</control>
+			</control>
+		</definition>
+	</include>
+
 
 	<!-- Vertical wall of poster elements, with label and filters (for focused status) -->
 	<include name="PosterWall">
@@ -664,8 +775,7 @@
 		<param name="label"></param>
 		<param name="content"></param>
 		<param name="art"></param>
-		<param name="info1"></param>
-		<param name="info2"></param>
+		<param name="info"></param>
 		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
 		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
 		<param name="onclick">noop</param>
@@ -712,22 +822,13 @@
 									<left>SIZE_ITEM_SHADOW_ART</left>
 									<right>SIZE_ITEM_SHADOW_ART</right>
 
-									<!-- Info line 1 -->
+									<!-- Info line -->
 									<control type="label">
 										<scroll>false</scroll>
 										<width>auto</width>
-										<font>LABEL</font>
+										<font>CAPTION</font>
 										<textcolor>$PARAM[highlight_color]</textcolor>
-										<label>$PARAM[info1]</label>
-									</control>
-									<!-- Info line 2 -->
-									<control type="label">
-										<top>FONT_SIZE_CAPTION</top>
-										<scroll>false</scroll>
-										<width>auto</width>
-										<font>LABEL</font>
-										<textcolor>$PARAM[foreground_color]</textcolor>
-										<label>$PARAM[info2]</label>
+										<label>$PARAM[info]</label>
 									</control>
 								</control>
 							</control>
@@ -757,22 +858,13 @@
 									<left>SIZE_ITEM_SHADOW_ART</left>
 									<right>SIZE_ITEM_SHADOW_ART</right>
 
-									<!-- Info line 1 -->
+									<!-- Info line -->
 									<control type="label">
-										<scroll>false</scroll>
 										<width>auto</width>
-										<font>LABEL</font>
+										<font>CAPTION</font>
 										<textcolor>$PARAM[highlight_color]</textcolor>
-										<label>$PARAM[info1]</label>
-									</control>
-									<!-- Info line 2 -->
-									<control type="label">
-										<top>FONT_SIZE_CAPTION</top>
-										<scroll>false</scroll>
-										<width>auto</width>
-										<font>LABEL</font>
-										<textcolor>$PARAM[foreground_color]</textcolor>
-										<label>$PARAM[info2]</label>
+										<label>$PARAM[info]</label>
+										<scroll>true</scroll>
 									</control>
 								</control>
 							</control>
