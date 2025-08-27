@@ -19,13 +19,21 @@
 	</variable>
 
 	<!-- Contrast color for buttons (against blur art) -->
-	<variable name="MediaNavContrastButtonColor">
+	<variable name="MediaNavContrastButtonIconColor">
 		<!-- Light color -->
 		<value condition="$EXP[IsMediaNavDetailsBestTextColorLight]">FOREGROUND_OPAQUE50</value>
 		<!-- Dark color -->
 		<value condition="$EXP[IsMediaNavDetailsBestTextColorDark]">FOREGROUND_INVERSE_OPAQUE50</value>
 		<!-- Fallback -->
 		<value>FOREGROUND_OPAQUE50</value>
+	</variable>
+	<variable name="MediaNavContrastButtonBackgroundColor">
+		<!-- Light color -->
+		<value condition="$EXP[IsMediaNavDetailsBestTextColorLight]">FOREGROUND_OPAQUE10</value>
+		<!-- Dark color -->
+		<value condition="$EXP[IsMediaNavDetailsBestTextColorDark]">FOREGROUND_INVERSE_OPAQUE10</value>
+		<!-- Fallback -->
+		<value>FOREGROUND_OPAQUE10</value>
 	</variable>
 
 
@@ -166,8 +174,9 @@
 	<constant name="HEIGHT_MEDIANAV_ACTIONBUTTON">80</constant>
 	<constant name="WIDTH_MEDIANAV_ACTIONBUTTON_START">70</constant>
 	<constant name="WIDTH_MEDIANAV_ACTIONBUTTON_END">40</constant>
-	<constant name="SIZE_MEDIANAV_ACTIONBUTTON_ICON">45</constant>
+	<constant name="SIZE_MEDIANAV_ACTIONBUTTON_ICON">40</constant>
+	<constant name="SIZE_MEDIANAV_ACTIONBUTTON_BACKGROUND">60</constant>
 	<constant name="WIDTH_MEDIANAV_ACTIONBUTTON_ICON_UNFOCUSED">90</constant>
-	<constant name="OFFSET_MEDIANAV_ACTIONBUTTON_ICON_TOP">18</constant>
-	<constant name="OFFSET_MEDIANAV_ACTIONBUTTON_ICON_LEFT_FOCUSED">-45</constant>
+	<constant name="OFFSET_MEDIANAV_ACTIONBUTTON_ICON_TOP">21</constant>
+	<constant name="OFFSET_MEDIANAV_ACTIONBUTTON_ICON_LEFT_FOCUSED">-40</constant>
 </includes>

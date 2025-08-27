@@ -83,6 +83,8 @@
 				<defaultcontrol always="true">10</defaultcontrol>
 
 				<ondown>SetFocus(100)</ondown>
+				<onleft>SetFocus(9999)</onleft>
+				<onright>SetFocus(1)</onright>
 
 				<!-- Play -->
 				<include content="MediaNavActionButton" condition="$EXP[HasMediaNavActionPlay]">
@@ -150,13 +152,27 @@
 
 		<definition>
 			<!-- Icon when button is not focused -->
-			<control type="image" id="$PARAM[id]0">
+			<control type="group" id="$PARAM[id]0">
 				<visible>!Control.HasFocus($PARAM[id])</visible>
-				<top>OFFSET_MEDIANAV_ACTIONBUTTON_ICON_TOP</top>
 				<width>WIDTH_MEDIANAV_ACTIONBUTTON_ICON_UNFOCUSED</width>
-				<height>SIZE_MEDIANAV_ACTIONBUTTON_ICON</height>
-				<texture colordiffuse="$VAR[MediaNavContrastButtonColor]">$PARAM[icon]</texture>
-				<aspectratio>keep</aspectratio>
+				<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
+
+				<!-- Background -->
+				<control type="image">
+					<centertop>50%</centertop>
+					<centerleft>50%</centerleft>
+					<width>SIZE_MEDIANAV_ACTIONBUTTON_BACKGROUND</width>
+					<height>SIZE_MEDIANAV_ACTIONBUTTON_BACKGROUND</height>
+					<texture colordiffuse="$VAR[MediaNavContrastButtonBackgroundColor]">1080p/diffuse/circle.png</texture>
+				</control>
+				<!-- Icon -->
+				<control type="image">
+					<centertop>50%</centertop>
+					<centerleft>50%</centerleft>
+					<width>SIZE_MEDIANAV_ACTIONBUTTON_ICON</width>
+					<height>SIZE_MEDIANAV_ACTIONBUTTON_ICON</height>
+					<texture colordiffuse="$VAR[MediaNavContrastButtonIconColor]">$PARAM[icon]</texture>
+				</control>
 			</control>
 
 			<!-- Left part of the button (with space for icon) when focused -->
@@ -178,11 +194,11 @@
 			</control>
 			<!-- Actual button (with autowidth text) -->
 			<control type="button" id="$PARAM[id]">
-				<visible>true</visible>
 				<width>auto</width>
 				<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
+
 				<texturefocus colordiffuse="FOREGROUND_ACCENT">1080p/controls/round-button-middle.png</texturefocus>
-				<textcolor>$VAR[MediaNavContrastButtonColor]</textcolor>
+				<textcolor>$VAR[MediaNavContrastButtonIconColor]</textcolor>
 				<font>BODY2_STRONG</font>
 				<focusedcolor>BACKGROUND_OPAQUE75</focusedcolor>
 				<textoffsety>0</textoffsety>

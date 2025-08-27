@@ -4,8 +4,8 @@ TOFIX:
   - capire se è meglio un font più bold o un utilizzo più aggressivo dei colori chiari
 - album strip/wall: mettere solo titolo, non anche album (e font + grande, così si legge poco)
 - settings di destra, quando c'è dialog aperto dovrebbero avere meno opacity
-- actionbuttons in medianav dovrebbe mantenere lo stile del focus anche quando il focus reale è nelle liste sotto
 - in medianav le liste sotto non dovrebbero essere visibili finchè in fase di caricamento (impostare flag loading a true prima di navigarci?)
+- considerare posizionamento diverso icona watched/progress su art
 
 TODO:
 - dialog in settings da fare:
