@@ -598,8 +598,19 @@ def list_seasons(params, handle):
 def list_episodes(params, handle):
     details = call_rpc('VideoLibrary.GetSeasonDetails', {
         'seasonid': int(params.get('id', -1)),
-        'properties': ['tvshowid', 'title']
-    }).get('seasondetails', [])
+        'properties': ['tvshowid', 'season']
+    }).get('seasondetails', {'season': -1, 'tvshowid': -1})
+
+    season = details['season']
+    tvshowid = details['tvshowid']
+
+    episodes = call_rpc('VideoLibrary.GetEpisodes', {
+        'tvshowid': tvshowid,
+        'season': season,
+        'properties': episode_properties_query
+    }).get('episodes', [])
+
+    xbmc.log(str(episodes),xbmc.LOGINFO)
 
     #details = call_rpc('VideoLibrary.GetEpisodeDetails', {
     #    'episodeid': int(params.get('id', -1)),
@@ -618,29 +629,29 @@ def list_episodes(params, handle):
     #    'properties': episode_properties_query
     #}).get('episodes', [])
 #
-    #if len(episodes) > 0:
-    #    # Load all TV shows with title and MPAA (to be added to the episode).
-    #    all_shows = call_rpc('VideoLibrary.GetTVShows', {
-    #        # Only get TV show title and rating for later use.
-    #        'properties': ['title', 'mpaa']
-    #    }).get('tvshows', [])
-    #    # Create map of shows.
-    #    shows = {}
-    #    for s in all_shows:
-    #        shows[s['title']] = s
-#
-    #    # For each episode ID found, add to list.
-    #    for episode in episodes:
-    #        episode['tvshow'] = shows[episode['showtitle']]
-    #        li = get_episode_listitem(episode)
-    #        xbmcplugin.addDirectoryItem(
-    #            handle=handle,
-    #            url=episode['title'],
-    #            listitem=li,
-    #            isFolder=False
-    #        )
-    #        
-    #    return len(episodes)
+    if len(episodes) > 0:
+        # Load all TV shows with title and MPAA (to be added to the episode).
+        all_shows = call_rpc('VideoLibrary.GetTVShows', {
+            # Only get TV show title and rating for later use.
+            'properties': ['title', 'mpaa']
+        }).get('tvshows', [])
+        # Create map of shows.
+        shows = {}
+        for s in all_shows:
+            shows[s['title']] = s
+
+        # For each episode ID found, add to list.
+        for episode in episodes:
+            episode['tvshow'] = shows[episode['showtitle']]
+            li = get_episode_listitem(episode)
+            xbmcplugin.addDirectoryItem(
+                handle=handle,
+                url=episode['title'],
+                listitem=li,
+                isFolder=False
+            )
+            
+        return len(episodes)
     
     return 0
 

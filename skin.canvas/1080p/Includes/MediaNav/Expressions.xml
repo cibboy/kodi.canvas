@@ -10,55 +10,106 @@
 
 
 	<!-- Has studio? -->
-	<expression name="HasMediaNavDetailsStudio">String.IsEqual(Window(1101).Property(CarryOver.Studio.Exists),true)</expression>
+	<expression name="HasMediaNavDetailsStudio">
+		[Control.HasFocus(102) + !String.IsEmpty(ListItem.Studio)] |
+		[!Control.HasFocus(102) + String.IsEqual(Window(1101).Property(CarryOver.Studio.Exists),true)]
+	</expression>
 
 	<!-- Has clearlogo? -->
-	<expression name="HasMediaNavDetailsClearlogo">String.IsEqual(Window(1101).Property(CarryOver.Clearlogo.Exists),true)</expression>
+	<expression name="HasMediaNavDetailsClearlogo">
+		[Control.HasFocus(102) + !String.IsEmpty(ListItem.Property(Clearlogo.Big))] |
+		[!Control.HasFocus(102) + String.IsEqual(Window(1101).Property(CarryOver.Clearlogo.Exists),true)]
+	</expression>
 
 	<!-- Has subtitle? -->
-	<expression name="HasMediaNavDetailsSubtitle">String.IsEqual(Window(1101).Property(CarryOver.Subtitle.Exists),true)</expression>
+	<expression name="HasMediaNavDetailsSubtitle">
+		[Control.HasFocus(102) + !String.IsEmpty(ListItem.Title)] |
+		[!Control.HasFocus(102) + String.IsEqual(Window(1101).Property(CarryOver.Subtitle.Exists),true)]
+	</expression>
 
 	<!-- Has resolution? -->
-	<expression name="HasMediaNavDetailsResolution">String.IsEqual(Window(1101).Property(CarryOver.Resolution.Exists),true)</expression>
+	<expression name="HasMediaNavDetailsResolution">
+		[Control.HasFocus(102) + !String.IsEmpty(ListItem.VideoResolution)] |
+		[!Control.HasFocus(102) + String.IsEqual(Window(1101).Property(CarryOver.Resolution.Exists),true)]
+	</expression>
 
 	<!-- Has HDR? -->
-	<expression name="HasMediaNavDetailsHdr">String.IsEqual(Window(1101).Property(CarryOver.Hdr.Exists),true)</expression>
+	<expression name="HasMediaNavDetailsHdr">
+		[Control.HasFocus(102) + !String.IsEmpty(ListItem.HdrType)] |
+		[!Control.HasFocus(102) + String.IsEqual(Window(1101).Property(CarryOver.Hdr.Exists),true)]
+	</expression>
 
 	<!-- Has audio channels? -->
-	<expression name="HasMediaNavDetailsAudioChannels">String.IsEqual(Window(1101).Property(CarryOver.AudioChannels.Exists),true)</expression>
+	<expression name="HasMediaNavDetailsAudioChannels">
+		[Control.HasFocus(102) + !String.IsEmpty(ListItem.Property(AudioChannels))] |
+		[!Control.HasFocus(102) + String.IsEqual(Window(1101).Property(CarryOver.AudioChannels.Exists),true)]
+	</expression>
 
 	<!-- Has year? -->
-	<expression name="HasMediaNavDetailsYear">String.IsEqual(Window(1101).Property(CarryOver.Year.Exists),true)</expression>
+	<expression name="HasMediaNavDetailsYear">
+		!Control.HasFocus(102) +
+		String.IsEqual(Window(1101).Property(CarryOver.Year.Exists),true)
+	</expression>
 
 	<!-- Has episode? -->
-	<expression name="HasMediaNavDetailsEpisode">String.IsEqual(Window(1101).Property(CarryOver.Episode.Exists),true)</expression>
+	<expression name="HasMediaNavDetailsEpisode">
+		[Control.HasFocus(102) + !String.IsEmpty(ListItem.Episode) + !String.IsEmpty(ListItem.Season)] |
+		[!Control.HasFocus(102) + String.IsEqual(Window(1101).Property(CarryOver.Episode.Exists),true)]
+	</expression>
 
 	<!-- Has premiered? -->
-	<expression name="HasMediaNavDetailsPremiered">String.IsEqual(Window(1101).Property(CarryOver.Premiered.Exists),true)</expression>
+	<expression name="HasMediaNavDetailsPremiered">
+		[Control.HasFocus(102) + !String.IsEmpty(ListItem.Premiered)] |
+		[!Control.HasFocus(102) + String.IsEqual(Window(1101).Property(CarryOver.Premiered.Exists),true)]
+	</expression>
 
 	<!-- Has duration? -->
-	<expression name="HasMediaNavDetailsDuration">String.IsEqual(Window(1101).Property(CarryOver.Duration.Exists),true)</expression>
+	<expression name="HasMediaNavDetailsDuration">
+		[Control.HasFocus(102) + !String.IsEmpty(ListItem.Property(DurationString))] |
+		[!Control.HasFocus(102) + String.IsEqual(Window(1101).Property(CarryOver.Duration.Exists),true)]
+	</expression>
 
 	<!-- Has MPAA? -->
-	<expression name="HasMediaNavDetailsMpaa">String.IsEqual(Window(1101).Property(CarryOver.Mpaa.Exists),true)</expression>
+	<expression name="HasMediaNavDetailsMpaa">
+		[Control.HasFocus(102) + !String.IsEmpty(ListItem.Mpaa)] |
+		[!Control.HasFocus(102) + String.IsEqual(Window(1101).Property(CarryOver.Mpaa.Exists),true)]
+	</expression>
 
 	<!-- Has status? -->
-	<expression name="HasMediaNavDetailsStatus">String.IsEqual(Window(1101).Property(CarryOver.Status.Exists),true)</expression>
+	<expression name="HasMediaNavDetailsStatus">
+		!Control.HasFocus(102) +
+		String.IsEqual(Window(1101).Property(CarryOver.Status.Exists),true)
+	</expression>
 
 	<!-- Has genre? -->
-	<expression name="HasMediaNavDetailsGenre">String.IsEqual(Window(1101).Property(CarryOver.Genre.Exists),true)</expression>
+	<expression name="HasMediaNavDetailsGenre">
+		!Control.HasFocus(102) +
+		String.IsEqual(Window(1101).Property(CarryOver.Genre.Exists),true)
+	</expression>
 
 	<!-- Is watched? -->
-	<expression name="IsMediaNavDetailsWatched">String.IsEqual(Window(1101).Property(CarryOver.IsWatched),true)</expression>
+	<expression name="IsMediaNavDetailsWatched">
+		[Control.HasFocus(102) + Integer.IsGreater(ListItem.PlayCount,0)] |
+		[!Control.HasFocus(102) + String.IsEqual(Window(1101).Property(CarryOver.IsWatched),true)]
+	</expression>
 
 	<!-- Has time remaining? -->
-	<expression name="HasMediaNavDetailsTimeRemaining">String.IsEqual(Window(1101).Property(CarryOver.TimeRemaining.Exists),true)</expression>
+	<expression name="HasMediaNavDetailsTimeRemaining">
+		[Control.HasFocus(102) + !String.IsEmpty(ListItem.Property(TimeRemainingString))] |
+		[!Control.HasFocus(102) + String.IsEqual(Window(1101).Property(CarryOver.TimeRemaining.Exists),true)]
+	</expression>
 
 	<!-- Has episodes remaining? -->
-	<expression name="HasMediaNavDetailsEpisodesRemaining">String.IsEqual(Window(1101).Property(CarryOver.EpisodesRemaining.Exists),true)</expression>
+	<expression name="HasMediaNavDetailsEpisodesRemaining">
+		!Control.HasFocus(102) +
+		String.IsEqual(Window(1101).Property(CarryOver.EpisodesRemaining.Exists),true)
+	</expression>
 
 	<!-- Is all new? -->
-	<expression name="IsMediaNavDetailsAllNew">String.IsEqual(Window(1101).Property(CarryOver.IsAllNew),true)</expression>
+	<expression name="IsMediaNavDetailsAllNew">
+		!Control.HasFocus(102) +
+		String.IsEqual(Window(1101).Property(CarryOver.IsAllNew),true)
+	</expression>
 
 
 	<!-- Is the most suited text color again blur background light/dark? -->

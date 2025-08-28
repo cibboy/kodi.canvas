@@ -228,7 +228,7 @@
 			<param name="art">$INFO[ListItem.Art(poster)]</param>
 			<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
 			<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
-			<!--todo<param name="onclick">$VAR[HomeMediaOnClickAction]</param>-->
+			<param name="onclick">RunScript(script.canvas.helper,onclick_media_item,season,$INFO[ListItem.DBID],2)</param>
 			<param name="onup">SetFocus(1)</param>
 			<param name="ondown">SetFocus(111)</param>
 		</include>
@@ -240,7 +240,7 @@
 			<param name="id">102</param>
 			<param name="label"></param>
 			<param name="content">plugin://script.canvas.helper/episodes/?id=$INFO[Window(1101).Property(ItemDetails.Id)]</param>
-			<param name="art">$INFO[ListItem.Art(poster)]</param>
+			<param name="art">$INFO[ListItem.Art(thumb)]</param>
 			<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
 			<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
 			<!--todo<param name="onclick">$VAR[HomeMediaOnClickAction]</param>-->

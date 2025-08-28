@@ -3,6 +3,12 @@ TOFIX:
 - settings di destra, quando c'è dialog aperto dovrebbero avere meno opacity
 - in medianav le liste sotto non dovrebbero essere visibili finchè in fase di caricamento (impostare flag loading a true prima di navigarci?)
 - considerare posizionamento diverso icona watched/progress su art
+- medianav season: focus episodio su episodio di resume (primo altrimenti)
+- medianav episode: focus episodio su reale episodio
+- medianav tvshow: focus su season dovrebbe far vedere i dettagli season
+- medianav: doppia window per i 2 livelli comunque non funziona perchè utilizza componenti e proprietà in comune, quindi andando indietro dal livello 2 all'1 fa vedere ancora le info del livello 2, e con un ulteriore indietro torna alla home
+- medianav: setfocus sull'unload non funziona come atteso (ad esempio sulla home, usando continue watching e poi tornando indietro va a recently added episodes, perchè è id 102)
+- medianav: migliorare expressions e variabili usando expression dedicate per capire il focus 101/102 (ma tenere conto della lista attori!!!!)
 
 TODO:
 - dialog in settings da fare:
