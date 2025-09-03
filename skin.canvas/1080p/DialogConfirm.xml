@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
 	<controls>
-		<!-- Standard DialogSelect -->
-		<include content="StandardDialogConfirm" condition="!$EXP[IsSettingsDialogConfirmActive]" />
+		<include content="Center169AspectRatio">
+			<!-- Standard DialogSelect -->
+			<include content="StandardDialogConfirm" condition="!$EXP[IsSettingsDialogConfirmActive]" />
 
-		<!-- DialogSelect for settings -->
-		<include content="SettingsDialogConfirm" condition="$EXP[IsSettingsDialogConfirmActive]" />
+			<!-- DialogSelect for settings -->
+			<include content="SettingsDialogConfirm" condition="$EXP[IsSettingsDialogConfirmActive]" />
+		</include>
 	</controls>
 </window>
 

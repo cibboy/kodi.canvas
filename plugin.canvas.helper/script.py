@@ -122,13 +122,61 @@ def home_to_active_settings(page):
 
 
 # Handles onclick event on media item that requires navigating to the media details custom window.
-def onclick_media_item(item_type, item_id, level):
+def onclick_media_item(item_type, item_id):
+    # Find out the current situation on the destination window.
+    active_type = xbmc.getInfoLabel(f"Window(1101).Property(ItemDetails.Type)")
+    active_id = xbmc.getInfoLabel(f"Window(1101).Property(ItemDetails.Id)")
+    depth = xbmc.getInfoLabel(f"Window(1101).Property(ItemDetails.Depth)")
+
+    # Parse depth and increase.
+    if depth is not None and depth != '':
+        depth = int(depth)
+        depth += 1
+    else: depth = 0
+    depth = str(depth)
+
+    # If populated, save as history.
+    if active_type is not None and active_type != '':
+        xbmc.executebuiltin(f"SetProperty(ItemDetails.History{depth}.Type,{active_type},1101)")
+    if active_id is not None and active_id != '':
+        xbmc.executebuiltin(f"SetProperty(ItemDetails.History{depth}.Id,{active_id},1101)")
+
     # Set properties on destination window.
     xbmc.executebuiltin(f"SetProperty(ItemDetails.Type,{item_type},1101)")
     xbmc.executebuiltin(f"SetProperty(ItemDetails.Id,{item_id},1101)")
+    xbmc.executebuiltin(f"SetProperty(ItemDetails.Depth,{depth},1101)")
 
     # Navigate there.
-    xbmc.executebuiltin(f"ActivateWindow(110{level})")
+    xbmc.executebuiltin('ActivateWindow(1101)')
+
+def onback_medianav():
+    # Find out the current situation.
+    depth = xbmc.getInfoLabel(f"Window(1101).Property(ItemDetails.Depth)")
+    xbmc.log(str(depth),xbmc.LOGINFO)
+
+    # If depth is 0, go back to home.
+    if depth is not None and depth != '' and depth != '0':
+        xbmc.executebuiltin('ClearProperty(ItemDetails.Type,1101)')
+        xbmc.executebuiltin('ClearProperty(ItemDetails.Id,1101)')
+        xbmc.executebuiltin('ClearProperty(ItemDetails.Depth,1101)')
+        xbmc.executebuiltin('ActivateWindow(home)')
+
+    # Otherwise reset properties to the previous values in the history stack.
+    # No need to navigate anywhere.
+    else:
+        # Retrieve history stack values.
+        active_type = xbmc.getInfoLabel(f"Window(1101).Property(ItemDetails.History{depth}.Type)")
+        active_id = xbmc.getInfoLabel(f"Window(1101).Property(ItemDetails.History{depth}.Id)")
+        # Clear history stack values at current depth.
+        xbmc.executebuiltin(f"ClearProperty(ItemDetails.Histury{depth}.Type,1101)")
+        xbmc.executebuiltin(f"ClearProperty(ItemDetails.Histury{depth}.Id,1101)")
+        # Update current values.
+        depth = int(depth)
+        depth -= 1
+        xbmc.executebuiltin(f"SetProperty(ItemDetails.Type,{active_type},1101)")
+        xbmc.executebuiltin(f"SetProperty(ItemDetails.Id,{active_id},1101)")
+        xbmc.executebuiltin(f"SetProperty(ItemDetails.Depth,{str(depth)},1101)")
+        xbmc.executebuiltin('ActivateWindow(1101)')
 
 
 if __name__ == '__main__':
@@ -152,4 +200,7 @@ if __name__ == '__main__':
         
         # Handle onclick event on media item that requires navigating to the media details custom window.
         elif method == 'onclick_media_item':
-            onclick_media_item(sys.argv[2], sys.argv[3], sys.argv[4])
+            onclick_media_item(sys.argv[2], sys.argv[3])
+        # Handle onback event in media nav window.
+        elif method == 'onback_medianav':
+            onback_medianav()

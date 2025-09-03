@@ -7,4 +7,77 @@
 		<width>0</width>
 		<height>0</height>
 	</include>
+
+	<!-- Center UI based on 16:9 aspect ratio -->
+	<include name="Center169AspectRatio">
+		<control type="group">
+			<!-- Centering -->
+			<width>SCREEN_WIDTH</width>
+			<height>SCREEN_HEIGHT</height>
+			<centertop>50%</centertop>
+			<centerleft>50%</centerleft>
+
+			<!-- Actual content -->
+			<nested />
+
+		</control>
+
+		<!--
+			Black bars. Kodi does not provide a way to hide
+			overflow, so we need to compensate with black bars
+			on 4 sides for potential overflow.
+		-->
+		<!-- Bottom -->
+		<control type="group">
+			<width>100%</width>
+			<height>SCREEN_HEIGHT_HALF</height>
+			<top>50%</top>
+
+			<control type="image">
+				<width>100%</width>
+				<height>SCREEN_HEIGHT_HALF</height>
+				<top>SCREEN_HEIGHT_HALF</top>
+				<texture colordiffuse="FF000000">diffuse.png</texture>
+			</control>
+		</control>
+		<!-- Top -->
+		<control type="group">
+			<width>100%</width>
+			<height>SCREEN_HEIGHT_HALF</height>
+			<bottom>50%</bottom>
+
+			<control type="image">
+				<width>100%</width>
+				<height>SCREEN_HEIGHT_HALF</height>
+				<top>SCREEN_HEIGHT_HALF_NEG</top>
+				<texture colordiffuse="FF000000">diffuse.png</texture>
+			</control>
+		</control>
+		<!-- Left -->
+		<control type="group">
+			<width>SCREEN_WIDTH_HALF</width>
+			<height>100%</height>
+			<right>50%</right>
+
+			<control type="image">
+				<width>SCREEN_WIDTH_HALF</width>
+				<height>100%</height>
+				<left>SCREEN_WIDTH_HALF_NEG</left>
+				<texture colordiffuse="FF000000">diffuse.png</texture>
+			</control>
+		</control>
+		<!-- Right -->
+		<control type="group">
+			<width>SCREEN_WIDTH_HALF</width>
+			<height>100%</height>
+			<left>50%</left>
+
+			<control type="image">
+				<width>SCREEN_WIDTH_HALF</width>
+				<height>100%</height>
+				<left>SCREEN_WIDTH_HALF</left>
+				<texture colordiffuse="FF000000">diffuse.png</texture>
+			</control>
+		</control>
+	</include>
 </includes>

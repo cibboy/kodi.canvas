@@ -7,60 +7,63 @@
 	<onunload>SetFocus(102)</onunload>-->
 
 	<controls>
-		<!--
-			Default button to force redirect:
-			- To list of episodes if media is season of episode
-			- To either to play or resume action button otherwise
-		-->
-		<control type="button" id="9999">
-			<onfocus condition="$EXP[IsMediaNavSeason] | $EXP[IsMediaNavEpisode]">SetFocus(102)</onfocus>
-			<onfocus condition="!$EXP[IsMediaNavSeason] + !$EXP[IsMediaNavEpisode] + $EXP[HasMediaNavActionPlay]">SetFocus(10)</onfocus>
-			<onfocus condition="!$EXP[IsMediaNavSeason] + !$EXP[IsMediaNavEpisode] + $EXP[HasMediaNavActionResume]">SetFocus(11)</onfocus>
-		</control>
+		<include content="Center169AspectRatio">
+			<!--
+				Default button to force redirect: either to play or resume action button
+			-->
+			<control type="button" id="9999">
+				<onfocus condition="$EXP[HasMediaNavActionPlay]">SetFocus(10)</onfocus>
+				<onfocus condition="$EXP[HasMediaNavActionResume]">SetFocus(11)</onfocus>
+			</control>
 
-		<!-- Background -->
-		<include content="MediaNavBackground" />
+			<!-- Background -->
+			<include content="MediaNavBackground" />
 
-		<!-- Content -->
-		<control type="group">
-			<top>PADDING_BASE</top>
-			<left>PADDING_MULT_120</left>
-
-			<!-- Selection details (not for albums) -->
-			<include content="MediaNavSelectionDetails" />
-
-			<!-- Actual content after selection details -->
+			<!-- Content -->
 			<control type="group">
-				<top>OFFSET_AFTER_DETAILS</top>
+				<top>PADDING_BASE</top>
+				<left>PADDING_MULT_120</left>
 
-				<!-- Action buttons -->
-				<include content="MediaNavActionButtons" />
+				<!-- Selection details (not for albums) -->
+				<include content="MediaNavSelectionDetails" />
 
-				<!-- Lists -->
-				<control type="grouplist" id="100">
-					<top>OFFSET_MEDIANAV_AFTER_ACTIONBUTTONS</top>
-					<height>HEIGHT_MEDIANAV_LISTS_CONTAINER</height>
+				<!-- Actual content after selection details -->
+				<control type="group">
+					<top>OFFSET_AFTER_DETAILS</top>
 
-					<!-- Season list (for TV shows) -->
-					<include content="MediaNavSeasonList" condition="$EXP[IsMediaNavTVShow]" />
+					<!-- Action buttons -->
+					<include content="MediaNavActionButtons" />
 
-					<!-- Episode list (for seasons and episodes) -->
-					<include content="MediaNavEpisodeList" condition="$EXP[IsMediaNavSeason] | $EXP[IsMediaNavEpisode]" />
+					<!-- Lists -->
+					<control type="grouplist" id="100">
+						<top>OFFSET_MEDIANAV_AFTER_ACTIONBUTTONS</top>
+						<height>HEIGHT_MEDIANAV_LISTS_CONTAINER</height>
 
-					<!-- Actor list -->
-					<include content="MediaNavActorList" />
+						<!-- Season list (for TV shows) -->
+						<include content="MediaNavSeasonList">
+							<param name="visible">$EXP[IsMediaNavTVShow]</param>
+						</include>
+
+						<!-- Episode list (for seasons and episodes) -->
+						<include content="MediaNavEpisodeList">
+							<param name="visible">$EXP[IsMediaNavSeason] | $EXP[IsMediaNavEpisode]</param>
+						</include>
+
+						<!-- Actor list -->
+						<include content="MediaNavActorList" />
+					</control>
 				</control>
 			</control>
-		</control>
 
-		<!-- Clock -->
-		<include content="TopBar" />
+			<!-- Clock -->
+			<include content="TopBar" />
 
-		<!-- Bottom bar -->
-		<include content="BottomBar">
-			<param name="show">$EXP[HasMediaNavDetailsStudio]</param>
-			<param name="show_studio">$EXP[HasMediaNavDetailsStudio]</param>
-			<param name="studio">$VAR[MediaNavDetailsStudio]</param>
+			<!-- Bottom bar -->
+			<include content="BottomBar">
+				<param name="show">$EXP[HasMediaNavDetailsStudio]</param>
+				<param name="show_studio">$EXP[HasMediaNavDetailsStudio]</param>
+				<param name="studio">$VAR[MediaNavDetailsStudio]</param>
+			</include>
 		</include>
 	</controls>
 </window>

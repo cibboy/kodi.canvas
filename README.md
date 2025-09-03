@@ -3,6 +3,8 @@ TOFIX:
 - settings di destra, quando c'è dialog aperto dovrebbero avere meno opacity
 - in medianav le liste sotto non dovrebbero essere visibili finchè in fase di caricamento (impostare flag loading a true prima di navigarci?)
 - considerare posizionamento diverso icona watched/progress su art
+- medianav bug (esempio): andare in season di yoga, mettere focus su lista episodi, back, rientrare: il focus è su qualcosa di inesistente e non lo si recupera più (probabilmente legato a condizioni onfocus button 9999 che cambiano nel momento in cui le expression si basano sul focus control 102)
+- medianav episode (e forse anche su home?): mettere E* in alto a dx della thumb come in plex
 - medianav season: focus episodio su episodio di resume (primo altrimenti)
 - medianav episode: focus episodio su reale episodio
 - medianav tvshow: focus su season dovrebbe far vedere i dettagli season

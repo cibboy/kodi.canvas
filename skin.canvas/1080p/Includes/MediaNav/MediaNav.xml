@@ -14,15 +14,15 @@
 			</control>
 			<include content="BackgroundQuadrantBlur">
 				<param name="visible">!$EXP[IsMediaNavMusicAlbum] + !$EXP[IsMediaNavPictureAlbum]</param>
-				<param name="art">$INFO[Window(1101).Property(CarryOver.Art)]</param>
-				<param name="blur">$INFO[Window(1101).Property(CarryOver.Blur)]</param>
+				<param name="art">$INFO[Window(videos).Property(CarryOver.Art)]</param>
+				<param name="blur">$INFO[Window(videos).Property(CarryOver.Blur)]</param>
 				<param name="fadetime">0</param>
 				<param name="art_fadetime">0</param>
 			</include>
 			<!-- Background (full size blur for music albums) -->
 			<include name="BackgroundSingleBlur">
 				<param name="visible">$EXP[IsMediaNavMusicAlbum] | $EXP[IsMediaNavPictureAlbum]</param>
-				<param name="blur">$INFO[Window(1101).Property(CarryOver.Blur)]</param>
+				<param name="blur">$INFO[Window(videos).Property(CarryOver.Blur)]</param>
 				<param name="fadetime">ANIMATION_CRAWL</param>
 			</include>
 		</definition>
@@ -88,6 +88,7 @@
 				<ondown condition="$EXP[IsMediaNavMovie]">SetFocus(111)</ondown>
 				<ondown condition="$EXP[IsMediaNavTVShow]">SetFocus(101)</ondown>
 				<ondown condition="$EXP[IsMediaNavSeason] | $EXP[IsMediaNavEpisode]">SetFocus(102)</ondown>
+				<onback>RunScript(script.canvas.helper,onback_medianav)</onback>
 
 				<!-- Play -->
 				<include content="MediaNavActionButton" condition="$EXP[HasMediaNavActionPlay]">
@@ -221,46 +222,60 @@
 
 	<!-- Season list -->
 	<include name="MediaNavSeasonList">
-		<include content="PosterStrip">
-			<param name="id">101</param>
-			<param name="label">Seasons</param>
-			<param name="content">plugin://script.canvas.helper/seasons/?tvshowid=$INFO[Window(1101).Property(ItemDetails.Id)]</param>
-			<param name="art">$INFO[ListItem.Art(poster)]</param>
-			<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
-			<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
-			<param name="onclick">RunScript(script.canvas.helper,onclick_media_item,season,$INFO[ListItem.DBID],2)</param>
-			<param name="onup">SetFocus(1)</param>
-			<param name="ondown">SetFocus(111)</param>
-		</include>
+		<param name="visible">false</param>
+
+		<definition>
+			<include content="PosterStrip">
+				<param name="visible">$PARAM[visible]</param>
+				<param name="id">101</param>
+				<param name="label">Seasons</param>
+				<param name="content">plugin://script.canvas.helper/seasons/?tvshowid=$INFO[Window(videos).Property(ItemDetails.Id)]</param>
+				<param name="art">$INFO[ListItem.Art(poster)]</param>
+				<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
+				<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
+				<param name="onclick">RunScript(script.canvas.helper,onclick_media_item,season,$INFO[ListItem.DBID])</param>
+				<param name="onup">SetFocus(1)</param>
+				<param name="ondown">SetFocus(111)</param>
+				<param name="onback">RunScript(script.canvas.helper,onback_medianav)</param>
+			</include>
+		</definition>
 	</include>
 
 	<!-- Episode list -->
 	<include name="MediaNavEpisodeList">
-		<include content="LandscapeStrip">
-			<param name="id">102</param>
-			<param name="label"></param>
-			<param name="content">plugin://script.canvas.helper/episodes/?id=$INFO[Window(1101).Property(ItemDetails.Id)]</param>
-			<param name="art">$INFO[ListItem.Art(thumb)]</param>
-			<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
-			<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
-			<!--todo<param name="onclick">$VAR[HomeMediaOnClickAction]</param>-->
-			<param name="onup">SetFocus(1)</param>
-			<param name="ondown">SetFocus(111)</param>
-		</include>
+		<param name="visible">false</param>
+
+		<definition>
+			<include content="LandscapeStrip">
+				<param name="visible">$PARAM[visible]</param>
+				<param name="id">102</param>
+				<param name="label"></param>
+				<param name="content">plugin://script.canvas.helper/episodes/?id=$INFO[Window(videos).Property(ItemDetails.Id)]</param>
+				<param name="art">$INFO[ListItem.Art(thumb)]</param>
+				<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
+				<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
+				<!--todo<param name="onclick">$VAR[HomeMediaOnClickAction]</param>-->
+				<param name="onup">SetFocus(1)</param>
+				<param name="ondown">SetFocus(111)</param>
+				<param name="onback">RunScript(script.canvas.helper,onback_medianav)</param>
+			</include>
+		</definition>
 	</include>
 
 	<!-- Actor list -->
 	<include name="MediaNavActorList">
 		<include content="PersonStrip">
+			<param name="visible">true</param>
 			<param name="id">111</param>
 			<param name="label">Cast</param>
-			<param name="content">plugin://script.canvas.helper/actors/?type=$INFO[Window(1101).Property(ItemDetails.Type)]&amp;id=$INFO[Window(1101).Property(ItemDetails.Id)]</param>
+			<param name="content">plugin://script.canvas.helper/actors/?type=$INFO[Window(videos).Property(ItemDetails.Type)]&amp;id=$INFO[Window(videos).Property(ItemDetails.Id)]</param>
 			<param name="art">$INFO[ListItem.Property(Thumbnail)]</param>
 			<param name="info1">$INFO[ListItem.Property(Name)]</param>
 			<param name="info2">$INFO[ListItem.Property(Role)]</param>
 			<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
 			<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
 			<param name="onup">SetFocus($VAR[MediaNavActorNavigateUpId])</param>
+			<param name="onback">RunScript(script.canvas.helper,onback_medianav)</param>
 		</include>
 	</include>
 </includes>

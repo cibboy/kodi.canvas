@@ -2,10 +2,12 @@
 <window>
 	<defaultcontrol>6</defaultcontrol>
 	<controls>
-		<!-- Standard DialogSelect -->
-		<include content="StandardDialogColorPicker" condition="!$EXP[IsSettingsDialogColorPickerActive]" />
+		<include content="Center169AspectRatio">
+			<!-- Standard DialogSelect -->
+			<include content="StandardDialogColorPicker" condition="!$EXP[IsSettingsDialogColorPickerActive]" />
 
-		<!-- DialogSelect for settings -->
-		<include content="SettingsDialogColorPicker" condition="$EXP[IsSettingsDialogColorPickerActive]" />
+			<!-- DialogSelect for settings -->
+			<include content="SettingsDialogColorPicker" condition="$EXP[IsSettingsDialogColorPickerActive]" />
+		</include>
 	</controls>
 </window>

@@ -85,8 +85,8 @@
 
 	<!-- Poster -->
 	<include name="ArtListsPoster">
-		<param name="id"></param>
 		<param name="art"></param>
+		<param name="fallback">1080p/fallback/poster.png</param>
 		<param name="offset_top_icon">OFFSET_TOP_POSTER_STRIP_ICON</param>
 		<param name="offset_right_icon">OFFSET_RIGHT_POSTER_STRIP_ICON</param>
 		<param name="offset_top_progress">OFFSET_TOP_POSTER_PROGRESS</param>
@@ -100,7 +100,7 @@
 				<control type="image">
 					<width>WIDTH_POSTER</width>
 					<height>HEIGHT_POSTER</height>
-					<texture fallback="1080p/fallback/poster.png" background="true" diffuse="1080p/diffuse/poster.png">$PARAM[art]</texture>
+					<texture fallback="$PARAM[fallback]" background="true" diffuse="1080p/diffuse/poster.png">$PARAM[art]</texture>
 					<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-art.png</bordertexture>
 					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
 					<aspectratio scalediffuse="false">scale</aspectratio>
@@ -128,8 +128,8 @@
 
 	<!-- Album -->
 	<include name="ArtListsAlbum">
-		<param name="id"></param>
 		<param name="art"></param>
+		<param name="fallback">1080p/fallback/music.png</param>
 
 		<definition>
 			<control type="image">
@@ -137,7 +137,7 @@
 
 				<width>WIDTH_ALBUM</width>
 				<height>HEIGHT_ALBUM</height>
-				<texture fallback="1080p/fallback/album.png" background="true" diffuse="1080p/diffuse/square.png">$PARAM[art]</texture>
+				<texture fallback="$PARAM[fallback]" background="true" diffuse="1080p/diffuse/square.png">$PARAM[art]</texture>
 				<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-art.png</bordertexture>
 				<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
 				<aspectratio scalediffuse="false">scale</aspectratio>
@@ -147,8 +147,8 @@
 
 	<!-- Landscape -->
 	<include name="ArtListsLandscape">
-		<param name="id"></param>
 		<param name="art"></param>
+		<param name="fallback">1080p/fallback/landscape.png</param>
 
 		<definition>
 			<control type="group">
@@ -158,7 +158,7 @@
 				<control type="image">
 					<width>WIDTH_LANDSCAPE</width>
 					<height>HEIGHT_LANDSCAPE</height>
-					<texture fallback="1080p/fallback/landscape.png" background="true" diffuse="1080p/diffuse/landscape.png">$PARAM[art]</texture>
+					<texture fallback="$PARAM[fallback]" background="true" diffuse="1080p/diffuse/landscape.png">$PARAM[art]</texture>
 					<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-art.png</bordertexture>
 					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
 					<aspectratio scalediffuse="false">scale</aspectratio>
@@ -181,8 +181,8 @@
 
 	<!-- Person -->
 	<include name="ArtListsPerson">
-		<param name="id"></param>
 		<param name="art"></param>
+		<param name="fallback">1080p/fallback/person.png</param>
 
 		<definition>
 			<control type="image">
@@ -192,7 +192,7 @@
 
 				<width>WIDTH_PERSON</width>
 				<height>HEIGHT_PERSON</height>
-				<texture fallback="1080p/fallback/person.png" background="true" diffuse="1080p/diffuse/circle.png">$PARAM[art]</texture>
+				<texture fallback="$PARAM[fallback]" background="true" diffuse="1080p/diffuse/circle.png">$PARAM[art]</texture>
 				<bordertexture border="SIZE_ITEM_SHADOW_CIRCLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-circle.png</bordertexture>
 				<bordersize>SIZE_ITEM_SHADOW_CIRCLE_DOUBLE</bordersize>
 				<aspectratio scalediffuse="false">scale</aspectratio>
@@ -203,10 +203,12 @@
 
 	<!-- Horizontal strip of landscape elements, with label and optional logo -->
 	<include name="LandscapeStrip">
+		<param name="visible">true</param>
 		<param name="id"></param>
 		<param name="label"></param>
 		<param name="content"></param>
 		<param name="art"></param>
+		<param name="fallback">1080p/fallback/landscape.png</param>
 		<param name="showinfo">false</param>
 		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
 		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
@@ -221,6 +223,7 @@
 
 		<definition>
 			<control type="group">
+				<visible>$PARAM[visible]</visible>
 				<height>HEIGHT_LANDSCAPE_STRIP_CONTAINER</height>
 
 				<control type="label">
@@ -246,8 +249,8 @@
 						<control type="group">
 							<!-- Landscape item -->
 							<include content="ArtListsLandscape">
-								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
+								<param name="fallback">$PARAM[fallback]</param>
 							</include>
 
 							<!-- Info -->
@@ -322,8 +325,8 @@
 
 							<!-- Landscape item -->
 							<include content="ArtListsLandscape">
-								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
+								<param name="fallback">$PARAM[fallback]</param>
 							</include>
 
 							<!-- Info -->
@@ -396,10 +399,12 @@
 
 	<!-- Horizontal strip of poster elements, with label -->
 	<include name="PosterStrip">
+		<param name="visible">true</param>
 		<param name="id"></param>
 		<param name="label"></param>
 		<param name="content"></param>
 		<param name="art"></param>
+		<param name="fallback">1080p/fallback/poster.png</param>
 		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
 		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
 		<param name="onclick">noop</param>
@@ -413,6 +418,7 @@
 
 		<definition>
 			<control type="group">
+				<visible>$PARAM[visible]</visible>
 				<height>HEIGHT_POSTER_STRIP_CONTAINER</height>
 
 				<control type="label">
@@ -438,8 +444,8 @@
 						<control type="group">
 							<!-- Poster -->
 							<include content="ArtListsPoster">
-								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
+								<param name="fallback">$PARAM[fallback]</param>
 							</include>
 						</control>
 					</itemlayout>
@@ -454,8 +460,8 @@
 
 							<!-- Poster -->
 							<include content="ArtListsPoster">
-								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
+								<param name="fallback">$PARAM[fallback]</param>
 							</include>
 						</control>
 					</focusedlayout>
@@ -468,10 +474,12 @@
 
 	<!-- Horizontal strip of album elements, with label -->
 	<include name="AlbumStrip">
+		<param name="visible">true</param>
 		<param name="id"></param>
 		<param name="label"></param>
 		<param name="content"></param>
 		<param name="art"></param>
+		<param name="fallback">1080p/fallback/music.png</param>
 		<param name="info"></param>
 		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
 		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
@@ -486,6 +494,7 @@
 
 		<definition>
 			<control type="group">
+				<visible>$PARAM[visible]</visible>
 				<height>HEIGHT_ALBUM_STRIP_CONTAINER</height>
 
 				<control type="label">
@@ -511,8 +520,8 @@
 						<control type="group">
 							<!-- Album item -->
 							<include content="ArtListsAlbum">
-								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
+								<param name="fallback">$PARAM[fallback]</param>
 							</include>
 
 							<!-- Info -->
@@ -547,8 +556,8 @@
 							
 							<!-- Album item -->
 							<include content="ArtListsAlbum">
-								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
+								<param name="fallback">$PARAM[fallback]</param>
 							</include>
 
 							<!-- Info -->
@@ -581,18 +590,22 @@
 
 	<!-- Horizontal strip of person elements, with label -->
 	<include name="PersonStrip">
+		<param name="visible">true</param>
 		<param name="id"></param>
 		<param name="label"></param>
 		<param name="content"></param>
 		<param name="art"></param>
+		<param name="fallback">1080p/fallback/person.png</param>
 		<param name="info1"></param>
 		<param name="info2"></param>
 		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
 		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
 		<param name="onup">noop</param>
+		<param name="onback">noop</param>
 
 		<definition>
 			<control type="group">
+				<visible>$PARAM[visible]</visible>
 				<height>HEIGHT_PERSON_STRIP_CONTAINER</height>
 
 				<control type="label">
@@ -608,13 +621,14 @@
 
 					<onclick>noop</onclick><!--todo: actor page with list of movies/show he/she participates in?-->
 					<onup>$PARAM[onup]</onup>
+					<onback>$PARAM[onback]</onback>
 
 					<itemlayout width="WIDTH_PERSON_STRIP_ITEM_CONTAINER" height="HEIGHT_PERSON_STRIP_CONTAINER">
 						<control type="group">
 							<!-- Album item -->
 							<include content="ArtListsPerson">
-								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
+								<param name="fallback">$PARAM[fallback]</param>
 							</include>
 
 							<!-- Info -->
@@ -652,8 +666,8 @@
 						<control type="group">
 							<!-- Album item -->
 							<include content="ArtListsPerson">
-								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
+								<param name="fallback">$PARAM[fallback]</param>
 							</include>
 
 							<!-- Info -->
@@ -700,6 +714,7 @@
 		<param name="label"></param>
 		<param name="content"></param>
 		<param name="art"></param>
+		<param name="fallback">1080p/fallback/poster.png</param>
 		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
 		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
 		<param name="onclick">noop</param>
@@ -733,8 +748,8 @@
 						<control type="group">
 							<!-- Poster -->
 							<include content="ArtListsPoster">
-								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
+								<param name="fallback">$PARAM[fallback]</param>
 								<param name="offset_top_icon">OFFSET_TOP_POSTER_WALL_ICON</param>
 								<param name="offset_right_icon">OFFSET_RIGHT_POSTER_WALL_ICON</param>
 								<param name="offset_top_progress">OFFSET_TOP_POSTER_PROGRESS</param>
@@ -753,8 +768,8 @@
 
 							<!-- Poster -->
 							<include content="ArtListsPoster">
-								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
+								<param name="fallback">$PARAM[fallback]</param>
 								<param name="offset_top_icon">OFFSET_TOP_POSTER_WALL_ICON</param>
 								<param name="offset_right_icon">OFFSET_RIGHT_POSTER_WALL_ICON</param>
 								<param name="offset_top_progress">OFFSET_TOP_POSTER_PROGRESS</param>
@@ -775,6 +790,7 @@
 		<param name="label"></param>
 		<param name="content"></param>
 		<param name="art"></param>
+		<param name="fallback">1080p/fallback/music.png</param>
 		<param name="info"></param>
 		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
 		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
@@ -809,8 +825,8 @@
 						<control type="group">
 							<!-- Album item -->
 							<include content="ArtListsAlbum">
-								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
+								<param name="fallback">$PARAM[fallback]</param>
 							</include>
 
 							<!-- Info -->
@@ -845,8 +861,8 @@
 
 							<!-- Album item -->
 							<include content="ArtListsAlbum">
-								<param name="id">$PARAM[id]</param>
 								<param name="art">$PARAM[art]</param>
+								<param name="fallback">$PARAM[fallback]</param>
 							</include>
 
 							<!-- Info -->

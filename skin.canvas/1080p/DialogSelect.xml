@@ -2,10 +2,12 @@
 <window>
 	<defaultcontrol>3</defaultcontrol>
 	<controls>
-		<!-- Standard DialogSelect -->
-		<include content="StandardDialogSelect" condition="!$EXP[IsSettingsDialogSelectActive]" />
+		<include content="Center169AspectRatio">
+			<!-- Standard DialogSelect -->
+			<include content="StandardDialogSelect" condition="!$EXP[IsSettingsDialogSelectActive]" />
 
-		<!-- DialogSelect for settings -->
-		<include content="SettingsDialogSelect" condition="$EXP[IsSettingsDialogSelectActive]" />
+			<!-- DialogSelect for settings -->
+			<include content="SettingsDialogSelect" condition="$EXP[IsSettingsDialogSelectActive]" />
+		</include>
 	</controls>
 </window>

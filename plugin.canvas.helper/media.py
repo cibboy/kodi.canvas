@@ -607,10 +607,11 @@ def list_episodes(params, handle):
     episodes = call_rpc('VideoLibrary.GetEpisodes', {
         'tvshowid': tvshowid,
         'season': season,
+        'sort': {'order': 'ascending', 'method': 'episode'},
         'properties': episode_properties_query
     }).get('episodes', [])
 
-    xbmc.log(str(episodes),xbmc.LOGINFO)
+    #xbmc.log(str(episodes),xbmc.LOGINFO)
 
     #details = call_rpc('VideoLibrary.GetEpisodeDetails', {
     #    'episodeid': int(params.get('id', -1)),

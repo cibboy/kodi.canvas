@@ -40,12 +40,12 @@
 	<constant name="PADDING_BUTTON_HORIZONTAL">60</constant>
 
 	<!-- Constants: screen-related sizes -->
-	<constant name="SCREEN_CENTER_Y">540</constant>
-	<constant name="SCREEN_CENTER_X">960</constant>
 	<constant name="SCREEN_HEIGHT">1080</constant>
 	<constant name="SCREEN_WIDTH">1920</constant>
 	<constant name="SCREEN_HEIGHT_HALF">540</constant>
 	<constant name="SCREEN_WIDTH_HALF">960</constant>
+	<constant name="SCREEN_HEIGHT_HALF_NEG">-540</constant>
+	<constant name="SCREEN_WIDTH_HALF_NEG">-960</constant>
 	<constant name="SCREEN_HEIGHT_PADDED">1030</constant>
 	<constant name="SCREEN_WIDTH_PADDED">1870</constant>
 	<constant name="SCREEN_HEIGHT_DOUBLE_PADDED">980</constant>

@@ -4,9 +4,11 @@
 	<animation effect="fade" start="100" end="0" time="ANIMATION_SLOW" tween="circle" easing="out">WindowClose</animation>
 
 	<controls>
-		<!-- Splash screen -->
-		<control type="group">
- 			<include content="SplashScreen" />
-		</control>
+		<include content="Center169AspectRatio">
+			<!-- Splash screen -->
+			<control type="group">
+				<include content="SplashScreen" />
+			</control>
+		</include>
 	</controls>
 </window>

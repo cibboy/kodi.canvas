@@ -3,28 +3,30 @@
 	<defaultcontrol>1000</defaultcontrol>
 
 	<controls>
-		<!-- Background (structure split) -->
-		<include content="SettingsBackgroundSplit" />
+		<include content="Center169AspectRatio">
+			<!-- Background (structure split) -->
+			<include content="SettingsBackgroundSplit" />
 
-		<!-- Content structure -->
-		<control type="group">
-			<animation type="Conditional" condition="!$EXP[HasSettingSectionsFocus]">
-				<effect type="slide" end="-1200,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
-			</animation>
-			<animation type="Conditional" condition="$EXP[HasSettingSectionsFocus]">
-				<effect type="slide" end="0,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
-			</animation>
+			<!-- Content structure -->
+			<control type="group">
+				<animation type="Conditional" condition="!$EXP[HasSettingSectionsFocus]">
+					<effect type="slide" end="-1200,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
+				</animation>
+				<animation type="Conditional" condition="$EXP[HasSettingSectionsFocus]">
+					<effect type="slide" end="0,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
+				</animation>
 
-			<!-- Main categories (left side) -->
-			<include content="MainSettings" />
+				<!-- Main categories (left side) -->
+				<include content="MainSettings" />
 
-			<!-- Dynamically loadede settings -->
-			<include content="DynamicSettings" />
-		</control>
+				<!-- Dynamically loadede settings -->
+				<include content="DynamicSettings" />
+			</control>
 
-		<!-- Clock -->
-		<include content="TopBar">
-			<param name="show_background">false</param>
+			<!-- Clock -->
+			<include content="TopBar">
+				<param name="show_background">false</param>
+			</include>
 		</include>
 	</controls>
 </window>

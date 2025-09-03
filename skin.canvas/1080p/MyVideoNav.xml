@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<controls>
+		<include content="Center169AspectRatio">
+			<!-- Background -->
+			<include content="MediaNavBackground" />
+
+			<!-- Content -->
+			<control type="group">
+				<top>PADDING_BASE</top>
+				<left>PADDING_MULT_120</left>
+
+				<!-- Selection details -->
+				<include content="MediaNavSelectionDetails" />
+
+				<!-- Actual content after selection details -->
+				<control type="group">
+					<top>OFFSET_AFTER_DETAILS</top>
+
+					<!-- Action buttons -->
+					<include content="MediaNavActionButtons" />
+
+					<control type="fixedlist" id="50">
+						<top>PADDING_MULT_120</top>
+						<autoscroll>false</autoscroll>
+						<orientation>horizontal</orientation>
+
+						<itemlayout width="WIDTH_POSTER_STRIP_ITEM_CONTAINER" height="HEIGHT_POSTER">
+							<control type="group">
+								<!-- Poster -->
+								<include content="ArtListsPoster">
+									<param name="art">$INFO[ListItem.Art(poster)]</param>
+									<param name="fallback">$PARAM[fallback]</param>
+								</include>
+							</control>
+						</itemlayout>
+
+						<focusedlayout width="WIDTH_POSTER_STRIP_ITEM_CONTAINER" height="HEIGHT_POSTER">
+							<control type="group">
+								<!-- Onchange action -->
+								<control type="button">
+									<include content="Hidden" />
+									<onfocus>$PARAM[onchange]</onfocus>
+								</control>
+
+								<!-- Poster -->
+								<include content="ArtListsPoster">
+									<param name="art">$INFO[ListItem.Art(poster)]</param>
+									<param name="fallback">$PARAM[fallback]</param>
+								</include>
+							</control>
+						</focusedlayout>
+
+						<content>$PARAM[content]</content>
+					</control>
+
+					<include content="PosterStrip">
+						<!--<param name="visible">$PARAM[visible]</param>-->
+						<!--<visible>Container.Content(seasons)</visible>-->
+						<param name="id">9000</param>
+						<param name="label">Seasons</param>
+						<!--<param name="content">plugin://script.canvas.helper/seasons/?tvshowid=$INFO[Window(videos).Property(ItemDetails.Id)]</param>-->
+						<param name="art">$INFO[ListItem.Art(poster)]</param>
+						<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
+						<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
+						<!--<param name="onclick">RunScript(script.canvas.helper,onclick_media_item,season,$INFO[ListItem.DBID])</param>-->
+						<param name="onup">SetFocus(1)</param>
+						<param name="ondown">SetFocus(111)</param>
+						<!--<param name="onback">RunScript(script.canvas.helper,onback_medianav)</param>-->
+					</include>
+				</control>
+			</control>
+
+			<!-- Clock -->
+			<include content="TopBar" />
+
+			<!-- Bottom bar -->
+			<include content="BottomBar">
+				<param name="show">$EXP[HasMediaNavDetailsStudio]</param>
+				<param name="show_studio">$EXP[HasMediaNavDetailsStudio]</param>
+				<param name="studio">$VAR[MediaNavDetailsStudio]</param>
+			</include>
+		</include>
+	</controls>
+</window>

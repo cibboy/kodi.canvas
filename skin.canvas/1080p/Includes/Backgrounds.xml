@@ -21,7 +21,7 @@
 				<control type="group">
 					<!-- Left -->
 					<control type="group">
-						<!-- Top (videos first, the music) -->
+						<!-- Top (videos first, then music) -->
 						<control type="image">
 							<visible>!$PARAM[blur_mode_squareoffset]</visible>
 							<width>67%</width>
@@ -40,7 +40,7 @@
 							<fadetime>$PARAM[fadetime]</fadetime>
 							<texture flipx="true" flipy="false">$PARAM[blur]</texture>
 						</control>
-						<!-- Bottom (videos first, the music) -->
+						<!-- Bottom (videos first, then music) -->
 						<control type="image">
 							<visible>!$PARAM[blur_mode_squareoffset]</visible>
 							<width>67%</width>
@@ -62,7 +62,7 @@
 					</control>
 					<!-- Right -->
 					<control type="group">
-						<!-- Top (videos first, the music) -->
+						<!-- Top (videos first, then music) -->
 						<control type="image">
 							<visible>!$PARAM[blur_mode_squareoffset]</visible>
 							<width>67%</width>
@@ -81,7 +81,7 @@
 							<fadetime>$PARAM[fadetime]</fadetime>
 							<texture flipx="false" flipy="false">$PARAM[blur]</texture>
 						</control>
-						<!-- Bottom (videos first, the music) -->
+						<!-- Bottom (videos first, then music) -->
 						<control type="image">
 							<visible>!$PARAM[blur_mode_squareoffset]</visible>
 							<width>67%</width>

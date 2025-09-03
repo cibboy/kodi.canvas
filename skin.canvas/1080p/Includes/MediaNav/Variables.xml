@@ -42,7 +42,7 @@
 		<!-- Episode specific -->
 		<value condition="Control.HasFocus(102)">1080p/studios/$INFO[ListItem.Studio].png</value>
 		<!-- Carryover -->
-		<value>$INFO[Window(1101).Property(CarryOver.Studio)]</value>
+		<value>$INFO[Window(videos).Property(CarryOver.Studio)]</value>
 	</variable>
 
 	<!-- Clearlogo -->
@@ -50,7 +50,7 @@
 		<!-- Episode specific -->
 		<value condition="Control.HasFocus(102)">$INFO[ListItem.Property(Clearlogo.Big)]</value>
 		<!-- Carryover -->
-		<value>$INFO[Window(1101).Property(CarryOver.Clearlogo)]</value>
+		<value>$INFO[Window(videos).Property(CarryOver.Clearlogo)]</value>
 	</variable>
 
 	<!-- Title -->
@@ -58,7 +58,7 @@
 		<!-- Episode specific -->
 		<value condition="Control.HasFocus(102)">$INFO[ListItem.TVShowTitle]</value>
 		<!-- Carryover -->
-		<value>$INFO[Window(1101).Property(CarryOver.Title)]</value>
+		<value>$INFO[Window(videos).Property(CarryOver.Title)]</value>
 	</variable>
 
 	<!-- Subtitle -->
@@ -66,7 +66,7 @@
 		<!-- Episode specific -->
 		<value condition="Control.HasFocus(102)">$INFO[ListItem.Title]</value>
 		<!-- Carryover -->
-		<value>$INFO[Window(1101).Property(CarryOver.Subtitle)]</value>
+		<value>$INFO[Window(videos).Property(CarryOver.Subtitle)]</value>
 	</variable>
 
 	<!-- Resolution -->
@@ -74,7 +74,7 @@
 		<!-- Episode specific -->
 		<value condition="Control.HasFocus(102)">$INFO[ListItem.VideoResolution]</value>
 		<!-- Carryover -->
-		<value>$INFO[Window(1101).Property(CarryOver.Resolution)]</value>
+		<value>$INFO[Window(videos).Property(CarryOver.Resolution)]</value>
 	</variable>
 
 	<!-- HDR -->
@@ -85,7 +85,7 @@
 		<value condition="Control.HasFocus(102) + String.IsEqual(ListItem.HdrType,hlg)">HLG</value>
 		<value condition="Control.HasFocus(102)">[UPPERCASE]$INFO[ListItem.HdrType][/UPPERCASE]</value>
 		<!-- Carryover -->
-		<value>$INFO[Window(1101).Property(CarryOver.Hdr)]</value>
+		<value>$INFO[Window(videos).Property(CarryOver.Hdr)]</value>
 	</variable>
 
 	<!-- Audio channels -->
@@ -93,13 +93,13 @@
 		<!-- Episode specific -->
 		<value condition="Control.HasFocus(102)">$INFO[ListItem.Property(AudioChannels)]</value>
 		<!-- Carryover -->
-		<value>$INFO[Window(1101).Property(CarryOver.AudioChannels)]</value>
+		<value>$INFO[Window(videos).Property(CarryOver.AudioChannels)]</value>
 	</variable>
 
 	<!-- Year -->
 	<variable name="MediaNavDetailsYear">
 		<!-- Carryover -->
-		<value>$INFO[Window(1101).Property(CarryOver.Year)]</value>
+		<value>$INFO[Window(videos).Property(CarryOver.Year)]</value>
 	</variable>
 
 	<!-- Episode -->
@@ -107,7 +107,7 @@
 		<!-- Episode specific -->
 		<value condition="Control.HasFocus(102)">S$INFO[ListItem.Season]·E$INFO[ListItem.Episode]</value>
 		<!-- Carryover -->
-		<value>$INFO[Window(1101).Property(CarryOver.Episode)]</value>
+		<value>$INFO[Window(videos).Property(CarryOver.Episode)]</value>
 	</variable>
 
 	<!-- Premiered -->
@@ -115,7 +115,7 @@
 		<!-- Episode specific -->
 		<value condition="Control.HasFocus(102)">$INFO[ListItem.Premiered]</value>
 		<!-- Carryover -->
-		<value>$INFO[Window(1101).Property(CarryOver.Premiered)]</value>
+		<value>$INFO[Window(videos).Property(CarryOver.Premiered)]</value>
 	</variable>
 
 	<!-- Duration -->
@@ -123,7 +123,7 @@
 		<!-- Episode specific -->
 		<value condition="Control.HasFocus(102)">$INFO[ListItem.Property(DurationString)]</value>
 		<!-- Carryover -->
-		<value>$INFO[Window(1101).Property(CarryOver.Duration)]</value>
+		<value>$INFO[Window(videos).Property(CarryOver.Duration)]</value>
 	</variable>
 
 	<!-- Mpaa -->
@@ -131,19 +131,19 @@
 		<!-- Episode specific -->
 		<value condition="Control.HasFocus(102)">$INFO[ListItem.Mpaa]</value>
 		<!-- Carryover -->
-		<value>$INFO[Window(1101).Property(CarryOver.Mpaa)]</value>
+		<value>$INFO[Window(videos).Property(CarryOver.Mpaa)]</value>
 	</variable>
 
 	<!-- Status -->
 	<variable name="MediaNavDetailsStatus">
 		<!-- Carryover -->
-		<value>$INFO[Window(1101).Property(CarryOver.Status)]</value>
+		<value>$INFO[Window(videos).Property(CarryOver.Status)]</value>
 	</variable>
 
 	<!-- Genre -->
 	<variable name="MediaNavDetailsGenre">
 		<!-- Carryover -->
-		<value>$INFO[Window(1101).Property(CarryOver.Genre)]</value>
+		<value>$INFO[Window(videos).Property(CarryOver.Genre)]</value>
 	</variable>
 
 	<!-- Time remaining -->
@@ -151,13 +151,13 @@
 		<!-- Episode specific -->
 		<value condition="Control.HasFocus(102)">$INFO[ListItem.Property(TimeRemainingString)] left</value>
 		<!-- Carryover -->
-		<value>$INFO[Window(1101).Property(CarryOver.TimeRemaining)]</value>
+		<value>$INFO[Window(videos).Property(CarryOver.TimeRemaining)]</value>
 	</variable>
 
 	<!-- Episodes remaining -->
 	<variable name="MediaNavDetailsEpisodesRemaining">
 		<!-- Carryover -->
-		<value>$INFO[Window(1101).Property(CarryOver.EpisodesRemaining)]</value>
+		<value>$INFO[Window(videos).Property(CarryOver.EpisodesRemaining)]</value>
 	</variable>
 
 	<!-- Watched percentage -->
@@ -165,7 +165,7 @@
 		<!-- Episode specific -->
 		<value condition="Control.HasFocus(102)">$INFO[ListItem.Property(WatchedPercentage)]</value>
 		<!-- Carryover -->
-		<value>$INFO[Window(1101).Property(CarryOver.WatchedPercentage)]</value>
+		<value>$INFO[Window(videos).Property(CarryOver.WatchedPercentage)]</value>
 	</variable>
 
 	<!-- Plot -->
@@ -173,7 +173,7 @@
 		<!-- Episode specific -->
 		<value condition="Control.HasFocus(102)">$INFO[ListItem.Plot]</value>
 		<!-- Carryover -->
-		<value>$INFO[Window(1101).Property(CarryOver.Summary)]</value>
+		<value>$INFO[Window(videos).Property(CarryOver.Summary)]</value>
 	</variable>
 
 
