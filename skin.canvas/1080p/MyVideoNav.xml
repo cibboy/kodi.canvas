@@ -75,9 +75,8 @@
 				<textcolor>FFFF0000</textcolor>
 			</control>
 			<control type="label">
-				<visible>Control.HasFocus(101)</visible>
 				<top>200</top>
-				<label>##$INFO[Container(101).ListItem.Title]çç</label>
+				<label>##$INFO[Window(videos).Property(List.111.HasContent)]çç</label>
 				<textcolor>FFFF0000</textcolor>
 			</control>
 		</include>

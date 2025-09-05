@@ -981,7 +981,7 @@
 		This allows to create a set of controls at destination that recreate the situation on
 		home, providing a seamless transition.
 	-->
-	<include name="HomeOnClickMediaInfoCarryOver">
+	<include name="HomeOnClickMedia">
 		<onclick>SetProperty(CarryOver.Art,$VAR[HomeBackgroundArtEscaped],videos)</onclick>
 		<onclick>SetProperty(CarryOver.Blur,$VAR[HomeBlurArtEscaped],videos)</onclick>
 		<onclick>SetProperty(CarryOver.Studio,$VAR[HomeDetailsStudioEscaped],videos)</onclick>
@@ -1021,5 +1021,11 @@
 		<onclick>SetProperty(CarryOver.Summary,$VAR[HomeDetailsSummaryEscaped],videos)</onclick>
 		<onclick>SetProperty(CarryOver.Colors.IsLight,$VAR[HomeIsDetailsBestTextColorLight],videos)</onclick>
 		<onclick>SetProperty(CarryOver.Colors.IsDark,$VAR[HomeIsDetailsBestTextColorDark],videos)</onclick>
+		<onclick>SetProperty(List.101.IsLoading,true,videos)</onclick>
+		<onclick>SetProperty(List.101.HasContent,false,videos)</onclick>
+		<onclick>SetProperty(List.102.IsLoading,true,videos)</onclick>
+		<onclick>SetProperty(List.102.HasContent,false,videos)</onclick>
+		<onclick>SetProperty(List.111.IsLoading,true,videos)</onclick>
+		<onclick>SetProperty(List.111.HasContent,false,videos)</onclick>
 	</include>
 </includes>

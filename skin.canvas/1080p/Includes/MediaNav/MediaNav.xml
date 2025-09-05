@@ -18,7 +18,7 @@
 				<param name="blur">$VAR[MediaNavBlurArt]</param>
 			</include>
 			<!-- Background (full size blur for music albums) -->
-			<include name="BackgroundSingleBlur">
+			<include content="BackgroundSingleBlur">
 				<param name="visible">$EXP[IsMediaNavShowingMusicAlbum]</param>
 				<param name="blur">$VAR[MediaNavBlurArt]</param>
 				<param name="fadetime">ANIMATION_CRAWL</param>
@@ -219,15 +219,14 @@
 	<include name="MediaNavSeasonList">
 		<definition>
 			<include content="PosterStrip">
-				<param name="visible">$EXP[IsMediaNavShowingSeasons]</param>
+				<param name="visible">$EXP[IsMediaNavShowingSeasons] + $EXP[IsMediaNavSeasonListRenderable]</param>
 				<param name="id">101</param>
 				<param name="label">Seasons</param>
-				<param name="content">plugin://script.canvas.helper/seasons/?dbpath=$INFO[Container.FolderPath]</param>
+				<param name="content">plugin://script.canvas.helper/seasons/?dbpath=$INFO[Container.FolderPath]&amp;listid=101</param>
 				<!--<param name="content">$INFO[Container.FolderPath]</param>-->
 				<param name="art">$INFO[ListItem.Art(poster)]</param>
 				<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
 				<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
-				<!--<param name="onclick">RunScript(script.canvas.helper,onclick_media_item,season,$INFO[ListItem.DBID])</param>-->
 				<param name="onclick">ActivateWindow(Videos,$INFO[Container.FolderPath]$INFO[ListItem.Season]/,return)</param>
 				<param name="onup">SetFocus(500)</param>
 				<param name="ondown">SetFocus(111)</param>
@@ -239,7 +238,7 @@
 	<include name="MediaNavEpisodeList">
 		<definition>
 			<include content="LandscapeStrip">
-				<param name="visible">$EXP[IsMediaNavShowingEpisodes]</param>
+				<param name="visible">$EXP[IsMediaNavShowingEpisodes] + $EXP[IsMediaNavEpisodeListRenderable]</param>
 				<param name="id">102</param>
 				<param name="label"></param>
 				<!--<param name="content">plugin://script.canvas.helper/episodes/?id=$INFO[Window(videos).Property(ItemDetails.Id)]</param>-->
@@ -247,7 +246,6 @@
 				<param name="art">$INFO[ListItem.Art(thumb)]</param>
 				<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
 				<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
-				<!--todo<param name="onclick">$VAR[HomeMediaOnClickAction]</param>-->
 				<param name="onup">SetFocus(500)</param>
 				<param name="ondown">SetFocus(111)</param>
 			</include>
@@ -257,11 +255,10 @@
 	<!-- Actor list -->
 	<include name="MediaNavActorList">
 		<include content="PersonStrip">
-			<param name="visible">true</param>
+			<param name="visible">[$EXP[IsMediaNavShowingMovie] | $EXP[IsMediaNavShowingSeasons] | $EXP[IsMediaNavShowingEpisodes]] + $EXP[IsMediaNavActorListRenderable]</param>
 			<param name="id">111</param>
 			<param name="label">Cast</param>
-			<!--<param name="content">plugin://script.canvas.helper/actors/?type=$INFO[Window(videos).Property(ItemDetails.Type)]&amp;id=$INFO[Window(videos).Property(ItemDetails.Id)]</param>-->
-			<param name="content">plugin://script.canvas.helper/actors/?type=$INFO[Container.Content]&amp;dbpath=$INFO[Container.FolderPath]</param>
+			<param name="content">plugin://script.canvas.helper/actors/?dbpath=$INFO[Container.FolderPath]&amp;listid=111</param>
 			<param name="art">$INFO[ListItem.Property(Thumbnail)]</param>
 			<param name="info1">$INFO[ListItem.Property(Name)]</param>
 			<param name="info2">$INFO[ListItem.Property(Role)]</param>
@@ -269,5 +266,16 @@
 			<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
 			<param name="onup">SetFocus($VAR[MediaNavActorNavigateUpId])</param>
 		</include>
+	</include>
+
+
+	<!-- Reset list/loading status on MyVideoNav -->
+	<include name="MediaNavOnClickMedia">
+		<onclick>SetProperty(List.101.IsLoading,true,videos)</onclick>
+		<onclick>SetProperty(List.101.HasContent,false,videos)</onclick>
+		<onclick>SetProperty(List.102.IsLoading,true,videos)</onclick>
+		<onclick>SetProperty(List.102.HasContent,false,videos)</onclick>
+		<onclick>SetProperty(List.111.IsLoading,true,videos)</onclick>
+		<onclick>SetProperty(List.111.HasContent,false,videos)</onclick>
 	</include>
 </includes>

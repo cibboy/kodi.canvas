@@ -1,5 +1,7 @@
 import xbmcplugin
+import xbmcgui
 from utils import *
+from image import get_blurred, get_cropped_clearlogo
 
 # Default property lists.
 movie_properties_query = ['art', 'title', 'year', 'resume', 'plot', 'studio', 'streamdetails', 'mpaa', 'genre', 'playcount']
@@ -738,9 +740,13 @@ def list_pictures(params, handle):
 
 # Create a list of actors.
 def list_actors(params, handle):
-    # Retrieve type and ID from parameters.
-    type = params.get('type', None)
+    # Retrieve DB path from parameters.
     dbpath = params.get('dbpath', None)
+
+    # Compute content type from DB path.
+    type = None
+    if 'videodb://tvshows/' in dbpath: type = 'seasons'
+    elif 'videodb://movies' in dbpath: type = 'movies'
 
     item = None
 
@@ -776,7 +782,7 @@ def list_media(method, params, handle):
     window = xbmcgui.Window(windowid)
 
     # Set loading indicator for list.
-    if listid is not None: window.setProperty(f"IsLoading.{listid}", 'true')
+    if listid is not None: window.setProperty(f"List.{listid}.IsLoading", 'true')
 
     count = 0
     # Call appropriate method.
@@ -808,13 +814,13 @@ def list_media(method, params, handle):
     else: window.setProperty(f"List.{listid}.HasContent", 'false')
 
     # Set loading indicator for list to false.
-    if listid is not None: window.setProperty(f"IsLoading.{listid}", 'false')
+    if listid is not None: window.setProperty(f"List.{listid}.IsLoading", 'false')
 
     # If on home, look for refocus parameter. This is a hint on to which
-    # menu item to refocus when  done loading.
+    # menu item to refocus when done loading.
     # It's necessary to load details when the focus is not on lists.
     if windowid == 10000:
-        refocus = params.get('refocus_when_done', None)
+        refocus = params.get('home_refocus_when_done', None)
         
         if refocus is not None:
             expected_page = ''

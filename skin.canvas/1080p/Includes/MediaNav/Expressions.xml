@@ -171,4 +171,12 @@
 	<expression name="HasMediaNavActionMarkAsUnwatched">$EXP[IsMediaNavDetailsWatched]</expression>
 	<!-- Has mark as watched action? -->
 	<expression name="HasMediaNavActionMarkAsWatched">!$EXP[IsMediaNavDetailsWatched]</expression>
+
+
+	<!-- Is season list renderable (no loading, has content)? -->
+	<expression name="IsMediaNavSeasonListRenderable">!String.IsEqual(Window(videos).Property(List.101.IsLoading),true) + String.IsEqual(Window(videos).Property(List.101.HasContent),true)</expression>
+	<!-- Is episode list renderable (no loading, has content)? -->
+	<expression name="IsMediaNavEpisodeListRenderable">!String.IsEqual(Window(videos).Property(List.102.IsLoading),true) + String.IsEqual(Window(videos).Property(List.102.HasContent),true)</expression>
+	<!-- Is actor list renderable (no loading, has content)? -->
+	<expression name="IsMediaNavActorListRenderable">!String.IsEqual(Window(videos).Property(List.111.IsLoading),true) + String.IsEqual(Window(videos).Property(List.111.HasContent),true)</expression>
 </includes>

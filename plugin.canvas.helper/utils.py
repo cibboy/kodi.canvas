@@ -1,8 +1,6 @@
 import math
 import json
 import xbmc
-import xbmcgui
-from image import get_blurred, get_cropped_clearlogo
 
 # Calls a JSON-RPC method agains Kodi.
 def call_rpc(method, params=None):

@@ -101,10 +101,10 @@ def reload_home():
     window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
 
     # Pretend load on home page items, so the loading animation is smoother.
-    window.setProperty('IsLoading.101', 'true')
-    window.setProperty('IsLoading.102', 'true')
-    window.setProperty('IsLoading.103', 'true')
-    window.setProperty('IsLoading.104', 'true')
+    window.setProperty('List.101.IsLoading', 'true')
+    window.setProperty('List.102.IsLoading', 'true')
+    window.setProperty('List.103.IsLoading', 'true')
+    window.setProperty('List.104.IsLoading', 'true')
 
     # Update nonce to force lists to reload.
     window.setProperty('Nonce', str(datetime.utcnow().strftime('%Y%m%d%H%M%S')))
@@ -119,35 +119,6 @@ def home_to_active_settings(page):
         page = 'appearancesettings'
     
     xbmc.executebuiltin(f"ActivateWindow({page})")
-
-
-# Handles onclick event on media item that requires navigating to the media details custom window.
-def onclick_media_item(item_type, item_id):
-    # Find out the current situation on the destination window.
-    active_type = xbmc.getInfoLabel(f"Window(1101).Property(ItemDetails.Type)")
-    active_id = xbmc.getInfoLabel(f"Window(1101).Property(ItemDetails.Id)")
-    depth = xbmc.getInfoLabel(f"Window(1101).Property(ItemDetails.Depth)")
-
-    # Parse depth and increase.
-    if depth is not None and depth != '':
-        depth = int(depth)
-        depth += 1
-    else: depth = 0
-    depth = str(depth)
-
-    # If populated, save as history.
-    if active_type is not None and active_type != '':
-        xbmc.executebuiltin(f"SetProperty(ItemDetails.History{depth}.Type,{active_type},1101)")
-    if active_id is not None and active_id != '':
-        xbmc.executebuiltin(f"SetProperty(ItemDetails.History{depth}.Id,{active_id},1101)")
-
-    # Set properties on destination window.
-    xbmc.executebuiltin(f"SetProperty(ItemDetails.Type,{item_type},1101)")
-    xbmc.executebuiltin(f"SetProperty(ItemDetails.Id,{item_id},1101)")
-    xbmc.executebuiltin(f"SetProperty(ItemDetails.Depth,{depth},1101)")
-
-    # Navigate there.
-    xbmc.executebuiltin('ActivateWindow(1101)')
 
 
 if __name__ == '__main__':
@@ -168,7 +139,3 @@ if __name__ == '__main__':
         # Handle moving up or down inside the same home page.
         elif method == 'onmove_home_page_item':
             onmove_home_page_item(sys.argv[2], sys.argv[3])
-        
-        # Handle onclick event on media item that requires navigating to the media details custom window.
-        elif method == 'onclick_media_item':
-            onclick_media_item(sys.argv[2], sys.argv[3])

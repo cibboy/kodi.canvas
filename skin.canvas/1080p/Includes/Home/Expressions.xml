@@ -21,15 +21,15 @@
 
 	<!-- Is loading ongoing on home? -->
 	<expression name="IsHomeLoading">
-		!String.IsEqual(Window(home).Property(IsLoading.101),false) |
-		!String.IsEqual(Window(home).Property(IsLoading.102),false) |
-		!String.IsEqual(Window(home).Property(IsLoading.103),false) |
-		!String.IsEqual(Window(home).Property(IsLoading.104),false) |
-		!String.IsEqual(Window(home).Property(IsLoading.111),false) |
-		!String.IsEqual(Window(home).Property(IsLoading.121),false) |
-		!String.IsEqual(Window(home).Property(IsLoading.131),false) |
-		!String.IsEqual(Window(home).Property(IsLoading.141),false) |
-		!String.IsEqual(Window(home).Property(IsLoading.151),false)
+		!String.IsEqual(Window(home).Property(List.101.IsLoading),false) |
+		!String.IsEqual(Window(home).Property(List.102.IsLoading),false) |
+		!String.IsEqual(Window(home).Property(List.103.IsLoading),false) |
+		!String.IsEqual(Window(home).Property(List.104.IsLoading),false) |
+		!String.IsEqual(Window(home).Property(List.111.IsLoading),false) |
+		!String.IsEqual(Window(home).Property(List.121.IsLoading),false) |
+		!String.IsEqual(Window(home).Property(List.131.IsLoading),false) |
+		!String.IsEqual(Window(home).Property(List.141.IsLoading),false) |
+		!String.IsEqual(Window(home).Property(List.151.IsLoading),false)
 	</expression>
 
 	<!-- Is active page "home"? -->

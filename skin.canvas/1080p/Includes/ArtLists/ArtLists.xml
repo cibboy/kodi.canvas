@@ -236,7 +236,7 @@
 					<top>PADDING_MULT_120</top>
 					<autoscroll>false</autoscroll>
 					<orientation>horizontal</orientation>
-					<include content="HomeOnClickMediaInfoCarryOver" />
+					<include content="HomeOnClickMedia" />
 					<onclick>$PARAM[onclick]</onclick>
 					<onfocus>$PARAM[onfocus]</onfocus>
 					<onback>$PARAM[onback]</onback>
@@ -431,7 +431,8 @@
 					<top>PADDING_MULT_120</top>
 					<autoscroll>false</autoscroll>
 					<orientation>horizontal</orientation>
-					<include content="HomeOnClickMediaInfoCarryOver" condition="Window.Is(home)" />
+					<include content="HomeOnClickMedia" condition="Window.Is(home)" />
+					<include content="MediaNavOnClickMedia" condition="Window.Is(videos)" />
 					<onclick>$PARAM[onclick]</onclick>
 					<onfocus>$PARAM[onfocus]</onfocus>
 					<onback>$PARAM[onback]</onback>
@@ -507,7 +508,7 @@
 					<top>PADDING_MULT_120</top>
 					<autoscroll>false</autoscroll>
 					<orientation>horizontal</orientation>
-					<include content="HomeOnClickMediaInfoCarryOver" />
+					<include content="HomeOnClickMedia" />
 					<onclick>$PARAM[onclick]</onclick>
 					<onfocus>$PARAM[onfocus]</onfocus>
 					<onback>$PARAM[onback]</onback>
@@ -735,7 +736,7 @@
 					<height>HEIGHT_POSTER_WALL_CONTENT</height>
 					<autoscroll>false</autoscroll>
 					<orientation>vertical</orientation>
-					<include content="HomeOnClickMediaInfoCarryOver" />
+					<include content="HomeOnClickMedia" />
 					<onclick>$PARAM[onclick]</onclick>
 					<onfocus>$PARAM[onfocus]</onfocus>
 					<onback>$PARAM[onback]</onback>
@@ -812,7 +813,7 @@
 					<height>HEIGHT_ALBUM_WALL_CONTENT</height>
 					<autoscroll>false</autoscroll>
 					<orientation>vertical</orientation>
-					<include content="HomeOnClickMediaInfoCarryOver" />
+					<include content="HomeOnClickMedia" />
 					<onclick>$PARAM[onclick]</onclick>
 					<onfocus>$PARAM[onfocus]</onfocus>
 					<onback>$PARAM[onback]</onback>
