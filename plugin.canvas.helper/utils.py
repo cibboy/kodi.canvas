@@ -15,6 +15,14 @@ def call_rpc(method, params=None):
     r = xbmc.executeJSONRPC(json.dumps(payload))
     return json.loads(r).get('result', {})
 
+# Extracts IDs from a DB path.
+def get_id_from_dbpath(dbpath, property):
+	return call_rpc('Files.GetDirectory', {
+		'directory': dbpath,
+		'limits': { 'start': 0, 'end': 1 },
+		'properties': [property]
+	}).get('files', [{ property: -1 }])[0][property]
+
 # Formats a timespan in hours, minutes and (optionally) seconds based on its duration.
 def get_formatted_timespan(timespan, include_seconds=False):
 	if include_seconds:

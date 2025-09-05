@@ -38,6 +38,14 @@ TODO:
 - information (systeminfo)
 - event log (eventlog)
 
+- settings changes on first run:
+  - no pointer
+  - media > videos > default select action: resume
+  - media > videos > default play action: resume
+  ? media > videos > show "all items" entry: false
+  - media > videos > flatten tv show seasons: never
+  - media > videos > select first unwatched...: always
+
 
 
 not in spotify:

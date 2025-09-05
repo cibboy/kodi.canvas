@@ -149,35 +149,6 @@ def onclick_media_item(item_type, item_id):
     # Navigate there.
     xbmc.executebuiltin('ActivateWindow(1101)')
 
-def onback_medianav():
-    # Find out the current situation.
-    depth = xbmc.getInfoLabel(f"Window(1101).Property(ItemDetails.Depth)")
-    xbmc.log(str(depth),xbmc.LOGINFO)
-
-    # If depth is 0, go back to home.
-    if depth is not None and depth != '' and depth != '0':
-        xbmc.executebuiltin('ClearProperty(ItemDetails.Type,1101)')
-        xbmc.executebuiltin('ClearProperty(ItemDetails.Id,1101)')
-        xbmc.executebuiltin('ClearProperty(ItemDetails.Depth,1101)')
-        xbmc.executebuiltin('ActivateWindow(home)')
-
-    # Otherwise reset properties to the previous values in the history stack.
-    # No need to navigate anywhere.
-    else:
-        # Retrieve history stack values.
-        active_type = xbmc.getInfoLabel(f"Window(1101).Property(ItemDetails.History{depth}.Type)")
-        active_id = xbmc.getInfoLabel(f"Window(1101).Property(ItemDetails.History{depth}.Id)")
-        # Clear history stack values at current depth.
-        xbmc.executebuiltin(f"ClearProperty(ItemDetails.Histury{depth}.Type,1101)")
-        xbmc.executebuiltin(f"ClearProperty(ItemDetails.Histury{depth}.Id,1101)")
-        # Update current values.
-        depth = int(depth)
-        depth -= 1
-        xbmc.executebuiltin(f"SetProperty(ItemDetails.Type,{active_type},1101)")
-        xbmc.executebuiltin(f"SetProperty(ItemDetails.Id,{active_id},1101)")
-        xbmc.executebuiltin(f"SetProperty(ItemDetails.Depth,{str(depth)},1101)")
-        xbmc.executebuiltin('ActivateWindow(1101)')
-
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
@@ -201,6 +172,3 @@ if __name__ == '__main__':
         # Handle onclick event on media item that requires navigating to the media details custom window.
         elif method == 'onclick_media_item':
             onclick_media_item(sys.argv[2], sys.argv[3])
-        # Handle onback event in media nav window.
-        elif method == 'onback_medianav':
-            onback_medianav()

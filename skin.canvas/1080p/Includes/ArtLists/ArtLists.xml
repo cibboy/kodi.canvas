@@ -431,7 +431,7 @@
 					<top>PADDING_MULT_120</top>
 					<autoscroll>false</autoscroll>
 					<orientation>horizontal</orientation>
-					<include content="HomeOnClickMediaInfoCarryOver" />
+					<include content="HomeOnClickMediaInfoCarryOver" condition="Window.Is(home)" />
 					<onclick>$PARAM[onclick]</onclick>
 					<onfocus>$PARAM[onfocus]</onfocus>
 					<onback>$PARAM[onback]</onback>

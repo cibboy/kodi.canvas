@@ -509,8 +509,8 @@ def list_tvshows(params, handle):
         'properties': tvshow_properties_query
     }
     # If exclusion specified, add to call.
-    if exclude is not None:
-        query['filter'] = { 'field': 'title', 'operator': 'isnot', 'value': exclude }
+    #if exclude is not None:#todo:decomment
+    #    query['filter'] = { 'field': 'title', 'operator': 'isnot', 'value': exclude }
     # If limit specified, add to call.
     if limit > 0:
         query['limits'] = { 'start': 0, 'end': limit }
@@ -533,12 +533,15 @@ def list_tvshows(params, handle):
 # Create a list of seasons.
 def list_seasons(params, handle):
     showtitle = params.get('showtitle', None)
-    tvshowid = int(params.get('tvshowid', -1))
+    dbpath = params.get('dbpath', None)
 
     tvshow = None
     
-    # Filter on TV show ID.
-    if tvshowid > -1:
+    # Work with DB path.
+    if dbpath is not None:
+        # Extract TV show ID from DB path.
+        tvshowid = get_id_from_dbpath(dbpath, 'tvshowid')
+
         tvshow = call_rpc('VideoLibrary.GetTVShowDetails', {
             'tvshowid': tvshowid,
             # Get important TV show properties.
@@ -737,16 +740,16 @@ def list_pictures(params, handle):
 def list_actors(params, handle):
     # Retrieve type and ID from parameters.
     type = params.get('type', None)
-    id = int(params.get('id', -1))
+    dbpath = params.get('dbpath', None)
 
     item = None
 
     # Movies.
-    if type == 'movie' and id > -1:
+    if type == 'movie' and dbpath is not None:
         item = call_rpc('VideoLibrary.GetMovieDetails', { 'movieid': id, 'properties': ['cast'] }).get('moviedetails', None)
     # TV shows.
-    if type == 'tvshow':
-        item = call_rpc('VideoLibrary.GetTVShowDetails', { 'tvshowid': id, 'properties': ['cast'] }).get('tvshowdetails', None)
+    if type == 'seasons' and dbpath is not None:
+        item = call_rpc('VideoLibrary.GetTVShowDetails', { 'tvshowid': get_id_from_dbpath(dbpath, 'tvshowid'), 'properties': ['cast'] }).get('tvshowdetails', None)
 
     # Add actors.
     if item is not None:

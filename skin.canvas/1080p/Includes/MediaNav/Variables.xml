@@ -37,34 +37,53 @@
 	</variable>
 
 
+	<!-- Top-right art -->
+	<variable name="MediaNavBackgroundArt">
+		<!-- Focus on season list -->
+		<value condition="Control.HasFocus(101) + !String.IsEmpty(Container(101).ListItem.Art(fanart))">$INFO[Container(101).ListItem.Art(fanart)]</value>
+		<value condition="Control.HasFocus(101)">$INFO[Container(101).ListItem.Art(tvshow.fanart)]</value>
+		<!-- Carryover -->
+		<value>$INFO[Window(videos).Property(CarryOver.Art)]</value>
+	</variable>
+
+	<!-- Full screen background blur -->
+	<variable name="MediaNavBlurArt">
+		<!-- Focus on season list -->
+		<value condition="Control.HasFocus(101) + !String.IsEmpty(Container(101).ListItem.Property(BlurArt.Season))">$INFO[Container(101).ListItem.Property(BlurArt.Season)]</value>
+		<value condition="Control.HasFocus(101)">$INFO[Container(101).ListItem.Property(BlurArt.TvShow)]</value>
+		<!-- Carryover -->
+		<value>$INFO[Window(videos).Property(CarryOver.Blur)]</value>
+	</variable>
+
+
 	<!-- Studio -->
 	<variable name="MediaNavDetailsStudio">
-		<!-- Episode specific -->
-		<value condition="Control.HasFocus(102)">1080p/studios/$INFO[ListItem.Studio].png</value>
+		<!-- Season specific -->
+		<value condition="$EXP[HasMediaNavDetailsStudio]">1080p/studios/$INFO[Container(101).ListItem.Studio].png</value>
 		<!-- Carryover -->
 		<value>$INFO[Window(videos).Property(CarryOver.Studio)]</value>
 	</variable>
 
 	<!-- Clearlogo -->
 	<variable name="MediaNavDetailsClearlogo">
-		<!-- Episode specific -->
-		<value condition="Control.HasFocus(102)">$INFO[ListItem.Property(Clearlogo.Big)]</value>
+		<!-- Season specific -->
+		<value condition="$EXP[HasMediaNavDetailsClearlogo]">$INFO[Container(101).ListItem.Property(Clearlogo.Big)]</value>
 		<!-- Carryover -->
 		<value>$INFO[Window(videos).Property(CarryOver.Clearlogo)]</value>
 	</variable>
 
 	<!-- Title -->
 	<variable name="MediaNavDetailsTitle">
-		<!-- Episode specific -->
-		<value condition="Control.HasFocus(102)">$INFO[ListItem.TVShowTitle]</value>
+		<!-- Season specific -->
+		<value condition="$EXP[HasMediaNavDetailsTitle]">$INFO[Container(101).ListItem.TVShowTitle]</value>
 		<!-- Carryover -->
 		<value>$INFO[Window(videos).Property(CarryOver.Title)]</value>
 	</variable>
 
 	<!-- Subtitle -->
 	<variable name="MediaNavDetailsSubtitle">
-		<!-- Episode specific -->
-		<value condition="Control.HasFocus(102)">$INFO[ListItem.Title]</value>
+		<!-- Season specific -->
+		<value condition="$EXP[HasMediaNavDetailsSubtitle]">$INFO[Container(101).ListItem.Title]</value>
 		<!-- Carryover -->
 		<value>$INFO[Window(videos).Property(CarryOver.Subtitle)]</value>
 	</variable>
@@ -170,8 +189,8 @@
 
 	<!-- Plot -->
 	<variable name="MediaNavDetailsSummary">
-		<!-- Episode specific -->
-		<value condition="Control.HasFocus(102)">$INFO[ListItem.Plot]</value>
+		<!-- Season specific -->
+		<value condition="$EXP[HasMediaNavDetailsSummary]">$INFO[Container(101).ListItem.Plot]</value>
 		<!-- Carryover -->
 		<value>$INFO[Window(videos).Property(CarryOver.Summary)]</value>
 	</variable>
@@ -182,23 +201,23 @@
 		Defining them as variables allows to hide the text when not focused.
 		They include space for margin from icon.
 	-->
-	<variable name="MediaNavPlayButtonLabel"><value condition="Control.HasFocus(10)">  Play</value></variable>
-	<variable name="MediaNavResumeButtonLabel"><value condition="Control.HasFocus(11)">  Resume</value></variable>
-	<variable name="MediaNavPlayFromStartButtonLabel"><value condition="Control.HasFocus(12)">  Play from start</value></variable>
-	<variable name="MediaNavMarkAsUnwatchedButtonLabel"><value condition="Control.HasFocus(13)">  Mark as unwatched</value></variable>
-	<variable name="MediaNavMarkAsWatchedButtonLabel"><value condition="Control.HasFocus(14)">  Mark as watched</value></variable>
-	<variable name="MediaNavInfoButtonLabel"><value condition="Control.HasFocus(15)">  Info</value></variable>
-	<variable name="MediaNavMoreButtonLabel"><value condition="Control.HasFocus(16)">  More</value></variable>
+	<variable name="MediaNavPlayButtonLabel"><value condition="Control.HasFocus(510)">  Play</value></variable>
+	<variable name="MediaNavResumeButtonLabel"><value condition="Control.HasFocus(511)">  Resume</value></variable>
+	<variable name="MediaNavPlayFromStartButtonLabel"><value condition="Control.HasFocus(512)">  Play from start</value></variable>
+	<variable name="MediaNavMarkAsUnwatchedButtonLabel"><value condition="Control.HasFocus(513)">  Mark as unwatched</value></variable>
+	<variable name="MediaNavMarkAsWatchedButtonLabel"><value condition="Control.HasFocus(514)">  Mark as watched</value></variable>
+	<variable name="MediaNavInfoButtonLabel"><value condition="Control.HasFocus(515)">  Info</value></variable>
+	<variable name="MediaNavMoreButtonLabel"><value condition="Control.HasFocus(516)">  More</value></variable>
 
 
 	<!-- Onup from actor list, according to media type -->
 	<variable name="MediaNavActorNavigateUpId">
 		<!-- Movies -->
-		<value condition="$EXP[IsMediaNavMovie]">1</value>
-		<!-- TV shows -->
-		<value condition="$EXP[IsMediaNavTVShow]">101</value>
-		<!-- Episodes (applies also to seasons, as they both show all season episodes) -->
-		<value condition="$EXP[IsMediaNavEpisode]">102</value>
+		<value condition="$EXP[IsMediaNavShowingMovie]">500</value>
+		<!-- TV shows (showing seasons) -->
+		<value condition="$EXP[IsMediaNavShowingSeasons]">101</value>
+		<!-- Seasons and episodes (showing episodes) -->
+		<value condition="$EXP[IsMediaNavShowingEpisodes]">102</value>
 	</variable>
 
 

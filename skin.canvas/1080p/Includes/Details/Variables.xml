@@ -3,7 +3,7 @@
 	<!-- Constants -->
 	<constant name="HEIGHT_CLEARLOGO_BIG">141</constant>
 	<constant name="WIDTH_CLEARLOGO_BIG">800</constant>
-	<constant name="HEIGHT_DETAILS_SUBTITLE">40</constant>
+	<constant name="HEIGHT_DETAILS_SUBTITLE">32</constant>
 	<constant name="HEIGHT_DETAILS_INFOLINE">32</constant>
 	<constant name="HEIGHT_DETAILS_INFOLINE_TEXT">30</constant>
 

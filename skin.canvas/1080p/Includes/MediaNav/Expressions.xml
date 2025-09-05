@@ -1,30 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
-	<!-- What type of media are we showing? -->
-	<expression name="IsMediaNavMovie">String.IsEqual(Window(videos).Property(ItemDetails.Type),movie)</expression>
-	<expression name="IsMediaNavTVShow">String.IsEqual(Window(videos).Property(ItemDetails.Type),tvshow)</expression>
-	<expression name="IsMediaNavSeason">String.IsEqual(Window(videos).Property(ItemDetails.Type),season)</expression>
-	<expression name="IsMediaNavEpisode">String.IsEqual(Window(videos).Property(ItemDetails.Type),episode)</expression>
-	<expression name="IsMediaNavMusicAlbum">String.IsEqual(Window(videos).Property(ItemDetails.Type),album)</expression>
-	<expression name="IsMediaNavPictureAlbum">String.IsEqual(Window(videos).Property(ItemDetails.Type),picture_album)</expression>
+	<expression name="IsMediaNavShowingMovie">String.IsEqual(Container.Content,movie)</expression><!--todo-->
+	<expression name="IsMediaNavShowingSeasons">String.IsEqual(Container.Content,seasons)</expression>
+	<expression name="IsMediaNavShowingEpisodes">String.IsEqual(Container.Content,episodes)</expression>
+	<expression name="IsMediaNavShowingMusicAlbum">String.IsEqual(Container.Content,album)</expression><!--todo-->
+	<expression name="IsMediaNavShowingPictureAlbum">String.IsEqual(Container.Content,???)</expression><!--todo-->
 
 
 	<!-- Has studio? -->
 	<expression name="HasMediaNavDetailsStudio">
-		[Control.HasFocus(102) + !String.IsEmpty(ListItem.Studio)] |
-		[!Control.HasFocus(102) + String.IsEqual(Window(videos).Property(CarryOver.Studio.Exists),true)]
+		[Control.HasFocus(101) + !String.IsEmpty(Container(101).ListItem.Studio)] |
+		String.IsEqual(Window(videos).Property(CarryOver.Studio.Exists),true)
 	</expression>
 
 	<!-- Has clearlogo? -->
 	<expression name="HasMediaNavDetailsClearlogo">
-		[Control.HasFocus(102) + !String.IsEmpty(ListItem.Property(Clearlogo.Big))] |
-		[!Control.HasFocus(102) + String.IsEqual(Window(videos).Property(CarryOver.Clearlogo.Exists),true)]
+		[Control.HasFocus(101) + !String.IsEmpty(Container(101).ListItem.Property(Clearlogo.Big))] |
+		String.IsEqual(Window(videos).Property(CarryOver.Clearlogo.Exists),true)
+	</expression>
+
+	<!-- Has title? -->
+	<expression name="HasMediaNavDetailsTitle">
+		[Control.HasFocus(101) + !String.IsEmpty(Container(101).ListItem.TVShowTitle)] |
+		String.IsEqual(Window(videos).Property(CarryOver.Subtitle.Title),true)
 	</expression>
 
 	<!-- Has subtitle? -->
 	<expression name="HasMediaNavDetailsSubtitle">
-		[Control.HasFocus(102) + !String.IsEmpty(ListItem.Title)] |
-		[!Control.HasFocus(102) + String.IsEqual(Window(videos).Property(CarryOver.Subtitle.Exists),true)]
+		[Control.HasFocus(101) + !String.IsEmpty(Container(101).ListItem.Title)] |
+		String.IsEqual(Window(videos).Property(CarryOver.Subtitle.Exists),true)
 	</expression>
 
 	<!-- Has resolution? -->
@@ -83,7 +87,7 @@
 
 	<!-- Has genre? -->
 	<expression name="HasMediaNavDetailsGenre">
-		!Control.HasFocus(102) +
+		!Control.HasFocus(101) +
 		String.IsEqual(Window(videos).Property(CarryOver.Genre.Exists),true)
 	</expression>
 
@@ -111,10 +115,34 @@
 		String.IsEqual(Window(videos).Property(CarryOver.IsAllNew),true)
 	</expression>
 
+	<!-- Has summary? -->
+	<expression name="HasMediaNavDetailsSummary">
+		[Control.HasFocus(101) + !String.IsEmpty(Container(101).ListItem.Plot)] |
+		String.IsEqual(Window(videos).Property(CarryOver.Subtitle.Summary),true)
+	</expression>
 
-	<!-- Is the most suited text color again blur background light/dark? -->
-	<expression name="IsMediaNavDetailsBestTextColorLight">String.IsEqual(Window(videos).Property(CarryOver.Colors.IsLight),true)</expression>
-	<expression name="IsMediaNavDetailsBestTextColorDark">String.IsEqual(Window(videos).Property(CarryOver.Colors.IsDark),true)</expression>
+
+	<!--
+		Is the most suited text color again blur background light/dark?
+		Consider:
+		- Seasons
+		- Episodes
+		- Carryover
+	-->
+	<expression name="IsMediaNavDetailsBestTextColorLight">
+		[Control.HasFocus(101) + [
+			[!String.IsEmpty(Container(101).ListItem.Property(BlurArt.Season)) + String.IsEqual(Container(101).ListItem.Property(BlurArt.Season.TextColor),light)] |
+			[String.IsEmpty(Container(101).ListItem.Property(BlurArt.Season)) + !String.IsEmpty(Container(101).ListItem.Property(BlurArt.TvShow)) + String.IsEqual(Container(101).ListItem.Property(BlurArt.TvShow.TextColor),light)]
+		]] |
+		String.IsEqual(Window(videos).Property(CarryOver.Colors.IsLight),true)
+	</expression>
+	<expression name="IsMediaNavDetailsBestTextColorDark">
+		[Control.HasFocus(101) + [
+			[!String.IsEmpty(Container(101).ListItem.Property(BlurArt.Season)) + String.IsEqual(Container(101).ListItem.Property(BlurArt.Season.TextColor),dark)] |
+			[String.IsEmpty(Container(101).ListItem.Property(BlurArt.Season)) + !String.IsEmpty(Container(101).ListItem.Property(BlurArt.TvShow)) + String.IsEqual(Container(101).ListItem.Property(BlurArt.TvShow.TextColor),dark)]
+		]] |
+		String.IsEqual(Window(videos).Property(CarryOver.Colors.IsDark),true)
+	</expression>
 
 
 	<!--

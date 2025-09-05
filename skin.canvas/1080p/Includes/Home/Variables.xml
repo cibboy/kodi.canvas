@@ -702,7 +702,106 @@
 		<!-- Music -->
 		<value condition="$EXP[IsHomeMusicActive]">$ESCINFO[Container(141).ListItem.Property(BlurArt)]</value>
 	</variable>
-	<!-- #endregion Escaped variables for SetProperty-->
+	<!-- #endregion Escaped variables for SetProperty -->
+
+
+	<!-- #region Expression-to-variable for SetProperty -->
+	<!-- Has studio -->
+	<variable name="HomeHasDetailsStudio">
+		<value condition="$EXP[HasHomeDetailsStudio]">true</value>
+		<value>false</value>
+	</variable>
+	<!-- Has clearlogo -->
+	<variable name="HomeHasDetailsClearlogo">
+		<value condition="$EXP[HasHomeDetailsClearlogo]">true</value>
+		<value>false</value>
+	</variable>
+	<!-- Has subtitle -->
+	<variable name="HomeHasDetailsSubtitle">
+		<value condition="$EXP[HasHomeDetailsSubtitle]">true</value>
+		<value>false</value>
+	</variable>
+	<!-- Has resolution -->
+	<variable name="HomeHasDetailsResolution">
+		<value condition="$EXP[HasHomeDetailsResolution]">true</value>
+		<value>false</value>
+	</variable>
+	<!-- Has HDR -->
+	<variable name="HomeHasDetailsHdr">
+		<value condition="$EXP[HasHomeDetailsHdr]">true</value>
+		<value>false</value>
+	</variable>
+	<!-- Has audio channels -->
+	<variable name="HomeHasDetailsAudioChannels">
+		<value condition="$EXP[HasHomeDetailsAudioChannels]">true</value>
+		<value>false</value>
+	</variable>
+	<!-- Has year -->
+	<variable name="HomeHasDetailsYear">
+		<value condition="$EXP[HasHomeDetailsYear]">true</value>
+		<value>false</value>
+	</variable>
+	<!-- Has episode -->
+	<variable name="HomeHasDetailsEpisode">
+		<value condition="$EXP[HasHomeDetailsEpisode]">true</value>
+		<value>false</value>
+	</variable>
+	<!-- Has premiered -->
+	<variable name="HomeHasDetailsPremiered">
+		<value condition="$EXP[HasHomeDetailsPremiered]">true</value>
+		<value>false</value>
+	</variable>
+	<!-- Has duration -->
+	<variable name="HomeHasDetailsDuration">
+		<value condition="$EXP[HasHomeDetailsDuration]">true</value>
+		<value>false</value>
+	</variable>
+	<!-- Has mpaa -->
+	<variable name="HomeHasDetailsMpaa">
+		<value condition="$EXP[HasHomeDetailsMpaa]">true</value>
+		<value>false</value>
+	</variable>
+	<!-- Has status -->
+	<variable name="HomeHasDetailsStatus">
+		<value condition="$EXP[HasHomeDetailsStatus]">true</value>
+		<value>false</value>
+	</variable>
+	<!-- Has genre -->
+	<variable name="HomeHasDetailsGenre">
+		<value condition="$EXP[HasHomeDetailsGenre]">true</value>
+		<value>false</value>
+	</variable>
+	<!-- Has time remaining -->
+	<variable name="HomeHasDetailsTimeRemaining">
+		<value condition="$EXP[HasHomeDetailsTimeRemaining]">true</value>
+		<value>false</value>
+	</variable>
+	<!-- Has episodes remaining -->
+	<variable name="HomeHasDetailsEpisodesRemaining">
+		<value condition="$EXP[HasHomeDetailsEpisodesRemaining]">true</value>
+		<value>false</value>
+	</variable>
+	<!-- Is watched -->
+	<variable name="HomeIsDetailsWatched">
+		<value condition="$EXP[IsHomeDetailsWatched]">true</value>
+		<value>false</value>
+	</variable>
+	<!-- Is all new -->
+	<variable name="HomeIsDetailsAllNew">
+		<value condition="$EXP[IsHomeDetailsAllNew]">true</value>
+		<value>false</value>
+	</variable>
+	<!-- Is constrast color light -->
+	<variable name="HomeIsDetailsBestTextColorLight">
+		<value condition="$EXP[IsHomeDetailsBestTextColorLight]">true</value>
+		<value>false</value>
+	</variable>
+	<!-- Is constrast color dark -->
+	<variable name="HomeIsDetailsBestTextColorDark">
+		<value condition="$EXP[IsHomeDetailsBestTextColorDark]">true</value>
+		<value>false</value>
+	</variable>
+	<!-- #endregion Expression-to-variable for SetProperty -->
 
 
 	<!-- Item onclick action -->
@@ -720,7 +819,7 @@
 		<value condition="$EXP[IsHomeMoviesActive]">RunScript(script.canvas.helper,onclick_media_item,movie,$INFO[ListItem.DBID])</value>
 		<!-- TV shows -->
 		<!--<value condition="$EXP[IsHomeTVShowsActive]">RunScript(script.canvas.helper,onclick_media_item,tvshow,$INFO[ListItem.DBID])</value>-->
-		<value condition="$EXP[IsHomeTVShowsActive]">ActivateWindow(Videos,videodb://tvshows/$INFO[ListItem.DBID]/,return)</value>
+		<value condition="$EXP[IsHomeTVShowsActive]">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.DBID]/,return)</value>
 		<!-- Yoga -->
 		<value condition="$EXP[IsHomeYogaActive]">RunScript(script.canvas.helper,onclick_media_item,season,$INFO[ListItem.DBID])</value>
 		<!-- Music -->

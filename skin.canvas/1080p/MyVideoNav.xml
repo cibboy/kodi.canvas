@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
+	<defaultcontrol always="true">9999</defaultcontrol>
+
 	<controls>
 		<include content="Center169AspectRatio">
+			<!-- Default button to force redirect: either to play or resume action button -->
+			<control type="button" id="9999">
+				<include content="Hidden" />
+				<onfocus condition="$EXP[HasMediaNavActionPlay]">SetFocus(510)</onfocus>
+				<onfocus condition="$EXP[HasMediaNavActionResume]">SetFocus(511)</onfocus>
+			</control>
+
 			<!-- Background -->
 			<include content="MediaNavBackground" />
 
@@ -20,54 +29,19 @@
 					<!-- Action buttons -->
 					<include content="MediaNavActionButtons" />
 
-					<control type="fixedlist" id="50">
-						<top>PADDING_MULT_120</top>
-						<autoscroll>false</autoscroll>
-						<orientation>horizontal</orientation>
+					<!-- Lists -->
+					<control type="grouplist" id="100">
+						<top>OFFSET_MEDIANAV_AFTER_ACTIONBUTTONS</top>
+						<height>HEIGHT_MEDIANAV_LISTS_CONTAINER</height>
 
-						<itemlayout width="WIDTH_POSTER_STRIP_ITEM_CONTAINER" height="HEIGHT_POSTER">
-							<control type="group">
-								<!-- Poster -->
-								<include content="ArtListsPoster">
-									<param name="art">$INFO[ListItem.Art(poster)]</param>
-									<param name="fallback">$PARAM[fallback]</param>
-								</include>
-							</control>
-						</itemlayout>
+						<!-- Season list (for TV shows) -->
+						<include content="MediaNavSeasonList" />
+						<!-- Episode list (for seasons and episodes) -->
+						<include content="MediaNavEpisodeList" />
 
-						<focusedlayout width="WIDTH_POSTER_STRIP_ITEM_CONTAINER" height="HEIGHT_POSTER">
-							<control type="group">
-								<!-- Onchange action -->
-								<control type="button">
-									<include content="Hidden" />
-									<onfocus>$PARAM[onchange]</onfocus>
-								</control>
-
-								<!-- Poster -->
-								<include content="ArtListsPoster">
-									<param name="art">$INFO[ListItem.Art(poster)]</param>
-									<param name="fallback">$PARAM[fallback]</param>
-								</include>
-							</control>
-						</focusedlayout>
-
-						<content>$PARAM[content]</content>
+						<!-- Actor list -->
+						<include content="MediaNavActorList" />
 					</control>
-
-					<include content="PosterStrip">
-						<!--<param name="visible">$PARAM[visible]</param>-->
-						<!--<visible>Container.Content(seasons)</visible>-->
-						<param name="id">9000</param>
-						<param name="label">Seasons</param>
-						<!--<param name="content">plugin://script.canvas.helper/seasons/?tvshowid=$INFO[Window(videos).Property(ItemDetails.Id)]</param>-->
-						<param name="art">$INFO[ListItem.Art(poster)]</param>
-						<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
-						<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
-						<!--<param name="onclick">RunScript(script.canvas.helper,onclick_media_item,season,$INFO[ListItem.DBID])</param>-->
-						<param name="onup">SetFocus(1)</param>
-						<param name="ondown">SetFocus(111)</param>
-						<!--<param name="onback">RunScript(script.canvas.helper,onback_medianav)</param>-->
-					</include>
 				</control>
 			</control>
 
@@ -80,6 +54,32 @@
 				<param name="show_studio">$EXP[HasMediaNavDetailsStudio]</param>
 				<param name="studio">$VAR[MediaNavDetailsStudio]</param>
 			</include>
+
+			<control type="label">
+				<label>$INFO[Container.Content]</label>
+				<textcolor>FFFF0000</textcolor>
+			</control>
+			<control type="label">
+				<top>50</top>
+				<label>$INFO[Container.Content(files)]</label>
+				<textcolor>FFFF0000</textcolor>
+			</control>
+			<control type="label">
+				<top>100</top>
+				<label>$INFO[Container.FolderPath]</label>
+				<textcolor>FFFF0000</textcolor>
+			</control>
+			<control type="label">
+				<top>150</top>
+				<label>$INFO[Container.FolderName]</label>
+				<textcolor>FFFF0000</textcolor>
+			</control>
+			<control type="label">
+				<visible>Control.HasFocus(101)</visible>
+				<top>200</top>
+				<label>##$INFO[Container(101).ListItem.Title]çç</label>
+				<textcolor>FFFF0000</textcolor>
+			</control>
 		</include>
 	</controls>
 </window>
