@@ -1,6 +1,7 @@
 import math
 import json
 import xbmc
+from urllib.parse import urlparse, parse_qsl
 
 # Calls a JSON-RPC method agains Kodi.
 def call_rpc(method, params=None):
@@ -13,13 +14,22 @@ def call_rpc(method, params=None):
     r = xbmc.executeJSONRPC(json.dumps(payload))
     return json.loads(r).get('result', {})
 
-# Extracts IDs from a DB path.
-def get_id_from_dbpath(dbpath, property):
-	return call_rpc('Files.GetDirectory', {
-		'directory': dbpath,
-		'limits': { 'start': 0, 'end': 1 },
-		'properties': [property]
-	}).get('files', [{ property: -1 }])[0][property]
+# Extract additional information from DB path.
+def get_params_from_dbpath(dbpath):
+	# Take only the part from ?info= on.
+	info = dbpath[(dbpath.find('?info=') + 6):]
+	# Replace :: with & to rebuild a valid url query.
+	info = info.replace('::', '&')
+
+	# Parse fake url.
+	parsed = urlparse(f"?{info}")
+
+	# Extract query parameters into a dictionary.
+	params = {'type': None}
+	if parsed.query is not None and parsed.query != '':
+		params = dict(parse_qsl(parsed.query[0:]))
+
+	return params
 
 # Formats a timespan in hours, minutes and (optionally) seconds based on its duration.
 def get_formatted_timespan(timespan, include_seconds=False):

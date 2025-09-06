@@ -7,6 +7,10 @@
 			<!-- Default button to force redirect: either to play or resume action button -->
 			<control type="button" id="9999">
 				<include content="Hidden" />
+				<!-- First reset to main list (seasons or episodes) in case we left on the actors list -->
+				<onfocus>SetFocus(101)</onfocus>
+				<onfocus>SetFocus(102)</onfocus>
+				<!-- Then focus either on play or resume -->
 				<onfocus condition="$EXP[HasMediaNavActionPlay]">SetFocus(510)</onfocus>
 				<onfocus condition="$EXP[HasMediaNavActionResume]">SetFocus(511)</onfocus>
 			</control>

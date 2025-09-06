@@ -219,7 +219,7 @@
 	<include name="MediaNavSeasonList">
 		<definition>
 			<include content="PosterStrip">
-				<param name="visible">$EXP[IsMediaNavShowingSeasons] + $EXP[IsMediaNavSeasonListRenderable]</param>
+				<param name="visible">$EXP[IsMediaNavShowingSeasons]</param>
 				<param name="id">101</param>
 				<param name="label">Seasons</param>
 				<param name="content">plugin://script.canvas.helper/seasons/?dbpath=$INFO[Container.FolderPath]&amp;listid=101</param>
@@ -227,7 +227,8 @@
 				<param name="art">$INFO[ListItem.Art(poster)]</param>
 				<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
 				<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
-				<param name="onclick">ActivateWindow(Videos,$INFO[Container.FolderPath]$INFO[ListItem.Season]/,return)</param>
+				<!--<param name="onclick">ActivateWindow(Videos,$INFO[Container.FolderPath]$INFO[ListItem.Season]/,return)</param>-->
+				<param name="onclick">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.Property(tvshowid)]/$INFO[ListItem.Season]/?info=type=season::tvshowid=$INFO[ListItem.Property(tvshowid)]::season=$INFO[ListItem.Season],return)</param>
 				<param name="onup">SetFocus(500)</param>
 				<param name="ondown">SetFocus(111)</param>
 			</include>
@@ -238,7 +239,7 @@
 	<include name="MediaNavEpisodeList">
 		<definition>
 			<include content="LandscapeStrip">
-				<param name="visible">$EXP[IsMediaNavShowingEpisodes] + $EXP[IsMediaNavEpisodeListRenderable]</param>
+				<param name="visible">$EXP[IsMediaNavShowingEpisodes]</param>
 				<param name="id">102</param>
 				<param name="label"></param>
 				<!--<param name="content">plugin://script.canvas.helper/episodes/?id=$INFO[Window(videos).Property(ItemDetails.Id)]</param>-->
@@ -255,7 +256,7 @@
 	<!-- Actor list -->
 	<include name="MediaNavActorList">
 		<include content="PersonStrip">
-			<param name="visible">[$EXP[IsMediaNavShowingMovie] | $EXP[IsMediaNavShowingSeasons] | $EXP[IsMediaNavShowingEpisodes]] + $EXP[IsMediaNavActorListRenderable]</param>
+			<param name="visible">$EXP[IsMediaNavShowingMovie] | $EXP[IsMediaNavShowingSeasons] | $EXP[IsMediaNavShowingEpisodes]</param>
 			<param name="id">111</param>
 			<param name="label">Cast</param>
 			<param name="content">plugin://script.canvas.helper/actors/?dbpath=$INFO[Container.FolderPath]&amp;listid=111</param>

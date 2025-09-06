@@ -183,6 +183,7 @@ def get_season_listitem(season):
     # Set custom properties.
     videoinfo.setMpaa(rating)
     li.setArt({'tvshow.fanart': season.get('tvshow', {'art': {}})['art'].get('fanart', '')})
+    li.setProperty('tvshowid', str(season.get('tvshow', {'tvshowid': -1})['tvshowid']))
     li.setProperty('TotalEpisodes', str(season['episode']))
     li.setProperty('WatchedEpisodes', str(season['watchedepisodes']))
     li.setProperty('UnWatchedEpisodes', str(unwatched))
@@ -542,13 +543,13 @@ def list_seasons(params, handle):
     # Work with DB path.
     if dbpath is not None:
         # Extract TV show ID from DB path.
-        tvshowid = get_id_from_dbpath(dbpath, 'tvshowid')
-
-        tvshow = call_rpc('VideoLibrary.GetTVShowDetails', {
-            'tvshowid': tvshowid,
-            # Get important TV show properties.
-            'properties': ['mpaa', 'studio', 'plot', 'art']
-        }).get('tvshowdetails', None)
+        info = get_params_from_dbpath(dbpath)
+        if info.get('tvshowid', None) is not None:
+            tvshow = call_rpc('VideoLibrary.GetTVShowDetails', {
+                'tvshowid': int(info['tvshowid']),
+                # Get important TV show properties.
+                'properties': ['mpaa', 'studio', 'plot', 'art']
+            }).get('tvshowdetails', None)
 
     # Otherwise filter on TV show title.
     elif showtitle is not None:
@@ -743,19 +744,17 @@ def list_actors(params, handle):
     # Retrieve DB path from parameters.
     dbpath = params.get('dbpath', None)
 
-    # Compute content type from DB path.
-    type = None
-    if 'videodb://tvshows/' in dbpath: type = 'seasons'
-    elif 'videodb://movies' in dbpath: type = 'movies'
+    # Get info from path.
+    info = get_params_from_dbpath(dbpath)
 
     item = None
 
     # Movies.
-    if type == 'movie' and dbpath is not None:
-        item = call_rpc('VideoLibrary.GetMovieDetails', { 'movieid': id, 'properties': ['cast'] }).get('moviedetails', None)
+    if info['type'] == 'movie' and info.get('movieid', None) is not None:
+        item = call_rpc('VideoLibrary.GetMovieDetails', { 'movieid': int(info['movieid']), 'properties': ['cast'] }).get('moviedetails', None)
     # TV shows.
-    if type == 'seasons' and dbpath is not None:
-        item = call_rpc('VideoLibrary.GetTVShowDetails', { 'tvshowid': get_id_from_dbpath(dbpath, 'tvshowid'), 'properties': ['cast'] }).get('tvshowdetails', None)
+    if info['type'] == 'tvshow' and info.get('tvshowid', None) is not None:
+        item = call_rpc('VideoLibrary.GetTVShowDetails', { 'tvshowid': int(info['tvshowid']), 'properties': ['cast'] }).get('tvshowdetails', None)
 
     # Add actors.
     if item is not None:

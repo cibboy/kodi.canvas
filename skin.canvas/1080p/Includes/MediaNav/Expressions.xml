@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
-	<expression name="IsMediaNavShowingMovie">String.IsEqual(Container.Content,movie)</expression><!--todo-->
-	<expression name="IsMediaNavShowingSeasons">String.IsEqual(Container.Content,seasons)</expression>
-	<expression name="IsMediaNavShowingEpisodes">String.IsEqual(Container.Content,episodes)</expression>
-	<expression name="IsMediaNavShowingMusicAlbum">String.IsEqual(Container.Content,album)</expression><!--todo-->
-	<expression name="IsMediaNavShowingPictureAlbum">String.IsEqual(Container.Content,???)</expression><!--todo-->
+	<expression name="IsMediaNavShowingMovie">String.Contains(Container.FolderPath,type=movie)</expression>
+	<expression name="IsMediaNavShowingSeasons">String.Contains(Container.FolderPath,type=tvshow)</expression>
+	<expression name="IsMediaNavShowingEpisodes">String.Contains(Container.FolderPath,type=season)</expression>
+	<expression name="IsMediaNavShowingMusicAlbum">String.Contains(Container.FolderPath,type=album)</expression>
+	<expression name="IsMediaNavShowingPictureAlbum">String.Contains(Container.FolderPath,type=picturealbum)</expression>
 
 
 	<!-- Has studio? -->
@@ -171,12 +171,4 @@
 	<expression name="HasMediaNavActionMarkAsUnwatched">$EXP[IsMediaNavDetailsWatched]</expression>
 	<!-- Has mark as watched action? -->
 	<expression name="HasMediaNavActionMarkAsWatched">!$EXP[IsMediaNavDetailsWatched]</expression>
-
-
-	<!-- Is season list renderable (no loading, has content)? -->
-	<expression name="IsMediaNavSeasonListRenderable">!String.IsEqual(Window(videos).Property(List.101.IsLoading),true) + String.IsEqual(Window(videos).Property(List.101.HasContent),true)</expression>
-	<!-- Is episode list renderable (no loading, has content)? -->
-	<expression name="IsMediaNavEpisodeListRenderable">!String.IsEqual(Window(videos).Property(List.102.IsLoading),true) + String.IsEqual(Window(videos).Property(List.102.HasContent),true)</expression>
-	<!-- Is actor list renderable (no loading, has content)? -->
-	<expression name="IsMediaNavActorListRenderable">!String.IsEqual(Window(videos).Property(List.111.IsLoading),true) + String.IsEqual(Window(videos).Property(List.111.HasContent),true)</expression>
 </includes>
