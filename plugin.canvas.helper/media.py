@@ -268,6 +268,7 @@ def get_episode_listitem(episode):
     # Set custom properties.
     videoinfo.setMpaa(rating)
     li.setArt({'poster': episode['art'].get('tvshow.poster', '')})
+    li.setProperty('tvshowid', str(episode.get('tvshow', {'tvshowid': -1})['tvshowid']))
     li.setProperty('AudioChannels', str(channels))
     li.setProperty('DurationString', duration)
     li.setProperty('TimeRemainingString', time_remaining)
@@ -512,8 +513,8 @@ def list_tvshows(params, handle):
         'properties': tvshow_properties_query
     }
     # If exclusion specified, add to call.
-    #if exclude is not None:#todo:decomment
-    #    query['filter'] = { 'field': 'title', 'operator': 'isnot', 'value': exclude }
+    if exclude is not None:
+        query['filter'] = { 'field': 'title', 'operator': 'isnot', 'value': exclude }
     # If limit specified, add to call.
     if limit > 0:
         query['limits'] = { 'start': 0, 'end': limit }
@@ -600,67 +601,51 @@ def list_seasons(params, handle):
     return 0
 
 # Create a list of episodes.
-#todo
 def list_episodes(params, handle):
-    details = call_rpc('VideoLibrary.GetSeasonDetails', {
-        'seasonid': int(params.get('id', -1)),
-        'properties': ['tvshowid', 'season']
-    }).get('seasondetails', {'season': -1, 'tvshowid': -1})
+    dbpath = params.get('dbpath', None)
 
-    season = details['season']
-    tvshowid = details['tvshowid']
-
-    episodes = call_rpc('VideoLibrary.GetEpisodes', {
-        'tvshowid': tvshowid,
-        'season': season,
-        'sort': {'order': 'ascending', 'method': 'episode'},
-        'properties': episode_properties_query
-    }).get('episodes', [])
-
-    #xbmc.log(str(episodes),xbmc.LOGINFO)
-
-    #details = call_rpc('VideoLibrary.GetEpisodeDetails', {
-    #    'episodeid': int(params.get('id', -1)),
-    #    'properties': ['tvshowid', 'seasonid', 'title']
-    #}).get('episodedetails', [])
-
-    ## Load first 25 episodes not from Yoga with Adriene.
-    #episodes = call_rpc('VideoLibrary.GetEpisodes', {
-    #    # Exclude Yoga with Adriene.
-    #    'filter': {'field': 'tvshow', 'operator': 'isnot', 'value': "Yoga with Adriene"},
-    #    # Sort by date added, descending.
-    #    'sort': {'order': 'descending', 'method': 'dateadded'},
-    #    # Pick first 25.
-    #    'limits': {'start': 0, 'end': 25},
-    #    # Only get TV show title.
-    #    'properties': episode_properties_query
-    #}).get('episodes', [])
-#
-    if len(episodes) > 0:
-        # Load all TV shows with title and MPAA (to be added to the episode).
-        all_shows = call_rpc('VideoLibrary.GetTVShows', {
-            # Only get TV show title and rating for later use.
-            'properties': ['title', 'mpaa']
-        }).get('tvshows', [])
-        # Create map of shows.
-        shows = {}
-        for s in all_shows:
-            shows[s['title']] = s
-
-        # For each episode ID found, add to list.
-        for episode in episodes:
-            episode['tvshow'] = shows[episode['showtitle']]
-            li = get_episode_listitem(episode)
-            xbmcplugin.addDirectoryItem(
-                handle=handle,
-                url=episode['title'],
-                listitem=li,
-                isFolder=False
-            )
+    # Work with DB path.
+    if dbpath is not None:
+        # Extract TV show ID and season NUMBER from DB path.
+        info = get_params_from_dbpath(dbpath)
+        tvshowid = info.get('tvshowid', None)
+        season = info.get('season', None)
+        episode_number = info.get('episode', -1)
+        
+        # Load list of episodes using TV show ID and season.
+        if tvshowid is not None and season is not None:
+            episodes = call_rpc('VideoLibrary.GetEpisodes', {
+                'tvshowid': int(tvshowid),
+                'season': int(season),
+                'sort': {'order': 'ascending', 'method': 'episode'},
+                'properties': episode_properties_query
+            }).get('episodes', [])
             
-        return len(episodes)
+            if len(episodes) > 0:
+                # Load TV show with title and MPAA (to be added to the episode).
+                tvshow = call_rpc('VideoLibrary.GetTVShowDetails', {
+                    'tvshowid': int(tvshowid),
+                    # Get important TV show properties.
+                    'properties': ['title', 'mpaa']
+                }).get('tvshowdetails', None)
+
+                # For each episode ID found, add to list.
+                for episode in episodes:
+                    # Include only episodes of the required season
+                    # (basically exclude specials).
+                    if episode['season'] == int(season):
+                        episode['tvshow'] = tvshow
+                        li = get_episode_listitem(episode)
+                        xbmcplugin.addDirectoryItem(
+                            handle=handle,
+                            url=episode['title'],
+                            listitem=li,
+                            isFolder=False
+                        )
+                    
+                return (len(episodes), int(episode_number) - 1)
     
-    return 0
+    return (0, -1)
 
 # Create a list of albums.
 def list_albums(params, handle):
@@ -784,6 +769,7 @@ def list_media(method, params, handle):
     if listid is not None: window.setProperty(f"List.{listid}.IsLoading", 'true')
 
     count = 0
+    shift = -1
     # Call appropriate method.
     if method == 'continue_watching':
         count = list_continue_watching(handle)
@@ -796,7 +782,7 @@ def list_media(method, params, handle):
     elif method == 'seasons':
         count = list_seasons(params, handle)
     elif method == 'episodes':
-        count = list_episodes(params, handle)
+        count,shift = list_episodes(params, handle)
     elif method == 'albums':
         count = list_albums(params, handle)
     elif method == 'songs':
@@ -838,3 +824,12 @@ def list_media(method, params, handle):
 
     # Close list.
     xbmcplugin.endOfDirectory(handle)
+
+    # If a shift is requested, refocus the list item to that id.
+    if shift > -1:
+        # Retrieve currently selected control ID.
+        selected_button = window.getProperty('SelectedControlId')
+        # Shift the list to the required item.
+        xbmc.executebuiltin(f"SetFocus({listid},{shift},absolute)")
+        # Refocus to currently selected control.
+        xbmc.executebuiltin(f"SetFocus({selected_button})")

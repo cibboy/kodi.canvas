@@ -87,6 +87,7 @@
 	<include name="ArtListsPoster">
 		<param name="art"></param>
 		<param name="fallback">1080p/fallback/poster.png</param>
+		<param name="isloading">false</param>
 		<param name="offset_top_icon">OFFSET_TOP_POSTER_STRIP_ICON</param>
 		<param name="offset_right_icon">OFFSET_RIGHT_POSTER_STRIP_ICON</param>
 		<param name="offset_top_progress">OFFSET_TOP_POSTER_PROGRESS</param>
@@ -98,9 +99,19 @@
 
 				<!-- Poster image -->
 				<control type="image">
+					<visible>!$PARAM[isloading]</visible>
 					<width>WIDTH_POSTER</width>
 					<height>HEIGHT_POSTER</height>
 					<texture fallback="$PARAM[fallback]" background="true" diffuse="1080p/diffuse/poster.png">$PARAM[art]</texture>
+					<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-art.png</bordertexture>
+					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+				</control>
+				<control type="image">
+					<visible>$PARAM[isloading]</visible>
+					<width>WIDTH_POSTER</width>
+					<height>HEIGHT_POSTER</height>
+					<texture background="true" diffuse="1080p/diffuse/poster.png">$PARAM[fallback]</texture>
 					<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-art.png</bordertexture>
 					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
 					<aspectratio scalediffuse="false">scale</aspectratio>
@@ -130,17 +141,30 @@
 	<include name="ArtListsAlbum">
 		<param name="art"></param>
 		<param name="fallback">1080p/fallback/music.png</param>
+		<param name="isloading">false</param>
 
 		<definition>
-			<control type="image">
+			<control type="group">
 				<include content="FocusZoomAnimation" />
 
-				<width>WIDTH_ALBUM</width>
-				<height>HEIGHT_ALBUM</height>
-				<texture fallback="$PARAM[fallback]" background="true" diffuse="1080p/diffuse/square.png">$PARAM[art]</texture>
-				<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-art.png</bordertexture>
-				<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
-				<aspectratio scalediffuse="false">scale</aspectratio>
+				<control type="image">
+					<visible>!$PARAM[isloading]</visible>
+					<width>WIDTH_ALBUM</width>
+					<height>HEIGHT_ALBUM</height>
+					<texture fallback="$PARAM[fallback]" background="true" diffuse="1080p/diffuse/square.png">$PARAM[art]</texture>
+					<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-art.png</bordertexture>
+					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+				</control>
+				<control type="image">
+					<visible>$PARAM[isloading]</visible>
+					<width>WIDTH_ALBUM</width>
+					<height>HEIGHT_ALBUM</height>
+					<texture background="true" diffuse="1080p/diffuse/square.png">$PARAM[fallback]</texture>
+					<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-art.png</bordertexture>
+					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+				</control>
 			</control>
 		</definition>
 	</include>
@@ -149,6 +173,7 @@
 	<include name="ArtListsLandscape">
 		<param name="art"></param>
 		<param name="fallback">1080p/fallback/landscape.png</param>
+		<param name="isloading">false</param>
 
 		<definition>
 			<control type="group">
@@ -156,9 +181,19 @@
 
 				<!-- Landscape image -->
 				<control type="image">
+					<visible>!$PARAM[isloading]</visible>
 					<width>WIDTH_LANDSCAPE</width>
 					<height>HEIGHT_LANDSCAPE</height>
 					<texture fallback="$PARAM[fallback]" background="true" diffuse="1080p/diffuse/landscape.png">$PARAM[art]</texture>
+					<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-art.png</bordertexture>
+					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+				</control>
+				<control type="image">
+					<visible>$PARAM[isloading]</visible>
+					<width>WIDTH_LANDSCAPE</width>
+					<height>HEIGHT_LANDSCAPE</height>
+					<texture background="true" diffuse="1080p/diffuse/landscape.png">$PARAM[fallback]</texture>
 					<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-art.png</bordertexture>
 					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
 					<aspectratio scalediffuse="false">scale</aspectratio>
@@ -183,19 +218,32 @@
 	<include name="ArtListsPerson">
 		<param name="art"></param>
 		<param name="fallback">1080p/fallback/person.png</param>
+		<param name="isloading">false</param>
 
 		<definition>
-			<control type="image">
+			<control type="group">
 				<include content="FocusZoomAnimation">
 					<param name="amount">115</param>
 				</include>
 
-				<width>WIDTH_PERSON</width>
-				<height>HEIGHT_PERSON</height>
-				<texture fallback="$PARAM[fallback]" background="true" diffuse="1080p/diffuse/circle.png">$PARAM[art]</texture>
-				<bordertexture border="SIZE_ITEM_SHADOW_CIRCLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-circle.png</bordertexture>
-				<bordersize>SIZE_ITEM_SHADOW_CIRCLE_DOUBLE</bordersize>
-				<aspectratio scalediffuse="false">scale</aspectratio>
+				<control type="image">
+					<visible>!$PARAM[isloading]</visible>
+					<width>WIDTH_PERSON</width>
+					<height>HEIGHT_PERSON</height>
+					<texture fallback="$PARAM[fallback]" background="true" diffuse="1080p/diffuse/circle.png">$PARAM[art]</texture>
+					<bordertexture border="SIZE_ITEM_SHADOW_CIRCLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-circle.png</bordertexture>
+					<bordersize>SIZE_ITEM_SHADOW_CIRCLE_DOUBLE</bordersize>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+				</control>
+				<control type="image">
+					<visible>$PARAM[isloading]</visible>
+					<width>WIDTH_PERSON</width>
+					<height>HEIGHT_PERSON</height>
+					<texture fallback="$PARAM[fallback]" background="true" diffuse="1080p/diffuse/circle.png">$PARAM[art]</texture>
+					<bordertexture border="SIZE_ITEM_SHADOW_CIRCLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-circle.png</bordertexture>
+					<bordersize>SIZE_ITEM_SHADOW_CIRCLE_DOUBLE</bordersize>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+				</control>
 			</control>
 		</definition>
 	</include>
@@ -209,6 +257,7 @@
 		<param name="content"></param>
 		<param name="art"></param>
 		<param name="fallback">1080p/fallback/landscape.png</param>
+		<param name="isloading">false</param>
 		<param name="showinfo">false</param>
 		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
 		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
@@ -251,11 +300,12 @@
 							<include content="ArtListsLandscape">
 								<param name="art">$PARAM[art]</param>
 								<param name="fallback">$PARAM[fallback]</param>
+								<param name="isloading">$PARAM[isloading]</param>
 							</include>
 
 							<!-- Info -->
 							<control type="group">
-								<visible>$PARAM[showinfo]</visible>
+								<visible>$PARAM[showinfo] + !$PARAM[isloading]</visible>
 								<top>OFFSET_LANDSCAPE_STRIP_INFO</top>
 
 								<control type="group">
@@ -327,11 +377,12 @@
 							<include content="ArtListsLandscape">
 								<param name="art">$PARAM[art]</param>
 								<param name="fallback">$PARAM[fallback]</param>
+								<param name="isloading">$PARAM[isloading]</param>
 							</include>
 
 							<!-- Info -->
 							<control type="group">
-								<visible>$PARAM[showinfo]</visible>
+								<visible>$PARAM[showinfo] + !$PARAM[isloading]</visible>
 								<top>OFFSET_LANDSCAPE_STRIP_INFO</top>
 
 								<control type="group">
@@ -405,6 +456,7 @@
 		<param name="content"></param>
 		<param name="art"></param>
 		<param name="fallback">1080p/fallback/poster.png</param>
+		<param name="isloading">false</param>
 		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
 		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
 		<param name="onclick">noop</param>
@@ -447,6 +499,7 @@
 							<include content="ArtListsPoster">
 								<param name="art">$PARAM[art]</param>
 								<param name="fallback">$PARAM[fallback]</param>
+								<param name="isloading">$PARAM[isloading]</param>
 							</include>
 						</control>
 					</itemlayout>
@@ -463,6 +516,7 @@
 							<include content="ArtListsPoster">
 								<param name="art">$PARAM[art]</param>
 								<param name="fallback">$PARAM[fallback]</param>
+								<param name="isloading">$PARAM[isloading]</param>
 							</include>
 						</control>
 					</focusedlayout>
@@ -481,6 +535,7 @@
 		<param name="content"></param>
 		<param name="art"></param>
 		<param name="fallback">1080p/fallback/music.png</param>
+		<param name="isloading">false</param>
 		<param name="info"></param>
 		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
 		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
@@ -523,10 +578,12 @@
 							<include content="ArtListsAlbum">
 								<param name="art">$PARAM[art]</param>
 								<param name="fallback">$PARAM[fallback]</param>
+								<param name="isloading">$PARAM[isloading]</param>
 							</include>
 
 							<!-- Info -->
 							<control type="group">
+								<visible>!$PARAM[isloading]</visible>
 								<top>OFFSET_ALBUM_INFO</top>
 
 								<control type="group">
@@ -559,10 +616,12 @@
 							<include content="ArtListsAlbum">
 								<param name="art">$PARAM[art]</param>
 								<param name="fallback">$PARAM[fallback]</param>
+								<param name="isloading">$PARAM[isloading]</param>
 							</include>
 
 							<!-- Info -->
 							<control type="group">
+								<visible>!$PARAM[isloading]</visible>
 								<top>OFFSET_ALBUM_INFO</top>
 
 								<control type="group">
@@ -597,6 +656,7 @@
 		<param name="content"></param>
 		<param name="art"></param>
 		<param name="fallback">1080p/fallback/person.png</param>
+		<param name="isloading">false</param>
 		<param name="info1"></param>
 		<param name="info2"></param>
 		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
@@ -630,10 +690,12 @@
 							<include content="ArtListsPerson">
 								<param name="art">$PARAM[art]</param>
 								<param name="fallback">$PARAM[fallback]</param>
+								<param name="isloading">$PARAM[isloading]</param>
 							</include>
 
 							<!-- Info -->
 							<control type="group">
+								<visible>!$PARAM[isloading]</visible>
 								<top>OFFSET_PERSON_INFO</top>
 
 								<control type="group">
@@ -669,10 +731,12 @@
 							<include content="ArtListsPerson">
 								<param name="art">$PARAM[art]</param>
 								<param name="fallback">$PARAM[fallback]</param>
+								<param name="isloading">$PARAM[isloading]</param>
 							</include>
 
 							<!-- Info -->
 							<control type="group">
+								<visible>!$PARAM[isloading]</visible>
 								<top>OFFSET_PERSON_INFO</top>
 
 								<control type="group">

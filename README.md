@@ -11,6 +11,8 @@ TOFIX:
 - medianav: doppia window per i 2 livelli comunque non funziona perchè utilizza componenti e proprietà in comune, quindi andando indietro dal livello 2 all'1 fa vedere ancora le info del livello 2, e con un ulteriore indietro torna alla home
 - medianav: setfocus sull'unload non funziona come atteso (ad esempio sulla home, usando continue watching e poi tornando indietro va a recently added episodes, perchè è id 102)
 - medianav: migliorare expressions e variabili usando expression dedicate per capire il focus 101/102 (ma tenere conto della lista attori!!!!)
+- aggiungere gestione isloading su posterwall e albumwall
+  - e se fosse da provare a gestire semplicemente il loading su visibilità lista in myvideonav.xml?
 
 TODO:
 - dialog in settings da fare:

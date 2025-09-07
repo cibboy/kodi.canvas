@@ -8,11 +8,17 @@
 			<control type="button" id="9999">
 				<include content="Hidden" />
 				<!-- First reset to main list (seasons or episodes) in case we left on the actors list -->
-				<onfocus>SetFocus(101)</onfocus>
-				<onfocus>SetFocus(102)</onfocus>
-				<!-- Then focus either on play or resume -->
+				<onfocus>SetFocus(101,0)</onfocus>
+				<onfocus>SetFocus(102,0)</onfocus>
+				<!--
+					Then focus either on play or resume.
+					Also set a window property indicating which one was selected, so the info
+					can be used by the addon if it needs to set focus.
+				-->
 				<onfocus condition="$EXP[HasMediaNavActionPlay]">SetFocus(510)</onfocus>
+				<onfocus condition="$EXP[HasMediaNavActionPlay]">SetProperty(SelectedControlId,510)</onfocus>
 				<onfocus condition="$EXP[HasMediaNavActionResume]">SetFocus(511)</onfocus>
+				<onfocus condition="$EXP[HasMediaNavActionResume]">SetProperty(SelectedControlId,511)</onfocus>
 			</control>
 
 			<!-- Background -->
@@ -80,7 +86,7 @@
 			</control>
 			<control type="label">
 				<top>200</top>
-				<label>##$INFO[Window(videos).Property(List.111.HasContent)]çç</label>
+				<label>##$INFO[Window.Property(SelectedControlId)]çç</label>
 				<textcolor>FFFF0000</textcolor>
 			</control>
 		</include>

@@ -11,7 +11,7 @@
 	<variable name="HomeMusicContentUrl"><value>plugin://script.canvas.helper/songs/?listid=141&amp;home_refocus_when_done=4&amp;nonce=$INFO[Window(home).Property(Nonce)]</value></variable>
 	<variable name="HomePicturesContentUrl"><value>plugin://script.canvas.helper/pictures/?listid=151&amp;home_refocus_when_done=5&amp;nonce=$INFO[Window(home).Property(Nonce)]</value></variable>
 
-
+	
 	<!-- Contrast text color (against blur art) -->
 	<variable name="HomeContrastTextForegroundColor">
 		<!-- Light color -->
@@ -807,16 +807,15 @@
 	<!-- Item onclick action -->
 	<variable name="HomeMediaOnClickAction">
 		<!-- Continue watching -->
-		<value condition="$EXP[IsHomeContinueWatchingActive] + $EXP[IsHomeContinueWatchingEpisode]">RunScript(script.canvas.helper,onclick_media_item,episode,$INFO[ListItem.DBID])</value>
-		<value condition="$EXP[IsHomeContinueWatchingActive]">RunScript(script.canvas.helper,onclick_media_item,movie,$INFO[ListItem.DBID])</value>
+		<value condition="$EXP[IsHomeContinueWatchingActive] + $EXP[IsHomeContinueWatchingEpisode]">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.Property(tvshowid)]/$INFO[ListItem.Season]/?info=type=episode::tvshowid=$INFO[ListItem.Property(tvshowid)]::season=$INFO[ListItem.Season]::episode=$INFO[ListItem.Episode],return)</value>
+		<value condition="$EXP[IsHomeContinueWatchingActive]">ActivateWindow(Videos,videodb://movies/titles/?info=type=movie::movieid=$INFO[ListItem.DBID],return)</value>
 		<!-- Recently added episodes -->
-		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive]">RunScript(script.canvas.helper,onclick_media_item,episode,$INFO[ListItem.DBID])</value>
+		<value condition="$EXP[IsHomeRecentlyAddedEpisodesActive]">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.Property(tvshowid)]/$INFO[ListItem.Season]/?info=type=episode::tvshowid=$INFO[ListItem.Property(tvshowid)]::season=$INFO[ListItem.Season]::episode=$INFO[ListItem.Episode],return)</value>
 		<!-- Recently added movies -->
-		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive]">RunScript(script.canvas.helper,onclick_media_item,movie,$INFO[ListItem.DBID])</value>
+		<value condition="$EXP[IsHomeRecentlyAddedMoviesActive]">ActivateWindow(Videos,videodb://movies/titles/?info=type=movie::movieid=$INFO[ListItem.DBID],return)</value>
 		<!-- Recently added music -->
 		<value condition="$EXP[IsHomeRecentlyAddedMusicActive]"></value><!--todo: direct play-->
 		<!-- Movies -->
-		<!--<value condition="$EXP[IsHomeMoviesActive]">RunScript(script.canvas.helper,onclick_media_item,movie,$INFO[ListItem.DBID])</value>-->
 		<value condition="$EXP[IsHomeMoviesActive]">ActivateWindow(Videos,videodb://movies/titles/?info=type=movie::movieid=$INFO[ListItem.DBID],return)</value>
 		<!-- TV shows -->
 		<value condition="$EXP[IsHomeTVShowsActive]">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.DBID]/?info=type=tvshow::tvshowid=$INFO[ListItem.DBID],return)</value>
