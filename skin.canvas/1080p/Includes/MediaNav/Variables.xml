@@ -42,8 +42,11 @@
 		<!-- Season specific -->
 		<value condition="$EXP[HasMediaNavSeasonStripFocus] + !String.IsEmpty(Container(101).ListItem.Art(fanart))">$INFO[Container(101).ListItem.Art(fanart)]</value>
 		<value condition="$EXP[HasMediaNavSeasonStripFocus]">$INFO[Container(101).ListItem.Art(tvshow.fanart)]</value>
+		<!-- Episode specific -->
+		<value condition="$EXP[IsMediaNavShowingEpisodes] + !String.IsEmpty(Container(102).ListItem.Art(fanart))">$INFO[Container(102).ListItem.Art(fanart)]</value>
+		<value condition="$EXP[IsMediaNavShowingEpisodes]">$INFO[Container(102).ListItem.Art(tvshow.fanart)]</value>
 		<!-- Carryover -->
-		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Window(videos).Property(CarryOver.Art)]</value>
+		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes]">$INFO[Window(videos).Property(CarryOver.Art)]</value>
 	</variable>
 
 	<!-- Full screen background blur -->
@@ -51,8 +54,11 @@
 		<!-- Season specific -->
 		<value condition="$EXP[HasMediaNavSeasonStripFocus] + !String.IsEmpty(Container(101).ListItem.Property(BlurArt.Season))">$INFO[Container(101).ListItem.Property(BlurArt.Season)]</value>
 		<value condition="$EXP[HasMediaNavSeasonStripFocus]">$INFO[Container(101).ListItem.Property(BlurArt.TvShow)]</value>
+		<!-- Episode specific -->
+		<value condition="$EXP[IsMediaNavShowingEpisodes] + !String.IsEmpty(Container(102).ListItem.Property(BlurArt.Season))">$INFO[Container(102).ListItem.Property(BlurArt.Season)]</value>
+		<value condition="$EXP[IsMediaNavShowingEpisodes]">$INFO[Container(102).ListItem.Property(BlurArt.TvShow)]</value>
 		<!-- Carryover -->
-		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Window(videos).Property(CarryOver.Blur)]</value>
+		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes]">$INFO[Window(videos).Property(CarryOver.Blur)]</value>
 	</variable>
 
 
@@ -60,117 +66,125 @@
 	<variable name="MediaNavDetailsStudio">
 		<!-- Season specific -->
 		<value condition="$EXP[HasMediaNavDetailsStudio] + $EXP[HasMediaNavSeasonStripFocus]">1080p/studios/$INFO[Container(101).ListItem.Studio].png</value>
+		<!-- Episode specific -->
+		<value condition="$EXP[HasMediaNavDetailsStudio] + $EXP[IsMediaNavShowingEpisodes]">1080p/studios/$INFO[Container(102).ListItem.Studio].png</value>
 		<!-- Carryover -->
-		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Window(videos).Property(CarryOver.Studio)]</value>
+		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes]">$INFO[Window(videos).Property(CarryOver.Studio)]</value>
 	</variable>
 
 	<!-- Clearlogo -->
 	<variable name="MediaNavDetailsClearlogo">
 		<!-- Season specific -->
 		<value condition="$EXP[HasMediaNavDetailsClearlogo] + $EXP[HasMediaNavSeasonStripFocus]">$INFO[Container(101).ListItem.Property(Clearlogo.Big)]</value>
+		<!-- Episode specific -->
+		<value condition="$EXP[HasMediaNavDetailsClearlogo] + $EXP[IsMediaNavShowingEpisodes]">$INFO[Container(102).ListItem.Property(Clearlogo.Big)]</value>
 		<!-- Carryover -->
-		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Window(videos).Property(CarryOver.Clearlogo)]</value>
+		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes]">$INFO[Window(videos).Property(CarryOver.Clearlogo)]</value>
 	</variable>
 
 	<!-- Title -->
 	<variable name="MediaNavDetailsTitle">
 		<!-- Season specific -->
 		<value condition="$EXP[HasMediaNavDetailsTitle] + $EXP[HasMediaNavSeasonStripFocus]">$INFO[Container(101).ListItem.TVShowTitle]</value>
+		<!-- Episode specific -->
+		<value condition="$EXP[HasMediaNavDetailsTitle] + $EXP[IsMediaNavShowingEpisodes]">$INFO[Container(102).ListItem.TVShowTitle]</value>
 		<!-- Carryover -->
-		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Window(videos).Property(CarryOver.Title)]</value>
+		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes]">$INFO[Window(videos).Property(CarryOver.Title)]</value>
 	</variable>
 
 	<!-- Subtitle -->
 	<variable name="MediaNavDetailsSubtitle">
 		<!-- Season specific -->
 		<value condition="$EXP[HasMediaNavDetailsSubtitle] + $EXP[HasMediaNavSeasonStripFocus]">$INFO[Container(101).ListItem.Title]</value>
+		<!-- Episode specific -->
+		<value condition="$EXP[HasMediaNavDetailsSubtitle] + $EXP[IsMediaNavShowingEpisodes]">$INFO[Container(102).ListItem.Title]</value>
 		<!-- Carryover -->
-		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Window(videos).Property(CarryOver.Subtitle)]</value>
+		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes]">$INFO[Window(videos).Property(CarryOver.Subtitle)]</value>
 	</variable>
 
 	<!-- Resolution -->
 	<variable name="MediaNavDetailsResolution">
 		<!-- Episode specific -->
-		<value condition="$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Container(102).ListItem.VideoResolution]</value>
+		<value condition="$EXP[IsMediaNavShowingEpisodes] + $EXP[HasMediaNavDetailsResolution]">$INFO[Container(102).ListItem.VideoResolution]</value>
 		<!-- Carryover -->
-		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Window(videos).Property(CarryOver.Resolution)]</value>
+		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes]">$INFO[Window(videos).Property(CarryOver.Resolution)]</value>
 	</variable>
 
 	<!-- HDR -->
 	<variable name="MediaNavDetailsHdr">
 		<!-- Episode specific -->
-		<value condition="$EXP[HasMediaNavEpisodeStripFocus] + String.IsEqual(Container(102).ListItem.HdrType,hdr10)">HDR</value>
-		<value condition="$EXP[HasMediaNavEpisodeStripFocus] + String.IsEqual(Container(102).ListItem.HdrType,dolbyvision)">Dolby Vision</value>
-		<value condition="$EXP[HasMediaNavEpisodeStripFocus] + String.IsEqual(Container(102).ListItem.HdrType,hlg)">HLG</value>
-		<value condition="$EXP[HasMediaNavEpisodeStripFocus]">[UPPERCASE]$INFO[Container(102).ListItem.HdrType][/UPPERCASE]</value>
+		<value condition="$EXP[IsMediaNavShowingEpisodes] + $EXP[HasMediaNavDetailsHdr] + String.IsEqual(Container(102).ListItem.HdrType,hdr10)">HDR</value>
+		<value condition="$EXP[IsMediaNavShowingEpisodes] + $EXP[HasMediaNavDetailsHdr] + String.IsEqual(Container(102).ListItem.HdrType,dolbyvision)">Dolby Vision</value>
+		<value condition="$EXP[IsMediaNavShowingEpisodes] + $EXP[HasMediaNavDetailsHdr] + String.IsEqual(Container(102).ListItem.HdrType,hlg)">HLG</value>
+		<value condition="$EXP[IsMediaNavShowingEpisodes] + $EXP[HasMediaNavDetailsHdr]">[UPPERCASE]$INFO[Container(102).ListItem.HdrType][/UPPERCASE]</value>
 		<!-- Carryover -->
-		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Window(videos).Property(CarryOver.Hdr)]</value>
+		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes]">$INFO[Window(videos).Property(CarryOver.Hdr)]</value>
 	</variable>
 
 	<!-- Audio channels -->
 	<variable name="MediaNavDetailsAudioChannels">
 		<!-- Episode specific -->
-		<value condition="$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Container(102).ListItem.Property(AudioChannels)]</value>
+		<value condition="$EXP[IsMediaNavShowingEpisodes] + $EXP[HasMediaNavDetailsAudioChannels]">$INFO[Container(102).ListItem.Property(AudioChannels)]</value>
 		<!-- Carryover -->
-		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Window(videos).Property(CarryOver.AudioChannels)]</value>
+		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes]">$INFO[Window(videos).Property(CarryOver.AudioChannels)]</value>
 	</variable>
 
 	<!-- Year -->
 	<variable name="MediaNavDetailsYear">
 		<!-- Carryover -->
-		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Window(videos).Property(CarryOver.Year)]</value>
+		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes]">$INFO[Window(videos).Property(CarryOver.Year)]</value>
 	</variable>
 
 	<!-- Episode -->
 	<variable name="MediaNavDetailsEpisode">
 		<!-- Episode specific -->
-		<value condition="$EXP[HasMediaNavEpisodeStripFocus]">S$INFO[Container(102).ListItem.Season]·E$INFO[Container(102).ListItem.Episode]</value>
+		<value condition="$EXP[IsMediaNavShowingEpisodes] + $EXP[HasMediaNavDetailsEpisode]">S$INFO[Container(102).ListItem.Season]·E$INFO[Container(102).ListItem.Episode]</value>
 		<!-- Carryover -->
-		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Window(videos).Property(CarryOver.Episode)]</value>
+		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes]">$INFO[Window(videos).Property(CarryOver.Episode)]</value>
 	</variable>
 
 	<!-- Premiered -->
 	<variable name="MediaNavDetailsPremiered">
 		<!-- Episode specific -->
-		<value condition="$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Container(102).ListItem.Premiered]</value>
+		<value condition="$EXP[IsMediaNavShowingEpisodes] + $EXP[HasMediaNavDetailsPremiered]">$INFO[Container(102).ListItem.Premiered]</value>
 		<!-- Carryover -->
-		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Window(videos).Property(CarryOver.Premiered)]</value>
+		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes]">$INFO[Window(videos).Property(CarryOver.Premiered)]</value>
 	</variable>
 
 	<!-- Duration -->
 	<variable name="MediaNavDetailsDuration">
 		<!-- Episode specific -->
-		<value condition="$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Container(102).ListItem.Property(DurationString)]</value>
+		<value condition="$EXP[IsMediaNavShowingEpisodes] + $EXP[HasMediaNavDetailsDuration]">$INFO[Container(102).ListItem.Property(DurationString)]</value>
 		<!-- Carryover -->
-		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Window(videos).Property(CarryOver.Duration)]</value>
+		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes]">$INFO[Window(videos).Property(CarryOver.Duration)]</value>
 	</variable>
 
 	<!-- Mpaa -->
 	<variable name="MediaNavDetailsMpaa">
 		<!-- Episode specific -->
-		<value condition="$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Container(102).ListItem.Mpaa]</value>
+		<value condition="$EXP[IsMediaNavShowingEpisodes] + $EXP[HasMediaNavDetailsMpaa]">$INFO[Container(102).ListItem.Mpaa]</value>
 		<!-- Carryover -->
-		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Window(videos).Property(CarryOver.Mpaa)]</value>
+		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes]">$INFO[Window(videos).Property(CarryOver.Mpaa)]</value>
 	</variable>
 
 	<!-- Status -->
 	<variable name="MediaNavDetailsStatus">
 		<!-- Carryover -->
-		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Window(videos).Property(CarryOver.Status)]</value>
+		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes]">$INFO[Window(videos).Property(CarryOver.Status)]</value>
 	</variable>
 
 	<!-- Genre -->
 	<variable name="MediaNavDetailsGenre">
 		<!-- Carryover -->
-		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Window(videos).Property(CarryOver.Genre)]</value>
+		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes]">$INFO[Window(videos).Property(CarryOver.Genre)]</value>
 	</variable>
 
 	<!-- Time remaining -->
 	<variable name="MediaNavDetailsTimeRemaining">
 		<!-- Episode specific -->
-		<value condition="$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Container(102).ListItem.Property(TimeRemainingString)] left</value>
+		<value condition="$EXP[IsMediaNavShowingEpisodes] + $EXP[HasMediaNavDetailsTimeRemaining]">$INFO[Container(102).ListItem.Property(TimeRemainingString)] left</value>
 		<!-- Carryover -->
-		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Window(videos).Property(CarryOver.TimeRemaining)]</value>
+		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes]">$INFO[Window(videos).Property(CarryOver.TimeRemaining)]</value>
 	</variable>
 
 	<!-- Episodes remaining -->
@@ -178,7 +192,7 @@
 		<!-- Season specific -->
 		<value condition="$EXP[HasMediaNavDetailsEpisodesRemaining] + $EXP[HasMediaNavSeasonStripFocus]">$INFO[Container(101).ListItem.Property(WatchedEpisodes)] of $INFO[Container(101).ListItem.Property(TotalEpisodes)] watched</value>
 		<!-- Carryover -->
-		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Window(videos).Property(CarryOver.EpisodesRemaining)]</value>
+		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes]">$INFO[Window(videos).Property(CarryOver.EpisodesRemaining)]</value>
 	</variable>
 
 	<!-- Watched percentage -->
@@ -186,17 +200,19 @@
 		<!-- Season specific -->
 		<value condition="$EXP[HasMediaNavSeasonStripFocus]">$INFO[Container(101).ListItem.Property(WatchedPercentage)]</value>
 		<!-- Episode specific -->
-		<value condition="$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Container(102).ListItem.Property(WatchedPercentage)]</value>
+		<value condition="$EXP[IsMediaNavShowingEpisodes]">$INFO[Container(102).ListItem.Property(WatchedPercentage)]</value>
 		<!-- Carryover -->
-		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Window(videos).Property(CarryOver.WatchedPercentage)]</value>
+		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes]">$INFO[Window(videos).Property(CarryOver.WatchedPercentage)]</value>
 	</variable>
 
 	<!-- Plot -->
 	<variable name="MediaNavDetailsSummary">
 		<!-- Season specific -->
 		<value condition="$EXP[HasMediaNavDetailsSummary] + $EXP[HasMediaNavSeasonStripFocus]">$INFO[Container(101).ListItem.Plot]</value>
+		<!-- Season specific -->
+		<value condition="$EXP[HasMediaNavDetailsSummary] + $EXP[IsMediaNavShowingEpisodes]">$INFO[Container(102).ListItem.Plot]</value>
 		<!-- Carryover -->
-		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[HasMediaNavEpisodeStripFocus]">$INFO[Window(videos).Property(CarryOver.Summary)]</value>
+		<value condition="!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes]">$INFO[Window(videos).Property(CarryOver.Summary)]</value>
 	</variable>
 
 
@@ -215,6 +231,15 @@
 	<variable name="MediaNavMarkAsWatchedButtonLabel"><value condition="Control.HasFocus(514)">  Mark as watched</value></variable>
 	<variable name="MediaNavInfoButtonLabel"><value condition="Control.HasFocus(515)">  Info</value></variable>
 	<variable name="MediaNavMoreButtonLabel"><value condition="Control.HasFocus(516)">  More</value></variable>
+
+
+	<!-- Actor list content plugin url -->
+	<variable name="MediaNavActorContentUrl">
+		<!-- Episodes (based on currently selected item) -->
+		<value condition="$EXP[IsMediaNavShowingEpisodes]">plugin://script.canvas.helper/actors/?dbpath=?info=type=episode::episodeid=$INFO[Container(102).ListItem.DBID]&amp;listid=111</value>
+		<!-- All other cases (based on DB path) -->
+		<value>plugin://script.canvas.helper/actors/?dbpath=$INFO[Container.FolderPath]&amp;listid=111</value>
+	</variable>
 
 
 	<!-- Onup from actor list, according to media type -->

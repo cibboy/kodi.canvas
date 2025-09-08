@@ -740,6 +740,11 @@ def list_actors(params, handle):
     # TV shows.
     if info['type'] == 'tvshow' and info.get('tvshowid', None) is not None:
         item = call_rpc('VideoLibrary.GetTVShowDetails', { 'tvshowid': int(info['tvshowid']), 'properties': ['cast'] }).get('tvshowdetails', None)
+    # Seasons and episodes (always showing episodes).
+    if info['type'] == 'episode':
+        episodeid = info.get('episodeid', None)
+        if episodeid is not None and episodeid != '':
+            item = call_rpc('VideoLibrary.GetEpisodeDetails', { 'episodeid': int(episodeid), 'properties': ['cast'] }).get('episodedetails', None)
 
     # Add actors.
     if item is not None:
@@ -826,9 +831,9 @@ def list_media(method, params, handle):
     xbmcplugin.endOfDirectory(handle)
 
     # If a shift is requested, refocus the list item to that id.
-    if shift > -1:
+    if shift > -1 and listid is not None:
         # Retrieve currently selected control ID.
-        selected_button = window.getProperty('SelectedControlId')
+        selected_button = window.getFocusId()
         # Shift the list to the required item.
         xbmc.executebuiltin(f"SetFocus({listid},{shift},absolute)")
         # Refocus to currently selected control.

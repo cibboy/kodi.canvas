@@ -10,15 +10,9 @@
 				<!-- First reset to main list (seasons or episodes) in case we left on the actors list -->
 				<onfocus>SetFocus(101,0)</onfocus>
 				<onfocus>SetFocus(102,0)</onfocus>
-				<!--
-					Then focus either on play or resume.
-					Also set a window property indicating which one was selected, so the info
-					can be used by the addon if it needs to set focus.
-				-->
+				<!-- Then focus either on play or resume -->
 				<onfocus condition="$EXP[HasMediaNavActionPlay]">SetFocus(510)</onfocus>
-				<onfocus condition="$EXP[HasMediaNavActionPlay]">SetProperty(SelectedControlId,510)</onfocus>
 				<onfocus condition="$EXP[HasMediaNavActionResume]">SetFocus(511)</onfocus>
-				<onfocus condition="$EXP[HasMediaNavActionResume]">SetProperty(SelectedControlId,511)</onfocus>
 			</control>
 
 			<!-- Background -->
@@ -64,31 +58,6 @@
 				<param name="show_studio">$EXP[HasMediaNavDetailsStudio]</param>
 				<param name="studio">$VAR[MediaNavDetailsStudio]</param>
 			</include>
-
-			<control type="label">
-				<label>$INFO[Container.Content]</label>
-				<textcolor>FFFF0000</textcolor>
-			</control>
-			<control type="label">
-				<top>50</top>
-				<label>$INFO[Container.Content(files)]</label>
-				<textcolor>FFFF0000</textcolor>
-			</control>
-			<control type="label">
-				<top>100</top>
-				<label>$INFO[Container.FolderPath]</label>
-				<textcolor>FFFF0000</textcolor>
-			</control>
-			<control type="label">
-				<top>150</top>
-				<label>$INFO[Container.FolderName]</label>
-				<textcolor>FFFF0000</textcolor>
-			</control>
-			<control type="label">
-				<top>200</top>
-				<label>##$INFO[Window.Property(SelectedControlId)]çç</label>
-				<textcolor>FFFF0000</textcolor>
-			</control>
 		</include>
 	</controls>
 </window>

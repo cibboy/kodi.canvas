@@ -85,6 +85,8 @@
 				<ondown condition="$EXP[IsMediaNavShowingSeasons]">SetFocus(101)</ondown>
 				<ondown condition="$EXP[IsMediaNavShowingEpisodes]">SetFocus(102)</ondown>
 
+				<!--todo: when showing episodes, the list of buttons should update according to highlighted episode-->
+
 				<!-- Play -->
 				<include content="MediaNavActionButton" condition="$EXP[HasMediaNavActionPlay]">
 					<param name="id">510</param>
@@ -224,7 +226,6 @@
 				<param name="label">Seasons</param>
 				<param name="content">plugin://script.canvas.helper/seasons/?dbpath=$INFO[Container.FolderPath]&amp;listid=101</param>
 				<param name="art">$INFO[ListItem.Art(poster)]</param>
-				<param name="isloading">String.IsEqual(Window(videos).Property(List.101.IsLoading),true)</param>
 				<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
 				<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
 				<param name="onclick">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.Property(tvshowid)]/$INFO[ListItem.Season]/?info=type=season::tvshowid=$INFO[ListItem.Property(tvshowid)]::season=$INFO[ListItem.Season],return)</param>
@@ -242,10 +243,9 @@
 				<param name="id">102</param>
 				<param name="content">plugin://script.canvas.helper/episodes/?dbpath=$INFO[Container.FolderPath]&amp;listid=102</param>
 				<param name="art">$INFO[ListItem.Art(thumb)]</param>
-				<param name="isloading">String.IsEqual(Window(videos).Property(List.102.IsLoading),true)</param>
 				<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
 				<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
-				<param name="onclick"><!-- Play --></param>
+				<param name="onclick"><!-- todo:Play --></param>
 				<param name="onup">SetFocus(500)</param>
 				<param name="ondown">SetFocus(111)</param>
 			</include>
@@ -258,9 +258,8 @@
 			<param name="visible">$EXP[IsMediaNavShowingMovie] | $EXP[IsMediaNavShowingSeasons] | $EXP[IsMediaNavShowingEpisodes]</param>
 			<param name="id">111</param>
 			<param name="label">Cast</param>
-			<param name="content">plugin://script.canvas.helper/actors/?dbpath=$INFO[Container.FolderPath]&amp;listid=111</param>
+			<param name="content">$VAR[MediaNavActorContentUrl]</param>
 			<param name="art">$INFO[ListItem.Property(Thumbnail)]</param>
-				<param name="isloading">String.IsEqual(Window(videos).Property(<List class="111"></List>.IsLoading),true)</param>
 			<param name="info1">$INFO[ListItem.Property(Name)]</param>
 			<param name="info2">$INFO[ListItem.Property(Role)]</param>
 			<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>

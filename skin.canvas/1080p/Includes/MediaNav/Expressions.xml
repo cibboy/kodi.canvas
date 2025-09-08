@@ -8,40 +8,42 @@
 
 	<!-- Focus control -->
 	<expression name="HasMediaNavSeasonStripFocus">Control.HasFocus(101)</expression>
-	<expression name="HasMediaNavEpisodeStripFocus">Control.HasFocus(102)</expression>
-	<expression name="HasMediaNavActorStripFocus">Control.HasFocus(111)</expression>
 
 
 	<!-- Has studio? -->
 	<expression name="HasMediaNavDetailsStudio">
 		[$EXP[HasMediaNavSeasonStripFocus] + !String.IsEmpty(Container(101).ListItem.Studio)] |
-		[!$EXP[HasMediaNavSeasonStripFocus] + String.IsEqual(Window(videos).Property(CarryOver.Studio.Exists),true)]
+		[$EXP[IsMediaNavShowingEpisodes] + !String.IsEmpty(Container(102).ListItem.Studio)] |
+		[!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes] + String.IsEqual(Window(videos).Property(CarryOver.Studio.Exists),true)]
 	</expression>
 
 	<!-- Has clearlogo? -->
 	<expression name="HasMediaNavDetailsClearlogo">
 		[$EXP[HasMediaNavSeasonStripFocus] + !String.IsEmpty(Container(101).ListItem.Property(Clearlogo.Big))] |
-		[!$EXP[HasMediaNavSeasonStripFocus] + String.IsEqual(Window(videos).Property(CarryOver.Clearlogo.Exists),true)]
+		[$EXP[IsMediaNavShowingEpisodes] + !String.IsEmpty(Container(102).ListItem.Property(Clearlogo.Big))] |
+		[!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes] + String.IsEqual(Window(videos).Property(CarryOver.Clearlogo.Exists),true)]
 	</expression>
 
 	<!-- Has title? -->
 	<expression name="HasMediaNavDetailsTitle">
 		[$EXP[HasMediaNavSeasonStripFocus] + !String.IsEmpty(Container(101).ListItem.TVShowTitle)] |
-		[!$EXP[HasMediaNavSeasonStripFocus] + String.IsEqual(Window(videos).Property(CarryOver.Subtitle.Title),true)]
+		[$EXP[IsMediaNavShowingEpisodes] + !String.IsEmpty(Container(102).ListItem.TVShowTitle)] |
+		[!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes] + String.IsEqual(Window(videos).Property(CarryOver.Subtitle.Title),true)]
 	</expression>
 
 	<!-- Has subtitle? -->
 	<expression name="HasMediaNavDetailsSubtitle">
 		[$EXP[HasMediaNavSeasonStripFocus] + !String.IsEmpty(Container(101).ListItem.Title)] |
-		[!$EXP[HasMediaNavSeasonStripFocus] + String.IsEqual(Window(videos).Property(CarryOver.Subtitle.Exists),true)]
+		[$EXP[IsMediaNavShowingEpisodes] + !String.IsEmpty(Container(102).ListItem.Title)] |
+		[!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes] + String.IsEqual(Window(videos).Property(CarryOver.Subtitle.Exists),true)]
 	</expression>
 
 	<!-- Has resolution? -->
 	<expression name="HasMediaNavDetailsResolution">
 		!$EXP[HasMediaNavSeasonStripFocus] +
 		[
-			[$EXP[HasMediaNavEpisodeStripFocus] + !String.IsEmpty(Container(102).ListItem.VideoResolution)] |
-			[!$EXP[HasMediaNavEpisodeStripFocus] + String.IsEqual(Window(videos).Property(CarryOver.Resolution.Exists),true)]
+			[$EXP[IsMediaNavShowingEpisodes] + !String.IsEmpty(Container(102).ListItem.VideoResolution)] |
+			[!$EXP[IsMediaNavShowingEpisodes] + String.IsEqual(Window(videos).Property(CarryOver.Resolution.Exists),true)]
 		]
 	</expression>
 
@@ -49,8 +51,8 @@
 	<expression name="HasMediaNavDetailsHdr">
 		!$EXP[HasMediaNavSeasonStripFocus] +
 		[
-			[$EXP[HasMediaNavEpisodeStripFocus] + !String.IsEmpty(Container(102).ListItem.HdrType)] |
-			[!$EXP[HasMediaNavEpisodeStripFocus] + String.IsEqual(Window(videos).Property(CarryOver.Hdr.Exists),true)]
+			[$EXP[IsMediaNavShowingEpisodes] + !String.IsEmpty(Container(102).ListItem.HdrType)] |
+			[!$EXP[IsMediaNavShowingEpisodes] + String.IsEqual(Window(videos).Property(CarryOver.Hdr.Exists),true)]
 		]
 	</expression>
 
@@ -58,15 +60,15 @@
 	<expression name="HasMediaNavDetailsAudioChannels">
 		!$EXP[HasMediaNavSeasonStripFocus] +
 		[
-			[$EXP[HasMediaNavEpisodeStripFocus] + !String.IsEmpty(Container(102).ListItem.Property(AudioChannels))] |
-			[!$EXP[HasMediaNavEpisodeStripFocus] + String.IsEqual(Window(videos).Property(CarryOver.AudioChannels.Exists),true)]
+			[$EXP[IsMediaNavShowingEpisodes] + !String.IsEmpty(Container(102).ListItem.Property(AudioChannels))] |
+			[!$EXP[IsMediaNavShowingEpisodes] + String.IsEqual(Window(videos).Property(CarryOver.AudioChannels.Exists),true)]
 		]
 	</expression>
 
 	<!-- Has year? -->
 	<expression name="HasMediaNavDetailsYear">
 		!$EXP[HasMediaNavSeasonStripFocus] +
-		!$EXP[HasMediaNavEpisodeStripFocus] +
+		!$EXP[IsMediaNavShowingEpisodes] +
 		String.IsEqual(Window(videos).Property(CarryOver.Year.Exists),true)
 	</expression>
 
@@ -74,8 +76,8 @@
 	<expression name="HasMediaNavDetailsEpisode">
 		!$EXP[HasMediaNavSeasonStripFocus] +
 		[
-			[$EXP[HasMediaNavEpisodeStripFocus] + !String.IsEmpty(Container(102).ListItem.Episode) + !String.IsEmpty(Container(102).ListItem.Season)] |
-			[!$EXP[HasMediaNavEpisodeStripFocus] + String.IsEqual(Window(videos).Property(CarryOver.Episode.Exists),true)]
+			[$EXP[IsMediaNavShowingEpisodes] + !String.IsEmpty(Container(102).ListItem.Episode) + !String.IsEmpty(Container(102).ListItem.Season)] |
+			[!$EXP[IsMediaNavShowingEpisodes] + String.IsEqual(Window(videos).Property(CarryOver.Episode.Exists),true)]
 		]
 	</expression>
 
@@ -83,8 +85,8 @@
 	<expression name="HasMediaNavDetailsPremiered">
 		!$EXP[HasMediaNavSeasonStripFocus] +
 		[
-			[$EXP[HasMediaNavEpisodeStripFocus] + !String.IsEmpty(Container(102).ListItem.Premiered)] |
-			[!$EXP[HasMediaNavEpisodeStripFocus] + String.IsEqual(Window(videos).Property(CarryOver.Premiered.Exists),true)]
+			[$EXP[IsMediaNavShowingEpisodes] + !String.IsEmpty(Container(102).ListItem.Premiered)] |
+			[!$EXP[IsMediaNavShowingEpisodes] + String.IsEqual(Window(videos).Property(CarryOver.Premiered.Exists),true)]
 		]
 	</expression>
 
@@ -92,8 +94,8 @@
 	<expression name="HasMediaNavDetailsDuration">
 		!$EXP[HasMediaNavSeasonStripFocus] +
 		[
-			[$EXP[HasMediaNavEpisodeStripFocus] + !String.IsEmpty(Container(102).ListItem.Property(DurationString))] |
-			[!$EXP[HasMediaNavEpisodeStripFocus] + String.IsEqual(Window(videos).Property(CarryOver.Duration.Exists),true)]
+			[$EXP[IsMediaNavShowingEpisodes] + !String.IsEmpty(Container(102).ListItem.Property(DurationString))] |
+			[!$EXP[IsMediaNavShowingEpisodes] + String.IsEqual(Window(videos).Property(CarryOver.Duration.Exists),true)]
 		]
 	</expression>
 
@@ -101,43 +103,44 @@
 	<expression name="HasMediaNavDetailsMpaa">
 		!$EXP[HasMediaNavSeasonStripFocus] +
 		[
-			[$EXP[HasMediaNavEpisodeStripFocus] + !String.IsEmpty(Container(102).ListItem.Mpaa)] |
-			[!$EXP[HasMediaNavEpisodeStripFocus] + String.IsEqual(Window(videos).Property(CarryOver.Mpaa.Exists),true)]
+			[$EXP[IsMediaNavShowingEpisodes] + !String.IsEmpty(Container(102).ListItem.Mpaa)] |
+			[!$EXP[IsMediaNavShowingEpisodes] + String.IsEqual(Window(videos).Property(CarryOver.Mpaa.Exists),true)]
 		]
 	</expression>
 
 	<!-- Has status? -->
 	<expression name="HasMediaNavDetailsStatus">
 		!$EXP[HasMediaNavSeasonStripFocus] +
-		!$EXP[HasMediaNavEpisodeStripFocus] +
+		!$EXP[IsMediaNavShowingEpisodes] +
 		String.IsEqual(Window(videos).Property(CarryOver.Status.Exists),true)
 	</expression>
 
 	<!-- Has genre? -->
 	<expression name="HasMediaNavDetailsGenre">
 		!$EXP[HasMediaNavSeasonStripFocus] +
+		!$EXP[IsMediaNavShowingEpisodes] +
 		[!$EXP[HasMediaNavSeasonStripFocus] + String.IsEqual(Window(videos).Property(CarryOver.Genre.Exists),true)]
 	</expression>
 
 	<!-- Is watched? -->
 	<expression name="IsMediaNavDetailsWatched">
 		[$EXP[HasMediaNavSeasonStripFocus] + Integer.IsGreater(Container(101).ListItem.PlayCount,0)] |
-		[$EXP[HasMediaNavEpisodeStripFocus] + Integer.IsGreater(Container(102).ListItem.PlayCount,0)] |
-		[!$EXP[HasMediaNavEpisodeStripFocus] + String.IsEqual(Window(videos).Property(CarryOver.IsWatched),true)]
+		[$EXP[IsMediaNavShowingEpisodes] + Integer.IsGreater(Container(102).ListItem.PlayCount,0)] |
+		[!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes] + String.IsEqual(Window(videos).Property(CarryOver.IsWatched),true)]
 	</expression>
 
 	<!-- Has time remaining? -->
 	<expression name="HasMediaNavDetailsTimeRemaining">
 		!$EXP[HasMediaNavSeasonStripFocus] +
 		[
-			[$EXP[HasMediaNavEpisodeStripFocus] + !String.IsEmpty(Container(102).ListItem.Property(TimeRemainingString))] |
-			[!$EXP[HasMediaNavEpisodeStripFocus] + String.IsEqual(Window(videos).Property(CarryOver.TimeRemaining.Exists),true)]
+			[$EXP[IsMediaNavShowingEpisodes] + !String.IsEmpty(Container(102).ListItem.Property(TimeRemainingString))] |
+			[!$EXP[IsMediaNavShowingEpisodes] + String.IsEqual(Window(videos).Property(CarryOver.TimeRemaining.Exists),true)]
 		]
 	</expression>
 
 	<!-- Has episodes remaining? -->
 	<expression name="HasMediaNavDetailsEpisodesRemaining">
-		!$EXP[HasMediaNavEpisodeStripFocus] +
+		!$EXP[IsMediaNavShowingEpisodes] +
 		[
 			[$EXP[HasMediaNavSeasonStripFocus] + Integer.IsEqual(Container(101).ListItem.PlayCount,0)] |
 			[!$EXP[HasMediaNavSeasonStripFocus] + String.IsEqual(Window(videos).Property(CarryOver.EpisodesRemaining.Exists),true)]
@@ -146,7 +149,7 @@
 
 	<!-- Is all new? -->
 	<expression name="IsMediaNavDetailsAllNew">
-		!$EXP[HasMediaNavEpisodeStripFocus] +
+		!$EXP[IsMediaNavShowingEpisodes] +
 		[
 			[$EXP[HasMediaNavSeasonStripFocus] + Integer.IsEqual(Container(101).ListItem.Property(WatchedEpisodes),0)] |
 			[!$EXP[HasMediaNavSeasonStripFocus] + String.IsEqual(Window(videos).Property(CarryOver.IsAllNew),true)]
@@ -156,7 +159,8 @@
 	<!-- Has summary? -->
 	<expression name="HasMediaNavDetailsSummary">
 		[$EXP[HasMediaNavSeasonStripFocus] + !String.IsEmpty(Container(101).ListItem.Plot)] |
-		[!$EXP[HasMediaNavSeasonStripFocus] + String.IsEqual(Window(videos).Property(CarryOver.Subtitle.Summary),true)]
+		[$EXP[IsMediaNavShowingEpisodes] + !String.IsEmpty(Container(102).ListItem.Plot)] |
+		[!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes] + String.IsEqual(Window(videos).Property(CarryOver.Subtitle.Summary),true)]
 	</expression>
 
 
@@ -172,14 +176,22 @@
 			[!String.IsEmpty(Container(101).ListItem.Property(BlurArt.Season)) + String.IsEqual(Container(101).ListItem.Property(BlurArt.Season.TextColor),light)] |
 			[String.IsEmpty(Container(101).ListItem.Property(BlurArt.Season)) + !String.IsEmpty(Container(101).ListItem.Property(BlurArt.TvShow)) + String.IsEqual(Container(101).ListItem.Property(BlurArt.TvShow.TextColor),light)]
 		]] |
-		String.IsEqual(Window(videos).Property(CarryOver.Colors.IsLight),true)
+		[$EXP[IsMediaNavShowingEpisodes] + [
+			[!String.IsEmpty(Container(102).ListItem.Property(BlurArt.Season)) + String.IsEqual(Container(102).ListItem.Property(BlurArt.Season.TextColor),light)] |
+			[String.IsEmpty(Container(102).ListItem.Property(BlurArt.Season)) + !String.IsEmpty(Container(102).ListItem.Property(BlurArt.TvShow)) + String.IsEqual(Container(102).ListItem.Property(BlurArt.TvShow.TextColor),light)]
+		]] |
+		[!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes] + String.IsEqual(Window(videos).Property(CarryOver.Colors.IsLight),true)]
 	</expression>
 	<expression name="IsMediaNavDetailsBestTextColorDark">
 		[$EXP[HasMediaNavSeasonStripFocus] + [
 			[!String.IsEmpty(Container(101).ListItem.Property(BlurArt.Season)) + String.IsEqual(Container(101).ListItem.Property(BlurArt.Season.TextColor),dark)] |
-			[String.IsEmpty(Container(101).ListItem.Property(BlurArt.Season)) + !String.IsEmpty(Container(101).ListItem.Property(BlurArt.TvShow)) + String.IsEqual(Container(101).ListItem.Property(BlurArt.TvShow.TextColor),dark)]
+			[String.IsEmpty(Container(101).ListItem.Property(BlurArt.Season)) + !String.IsEmpty(Container(101).ListItem.Property(BlurArt.TvShow)) + String.IsEqual(Container(102).ListItem.Property(BlurArt.TvShow.TextColor),dark)]
 		]] |
-		String.IsEqual(Window(videos).Property(CarryOver.Colors.IsDark),true)
+		[$EXP[IsMediaNavShowingEpisodes] + [
+			[!String.IsEmpty(Container(102).ListItem.Property(BlurArt.Season)) + String.IsEqual(Container(102).ListItem.Property(BlurArt.Season.TextColor),dark)] |
+			[String.IsEmpty(Container(102).ListItem.Property(BlurArt.Season)) + !String.IsEmpty(Container(102).ListItem.Property(BlurArt.TvShow)) + String.IsEqual(Container(102).ListItem.Property(BlurArt.TvShow.TextColor),dark)]
+		]] |
+		[!$EXP[HasMediaNavSeasonStripFocus] + !$EXP[IsMediaNavShowingEpisodes] + String.IsEqual(Window(videos).Property(CarryOver.Colors.IsDark),true)]
 	</expression>
 
 
