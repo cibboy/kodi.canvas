@@ -2,4 +2,8 @@
 <includes>
 	<!-- Constants -->
 	<constant name="WIDTH_FLYOUT">600</constant>
+	<constant name="HEIGHT_FLYOUT_BUTTON">140</constant>
+	<constant name="OFFSET_FLYOUT_LIST">152</constant>
+	<constant name="OFFSET_FLYOUT_LIST_BOTTOM">152</constant>
+	<constant name="GAP_FLYOUT_GROUPLIST">-35</constant>
 </includes>

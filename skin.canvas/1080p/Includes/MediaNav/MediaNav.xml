@@ -191,7 +191,6 @@
 				<width>SIZE_MEDIANAV_ACTIONBUTTON_ICON</width>
 				<height>SIZE_MEDIANAV_ACTIONBUTTON_ICON</height>
 				<texture colordiffuse="BACKGROUND_OPAQUE75">$PARAM[icon]</texture>
-				<onclick><!--todo--></onclick>
 			</control>
 			<!-- Actual button (with autowidth text) -->
 			<control type="button" id="$PARAM[id]">
@@ -205,6 +204,10 @@
 				<textoffsety>0</textoffsety>
 				<textoffsetx>0</textoffsetx>
 				<label>$PARAM[label]</label>
+				<!--todo: this is only for context menu, and should focus on the proper list (movies! ç_ç) and then focus back to the previous button ("more") -->
+				<onclick>SetFocus(102)</onclick>
+				<onclick>Action(contextmenu)</onclick>
+				<onclick>SetFocus(500)</onclick>
 			</control>
 			<!-- Right part of the button when focused -->
 			<control type="image" id="$PARAM[id]3">

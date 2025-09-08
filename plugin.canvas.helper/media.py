@@ -492,7 +492,7 @@ def list_movies(params, handle):
         li = get_movie_listitem(movie)
         xbmcplugin.addDirectoryItem(
             handle=handle,
-            url=movie['title'],
+            url=f"videodb://movies/titles/{li.getVideoInfoTag().getDbId()}/",
             listitem=li,
             isFolder=False
         )
@@ -527,7 +527,7 @@ def list_tvshows(params, handle):
         li = get_tvshow_listitem(show)
         xbmcplugin.addDirectoryItem(
             handle=handle,
-            url=show['title'],
+            url=f"videodb://tvshows/titles/{li.getVideoInfoTag().getDbId()}/",
             listitem=li,
             isFolder=True
         )
@@ -591,7 +591,7 @@ def list_seasons(params, handle):
             li = get_season_listitem(season)
             xbmcplugin.addDirectoryItem(
                 handle=handle,
-                url=season['title'],
+                url=f"videodb://tvshows/titles/{li.getProperty('tvshowid')}/{li.getVideoInfoTag().getSeason()}/",
                 listitem=li,
                 isFolder=True
             )
@@ -638,7 +638,7 @@ def list_episodes(params, handle):
                         li = get_episode_listitem(episode)
                         xbmcplugin.addDirectoryItem(
                             handle=handle,
-                            url=episode['title'],
+                            url=f"videodb://tvshows/titles/{li.getProperty('tvshowid')}/{li.getVideoInfoTag().getSeason()}/{li.getVideoInfoTag().getDbId()}/",
                             listitem=li,
                             isFolder=False
                         )

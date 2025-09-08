@@ -869,7 +869,7 @@
 
 				<!-- Vertical list of buttons -->
 				<control type="list" id="1001">
-					<top>OFFSET_HOME_FLYOUT_LIST</top>
+					<top>OFFSET_FLYOUT_LIST</top>
 					<bottom>PADDING_BASE</bottom>
 					<left>PADDING_HALF</left>
 					<right>PADDING_HALF</right>

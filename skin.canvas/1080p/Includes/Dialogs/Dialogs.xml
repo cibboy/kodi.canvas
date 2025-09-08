@@ -196,6 +196,31 @@
 		</control>
 	</include>
 
+	<!-- Dialog context menu -->
+	<include name="StandardDialogContextMenu">
+		<include content="StandardFlyoutBase">
+			<param name="visible">true</param>
+
+			<include content="StandardFlyoutStructure">
+				<control type="grouplist" id="996">
+					<top>OFFSET_FLYOUT_LIST</top>
+					<bottom>OFFSET_FLYOUT_LIST_BOTTOM</bottom>
+					<left>PADDING_HALF</left>
+					<right>PADDING_HALF</right>
+
+					<itemgap>GAP_FLYOUT_GROUPLIST</itemgap>
+					<onleft>Close</onleft>
+
+					<control type="button" id="1000">
+						<!--todo: browse into is not compatible with my way of doing navigation, should not be visible-->
+						<width>100%</width>
+						<height>HEIGHT_FLYOUT_BUTTON</height>
+					</control>
+				</control>
+			</include>
+		</include>
+	</include>
+
 
 	<!-- Flyout menu -->
 	<include name="StandardFlyoutBase">
