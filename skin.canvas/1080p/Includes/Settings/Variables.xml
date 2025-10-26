@@ -41,6 +41,12 @@
 		<value condition="!$EXP[HasSettingsDialogSelectIcon]">1080p/icons/settings.png</value>
 	</variable>
 
+	<!-- Button background texture color diffuse to allow fade when dialog open -->
+	<variable name="SettingsOptionButtonColor">
+		<value condition="!$EXP[IsSettingsAnyDialogActive]">BACKGROUND_INVERSE_OPAQUE90</value>
+		<value condition="$EXP[IsSettingsAnyDialogActive]">BACKGROUND_INVERSE_OPAQUE50</value>
+	</variable>
+
 	<!-- Constants -->
 	<constant name="WIDTH_BACKGROUND_SPLIT">1200</constant>
 	<constant name="WIDTH_BACKGROUND_SPLIT_REMAINING">720</constant>

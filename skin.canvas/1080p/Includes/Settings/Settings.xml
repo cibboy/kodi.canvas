@@ -529,28 +529,33 @@
 			<!-- Option button -->
 			<control type="button" id="7">
 				<width>WIDTH_SETTINGS_OPTION_WIDE</width>
+				<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
 			</control>
 			
 			<!-- Radio button -->
 			<control type="radiobutton" id="8">
 				<width>WIDTH_SETTINGS_OPTION_WIDE</width>
 				<radioposx>OFFSET_SETTINGS_OPTION_RADIO_WIDE</radioposx>
+				<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
 			</control>
 
 			<!-- Spin button -->
 			<control type="spincontrolex" id="9">
 				<width>WIDTH_SETTINGS_OPTION_WIDE</width>
 				<spinposx>OFFSET_SETTINGS_OPTION_SPIN_WIDE</spinposx>
+				<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
 			</control>
 
 			<!-- Slider button -->
 			<control type="sliderex" id="13">
 				<width>WIDTH_SETTINGS_OPTION_WIDE</width>
+				<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
 			</control>
 
 			<!-- Color button -->
 			<control type="colorbutton" id="15">
 				<width>WIDTH_SETTINGS_OPTION_WIDE</width>
+				<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
 			</control>
 		</control>
 	</include>

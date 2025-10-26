@@ -1,5 +1,4 @@
 TOFIX:
-- settings di destra, quando c'è dialog aperto dovrebbero avere meno opacity
 - empty list "add content" button on home needs ACTION
 - home flyout menu: mettere VideoLibrary.Clean?
 - ricerca todo e sistemarli
@@ -20,7 +19,6 @@ TODO:
     - Eventlog.xml: system > logging > show event log
     - DialogAddonSettings.xml (ad esempio player > discs > encoder > setting)
 - manca il caricamento della lista pictures
-- sorting include "The", bisognerebbe usare il sorttitle, ma è stringa vuota
 - creare possibilità di sbiancare la cache in temp
 - ricordarsi nel setup iniziale di gestire anche advancedsettings.xml per la questione rimozione splash screen originale
 
