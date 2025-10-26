@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<!-- Is active element a TV show episode? -->
+	<expression name="IsDetailsItemTypeEpisode">
+		[$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.DBTYPE,episode)] |
+		[!$EXP[IsDialogInfoVisible] + String.IsEqual(Container(501).ListItem.DBTYPE,episode)]
+	</expression>
+	<!-- Is active element a TV show season? -->
+	<expression name="IsDetailsItemTypeSeason">
+		[$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.DBTYPE,season)] |
+		[!$EXP[IsDialogInfoVisible] + String.IsEqual(Container(501).ListItem.DBTYPE,season)]
+	</expression>
+	<!-- Is active element a TV show? -->
+	<expression name="IsDetailsItemTypeTvShow">
+		[$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.DBTYPE,tvshow)] |
+		[!$EXP[IsDialogInfoVisible] + String.IsEqual(Container(501).ListItem.DBTYPE,tvshow)]
+	</expression>
+	<!-- Is active element a movie? -->
+	<expression name="IsDetailsItemTypeMovie">
+		[$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.DBTYPE,movie)] |
+		[!$EXP[IsDialogInfoVisible] + String.IsEqual(Container(501).ListItem.DBTYPE,movie)]
+	</expression>
+	<!-- Is active element a song? -->
+	<expression name="IsDetailsItemTypeSong">
+		[$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.DBTYPE,song)] |
+		[!$EXP[IsDialogInfoVisible] + String.IsEqual(Container(501).ListItem.DBTYPE,song)]
+	</expression>
+	<!-- Is active element an album? -->
+	<expression name="IsDetailsItemTypeAlbum">
+		[$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.DBTYPE,album)] |
+		[!$EXP[IsDialogInfoVisible] + String.IsEqual(Container(501).ListItem.DBTYPE,album)]
+	</expression>
+	<!-- Is active element video? -->
+	<expression name="IsDetailsItemTypeVideo">$EXP[IsDetailsItemTypeEpisode] | $EXP[IsDetailsItemTypeMovie]</expression>
+
+
+	<!-- Is custom clearlogo available? -->
+	<expression name="IsDetailsClearlogoBigAvailable">
+		!String.IsEmpty(Window(home).Property(Item.ClearlogoBig))
+	</expression>
+
+	<!-- Has studio? -->
+	<expression name="HasDetailsStudio">
+		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Studio)] |
+		[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.Studio)]
+	</expression>
+
+	<!-- Has resolution? -->
+	<expression name="HasDetailsResolution">
+		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.VideoResolution)] |
+		[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.VideoResolution)]
+	</expression>
+	<!-- Has video codec? -->
+	<expression name="HasDetailsVideoCodec">
+		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.VideoCodec)] |
+		[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.VideoCodec)]
+	</expression>
+	<!-- Has ascpect ratio? -->
+	<expression name="HasDetailsAspectRatio">
+		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.VideoAspect)] |
+		[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.VideoAspect)]
+	</expression>
+	<!-- Is HDR? -->
+	<expression name="IsDetailsHdr">
+		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.HdrType)] |
+		[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.HdrType)]
+	</expression>
+	<!-- Has audio channels? -->
+	<expression name="HasDetailsAudioChannels">
+		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.AudioChannels)] |
+		[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.AudioChannels)]
+	</expression>
+	<expression name="HasDetailsAudioChannelsStream1">
+		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Property(AudioChannels.1))] |
+		[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.Property(AudioChannels.1))]
+	</expression>
+	<expression name="HasDetailsAudioChannelsStream2">
+		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Property(AudioChannels.2))] |
+		[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.Property(AudioChannels.2))]
+	</expression>
+	<!-- Has audio language? -->
+	<expression name="HasDetailsAudioLanguageStream1">
+		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Property(AudioLanguage.1)) + !String.IsEqual(ListItem.Property(AudioLanguage.1),und)] |
+		[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.Property(AudioLanguage.1)) + !String.IsEqual(Container(501).ListItem.Property(AudioLanguage.1),und)]
+	</expression>
+	<expression name="HasDetailsAudioLanguageStream2">
+		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Property(AudioLanguage.2)) + !String.IsEqual(ListItem.Property(AudioLanguage.2),und)] |
+		[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.Property(AudioLanguage.2)) + !String.IsEqual(Container(501).ListItem.Property(AudioLanguage.2),und)]
+	</expression>
+	<!-- Has audio codec? -->
+	<expression name="HasDetailsAudioCodecStream1">
+		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Property(AudioCodec.1))] |
+		[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.Property(AudioCodec.1))]
+	</expression>
+	<expression name="HasDetailsAudioCodecStream2">
+		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Property(AudioCodec.2))] |
+		[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.Property(AudioCodec.2))]
+	</expression>
+
+	<!-- Has year? -->
+	<expression name="HasDetailsYear">
+		[$EXP[IsDetailsItemTypeTvShow] | $EXP[IsDetailsItemTypeSeason] | $EXP[IsDetailsItemTypeMovie]] +
+		[
+			[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Year)] |
+			[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.Year)]
+		]
+	</expression>
+
+	<!-- Has episode number? -->
+	<expression name="HasDetailsEpisodeNumber">
+		$EXP[IsDetailsItemTypeEpisode] +
+		[
+			[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Season)] |
+			[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.Season)]
+		] +
+		[
+			[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Episode)] |
+			[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.Episode)]
+		]
+	</expression>
+	<!-- Has episode premiered? -->
+	<expression name="HasDetailsEpisodePremiered">
+		$EXP[IsDetailsItemTypeEpisode] +
+		[
+			[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Premiered)] |
+			[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.Premiered)]
+		]
+	</expression>
+	<!-- Has number of episodes? -->
+	<expression name="HasDetailsNumberOfEpisodes">
+		$EXP[IsDetailsItemTypeSeason] +
+		[
+			[$EXP[IsDialogInfoVisible] + Integer.IsGreater(ListItem.Property(TotalEpisodes),0)] |
+			[!$EXP[IsDialogInfoVisible] + Integer.IsGreater(Container(501).ListItem.Property(TotalEpisodes),0)]
+		]
+	</expression>
+
+	<!-- Has artist? -->
+	<expression name="HasDetailsArtist">
+		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Artist)] |
+		[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.Artist)]
+	</expression>
+
+	<!-- Has duration? -->
+	<expression name="HasDetailsDuration">
+		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Duration)] |
+		[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.Duration)]
+	</expression>
+
+	<!-- Has MPAA? -->
+	<expression name="HasDetailsMpaa">!String.IsEmpty(Window(home).Property(Item.Mpaa))</expression>
+
+	<!-- Has status? -->
+	<expression name="HasDetailsStatus">
+		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Status)] |
+		[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.Status)]
+	</expression>
+
+	<!-- Has track number? -->
+	<expression name="HasDetailsTrackNumber">
+		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.TrackNumber)] |
+		[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.TrackNumber)]
+	</expression>
+
+	<!-- Has genre? -->
+	<expression name="HasDetailsGenre">
+		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Genre)] |
+		[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.Genre)]
+	</expression>
+
+	<!-- Has director? -->
+	<expression name="HasDetailsDirector">
+		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Director)] |
+		[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.Director)]
+	</expression>
+	<!-- Has writer? -->
+	<expression name="HasDetailsWriter">
+		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Writer)] |
+		[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.Writer)]
+	</expression>
+	<!-- Has file path? -->
+	<expression name="HasDetailsFilePath">
+		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.FileNameAndPath)] |
+		[!$EXP[IsDialogInfoVisible] + !String.IsEmpty(Container(501).ListItem.FileNameAndPath)]
+	</expression>
+	<!-- Has eng subtitle? -->
+	<expression name="HasDetailsEngSubtitle">
+		[
+			$EXP[IsDialogInfoVisible] +
+			[
+				String.IsEqual(ListItem.Property(SubtitleLanguage.1),eng) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.2),eng) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.3),eng) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.4),eng) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.5),eng) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.6),eng) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.7),eng) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.8),eng) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.9),eng) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.10),eng) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.11),eng) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.12),eng) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.13),eng) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.14),eng) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.15),eng) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.16),eng) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.17),eng) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.18),eng) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.19),eng) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.20),eng)
+			]
+		] |
+		[
+			!$EXP[IsDialogInfoVisible] +
+			[
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.1),eng) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.2),eng) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.3),eng) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.4),eng) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.5),eng) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.6),eng) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.7),eng) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.8),eng) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.9),eng) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.10),eng) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.11),eng) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.12),eng) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.13),eng) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.14),eng) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.15),eng) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.16),eng) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.17),eng) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.18),eng) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.19),eng) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.20),eng)
+			]
+		]
+	</expression>
+	<!-- Has ita subtitle? -->
+	<expression name="HasDetailsItaSubtitle">
+		[
+			$EXP[IsDialogInfoVisible] +
+			[
+				String.IsEqual(ListItem.Property(SubtitleLanguage.1),ita) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.2),ita) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.3),ita) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.4),ita) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.5),ita) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.6),ita) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.7),ita) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.8),ita) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.9),ita) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.10),ita) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.11),ita) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.12),ita) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.13),ita) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.14),ita) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.15),ita) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.16),ita) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.17),ita) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.18),ita) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.19),ita) |
+				String.IsEqual(ListItem.Property(SubtitleLanguage.20),ita)
+			]
+		] |
+		[
+			!$EXP[IsDialogInfoVisible] +
+			[
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.1),ita) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.2),ita) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.3),ita) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.4),ita) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.5),ita) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.6),ita) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.7),ita) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.8),ita) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.9),ita) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.10),ita) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.11),ita) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.12),ita) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.13),ita) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.14),ita) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.15),ita) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.16),ita) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.17),ita) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.18),ita) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.19),ita) |
+				String.IsEqual(Container(501).ListItem.Property(SubtitleLanguage.20),ita)
+			]
+		]
+	</expression>
+
+	<!-- Is watched? -->
+	<expression name="IsDetailsWatched">
+		[$EXP[IsDialogInfoVisible] + Integer.IsGreater(ListItem.PlayCount,0)] |
+		[!$EXP[IsDialogInfoVisible] + Integer.IsGreater(Container(501).ListItem.PlayCount,0)]
+	</expression>
+	<!-- Is all new? -->
+	<expression name="IsDetailsAllNew">
+		[$EXP[IsDetailsItemTypeSeason] | $EXP[IsDetailsItemTypeTvShow]] +
+		[
+			[$EXP[IsDialogInfoVisible] + Integer.IsEqual(ListItem.Property(WatchedEpisodes),0)] |
+			[!$EXP[IsDialogInfoVisible] + Integer.IsEqual(Container(501).ListItem.Property(WatchedEpisodes),0)]
+		]
+	</expression>
+	<!-- Is resumable? -->
+	<expression name="IsDetailsResumable">
+		[
+			[$EXP[IsDialogInfoVisible] + ListItem.IsResumable] |
+			[!$EXP[IsDialogInfoVisible] + Container(501).ListItem.IsResumable]
+		] +
+		!String.IsEmpty(Window(home).Property(Item.TimeRemaining))
+	</expression>
+
+	<!-- Has tags? -->
+	<expression name="HasDetailsTags">
+		$EXP[HasDetailsResolution] | $EXP[IsDetailsHdr] | $EXP[HasDetailsAudioChannels]
+	</expression>
+	<!-- Has info? -->
+	<expression name="HasDetailsInfo">
+		$EXP[HasDetailsYear] |
+		$EXP[HasDetailsEpisodeNumber] | $EXP[HasDetailsEpisodePremiered] |
+		$EXP[HasDetailsArtist] |
+		$EXP[HasDetailsDuration] |
+		$EXP[HasDetailsMpaa] |
+		$EXP[HasDetailsStatus] |
+		$EXP[HasDetailsTrackNumber]
+	</expression>
+</includes>

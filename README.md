@@ -1,16 +1,8 @@
 TOFIX:
-- aggiunto genre audio in plugin (potenzialmente una lista, quindi bisognerà fare delle prove con ulteriore scraping e aggiornamento tag mp3, che è stata aggiunta alla details info line 2)
 - settings di destra, quando c'è dialog aperto dovrebbero avere meno opacity
-- in medianav le liste sotto non dovrebbero essere visibili finchè in fase di caricamento (impostare flag loading a true prima di navigarci?)
-- considerare posizionamento diverso icona watched/progress su art
-- medianav bug (esempio): andare in season di yoga, mettere focus su lista episodi, back, rientrare: il focus è su qualcosa di inesistente e non lo si recupera più (probabilmente legato a condizioni onfocus button 9999 che cambiano nel momento in cui le expression si basano sul focus control 102)
-- medianav episode (e forse anche su home?): mettere E* in alto a dx della thumb come in plex
-- medianav season: focus episodio su episodio di resume (primo altrimenti)
-- medianav episode: focus episodio su reale episodio
-- medianav tvshow: focus su season dovrebbe far vedere i dettagli season
-- medianav: doppia window per i 2 livelli comunque non funziona perchè utilizza componenti e proprietà in comune, quindi andando indietro dal livello 2 all'1 fa vedere ancora le info del livello 2, e con un ulteriore indietro torna alla home
-- medianav: setfocus sull'unload non funziona come atteso (ad esempio sulla home, usando continue watching e poi tornando indietro va a recently added episodes, perchè è id 102)
-- medianav: migliorare expressions e variabili usando expression dedicate per capire il focus 101/102 (ma tenere conto della lista attori!!!!)
+- empty list "add content" button on home needs ACTION
+- home flyout menu: mettere VideoLibrary.Clean?
+- ricerca todo e sistemarli
 
 TODO:
 - dialog in settings da fare:
@@ -51,6 +43,7 @@ TODO:
 not in spotify:
 - Always Getting Over You, Angela Ammons, American Pie 2
 - Right Here, Right Now, Fatboy Slim, You've Come a Long Way, Baby
+- I Like The Way You Move, Bodyrockers
 in spotify:
 - Wake me up, Avicii (al momento live, ma non è bella)
 - Maria, Ricky Martin (c'è, ma l'altra è la versione veloce)
@@ -65,12 +58,14 @@ Docs:
 - https://kodi.wiki/view/Opening_Windows_and_Dialogs
 - https://kodi.wiki/view/List_of_Built_In_Controls
 - https://kodi.wiki/view/InfoLabels
+- https://kodi.wiki/view/Keymap
 - https://kodi.wiki/view/Artwork/Accessing_with_skins_and_JSON-RPC
 - https://xbmc.github.io/docs.kodi.tv/master/kodi-base/d0/d3e/page__list_of_built_in_functions.html
 - https://xbmc.github.io/docs.kodi.tv/master/kodi-base/d4/d8c/_skin__timers.html
 - https://kodi.wiki/view/Smart_playlists/XSP_Method
 - https://kodi.wiki/view/Party_Mode
 - https://kodi.wiki/view/Artwork/Cache
+- https://forum.kodi.tv/showthread.php?tid=299107
 
 - https://kodi.wiki/view/JSON-RPC_API
 - https://kodi.wiki/view/JSON-RPC_API/Examples
@@ -82,8 +77,8 @@ Docs:
 - https://kodi.wiki/view/Video_management
 	- https://kodi.wiki/view/HOW-TO:Modify_automatic_watch_and_resume_points
 
-<!--?xsp={"rules":{"and":[{"field":"title","operator":"is","value":["$INFO[Window.Property(videoinfo_encoded_title)]"]%7d]},"type":"tvshows"}-->
-<!--?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22title%22%2c%22operator%22%3a%22doesnotcontain%22%2c%22value%22%3a%5b%22Pitt%22%5d%7d%5d%7d%2c%22type%22%3a%22tvshows%22%7d-->
+<!--?xsp={"rules":{"and":[{"field":"title","operator":"is","value":["$INFO[Window.Property(videoinfo_encoded_title)]"]}]},"type":"tvshows"}-->
+<!--videodb://tvshows/titles/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22title%22%2c%22operator%22%3a%22doesnotcontain%22%2c%22value%22%3a%5b%22Pitt%22%5d%7d%5d%7d%2c%22type%22%3a%22tvshows%22%7d-->
 
 
 

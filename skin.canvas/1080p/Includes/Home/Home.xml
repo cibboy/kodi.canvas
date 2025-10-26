@@ -3,741 +3,6 @@
 	<include file="Includes/Home/Variables.xml" />
 	<include file="Includes/Home/Expressions.xml" />
 
-	<!-- Fallback element for when there is no content in a page -->
-	<include name="HomeEmptyPageFallback">
-		<param name="id"></param>
-		<param name="title"></param>
-		<param name="icon"></param>
-		<param name="information"></param>
-		<param name="button"></param>
-		<param name="onclick">noop</param>
-		<param name="onback">noop</param>
-		<param name="onleft">noop</param>
-
-		<definition>
-			<control type="group">
-				<width>WIDTH_HOME_FALLBACK_CONTENT</width>
-				<height>HEIGHT_HOME_FALLBACK_CONTENT</height>
-				<centertop>50%</centertop>
-				<centerleft>50%</centerleft>
-
-				<!-- Icon -->
-				<control type="image">
-					<width>100</width>
-					<height>100</height>
-					<centerleft>50%</centerleft>
-					<texture colordiffuse="FOREGROUND">$PARAM[icon]</texture>
-				</control>
-				<!-- Page title -->
-				<control type="label">
-					<width>WIDTH_HOME_FALLBACK_CONTENT</width>
-					<height>FONT_SIZE_TITLE2</height>
-					<top>100</top>
-					<centerright>50%</centerright>
-					<align>center</align>
-					<font>TITLE2</font>
-					<label>$PARAM[title]</label>
-				</control>
-				<!-- Empty message -->
-				<control type="label">
-					<width>WIDTH_HOME_FALLBACK_CONTENT</width>
-					<height>FONT_SIZE_BODY</height>
-					<top>220</top>
-					<centerright>50%</centerright>
-
-					<align>center</align>
-					<font>BODY</font>
-					<label>$PARAM[information]</label>
-				</control>
-				<!-- Action button -->
-				<control type="button" id="$PARAM[id]">
-					<width>300</width>
-					<height>120</height>
-					<top>290</top>
-					<centerright>50%</centerright>
-
-					<texturefocus colordiffuse="FOREGROUND_ACCENT" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
-					<texturenofocus colordiffuse="BACKGROUND_OPAQUE50" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturenofocus>
-					<textoffsety>4</textoffsety>
-					<textoffsetx>38</textoffsetx>
-					<textcolor>FOREGROUND</textcolor>
-					<align>center</align>
-					<label>$PARAM[button]</label>
-					<onclick>$PARAM[onclick]</onclick>
-					<onback>$PARAM[onback]</onback>
-					<onleft>$PARAM[onleft]</onleft>
-				</control>
-			</control>
-		</definition>
-	</include>
-
-	<!-- Main menu -->
-	<include name="HomeMainMenu">
-		<definition>
-			<control type="group">
-				<!-- Left/right shift + fade when the main menu loses/gains focus -->
-				<visible>$EXP[HasHomeMenuFocus]</visible>
-				<include content="ShowHideFadeSlideHorizontalAnimation">
-					<param name="slide_amount">-200</param>
-					<param name="speed">ANIMATION_MID</param>
-				</include>
-
-				<top>PADDING_BASE</top>
-				<bottom>PADDING_BASE</bottom>
-
-				<!-- Logo -->
-				<control type="image">
-					<left>PADDING_BASE</left>
-					<width>100</width>
-					<height>70</height>
-					<texture colordiffuse="HIGHLIGHT">special://xbmc/media/vendor_icon.png</texture>
-					<aspectratio>keep</aspectratio>
-				</control>
-				<!-- Menu -->
-				<control type="list" id="1">
-					<top>220</top>
-					<width>150</width>
-					<bottom>0</bottom>
-					<autoscroll>false</autoscroll>
-					
-					<!-- Standard item onleft, onright and onclick -->
-					<onleft condition="!$EXP[IsHomeLoading] + String.IsEqual(Container(1).ListItem.Property(has_filter),true)">SetFocus(1100)</onleft>
-					<onright condition="!$EXP[IsHomeLoading] + !String.IsEqual(Container(1).ListItem.Property(name),menu)">$INFO[Container(1).ListItem.Property(onright)]</onright>
-					<onclick condition="!$EXP[IsHomeLoading] + !String.IsEqual(Container(1).ListItem.Property(name),menu)">$INFO[Container(1).ListItem.Property(onclick)]</onclick>
-					<!-- Menu item onclick -->
-					<onclick condition="String.IsEqual(Container(1).ListItem.Property(name),menu)">SetFocus(1001,0)</onclick>
-					<!-- Open flyout if not playing something in background -->
-					<onback condition="!Player.HasMedia">SetFocus(1001,0)</onback>
-
-					<focusedlayout height="90">
-						<control type="group">
-							<left>PADDING_BASE</left>
-
-							<!-- Hidden onfocus control -->
-							<control type="button">
-								<include content="Hidden" />
-								<onfocus>RunScript(script.canvas.helper,onchange_home_menu,$INFO[Container(1).ListItem.Property(name)])</onfocus>
-							</control>
-
-							<!-- Circle background -->
-							<control type="image">
-								<width>120</width>
-								<height>120</height>
-								<centertop>50%</centertop>
-								<centerleft>50%</centerleft>
-								<texture colordiffuse="FOREGROUND_ACCENT">1080p/diffuse/circle.png</texture>
-								<bordertexture border="SIZE_ITEM_SHADOW_SMALLCIRCLE_DOUBLE" colordiffuse="BACKGROUND_OPAQUE75">1080p/diffuse/shadow-circle-small.png</bordertexture>
-								<bordersize>SIZE_ITEM_SHADOW_SMALLCIRCLE</bordersize>
-							</control>
-							<!-- Icon -->
-							<control type="image">
-								<width>45</width>
-								<height>45</height>
-								<centertop>50%</centertop>
-								<centerleft>50%</centerleft>
-								<texture colordiffuse="BACKGROUND_OPAQUE75">$INFO[ListItem.Art(thumb)]</texture>
-							</control>
-						</control>
-
-						<!-- Chevron left (if there is filter) -->
-						<control type="image">
-							<visible>String.IsEqual(Container(1).ListItem.Property(has_filter),true)</visible>
-
-							<width>45</width>
-							<height>45</height>
-							<left>PADDING_MULT_20</left>
-							<centertop>50%</centertop>
-							<texture colordiffuse="FOREGROUND_OPAQUE35" flipx="true">1080p/icons/chevron-right.png</texture>
-							<aspectratio>keep</aspectratio>
-						</control>
-					</focusedlayout>
-
-					<itemlayout height="90">
-						<control type="group">
-							<left>PADDING_BASE</left>
-
-							<!-- Icon -->
-							<control type="image">
-								<width>45</width>
-								<height>45</height>
-								<centertop>50%</centertop>
-								<centerleft>50%</centerleft>
-								<texture colordiffuse="FOREGROUND_OPAQUE50">$INFO[ListItem.Art(thumb)]</texture>
-							</control>
-						</control>
-					</itemlayout>
-
-					<content>
-						<!-- Home -->
-						<item id="1">
-							<thumb>$VAR[HomeIcon]</thumb>
-							<property name="name">home</property>
-							<property name="onright">SetFocus(100)</property>
-							<property name="onclick">SetFocus(100)</property>
-						</item>
-						<!-- Movies -->
-						<item id="2">
-							<thumb>$VAR[MoviesIcon]</thumb>
-							<property name="name">movies</property>
-							<property name="has_filter">true</property>
-							<property name="onright">SetFocus(110)</property>
-							<property name="onclick">SetFocus(110)</property>
-						</item>
-						<!-- TV shows -->
-						<item id="3">
-							<thumb>$VAR[TVShowsIcon]</thumb>
-							<property name="name">tvshows</property>
-							<property name="has_filter">true</property>
-							<property name="onright">SetFocus(120)</property>
-							<property name="onclick">SetFocus(120)</property>
-						</item>
-						<!-- Yoga -->
-						<item id="4">
-							<thumb>$VAR[YogaIcon]</thumb>
-							<property name="name">yoga</property>
-							<property name="has_filter">true</property>
-							<property name="onright">SetFocus(130)</property>
-							<property name="onclick">SetFocus(130)</property>
-						</item>
-						<!-- Music -->
-						<item id="5">
-							<thumb>$VAR[MusicIcon]</thumb>
-							<property name="name">music</property>
-							<property name="has_filter">true</property>
-							<property name="onright">SetFocus(140)</property>
-							<property name="onclick">SetFocus(140)</property>
-						</item>
-						<!-- Pictures -->
-						<item id="6">
-							<thumb>$VAR[PicturesIcon]</thumb>
-							<property name="name">pictures</property>
-							<property name="has_filter">true</property>
-							<property name="onright">SetFocus(150)</property>
-							<property name="onclick">SetFocus(150)</property>
-						</item>
-						<!-- Menu -->
-						<item id="7">
-							<thumb>$VAR[MenuIcon]</thumb>
-							<property name="name">menu</property>
-						</item>
-					</content>
-				</control>
-			</control>
-		</definition>
-	</include>
-
-	<!-- Content -->
-	<include name="HomeContent">
-		<definition>
-			<!-- Loading spinner -->
-			<control type="image">
-				<visible>$EXP[IsHomeLoading]</visible>
-				<animation effect="rotate" start="360" end="0" center="auto" time="ANIMATION_CRAWL" reversible="false" loop="true" condition="true">Conditional</animation>
-
-				<width>100</width>
-				<height>100</height>
-				<centertop>50%</centertop>
-				<centerleft>50%</centerleft>
-				<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-50.png</texture>
-			</control>
-
-			<control type="group">
-				<!-- Left/right shift when the main menu loses/gains focus -->
-				<animation condition="$EXP[HasHomeMenuFocus]" reversible="true">
-					<effect type="slide" end="150,0" time="ANIMATION_MID" tween="circle" easing="out" />
-				</animation>
-
-				<left>PADDING_MULT_120</left>
-				<top>PADDING_BASE</top>
-
-				<!-- Selection details -->
-				<include content="SelectionDetails">
-					<param name="visible">$EXP[HomeShowDetails]</param>
-					<param name="clearlogo">$VAR[HomeDetailsClearlogo]</param>
-					<param name="title">$VAR[HomeDetailsTitle]</param>
-					<param name="has_clearlogo">$EXP[HasHomeDetailsClearlogo]</param>
-					<param name="subtitle">$VAR[HomeDetailsSubtitle]</param>
-					<param name="has_subtitle">$EXP[HasHomeDetailsSubtitle]</param>
-					<param name="resolution">$VAR[HomeDetailsResolution]</param>
-					<param name="has_resolution">$EXP[HasHomeDetailsResolution]</param>
-					<param name="hdr">$VAR[HomeDetailsHdr]</param>
-					<param name="has_hdr">$EXP[HasHomeDetailsHdr]</param>
-					<param name="channels">$VAR[HomeDetailsAudioChannels]</param>
-					<param name="has_channels">$EXP[HasHomeDetailsAudioChannels]</param>
-					<param name="year">$VAR[HomeDetailsYear]</param>
-					<param name="has_year">$EXP[HasHomeDetailsYear]</param>
-					<param name="episode">$VAR[HomeDetailsEpisode]</param>
-					<param name="has_episode">$EXP[HasHomeDetailsEpisode]</param>
-					<param name="premiered">$VAR[HomeDetailsPremiered]</param>
-					<param name="has_premiered">$EXP[HasHomeDetailsPremiered]</param>
-					<param name="artist">$VAR[HomeDetailsArtist]</param>
-					<param name="has_artist">$EXP[HasHomeDetailsArtist]</param>
-					<param name="duration">$VAR[HomeDetailsDuration]</param>
-					<param name="has_duration">$EXP[HasHomeDetailsDuration]</param>
-					<param name="mpaa">$VAR[HomeDetailsMpaa]</param>
-					<param name="has_mpaa">$EXP[HasHomeDetailsMpaa]</param>
-					<param name="status">$VAR[HomeDetailsStatus]</param>
-					<param name="has_status">$EXP[HasHomeDetailsStatus]</param>
-					<param name="track">$VAR[HomeDetailsTrack]</param>
-					<param name="has_track">$EXP[HasHomeDetailsTrack]</param>
-					<param name="is_watched">$EXP[IsHomeDetailsWatched]</param>
-					<param name="is_allnew">$EXP[IsHomeDetailsAllNew]</param>
-					<param name="episodes_remaining">$VAR[HomeDetailsEpisodesRemaining]</param>
-					<param name="has_episodes_remaining">$EXP[HasHomeDetailsEpisodesRemaining]</param>
-					<param name="time_remaining">$VAR[HomeDetailsTimeRemaining]</param>
-					<param name="has_time_remaining">$EXP[HasHomeDetailsTimeRemaining]</param>
-					<param name="percentage_watched">$VAR[HomeDetailsWatchedPercentage]</param>
-					<param name="genre">$VAR[HomeDetailsGenre]</param>
-					<param name="has_genre">$EXP[HasHomeDetailsGenre]</param>
-					<param name="plot">$VAR[HomeDetailsSummary]</param>
-					<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
-					<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
-				</include>
-
-				<!-- Items -->
-				<control type="group">
-					<!-- Home -->
-					<control type="group">
-						<visible>$EXP[IsHomeActivePageHome]</visible>
-						<!-- Visibility animation -->
-						<include content="ShowHideFadeSlideVerticalAnimation">
-							<param name="slide_amount">200</param>
-							<param name="speed">ANIMATION_SLOW</param>
-						</include>
-						<!-- Hide while loading -->
-						<include content="HideWithTransparency">
-							<param name="condition_visible">!$EXP[IsHomeLoading]</param>
-							<param name="condition_hidden">$EXP[IsHomeLoading]</param>
-						</include>
-
-						<!-- Empty list fallback -->
-						<control type="group">
-							<visible>!$EXP[HasHomePageHomeContent]</visible>
-							<include content="FocusFadeAnimation">
-								<param name="reference_id">100</param>
-							</include>
-
-							<include content="HomeEmptyPageFallback">
-								<param name="id">100</param>
-								<param name="information">Start with some content</param>
-								<param name="button">Add content</param>
-								<param name="onclick">noop</param>
-								<param name="onback">SetFocus(1,0)</param>
-								<param name="onleft">SetFocus(1,0)</param>
-							</include>
-						</control>
-
-						<control type="grouplist" id="100">
-							<!-- Hide if there is no content -->
-							<include content="HideWithTransparency">
-								<param name="condition_visible">$EXP[HasHomePageHomeContent]</param>
-								<param name="condition_hidden">!$EXP[HasHomePageHomeContent]</param>
-							</include>
-
-							<top>OFFSET_AFTER_DETAILS</top>
-							<itemgap>OFFSET_HOME_STRIP</itemgap>
-							<usecontrolcoords>true</usecontrolcoords>
-
-							<!-- Continue watching -->
-							<control type="group">
-								<!-- Visible if there is content OR if loading (allows to reload hidden lists because empty) -->
-								<visible>$EXP[HasHomeContinueWatchingContent] | $EXP[IsHomeLoading]</visible>
-								<!-- Hide if there is no content -->
-								<include content="HideWithTransparency">
-									<param name="condition_visible">$EXP[HasHomeContinueWatchingContent]</param>
-									<param name="condition_hidden">!$EXP[HasHomeContinueWatchingContent]</param>
-								</include>
-								<include content="FocusFadeAnimation">
-									<param name="reference_id">101</param>
-								</include>
-								<height>HEIGHT_HOME_STRIP</height>
-
-								<include content="PosterStrip">
-									<param name="id">101</param>
-									<param name="label">Continue watching</param>
-									<param name="content">$VAR[HomeContinueWatchingContentUrl]</param>
-									<param name="art">$INFO[ListItem.Art(poster)]</param>
-									<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
-									<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
-									<param name="onclick">$VAR[HomeMediaOnClickAction]</param>
-									<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,101)</param>
-									<param name="onback">SetFocus(1,0)</param>
-									<param name="onleft">SetFocus(1,0)</param>
-									<param name="ondown">RunScript(script.canvas.helper,onmove_home_page_item,101,down)</param>
-								</include>
-							</control>
-
-							<!-- Recently added episodes -->
-							<control type="group">
-								<!-- Visible if there is content OR if loading (allows to reload hidden lists because empty) -->
-								<visible>$EXP[HasHomeRecentEpisodesContent] | $EXP[IsHomeLoading]</visible>
-								<!-- Hide if there is no content -->
-								<include content="HideWithTransparency">
-									<param name="condition_visible">$EXP[HasHomeRecentEpisodesContent]</param>
-									<param name="condition_hidden">!$EXP[HasHomeRecentEpisodesContent]</param>
-								</include>
-								<include content="FocusFadeAnimation">
-									<param name="reference_id">102</param>
-								</include>
-								<height>HEIGHT_HOME_STRIP</height>
-
-								<include content="LandscapeStrip">
-									<param name="id">102</param>
-									<param name="label">Recently added episodes</param>
-									<param name="content">$VAR[HomeRecentEpisodesContentUrl]</param>
-									<param name="art">$INFO[ListItem.Art(thumb)]</param>
-									<param name="showinfo">true</param>
-									<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
-									<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
-									<param name="onclick">$VAR[HomeMediaOnClickAction]</param>
-									<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,102)</param>
-									<param name="onback">SetFocus(1,0)</param>
-									<param name="onleft">SetFocus(1,0)</param>
-									<param name="onup">RunScript(script.canvas.helper,onmove_home_page_item,102,up)</param>
-									<param name="ondown">RunScript(script.canvas.helper,onmove_home_page_item,102,down)</param>
-								</include>
-							</control>
-
-							<!-- Recently added movies -->
-							<control type="group">
-								<!-- Visible if there is content OR if loading (allows to reload hidden lists because empty) -->
-								<visible>$EXP[HasHomeRecentMoviesContent] | $EXP[IsHomeLoading]</visible>
-								<!-- Hide if there is no content -->
-								<include content="HideWithTransparency">
-									<param name="condition_visible">$EXP[HasHomeRecentMoviesContent]</param>
-									<param name="condition_hidden">!$EXP[HasHomeRecentMoviesContent]</param>
-								</include>
-								<include content="FocusFadeAnimation">
-									<param name="reference_id">103</param>
-								</include>
-								<height>HEIGHT_HOME_STRIP</height>
-
-								<include content="PosterStrip">
-									<param name="id">103</param>
-									<param name="label">Recently added movies</param>
-									<param name="content">$VAR[HomeRecentMoviesContentUrl]</param>
-									<param name="art">$INFO[ListItem.Art(poster)]</param>
-									<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
-									<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
-									<param name="onclick">$VAR[HomeMediaOnClickAction]</param>
-									<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,103)</param>
-									<param name="onback">SetFocus(1,0)</param>
-									<param name="onleft">SetFocus(1,0)</param>
-									<param name="onup">RunScript(script.canvas.helper,onmove_home_page_item,103,up)</param>
-									<param name="ondown">RunScript(script.canvas.helper,onmove_home_page_item,103,down)</param>
-								</include>
-							</control>
-
-							<!-- Recently added music -->
-							<control type="group">
-								<!-- Visible if there is content OR if loading (allows to reload hidden lists because empty) -->
-								<visible>$EXP[HasHomeRecentMusicContent] | $EXP[IsHomeLoading]</visible>
-								<!-- Hide if there is no content -->
-								<include content="HideWithTransparency">
-									<param name="condition_visible">$EXP[HasHomeRecentMusicContent]</param>
-									<param name="condition_hidden">!$EXP[HasHomeRecentMusicContent]</param>
-								</include>
-								<include content="FocusFadeAnimation">
-									<param name="reference_id">104</param>
-								</include>
-								<height>HEIGHT_HOME_STRIP</height>
-
-								<include content="AlbumStrip">
-									<param name="id">104</param>
-									<param name="label">Recently added music</param>
-									<param name="content">$VAR[HomeRecentSongsContentUrl]</param>
-									<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
-									<param name="info">$INFO[ListItem.Title]</param>
-									<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
-									<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
-									<param name="onclick">$VAR[HomeMediaOnClickAction]</param>
-									<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,home,104)</param>
-									<param name="onback">SetFocus(1,0)</param>
-									<param name="onleft">SetFocus(1,0)</param>
-									<param name="onup">RunScript(script.canvas.helper,onmove_home_page_item,104,up)</param>
-								</include>
-							</control>
-						</control>
-					</control>
-
-					<!-- Movies -->
-					<control type="group" id="110">
-						<visible>$EXP[IsHomeActivePageMovies]</visible>
-						<include content="ShowHideFadeSlideVerticalAnimation">
-							<param name="slide_amount">200</param>
-							<param name="speed">ANIMATION_SLOW</param>
-						</include>
-						<include content="FocusFadeAnimation">
-							<param name="reference_id">111</param>
-						</include>
-						<!-- Hide while loading -->
-						<include content="HideWithTransparency">
-							<param name="condition_visible">!$EXP[IsHomeLoading]</param>
-							<param name="condition_hidden">$EXP[IsHomeLoading]</param>
-						</include>
-
-						<!-- Empty list fallback -->
-						<control type="group">
-							<visible>!$EXP[HasHomeMoviesContent]</visible>
-							<include content="HomeEmptyPageFallback">
-								<param name="id"></param>
-								<param name="title">Movies</param>
-								<param name="icon">$VAR[MoviesIcon]</param>
-								<param name="information">No content found</param>
-								<param name="button">Add movies</param>
-								<param name="onclick">noop</param>
-								<param name="onback">SetFocus(1,1)</param>
-								<param name="onleft">SetFocus(1,1)</param>
-							</include>
-						</control>
-						<!-- Actual movies -->
-						<control type="group">
-							<!-- Visible if there is content OR if loading (allows to reload hidden lists because empty) -->
-							<visible>$EXP[HasHomeMoviesContent] | $EXP[IsHomeLoading]</visible>
-							<!-- Hide if there is no content -->
-							<include content="HideWithTransparency">
-								<param name="condition_visible">$EXP[HasHomeMoviesContent]</param>
-								<param name="condition_hidden">!$EXP[HasHomeMoviesContent]</param>
-							</include>
-							<include content="PosterWall">
-								<param name="id">111</param>
-								<param name="label">Movies</param>
-								<param name="content">$VAR[HomeMoviesContentUrl]</param>
-								<param name="art">$INFO[ListItem.Art(poster)]</param>
-								<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
-								<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
-								<param name="onclick">$VAR[HomeMediaOnClickAction]</param>
-								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,movies,111)</param>
-								<param name="onback">SetFocus(1,1)</param>
-								<param name="onleft">SetFocus(1,1)</param>
-							</include>
-						</control>
-					</control>
-
-					<!-- TV shows -->
-					<control type="group" id="120">
-						<visible>$EXP[IsHomeActivePageTvShows]</visible>
-						<include content="ShowHideFadeSlideVerticalAnimation">
-							<param name="slide_amount">200</param>
-							<param name="speed">ANIMATION_SLOW</param>
-						</include>
-						<include content="FocusFadeAnimation">
-							<param name="reference_id">121</param>
-						</include>
-						<!-- Hide while loading -->
-						<include content="HideWithTransparency">
-							<param name="condition_visible">!$EXP[IsHomeLoading]</param>
-							<param name="condition_hidden">$EXP[IsHomeLoading]</param>
-						</include>
-
-						<!-- Empty list fallback -->
-						<control type="group">
-							<visible>!$EXP[HasHomeTvShowsContent]</visible>
-							<include content="HomeEmptyPageFallback">
-								<param name="id"></param>
-								<param name="title">TV Shows</param>
-								<param name="icon">$VAR[TVShowsIcon]</param>
-								<param name="information">No content found</param>
-								<param name="button">Add TV Shows</param>
-								<param name="onclick">noop</param>
-								<param name="onback">SetFocus(1,2)</param>
-								<param name="onleft">SetFocus(1,2)</param>
-							</include>
-						</control>
-						<!-- Actual TV shows -->
-						<control type="group">
-							<!-- Visible if there is content OR if loading (allows to reload hidden lists because empty) -->
-							<visible>$EXP[HasHomeTvShowsContent] | $EXP[IsHomeLoading]</visible>
-							<!-- Hide if there is no content -->
-							<include content="HideWithTransparency">
-								<param name="condition_visible">$EXP[HasHomeTvShowsContent]</param>
-								<param name="condition_hidden">!$EXP[HasHomeTvShowsContent]</param>
-							</include>
-							<include content="PosterWall">
-								<param name="id">121</param>
-								<param name="label">TV Shows</param>
-								<param name="content">$VAR[HomeTVShowsContentUrl]</param>
-								<param name="art">$INFO[ListItem.Art(poster)]</param>
-								<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
-								<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
-								<param name="onclick">$VAR[HomeMediaOnClickAction]</param>
-								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,tvshows,121)</param>
-								<param name="onback">SetFocus(1,2)</param>
-								<param name="onleft">SetFocus(1,2)</param>
-							</include>
-						</control>
-					</control>
-
-					<!-- Yoga With Adriene -->
-					<control type="group" id="130">
-						<visible>$EXP[IsHomeActivePageYoga] + !$EXP[IsHomeLoading]</visible>
-						<include content="ShowHideFadeSlideVerticalAnimation">
-							<param name="slide_amount">200</param>
-							<param name="speed">ANIMATION_SLOW</param>
-						</include>
-						<include content="FocusFadeAnimation">
-							<param name="reference_id">131</param>
-						</include>
-						<!-- Hide while loading -->
-						<include content="HideWithTransparency">
-							<param name="condition_visible">!$EXP[IsHomeLoading]</param>
-							<param name="condition_hidden">$EXP[IsHomeLoading]</param>
-						</include>
-
-						<!-- Empty list fallback -->
-						<control type="group">
-							<visible>!$EXP[HasHomeYogaContent]</visible>
-							<include content="HomeEmptyPageFallback">
-								<param name="id"></param>
-								<param name="title">Yoga with Adriene</param>
-								<param name="icon">$VAR[YogaIcon]</param>
-								<param name="information">No content found</param>
-								<param name="button">Add yoga</param>
-								<param name="onclick">noop</param>
-								<param name="onback">SetFocus(1,3)</param>
-								<param name="onleft">SetFocus(1,3)</param>
-							</include>
-						</control>
-						<!-- Actual Yoga With Adriene -->
-						<control type="group">
-							<!-- Visible if there is content OR if loading (allows to reload hidden lists because empty) -->
-							<visible>$EXP[HasHomeYogaContent] | $EXP[IsHomeLoading]</visible>
-							<!-- Hide if there is no content -->
-							<include content="HideWithTransparency">
-								<param name="condition_visible">$EXP[HasHomeYogaContent]</param>
-								<param name="condition_hidden">!$EXP[HasHomeYogaContent]</param>
-							</include>
-							<top>OFFSET_AFTER_DETAILS</top>
-
-							<include content="PosterStrip">
-								<param name="id">131</param>
-								<param name="label"></param>
-								<param name="content">$VAR[HomeYogaContentUrl]</param>
-								<param name="art">$INFO[ListItem.Art(poster)]</param>
-								<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
-								<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
-								<param name="onclick">$VAR[HomeMediaOnClickAction]</param>
-								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,yoga,131)</param>
-								<param name="onback">SetFocus(1,3)</param>
-								<param name="onleft">SetFocus(1,3)</param>
-							</include>
-						</control>
-					</control>
-
-					<!-- Music -->
-					<control type="group" id="140">
-						<visible>$EXP[IsHomeActivePageMusic] + !$EXP[IsHomeLoading]</visible>
-						<include content="ShowHideFadeSlideVerticalAnimation">
-							<param name="slide_amount">200</param>
-							<param name="speed">ANIMATION_SLOW</param>
-						</include>
-						<include content="FocusFadeAnimation">
-							<param name="reference_id">141</param>
-						</include>
-						<!-- Hide while loading -->
-						<include content="HideWithTransparency">
-							<param name="condition_visible">!$EXP[IsHomeLoading]</param>
-							<param name="condition_hidden">$EXP[IsHomeLoading]</param>
-						</include>
-
-						<!-- Empty list fallback -->
-						<control type="group">
-							<visible>!$EXP[HasHomeMusicContent]</visible>
-							<include content="HomeEmptyPageFallback">
-								<param name="id"></param>
-								<param name="title">Music</param>
-								<param name="icon">$VAR[MusicIcon]</param>
-								<param name="information">No content found</param>
-								<param name="button">Add music</param>
-								<param name="onclick">noop</param>
-								<param name="onback">SetFocus(1,4)</param>
-								<param name="onleft">SetFocus(1,4)</param>
-							</include>
-						</control>
-						<!-- Actual music -->
-						<control type="group">
-							<!-- Visible if there is content OR if loading (allows to reload hidden lists because empty) -->
-							<visible>$EXP[HasHomeMusicContent] | $EXP[IsHomeLoading]</visible>
-							<!-- Hide if there is no content -->
-							<include content="HideWithTransparency">
-								<param name="condition_visible">$EXP[HasHomeMusicContent]</param>
-								<param name="condition_hidden">!$EXP[HasHomeMusicContent]</param>
-							</include>
-							<include content="AlbumWall">
-								<param name="id">141</param>
-								<param name="label">Music</param>
-								<param name="content">$VAR[HomeMusicContentUrl]</param>
-								<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
-								<param name="info">$INFO[ListItem.Title]</param>
-								<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
-								<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
-								<param name="onclick">$VAR[HomeMediaOnClickAction]</param>
-								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,music,141)</param>
-								<param name="onback">SetFocus(1,4)</param>
-								<param name="onleft">SetFocus(1,4)</param>
-							</include>
-						</control>
-					</control>
-
-					<!-- Pictures -->
-					<control type="group" id="150">
-						<visible>$EXP[IsHomeActivePagePictures] + !$EXP[IsHomeLoading]</visible>
-						<include content="ShowHideFadeSlideVerticalAnimation">
-							<param name="slide_amount">200</param>
-							<param name="speed">ANIMATION_SLOW</param>
-						</include>
-						<include content="FocusFadeAnimation">
-							<param name="reference_id">151</param>
-						</include>
-						<!-- Hide while loading -->
-						<include content="HideWithTransparency">
-							<param name="condition_visible">!$EXP[IsHomeLoading]</param>
-							<param name="condition_hidden">$EXP[IsHomeLoading]</param>
-						</include>
-
-						<!-- Empty list fallback -->
-						<control type="group">
-							<visible>!$EXP[HasHomePicturesContent]</visible>
-							<include content="HomeEmptyPageFallback">
-								<param name="id"></param>
-								<param name="title">Pictures</param>
-								<param name="icon">$VAR[PicturesIcon]</param>
-								<param name="information">No content found</param>
-								<param name="button">Add pictures</param>
-								<param name="onclick">noop</param>
-								<param name="onback">SetFocus(1,5)</param>
-								<param name="onleft">SetFocus(1,5)</param>
-							</include>
-						</control>
-						<!-- Actual pictures -->
-						<control type="group">
-							<!-- Visible if there is content OR if loading (allows to reload hidden lists because empty) -->
-							<visible>$EXP[HasHomePicturesContent] | $EXP[IsHomeLoading]</visible>
-							<!-- Hide if there is no content -->
-							<include content="HideWithTransparency">
-								<param name="condition_visible">$EXP[HasHomePicturesContent]</param>
-								<param name="condition_hidden">!$EXP[HasHomePicturesContent]</param>
-							</include>
-							<include content="AlbumWall">
-								<param name="id">151</param>
-								<param name="label">Music</param>
-								<param name="content">$VAR[HomePicturesContentUrl]</param>
-								<param name="art">$INFO[ListItem.Art(album.thumb)]</param>
-								<param name="info">$INFO[ListItem.Title]</param>
-								<param name="foreground_color">$VAR[HomeContrastTextForegroundColor]</param>
-								<param name="highlight_color">$VAR[HomeContrastTextHighlightColor]</param>
-								<param name="onclick">$VAR[HomeMediaOnClickAction]</param>
-								<param name="onfocus">RunScript(script.canvas.helper,onfocus_home_page_item,music,151)</param>
-								<param name="onback">SetFocus(1,5)</param>
-								<param name="onleft">SetFocus(1,5)</param>
-							</include>
-						</control>
-					</control>
-				</control>
-			</control>
-		</definition>
-	</include>
-
 
 	<!-- Content for fake button with icon in flyout -->
 	<include name="HomeButtonContentWithIconForFlyout">
@@ -830,13 +95,14 @@
 			<include content="StandardFlyoutStructure">
 				<!-- Horizontal list of icon buttons -->
 				<control type="list" id="1000">
-					<top>OFFSET_HOME_FLYOUT_HORIZONTAL_LIST_TOP</top>
+					<top>PADDING_BASE_60P</top>
 					<left>OFFSET_HOME_FLYOUT_HORIZONTAL_LIST_LEFT</left>
 					<orientation>horizontal</orientation>
 
-					<onback>SetFocus(1)</onback>
+					<onback condition="!$EXP[HasHomeLoaded]">SetFocus(99999)</onback>
+					<onback condition="$EXP[HasHomeLoaded]">SetFocus(200)</onback>
 					<ondown>SetFocus(1001,0)</ondown>
-					<onclick>SetFocus(1)</onclick>
+					<onclick>SetFocus(200)</onclick>
 					<onclick>$INFO[ListItem.Property(onclick)]</onclick>
 
 					<itemlayout height="SIZE_HOME_FLYOUT_ICONBUTTON_CONTAINER" width="SIZE_HOME_FLYOUT_ICONBUTTON_CONTAINER">
@@ -862,7 +128,7 @@
 						<!-- Settings -->
 						<item id="1">
 							<thumb>$VAR[SettingsIcon]</thumb>
-							<property name="onclick">RunScript(script.canvas.helper,home_to_active_settings,$INFO[Window(settings).Property(Settings.ActivePage)])</property>
+							<property name="onclick">RunScript(script.canvas.helper,navigate_home_to_active_settings,$INFO[Window(settings).Property(Settings.ActivePage)])</property>
 						</item>
 					</content>
 				</control>
@@ -871,12 +137,12 @@
 				<control type="list" id="1001">
 					<top>OFFSET_FLYOUT_LIST</top>
 					<bottom>PADDING_BASE</bottom>
-					<left>PADDING_HALF</left>
-					<right>PADDING_HALF</right>
+					<left>PADDING_BASE_50P</left>
+					<right>PADDING_BASE_50P</right>
 
-					<onback>SetFocus(1)</onback>
+					<onback>SetFocus(200)</onback>
 					<onup>SetFocus(1000,0)</onup>
-					<onclick>SetFocus(1)</onclick>
+					<onclick>SetFocus(200)</onclick>
 					<onclick>$INFO[ListItem.Property(onclick)]</onclick>
 
 					<itemlayout height="HEIGHT_HOME_FLYOUT_BUTTON_CONTAINER">
@@ -924,27 +190,20 @@
 							<label>Update libraries</label>
 							<property name="onclick">UpdateLibrary()</property>
 						</item>
-						<!-- Reload home -->
-						<item id="4">
-							<thumb>$VAR[ReloadHomeIcon]</thumb>
-							<label>Reload home</label>
-							<!-- Use script to change window property Nonce, used in lists dynamic content, so it gets refreshed -->
-							<property name="onclick">RunScript(script.canvas.helper,reload_home)</property>
-						</item>
 						<!-- Addons -->
-						<item id="5">
+						<item id="4">
 							<thumb>$VAR[AddonsIcon]</thumb>
 							<label>Addons</label>
 							<property name="onclick">ActivateWindow(addonbrowser)</property>
 						</item>
 						<!-- File manager -->
-						<item id="6">
+						<item id="5">
 							<thumb>$VAR[FileManagerIcon]</thumb>
 							<label>File manager</label>
 							<property name="onclick">ActivateWindow(filebrowser)</property>
 						</item>
 						<!-- System info -->
-						<item id="7">
+						<item id="6">
 							<thumb>$VAR[SystemInfoIcon]</thumb>
 							<label>System info</label>
 							<property name="onclick">ActivateWindow(systeminfo)</property>
@@ -955,7 +214,7 @@
 		</include>
 	</include>
 
-	<!-- Flyout menu -->
+	<!-- Flyout section options menu -->
 	<include name="HomeFilterFlyout">
 		<include content="StandardFlyoutBase">
 			<param name="visible">$EXP[IsHomeFilterFlyoutVisible]</param>
@@ -966,9 +225,9 @@
 						<label>$VAR[test]</label>
 					</control>
 					<control type="button" id="1100">
-						<onback>SetFocus(1)</onback>
-						<onleft>SetFocus(1)</onleft>
-						<onright>SetFocus(1)</onright>
+						<onback>SetFocus(200)</onback>
+						<onleft>SetFocus(200)</onleft>
+						<onright>SetFocus(200)</onright>
 						<label>Filter</label>
 					</control>
 				</control>
@@ -976,56 +235,641 @@
 		</include>
 	</include>
 
+
+
+
+
+
+
+	<!-- Horizontal list of media items. Form factor is based on content type -->
+	<include name="HomeItemStrip">
+		<param name="id"></param>
+		<param name="label"></param>
+		<param name="content"></param>
+		<param name="menuid"></param>
+		<param name="onclick"></param>
+		<param name="darken_art">false</param>
+
+		<definition>
+			<control type="group" id="98$PARAM[id]">
+				<visible>Container($PARAM[id]).IsUpdating | !Integer.IsEqual(Container($PARAM[id]).NumItems,0)</visible>
+				<height>HEIGHT_LIST_CONTAINER_WITH_LABEL</height>
+
+				<!-- Label -->
+				<include content="ListLabel">
+					<param name="id">99$PARAM[id]</param>
+					<param name="label">$PARAM[label]</param>
+					<param name="textcolor">$VAR[ContrastTextHighlightColor]</param>
+				</include>
+
+				<!-- Media item strip -->
+				<include content="ItemStrip">
+					<param name="id">$PARAM[id]</param>
+
+					<top>OFFSET_HOME_LIST_AFTER_LABEL</top>
+					<height>HEIGHT_LIST_CONTAINER</height>
+
+					<onfocus>SetProperty(ActiveListId,$PARAM[id],home)</onfocus>
+					<onup>RunScript(script.canvas.helper,navigate_home_lists,$PARAM[id],up)</onup>
+					<ondown>RunScript(script.canvas.helper,navigate_home_lists,$PARAM[id],down)</ondown>
+					<onright>noop</onright>
+					<onleft>SetFocus($PARAM[menuid])</onleft>
+					<onback>SetFocus($PARAM[menuid])</onback>
+					<onclick>$PARAM[onclick]</onclick>
+
+					<!-- Season layout -->
+					<include content="PosterLayout">
+						<param name="art">$VAR[HomePosterArt]</param>
+						<param name="dark_unfocused">$PARAM[darken_art]</param>
+						<param name="dark_focused">$PARAM[darken_art]</param>
+						<param name="condition">Integer.IsEqual($PARAM[id],101) | Integer.IsEqual($PARAM[id],103) | Integer.IsEqual($PARAM[id],110)</param>
+						<param name="sync_501">true</param>
+					</include>
+					<!-- Episode layout -->
+					<include content="LandscapeLayout">
+						<param name="art">$INFO[ListItem.Art(thumb)]</param>
+						<param name="dark_unfocused">$PARAM[darken_art]</param>
+						<param name="dark_focused">$PARAM[darken_art]</param>
+						<param name="condition">Integer.IsEqual($PARAM[id],102)</param>
+						<param name="show_info">true</param>
+						<param name="textcolor">$VAR[ContrastTextHighlightColor]</param>
+						<param name="sync_501">true</param>
+					</include>
+					<!-- Music layout -->
+					<include content="AlbumLayout">
+						<param name="art">$INFO[ListItem.Art(thumb)]</param>
+						<param name="dark_unfocused">$PARAM[darken_art]</param>
+						<param name="dark_focused">$PARAM[darken_art]</param>
+						<param name="condition">Integer.IsEqual($PARAM[id],104)</param>
+						<param name="sync_501">true</param>
+						<param name="info1">$VAR[HomeAlbumInfo1]</param>
+						<param name="info2">$VAR[HomeAlbumInfo2]</param>
+						<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
+						<param name="info2_color">$VAR[ContrastTextForegroundColor]</param>
+					</include>
+
+					<content>$PARAM[content]</content>
+				</include>
+			</control>
+		</definition>
+	</include>
+	<!-- Wall of media items. Form factor is based on content type -->
+	<include name="HomeItemWall">
+		<param name="id"></param>
+		<param name="label"></param>
+		<param name="content"></param>
+		<param name="menuid"></param>
+		<param name="onclick"></param>
+		<param name="darken_art">false</param>
+
+		<definition>
+			<control type="group" id="98$PARAM[id]">
+				<visible>Container($PARAM[id]).IsUpdating | !Integer.IsEqual(Container($PARAM[id]).NumItems,0)</visible>
+				<height>HEIGHT_LIST_CONTAINER_WITH_LABEL</height>
+
+				<!-- Label -->
+				<include content="ListLabel">
+					<param name="id">99$PARAM[id]</param>
+					<param name="label">$PARAM[label]</param>
+					<param name="textcolor">$VAR[ContrastTextHighlightColor]</param>
+				</include>
+
+				<!-- Media item strip -->
+				<include content="ItemWall">
+					<param name="id">$PARAM[id]</param>
+
+					<top>OFFSET_HOME_LIST_AFTER_LABEL</top>
+					<height>HEIGHT_LIST_CONTAINER</height>
+
+					<onfocus>SetProperty(ActiveListId,$PARAM[id],home)</onfocus>
+					<onup>RunScript(script.canvas.helper,navigate_home_lists,$PARAM[id],up)</onup>
+					<ondown>RunScript(script.canvas.helper,navigate_home_lists,$PARAM[id],down)</ondown>
+					<onright>noop</onright>
+					<onleft>SetFocus($PARAM[menuid])</onleft>
+					<onback>SetFocus($PARAM[menuid])</onback>
+					<onclick>$PARAM[onclick]</onclick>
+
+					<!-- Season layout -->
+					<include content="PosterLayout">
+						<param name="art">$VAR[HomePosterArt]</param>
+						<param name="dark_unfocused">$PARAM[darken_art]</param>
+						<param name="dark_focused">$PARAM[darken_art]</param>
+						<param name="condition">Integer.IsEqual($PARAM[id],106) | Integer.IsEqual($PARAM[id],108)</param>
+						<param name="sync_501">true</param>
+					</include>
+					<!-- Music layout -->
+					<include content="AlbumLayout">
+						<param name="art">$INFO[ListItem.Art(thumb)]</param>
+						<param name="dark_unfocused">$PARAM[darken_art]</param>
+						<param name="dark_focused">$PARAM[darken_art]</param>
+						<param name="condition">Integer.IsEqual($PARAM[id],112)</param>
+						<param name="sync_501">true</param>
+						<param name="info1">$VAR[HomeAlbumInfo1]</param>
+						<param name="info2">$VAR[HomeAlbumInfo2]</param>
+						<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
+						<param name="info2_color">$VAR[ContrastTextForegroundColor]</param>
+					</include>
+
+					<content>$PARAM[content]</content>
+				</include>
+			</control>
+		</definition>
+	</include>
 	<!--
-		Forward set properties on MediaNav window from home about info of the selected item.
-		This allows to create a set of controls at destination that recreate the situation on
-		home, providing a seamless transition.
+		Empty placeholder for list of items. This is considered content, not a placeholder for empty lists.
+		It allows to switch from bottom half of screen lists to full height wall of items.
 	-->
-	<include name="HomeOnClickMedia">
-		<onclick>SetProperty(CarryOver.Art,$VAR[HomeBackgroundArtEscaped],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Blur,$VAR[HomeBlurArtEscaped],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Studio,$VAR[HomeDetailsStudioEscaped],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Studio.Exists,$VAR[HomeHasDetailsStudio],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Clearlogo,$VAR[HomeDetailsClearlogoEscaped],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Clearlogo.Exists,$VAR[HomeHasDetailsClearlogo],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Title,$VAR[HomeDetailsTitleEscaped],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Subtitle,$VAR[HomeDetailsSubtitleEscaped],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Subtitle.Exists,$VAR[HomeHasDetailsSubtitle],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Resolution,$VAR[HomeDetailsResolutionEscaped],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Resolution.Exists,$VAR[HomeHasDetailsResolution],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Hdr,$VAR[HomeDetailsHdrEscaped],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Hdr.Exists,$VAR[HomeHasDetailsHdr],videos)</onclick>
-		<onclick>SetProperty(CarryOver.AudioChannels,$VAR[HomeDetailsAudioChannelsEscaped],videos)</onclick>
-		<onclick>SetProperty(CarryOver.AudioChannels.Exists,$VAR[HomeHasDetailsAudioChannels],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Year,$VAR[HomeDetailsYearEscaped],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Year.Exists,$VAR[HomeHasDetailsYear],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Episode,$VAR[HomeDetailsEpisodeEscaped],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Episode.Exists,$VAR[HomeHasDetailsEpisode],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Premiered,$VAR[HomeDetailsPremieredEscaped],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Premiered.Exists,$VAR[HomeHasDetailsPremiered],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Duration,$VAR[HomeDetailsDurationEscaped],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Duration.Exists,$VAR[HomeHasDetailsDuration],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Mpaa,$VAR[HomeDetailsMpaaEscaped],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Mpaa.Exists,$VAR[HomeHasDetailsMpaa],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Status,$VAR[HomeDetailsStatusEscaped],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Status.Exists,$VAR[HomeHasDetailsStatus],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Genre,$VAR[HomeDetailsGenreEscaped],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Genre.Exists,$VAR[HomeHasDetailsGenre],videos)</onclick>
-		<onclick>SetProperty(CarryOver.TimeRemaining,$VAR[HomeDetailsTimeRemainingEscaped],videos)</onclick>
-		<onclick>SetProperty(CarryOver.TimeRemaining.Exists,$VAR[HomeHasDetailsTimeRemaining],videos)</onclick>
-		<onclick>SetProperty(CarryOver.EpisodesRemaining,$VAR[HomeDetailsEpisodesRemainingEscaped],videos)</onclick>
-		<onclick>SetProperty(CarryOver.EpisodesRemaining.Exists,$VAR[HomeHasDetailsEpisodesRemaining],videos)</onclick>
-		<onclick>SetProperty(CarryOver.WatchedPercentage,$VAR[HomeDetailsWatchedPercentageEscaped],videos)</onclick>
-		<onclick>SetProperty(CarryOver.IsWatched,$VAR[HomeIsDetailsWatched],videos)</onclick>
-		<onclick>SetProperty(CarryOver.IsAllNew,$VAR[HomeIsDetailsAllNew],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Summary,$VAR[HomeDetailsSummaryEscaped],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Colors.IsLight,$VAR[HomeIsDetailsBestTextColorLight],videos)</onclick>
-		<onclick>SetProperty(CarryOver.Colors.IsDark,$VAR[HomeIsDetailsBestTextColorDark],videos)</onclick>
-		<onclick>SetProperty(List.101.IsLoading,true,videos)</onclick>
-		<onclick>SetProperty(List.101.HasContent,false,videos)</onclick>
-		<onclick>SetProperty(List.102.IsLoading,true,videos)</onclick>
-		<onclick>SetProperty(List.102.HasContent,false,videos)</onclick>
-		<onclick>SetProperty(List.111.IsLoading,true,videos)</onclick>
-		<onclick>SetProperty(List.111.HasContent,false,videos)</onclick>
+	<include name="HomeItemEmptyPage">
+		<param name="id"></param>
+		<param name="routing_id"></param>
+
+		<definition>
+			<control type="group" id="96$PARAM[id]">
+				<visible>Container($PARAM[routing_id]).IsUpdating | !Integer.IsEqual(Container($PARAM[routing_id]).NumItems,0)</visible>
+				<height>HEIGHT_LIST_CONTAINER_WITH_LABEL</height>
+
+				<control type="button" id="$PARAM[id]">
+					<visible allowhiddenfocus="true">false</visible>
+					<onback>SetFocus(200)</onback>
+				</control>
+			</control>
+		</definition>
+	</include>
+	<!--
+		Empty placeholder for full height list of items. This is considered content, not a placeholder for empty lists.
+		It allows to switch from full height wall of items to bottom half of screen lists.
+	-->
+	<include name="HomeItemEmptyPageFullHeight">
+		<param name="id"></param>
+
+		<definition>
+			<control type="group" id="96$PARAM[id]">
+				<height>SCREEN_HEIGHT</height>
+
+				<control type="button" id="$PARAM[id]">
+					<visible allowhiddenfocus="true">false</visible>
+					<onback>SetFocus(200)</onback>
+				</control>
+			</control>
+		</definition>
+	</include>
+	<!-- Full height wall of media items. Form factor is based on content type -->
+	<include name="HomeItemFullWall">
+		<param name="id"></param>
+		<param name="label"></param>
+		<param name="content"></param>
+		<param name="menuid"></param>
+		<param name="onclick"></param>
+		<param name="darken_art">false</param>
+
+		<definition>
+			<control type="group" id="98$PARAM[id]">
+				<visible>Container($PARAM[id]).IsUpdating | !Integer.IsEqual(Container($PARAM[id]).NumItems,0)</visible>
+				<height>SCREEN_HEIGHT</height>
+
+				<!-- Label -->
+				<control type="label">
+					<width>1000</width>
+					<height>HEIGHT_DETAILS_TITLE</height>
+					<aligny>center</aligny>
+					<font>TITLE1</font>
+					<textcolor>HIGHLIGHT_CONTRAST_LIGHT</textcolor>
+					<label>$PARAM[label]</label>
+				</control>
+
+				<!-- Media item strip -->
+				<include content="ItemWall">
+					<param name="id">$PARAM[id]</param>
+
+					<top>HEIGHT_DETAILS_TITLE_SECTION</top>
+					<height>HEIGHT_HOME_FULL_WALL_CONTENT</height>
+
+					<onfocus>SetProperty(ActiveListId,$PARAM[id],home)</onfocus>
+					<onfocus>RunScript(script.canvas.helper,clear_listitem_properties)</onfocus>
+					<onup>RunScript(script.canvas.helper,navigate_home_lists,$PARAM[id],up)</onup>
+					<ondown>noop</ondown>
+					<onright>noop</onright>
+					<onleft>SetFocus($PARAM[menuid])</onleft>
+					<onback>SetFocus($PARAM[menuid])</onback>
+					<onclick>$PARAM[onclick]</onclick>
+
+					<!-- Picure layout -->
+					<include content="AlbumLayout">
+						<param name="art">$INFO[ListItem.Art(thumb)]</param>
+						<param name="fallback">1080p/fallback/picture.png</param>
+						<param name="dark_unfocused">$PARAM[darken_art]</param>
+						<param name="condition">Integer.IsEqual($PARAM[id],302)</param>
+						<param name="get_additional_data">false</param>
+						<param name="sync_501">true</param>
+						<!--todo<param name="info1">$VAR[HomeAlbumInfo1]</param>
+						<param name="info2">$VAR[HomeAlbumInfo2]</param>
+						<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
+						<param name="info2_color">$VAR[ContrastTextForegroundColor]</param>-->
+					</include>
+
+					<content>$PARAM[content]</content>
+				</include>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Placeholder for adding content when there is none (icon and text) -->
+	<include name="HomeEmptyListInfoPlaceholder">
+		<param name="visible"></param>
+
+		<definition>
+			<control type="group">
+				<visible>$PARAM[visible]</visible>
+				<width>WIDTH_HOME_FALLBACK_CONTENT</width>
+				<height>HEIGHT_HOME_FALLBACK_CONTENT</height>
+				<centertop>50%</centertop>
+
+				<!-- Icon -->
+				<control type="image">
+					<width>SIZE_HOME_FALLBACK_ICON</width>
+					<height>SIZE_HOME_FALLBACK_ICON</height>
+					<centerleft>50%</centerleft>
+					<texture colordiffuse="FOREGROUND">$VAR[HomeEmptyListIcon]</texture>
+				</control>
+				<!-- Page title -->
+				<control type="label">
+					<width>WIDTH_HOME_FALLBACK_CONTENT</width>
+					<height>FONT_SIZE_TITLE3</height>
+					<top>100</top>
+					<centerright>50%</centerright>
+					<align>center</align>
+					<font>TITLE3</font>
+					<label>$VAR[HomeEmptyListTitle]</label>
+				</control>
+				<!-- Empty message -->
+				<control type="label">
+					<width>WIDTH_HOME_FALLBACK_CONTENT</width>
+					<height>FONT_SIZE_BODY</height>
+					<top>220</top>
+					<centerright>50%</centerright>
+
+					<align>center</align>
+					<font>BODY</font>
+					<label>No content found</label>
+				</control>
+			</control>
+		</definition>
+	</include>
+	<!-- Placeholder for adding content when there is none (button) -->
+	<include name="HomeEmptyListPlaceholder">
+		<param name="visible">false</param>
+		<param name="id"></param>
+		<param name="label"></param>
+		<param name="menuid"></param>
+		<param name="onclick"></param>
+
+		<definition>
+			<control type="group" id="97$PARAM[id]">
+				<visible>$PARAM[visible]</visible>
+				<height>HEIGHT_LIST_CONTAINER_WITH_LABEL</height>
+				<right>PADDING_BASE</right>
+			
+				<!-- "Add content" button -->
+				<control type="button" id="$PARAM[id]">
+					<top>OFFSET_HOME_LIST_AFTER_LABEL</top>
+					<width>350</width>
+					<height>120</height>
+					<centerleft>50%</centerleft>
+
+					<texturefocus colordiffuse="FOREGROUND_ACCENT" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
+					<texturenofocus colordiffuse="BACKGROUND_OPAQUE50" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturenofocus>
+					<textoffsety>4</textoffsety>
+					<textoffsetx>38</textoffsetx>
+					<textcolor>FOREGROUND</textcolor>
+					<align>center</align>
+					<label>$PARAM[label]</label>
+
+					<onclick>$PARAM[onclick]</onclick>
+					<onup>RunScript(script.canvas.helper,navigate_home_lists,$PARAM[id],up)</onup>
+					<ondown>RunScript(script.canvas.helper,navigate_home_lists,$PARAM[id],down)</ondown>
+					<onleft>SetFocus($PARAM[menuid])</onleft>
+					<onback>SetFocus($PARAM[menuid])</onback>
+					<onfocus>RunScript(script.canvas.helper,reset_listitem_selection)</onfocus>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Main home content (lists of media) -->
+	<include name="HomeListsContent">
+		<param name="darken_art">$EXP[HasHomeMenuFocus]</param>
+
+		<definition>
+			<!-- Main lists -->
+			<control type="grouplist" id="100">
+				<orientation>vertical</orientation>
+				<itemgap>0</itemgap>
+				<usecontrolcoords>true</usecontrolcoords>
+
+				<bottom>0</bottom>
+				<height>HEIGHT_LIST_CONTAINER_WITH_LABEL</height>
+				<onback>SetFocus(1001,0)</onback>
+
+				<!-- Continue watching -->
+				<include content="HomeItemStrip">
+					<param name="id">101</param>
+					<param name="label">Continue watching</param>
+					<param name="content">$VAR[HomeContinueWatchingContent]</param>
+					<param name="menuid">201</param>
+					<param name="onclick">RunScript(script.canvas.helper,navigate_movie_episode_videonav,101)</param>
+					<param name="darken_art">$PARAM[darken_art]</param>
+				</include>
+				<!-- Recently added episodes -->
+				<include content="HomeItemStrip">
+					<param name="id">102</param>
+					<param name="label">Recently added episodes</param>
+					<param name="content">$VAR[HomeRecentEpisodesContent]</param>
+					<param name="menuid">201</param>
+					<param name="onclick">RunScript(script.canvas.helper,navigate_movie_episode_videonav,102)</param>
+					<param name="darken_art">$PARAM[darken_art]</param>
+				</include>
+				<!-- Recently added movies -->
+				<include content="HomeItemStrip">
+					<param name="id">103</param>
+					<param name="label">Recently added movies</param>
+					<param name="content">$VAR[HomeRecentMoviesContent]</param>
+					<param name="menuid">201</param>
+					<param name="onclick">RunScript(script.canvas.helper,navigate_movie_episode_videonav,103)</param>
+					<param name="darken_art">$PARAM[darken_art]</param>
+				</include>
+				<!-- Recently added music -->
+				<include content="HomeItemStrip">
+					<param name="id">104</param>
+					<param name="label">Recently added music</param>
+					<param name="content">$VAR[HomeRecentSongsContent]</param>
+					<param name="menuid">201</param>
+					<param name="darken_art">$PARAM[darken_art]</param>
+				</include>
+				<!-- No recent content page -->
+				<include content="HomeEmptyListPlaceholder">
+					<param name="visible">Integer.IsEqual(Container(101).NumItems,0) + Integer.IsEqual(Container(102).NumItems,0) + Integer.IsEqual(Container(103).NumItems,0) + Integer.IsEqual(Container(103).NumItems,0)</param>
+					<param name="id">105</param>
+					<param name="label">Add content</param>
+					<param name="menuid">201</param>
+				</include>
+				<!-- Movies -->
+				<include content="HomeItemWall">
+					<param name="id">106</param>
+					<param name="label">Movies</param>
+					<param name="content">$VAR[HomeMoviesContent]</param>
+					<param name="menuid">202</param>
+					<param name="onclick">RunScript(script.canvas.helper,navigate_movie_episode_videonav,106)</param>
+					<param name="darken_art">$PARAM[darken_art]</param>
+				</include>
+				<!-- No movies page -->
+				<include content="HomeEmptyListPlaceholder">
+					<param name="visible">Integer.IsEqual(Container(106).NumItems,0)</param>
+					<param name="id">107</param>
+					<param name="label">Add movies</param>
+					<param name="menuid">202</param>
+				</include>
+				<!-- TV shows -->
+				<include content="HomeItemWall">
+					<param name="id">108</param>
+					<param name="label">TV Shows</param>
+					<param name="content">$VAR[HomeTVShowsContent]</param>
+					<param name="menuid">203</param>
+					<param name="onclick">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.DBID],return)</param>
+					<param name="darken_art">$PARAM[darken_art]</param>
+				</include>
+				<!-- No TV shows page -->
+				<include content="HomeEmptyListPlaceholder">
+					<param name="visible">Integer.IsEqual(Container(108).NumItems,0)</param>
+					<param name="id">109</param>
+					<param name="label">Add TV shows</param>
+					<param name="menuid">203</param>
+				</include>
+				<!-- Yoga With Adriene -->
+				<include content="HomeItemStrip">
+					<param name="id">110</param>
+					<param name="label">Yoga</param>
+					<param name="content">$VAR[HomeYogaContent]</param>
+					<param name="menuid">204</param>
+					<param name="onclick">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.Property(TvShowId)]/$INFO[ListItem.Season]/,return)</param>
+					<param name="darken_art">$PARAM[darken_art]</param>
+				</include>
+				<!-- No yoga page -->
+				<include content="HomeEmptyListPlaceholder">
+					<param name="visible">Integer.IsEqual(Container(110).NumItems,0)</param>
+					<param name="id">111</param>
+					<param name="label">Add yoga</param>
+					<param name="menuid">204</param>
+				</include>
+				<!-- Music -->
+				<include content="HomeItemWall">
+					<param name="id">112</param>
+					<param name="label">Music</param>
+					<param name="content">$VAR[HomeSongsContent]</param>
+					<param name="menuid">205</param>
+					<param name="onclick"></param><!--todo-->
+					<param name="darken_art">$PARAM[darken_art]</param>
+				</include>
+				<!-- No music page -->
+				<include content="HomeEmptyListPlaceholder">
+					<param name="visible">Integer.IsEqual(Container(112).NumItems,0)</param>
+					<param name="id">113</param>
+					<param name="label">Add music</param>
+					<param name="menuid">205</param>
+				</include>
+				<!-- Fake pictures (empty page so full height wall can be shown) -->
+				<include content="HomeItemEmptyPage">
+					<param name="id">114</param>
+					<param name="routing_id">302</param>
+				</include>
+				<!-- No pictures page -->
+				<include content="HomeEmptyListPlaceholder">
+					<param name="visible">Integer.IsEqual(Container(302).NumItems,0)</param>
+					<param name="id">115</param>
+					<param name="label">Add pictures</param>
+					<param name="menuid">206</param>
+				</include>
+			</control>
+
+			<!-- Pictures list (full height) -->
+			<control type="grouplist" id="300">
+				<orientation>vertical</orientation>
+				<itemgap>0</itemgap>
+				<usecontrolcoords>true</usecontrolcoords>
+
+				<height>SCREEN_HEIGHT</height>
+				<onback>SetFocus(1001,0)</onback>
+
+				<!-- Empty page for "visibility" -->
+				<include content="HomeItemEmptyPageFullHeight">
+					<param name="id">301</param>
+				</include>
+				<!-- Pictures -->
+				<include content="HomeItemFullWall">
+					<param name="id">302</param>
+					<param name="label">Pictures</param>
+					<param name="content">plugin://script.canvas.helper/pictures/</param>
+					<param name="menuid">206</param>
+					<param name="onclick"></param><!--todo-->
+					<param name="darken_art">$PARAM[darken_art]</param>
+				</include>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Main menu -->
+	<include name="HomeMainMenu">
+		<definition>
+			<control type="group">
+				<width>WIDTH_HOME_MENU</width>
+				
+				<!-- Logo -->
+				<control type="image">
+					<width>SIZE_HOME_MENU_LOGO</width>
+					<height>SIZE_HOME_MENU_LOGO</height>
+					<centerleft>50%</centerleft>
+					<texture colordiffuse="HIGHLIGHT">$VAR[LogoIcon]</texture>
+					<aspectratio>keep</aspectratio>
+				</control>
+
+				<!-- Menu -->
+				<control type="grouplist" id="200">
+					<orientation>vertical</orientation>
+					<itemgap>-20</itemgap>
+					<usecontrolcoords>true</usecontrolcoords>
+
+					<top>200</top>
+					<bottom>0</bottom>
+
+					<include content="HomeMainMenuItem">
+						<param name="id">201</param>
+						<param name="icon">$VAR[HomeIcon]</param>
+					</include>
+					<include content="HomeMainMenuItem">
+						<param name="id">202</param>
+						<param name="icon">$VAR[MoviesIcon]</param>
+					</include>
+					<include content="HomeMainMenuItem">
+						<param name="id">203</param>
+						<param name="icon">$VAR[TVShowsIcon]</param>
+					</include>
+					<include content="HomeMainMenuItem">
+						<param name="id">204</param>
+						<param name="icon">$VAR[YogaIcon]</param>
+					</include>
+					<include content="HomeMainMenuItem">
+						<param name="id">205</param>
+						<param name="icon">$VAR[MusicIcon]</param>
+						<param name="has_filter">true</param>
+					</include>
+					<include content="HomeMainMenuItem">
+						<param name="id">206</param>
+						<param name="icon">$VAR[PicturesIcon]</param>
+						<param name="has_filter">true</param>
+					</include>
+					<include content="HomeMainMenuItem">
+						<param name="id">207</param>
+						<param name="icon">$VAR[MenuIcon]</param>
+						<param name="is_menu_button">true</param>
+					</include>
+				</control>
+			</control>
+		</definition>
+	</include>
+	<include name="HomeMainMenuItem">
+		<param name="id"></param>
+		<param name="icon"></param>
+		<param name="has_filter">false</param>
+		<param name="is_menu_button">false</param>
+
+		<definition>
+			<!-- Icon button -->
+			<control type="group">
+				<width>WIDTH_HOME_MENU</width>
+				<height>SIZE_HOME_MENU_ICON_SELECTION</height>
+
+				<!-- Selected case (circle background, dark icon) -->
+				<control type="group">
+					<visible>String.IsEqual(Window(home).Property(Menu.ActiveId),$PARAM[id])</visible>
+					<width>WIDTH_HOME_MENU</width>
+					<height>SIZE_HOME_MENU_ICON_SELECTION</height>
+
+					<!-- Circle background -->
+					<control type="image">
+						<width>SIZE_HOME_MENU_ICON_SELECTION</width>
+						<height>SIZE_HOME_MENU_ICON_SELECTION</height>
+						<centertop>50%</centertop>
+						<centerleft>50%</centerleft>
+						<texture colordiffuse="FOREGROUND_ACCENT">1080p/diffuse/circle.png</texture>
+						<bordertexture border="SIZE_ITEM_SHADOW_SMALLCIRCLE_DOUBLE" colordiffuse="BACKGROUND_OPAQUE75">1080p/diffuse/shadow-circle-small.png</bordertexture>
+						<bordersize>SIZE_ITEM_SHADOW_SMALLCIRCLE</bordersize>
+					</control>
+					<!-- Icon -->
+					<control type="image">
+						<width>SIZE_HOME_MENU_ICON</width>
+						<height>SIZE_HOME_MENU_ICON</height>
+						<centertop>50%</centertop>
+						<centerleft>50%</centerleft>
+						<texture colordiffuse="BACKGROUND_OPAQUE75">$PARAM[icon]</texture>
+					</control>
+
+					<!-- Chevron left (if there is filter) -->
+					<control type="image">
+						<visible>$PARAM[has_filter]</visible>
+
+						<width>SIZE_HOME_MENU_ICON</width>
+						<height>SIZE_HOME_MENU_ICON</height>
+						<left>PADDING_BASE_60P</left>
+						<centertop>50%</centertop>
+						<texture colordiffuse="FOREGROUND_OPAQUE35" flipx="true">1080p/icons/chevron-right.png</texture>
+						<aspectratio>keep</aspectratio>
+					</control>
+				</control>
+
+				<!-- Unselected case (icon only, light color) -->
+				<control type="image">
+					<visible>!String.IsEqual(Window(home).Property(Menu.ActiveId),$PARAM[id])</visible>
+					<width>SIZE_HOME_MENU_ICON</width>
+					<height>SIZE_HOME_MENU_ICON</height>
+					<centertop>50%</centertop>
+					<centerleft>50%</centerleft>
+					<texture colordiffuse="FOREGROUND_OPAQUE50">$PARAM[icon]</texture>
+				</control>
+
+				<!-- Hidden control -->
+				<control type="button" id="$PARAM[id]">
+					<visible allowhiddenfocus="true">false</visible>
+
+					<onback condition="!Player.HasMedia">SetFocus(1001,0)</onback>
+					<onup>RunScript(script.canvas.helper,navigate_home_menu,$PARAM[id],up)</onup>
+					<ondown>RunScript(script.canvas.helper,navigate_home_menu,$PARAM[id],down)</ondown>
+					<onright condition="!$PARAM[is_menu_button]">RunScript(script.canvas.helper,navigate_home_from_menu_to_lists,$PARAM[id])</onright>
+					<onclick condition="!$PARAM[is_menu_button]">RunScript(script.canvas.helper,navigate_home_from_menu_to_lists,$PARAM[id])</onclick>
+					<onclick condition="$PARAM[is_menu_button]">SetFocus(1001,0)</onclick>
+					<onfocus>SetProperty(Menu.ActiveId,$PARAM[id],home)</onfocus>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!--
+		Hidden list with ID 501 that mimics the currently selected list in order to have
+		the same list ID across all windows where to pick details from.
+	-->
+	<include name="HomeActiveItemSyncList">
+		<definition>
+			<control type="fixedlist" id="501">
+				<autoscroll>false</autoscroll>
+				<orientation>horizontal</orientation>
+				<preloaditems>1</preloaditems>
+				<width>0</width>
+				<height>0</height>
+				
+				<itemlayout width="WIDTH_POSTER_LIST_ITEM_CONTAINER" height="HEIGHT_POSTER_LIST_ITEM_CONTAINER"></itemlayout>
+				<focusedlayout width="WIDTH_POSTER_LIST_ITEM_CONTAINER" height="HEIGHT_POSTER_LIST_ITEM_CONTAINER"></focusedlayout>
+				<content>$VAR[HomeActiveItemListContent]</content>
+
+				<onback>SetFocus(200)</onback>
+			</control>
+		</definition>
 	</include>
 </includes>

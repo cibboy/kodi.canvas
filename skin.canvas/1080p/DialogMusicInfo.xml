@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<controls>
+		<include content="Center169AspectRatio">
+			<!-- Background with blurred quadrants -->
+			<include content="BackgroundQuadrantBlur" />
+
+			<!--todo-->
+
+			<!-- Clock -->
+			<include content="TopBar" />
+
+			<!-- Studio -->
+			<include content="BottomBar" />
+		</include>
+	</controls>
+</window>

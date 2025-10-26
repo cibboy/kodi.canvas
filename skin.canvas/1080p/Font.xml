@@ -10,10 +10,15 @@
 		<font>
 			<name>TITLE1</name>
 			<filename>Geologica-SemiBold.ttf</filename>
-			<size>75</size>
+			<size>90</size>
 		</font>
 		<font>
 			<name>TITLE2</name>
+			<filename>Geologica-SemiBold.ttf</filename>
+			<size>75</size>
+		</font>
+		<font>
+			<name>TITLE3</name>
 			<filename>Montserrat-SemiBold.ttf</filename>
 			<size>62</size>
 		</font>
@@ -68,6 +73,12 @@
 			<name>CAPTION2_STRONG</name>
 			<filename>Geologica-Bold.ttf</filename>
 			<size>20</size>
+			<linespacing>1.05</linespacing>
+		</font>
+		<font>
+			<name>CAPTION3_STRONG</name>
+			<filename>Geologica-Bold.ttf</filename>
+			<size>18</size>
 			<linespacing>1.05</linespacing>
 		</font>
 		<font>

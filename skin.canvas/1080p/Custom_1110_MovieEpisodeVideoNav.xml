@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="window" id="1110">
+	<onload>Skin.TimerStart(movieepisodevideonavredir)</onload>
+
+	<controls>
+		<include content="Center169AspectRatio">
+			<!-- Background with blurred quadrants -->
+			<include content="BackgroundQuadrantBlur" />
+
+			<!-- Previous/next season indicators (for episode list view) -->
+			<include content="MediaNavPrevNextSeasonIndicators" />
+			
+			<control type="group">
+				<top>PADDING_BASE_80P</top>
+				<left>PADDING_BASE</left>
+
+				<!-- Selection details -->
+				<include content="SelectionDetails" />
+
+				<!-- Item controls -->
+				<include content="MediaNavActionButtons">
+					<param name="switch_to_601_on_more">String.IsEqual(Window(1110).Property(Content.Type),movie)</param>
+				</include>
+
+				<!-- Single movie list (always hidden) -->
+				<include content="MediaNavItemList" condition="String.IsEqual(Window(1110).Property(Content.Type),movie)">
+					<animation type="Conditional" condition="true"><effect type="fade" start="100" end="0" time="0" tween="cubic" easing="out" /></animation>
+					<content>$INFO[Window(1110).Property(Content)]</content>
+				</include>
+
+				<!-- Lists -->
+				<control type="grouplist" id="400">
+					<orientation>vertical</orientation>
+					<itemgap>0</itemgap>
+					<usecontrolcoords>true</usecontrolcoords>
+
+					<bottom>0</bottom>
+					<height>HEIGHT_LIST_CONTAINER_WITH_LABEL</height>
+
+					<onup>SetFocus(410)</onup>
+					<ondown>noop</ondown>
+
+					<!-- Episode list -->
+					<include content="MediaNavItemList" condition="String.IsEqual(Window(1110).Property(Content.Type),episode)">
+						<animation type="Conditional" condition="!String.IsEqual(Window(1110).Property(ShowList),true)"><effect type="fade" start="100" end="0" time="0" tween="cubic" easing="out" reversible="true" /></animation>
+						<content>$INFO[Window(1110).Property(Content)]</content>
+					</include>
+
+					<!-- Actor list -->
+					<include content="MediaNavActorList" />
+				</control>
+			</control>
+
+			<!-- Clock -->
+			<include content="TopBar" />
+
+			<!-- Studio -->
+			<include content="BottomBar" />
+		</include>
+	</controls>
+</window>

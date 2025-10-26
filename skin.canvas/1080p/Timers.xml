@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <timers>
-	<!-- Splash screen redirection-->
+	<!-- Splash screen redirection -->
 	<timer>
 		<name>splashredirect</name>
 		<stop>Integer.IsGreaterOrEqual(Skin.TimerElapsedSecs(splashredirect),5)</stop>
 		<onstop>ReplaceWindow(home)</onstop>
 		<!--todo: conditional onstop, redirect either to home or first run window-->
+	</timer>
+
+	<!-- Home redirection to first available list -->
+	<timer>
+		<name>homelistselection</name>
+		<stop>
+			!Container(101).IsUpdating +
+			!Container(102).IsUpdating +
+			!Container(103).IsUpdating +
+			!Container(104).IsUpdating
+		</stop>
+		<!-- Go to first available list if running for the first time in this session -->
+		<onstop condition="!String.IsEqual(Window(home).Property(Loaded),true)">RunScript(script.canvas.helper,navigate_home_lists,0,down)</onstop>
+		<!-- Set flag to indicate we have run at least once, so going to another window and coming back does not reset to first list -->
+		<onstop>SetProperty(Loaded,true,home)</onstop>
+	</timer>
+
+	<!-- Movie/episode custom video nav redirect to proper item -->
+	<timer>
+		<name>movieepisodevideonavredir</name>
+		<stop>!Container(501).IsUpdating</stop>
+		<!-- If showing movies, set focus on list of actors, since the actual list of items is hidden and there only for structure purposes -->
+		<onstop condition="String.IsEqual(Window(1110).Property(Content.Type),movie)">SetFocus(601)</onstop>
+		<!-- If showing episodes, first navigate to proper episode, then show list by setting property -->
+		<onstop condition="String.IsEqual(Window(1110).Property(Content.Type),episode)">RunScript(script.canvas.helper,set_active_episode)</onstop>
 	</timer>
 </timers>

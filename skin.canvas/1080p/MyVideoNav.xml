@@ -1,63 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-	<defaultcontrol always="true">9999</defaultcontrol>
+	<defaultcontrol always="true">501</defaultcontrol>
+	<views>501</views>
 
 	<controls>
 		<include content="Center169AspectRatio">
-			<!-- Default button to force redirect: either to play or resume action button -->
-			<control type="button" id="9999">
-				<include content="Hidden" />
-				<!-- First reset to main list (seasons or episodes) in case we left on the actors list -->
-				<onfocus>SetFocus(101,0)</onfocus>
-				<onfocus>SetFocus(102,0)</onfocus>
-				<!-- Then focus either on play or resume -->
-				<onfocus condition="$EXP[HasMediaNavActionPlay]">SetFocus(510)</onfocus>
-				<onfocus condition="$EXP[HasMediaNavActionResume]">SetFocus(511)</onfocus>
-			</control>
+			<!-- Background with blurred quadrants -->
+			<include content="BackgroundQuadrantBlur" />
 
-			<!-- Background -->
-			<include content="MediaNavBackground" />
+			<!-- Previous/next season indicators (for episode list view) -->
+			<include content="MediaNavPrevNextSeasonIndicators" />
 
-			<!-- Content -->
 			<control type="group">
-				<top>PADDING_BASE</top>
-				<left>PADDING_MULT_120</left>
+				<top>PADDING_BASE_80P</top>
+				<left>PADDING_BASE</left>
 
 				<!-- Selection details -->
-				<include content="MediaNavSelectionDetails" />
+				<include content="SelectionDetails" />
 
-				<!-- Actual content after selection details -->
-				<control type="group">
-					<top>OFFSET_AFTER_DETAILS</top>
+				<!-- Item controls -->
+				<include content="MediaNavActionButtons" />
 
-					<!-- Action buttons -->
-					<include content="MediaNavActionButtons" />
+				<!-- Lists -->
+				<control type="grouplist" id="400">
+					<orientation>vertical</orientation>
+					<itemgap>0</itemgap>
+					<usecontrolcoords>true</usecontrolcoords>
 
-					<!-- Lists -->
-					<control type="grouplist" id="100">
-						<top>OFFSET_MEDIANAV_AFTER_ACTIONBUTTONS</top>
-						<height>HEIGHT_MEDIANAV_LISTS_CONTAINER</height>
+					<bottom>0</bottom>
+					<height>HEIGHT_LIST_CONTAINER_WITH_LABEL</height>
 
-						<!-- Season list (for TV shows) -->
-						<include content="MediaNavSeasonList" />
-						<!-- Episode list (for seasons and episodes) -->
-						<include content="MediaNavEpisodeList" />
+					<onup>SetFocus(410)</onup>
+					<ondown>noop</ondown>
 
-						<!-- Actor list -->
-						<include content="MediaNavActorList" />
-					</control>
+					<!-- Media items -->
+					<include content="MediaNavItemList" />
+
+					<!-- Actor list -->
+					<include content="MediaNavActorList" />
 				</control>
 			</control>
 
 			<!-- Clock -->
 			<include content="TopBar" />
 
-			<!-- Bottom bar -->
-			<include content="BottomBar">
-				<param name="show">$EXP[HasMediaNavDetailsStudio]</param>
-				<param name="show_studio">$EXP[HasMediaNavDetailsStudio]</param>
-				<param name="studio">$VAR[MediaNavDetailsStudio]</param>
-			</include>
+			<!-- Studio -->
+			<include content="BottomBar" />
 		</include>
 	</controls>
 </window>

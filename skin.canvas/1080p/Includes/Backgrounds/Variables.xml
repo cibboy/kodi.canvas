@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<!-- Contrast text color (against blur art) -->
+	<variable name="ContrastTextForegroundColor">
+		<!-- Force light when home menu has focus (there is a darkening layer) -->
+		<value condition="$EXP[HasHomeMenuFocus]">FOREGROUND_CONTRAST_LIGHT</value>
+		<!-- Light color -->
+		<value condition="$EXP[IsBestTextColorLight]">FOREGROUND_CONTRAST_LIGHT</value>
+		<!-- Dark color -->
+		<value condition="$EXP[IsBestTextColorDark]">FOREGROUND_CONTRAST_DARK</value>
+		<!-- Fallback -->
+		<value>FOREGROUND_CONTRAST_LIGHT</value>
+	</variable>
+	<variable name="ContrastTextHighlightColor">
+		<!-- Force light when home menu has focus (there is a darkening layer) -->
+		<value condition="$EXP[HasHomeMenuFocus]">HIGHLIGHT_CONTRAST_LIGHT</value>
+		<!-- Light color -->
+		<value condition="$EXP[IsBestTextColorLight]">HIGHLIGHT_CONTRAST_LIGHT</value>
+		<!-- Dark color -->
+		<value condition="$EXP[IsBestTextColorDark]">HIGHLIGHT_CONTRAST_DARK</value>
+		<!-- Fallback -->
+		<value>HIGHLIGHT_CONTRAST_LIGHT</value>
+	</variable>
+
+	<!-- Background image -->
+	<variable name="BackgroundArt">
+		<!-- Info dialog visible (only ListItem is accessible) -->
+		<value condition="$EXP[IsDialogInfoVisible] + $EXP[IsDetailsItemTypeEpisode] + !String.IsEmpty(ListItem.Art(season.fanart))">$INFO[ListItem.Art(season.fanart)]</value>
+		<value condition="$EXP[IsDialogInfoVisible] + $EXP[IsDetailsItemTypeEpisode] + !String.IsEmpty(ListItem.Art(tvshow.fanart))">$INFO[ListItem.Art(tvshow.fanart)]</value>
+		<value condition="$EXP[IsDialogInfoVisible] + $EXP[IsDetailsItemTypeSeason] + !String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
+		<value condition="$EXP[IsDialogInfoVisible] + $EXP[IsDetailsItemTypeSeason] + !String.IsEmpty(ListItem.Art(tvshow.fanart))">$INFO[ListItem.Art(tvshow.fanart)]</value>
+		<value condition="$EXP[IsDialogInfoVisible] + $EXP[IsDetailsItemTypeSong]">$INFO[ListItem.Art(thumb)]</value>
+		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.Art(fanart)]</value>
+		<!-- Info dialog not visible -->
+		<value condition="!$EXP[IsHomeMenuMoving] + $EXP[IsDetailsItemTypeEpisode] + !String.IsEmpty(Container(501).ListItem.Art(season.fanart))">$INFO[Container(501).ListItem.Art(season.fanart)]</value>
+		<value condition="!$EXP[IsHomeMenuMoving] + $EXP[IsDetailsItemTypeEpisode] + !String.IsEmpty(Container(501).ListItem.Art(tvshow.fanart))">$INFO[Container(501).ListItem.Art(tvshow.fanart)]</value>
+		<value condition="!$EXP[IsHomeMenuMoving] + $EXP[IsDetailsItemTypeSeason] + !String.IsEmpty(Container(501).ListItem.Art(fanart))">$INFO[Container(501).ListItem.Art(fanart)]</value>
+		<value condition="!$EXP[IsHomeMenuMoving] + $EXP[IsDetailsItemTypeSeason] + !String.IsEmpty(Container(501).ListItem.Art(tvshow.fanart))">$INFO[Container(501).ListItem.Art(tvshow.fanart)]</value>
+		<value condition="!$EXP[IsHomeMenuMoving] + $EXP[IsDetailsItemTypeSong]">$INFO[Container(501).ListItem.Art(thumb)]</value>
+		<value condition="!$EXP[IsHomeMenuMoving]">$INFO[Container(501).ListItem.Art(fanart)]</value>
+	</variable>
+</includes>

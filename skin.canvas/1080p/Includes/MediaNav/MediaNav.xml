@@ -2,134 +2,74 @@
 <includes>
 	<include file="Includes/MediaNav/Variables.xml" />
 	<include file="Includes/MediaNav/Expressions.xml" />
-
-	<!-- Background -->
-	<include name="MediaNavBackground">
+	
+	<!-- Horizontal list of media items. Form factor is based on content type -->
+	<include name="MediaNavItemList">
 		<definition>
-			<!-- Background (fallback/default + blur quadrants/art) -->
-			<control type="image">
-				<width>100%</width>
-				<height>100%</height>
-				<texture>1080p/fallback/bg.png</texture>
-			</control>
-			<include content="BackgroundQuadrantBlur">
-				<param name="visible">$EXP[IsMediaNavShowingMovie] | $EXP[IsMediaNavShowingSeasons] | $EXP[IsMediaNavShowingEpisodes]</param>
-				<param name="art">$VAR[MediaNavBackgroundArt]</param>
-				<param name="blur">$VAR[MediaNavBlurArt]</param>
+			<!-- Label -->
+			<include content="ListLabel">
+				<param name="id">500</param>
+				<param name="label">$VAR[MediaNavItemListHeader]</param>
+				<param name="textcolor">$VAR[ContrastTextHighlightColor]</param>
 			</include>
-			<!-- Background (full size blur for music albums) -->
-			<include content="BackgroundSingleBlur">
-				<param name="visible">$EXP[IsMediaNavShowingMusicAlbum]</param>
-				<param name="blur">$VAR[MediaNavBlurArt]</param>
-				<param name="fadetime">ANIMATION_CRAWL</param>
-			</include>
-		</definition>
-	</include>
 
-	<!-- Selection details -->
-	<include name="MediaNavSelectionDetails">
-		<definition>
-			<include content="SelectionDetails">
-				<param name="visible">$EXP[IsMediaNavShowingMovie] | $EXP[IsMediaNavShowingSeasons] | $EXP[IsMediaNavShowingEpisodes]</param>
-				<param name="clearlogo">$VAR[MediaNavDetailsClearlogo]</param>
-				<param name="title">$VAR[MediaNavDetailsTitle]</param>
-				<param name="has_clearlogo">$EXP[HasMediaNavDetailsClearlogo]</param>
-				<param name="subtitle">$VAR[MediaNavDetailsSubtitle]</param>
-				<param name="has_subtitle">$EXP[HasMediaNavDetailsSubtitle]</param>
-				<param name="resolution">$VAR[MediaNavDetailsResolution]</param>
-				<param name="has_resolution">$EXP[HasMediaNavDetailsResolution]</param>
-				<param name="hdr">$VAR[MediaNavDetailsHdr]</param>
-				<param name="has_hdr">$EXP[HasMediaNavDetailsHdr]</param>
-				<param name="channels">$VAR[MediaNavDetailsAudioChannels]</param>
-				<param name="has_channels">$EXP[HasMediaNavDetailsAudioChannels]</param>
-				<param name="year">$VAR[MediaNavDetailsYear]</param>
-				<param name="has_year">$EXP[HasMediaNavDetailsYear]</param>
-				<param name="episode">$VAR[MediaNavDetailsEpisode]</param>
-				<param name="has_episode">$EXP[HasMediaNavDetailsEpisode]</param>
-				<param name="premiered">$VAR[MediaNavDetailsPremiered]</param>
-				<param name="has_premiered">$EXP[HasMediaNavDetailsPremiered]</param>
-				<param name="duration">$VAR[MediaNavDetailsDuration]</param>
-				<param name="has_duration">$EXP[HasMediaNavDetailsDuration]</param>
-				<param name="mpaa">$VAR[MediaNavDetailsMpaa]</param>
-				<param name="has_mpaa">$EXP[HasMediaNavDetailsMpaa]</param>
-				<param name="status">$VAR[MediaNavDetailsStatus]</param>
-				<param name="has_status">$EXP[HasMediaNavDetailsStatus]</param>
-				<param name="is_watched">$EXP[IsMediaNavDetailsWatched]</param>
-				<param name="is_allnew">$EXP[IsMediaNavDetailsAllNew]</param>
-				<param name="episodes_remaining">$VAR[MediaNavDetailsEpisodesRemaining]</param>
-				<param name="has_episodes_remaining">$EXP[HasMediaNavDetailsEpisodesRemaining]</param>
-				<param name="time_remaining">$VAR[MediaNavDetailsTimeRemaining]</param>
-				<param name="has_time_remaining">$EXP[HasMediaNavDetailsTimeRemaining]</param>
-				<param name="percentage_watched">$VAR[MediaNavDetailsWatchedPercentage]</param>
-				<param name="genre">$VAR[MediaNavDetailsGenre]</param>
-				<param name="has_genre">$EXP[HasMediaNavDetailsGenre]</param>
-				<param name="plot">$VAR[MediaNavDetailsSummary]</param>
-				<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
-				<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
+			<!-- Media item strip -->
+			<include content="ItemStrip">
+				<param name="id">501</param>
+
+				<nested />
+
+				<height>HEIGHT_LIST_CONTAINER</height>
+				<onfocus>SetProperty(ActiveListId,501,home)</onfocus>
+				<onleft condition="$EXP[HasMediaNavNavigatePreviousSeason]">ReplaceWindow(Videos,$INFO[Window(home).Property(Navigation.PreviousSeason)],1)</onleft>
+				<onleft>noop</onleft>
+				<onright condition="$EXP[HasMediaNavNavigateNextSeason]">ReplaceWindow(Videos,$INFO[Window(home).Property(Navigation.NextSeason)],1)</onright>
+				<onright>noop</onright>
+				<onback condition="$EXP[IsDetailsItemTypeSeason]">ReplaceWindow(home)</onback>
+
+				<!-- Season layout -->
+				<include content="PosterLayout">
+					<param name="art">$INFO[ListItem.Art(poster)]</param>
+					<param name="condition">$EXP[IsDetailsItemTypeSeason]</param>
+					<param name="dark_unfocused">$EXP[IsMediaNavActionBarFocused]</param>
+				</include>
+				<!-- Episode layout -->
+				<include content="LandscapeLayout">
+					<param name="art">$INFO[ListItem.Art(thumb)]</param>
+					<param name="condition">$EXP[IsDetailsItemTypeEpisode]</param>
+					<param name="dark_unfocused">$EXP[IsMediaNavActionBarFocused]</param>
+				</include>
 			</include>
 		</definition>
 	</include>
 
-
-	<!-- Action button list -->
-	<include name="MediaNavActionButtons">
+	<!-- Actor list -->
+	<include name="MediaNavActorList">
 		<definition>
-			<control type="grouplist" id="500">
-				<itemgap>0</itemgap>
-				<orientation>horizontal</orientation>
-				<usecontrolcoords>true</usecontrolcoords>
-				<defaultcontrol always="true">510</defaultcontrol>
+			<!-- Label -->
+			<include content="ListLabel">
+				<param name="id">600</param>
+				<param name="label">Actors</param>
+				<param name="textcolor">$VAR[ContrastTextHighlightColor]</param>
+			</include>
 
-				<!-- Moving down goes to actors (movie), season list (TV show) or episodes (season and episode) -->
-				<ondown condition="$EXP[IsMediaNavShowingMovie]">SetFocus(111)</ondown>
-				<ondown condition="$EXP[IsMediaNavShowingSeasons]">SetFocus(101)</ondown>
-				<ondown condition="$EXP[IsMediaNavShowingEpisodes]">SetFocus(102)</ondown>
+			<!-- Actor strip -->
+			<include content="ItemStrip">
+				<param name="id">601</param>
 
-				<!--todo: when showing episodes, the list of buttons should update according to highlighted episode-->
+				<height>HEIGHT_LIST_CONTAINER</height>
 
-				<!-- Play -->
-				<include content="MediaNavActionButton" condition="$EXP[HasMediaNavActionPlay]">
-					<param name="id">510</param>
-					<param name="icon">$VAR[MediaNavPlayIcon]</param>
-					<param name="label">$VAR[MediaNavPlayButtonLabel]</param>
+				<!-- Person layout -->
+				<include content="PersonLayout">
+					<param name="art">$INFO[ListItem.Property(Thumbnail)]</param>
+					<param name="info1">$INFO[ListItem.Property(Name)]</param>
+					<param name="info2">$INFO[ListItem.Property(Role)]</param>
+					<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
+					<param name="info2_color">$VAR[ContrastTextForegroundColor]</param>
 				</include>
-				<!-- Resume -->
-				<include content="MediaNavActionButton" condition="$EXP[HasMediaNavActionResume]">
-					<param name="id">511</param>
-					<param name="icon">$VAR[MediaNavResumeIcon]</param>
-					<param name="label">$VAR[MediaNavResumeButtonLabel]</param>
-				</include>
-				<!-- Play from start -->
-				<include content="MediaNavActionButton" condition="$EXP[HasMediaNavActionPlayFromStart]">
-					<param name="id">512</param>
-					<param name="icon">$VAR[MediaNavPlayFromStartIcon]</param>
-					<param name="label">$VAR[MediaNavPlayFromStartButtonLabel]</param>
-				</include>
-				<!-- Mark as unwatched -->
-				<include content="MediaNavActionButton" condition="$EXP[HasMediaNavActionMarkAsUnwatched]">
-					<param name="id">513</param>
-					<param name="icon">$VAR[MediaNavWatchedIcon]</param>
-					<param name="label">$VAR[MediaNavMarkAsUnwatchedButtonLabel]</param>
-				</include>
-				<!-- Mark as watched -->
-				<include content="MediaNavActionButton" condition="$EXP[HasMediaNavActionMarkAsWatched]">
-					<param name="id">514</param>
-					<param name="icon">$VAR[MediaNavUnwatchedIcon]</param>
-					<param name="label">$VAR[MediaNavMarkAsWatchedButtonLabel]</param>
-				</include>
-				<!-- Info -->
-				<include content="MediaNavActionButton">
-					<param name="id">515</param>
-					<param name="icon">$VAR[MediaNavInfoIcon]</param>
-					<param name="label">$VAR[MediaNavInfoButtonLabel]</param>
-				</include>
-				<!-- More -->
-				<include content="MediaNavActionButton">
-					<param name="id">516</param>
-					<param name="icon">$VAR[MediaNavMoreIcon]</param>
-					<param name="label">$VAR[MediaNavMoreButtonLabel]</param>
-				</include>
-			</control>
+
+				<content>plugin://script.canvas.helper/actors/?dbid=$INFO[Container(501).ListItem.DBID]&amp;dbtype=$INFO[Container(501).ListItem.DBTYPE]</content>
+			</include>
 		</definition>
 	</include>
 
@@ -150,11 +90,14 @@
 		<param name="id"></param>
 		<param name="icon"></param>
 		<param name="label"></param>
+		<param name="action"></param>
+		<param name="switch_to_601">false</param>
+		<param name="visible">true</param>
 
 		<definition>
 			<!-- Icon when button is not focused -->
-			<control type="group" id="$PARAM[id]0">
-				<visible>!Control.HasFocus($PARAM[id])</visible>
+			<control type="group" id="90$PARAM[id]">
+				<visible>!Control.HasFocus($PARAM[id]) + $PARAM[visible]</visible>
 				<width>WIDTH_MEDIANAV_ACTIONBUTTON_ICON_UNFOCUSED</width>
 				<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
 
@@ -177,15 +120,15 @@
 			</control>
 
 			<!-- Left part of the button (with space for icon) when focused -->
-			<control type="image" id="$PARAM[id]1">
-				<visible>Control.HasFocus($PARAM[id])</visible>
+			<control type="image" id="91$PARAM[id]">
+				<visible>Control.HasFocus($PARAM[id]) + $PARAM[visible]</visible>
 				<width>WIDTH_MEDIANAV_ACTIONBUTTON_START</width>
 				<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
 				<texture colordiffuse="FOREGROUND_ACCENT">1080p/controls/round-button-extended-start.png</texture>
 			</control>
 			<!-- Icon when focused -->
-			<control type="image" id="$PARAM[id]2">
-				<visible>Control.HasFocus($PARAM[id])</visible>
+			<control type="image" id="92$PARAM[id]">
+				<visible>Control.HasFocus($PARAM[id]) + $PARAM[visible]</visible>
 				<left>OFFSET_MEDIANAV_ACTIONBUTTON_ICON_LEFT_FOCUSED</left>
 				<top>OFFSET_MEDIANAV_ACTIONBUTTON_ICON_TOP</top>
 				<width>SIZE_MEDIANAV_ACTIONBUTTON_ICON</width>
@@ -194,6 +137,7 @@
 			</control>
 			<!-- Actual button (with autowidth text) -->
 			<control type="button" id="$PARAM[id]">
+				<visible>$PARAM[visible]</visible>
 				<width>auto</width>
 				<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
 
@@ -204,81 +148,144 @@
 				<textoffsety>0</textoffsety>
 				<textoffsetx>0</textoffsetx>
 				<label>$PARAM[label]</label>
-				<!--todo: this is only for context menu, and should focus on the proper list (movies! ç_ç) and then focus back to the previous button ("more") -->
-				<onclick>SetFocus(102)</onclick>
-				<onclick>Action(contextmenu)</onclick>
-				<onclick>SetFocus(500)</onclick>
+
+				<onclick>SetFocus(501)</onclick>
+				<onclick>$PARAM[action]</onclick>
+				<onclick condition="$PARAM[switch_to_601]">SetFocus(601)</onclick>
 			</control>
 			<!-- Right part of the button when focused -->
-			<control type="image" id="$PARAM[id]3">
-				<visible>Control.HasFocus($PARAM[id])</visible>
+			<control type="image" id="93$PARAM[id]">
+				<visible>Control.HasFocus($PARAM[id]) + $PARAM[visible]</visible>
 				<width>WIDTH_MEDIANAV_ACTIONBUTTON_END</width>
 				<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
 				<texture colordiffuse="FOREGROUND_ACCENT" flipx="true">1080p/controls/round-button-start.png</texture>
 			</control>
 		</definition>
 	</include>
+	<!-- Action button list -->
+	<include name="MediaNavActionButtons">
+		<param name="switch_to_601_on_more">false</param>
 
-
-	<!-- Season list -->
-	<include name="MediaNavSeasonList">
 		<definition>
-			<include content="PosterStrip">
-				<param name="visible">$EXP[IsMediaNavShowingSeasons]</param>
-				<param name="id">101</param>
-				<param name="label">Seasons</param>
-				<param name="content">plugin://script.canvas.helper/seasons/?dbpath=$INFO[Container.FolderPath]&amp;listid=101</param>
-				<param name="art">$INFO[ListItem.Art(poster)]</param>
-				<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
-				<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
-				<param name="onclick">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.Property(tvshowid)]/$INFO[ListItem.Season]/?info=type=season::tvshowid=$INFO[ListItem.Property(tvshowid)]::season=$INFO[ListItem.Season],return)</param>
-				<param name="onup">SetFocus(500)</param>
-				<param name="ondown">SetFocus(111)</param>
-			</include>
+			<!--
+				This needs the same ID as a non-focusable element in the media/actor grouplist
+				(possibly before the first list), otherwise focusing does not work.
+			-->
+			<control type="grouplist" id="410">
+				<itemgap>0</itemgap>
+				<orientation>horizontal</orientation>
+				<align>right</align>
+				<usecontrolcoords>true</usecontrolcoords>
+				<defaultcontrol always="true">411</defaultcontrol>
+
+				<top>OFFSET_MEDIANAV_TOP_ACTIONBUTTONS</top>
+				<right>PADDING_BASE_80P</right>
+				<width>800</width>
+
+				<onup>noop</onup>
+				<ondown>SetFocus(400)</ondown>
+
+				<!-- Play -->
+				<include content="MediaNavActionButton">
+					<param name="id">411</param>
+					<param name="icon">$VAR[MediaNavPlayIcon]</param>
+					<param name="label">$VAR[MediaNavPlayButtonLabel]</param>
+					<param name="action">PlayMedia($INFO[ListItem.FileNameAndPath],playoffset=0)</param>
+					<param name="switch_to_601">$PARAM[switch_to_601_on_more]</param>
+					<param name="visible">$EXP[HasMediaNavActionPlay]</param>
+				</include>
+				<!-- Resume -->
+				<include content="MediaNavActionButton">
+					<param name="id">412</param>
+					<param name="icon">$VAR[MediaNavResumeIcon]</param>
+					<param name="label">$VAR[MediaNavResumeButtonLabel]</param>
+					<param name="action">PlayMedia($INFO[ListItem.FileNameAndPath],resume)</param>
+					<param name="switch_to_601">$PARAM[switch_to_601_on_more]</param>
+					<param name="visible">$EXP[HasMediaNavActionResume]</param>
+				</include>
+				<!-- Play from start -->
+				<include content="MediaNavActionButton">
+					<param name="id">413</param>
+					<param name="icon">$VAR[MediaNavPlayFromStartIcon]</param>
+					<param name="label">$VAR[MediaNavPlayFromStartButtonLabel]</param>
+					<param name="action">PlayMedia($INFO[ListItem.FileNameAndPath],playoffset=0)</param>
+					<param name="switch_to_601">$PARAM[switch_to_601_on_more]</param>
+					<param name="visible">$EXP[HasMediaNavActionPlayFromStart]</param>
+				</include>
+				<!-- Mark as unwatched -->
+				<include content="MediaNavActionButton">
+					<param name="id">414</param>
+					<param name="icon">$VAR[MediaNavWatchedIcon]</param>
+					<param name="label">$VAR[MediaNavMarkAsUnwatchedButtonLabel]</param>
+					<param name="action">RunScript(script.canvas.helper,toggle_watched,$INFO[Container(501).ListItem.DBTYPE],$INFO[Container(501).ListItem.DBID],false)</param>
+					<param name="switch_to_601">$PARAM[switch_to_601_on_more]</param>
+					<param name="visible">$EXP[HasMediaNavActionMarkAsUnwatched]</param>
+				</include>
+				<!-- Mark as watched -->
+				<include content="MediaNavActionButton">
+					<param name="id">415</param>
+					<param name="icon">$VAR[MediaNavUnwatchedIcon]</param>
+					<param name="label">$VAR[MediaNavMarkAsWatchedButtonLabel]</param>
+					<param name="action">RunScript(script.canvas.helper,toggle_watched,$INFO[Container(501).ListItem.DBTYPE],$INFO[Container(501).ListItem.DBID],true)</param>
+					<param name="switch_to_601">$PARAM[switch_to_601_on_more]</param>
+					<param name="visible">$EXP[HasMediaNavActionMarkAsWatched]</param>
+				</include>
+				<!-- Go to show -->
+				<include content="MediaNavActionButton">
+					<param name="id">416</param>
+					<param name="icon">$VAR[MediaNavGoToShowIcon]</param>
+					<param name="label">$VAR[MediaNavGoToShowButtonLabel]</param>
+					<param name="action">RunScript(script.canvas.helper,navigate_to_show,videodb://tvshows/titles/$INFO[Container(501).ListItem.TVShowDBID]/)</param>
+					<param name="switch_to_601">$PARAM[switch_to_601_on_more]</param>
+					<param name="visible">$EXP[IsDetailsItemTypeEpisode]</param>
+				</include>
+				<!-- Info -->
+				<include content="MediaNavActionButton">
+					<param name="id">417</param>
+					<param name="icon">$VAR[MediaNavInfoIcon]</param>
+					<param name="label">$VAR[MediaNavInfoButtonLabel]</param>
+					<param name="action">Action(Info)</param>
+					<param name="switch_to_601">$PARAM[switch_to_601_on_more]</param>
+				</include>
+				<!-- More -->
+				<include content="MediaNavActionButton">
+					<param name="id">418</param>
+					<param name="icon">$VAR[MediaNavMoreIcon]</param>
+					<param name="label">$VAR[MediaNavMoreButtonLabel]</param>
+					<param name="action">Action(ContextMenu)</param>
+					<param name="switch_to_601">$PARAM[switch_to_601_on_more]</param>
+				</include>
+			</control>
 		</definition>
 	</include>
 
-	<!-- Episode list -->
-	<include name="MediaNavEpisodeList">
+	<!-- Previous/next season indicators (for episode list view) -->
+	<include name="MediaNavPrevNextSeasonIndicators">
 		<definition>
-			<include content="LandscapeStrip">
-				<param name="visible">$EXP[IsMediaNavShowingEpisodes]</param>
-				<param name="id">102</param>
-				<param name="content">plugin://script.canvas.helper/episodes/?dbpath=$INFO[Container.FolderPath]&amp;listid=102</param>
-				<param name="art">$INFO[ListItem.Art(thumb)]</param>
-				<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
-				<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
-				<param name="onclick"><!-- todo:Play --></param>
-				<param name="onup">SetFocus(500)</param>
-				<param name="ondown">SetFocus(111)</param>
-			</include>
+			<control type="group">
+				<bottom>0</bottom>
+				<width>SCREEN_WIDTH</width>
+				<height>HEIGHT_LIST_CONTAINER</height>
+
+				<!-- Previous -->
+				<control type="image">
+					<visible>$EXP[HasMediaNavNavigatePreviousSeason]</visible>
+					<centertop>OFFSET_MEDIANAV_TOP_PREVNEXT_INDICATOR</centertop>
+					<centerleft>PADDING_BASE_50P</centerleft>
+					<width>SIZE_MEDIANAV_PREVNEXT_INDICATOR</width>
+					<height>SIZE_MEDIANAV_PREVNEXT_INDICATOR</height>
+					<texture colordiffuse="$VAR[MediaNavContrastButtonBackgroundColor]" flipx="true">1080p/icons/chevron-right.png</texture>
+				</control>
+				<!-- Next -->
+				<control type="image">
+					<visible>$EXP[HasMediaNavNavigateNextSeason]</visible>
+					<centertop>OFFSET_MEDIANAV_TOP_PREVNEXT_INDICATOR</centertop>
+					<centerright>PADDING_BASE_50P</centerright>
+					<width>SIZE_MEDIANAV_PREVNEXT_INDICATOR</width>
+					<height>SIZE_MEDIANAV_PREVNEXT_INDICATOR</height>
+					<texture colordiffuse="$VAR[MediaNavContrastButtonBackgroundColor]">1080p/icons/chevron-right.png</texture>
+				</control>
+			</control>
 		</definition>
-	</include>
-
-	<!-- Actor list -->
-	<include name="MediaNavActorList">
-		<include content="PersonStrip">
-			<param name="visible">$EXP[IsMediaNavShowingMovie] | $EXP[IsMediaNavShowingSeasons] | $EXP[IsMediaNavShowingEpisodes]</param>
-			<param name="id">111</param>
-			<param name="label">Cast</param>
-			<param name="content">$VAR[MediaNavActorContentUrl]</param>
-			<param name="art">$INFO[ListItem.Property(Thumbnail)]</param>
-			<param name="info1">$INFO[ListItem.Property(Name)]</param>
-			<param name="info2">$INFO[ListItem.Property(Role)]</param>
-			<param name="foreground_color">$VAR[MediaNavContrastTextForegroundColor]</param>
-			<param name="highlight_color">$VAR[MediaNavContrastTextHighlightColor]</param>
-			<param name="onup">SetFocus($VAR[MediaNavActorNavigateUpId])</param>
-		</include>
-	</include>
-
-
-	<!-- Reset list/loading status on MyVideoNav -->
-	<include name="MediaNavOnClickMedia">
-		<onclick>SetProperty(List.101.IsLoading,true,videos)</onclick>
-		<onclick>SetProperty(List.101.HasContent,false,videos)</onclick>
-		<onclick>SetProperty(List.102.IsLoading,true,videos)</onclick>
-		<onclick>SetProperty(List.102.HasContent,false,videos)</onclick>
-		<onclick>SetProperty(List.111.IsLoading,true,videos)</onclick>
-		<onclick>SetProperty(List.111.HasContent,false,videos)</onclick>
 	</include>
 </includes>

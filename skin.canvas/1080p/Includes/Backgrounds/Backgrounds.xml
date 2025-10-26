@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<include file="Includes/Backgrounds/Variables.xml" />
+	<include file="Includes/Backgrounds/Expressions.xml" />
+
+	<!-- Full screen background with quadrant blur -->
+	<include name="BackgroundQuadrantBlur">
+		<definition>
+			<control type="group">
+				<!-- Fallback -->
+				<control type="image">
+					<width>100%</width>
+					<height>100%</height>
+					<texture flipy="false">1080p/fallback/bg.png</texture>
+				</control>
+
+				<!-- Background blur quadrants -->
+				<control type="group">
+					<visible>!$EXP[IsHomeFullHeightMediaListVisible]</visible>
+					<include content="ShowHideFadeAnimation">
+						<param name="speed">ANIMATION_CRAWL</param>
+						<param name="tween">linear</param>
+					</include>
+
+					<!-- Left -->
+					<control type="group">
+						<!-- Top (videos first, then music) -->
+						<control type="image">
+							<visible>!$EXP[IsDetailsItemTypeSong]</visible>
+							<width>67%</width>
+							<height>67%</height>
+							<right>67%</right>
+							<bottom>33%</bottom>
+							<fadetime>ANIMATION_CRAWL</fadetime>
+							<texture flipx="true" flipy="false">$INFO[Window(home).Property(Item.Blur)]</texture>
+						</control>
+						<control type="image">
+							<visible>$EXP[IsDetailsItemTypeSong]</visible>
+							<width>75%</width>
+							<height>67%</height>
+							<right>25%</right>
+							<bottom>33%</bottom>
+							<fadetime>ANIMATION_CRAWL</fadetime>
+							<texture flipx="true" flipy="false">$INFO[Window(home).Property(Item.Blur)]</texture>
+						</control>
+						<!-- Bottom (videos first, then music) -->
+						<control type="image">
+							<visible>!$EXP[IsDetailsItemTypeSong]</visible>
+							<width>67%</width>
+							<height>67%</height>
+							<right>67%</right>
+							<top>67%</top>
+							<fadetime>ANIMATION_CRAWL</fadetime>
+							<texture flipx="true" flipy="true">$INFO[Window(home).Property(Item.Blur)]</texture>
+						</control>
+						<control type="image">
+							<visible>$EXP[IsDetailsItemTypeSong]</visible>
+							<width>75%</width>
+							<height>67%</height>
+							<right>25%</right>
+							<top>67%</top>
+							<fadetime>ANIMATION_CRAWL</fadetime>
+							<texture flipx="true" flipy="true">$INFO[Window(home).Property(Item.Blur)]</texture>
+						</control>
+					</control>
+					<!-- Right -->
+					<control type="group">
+						<!-- Top (videos first, then music) -->
+						<control type="image">
+							<visible>!$EXP[IsDetailsItemTypeSong]</visible>
+							<width>67%</width>
+							<height>67%</height>
+							<left>33%</left>
+							<bottom>33%</bottom>
+							<fadetime>ANIMATION_CRAWL</fadetime>
+							<texture flipx="false" flipy="false">$INFO[Window(home).Property(Item.Blur)]</texture>
+						</control>
+						<control type="image">
+							<visible>$EXP[IsDetailsItemTypeSong]</visible>
+							<width>75%</width>
+							<height>67%</height>
+							<left>75%</left>
+							<bottom>33%</bottom>
+							<fadetime>ANIMATION_CRAWL</fadetime>
+							<texture flipx="false" flipy="false">$INFO[Window(home).Property(Item.Blur)]</texture>
+						</control>
+						<!-- Bottom (videos first, then music) -->
+						<control type="image">
+							<visible>!$EXP[IsDetailsItemTypeSong]</visible>
+							<width>67%</width>
+							<height>67%</height>
+							<left>33%</left>
+							<top>67%</top>
+							<fadetime>ANIMATION_CRAWL</fadetime>
+							<texture flipx="false" flipy="true">$INFO[Window(home).Property(Item.Blur)]</texture>
+						</control>
+						<control type="image">
+							<visible>$EXP[IsDetailsItemTypeSong]</visible>
+							<width>75%</width>
+							<height>67%</height>
+							<left>75%</left>
+							<top>67%</top>
+							<fadetime>ANIMATION_CRAWL</fadetime>
+							<texture flipx="false" flipy="true">$INFO[Window(home).Property(Item.Blur)]</texture>
+						</control>
+					</control>
+				</control>
+
+				<!-- Darkening overlay -->
+				<control type="image">
+					<width>100%</width>
+					<height>100%</height>
+					<fadetime>ANIMATION_CRAWL</fadetime>
+					<texture colordiffuse="BACKGROUND_OPAQUE50" diffuse="1080p/diffuse/background.png" flipx="true" flipy="true">diffuse.png</texture>
+				</control>
+
+				<!-- Art -->
+				<control type="image">
+					<include content="ShowHideFadeAnimation">
+						<param name="speed">ANIMATION_CRAWL</param>
+					</include>
+					<visible>!$EXP[IsHomeFullHeightMediaListVisible]</visible>
+
+					<width>67%</width>
+					<height>67%</height>
+					<top>0</top>
+					<right>0</right>
+					<fadetime>ANIMATION_SLOW</fadetime>
+					<texture diffuse="1080p/diffuse/fanart.png" background="true">$VAR[BackgroundArt]</texture>
+					<aspectratio align="right">keep</aspectratio>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Full screen darkening layer -->
+	<include name="DarkeningLayer">
+		<param name="visible">true</param>
+		<param name="colordiffuse">BACKGROUND_OPAQUE50</param>
+		<param name="fade_speed">ANIMATION_SLOW</param>
+		<param name="visible_condition">Visible</param>
+		<param name="hidden_condition">Hidden</param>
+
+		<definition>
+			<control type="image">
+				<visible>$PARAM[visible]</visible>
+				<include content="ShowHideFadeAnimation">
+					<param name="speed">$PARAM[fade_speed]</param>
+					<param name="visible_condition">$PARAM[visible_condition]</param>
+					<param name="hidden_condition">$PARAM[hidden_condition]</param>
+				</include>
+
+				<width>100%</width>
+				<height>100%</height>
+				<fadetime>$PARAM[fade_speed]</fadetime>
+				<texture colordiffuse="$PARAM[colordiffuse]">diffuse.png</texture>
+			</control>
+		</definition>
+	</include>
+</includes>

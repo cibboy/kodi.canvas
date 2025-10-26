@@ -1,53 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-	<defaultcontrol>1</defaultcontrol>
+	<!-- Default: safety hidden button to show side menu if something goes wrong -->
+	<defaultcontrol>99999</defaultcontrol>
+	<!-- Wait until lists have loaded, then move to the first one available -->
+	<onload>Skin.TimerStart(homelistselection)</onload>
 
 	<controls>
 		<include content="Center169AspectRatio">
-			<!-- Background (fallback/default + blur quadrants/art) -->
-			<control type="image">
-				<width>100%</width>
-				<height>100%</height>
-				<texture>1080p/fallback/bg.png</texture>
-			</control>
-			<include content="BackgroundQuadrantBlur">
-				<param name="visible">!$EXP[IsHomeLoading]</param>
-				<param name="art">$VAR[HomeBackgroundArt]</param>
-				<param name="show_art">!$EXP[IsHomeActivePagePictures]</param>
-				<param name="blur">$VAR[HomeBlurArt]</param>
-				<param name="blur_mode_squareoffset">$EXP[IsHomeActiveTypeMusic]</param>
-			</include>
+			<!-- Background with blurred quadrants -->
+			<include content="BackgroundQuadrantBlur" />
 
-			<!-- Dark overlay to background for when the menu has focus -->
+			<!-- Darkening layer for when the left menu has focus -->
 			<include content="DarkeningLayer">
 				<param name="visible">$EXP[HasHomeMenuFocus]</param>
 			</include>
 
-			<!-- Window contents -->
-			<control type="group">
-				<!-- First open animation -->
-				<animation effect="zoom" start="110" end="100" time="ANIMATION_SLOW" tween="circle" easing="out" center="auto">WindowOpen</animation>
+			<!--
+				Hidden list with ID 501 that mimics the currently selected list in order to have
+				the same list ID across all windows where to pick details from.
+			-->
+			<include content="HomeActiveItemSyncList" />
 
-				<!-- Main menu -->
-				<include content="HomeMainMenu" />
+			<!-- Loading spinner -->
+			<control type="image">
+				<visible>!$EXP[HasHomeLoaded]</visible>
+				<animation effect="rotate" start="360" end="0" center="auto" time="ANIMATION_CRAWL" reversible="false" loop="true" condition="true">Conditional</animation>
 
-				<!-- Content -->
-				<include content="HomeContent" />
-
-				<!-- Clock -->
-				<include content="TopBar" />
-
-				<!-- Bottom bar -->
-				<include content="BottomBar">
-					<param name="show">$EXP[HasHomeDetailsStudio] + !$EXP[IsHomeLoading]</param>
-					<param name="show_studio">$EXP[HasHomeDetailsStudio]</param>
-					<param name="studio">$VAR[HomeDetailsStudio]</param>
-				</include>
-
-				<!-- Right modal menus -->
-				<include content="HomeMenuFlyout" />
-				<include content="HomeFilterFlyout" />
+				<width>100</width>
+				<height>100</height>
+				<centertop>50%</centertop>
+				<centerleft>50%</centerleft>
+				<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-50.png</texture>
 			</control>
+			<!-- Safety button to show side menu if loading fails somehow -->
+			<control type="button" id="99999">
+				<visible allowhiddenfocus="true">false</visible>
+				<onback>SetFocus(1001,0)</onback>
+				<onleft>noop</onleft>
+				<onright>noop</onright>
+				<onup>noop</onup>
+				<ondown>noop</ondown>
+			</control>
+
+			<!-- Main content -->
+			<control type="group">
+				<!-- Hide the content while initially loading lists -->
+				<animation type="Conditional" condition="!$EXP[HasHomeLoaded]"><effect type="slide" start="0,0" end="0,-99999" time="0" tween="cubic" easing="out" reversible="true" /></animation>
+				
+				<top>PADDING_BASE_80P</top>
+				<left>OFFSET_HOME_MENU_END_NEG</left>	<!-- Start assuming the side menu doesn't have focus. The animation will take care of shifting -->
+
+				<control type="group">
+					<animation type="Conditional" condition="$EXP[HasHomeMenuFocus]"><effect type="slide" start="0,0" end="OFFSET_HOME_MENU_END,0" time="ANIMATION_FAST" tween="cubic" easing="out" reversible="true" /></animation>
+					
+					<!-- Menu -->
+					<include content="HomeMainMenu" />
+
+					<!-- Content -->
+					<control type="group">
+						<left>WIDTH_HOME_MENU</left>
+
+						<control type="group">
+							<left>PADDING_BASE_60P</left>
+
+							<!-- Selection details -->
+							<control type="group">
+								<visibile>!$EXP[IsHomeFullHeightMediaListVisible]</visibile>
+								<include content="SelectionDetails" />
+							</control>
+
+							<!-- Empty list information -->
+							<include content="HomeEmptyListInfoPlaceholder">
+								<param name="visible">$EXP[IsHomeEmptyListPlaceholderVisible]</param>
+							</include>
+
+							<!-- Content (lists) -->
+							<include content="HomeListsContent">
+								<param name="darken_art">$EXP[HasHomeMenuFocus]</param>
+							</include>
+						</control>
+					</control>
+				</control>
+			</control>
+
+			<!--todo<control type="image">
+				<bottom>0</bottom>
+				<left>0</left>
+				<width>100%</width>
+				<height>100</height>
+				<fadetime>300</fadetime>
+				<texture colordiffuse="55FF00FF">diffuse.png</texture>
+			</control>-->
+
+			<!-- Clock -->
+			<include content="TopBar" />
+
+			<!-- Studio -->
+			<include content="BottomBar" />
+
+			<!-- Right modal menus -->
+			<include content="HomeMenuFlyout" />
 		</include>
 	</controls>
 </window>

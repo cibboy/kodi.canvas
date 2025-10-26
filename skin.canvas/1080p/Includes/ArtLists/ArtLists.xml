@@ -3,6 +3,29 @@
 	<include file="Includes/ArtLists/Variables.xml" />
 	<include file="Includes/ArtLists/Expressions.xml" />
 
+	<!-- Season/episode indicator for landscape -->
+	<include name="ArtListsSeasonEpisodeTag">
+		<definition>
+			<control type="image">
+				<width>WIDTH_LANDSCAPE</width>
+				<texture colordiffuse="BACKGROUND" diffuse="1080p/diffuse/landscape.png">1080p/diffuse/corner.png</texture>
+				<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
+				<aspectratio scalediffuse="false">scale</aspectratio>
+			</control>
+
+			<control type="label">
+				<top>SIZE_ITEM_SHADOW_ART</top>
+				<right>SIZE_ITEM_SHADOW_ART_DOUBLE</right>
+				<left>SIZE_ITEM_SHADOW_ART_DOUBLE</left>
+				<label>S$INFO[ListItem.Season]·E$INFO[ListItem.Episode]</label>
+				<font>CAPTION3_STRONG</font>
+				<textcolor>FOREGROUND</textcolor>
+				<align>right</align>
+				<aligny>center</aligny>
+				<height>HEIGHT_DETAILS_INFOLINE_TAG</height>
+			</control>
+		</definition>
+	</include>
 	<!-- Watched indicator -->
 	<include name="ArtListsWatchedIcon">
 		<param name="offset_top"></param>
@@ -25,7 +48,6 @@
 			</control>
 		</definition>
 	</include>
-
 	<!-- Episodes indicator -->
 	<include name="ArtListsEpisodesIcon">
 		<param name="offset_top"></param>
@@ -34,7 +56,7 @@
 
 		<definition>
 			<control type="group">
-				<visible>$EXP[IsTVShowOrSeason] + Integer.IsEqual(ListItem.PlayCount,0)</visible>
+				<visible>$EXP[IsArtListTvShowOrSeason] + Integer.IsEqual(ListItem.PlayCount,0)</visible>
 				<centertop>$PARAM[offset_top]</centertop>
 				<centerright>$PARAM[offset_right]</centerright>
 				<width>SIZE_LIST_RUNNING_ICON</width>
@@ -45,7 +67,7 @@
 					<texture colordiffuse="BACKGROUND_OPAQUE50">1080p/progress/circle-bg.png</texture>
 				</control>
 				<control type="image">
-					<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-$INFO[ListItem.Property(WatchedPercentage)].png</texture>
+					<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-$INFO[ListItem.Property(WatchedEpisodePercent)].png</texture>
 				</control>
 
 				<!-- Number of episodes -->
@@ -63,7 +85,6 @@
 			</control>
 		</definition>
 	</include>
-
 	<!-- Progress indicator -->
 	<include name="ArtListsProgress">
 		<param name="width"></param>
@@ -73,11 +94,11 @@
 		<definition>
 			<!-- Progress bar -->
 			<control type="progress">
-				<visible>$EXP[IsVideo] + Integer.IsGreater(ListItem.Property(WatchedPercentage)) + Integer.IsEqual(ListItem.PlayCount,0)</visible>
+				<visible>$EXP[IsArtListVideo] + Integer.IsGreater(ListItem.PercentPlayed) + Integer.IsEqual(ListItem.PlayCount,0)</visible>
 				<width>$PARAM[width]</width>
 				<centertop>$PARAM[offset_top]</centertop>
 				<centerleft>$PARAM[offset_left]</centerleft>
-				<info>ListItem.Property(WatchedPercentage)</info>
+				<info>ListItem.PercentPlayed</info>
 			</control>
 		</definition>
 	</include>
@@ -87,6 +108,10 @@
 	<include name="ArtListsPoster">
 		<param name="art"></param>
 		<param name="fallback">1080p/fallback/poster.png</param>
+		<param name="width">WIDTH_POSTER</param>
+		<param name="height">HEIGHT_POSTER</param>
+		<param name="darken">false</param>
+		<param name="show_decorators">true</param>
 		<param name="offset_top_icon">OFFSET_TOP_POSTER_STRIP_ICON</param>
 		<param name="offset_right_icon">OFFSET_RIGHT_POSTER_STRIP_ICON</param>
 		<param name="offset_top_progress">OFFSET_TOP_POSTER_PROGRESS</param>
@@ -95,92 +120,181 @@
 		<definition>
 			<control type="group">
 				<include content="FocusZoomAnimation" />
+				<width>$PARAM[width]</width>
+				<height>$PARAM[height]</height>
 
+				<!-- Loading placeholder -->
+				<control type="image">
+					<width>$PARAM[width]</width>
+					<height>$PARAM[height]</height>
+					<texture diffuse="1080p/diffuse/poster.png">$PARAM[fallback]</texture>
+					<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND_OPAQUE50">1080p/diffuse/shadow-art.png</bordertexture>
+					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+				</control>
 				<!-- Poster image -->
 				<control type="image">
-					<width>WIDTH_POSTER</width>
-					<height>HEIGHT_POSTER</height>
+					<width>$PARAM[width]</width>
+					<height>$PARAM[height]</height>
 					<texture fallback="$PARAM[fallback]" background="true" diffuse="1080p/diffuse/poster.png">$PARAM[art]</texture>
-					<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-art.png</bordertexture>
+					<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND_OPAQUE50">1080p/diffuse/shadow-art.png</bordertexture>
+					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+				</control>
+				<!-- Dark overlay, if requested -->
+				<control type="image">
+					<visible>$PARAM[darken]</visible>
+					<animation type="Hidden"><effect type="fade" start="100" end="0" time="ANIMATION_SLOW" tween="cubic" easing="out" /></animation>
+					<animation type="Visible"><effect type="fade" start="0" end="100" time="ANIMATION_SLOW" tween="cubic" easing="out" /></animation>
+
+					<width>$PARAM[width]</width>
+					<height>$PARAM[height]</height>
+					<texture diffuse="1080p/diffuse/poster.png" colordiffuse="BACKGROUND_OPAQUE50">diffuse.png</texture>
 					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
 					<aspectratio scalediffuse="false">scale</aspectratio>
 				</control>
 				
-				<!-- Watched indicator -->
-				<include content="ArtListsWatchedIcon">
-					<param name="offset_top">$PARAM[offset_top_icon]</param>
-					<param name="offset_right">$PARAM[offset_right_icon]</param>
-				</include>
-				<!-- Episodes indicator -->
-				<include content="ArtListsEpisodesIcon">
-					<param name="offset_top">$PARAM[offset_top_icon]</param>
-					<param name="offset_right">$PARAM[offset_right_icon]</param>
-				</include>
-				<!-- Progress -->
-				<include content="ArtListsProgress">
-					<param name="width">WIDTH_POSTER_PROGRESS</param>
-					<param name="offset_top">$PARAM[offset_top_progress]</param>
-					<param name="offset_left">$PARAM[offset_left_progress]</param>
-				</include>
-			</control>
-		</definition>
-	</include>
+				<!-- Decorators -->
+				<control type="group">
+					<visible>$PARAM[show_decorators]</visible>
 
-	<!-- Album -->
-	<include name="ArtListsAlbum">
-		<param name="art"></param>
-		<param name="fallback">1080p/fallback/music.png</param>
-
-		<definition>
-			<control type="group">
-				<include content="FocusZoomAnimation" />
-
-				<control type="image">
-					<width>WIDTH_ALBUM</width>
-					<height>HEIGHT_ALBUM</height>
-					<texture fallback="$PARAM[fallback]" background="true" diffuse="1080p/diffuse/square.png">$PARAM[art]</texture>
-					<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-art.png</bordertexture>
-					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
-					<aspectratio scalediffuse="false">scale</aspectratio>
+					<!-- Watched indicator -->
+					<include content="ArtListsWatchedIcon">
+						<param name="offset_top">$PARAM[offset_top_icon]</param>
+						<param name="offset_right">$PARAM[offset_right_icon]</param>
+					</include>
+					<!-- Episodes indicator -->
+					<include content="ArtListsEpisodesIcon">
+						<param name="offset_top">$PARAM[offset_top_icon]</param>
+						<param name="offset_right">$PARAM[offset_right_icon]</param>
+					</include>
+					<!-- Progress -->
+					<include content="ArtListsProgress">
+						<param name="width">WIDTH_POSTER_PROGRESS</param>
+						<param name="offset_top">$PARAM[offset_top_progress]</param>
+						<param name="offset_left">$PARAM[offset_left_progress]</param>
+					</include>
 				</control>
 			</control>
 		</definition>
 	</include>
-
 	<!-- Landscape -->
 	<include name="ArtListsLandscape">
 		<param name="art"></param>
 		<param name="fallback">1080p/fallback/landscape.png</param>
+		<param name="width">WIDTH_LANDSCAPE</param>
+		<param name="height">HEIGHT_LANDSCAPE</param>
+		<param name="darken">false</param>
+		<param name="show_decorators">true</param>
 
 		<definition>
 			<control type="group">
 				<include content="FocusZoomAnimation" />
+				<width>$PARAM[width]</width>
+				<height>$PARAM[height]</height>
 
+				<!-- Loading placeholder -->
+				<control type="image">
+					<width>$PARAM[width]</width>
+					<height>$PARAM[height]</height>
+					<texture diffuse="1080p/diffuse/landscape.png">$PARAM[fallback]</texture>
+					<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND_OPAQUE50">1080p/diffuse/shadow-art.png</bordertexture>
+					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+				</control>
 				<!-- Landscape image -->
 				<control type="image">
-					<width>WIDTH_LANDSCAPE</width>
-					<height>HEIGHT_LANDSCAPE</height>
+					<width>$PARAM[width]</width>
+					<height>$PARAM[height]</height>
 					<texture fallback="$PARAM[fallback]" background="true" diffuse="1080p/diffuse/landscape.png">$PARAM[art]</texture>
-					<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-art.png</bordertexture>
+					<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND_OPAQUE50">1080p/diffuse/shadow-art.png</bordertexture>
+					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+				</control>
+				<!-- Dark overlay, if requested -->
+				<control type="image">
+					<visible>$PARAM[darken]</visible>
+					<animation type="Hidden"><effect type="fade" start="100" end="0" time="ANIMATION_SLOW" tween="cubic" easing="out" /></animation>
+					<animation type="Visible"><effect type="fade" start="0" end="100" time="ANIMATION_SLOW" tween="cubic" easing="out" /></animation>
+
+					<width>$PARAM[width]</width>
+					<height>$PARAM[height]</height>
+					<texture diffuse="1080p/diffuse/landscape.png" colordiffuse="BACKGROUND_OPAQUE50">diffuse.png</texture>
 					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
 					<aspectratio scalediffuse="false">scale</aspectratio>
 				</control>
 
-				<!-- Watched indicator -->
-				<include content="ArtListsWatchedIcon">
-					<param name="offset_top">OFFSET_TOP_LANDSCAPE_STRIP_ICON</param>
-					<param name="offset_right">OFFSET_RIGHT_LANDSCAPE_STRIP_ICON</param>
-				</include>
-				<!-- Progress -->
-				<include content="ArtListsProgress">
-					<param name="width">WIDTH_LANDSCAPE_PROGRESS</param>
-					<param name="offset_top">OFFSET_TOP_LANDSCAPE_PROGRESS</param>
-					<param name="offset_left">OFFSET_LEFT_LANDSCAPE_PROGRESS</param>
-				</include>
+				<!-- Decorators -->
+				<control type="group">
+					<visible>$PARAM[show_decorators]</visible>
+
+					<!-- Season/episode -->
+					<include content="ArtListsSeasonEpisodeTag">
+						<!--<param name="offset_top">OFFSET_TOP_LANDSCAPE_STRIP_ICON</param>
+						<param name="offset_right">OFFSET_RIGHT_LANDSCAPE_STRIP_ICON</param>-->
+					</include>
+					<!-- Watched indicator -->
+					<include content="ArtListsWatchedIcon">
+						<param name="offset_top">OFFSET_TOP_LANDSCAPE_STRIP_ICON</param>
+						<param name="offset_right">OFFSET_RIGHT_LANDSCAPE_STRIP_ICON</param>
+					</include>
+					<!-- Progress -->
+					<include content="ArtListsProgress">
+						<param name="width">WIDTH_LANDSCAPE_PROGRESS</param>
+						<param name="offset_top">OFFSET_TOP_LANDSCAPE_PROGRESS</param>
+						<param name="offset_left">OFFSET_LEFT_LANDSCAPE_PROGRESS</param>
+					</include>
+				</control>
 			</control>
 		</definition>
 	</include>
+	<!-- Album -->
+	<include name="ArtListsAlbum">
+		<param name="art"></param>
+		<param name="fallback">1080p/fallback/music.png</param>
+		<param name="width">WIDTH_ALBUM</param>
+		<param name="height">HEIGHT_ALBUM</param>
+		<param name="darken">false</param>
 
+		<definition>
+			<control type="group">
+				<include content="FocusZoomAnimation" />
+				<width>$PARAM[width]</width>
+				<height>$PARAM[height]</height>
+
+				<!-- Loading placeholder -->
+				<control type="image">
+					<width>$PARAM[width]</width>
+					<height>$PARAM[height]</height>
+					<texture diffuse="1080p/diffuse/square.png">$PARAM[fallback]</texture>
+					<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND_OPAQUE50">1080p/diffuse/shadow-art.png</bordertexture>
+					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+				</control>
+				<!-- Album image -->
+				<control type="image">
+					<width>$PARAM[width]</width>
+					<height>$PARAM[height]</height>
+					<texture fallback="$PARAM[fallback]" background="true" diffuse="1080p/diffuse/square.png">$PARAM[art]</texture>
+					<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND_OPAQUE50">1080p/diffuse/shadow-art.png</bordertexture>
+					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+				</control>
+				<!-- Dark overlay, if requested -->
+				<control type="image">
+					<visible>$PARAM[darken]</visible>
+					<animation type="Hidden"><effect type="fade" start="100" end="0" time="ANIMATION_SLOW" tween="cubic" easing="out" /></animation>
+					<animation type="Visible"><effect type="fade" start="0" end="100" time="ANIMATION_SLOW" tween="cubic" easing="out" /></animation>
+					
+					<width>$PARAM[width]</width>
+					<height>$PARAM[height]</height>
+					<texture diffuse="1080p/diffuse/square.png" colordiffuse="BACKGROUND_OPAQUE50">diffuse.png</texture>
+					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+				</control>
+			</control>
+		</definition>
+	</include>
 	<!-- Person -->
 	<include name="ArtListsPerson">
 		<param name="art"></param>
@@ -192,11 +306,21 @@
 					<param name="amount">115</param>
 				</include>
 
+				<!-- Loading placeholder -->
+				<control type="image">
+					<width>WIDTH_PERSON</width>
+					<height>HEIGHT_PERSON</height>
+					<texture diffuse="1080p/diffuse/circle.png">$PARAM[fallback]</texture>
+					<bordertexture border="SIZE_ITEM_SHADOW_CIRCLE" colordiffuse="BACKGROUND_OPAQUE50">1080p/diffuse/shadow-circle.png</bordertexture>
+					<bordersize>SIZE_ITEM_SHADOW_CIRCLE_DOUBLE</bordersize>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+				</control>
+				<!-- Person image -->
 				<control type="image">
 					<width>WIDTH_PERSON</width>
 					<height>HEIGHT_PERSON</height>
 					<texture fallback="$PARAM[fallback]" background="true" diffuse="1080p/diffuse/circle.png">$PARAM[art]</texture>
-					<bordertexture border="SIZE_ITEM_SHADOW_CIRCLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-circle.png</bordertexture>
+					<bordertexture border="SIZE_ITEM_SHADOW_CIRCLE" colordiffuse="BACKGROUND_OPAQUE50">1080p/diffuse/shadow-circle.png</bordertexture>
 					<bordersize>SIZE_ITEM_SHADOW_CIRCLE_DOUBLE</bordersize>
 					<aspectratio scalediffuse="false">scale</aspectratio>
 				</control>
@@ -204,696 +328,388 @@
 		</definition>
 	</include>
 
-
-	<!-- Horizontal strip of landscape elements, with label and optional logo -->
-	<include name="LandscapeStrip">
-		<param name="visible">true</param>
-		<param name="id"></param>
-		<param name="label"></param>
-		<param name="content"></param>
-		<param name="art"></param>
-		<param name="fallback">1080p/fallback/landscape.png</param>
-		<param name="showinfo">false</param>
-		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
-		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
-		<param name="onclick">noop</param>
-		<param name="onfocus">noop</param>
-		<param name="onchange">noop</param>
-		<param name="onback">noop</param>
-		<param name="onup">noop</param>
-		<param name="ondown">noop</param>
-		<param name="onleft">noop</param>
-		<param name="onright">noop</param>
+	<!-- Landscape info (clearlogo or TV show title) -->
+	<include name="ArtListsLandscapeInfo">
+		<param name="textcolor">HIGHLIGHT_CONTRAST_LIGHT</param>
 
 		<definition>
 			<control type="group">
-				<visible>$PARAM[visible]</visible>
-				<height>HEIGHT_LANDSCAPE_STRIP_CONTAINER</height>
+				<top>HEIGHT_LANDSCAPE</top>
+				<left>SIZE_ITEM_SHADOW_ART_DOUBLE</left>
+				<right>SIZE_ITEM_SHADOW_ART_DOUBLE</right>
+				<height>HEIGHT_LANDSCAPE_CLEARLOGO</height>
 
+				<!-- Title (if clearlogo not available) -->
 				<control type="label">
-					<font>BODY_STRONG</font>
-					<textcolor>$PARAM[foreground_color]</textcolor>
-					<label>$PARAM[label]</label>
+					<visible>String.IsEmpty(ListItem.Art(tvshow.clearlogo))</visible>
+					<width>auto</width>
+					<font>BODY2_STRONG</font>
+					<textcolor>$PARAM[textcolor]</textcolor>
+					<label>$INFO[ListItem.TVShowTitle]</label>
 				</control>
-
-				<control type="fixedlist" id="$PARAM[id]">
-					<top>PADDING_MULT_120</top>
-					<autoscroll>false</autoscroll>
-					<orientation>horizontal</orientation>
-					<include content="HomeOnClickMedia" />
-					<onclick>$PARAM[onclick]</onclick>
-					<onfocus>$PARAM[onfocus]</onfocus>
-					<onback>$PARAM[onback]</onback>
-					<onleft>$PARAM[onleft]</onleft>
-					<onright>$PARAM[onright]</onright>
-					<onup>$PARAM[onup]</onup>
-					<ondown>$PARAM[ondown]</ondown>
-
-					<itemlayout width="WIDTH_LANDSCAPE_STRIP_ITEM_CONTAINER" height="HEIGHT_LANDSCAPE">
-						<control type="group">
-							<!-- Landscape item -->
-							<include content="ArtListsLandscape">
-								<param name="art">$PARAM[art]</param>
-								<param name="fallback">$PARAM[fallback]</param>
-							</include>
-
-							<!-- Info -->
-							<control type="group">
-								<visible>$PARAM[showinfo]</visible>
-								<top>OFFSET_LANDSCAPE_STRIP_INFO</top>
-
-								<control type="group">
-									<top>SIZE_ITEM_SHADOW_ART</top>
-									<left>SIZE_ITEM_SHADOW_ART</left>
-									<right>SIZE_ITEM_SHADOW_ART</right>
-									<width>100%</width>
-
-									<!-- Title/clearlogo -->
-									<control type="group">
-										<left>PADDING_MULT_10</left>
-										<right>PADDING_MULT_10</right>
-										<height>HEIGHT_CLEARLOGO_SMALL</height>
-
-										<!-- Title (if clearlogo not available) -->
-										<control type="label">
-											<visible>String.IsEmpty(ListItem.Property(Clearlogo.Small))</visible>
-
-											<width>auto</width>
-											<height>HEIGHT_CLEARLOGO_SMALL</height>
-											<font>BODY_STRONG</font>
-											<aligny>center</aligny>
-											<textcolor>$PARAM[highlight_color]</textcolor>
-											<label>$INFO[ListItem.TVShowTitle]</label>
-										</control>
-										<!-- Clearlogo -->
-										<control type="image">
-											<visible>!String.IsEmpty(ListItem.Property(Clearlogo.Small))</visible>
-
-											<width>WIDTH_CLEARLOGO_SMALL</width>
-											<height>HEIGHT_CLEARLOGO_SMALL</height>
-											<fadetime>ANIMATION_FAST</fadetime>
-											<texture background="true">$INFO[ListItem.Property(Clearlogo.Small)]</texture>
-											<aspectratio align="left">keep</aspectratio>
-										</control>
-									</control>
-									<!-- Season/episode -->
-									<control type="label">
-										<right>-8</right>
-										<top>HEIGHT_CLEARLOGO_SMALL</top>
-										<width>100</width>
-										<font>CAPTION2</font>
-										<textcolor>$PARAM[foreground_color]</textcolor>
-										<label>S$INFO[ListItem.Season]·E$INFO[ListItem.Episode]</label>
-									</control>
-									<!-- Episode title -->
-									<control type="label">
-										<left>PADDING_MULT_10</left>
-										<top>HEIGHT_CLEARLOGO_SMALL</top>
-										<width>340</width>
-										<font>CAPTION2</font>
-										<textcolor>$PARAM[foreground_color]</textcolor>
-										<label>$INFO[ListItem.Title]</label>
-									</control>
-								</control>
-							</control>
-						</control>
-					</itemlayout>
-					
-					<focusedlayout width="WIDTH_LANDSCAPE_STRIP_ITEM_CONTAINER" height="HEIGHT_LANDSCAPE">
-						<control type="group">
-							<!-- Onchange action -->
-							<control type="button">
-								<include content="Hidden" />
-								<onfocus>$PARAM[onchange]</onfocus>
-							</control>
-
-							<!-- Landscape item -->
-							<include content="ArtListsLandscape">
-								<param name="art">$PARAM[art]</param>
-								<param name="fallback">$PARAM[fallback]</param>
-							</include>
-
-							<!-- Info -->
-							<control type="group">
-								<visible>$PARAM[showinfo]</visible>
-								<top>OFFSET_LANDSCAPE_STRIP_INFO</top>
-
-								<control type="group">
-									<top>SIZE_ITEM_SHADOW_ART</top>
-									<left>SIZE_ITEM_SHADOW_ART</left>
-									<right>SIZE_ITEM_SHADOW_ART</right>
-									<width>100%</width>
-
-									<!-- Title/clearlogo -->
-									<control type="group">
-										<left>PADDING_MULT_10</left>
-										<right>PADDING_MULT_10</right>
-										<height>HEIGHT_CLEARLOGO_SMALL</height>
-
-										<!-- Title (if clearlogo not available) -->
-										<control type="label">
-											<visible>String.IsEmpty(ListItem.Property(Clearlogo.Small))</visible>
-
-											<width>auto</width>
-											<height>HEIGHT_CLEARLOGO_SMALL</height>
-											<font>BODY_STRONG</font>
-											<aligny>center</aligny>
-											<textcolor>$PARAM[highlight_color]</textcolor>
-											<label>$INFO[ListItem.TVShowTitle]</label>
-										</control>
-										<!-- Clearlogo -->
-										<control type="image">
-											<visible>!String.IsEmpty(ListItem.Property(Clearlogo.Small))</visible>
-
-											<width>WIDTH_CLEARLOGO_SMALL</width>
-											<height>HEIGHT_CLEARLOGO_SMALL</height>
-											<fadetime>ANIMATION_FAST</fadetime>
-											<texture background="true">$INFO[ListItem.Property(Clearlogo.Small)]</texture>
-											<aspectratio align="left">keep</aspectratio>
-										</control>
-									</control>
-									<!-- Season/episode -->
-									<control type="label">
-										<right>-8</right>
-										<top>HEIGHT_CLEARLOGO_SMALL</top>
-										<width>100</width>
-										<font>CAPTION2</font>
-										<textcolor>$PARAM[foreground_color]</textcolor>
-										<label>S$INFO[ListItem.Season]·E$INFO[ListItem.Episode]</label>
-									</control>
-									<!-- Episode title -->
-									<control type="label">
-										<left>PADDING_MULT_10</left>
-										<top>HEIGHT_CLEARLOGO_SMALL</top>
-										<width>340</width>
-										<font>CAPTION2</font>
-										<textcolor>$PARAM[foreground_color]</textcolor>
-										<label>$INFO[ListItem.Title]</label>
-									</control>
-								</control>
-							</control>
-						</control>
-					</focusedlayout>
-
-					<content>$PARAM[content]</content>
+				<!-- Clearlogo -->
+				<control type="image">
+					<width>WIDTH_LANDSCAPE_CLEARLOGO</width>
+					<height>HEIGHT_LANDSCAPE_CLEARLOGO</height>
+					<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+					<aspectratio align="left">keep</aspectratio>
 				</control>
 			</control>
 		</definition>
 	</include>
-
-	<!-- Horizontal strip of poster elements, with label -->
-	<include name="PosterStrip">
-		<param name="visible">true</param>
-		<param name="id"></param>
-		<param name="label"></param>
-		<param name="content"></param>
-		<param name="art"></param>
-		<param name="fallback">1080p/fallback/poster.png</param>
-		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
-		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
-		<param name="onclick">noop</param>
-		<param name="onfocus">noop</param>
-		<param name="onchange">noop</param>
-		<param name="onback">noop</param>
-		<param name="onup">noop</param>
-		<param name="ondown">noop</param>
-		<param name="onleft">noop</param>
-		<param name="onright">noop</param>
-
-		<definition>
-			<control type="group">
-				<visible>$PARAM[visible]</visible>
-				<height>HEIGHT_POSTER_STRIP_CONTAINER</height>
-
-				<control type="label">
-					<font>BODY_STRONG</font>
-					<textcolor>$PARAM[foreground_color]</textcolor>
-					<label>$PARAM[label]</label>
-				</control>
-
-				<control type="fixedlist" id="$PARAM[id]">
-					<top>PADDING_MULT_120</top>
-					<autoscroll>false</autoscroll>
-					<orientation>horizontal</orientation>
-					<include content="HomeOnClickMedia" condition="Window.Is(home)" />
-					<include content="MediaNavOnClickMedia" condition="Window.Is(videos)" />
-					<onclick>$PARAM[onclick]</onclick>
-					<onfocus>$PARAM[onfocus]</onfocus>
-					<onback>$PARAM[onback]</onback>
-					<onleft>$PARAM[onleft]</onleft>
-					<onright>$PARAM[onright]</onright>
-					<onup>$PARAM[onup]</onup>
-					<ondown>$PARAM[ondown]</ondown>
-
-					<itemlayout width="WIDTH_POSTER_STRIP_ITEM_CONTAINER" height="HEIGHT_POSTER">
-						<control type="group">
-							<!-- Poster -->
-							<include content="ArtListsPoster">
-								<param name="art">$PARAM[art]</param>
-								<param name="fallback">$PARAM[fallback]</param>
-							</include>
-						</control>
-					</itemlayout>
-
-					<focusedlayout width="WIDTH_POSTER_STRIP_ITEM_CONTAINER" height="HEIGHT_POSTER">
-						<control type="group">
-							<!-- Onchange action -->
-							<control type="button">
-								<include content="Hidden" />
-								<onfocus>$PARAM[onchange]</onfocus>
-							</control>
-
-							<!-- Poster -->
-							<include content="ArtListsPoster">
-								<param name="art">$PARAM[art]</param>
-								<param name="fallback">$PARAM[fallback]</param>
-							</include>
-						</control>
-					</focusedlayout>
-
-					<content>$PARAM[content]</content>
-				</control>
-			</control>
-		</definition>
-	</include>
-
-	<!-- Horizontal strip of album elements, with label -->
-	<include name="AlbumStrip">
-		<param name="visible">true</param>
-		<param name="id"></param>
-		<param name="label"></param>
-		<param name="content"></param>
-		<param name="art"></param>
-		<param name="fallback">1080p/fallback/music.png</param>
-		<param name="info"></param>
-		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
-		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
-		<param name="onclick">noop</param>
-		<param name="onfocus">noop</param>
-		<param name="onchange">noop</param>
-		<param name="onback">noop</param>
-		<param name="onup">noop</param>
-		<param name="ondown">noop</param>
-		<param name="onleft">noop</param>
-		<param name="onright">noop</param>
-
-		<definition>
-			<control type="group">
-				<visible>$PARAM[visible]</visible>
-				<height>HEIGHT_ALBUM_STRIP_CONTAINER</height>
-
-				<control type="label">
-					<font>BODY_STRONG</font>
-					<textcolor>$PARAM[foreground_color]</textcolor>
-					<label>$PARAM[label]</label>
-				</control>
-
-				<control type="fixedlist" id="$PARAM[id]">
-					<top>PADDING_MULT_120</top>
-					<autoscroll>false</autoscroll>
-					<orientation>horizontal</orientation>
-					<include content="HomeOnClickMedia" />
-					<onclick>$PARAM[onclick]</onclick>
-					<onfocus>$PARAM[onfocus]</onfocus>
-					<onback>$PARAM[onback]</onback>
-					<onleft>$PARAM[onleft]</onleft>
-					<onright>$PARAM[onright]</onright>
-					<onup>$PARAM[onup]</onup>
-					<ondown>$PARAM[ondown]</ondown>
-
-					<itemlayout width="WIDTH_ALBUM_STRIP_ITEM_CONTAINER" height="HEIGHT_ALBUM_STRIP_CONTAINER">
-						<control type="group">
-							<!-- Album item -->
-							<include content="ArtListsAlbum">
-								<param name="art">$PARAM[art]</param>
-								<param name="fallback">$PARAM[fallback]</param>
-							</include>
-
-							<!-- Info -->
-							<control type="group">
-								<top>OFFSET_ALBUM_INFO</top>
-
-								<control type="group">
-									<top>SIZE_ITEM_SHADOW_ART</top>
-									<left>SIZE_ITEM_SHADOW_ART</left>
-									<right>SIZE_ITEM_SHADOW_ART</right>
-
-									<!-- Info line -->
-									<control type="label">
-										<scroll>false</scroll>
-										<width>auto</width>
-										<font>CAPTION</font>
-										<textcolor>$PARAM[highlight_color]</textcolor>
-										<label>$PARAM[info]</label>
-									</control>
-								</control>
-							</control>
-						</control>
-					</itemlayout>
-
-					<focusedlayout width="WIDTH_ALBUM_STRIP_ITEM_CONTAINER" height="HEIGHT_ALBUM_STRIP_CONTAINER">
-						<control type="group">
-							<!-- Onchange action -->
-							<control type="button">
-								<include content="Hidden" />
-								<onfocus>$PARAM[onchange]</onfocus>
-							</control>
-							
-							<!-- Album item -->
-							<include content="ArtListsAlbum">
-								<param name="art">$PARAM[art]</param>
-								<param name="fallback">$PARAM[fallback]</param>
-							</include>
-
-							<!-- Info -->
-							<control type="group">
-								<top>OFFSET_ALBUM_INFO</top>
-
-								<control type="group">
-									<top>SIZE_ITEM_SHADOW_ART</top>
-									<left>SIZE_ITEM_SHADOW_ART</left>
-									<right>SIZE_ITEM_SHADOW_ART</right>
-
-									<!-- Info line -->
-									<control type="label">
-										<width>auto</width>
-										<font>CAPTION</font>
-										<textcolor>$PARAM[highlight_color]</textcolor>
-										<label>$PARAM[info]</label>
-										<scroll>true</scroll>
-									</control>
-								</control>
-							</control>
-						</control>
-					</focusedlayout>
-
-					<content>$PARAM[content]</content>
-				</control>
-			</control>
-		</definition>
-	</include>
-
-	<!-- Horizontal strip of person elements, with label -->
-	<include name="PersonStrip">
-		<param name="visible">true</param>
-		<param name="id"></param>
-		<param name="label"></param>
-		<param name="content"></param>
-		<param name="art"></param>
-		<param name="fallback">1080p/fallback/person.png</param>
+	<!-- Album info -->
+	<include name="ArtListsAlbumInfo">
 		<param name="info1"></param>
 		<param name="info2"></param>
-		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
-		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
-		<param name="onup">noop</param>
-		<param name="onback">noop</param>
+		<param name="info1_color">HIGHLIGHT_CONTRAST_LIGHT</param>
+		<param name="info2_color">FOREGROUND_CONTRAST_LIGHT</param>
+		<param name="scroll">false</param>
 
 		<definition>
 			<control type="group">
-				<visible>$PARAM[visible]</visible>
-				<height>HEIGHT_PERSON_STRIP_CONTAINER</height>
+				<top>OFFSET_ALBUM_INFO</top>
 
-				<control type="label">
-					<font>BODY_STRONG</font>
-					<textcolor>$PARAM[foreground_color]</textcolor>
-					<label>$PARAM[label]</label>
+				<control type="group">
+					<top>SIZE_ITEM_SHADOW_ART</top>
+					<left>SIZE_ITEM_SHADOW_ART</left>
+					<right>SIZE_ITEM_SHADOW_ART</right>
+
+					<!-- Info line 1 -->
+					<control type="label">
+						<width>auto</width>
+						<font>CAPTION</font>
+						<textcolor>$PARAM[info1_color]</textcolor>
+						<label>$PARAM[info1]</label>
+						<scroll>$PARAM[scroll]</scroll>
+						<scrollspeed>40</scrollspeed>
+					</control>
+					<!-- Info line 2 -->
+					<control type="label">
+						<top>FONT_SIZE_BODY</top>
+						<width>auto</width>
+						<font>CAPTION2</font>
+						<textcolor>$PARAM[info2_color]</textcolor>
+						<label>$PARAM[info2]</label>
+						<scroll>$PARAM[scroll]</scroll>
+						<scrollspeed>40</scrollspeed>
+					</control>
 				</control>
+			</control>
+		</definition>
+	</include>
+	<!-- Actor info -->
+	<include name="ArtListsPersonInfo">
+		<param name="info1"></param>
+		<param name="info2"></param>
+		<param name="info1_color">HIGHLIGHT_CONTRAST_LIGHT</param>
+		<param name="info2_color">FOREGROUND_CONTRAST_LIGHT</param>
+		<param name="scroll">false</param>
 
-				<control type="fixedlist" id="$PARAM[id]">
-					<top>PADDING_MULT_120</top>
-					<autoscroll>false</autoscroll>
-					<orientation>horizontal</orientation>
+		<definition>
+			<control type="group">
+				<top>OFFSET_PERSON_INFO</top>
 
-					<onclick>noop</onclick><!--todo: actor page with list of movies/show he/she participates in?-->
-					<onup>$PARAM[onup]</onup>
-					<onback>$PARAM[onback]</onback>
+				<control type="group">
+					<top>SIZE_ITEM_SHADOW_ART</top>
+					<left>SIZE_ITEM_SHADOW_ART</left>
+					<right>SIZE_ITEM_SHADOW_ART</right>
 
-					<itemlayout width="WIDTH_PERSON_STRIP_ITEM_CONTAINER" height="HEIGHT_PERSON_STRIP_CONTAINER">
-						<control type="group">
-							<!-- Album item -->
-							<include content="ArtListsPerson">
-								<param name="art">$PARAM[art]</param>
-								<param name="fallback">$PARAM[fallback]</param>
-							</include>
-
-							<!-- Info -->
-							<control type="group">
-								<top>OFFSET_PERSON_INFO</top>
-
-								<control type="group">
-									<top>SIZE_ITEM_SHADOW_ART</top>
-									<left>SIZE_ITEM_SHADOW_ART</left>
-									<right>SIZE_ITEM_SHADOW_ART</right>
-
-									<!-- Info line 1 -->
-									<control type="label">
-										<scroll>false</scroll>
-										<width>auto</width>
-										<font>CAPTION</font>
-										<textcolor>$PARAM[highlight_color]</textcolor>
-										<label>$PARAM[info1]</label>
-									</control>
-									<!-- Info line 2 -->
-									<control type="label">
-										<top>FONT_SIZE_BODY</top>
-										<scroll>false</scroll>
-										<width>auto</width>
-										<font>CAPTION2</font>
-										<textcolor>$PARAM[foreground_color]</textcolor>
-										<label>$PARAM[info2]</label>
-									</control>
-								</control>
-							</control>
-						</control>
-					</itemlayout>
-
-					<focusedlayout width="WIDTH_PERSON_STRIP_ITEM_CONTAINER" height="HEIGHT_PERSON_STRIP_CONTAINER">
-						<control type="group">
-							<!-- Album item -->
-							<include content="ArtListsPerson">
-								<param name="art">$PARAM[art]</param>
-								<param name="fallback">$PARAM[fallback]</param>
-							</include>
-
-							<!-- Info -->
-							<control type="group">
-								<top>OFFSET_PERSON_INFO</top>
-
-								<control type="group">
-									<top>SIZE_ITEM_SHADOW_ART</top>
-									<left>SIZE_ITEM_SHADOW_ART</left>
-									<right>SIZE_ITEM_SHADOW_ART</right>
-
-									<!-- Info line 1 -->
-									<control type="label">
-										<width>auto</width>
-										<font>CAPTION</font>
-										<textcolor>$PARAM[highlight_color]</textcolor>
-										<label>$PARAM[info1]</label>
-										<scroll>true</scroll>
-									</control>
-									<!-- Info line 2 -->
-									<control type="label">
-										<top>FONT_SIZE_BODY</top>
-										<width>auto</width>
-										<font>CAPTION2</font>
-										<textcolor>$PARAM[foreground_color]</textcolor>
-										<label>$PARAM[info2]</label>
-										<scroll>true</scroll>
-									</control>
-								</control>
-							</control>
-						</control>
-					</focusedlayout>
-
-					<content>$PARAM[content]</content>
+					<!-- Info line 1 -->
+					<control type="label">
+						<width>auto</width>
+						<font>CAPTION</font>
+						<textcolor>$PARAM[info1_color]</textcolor>
+						<label>$PARAM[info1]</label>
+						<scroll>$PARAM[scroll]</scroll>
+						<scrollspeed>40</scrollspeed>
+					</control>
+					<!-- Info line 2 -->
+					<control type="label">
+						<top>FONT_SIZE_BODY</top>
+						<width>auto</width>
+						<font>CAPTION2</font>
+						<textcolor>$PARAM[info2_color]</textcolor>
+						<label>$PARAM[info2]</label>
+						<scroll>$PARAM[scroll]</scroll>
+						<scrollspeed>40</scrollspeed>
+					</control>
 				</control>
 			</control>
 		</definition>
 	</include>
 
 
-	<!-- Vertical wall of poster elements, with label and filters (for focused status) -->
-	<include name="PosterWall">
-		<param name="id"></param>
-		<param name="label"></param>
-		<param name="content"></param>
+	<!-- Onchange button -->
+	<include name="ArtListsOnChangeButton">
+		<param name="get_additional_data">true</param>
+		<param name="sync_501">false</param>
+
+		<definition>
+			<control type="button">
+				<visible allowhiddenfocus="true">false</visible>
+				<onfocus condition="$PARAM[get_additional_data] + !$EXP[IsHomeMenuMoving]">RunScript(script.canvas.helper,get_additional_media_info_from_listitem,$INFO[ListItem.DBTYPE],$INFO[ListItem.DBID],$INFO[ListItem.CurrentItem],$PARAM[sync_501])</onfocus>
+			</control>
+		</definition>
+	</include>
+
+
+	<!-- Layout for list of poster elements -->
+	<include name="PosterLayout">
 		<param name="art"></param>
 		<param name="fallback">1080p/fallback/poster.png</param>
-		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
-		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
-		<param name="onclick">noop</param>
-		<param name="onfocus">noop</param>
-		<param name="onchange">noop</param>
-		<param name="onback">noop</param>
-		<param name="onup">noop</param>
-		<param name="ondown">noop</param>
-		<param name="onleft">noop</param>
-		<param name="onright">noop</param>
+		<param name="dark_unfocused">false</param>
+		<param name="dark_focused">false</param>
+		<param name="condition">true</param>
+		<param name="get_additional_data">true</param>
+		<param name="sync_501">false</param>
 
 		<definition>
-			<control type="group">
-				<height>SCREEN_HEIGHT_PADDED</height>
-
-				<control type="panel" id="$PARAM[id]">
-					<top>OFFSET_POSTER_WALL_CONTENT</top>
-					<height>HEIGHT_POSTER_WALL_CONTENT</height>
-					<autoscroll>false</autoscroll>
-					<orientation>vertical</orientation>
-					<include content="HomeOnClickMedia" />
-					<onclick>$PARAM[onclick]</onclick>
-					<onfocus>$PARAM[onfocus]</onfocus>
-					<onback>$PARAM[onback]</onback>
-					<onleft>$PARAM[onleft]</onleft>
-					<onright>$PARAM[onright]</onright>
-					<onup>$PARAM[onup]</onup>
-					<ondown>$PARAM[ondown]</ondown>
-
-					<itemlayout width="WIDTH_POSTER_WALL_ITEM_CONTAINER" height="HEIGHT_POSTER">
-						<control type="group">
-							<!-- Poster -->
-							<include content="ArtListsPoster">
-								<param name="art">$PARAM[art]</param>
-								<param name="fallback">$PARAM[fallback]</param>
-								<param name="offset_top_icon">OFFSET_TOP_POSTER_WALL_ICON</param>
-								<param name="offset_right_icon">OFFSET_RIGHT_POSTER_WALL_ICON</param>
-								<param name="offset_top_progress">OFFSET_TOP_POSTER_PROGRESS</param>
-								<param name="offset_left_progress">OFFSET_LEFT_POSTER_PROGRESS</param>
-							</include>
-						</control>
-					</itemlayout>
-
-					<focusedlayout width="WIDTH_POSTER_WALL_ITEM_CONTAINER" height="HEIGHT_POSTER">
-						<control type="group">
-							<!-- Onchange action -->
-							<control type="button">
-								<include content="Hidden" />
-								<onfocus>$PARAM[onchange]</onfocus>
-							</control>
-
-							<!-- Poster -->
-							<include content="ArtListsPoster">
-								<param name="art">$PARAM[art]</param>
-								<param name="fallback">$PARAM[fallback]</param>
-								<param name="offset_top_icon">OFFSET_TOP_POSTER_WALL_ICON</param>
-								<param name="offset_right_icon">OFFSET_RIGHT_POSTER_WALL_ICON</param>
-								<param name="offset_top_progress">OFFSET_TOP_POSTER_PROGRESS</param>
-								<param name="offset_left_progress">OFFSET_LEFT_POSTER_PROGRESS</param>
-							</include>
-						</control>
-					</focusedlayout>
-
-					<content>$PARAM[content]</content>
+			<itemlayout width="WIDTH_POSTER_LIST_ITEM_CONTAINER" height="HEIGHT_POSTER_LIST_ITEM_CONTAINER" condition="$PARAM[condition]">
+				<control type="group">
+					<!-- Poster -->
+					<include content="ArtListsPoster">
+						<param name="art">$PARAM[art]</param>
+						<param name="fallback">$PARAM[fallback]</param>
+						<param name="darken">$PARAM[dark_unfocused]</param>
+					</include>
 				</control>
+			</itemlayout>
+
+			<focusedlayout width="WIDTH_POSTER_LIST_ITEM_CONTAINER" height="HEIGHT_POSTER_LIST_ITEM_CONTAINER" condition="$PARAM[condition]">
+				<control type="group">
+					<!-- Onchange action -->
+					<include content="ArtListsOnChangeButton">
+						<param name="get_additional_data">$PARAM[get_additional_data]</param>
+						<param name="sync_501">$PARAM[sync_501]</param>
+					</include>
+
+					<!-- Poster -->
+					<include content="ArtListsPoster">
+						<param name="art">$PARAM[art]</param>
+						<param name="fallback">$PARAM[fallback]</param>
+						<param name="darken">$PARAM[dark_focused]</param>
+					</include>
+				</control>
+			</focusedlayout>
+		</definition>
+	</include>
+	<!-- Layout for list of landscape elements -->
+	<include name="LandscapeLayout">
+		<param name="art"></param>
+		<param name="fallback">1080p/fallback/landscape.png</param>
+		<param name="dark_unfocused">false</param>
+		<param name="dark_focused">false</param>
+		<param name="condition">true</param>
+		<param name="show_info">false</param>
+		<param name="textcolor">HIGHLIGHT_CONTRAST_LIGHT</param>
+		<param name="get_additional_data">true</param>
+		<param name="sync_501">false</param>
+
+		<definition>
+			<itemlayout width="WIDTH_LANDSCAPE_LIST_ITEM_CONTAINER" height="HEIGHT_LANDSCAPE_LIST_ITEM_CONTAINER" condition="$PARAM[condition]">
+				<control type="group">
+					<!-- Landscape item -->
+					<include content="ArtListsLandscape">
+						<param name="art">$PARAM[art]</param>
+						<param name="fallback">$PARAM[fallback]</param>
+						<param name="darken">$PARAM[dark_unfocused]</param>
+					</include>
+
+					<!-- Clearlogo or show title -->
+					<include content="ArtListsLandscapeInfo" condition="$PARAM[show_info]">
+						<param name="textcolor">$PARAM[textcolor]</param>
+					</include>
+				</control>
+			</itemlayout>
+			
+			<focusedlayout width="WIDTH_LANDSCAPE_LIST_ITEM_CONTAINER" height="HEIGHT_LANDSCAPE_LIST_ITEM_CONTAINER" condition="$PARAM[condition]">
+				<control type="group">
+					<!-- Onchange action -->
+					<include content="ArtListsOnChangeButton">
+						<param name="get_additional_data">$PARAM[get_additional_data]</param>
+						<param name="sync_501">$PARAM[sync_501]</param>
+					</include>
+
+					<!-- Landscape item -->
+					<include content="ArtListsLandscape">
+						<param name="art">$PARAM[art]</param>
+						<param name="fallback">$PARAM[fallback]</param>
+						<param name="darken">$PARAM[dark_focused]</param>
+					</include>
+
+					<!-- Clearlogo or show title -->
+					<include content="ArtListsLandscapeInfo" condition="$PARAM[show_info]">
+						<param name="textcolor">$PARAM[textcolor]</param>
+					</include>
+				</control>
+			</focusedlayout>
+		</definition>
+	</include>
+	<!-- Layout for list of square elements -->
+	<include name="AlbumLayout">
+		<param name="art"></param>
+		<param name="fallback">1080p/fallback/music.png</param>
+		<param name="dark_unfocused">false</param>
+		<param name="dark_focused">false</param>
+		<param name="condition">true</param>
+		<param name="info1"></param>
+		<param name="info2"></param>
+		<param name="info1_color">HIGHLIGHT_CONTRAST_LIGHT</param>
+		<param name="info2_color">FOREGROUND_CONTRAST_LIGHT</param>
+		<param name="get_additional_data">true</param>
+		<param name="sync_501">false</param>
+
+		<definition>
+			<itemlayout width="WIDTH_ALBUM_LIST_ITEM_CONTAINER" height="HEIGHT_ALBUM_LIST_ITEM_CONTAINER">
+				<control type="group">
+					<!-- Album item -->
+					<include content="ArtListsAlbum">
+						<param name="art">$PARAM[art]</param>
+						<param name="fallback">$PARAM[fallback]</param>
+						<param name="darken">$PARAM[dark_unfocused]</param>
+					</include>
+
+					<!-- Info -->
+					<include content="ArtListsAlbumInfo">
+						<param name="info1">$PARAM[info1]</param>
+						<param name="info2">$PARAM[info2]</param>
+						<param name="info1_color">$PARAM[info1_color]</param>
+						<param name="info2_color">$PARAM[info2_color]</param>
+					</include>
+				</control>
+			</itemlayout>
+
+			<focusedlayout width="WIDTH_ALBUM_LIST_ITEM_CONTAINER" height="HEIGHT_ALBUM_LIST_ITEM_CONTAINER">
+				<control type="group">
+					<!-- Onchange action -->
+					<include content="ArtListsOnChangeButton">
+						<param name="get_additional_data">$PARAM[get_additional_data]</param>
+						<param name="sync_501">$PARAM[sync_501]</param>
+					</include>
+					
+					<!-- Album item -->
+					<include content="ArtListsAlbum">
+						<param name="art">$PARAM[art]</param>
+						<param name="fallback">$PARAM[fallback]</param>
+						<param name="darken">$PARAM[dark_focused]</param>
+					</include>
+
+					<!-- Info -->
+					<include content="ArtListsAlbumInfo">
+						<param name="info1">$PARAM[info1]</param>
+						<param name="info2">$PARAM[info2]</param>
+						<param name="info1_color">$PARAM[info1_color]</param>
+						<param name="info2_color">$PARAM[info2_color]</param>
+						<param name="scroll">true</param>
+					</include>
+				</control>
+			</focusedlayout>
+		</definition>
+	</include>
+	<!-- Layout for list of person elements -->
+	<include name="PersonLayout">
+		<param name="art"></param>
+		<param name="fallback">1080p/fallback/person.png</param>
+		<param name="condition">true</param>
+		<param name="info1"></param>
+		<param name="info2"></param>
+		<param name="info1_color">HIGHLIGHT_CONTRAST_LIGHT</param>
+		<param name="info2_color">FOREGROUND_CONTRAST_LIGHT</param>
+
+		<definition>
+			<itemlayout width="WIDTH_PERSON_LIST_ITEM_CONTAINER" height="HEIGHT_PERSON_LIST_ITEM_CONTAINER" condition="$PARAM[condition]">
+				<control type="group">
+					<!-- Person item -->
+					<include content="ArtListsPerson">
+						<param name="art">$PARAM[art]</param>
+						<param name="fallback">$PARAM[fallback]</param>
+					</include>
+
+					<!-- Info -->
+					<include content="ArtListsPersonInfo">
+						<param name="info1">$PARAM[info1]</param>
+						<param name="info2">$PARAM[info2]</param>
+						<param name="info1_color">$PARAM[info1_color]</param>
+						<param name="info2_color">$PARAM[info2_color]</param>
+					</include>
+				</control>
+			</itemlayout>
+			
+			<focusedlayout width="WIDTH_PERSON_LIST_ITEM_CONTAINER" height="HEIGHT_PERSON_LIST_ITEM_CONTAINER" condition="$PARAM[condition]">
+				<control type="group">
+					<!-- Person item -->
+					<include content="ArtListsPerson">
+						<param name="art">$PARAM[art]</param>
+						<param name="fallback">$PARAM[fallback]</param>
+					</include>
+
+					<!-- Info -->
+					<include content="ArtListsPersonInfo">
+						<param name="info1">$PARAM[info1]</param>
+						<param name="info2">$PARAM[info2]</param>
+						<param name="info1_color">$PARAM[info1_color]</param>
+						<param name="info2_color">$PARAM[info2_color]</param>
+						<param name="scroll">true</param>
+					</include>
+				</control>
+			</focusedlayout>
+		</definition>
+	</include>
+
+
+	<!-- Horizontal strip of items -->
+	<include name="ItemStrip">
+		<param name="id"></param>
+
+		<definition>
+			<control type="fixedlist" id="$PARAM[id]">
+				<autoscroll>false</autoscroll>
+				<orientation>horizontal</orientation>
+				<preloaditems>8</preloaditems>
+				
+				<!-- Additional specific list properties and layout -->
+				<nested />
+			</control>
+		</definition>
+	</include>
+	<!-- Vertical wall of items -->
+	<include name="ItemWall">
+		<param name="id"></param>
+
+		<definition>
+			<control type="panel" id="$PARAM[id]">
+				<autoscroll>false</autoscroll>
+				<orientation>vertical</orientation>
+				<preloaditems>1</preloaditems>
+
+				<!-- Additional specific list properties and layout -->
+				<nested />
 			</control>
 		</definition>
 	</include>
 
-	<!-- Vertical wall of album elements, with label and filters (for focused status) -->
-	<include name="AlbumWall">
+	<!-- A list label with padding -->
+	<include name="ListLabel">
 		<param name="id"></param>
 		<param name="label"></param>
-		<param name="content"></param>
-		<param name="art"></param>
-		<param name="fallback">1080p/fallback/music.png</param>
-		<param name="info"></param>
-		<param name="highlight_color">HIGHLIGHT_CONTRAST_LIGHT</param>
-		<param name="foreground_color">FOREGROUND_CONTRAST_LIGHT</param>
-		<param name="onclick">noop</param>
-		<param name="onfocus">noop</param>
-		<param name="onchange">noop</param>
-		<param name="onback">noop</param>
-		<param name="onup">noop</param>
-		<param name="ondown">noop</param>
-		<param name="onleft">noop</param>
-		<param name="onright">noop</param>
+		<param name="textcolor">FOREGROUND_CONTRAST_LIGHT</param>
 
 		<definition>
-			<control type="group">
-				<height>SCREEN_HEIGHT_PADDED</height>
-
-				<control type="panel" id="$PARAM[id]">
-					<top>OFFSET_ALBUM_WALL_CONTENT</top>
-					<height>HEIGHT_ALBUM_WALL_CONTENT</height>
-					<autoscroll>false</autoscroll>
-					<orientation>vertical</orientation>
-					<include content="HomeOnClickMedia" />
-					<onclick>$PARAM[onclick]</onclick>
-					<onfocus>$PARAM[onfocus]</onfocus>
-					<onback>$PARAM[onback]</onback>
-					<onleft>$PARAM[onleft]</onleft>
-					<onright>$PARAM[onright]</onright>
-					<onup>$PARAM[onup]</onup>
-					<ondown>$PARAM[ondown]</ondown>
-
-					<itemlayout width="WIDTH_ALBUM_WALL_ITEM_CONTAINER" height="HEIGHT_ALBUM_WALL_CONTAINER">
-						<control type="group">
-							<!-- Album item -->
-							<include content="ArtListsAlbum">
-								<param name="art">$PARAM[art]</param>
-								<param name="fallback">$PARAM[fallback]</param>
-							</include>
-
-							<!-- Info -->
-							<control type="group">
-								<top>OFFSET_ALBUM_INFO</top>
-
-								<control type="group">
-									<top>SIZE_ITEM_SHADOW_ART</top>
-									<left>SIZE_ITEM_SHADOW_ART</left>
-									<right>SIZE_ITEM_SHADOW_ART</right>
-
-									<!-- Info line -->
-									<control type="label">
-										<scroll>false</scroll>
-										<width>auto</width>
-										<font>CAPTION</font>
-										<textcolor>$PARAM[highlight_color]</textcolor>
-										<label>$PARAM[info]</label>
-									</control>
-								</control>
-							</control>
-						</control>
-					</itemlayout>
-
-					<focusedlayout width="WIDTH_ALBUM_WALL_ITEM_CONTAINER" height="HEIGHT_ALBUM_WALL_CONTAINER">
-						<control type="group">
-							<!-- Onchange action -->
-							<control type="button">
-								<include content="Hidden" />
-								<onfocus>$PARAM[onchange]</onfocus>
-							</control>
-
-							<!-- Album item -->
-							<include content="ArtListsAlbum">
-								<param name="art">$PARAM[art]</param>
-								<param name="fallback">$PARAM[fallback]</param>
-							</include>
-
-							<!-- Info -->
-							<control type="group">
-								<top>OFFSET_ALBUM_INFO</top>
-
-								<control type="group">
-									<top>SIZE_ITEM_SHADOW_ART</top>
-									<left>SIZE_ITEM_SHADOW_ART</left>
-									<right>SIZE_ITEM_SHADOW_ART</right>
-
-									<!-- Info line -->
-									<control type="label">
-										<width>auto</width>
-										<font>CAPTION</font>
-										<textcolor>$PARAM[highlight_color]</textcolor>
-										<label>$PARAM[info]</label>
-										<scroll>true</scroll>
-									</control>
-								</control>
-							</control>
-						</control>
-					</focusedlayout>
-
-					<content>$PARAM[content]</content>
-				</control>
+			<!-- Label -->
+			<control type="label" id="$PARAM[id]">
+				<height>FONT_SIZE_BODY</height>
+				<aligny>center</aligny>
+				<font>BODY_STRONG</font>
+				<textcolor>$PARAM[textcolor]</textcolor>
+				<label>$PARAM[label]</label>
+			</control>
+			<!-- Padding -->
+			<control type="label" id="99$PARAM[id]">
+				<height>PADDING_BASE_20P</height>
+				<aligny>center</aligny>
+				<font>BODY_STRONG</font>
+				<textcolor>$PARAM[textcolor]</textcolor>
+				<label></label>
 			</control>
 		</definition>
 	</include>

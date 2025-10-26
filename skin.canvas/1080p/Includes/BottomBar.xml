@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 	<include name="BottomBar">
-		<param name="show">false</param>
-		<param name="show_studio">false</param>
-		<param name="studio"></param>
-
 		<definition>
 			<control type="group">
-				<visible>$PARAM[show]</visible>
+				<visible>$EXP[HasDetailsStudio]</visible>
 				<include content="ShowHideFadeAnimation" />
 
 				<bottom>0</bottom>
@@ -22,13 +18,15 @@
 
 				<!-- Studio logo -->
 				<control type="image">
-					<visible>$PARAM[show_studio]</visible>
+					<!-- On home, slide with the side menu -->
+					<animation type="Conditional" condition="$EXP[HasHomeMenuFocus]"><effect type="slide" start="0,0" end="OFFSET_HOME_MENU_END,0" time="ANIMATION_FAST" tween="cubic" easing="out" reversible="true" /></animation>
+
 					<width>WIDTH_STUDIO_LOGO</width>
 					<height>HEIGHT_STUDIO_LOGO</height>
 					<right>PADDING_BASE</right>
-					<bottom>PADDING_MULT_120</bottom>
+					<bottom>PADDING_BASE_10P</bottom>
 					<fadetime>ANIMATION_MID</fadetime>
-					<texture>$PARAM[studio]</texture>
+					<texture>1080p/studios/$VAR[DetailsStudio].png</texture>
 				</control>
 			</control>
 		</definition>

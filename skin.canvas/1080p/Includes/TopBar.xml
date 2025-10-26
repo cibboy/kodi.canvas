@@ -5,21 +5,21 @@
 
 		<definition>
 			<control type="group">
-				<height>400</height>
+				<height>450</height>
 
 				<!-- Darkening -->
 				<control type="image">
 					<visible>$PARAM[show_background]</visible>
 					<width>100%</width>
-					<height>400</height>
+					<height>450</height>
 					<fadetime>ANIMATION_SLOW</fadetime>
-					<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/diffuse/corner.png</texture>
+					<texture colordiffuse="BACKGROUND_OPAQUE90">1080p/diffuse/corner.png</texture>
 				</control>
 
 				<!-- Clocks -->
 				<control type="group">
-					<top>PADDING_MULT_140</top>
-					<right>PADDING_MULT_150</right>
+					<top>PADDING_BASE_80P</top>
+					<right>PADDING_BASE</right>
 
 					<!-- Clock -->
 					<control type="label">

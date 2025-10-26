@@ -43,27 +43,15 @@
 		<param name="speed">ANIMATION_SLOW</param>
 		<param name="visible_condition">Visible</param>
 		<param name="hidden_condition">Hidden</param>
+		<param name="tween">circle</param>
 
 		<definition>
 			<animation type="$PARAM[visible_condition]">
-				<effect type="fade" start="0" end="100" time="$PARAM[speed]" tween="circle" easing="out" />
+				<effect type="fade" start="0" end="100" time="$PARAM[speed]" tween="$PARAM[tween]" easing="out" />
 			</animation>
 			<animation type="$PARAM[hidden_condition]">
-				<effect type="fade" start="100" end="0" time="$PARAM[speed]" tween="circle" easing="out" />
+				<effect type="fade" start="100" end="0" time="$PARAM[speed]" tween="$PARAM[tween]" easing="out" />
 			</animation>
-		</definition>
-	</include>
-
-	<!-- Fade on focus -->
-	<include name="FocusFadeAnimation">
-		<param name="speed">ANIMATION_SLOW</param>
-		<param name="start">100</param>
-		<param name="end">85</param>
-		<param name="reference_id"></param>
-
-		<definition>
-			<animation effect="fade" start="$PARAM[start]" end="$PARAM[end]" time="$PARAM[speed]" tween="circle" easing="out" condition="!Control.HasFocus($PARAM[reference_id])">Conditional</animation>
-			<animation effect="fade" start="$PARAM[end]" end="$PARAM[start]" time="$PARAM[speed]" tween="circle" easing="out" condition="Control.HasFocus($PARAM[reference_id])">Conditional</animation>
 		</definition>
 	</include>
 

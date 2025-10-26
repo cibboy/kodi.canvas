@@ -205,8 +205,8 @@
 				<control type="grouplist" id="996">
 					<top>OFFSET_FLYOUT_LIST</top>
 					<bottom>OFFSET_FLYOUT_LIST_BOTTOM</bottom>
-					<left>PADDING_HALF</left>
-					<right>PADDING_HALF</right>
+					<left>PADDING_BASE_50P</left>
+					<right>PADDING_BASE_50P</right>
 
 					<itemgap>GAP_FLYOUT_GROUPLIST</itemgap>
 					<onleft>Close</onleft>
@@ -278,9 +278,9 @@
 		<definition>
 			<control type="group">
 				<width>WIDTH_FLYOUT</width>
-				<right>PADDING_MULT_30</right>
-				<top>PADDING_MULT_30</top>
-				<bottom>PADDING_MULT_30</bottom>
+				<right>PADDING_BASE_20P</right>
+				<top>PADDING_BASE_20P</top>
+				<bottom>PADDING_BASE_20P</bottom>
 
 				<!-- Content -->
 				<nested />

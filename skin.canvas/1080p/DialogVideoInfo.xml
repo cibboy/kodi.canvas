@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<controls>
+		<include content="Center169AspectRatio">
+			<!-- Background with blurred quadrants -->
+			<include content="BackgroundQuadrantBlur" />
+
+			<!-- Details -->
+			<control type="group">
+				<top>PADDING_BASE_80P</top>
+				<left>PADDING_BASE</left>
+				<right>PADDING_BASE</right>
+
+				<include content="VideoInfoDetails" />
+			</control>
+
+			<!-- Clock -->
+			<include content="TopBar" />
+
+			<!-- Studio -->
+			<include content="BottomBar" />
+		</include>
+	</controls>
+</window>

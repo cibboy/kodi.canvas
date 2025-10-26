@@ -235,10 +235,10 @@
 					<!-- Title -->
 					<control type="label">
 						<width>auto</width>
-						<height>FONT_SIZE_TITLE1</height>
+						<height>FONT_SIZE_TITLE2</height>
 						<right>PADDING_SETTINGS_TITLE</right>
 						<left>PADDING_SETTINGS_TITLE</left>
-						<font>TITLE1</font>
+						<font>TITLE2</font>
 						<label>Settings</label>
 					</control>
 
@@ -256,7 +256,7 @@
 
 						<focusedlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
 							<control type="button">
-								<include content="Hidden" />
+								<visible allowhiddenfocus="true">false</visible>
 								<onfocus>SetProperty(Settings.ActivePage,$INFO[ListItem.Property(page)],settings)</onfocus>
 								<onfocus>ReplaceWindow($INFO[ListItem.Property(page)])</onfocus>
 							</control>
@@ -396,10 +396,10 @@
 				<!-- Page name -->
 				<control type="label" id="2">
 					<width>auto</width>
-					<height>FONT_SIZE_TITLE1</height>
+					<height>FONT_SIZE_TITLE2</height>
 					<right>PADDING_SETTINGS_TITLE</right>
 					<left>PADDING_SETTINGS_TITLE</left>
-					<font>TITLE1</font>
+					<font>TITLE2</font>
 					<label></label>
 				</control>
 
@@ -441,15 +441,12 @@
 			<control type="image">
 				<visible>!$EXP[IsSettingsAnyDialogActive]</visible>
 				<include content="ShowHideFadeAnimation" />
-				<include content="FocusFadeAnimation">
-					<param name="start">0</param>
-					<param name="end">100</param>
-					<param name="reference_id">1000</param>
-				</include>
+				<animation effect="fade" start="0" end="100" time="ANIMATION_SLOW" tween="circle" easing="out" condition="!Control.HasFocus(1000) + !Control.HasFocus(20)">Conditional</animation>
+				<animation effect="fade" start="100" end="0" time="ANIMATION_SLOW" tween="circle" easing="out" condition="Control.HasFocus(1000) | Control.HasFocus(20)">Conditional</animation>
 
 				<width>60</width>
 				<height>60</height>
-				<left>PADDING_HALF</left>
+				<left>PADDING_BASE_20P</left>
 				<centertop>50%</centertop>
 				<texture colordiffuse="FOREGROUND_OPAQUE10" flipx="true">1080p/icons/chevron-right.png</texture>
 				<aspectratio>keep</aspectratio>
@@ -464,14 +461,14 @@
 
 			<!-- List with description -->
 			<control type="group">
-				<top>PADDING_SETTINGS_OPTIONS_VERTICAL_WIDE</top>
-				<bottom>PADDING_SETTINGS_VERTICAL</bottom>
+				<top>PADDING_BASE_80P</top>
+				<bottom>PADDING_BASE_80P</bottom>
 				<right>PADDING_SETTINGS_WIDE_SIDE</right>
 				<left>PADDING_SETTINGS_WIDE_SIDE</left>
 
 				<!-- Setting description -->
 				<control type="group">
-					<top>PADDING_BASE</top>
+					<top>PADDING_BASE_50P</top>
 					<height>100</height>
 
 					<!-- Icon -->
@@ -479,7 +476,7 @@
 						<visible>!String.IsEmpty(Control.GetLabel(6))</visible>
 						<width>SIZE_SETTINGS_ICON</width>
 						<height>SIZE_SETTINGS_ICON</height>
-						<top>PADDING_MULT_10</top>
+						<top>PADDING_BASE_5P</top>
 						<left>PADDING_SETTINGS_NARROW_SIDE</left>
 						<texture colordiffuse="FOREGROUND_DARK">1080p/icons/info-empty.png</texture>
 					</control>
@@ -511,8 +508,8 @@
 					<!-- List scrollbar -->
 					<control type="scrollbar" id="60">
 						<top>PADDING_BASE</top>
-						<bottom>PADDING_DOUBLE</bottom>
-						<right>PADDING_BASE_NEG</right>
+						<bottom>PADDING_BASE</bottom>
+						<right>PADDING_BASE_50P_NEG</right>
 						<onleft>SetFocus(5)</onleft>
 					</control>
 				</control>
@@ -587,10 +584,10 @@
 			<!-- Option name -->
 			<control type="label" id="1">
 				<width>560</width>
-				<height>FONT_SIZE_TITLE1</height>
+				<height>FONT_SIZE_TITLE2</height>
 				<right>PADDING_SETTINGS_TITLE</right>
 				<left>PADDING_SETTINGS_TITLE</left>
-				<font>TITLE1</font>
+				<font>TITLE2</font>
 				<label></label>
 			</control>
 

@@ -1,362 +1,108 @@
 import xbmcplugin
 import xbmcgui
+from collections import defaultdict
 from utils import *
-from image import get_blurred, get_cropped_clearlogo
+
 
 # Default property lists.
-movie_properties_query = ['art', 'title', 'year', 'resume', 'plot', 'studio', 'streamdetails', 'mpaa', 'genre', 'playcount']
-tvshow_properties_query = ['art', 'title', 'year', 'mpaa', 'genre', 'plot', 'studio', 'season', 'episode', 'watchedepisodes', 'playcount']
+movie_properties_query = ['file', 'art', 'title', 'year', 'resume', 'plot', 'studio', 'streamdetails', 'mpaa', 'genre', 'playcount']
 season_properties_query = ['art', 'showtitle', 'title', 'season', 'episode', 'watchedepisodes', 'playcount']
-episode_properties_query = ['art', 'showtitle', 'title', 'season', 'episode', 'firstaired', 'studio', 'resume', 'streamdetails', 'plot', 'playcount']
-album_properties_query = ['art', 'displayartist', 'genre', 'title', 'year']#todo#, 'albumduration', 'albumlabel', 'description', 'mood', 'style', 'theme'
-song_properties_query = ['title', 'year', 'art', 'album', 'displayartist', 'duration', 'track', 'genre']
+episode_properties_query = ['file', 'art', 'showtitle', 'title', 'season', 'episode', 'firstaired', 'studio', 'resume', 'streamdetails', 'plot', 'playcount']
 
 
-# Build a listitem for movies.
-def get_movie_listitem(movie):
-    # Create movie-type listitem.
-    li = xbmcgui.ListItem(label=movie['title'])
-    li.setProperty('ItemType', 'movie')
+# Returns additional, non-native info from a movie.
+def get_additional_movie_info_from_listitem(itemid):
+    # Load movie details.
+    query = {
+        'movieid': itemid,
+        'properties': ['resume', 'mpaa']
+    }
+    movie = call_rpc('VideoLibrary.GetMovieDetails', query).get('moviedetails', {'mpaa': '', 'resume': {}})
 
-    # Set internal properties.
-    li.setArt(movie['art'])
-    videoinfo = li.getVideoInfoTag()
-    videoinfo.setDbId(movie['movieid'])
-    videoinfo.setTitle(movie['title'])
-    videoinfo.setYear(movie['year'])
-    videoinfo.setStudios(movie['studio'])
-    videoinfo.setPlot(movie['plot'])
-    videoinfo.setGenres(movie['genre'])
-    videoinfo.setDuration(movie['streamdetails']['video'][0]['duration'])
-    videoinfo.setResumePoint(movie['resume']['position'], movie['resume']['total'])
-    videoinfo.setPlaycount(movie['playcount'])
-    for video in movie['streamdetails']['video']:
-        stream = xbmc.VideoStreamDetail(
-            video.get('width', 0),
-            video.get('height', 0),
-            video.get('aspect', 0.0),
-            video.get('duration', 0),
-            video.get('codec', ''),
-            video.get('stereomode', ''),
-            video.get('language', ''),
-            video.get('hdrtype', '')
-        )
-        videoinfo.addVideoStream(stream)
-    for audio in movie['streamdetails']['audio']:
-        stream = xbmc.AudioStreamDetail(
-            audio.get('channels', 0),
-            audio.get('codec', ''),
-            audio.get('language', '')
-        )
-        videoinfo.addAudioStream(stream)
-    for sub in movie['streamdetails']['subtitle']:
-        stream = xbmc.SubtitleStreamDetail(sub.get('language', ''))
-        videoinfo.addSubtitleStream(stream)
+    # Compute remaining minutes.
+    position = movie['resume'].get('position', 0)
+    total = movie['resume'].get('total', 0)
+    time_remaining = 0
+    remaining = ''
+    if position > 0 and position < total:
+        time_remaining = total - position
+        if time_remaining > 3600: remaining = format_timespan(time_remaining, '[H]h [m]m')
+        else: remaining = format_timespan(time_remaining, '[m]m')
 
-    # Get custom art.
-    blur, color = get_blurred(movie['art'].get('fanart', ''))
-    clearlogo, clearlogo_small = get_cropped_clearlogo(movie['art'].get('clearlogo', ''))
+    # Return values.
+    return {
+        'mpaa': movie['mpaa'].replace('Rated ', ''),
+        'time_remaining': remaining
+    }
 
-    # Compute duration visual string.
-    duration = get_formatted_timespan(movie['streamdetails']['video'][0]['duration'])
+# Returns additional, non-native info from a TV show.
+def get_additional_tvshow_info_from_listitem(itemid):
+    # Load TV show details.
+    query = {
+        'tvshowid': itemid,
+        'properties': ['mpaa']
+    }
+    show = call_rpc('VideoLibrary.GetTVShowDetails', query).get('tvshowdetails', {'mpaa': ''})
 
-    # Get number of audio channels.
-    channels = get_formatted_audiochannels(movie['streamdetails']['audio'][0].get('channels', 0))
+    # Return values.
+    return {
+        'mpaa': show['mpaa'].replace('Rated ', ''),
+    }
 
-    # Compute watched stats.
-    time_remaining = ''
-    watched_percentage = 0
-    if movie['resume']['position'] > 0 and movie['resume']['position'] < movie['resume']['total'] and movie['playcount'] == 0:
-        time_remaining = get_formatted_timespan(movie['resume']['total'] - movie['resume']['position'])
-        watched_percentage = round(movie['resume']['position'] * 100 / movie['resume']['total'])
+# Returns additional, non-native info from a TV show season.
+def get_additional_season_info_from_listitem(itemid):
+    # Load season details.
+    query = {
+        'seasonid': itemid,
+        'properties': ['tvshowid']
+    }
+    season = call_rpc('VideoLibrary.GetSeasonDetails', query).get('seasondetails', {'tvshowid': None})
+    show = {'mpaa': ''}
+    # Load reference TV show MPAA.
+    if season['tvshowid'] is not None:
+        query = {
+            'tvshowid': season['tvshowid'],
+            'properties': ['mpaa']
+        }
+        show = call_rpc('VideoLibrary.GetTVShowDetails', query).get('tvshowdetails', {'mpaa': ''})
 
-    # Remove "Rated" from rating.
-    rating = movie['mpaa']
-    if rating is not None:
-        rating = rating.replace('Rated ', '')
-    else:
-        rating = ''
+    # Return values.
+    return {
+        'mpaa': show['mpaa'].replace('Rated ', ''),
+    }
 
-    # Set custom properties.
-    videoinfo.setMpaa(rating)
-    li.setProperty('AudioChannels', str(channels))
-    li.setProperty('DurationString', duration)
-    li.setProperty('TimeRemainingString', time_remaining)
-    li.setProperty('WatchedPercentage', str(watched_percentage))
-    li.setProperty('BlurArt', blur)
-    li.setProperty('BlurArt.TextColor', color)
-    li.setProperty('Clearlogo.Big', clearlogo)
-    li.setProperty('FormattedGenre', ', '.join(movie['genre']))
+# Returns additional, non-native info from a TV show episode.
+def get_additional_episode_info_from_listitem(itemid):
+    # Load episode details.
+    query = {
+        'episodeid': itemid,
+        'properties': ['resume', 'tvshowid']
+    }
+    episode = call_rpc('VideoLibrary.GetEpisodeDetails', query).get('episodedetails', {'tvshowid': None, 'resume': {}})
+    show = {'mpaa': ''}
+    # Load reference TV show MPAA.
+    if episode['tvshowid'] is not None:
+        query = {
+            'tvshowid': episode['tvshowid'],
+            'properties': ['mpaa']
+        }
+        show = call_rpc('VideoLibrary.GetTVShowDetails', query).get('tvshowdetails', {'mpaa': ''})
 
-    return li
+    # Compute remaining minutes.
+    position = episode['resume'].get('position', 0)
+    total = episode['resume'].get('total', 0)
+    time_remaining = 0
+    remaining = ''
+    if position > 0 and position < total:
+        time_remaining = total - position
+        if time_remaining > 3600: remaining = format_timespan(time_remaining, '[H]h [m]m')
+        else: remaining = format_timespan(time_remaining, '[m]m')
 
-# Build a listitem for TV shows.
-def get_tvshow_listitem(tvshow):
-    # Create tvshow-type listitem.
-    li = xbmcgui.ListItem(label=tvshow['title'])
-    li.setProperty('ItemType', 'tvshow')
-
-    # Set internal properties.
-    li.setArt(tvshow['art'])
-    videoinfo = li.getVideoInfoTag()
-    videoinfo.setDbId(tvshow['tvshowid'])
-    videoinfo.setTitle(tvshow['title'])
-    videoinfo.setYear(tvshow['year'])
-    videoinfo.setStudios(tvshow['studio'])
-    videoinfo.setPlot(tvshow['plot'])
-    videoinfo.setGenres(tvshow['genre'])
-    videoinfo.setEpisode(tvshow['episode'])
-    videoinfo.setSeason(tvshow['season'])
-    #videoinfo.setTvShowStatus(tvshow['status'])
-    videoinfo.setPlaycount(tvshow['playcount'])
-
-    # Get custom art.
-    blur, color = get_blurred(tvshow['art'].get('fanart', ''))
-    clearlogo, clearlogo_small = get_cropped_clearlogo(tvshow['art'].get('clearlogo', ''), True)
-
-    # Compute watched stats.
-    watched_percentage = 0
-    unwatched = 0
-    if tvshow['episode'] > 0:
-        watched_percentage = round(tvshow['watchedepisodes'] * 100 / tvshow['episode'])
-        unwatched = tvshow['episode'] - tvshow['watchedepisodes']
-
-    # Remove "Rated" from rating.
-    rating = tvshow['mpaa']
-    if rating is not None:
-        rating = rating.replace('Rated ', '')
-    else:
-        rating = ''
-
-    # Set custom properties.
-    videoinfo.setMpaa(rating)
-    li.setProperty('TotalEpisodes', str(tvshow['episode']))
-    li.setProperty('TotalSeasons', str(tvshow['season']))
-    li.setProperty('WatchedEpisodes', str(tvshow['watchedepisodes']))
-    li.setProperty('UnWatchedEpisodes', str(unwatched))
-    li.setProperty('WatchedPercentage', str(watched_percentage))
-    li.setProperty('BlurArt', blur)
-    li.setProperty('BlurArt.TextColor', color)
-    li.setProperty('Clearlogo.Big', clearlogo)
-    li.setProperty('Clearlogo.Small', clearlogo_small)
-    li.setProperty('FormattedGenre', ', '.join(tvshow['genre']))
-
-    return li
-
-# Build a listitem for seasons.
-def get_season_listitem(season):
-    # Create season-type listitem.
-    li = xbmcgui.ListItem(label=season['title'])
-    li.setProperty('ItemType', 'season')
-
-    # Set internal properties.
-    li.setArt(season['art'])
-    videoinfo = li.getVideoInfoTag()
-    videoinfo.setDbId(season['seasonid'])
-    videoinfo.setTitle(season['title'])
-    videoinfo.setSeason(season['season'])
-    videoinfo.setEpisode(season['episode'])
-    videoinfo.setStudios(season.get('tvshow', {'studio': None})['studio'])
-    videoinfo.setPlot(season.get('tvshow', {'plot': None})['plot'])
-    videoinfo.setTvShowTitle(season['showtitle'])
-    videoinfo.setPlaycount(season['playcount'])
-
-    # Get custom art.
-    tvshow_blur, tvshow_color = get_blurred(season.get('tvshow', {'art': {}})['art'].get('fanart', ''))
-    season_blur, season_color = get_blurred(season['art'].get('fanart', ''))
-    clearlogo, clearlogo_small = get_cropped_clearlogo(season.get('tvshow', {'art': {}})['art'].get('clearlogo', ''), True)
-
-    # Compute watched stats.
-    watched_percentage = 0
-    unwatched = 0
-    if season['episode'] > 0:
-        watched_percentage = round(season['watchedepisodes'] * 100 / season['episode'])
-        unwatched = season['episode'] - season['watchedepisodes']
-
-    # Remove "Rated" from rating.
-    rating = season.get('tvshow', {'mpaa': None})['mpaa']
-    if rating is not None:
-        rating = rating.replace('Rated ', '')
-    else:
-        rating = ''
-
-    # Set custom properties.
-    videoinfo.setMpaa(rating)
-    li.setArt({'tvshow.fanart': season.get('tvshow', {'art': {}})['art'].get('fanart', '')})
-    li.setProperty('tvshowid', str(season.get('tvshow', {'tvshowid': -1})['tvshowid']))
-    li.setProperty('TotalEpisodes', str(season['episode']))
-    li.setProperty('WatchedEpisodes', str(season['watchedepisodes']))
-    li.setProperty('UnWatchedEpisodes', str(unwatched))
-    li.setProperty('WatchedPercentage', str(watched_percentage))
-    li.setProperty('BlurArt.TvShow', tvshow_blur)
-    li.setProperty('BlurArt.Season', season_blur)
-    li.setProperty('BlurArt.TvShow.TextColor', tvshow_color)
-    li.setProperty('BlurArt.Season.TextColor',season_color)
-    li.setProperty('Clearlogo.Big', clearlogo)
-    li.setProperty('Clearlogo.Small', clearlogo_small)
-
-    return li
-
-# Build a listitem for episodes.
-def get_episode_listitem(episode):
-    # Create episode-type listitem.
-    li = xbmcgui.ListItem(label=episode['title'])
-    li.setProperty('ItemType', 'episode')
-
-    # Set internal properties.
-    li.setArt(episode['art'])
-    videoinfo = li.getVideoInfoTag()
-    videoinfo.setDbId(episode['episodeid'])
-    videoinfo.setTitle(episode['title'])
-    videoinfo.setSeason(episode['season'])
-    videoinfo.setEpisode(episode['episode'])
-    videoinfo.setPremiered(episode['firstaired'])
-    videoinfo.setStudios(episode['studio'])
-    videoinfo.setPlot(episode['plot'])
-    videoinfo.setTvShowTitle(episode['showtitle'])
-    videoinfo.setDuration(episode['streamdetails']['video'][0]['duration'])
-    videoinfo.setResumePoint(episode['resume']['position'], episode['resume']['total'])
-    videoinfo.setPlaycount(episode['playcount'])
-    for video in episode['streamdetails']['video']:
-        stream = xbmc.VideoStreamDetail(
-            video.get('width', 0),
-            video.get('height', 0),
-            video.get('aspect', 0.0),
-            video.get('duration', 0),
-            video.get('codec', ''),
-            video.get('stereomode', ''),
-            video.get('language', ''),
-            video.get('hdrtype', '')
-        )
-        videoinfo.addVideoStream(stream)
-    for audio in episode['streamdetails']['audio']:
-        stream = xbmc.AudioStreamDetail(
-            audio.get('channels', 0),
-            audio.get('codec', ''),
-            audio.get('language', '')
-        )
-        videoinfo.addAudioStream(stream)
-    for sub in episode['streamdetails']['subtitle']:
-        stream = xbmc.SubtitleStreamDetail(sub.get('language', ''))
-        videoinfo.addSubtitleStream(stream)
-
-    # Get custom art.
-    tvshow_blur, tvshow_color = get_blurred(episode['art'].get('tvshow.fanart', ''))
-    season_blur, season_color = get_blurred(episode['art'].get('season.fanart', ''))
-    clearlogo, clearlogo_small = get_cropped_clearlogo(episode['art'].get('tvshow.clearlogo', ''), True)
-
-    # Compute duration visual string.
-    duration = get_formatted_timespan(episode['streamdetails']['video'][0]['duration'])
-
-    # Get number of audio channels.
-    channels = get_formatted_audiochannels(episode['streamdetails']['audio'][0].get('channels', 0))
-
-    # Compute watched stats.
-    time_remaining = ''
-    watched_percentage = 0
-    if episode['resume']['position'] > 0 and episode['resume']['position'] < episode['resume']['total'] and episode['playcount'] == 0:
-        time_remaining = get_formatted_timespan(episode['resume']['total'] - episode['resume']['position'])
-        watched_percentage = round(episode['resume']['position'] * 100 / episode['resume']['total'])
-
-    # Remove "Rated" from rating.
-    rating = episode.get('tvshow', {'mpaa': None})['mpaa']
-    if rating is not None:
-        rating = rating.replace('Rated ', '')
-    else:
-        rating = ''
-
-    # Set custom properties.
-    videoinfo.setMpaa(rating)
-    li.setArt({'poster': episode['art'].get('tvshow.poster', '')})
-    li.setProperty('tvshowid', str(episode.get('tvshow', {'tvshowid': -1})['tvshowid']))
-    li.setProperty('AudioChannels', str(channels))
-    li.setProperty('DurationString', duration)
-    li.setProperty('TimeRemainingString', time_remaining)
-    li.setProperty('WatchedPercentage', str(watched_percentage))
-    li.setProperty('BlurArt.TvShow', tvshow_blur)
-    li.setProperty('BlurArt.Season', season_blur)
-    li.setProperty('BlurArt.TvShow.TextColor', tvshow_color)
-    li.setProperty('BlurArt.Season.TextColor',season_color)
-    li.setProperty('Clearlogo.Big', clearlogo)
-    li.setProperty('Clearlogo.Small', clearlogo_small)
-
-    return li
-
-# Build a listitem for music albums.
-def get_album_listitem(album):
-    # Create album-type listitem.
-    li = xbmcgui.ListItem(label=album['title'])
-    li.setProperty('ItemType', 'album')
-
-    # Set internal properties.
-    li.setArt(album['art'])
-    musicinfo = li.getMusicInfoTag()
-    musicinfo.setDbId(album['albumid'], 'album')
-    musicinfo.setTitle(album['title'])
-    musicinfo.setYear(album['year'])
-    musicinfo.setArtist(album['displayartist'])
-    musicinfo.setGenres(album['genre'])
-    #musicinfo.setDuration(song['albumduration'])
-
-    # Get custom art.
-    blur, color = get_blurred(album['art'].get('fanart', ''))
-
-    # Compute duration visual string.
-    #duration = get_formatted_timespan(song['albumduration'], include_seconds=True)
-
-    # Set custom properties.
-    #li.setProperty('DurationString', duration)
-    li.setProperty('BlurArt', blur)
-    li.setProperty('BlurArt.TextColor', color)
-    li.setProperty('FormattedGenre', ', '.join(album['genre']))
-
-    return li
-
-# Build a listitem for songs.
-def get_song_listitem(song):
-    # Create song-type listitem.
-    li = xbmcgui.ListItem(label=song['title'])
-    li.setProperty('ItemType', 'song')
-
-    # Set internal properties.
-    li.setArt(song['art'])
-    musicinfo = li.getMusicInfoTag()
-    musicinfo.setDbId(song['songid'], 'song')
-    musicinfo.setTitle(song['title'])
-    musicinfo.setYear(song['year'])
-    musicinfo.setDuration(song['duration'])
-    musicinfo.setAlbum(song['album'])
-    musicinfo.setTrack(song['track'])
-    musicinfo.setArtist(song['displayartist'])
-    musicinfo.setGenres(song['genre'])
-
-    # Get custom art.
-    blur, color = get_blurred(song['art'].get('album.thumb', ''))
-
-    # Compute duration visual string.
-    duration = get_formatted_timespan(song['duration'], include_seconds=True)
-
-    # Set custom properties.
-    li.setProperty('DurationString', duration)
-    li.setProperty('BlurArt', blur)
-    li.setProperty('BlurArt.TextColor', color)
-    li.setProperty('Track', str(song['track']))
-    li.setProperty('FormattedGenre', ', '.join(song['genre']))
-
-    return li
-
-# Build a listitem for actors.
-def get_actor_listitem(actor):
-    # Create song-type listitem.
-    li = xbmcgui.ListItem(label=actor['name'])
-    li.setProperty('ItemType', 'person')
-
-    # Set custom properties.
-    li.setProperty('Name', actor['name'])
-    li.setProperty('Role', actor['role'])
-    li.setProperty('Thumbnail', actor.get('thumbnail', ''))
-
-    return li
+    # Return values.
+    return {
+        'mpaa': show['mpaa'].replace('Rated ', ''),
+        'time_remaining': remaining
+    }
 
 
 # Create a list of continue watching items: movies in progress, episodes in progress,
@@ -401,7 +147,7 @@ def list_continue_watching(handle):
     for i,movie in enumerate(movies):
         sorted_items.append({
             'type': 'movie',
-            'key': movie['lastplayed'],
+            'key': movie.get('lastplayed', ''),
             'id': i
         })
     for i,episode in enumerate(next_episodes):
@@ -414,337 +160,178 @@ def list_continue_watching(handle):
 
     # Add items to list, referencing proper type.
     for item in sorted_items:
+        url = ''
         if item['type'] == 'movie':
             li = get_movie_listitem(movies[item['id']])
+            url = movies[item['id']].get('file', '')
         elif item['type'] == 'episode':
             li = get_episode_listitem(next_episodes[item['id']])
+            url = next_episodes[item['id']].get('file', '')
+
         xbmcplugin.addDirectoryItem(
-            handle=handle,
-            url=movie['title'],
-            listitem=li,
-            isFolder=False
+            handle = handle,
+            url = url,
+            listitem = li,
+            isFolder = False
         )
     
     return len(sorted_items)
 
-#todo: integrate into list_episodes()?
-# Create a list of recently added TV show episodes.
-def list_recently_added_tvshow_episodes(handle):
-    # Load first 25 episodes not from Yoga with Adriene.
+# Create a list of recently added episodes: it's limited to 5 episodes per TV show,
+# so one recently added doesn't clog up the whole list.
+def list_recent_episodes(handle):
+    # Load all episodes not from Yoga with Adriene.
     episodes = call_rpc('VideoLibrary.GetEpisodes', {
         # Exclude Yoga with Adriene.
         'filter': {'field': 'tvshow', 'operator': 'isnot', 'value': "Yoga with Adriene"},
         # Sort by date added, descending.
         'sort': {'order': 'descending', 'method': 'dateadded'},
-        # Pick first 25.
-        'limits': {'start': 0, 'end': 25},
-        # Only get TV show title.
-        'properties': episode_properties_query
+        # Get properties.
+        'properties': episode_properties_query + ['dateadded']
     }).get('episodes', [])
 
     if len(episodes) > 0:
-        # Load all TV shows with title and MPAA (to be added to the episode).
+        # Group by TV show title.
+        grouped = defaultdict(list)
+        for ep in episodes:
+            grouped[ep['showtitle']].append(ep)
+
+        # Keep max 5 per show.
+        limited = []
+        for show, eps in grouped.items():
+            limited.extend(eps[:5])
+
+        # Sort again by dateadded and take top 30.
+        limited.sort(key=lambda e: e['dateadded'], reverse=True)
+        final_list = limited[:30]
+
+        # Load all TV shows with title to link TV show ID to episode.
         all_shows = call_rpc('VideoLibrary.GetTVShows', {
             # Only get TV show title and rating for later use.
-            'properties': ['title', 'mpaa']
+            'properties': ['title']
         }).get('tvshows', [])
-        # Create map of shows.
-        shows = {}
-        for s in all_shows:
-            shows[s['title']] = s
+        # Group by TV show title.
+        shows = defaultdict(list)
+        for ep in all_shows:
+            shows[ep['title']].append(ep)
 
         # For each episode ID found, add to list.
-        for episode in episodes:
-            episode['tvshow'] = shows[episode['showtitle']]
+        for episode in final_list:
+            episode['tvshow'] = shows[episode['showtitle']][0]
             li = get_episode_listitem(episode)
             xbmcplugin.addDirectoryItem(
-                handle=handle,
-                url=episode['title'],
-                listitem=li,
-                isFolder=False
+                handle = handle,
+                url = episode.get('file', ''),
+                listitem = li,
+                isFolder = False
             )
             
         return len(episodes)
     
     return 0
 
-# Create a list of movies.
-def list_movies(params, handle):
-    sort = params.get('sort', 'title')
-    order = params.get('order', 'ascending')
-    limit = int(params.get('limit', 0))
-
-    query = {
-        # Sort by requested sort, with requested order.
-        'sort': { 'order': order, 'method': sort },
-        # Get important movie properties.
-        'properties': movie_properties_query
-    }
-    # If limit specified, add to call.
-    if limit > 0:
-        query['limits'] = { 'start': 0, 'end': limit }
-
-    # Load movies.
-    movies = call_rpc('VideoLibrary.GetMovies', query).get('movies', [])
-
-    # For each movie found add to list.
-    for movie in movies:
-        li = get_movie_listitem(movie)
-        xbmcplugin.addDirectoryItem(
-            handle=handle,
-            url=f"videodb://movies/titles/{li.getVideoInfoTag().getDbId()}/",
-            listitem=li,
-            isFolder=False
-        )
-        
-    return len(movies)
-
-# Create a list of TV shows.
-def list_tvshows(params, handle):
-    exclude = params.get('exclude', None)
-    sort = params.get('sort', 'title')
-    order = params.get('order', 'ascending')
-    limit = int(params.get('limit', 0))
-
-    query = {
-        # Sort by requested sort, with requested order.
-        'sort': { 'order': order, 'method': sort },
-        # Get important TV show properties.
-        'properties': tvshow_properties_query
-    }
-    # If exclusion specified, add to call.
-    if exclude is not None:
-        query['filter'] = { 'field': 'title', 'operator': 'isnot', 'value': exclude }
-    # If limit specified, add to call.
-    if limit > 0:
-        query['limits'] = { 'start': 0, 'end': limit }
-
-    # Load TV shows.
-    tvshows = call_rpc('VideoLibrary.GetTVShows', query).get('tvshows', [])
-
-    # For each show found add to list.
-    for show in tvshows:
-        li = get_tvshow_listitem(show)
-        xbmcplugin.addDirectoryItem(
-            handle=handle,
-            url=f"videodb://tvshows/titles/{li.getVideoInfoTag().getDbId()}/",
-            listitem=li,
-            isFolder=True
-        )
-        
-    return len(tvshows)
-
-# Create a list of seasons.
-def list_seasons(params, handle):
-    showtitle = params.get('showtitle', None)
-    dbpath = params.get('dbpath', None)
-
+# Create a list of Yoga With Adriene seasons.
+def list_yoga_seasons(handle):
+    # Find reference TV show.
     tvshow = None
-    
-    # Work with DB path.
-    if dbpath is not None:
-        # Extract TV show ID from DB path.
-        info = get_params_from_dbpath(dbpath)
-        if info.get('tvshowid', None) is not None:
-            tvshow = call_rpc('VideoLibrary.GetTVShowDetails', {
-                'tvshowid': int(info['tvshowid']),
-                # Get important TV show properties.
-                'properties': ['mpaa', 'studio', 'plot', 'art']
-            }).get('tvshowdetails', None)
+    shows = call_rpc('VideoLibrary.GetTVShows', {
+        # Filter on title.
+        'filter': {'field': 'title', 'operator': 'is', 'value': 'Yoga with Adriene'},
+        # Get important TV show properties.
+        'properties': ['mpaa', 'studio', 'plot', 'art']
+    }).get('tvshows', [])
 
-    # Otherwise filter on TV show title.
-    elif showtitle is not None:
-        # Find reference TV show.
-        shows = call_rpc('VideoLibrary.GetTVShows', {
-            # Filter on title.
-            'filter': {'field': 'title', 'operator': 'is', 'value': showtitle},
-            # Get important TV show properties.
-            'properties': ['mpaa', 'studio', 'plot', 'art']
-        }).get('tvshows', [])
-
-        if len(shows) > 0:
-            tvshow = shows[0]
+    if len(shows) > 0:
+        tvshow = shows[0]
 
     # Add items if show found.
     if tvshow is not None:
-        sort = params.get('sort', 'season')
-        order = params.get('order', 'ascending')
-        limit = int(params.get('limit', 0))
         query = {
             # Filter by TV show.
             'tvshowid': tvshow['tvshowid'],
             # Get important season properties.
             'properties': season_properties_query
         }
-        # If limit specified, add to call.
-        if limit > 0:
-            query['limits'] = { 'start': 0, 'end': limit }
 
         # Get seasons.
         seasons = call_rpc('VideoLibrary.GetSeasons', query).get('seasons', [])
         # Sort by requested sort, with requested order (JSON-RPC sorting might not work on season number...).
-        seasons.sort(key=lambda s:s[sort], reverse=(order == 'descending'))
+        seasons.sort(key=lambda s:s['season'], reverse=False)
 
         # For each season, add to list.
+        specials = None
         for season in seasons:
             season['tvshow'] = tvshow
+            # Skip specials to add at the end.
+            if int(season.get('season', -1)) == 0:
+                specials = season
+                continue
             li = get_season_listitem(season)
             xbmcplugin.addDirectoryItem(
-                handle=handle,
-                url=f"videodb://tvshows/titles/{li.getProperty('tvshowid')}/{li.getVideoInfoTag().getSeason()}/",
-                listitem=li,
-                isFolder=True
+                handle = handle,
+                url = f"videodb://tvshows/titles/{tvshow['tvshowid']}/{li.getVideoInfoTag().getSeason()}/",
+                listitem = li,
+                isFolder = True
+            )
+        # Add specials to the end, if present.
+        if specials is not None:
+            li = get_season_listitem(specials)
+            xbmcplugin.addDirectoryItem(
+                handle = handle,
+                url = f"videodb://tvshows/titles/{tvshow['tvshowid']}/{li.getVideoInfoTag().getSeason()}/",
+                listitem = li,
+                isFolder = True
             )
 
         return len(seasons)
 
     return 0
 
-# Create a list of episodes.
-def list_episodes(params, handle):
-    dbpath = params.get('dbpath', None)
+# Create a list with the single requested movie.
+def list_single_movie(params, handle):
+    movieid = int(params.get('dbid', -1))
+    if movieid > -1:
+        # Find requested movie.
+        movie = call_rpc('VideoLibrary.GetMovieDetails', {
+            'movieid': movieid,
+            'properties': movie_properties_query
+        }).get('moviedetails', None)
 
-    # Work with DB path.
-    if dbpath is not None:
-        # Extract TV show ID and season NUMBER from DB path.
-        info = get_params_from_dbpath(dbpath)
-        tvshowid = info.get('tvshowid', None)
-        season = info.get('season', None)
-        episode_number = info.get('episode', -1)
-        
-        # Load list of episodes using TV show ID and season.
-        if tvshowid is not None and season is not None:
-            episodes = call_rpc('VideoLibrary.GetEpisodes', {
-                'tvshowid': int(tvshowid),
-                'season': int(season),
-                'sort': {'order': 'ascending', 'method': 'episode'},
-                'properties': episode_properties_query
-            }).get('episodes', [])
-            
-            if len(episodes) > 0:
-                # Load TV show with title and MPAA (to be added to the episode).
-                tvshow = call_rpc('VideoLibrary.GetTVShowDetails', {
-                    'tvshowid': int(tvshowid),
-                    # Get important TV show properties.
-                    'properties': ['title', 'mpaa']
-                }).get('tvshowdetails', None)
+        if movie is not None:
+            li = get_movie_listitem(movie)
+            xbmcplugin.addDirectoryItem(
+                handle = handle,
+                url = movie.get('file', ''),
+                listitem = li,
+                isFolder = False
+            )
 
-                # For each episode ID found, add to list.
-                for episode in episodes:
-                    # Include only episodes of the required season
-                    # (basically exclude specials).
-                    if episode['season'] == int(season):
-                        episode['tvshow'] = tvshow
-                        li = get_episode_listitem(episode)
-                        xbmcplugin.addDirectoryItem(
-                            handle=handle,
-                            url=f"videodb://tvshows/titles/{li.getProperty('tvshowid')}/{li.getVideoInfoTag().getSeason()}/{li.getVideoInfoTag().getDbId()}/",
-                            listitem=li,
-                            isFolder=False
-                        )
-                    
-                return (len(episodes), int(episode_number) - 1)
-    
-    return (0, -1)
+            return 1
 
-# Create a list of albums.
-def list_albums(params, handle):
-    sort = params.get('sort', 'title')
-    order = params.get('order', 'ascending')
-    limit = int(params.get('limit', 0))
-
-    query = {
-        # Sort by requested sort, with requested order.
-        'sort': { 'order': order, 'method': sort },
-        # Get important TV show properties.
-        'properties': album_properties_query
-    }
-    # If limit specified, add to call.
-    if limit > 0:
-        query['limits'] = { 'start': 0, 'end': limit }
-
-    # Load albums.
-    albums = call_rpc('AudioLibrary.GetAlbums', query).get('albums', [])
-
-    # For each album found add to list.
-    for album in albums:
-        li = get_album_listitem(album)
-        xbmcplugin.addDirectoryItem(
-            handle=handle,
-            url=album['title'],
-            listitem=li,
-            isFolder=True
-        )
-    
-    return len(albums)
-
-# Create a list of songs.
-def list_songs(params, handle):
-    sort = params.get('sort', 'title')
-    order = params.get('order', 'ascending')
-    limit = int(params.get('limit', 0))
-    albumid = params.get('albumid', None)
-    album = params.get('album', None)
-
-    query = {
-        # Sort by requested sort, with requested order.
-        'sort': { 'order': order, 'method': sort },
-        # Get important movie properties.
-        'properties': song_properties_query
-    }
-     # If limit specified, add to call.
-    if limit > 0:
-        query['limits'] = { 'start': 0, 'end': limit }
-     # If album specified, add to call.
-    if albumid is not None:
-        query['filter'] = { 'field': 'albumid', 'operator': 'is', 'value': albumid }
-    elif album is not None:
-        query['filter'] = { 'field': 'album', 'operator': 'is', 'value': album }
-
-    # Load songs.
-    songs = call_rpc('AudioLibrary.GetSongs', query).get('songs', [])
-
-    # For each movie found add to list.
-    for song in songs:
-        li = get_song_listitem(song)
-        xbmcplugin.addDirectoryItem(
-            handle=handle,
-            url=song['title'],
-            listitem=li,
-            isFolder=False
-        )
-        
-    return len(songs)
-
-# Create a list of pictures.
-def list_pictures(params, handle):
-    #todo
-    pictures = []
-    
-    return len(pictures)
-
+    return 0
 
 # Create a list of actors.
 def list_actors(params, handle):
-    # Retrieve DB path from parameters.
-    dbpath = params.get('dbpath', None)
-
-    # Get info from path.
-    info = get_params_from_dbpath(dbpath)
+    # Retrieve item type and ID from parameters.
+    type = params.get('dbtype', None)
+    id = params.get('dbid', None)
 
     item = None
 
+    # Seasons don't have cast, so retrieve tvshow and use that.
+    if type == 'season' and id is not None:
+        type = 'tvshow'
+        id = call_rpc('VideoLibrary.GetSeasonDetails', { 'seasonid': int(id), 'properties': ['tvshowid'] }).get('seasondetails', {}).get('tvshowid', 0)
+
     # Movies.
-    if info['type'] == 'movie' and info.get('movieid', None) is not None:
-        item = call_rpc('VideoLibrary.GetMovieDetails', { 'movieid': int(info['movieid']), 'properties': ['cast'] }).get('moviedetails', None)
+    if type == 'movie' and id is not None:
+        item = call_rpc('VideoLibrary.GetMovieDetails', { 'movieid': int(id), 'properties': ['cast'] }).get('moviedetails', None)
     # TV shows.
-    if info['type'] == 'tvshow' and info.get('tvshowid', None) is not None:
-        item = call_rpc('VideoLibrary.GetTVShowDetails', { 'tvshowid': int(info['tvshowid']), 'properties': ['cast'] }).get('tvshowdetails', None)
-    # Seasons and episodes (always showing episodes).
-    if info['type'] == 'episode':
-        episodeid = info.get('episodeid', None)
-        if episodeid is not None and episodeid != '':
-            item = call_rpc('VideoLibrary.GetEpisodeDetails', { 'episodeid': int(episodeid), 'properties': ['cast'] }).get('episodedetails', None)
+    elif type == 'tvshow' and id is not None:
+        item = call_rpc('VideoLibrary.GetTVShowDetails', { 'tvshowid': int(id), 'properties': ['cast'] }).get('tvshowdetails', None)
+    # Episodes.
+    elif type == 'episode':
+        item = call_rpc('VideoLibrary.GetEpisodeDetails', { 'episodeid': int(id), 'properties': ['cast'] }).get('episodedetails', None)
 
     # Add actors.
     if item is not None:
@@ -763,78 +350,159 @@ def list_actors(params, handle):
     
     return 0
 
-
-# Scaffolding for list generation.
-def list_media(method, params, handle):
-    listid = params.get('listid', None)
-    windowid = xbmcgui.getCurrentWindowId()
-    window = xbmcgui.Window(windowid)
-
-    # Set loading indicator for list.
-    if listid is not None: window.setProperty(f"List.{listid}.IsLoading", 'true')
-
-    count = 0
-    shift = -1
-    # Call appropriate method.
-    if method == 'continue_watching':
-        count = list_continue_watching(handle)
-    elif method == 'recently_added_tvshow_episodes':
-        count = list_recently_added_tvshow_episodes(handle)
-    elif method == 'movies':
-        count = list_movies(params, handle)
-    elif method == 'tvshows':
-        count = list_tvshows(params, handle)
-    elif method == 'seasons':
-        count = list_seasons(params, handle)
-    elif method == 'episodes':
-        count,shift = list_episodes(params, handle)
-    elif method == 'albums':
-        count = list_albums(params, handle)
-    elif method == 'songs':
-        count = list_songs(params, handle)
-    elif method == 'pictures':
-        count = list_pictures(params, handle)
-
-    elif method == 'actors':
-        count = list_actors(params, handle)
-
-    # Use custom property to indicate there is content, so visibility can be set
-    # on that property and work properly.
-    if count > 0: window.setProperty(f"List.{listid}.HasContent", 'true')
-    else: window.setProperty(f"List.{listid}.HasContent", 'false')
-
-    # Set loading indicator for list to false.
-    if listid is not None: window.setProperty(f"List.{listid}.IsLoading", 'false')
-
-    # If on home, look for refocus parameter. This is a hint on to which
-    # menu item to refocus when done loading.
-    # It's necessary to load details when the focus is not on lists.
-    if windowid == 10000:
-        refocus = params.get('home_refocus_when_done', None)
+# Create a list of pictures.
+def list_pictures(handle):
+    #todo: search pictures
+    # For each picture found add to list.
+    for i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]:
+        li = xbmcgui.ListItem(label = f"{i}")
+        xbmcplugin.addDirectoryItem(
+            handle=handle,
+            url='',
+            listitem=li,
+            isFolder=False
+        )
         
-        if refocus is not None:
-            expected_page = ''
-            # Populate expected page.
-            if refocus == '0': expected_page = 'home'
-            elif refocus == '1': expected_page = 'movies'
-            elif refocus == '2': expected_page = 'tvshows'
-            elif refocus == '3': expected_page = 'yoga'
-            elif refocus == '4': expected_page = 'music'
-            elif refocus == '5': expected_page = 'pictures'
+    #return len(actors)
+    return 10
 
-            # Refocus on requested ID if the expected page is the active one.
-            active_page = window.getProperty('ActivePage')
-            if active_page == expected_page:
-                xbmc.executebuiltin(f"SetFocus(1,{refocus})")
 
-    # Close list.
-    xbmcplugin.endOfDirectory(handle)
+# Build a listitem for movies.
+def get_movie_listitem(movie):
+    # Create movie-type listitem.
+    li = xbmcgui.ListItem(label = movie.get('title', ''))
 
-    # If a shift is requested, refocus the list item to that id.
-    if shift > -1 and listid is not None:
-        # Retrieve currently selected control ID.
-        selected_button = window.getFocusId()
-        # Shift the list to the required item.
-        xbmc.executebuiltin(f"SetFocus({listid},{shift},absolute)")
-        # Refocus to currently selected control.
-        xbmc.executebuiltin(f"SetFocus({selected_button})")
+    # Set internal properties.
+    li.setArt(movie.get('art', {}))
+    videoinfo = li.getVideoInfoTag()
+    videoinfo.setDbId(int(movie.get('movieid', -1)))
+    videoinfo.setMediaType('movie')
+    videoinfo.setTitle(movie.get('title', ''))
+    videoinfo.setYear(int(movie.get('year', -1)))
+    videoinfo.setStudios(movie.get('studio', []))
+    videoinfo.setPlot(movie.get('plot', ''))
+    videoinfo.setMpaa(movie.get('mpaa', ''))
+    videoinfo.setGenres(movie.get('genre', []))
+    videoinfo.setDuration(int(movie.get('streamdetails', {}).get('video', [{}])[0].get('duration', 0)))
+    videoinfo.setResumePoint(float(movie.get('resume', {}).get('position', 0)), float(movie.get('resume', {}).get('total', 0)))
+    videoinfo.setPlaycount(int(movie.get('playcount', 0)))
+    for video in movie.get('streamdetails', {}).get('video', []):
+        stream = xbmc.VideoStreamDetail(
+            video.get('width', 0),
+            video.get('height', 0),
+            video.get('aspect', 0.0),
+            video.get('duration', 0),
+            video.get('codec', ''),
+            video.get('stereomode', ''),
+            video.get('language', ''),
+            video.get('hdrtype', '')
+        )
+        videoinfo.addVideoStream(stream)
+    for audio in movie.get('streamdetails', {}).get('audio', []):
+        stream = xbmc.AudioStreamDetail(
+            audio.get('channels', 0),
+            audio.get('codec', ''),
+            audio.get('language', '')
+        )
+        videoinfo.addAudioStream(stream)
+    for sub in movie.get('streamdetails', {}).get('subtitle', []):
+        stream = xbmc.SubtitleStreamDetail(sub.get('language', ''))
+        videoinfo.addSubtitleStream(stream)
+
+    return li
+
+# Build a listitem for seasons.
+def get_season_listitem(season):
+    # Create season-type listitem.
+    li = xbmcgui.ListItem(label = season.get('title', ''))
+
+    # Set internal properties.
+    li.setArt(season.get('art', {}))
+    videoinfo = li.getVideoInfoTag()
+    videoinfo.setDbId(int(season.get('seasonid', -1)))
+    videoinfo.setMediaType('season')
+    videoinfo.setTitle(season.get('title', ''))
+    videoinfo.setSeason(int(season.get('season', -1)))
+    videoinfo.setEpisode(int(season.get('episode', -1)))
+    videoinfo.setStudios(season.get('tvshow', {'studio': []}).get('studio', []))
+    videoinfo.setPlot(season.get('tvshow', {'plot': ''}).get('plot', ''))
+    videoinfo.setTvShowTitle(season.get('showtitle', ''))
+    videoinfo.setPlaycount(int(season.get('playcount', 0)))
+
+    # Compute watched stats.
+    total = int(season.get('episode', 0))
+    watched_percentage = 0
+    watched = int(season.get('watchedepisodes', 0))
+    unwatched = 0
+    if total > 0:
+        watched_percentage = int(round(watched * 100 / total))
+        unwatched = total - watched
+
+    # Set custom properties.
+    li.setProperty('TotalEpisodes', str(total))
+    li.setProperty('WatchedEpisodes', str(watched))
+    li.setProperty('UnWatchedEpisodes', str(unwatched))
+    li.setProperty('WatchedPercentage', str(watched_percentage))
+    li.setProperty('TvShowId', str(season.get('tvshow', {}).get('tvshowid', '')))
+
+    return li
+
+# Build a listitem for episodes.
+def get_episode_listitem(episode):
+    # Create episode-type listitem.
+    li = xbmcgui.ListItem(label = episode.get('title', ''))
+
+    # Set internal properties.
+    li.setArt(episode.get('art', {}))
+    videoinfo = li.getVideoInfoTag()
+    videoinfo.setDbId(int(episode.get('episodeid', -1)))
+    videoinfo.setMediaType('episode')
+    videoinfo.setTitle(episode.get('title', ''))
+    videoinfo.setSeason(int(episode.get('season', -1)))
+    videoinfo.setEpisode(int(episode.get('episode', -1)))
+    videoinfo.setPremiered(episode.get('firstaired', ''))
+    videoinfo.setStudios(episode.get('studio', []))
+    videoinfo.setPlot(episode.get('plot', ''))
+    videoinfo.setTvShowTitle(episode.get('showtitle', ''))
+    videoinfo.setDuration(int(episode.get('streamdetails', {}).get('video', [{}])[0].get('duration', 0)))
+    videoinfo.setResumePoint(float(episode.get('resume', {}).get('position', 0)), float(episode.get('resume', {}).get('total', 0)))
+    videoinfo.setPlaycount(int(episode.get('playcount', 0)))
+    for video in episode.get('streamdetails', {}).get('video', []):
+        stream = xbmc.VideoStreamDetail(
+            video.get('width', 0),
+            video.get('height', 0),
+            video.get('aspect', 0.0),
+            video.get('duration', 0),
+            video.get('codec', ''),
+            video.get('stereomode', ''),
+            video.get('language', ''),
+            video.get('hdrtype', '')
+        )
+        videoinfo.addVideoStream(stream)
+    for audio in episode.get('streamdetails', {}).get('audio', []):
+        stream = xbmc.AudioStreamDetail(
+            audio.get('channels', 0),
+            audio.get('codec', ''),
+            audio.get('language', '')
+        )
+        videoinfo.addAudioStream(stream)
+    for sub in episode.get('streamdetails', {}).get('subtitle', []):
+        stream = xbmc.SubtitleStreamDetail(sub.get('language', ''))
+        videoinfo.addSubtitleStream(stream)
+    
+    # Set custom properties.
+    li.setProperty('TvShowId', str(episode.get('tvshow', {}).get('tvshowid', '')))
+
+    return li
+
+# Build a listitem for actors.
+def get_actor_listitem(actor):
+    # Create song-type listitem.
+    li = xbmcgui.ListItem(label = actor.get('name', ''))
+
+    # Set custom properties.
+    li.setProperty('Name', actor.get('name', ''))
+    li.setProperty('Role', actor.get('role', ''))
+    li.setProperty('Thumbnail', actor.get('thumbnail', ''))
+
+    return li

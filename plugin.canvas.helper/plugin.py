@@ -1,7 +1,7 @@
 import sys
-import xbmc
+import xbmc, xbmcplugin
 from urllib.parse import urlparse, parse_qsl
-from media import list_media
+from media import list_continue_watching, list_recent_episodes, list_yoga_seasons, list_single_movie, list_actors, list_pictures
 
 handle = int(sys.argv[1])
 
@@ -25,4 +25,18 @@ if __name__ == '__main__':
     # Example result: params == {'param1': 'value1', 'param2': 'value2'}
 
     # Generate list.
-    list_media(method, params, handle)
+    if method == 'continue_watching':
+        list_continue_watching(handle)
+    if method == 'recent_episodes':
+        list_recent_episodes(handle)
+    elif method == 'yoga':
+        list_yoga_seasons(handle)
+    elif method == 'movie':
+        list_single_movie(params, handle)
+    elif method == 'actors':
+        list_actors(params, handle)
+    elif method == 'pictures':
+        list_pictures(handle)
+
+    # Close list.
+    xbmcplugin.endOfDirectory(handle)

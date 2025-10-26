@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<!-- Is the most suited text color again blur background light/dark? -->
+	<expression name="IsBestTextColorLight">
+		!String.IsEmpty(Window(home).Property(Item.Contrast)) + String.IsEqual(Window(home).Property(Item.Contrast),light)
+	</expression>
+	<expression name="IsBestTextColorDark">
+		!String.IsEmpty(Window(home).Property(Item.Contrast)) + String.IsEqual(Window(home).Property(Item.Contrast),dark)
+	</expression>
+</includes>

@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
-	<!-- Coordinates to hide control -->
-	<include name="Hidden">
-		<top>-10000</top>
-		<left>-10000</left>
-		<width>0</width>
-		<height>0</height>
-	</include>
-
 	<!-- Center UI based on 16:9 aspect ratio -->
 	<include name="Center169AspectRatio">
 		<control type="group">
@@ -80,4 +72,9 @@
 			</control>
 		</control>
 	</include>
+
+	<!-- Is info dialog visible? -->
+	<expression name="IsDialogMusicInfoVisible">Window.IsActive(12001)</expression>
+	<expression name="IsDialogVideoInfoVisible">Window.IsActive(12003)</expression>
+	<expression name="IsDialogInfoVisible">$EXP[IsDialogMusicInfoVisible] | $EXP[IsDialogVideoInfoVisible]</expression>
 </includes>

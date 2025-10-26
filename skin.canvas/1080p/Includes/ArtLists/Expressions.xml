@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 	<!-- Is TV show/season? -->
-	<expression name="IsTVShowOrSeason">
-		[String.IsEqual(ListItem.Property(ItemType),tvshow)] |
-		[String.IsEqual(ListItem.Property(ItemType),season)]
+	<expression name="IsArtListTvShowOrSeason">
+		String.IsEqual(ListItem.DBTYPE,tvshow) |
+		String.IsEqual(ListItem.DBTYPE,season)
 	</expression>
 
 	<!-- Is video? -->
-	<expression name="IsVideo">
-		[String.IsEqual(ListItem.Property(ItemType),movie)] |
-		[String.IsEqual(ListItem.Property(ItemType),episode)]
+	<expression name="IsArtListVideo">
+		String.IsEqual(ListItem.DBTYPE,movie) |
+		String.IsEqual(ListItem.DBTYPE,episode)
 	</expression>
 </includes>
