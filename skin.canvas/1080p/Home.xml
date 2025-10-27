@@ -83,15 +83,6 @@
 				</control>
 			</control>
 
-			<!--todo<control type="image">
-				<bottom>0</bottom>
-				<left>0</left>
-				<width>100%</width>
-				<height>100</height>
-				<fadetime>300</fadetime>
-				<texture colordiffuse="55FF00FF">diffuse.png</texture>
-			</control>-->
-
 			<!-- Clock -->
 			<include content="TopBar" />
 

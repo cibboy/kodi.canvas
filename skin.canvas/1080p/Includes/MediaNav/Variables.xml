@@ -69,6 +69,6 @@
 
 	<constant name="OFFSET_MEDIANAV_TOP_ACTIONBUTTONS">360</constant>
 
-	<constant name="SIZE_MEDIANAV_PREVNEXT_INDICATOR">100</constant>
+	<constant name="SIZE_MEDIANAV_PREVNEXT_INDICATOR">80</constant>
 	<constant name="OFFSET_MEDIANAV_TOP_PREVNEXT_INDICATOR">141</constant>		<!-- HEIGHT_LANDSCAPE / 2 -->
 </includes>

@@ -141,7 +141,7 @@ def get_blurred(imgPath):
             image_bytes = f.readBytes()
         img = Image.open(io.BytesIO(image_bytes))
         img = img.resize((int(120), int(67)), Image.LANCZOS)
-        img = img.filter(ImageFilter.GaussianBlur(radius=float(20)))
+        img = img.filter(ImageFilter.GaussianBlur(radius=float(15)))
 
         # Compute a contrast ratio between the blurred image and reference
         # text colors, in order to understand which text color is best

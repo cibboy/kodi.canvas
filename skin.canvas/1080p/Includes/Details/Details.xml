@@ -688,7 +688,7 @@
 							<param name="text">$VAR[DetailsAudioStream1]</param>
 							<param name="visible">$EXP[HasDetailsAudioCodecStream1] + $EXP[HasDetailsAudioChannelsStream1]</param>
 						</include>
-						<!-- Stream 2 --><!--todo-->
+						<!-- Stream 2 -->
 						<include content="DetailsInfoTag">
 							<param name="text">$VAR[DetailsAudioStream2]</param>
 							<param name="visible">$EXP[HasDetailsAudioCodecStream2] + $EXP[HasDetailsAudioChannelsStream2]</param>

@@ -49,6 +49,7 @@ def get_additional_media_info_from_listitem(itemtype, itemid, currentposition = 
             if itemid != active_itemid and (itemid != '' or active_itemid == ''):
                 # Clear properties.
                 clear_listitem_properties()
+                window.setProperty('Item.ClearlogoBig', 'transparent.png')
                 # Set the new active item ID.
                 window.setProperty('ActiveItemId', itemid)
 
