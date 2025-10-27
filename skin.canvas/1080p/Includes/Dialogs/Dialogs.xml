@@ -212,7 +212,6 @@
 					<onleft>Close</onleft>
 
 					<control type="button" id="1000">
-						<!--todo: browse into is not compatible with my way of doing navigation, should not be visible-->
 						<width>100%</width>
 						<height>HEIGHT_FLYOUT_BUTTON</height>
 					</control>
@@ -235,10 +234,17 @@
 
 			<control type="group">
 				<visible>$PARAM[visible]</visible>
-				<!-- Slide in from the side -->
+				<!-- Slide in from the side (custom flyout) -->
 				<include content="ShowHideFadeSlideHorizontalAnimation">
 					<param name="slide_amount">300</param>
 					<param name="speed">ANIMATION_MID</param>
+				</include>
+				<!-- Slide in from the side (dialog flyout) -->
+				<include content="ShowHideFadeSlideHorizontalAnimation">
+					<param name="slide_amount">300</param>
+					<param name="speed">ANIMATION_MID</param>
+					<param name="visible_condition">WindowOpen</param>
+					<param name="hidden_condition">WindowClose</param>
 				</include>
 
 				<!-- Flyout background -->
