@@ -57,8 +57,8 @@
 	<variable name="HomeTVShowsContent"><value>special://skin/playlists/tvshows.xsp</value></variable>
 	<variable name="HomeYogaContent"><value>plugin://script.canvas.helper/yoga/</value></variable>
 	<variable name="HomeSongsContent"><value>special://skin/playlists/songs.xsp</value></variable>
-
-
+	
+	
 	<!-- Icons -->
 	<variable name="LogoIcon"><value>special://xbmc/media/vendor_icon.png</value></variable>
 	<variable name="HomeIcon"><value>1080p/icons/home.png</value></variable>

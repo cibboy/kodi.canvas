@@ -2,199 +2,194 @@
 <includes>
 	<include file="Includes/Dialogs/Variables.xml" />
 
-	<!--todo-->
+	<!-- Multi-option select dialog -->
 	<include name="StandardDialogSelect">
-		<control type="image">
-			<width>100%</width>
-			<height>100%</height>
-			<texture colordiffuse="FF000000">diffuse.png</texture>
-		</control>
+		<include content="StandardFlyoutBase">
+			<param name="visible">true</param>
 
-		<!-- List of options -->
-		<control type="list" id="3">
-			<left>20</left>
-			<top>100</top>
-			<width>880</width>
-			<bottom>20</bottom>
-			<onup>3</onup>
-			<ondown>3</ondown>
-			<onleft>9001</onleft>
-			<onright>61</onright>
-			<pagecontrol>61</pagecontrol>
-			<scrolltime>200</scrolltime>
-		</control>
+			<include content="StandardFlyoutStructure">
+				<control type="grouplist">
+					<top>OFFSET_FLYOUT_LIST</top>
+					<bottom>OFFSET_FLYOUT_LIST_BOTTOM</bottom>
+					<left>PADDING_BASE_50P</left>
+					<right>PADDING_BASE_50P</right>
 
-		<!-- List of addons -->
-		<control type="list" id="6">
-			<left>20</left>
-			<top>100</top>
-			<width>880</width>
-			<bottom>20</bottom>
-			<onup>6</onup>
-			<ondown>6</ondown>
-			<onleft>9001</onleft>
-			<onright>61</onright>
-			<pagecontrol>61</pagecontrol>
-			<scrolltime>200</scrolltime>
-			<itemlayout height="125" width="880">
-				<control type="label">
-					<left>135</left>
-					<top>0</top>
-					<right>20</right>
-					<height>60</height>
-					<font>BODY</font>
-					<aligny>center</aligny>
-					<label>$INFO[ListItem.Label]</label>
+					<itemgap>GAP_FLYOUT_GROUPLIST</itemgap>
+					<usecontrolcoords>true</usecontrolcoords>
+
+					<!-- Header -->
+					<control type="label" id="1">
+						<left>PADDING_BASE_20P</left>
+						<right>PADDING_BASE_20P</right>
+						<width>100%</width>
+						<height>150</height>
+						<font>SUBTITLE</font>
+						<wrapmultiline>true</wrapmultiline>
+						<label></label>
+					</control>
+
+					<!-- Multiselect list -->
+					<control type="list" id="3">
+						<itemgap>GAP_FLYOUT_GROUPLIST</itemgap>
+						<usecontrolcoords>true</usecontrolcoords>
+						<height>HEIGHT_FLYOUT_DIALOG_LIST</height>
+
+						<!-- Close dialog on left, right, by simulating a click on OK (necessary for multiselects) -->
+						<onleft>SendClick(5)</onleft>
+						<onright>SendClick(5)</onright>
+
+						<focusedlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+							<!-- Fake button selection -->
+							<control type="image">
+								<height>HEIGHT_BUTTON_DEFAULT</height>
+								<texture colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texture>
+							</control>
+
+							<!-- Content -->
+							<include content="SettingsOptionContentWithSelection">
+								<param name="selectionmark_color">FOREGROUND_ACCENT_ALT</param>
+								<param name="is_selected">ListItem.IsSelected</param>
+								<param name="text_color">FOREGROUND_INVERSE</param>
+								<param name="text_color_selected">FOREGROUND_ACCENT_ALT</param>
+								<param name="text_scroll">true</param>
+							</include>
+						</focusedlayout>
+
+						<itemlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+							<include content="SettingsOptionContentWithSelection">
+								<param name="is_selected">ListItem.IsSelected</param>
+								<param name="text_scroll">false</param>
+							</include>
+						</itemlayout>
+					</control>
+
+					<!-- Single selection list -->
+					<control type="list" id="6">
+						<itemgap>GAP_FLYOUT_GROUPLIST</itemgap>
+						<usecontrolcoords>true</usecontrolcoords>
+						<height>HEIGHT_FLYOUT_DIALOG_LIST</height>
+
+						<onright>Close</onright>
+
+						<focusedlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+							<!-- Fake button selection -->
+							<control type="image">
+								<height>HEIGHT_BUTTON_DEFAULT</height>
+								<texture colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texture>
+							</control>
+							<!-- Content -->
+							<include content="SettingsOptionContentWithIcon">
+								<param name="icon_circle_color">BACKGROUND_INVERSE_OPAQUE90</param>
+								<param name="icon_color">FOREGROUND_INVERSE</param>
+								<param name="icon_type_circle">true</param>
+								<param name="icon">$INFO[ListItem.Icon]</param>
+								<param name="text_color">FOREGROUND_INVERSE</param>
+								<param name="text_color_selected">FOREGROUND_ACCENT_ALT</param>
+								<param name="text">[CAPITALIZE]$INFO[ListItem.Label][/CAPITALIZE]</param>
+								<param name="single_line">true</param>
+								<param name="scroll">true</param>
+							</include>
+						</focusedlayout>
+
+						<itemlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+							<include content="SettingsOptionContentWithIcon">
+								<param name="icon_type_circle">true</param>
+								<param name="icon">$INFO[ListItem.Icon]</param>
+								<param name="text">[CAPITALIZE]$INFO[ListItem.Label][/CAPITALIZE]</param>
+								<param name="single_line">true</param>
+								<param name="scroll">false</param>
+							</include>
+						</itemlayout>
+					</control>
+
+					<!-- Padding -->
+					<control type="label" id="999">
+						<height>PADDING_BASE</height>
+					</control>
+
+					<!-- Ok/Get more -->
+					<control type="button" id="5">
+						<width>100%</width>
+						<height>HEIGHT_FLYOUT_BUTTON</height>
+					</control>
+					<!-- Cancel -->
+					<control type="button" id="7">
+						<width>100%</width>
+						<height>HEIGHT_FLYOUT_BUTTON</height>
+					</control>
+					<!-- Add/Get more -->
+					<control type="button" id="8">
+						<width>100%</width>
+						<height>HEIGHT_FLYOUT_BUTTON</height>
+					</control>
 				</control>
-				<control type="textbox">
-					<left>135</left>
-					<top>50</top>
-					<right>20</right>
-					<height>67</height>
-					<font>BODY</font>
-					<textcolor>HIGHLIGHT</textcolor>
-					<label>$INFO[ListItem.Label2]</label>
-				</control>
-			</itemlayout>
-			<focusedlayout height="125" width="880">
-				<control type="label">
-					<left>135</left>
-					<top>0</top>
-					<right>20</right>
-					<height>60</height>
-					<aligny>center</aligny>
-					<scroll>true</scroll>
-					<font>BODY</font>
-					<label>$INFO[ListItem.Label]</label>
-				</control>
-				<control type="textbox">
-					<left>135</left>
-					<top>50</top>
-					<right>20</right>
-					<height>67</height>
-					<font>BODY</font>
-					<textcolor>HIGHLIGHT</textcolor>
-					<label>$INFO[ListItem.Label2]</label>
-				</control>
-			</focusedlayout>
-		</control>
+			</include>
+		</include>
 	</include>
 
-	<!--todo-->
+	<!-- Confirmation dialog -->
 	<include name="StandardDialogConfirm">
-		<control type="group">
-			<height>400</height>
-			<centertop>50%</centertop>
-			<centerleft>50%</centerleft>
-			<width>915</width>
-			<control type="textbox" id="9">
-				<left>30</left>
-				<top>82</top>
-				<width>855</width>
-				<height>165</height>
-				<label></label>
-				<autoscroll time="3000" delay="4000" repeat="5000">true</autoscroll>
-			</control>
-			<control type="progress" id="20">
-				<left>30</left>
-				<top>262</top>
-				<width>855</width>
-				<height>24</height>
-				<info>System.Progressbar</info>
-			</control>
-			<control type="grouplist" id="9000">
-				<orientation>horizontal</orientation>
-				<left>0</left>
-				<top>290</top>
-				<width>915</width>
-				<align>center</align>
-				<control type="button" id="11">
-					<width>300</width>
-					<height>100</height>
-					<label></label>
-					<font>body</font>
-					<textoffsetx>20</textoffsetx>
-					<onclick></onclick>
-					<wrapmultiline>false</wrapmultiline>
-					<align>center</align>
-					<texturefocus border="40" colordiffuse="FFFF0000">diffuse.png</texturefocus>
-					<texturenofocus border="40">diffuse.png</texturenofocus>
-					<visible>true</visible>
-					<enable>true</enable>
+		<include content="StandardFlyoutBase">
+			<param name="visible">true</param>
+
+			<include content="StandardFlyoutStructure">
+				<control type="grouplist">
+					<top>OFFSET_FLYOUT_LIST</top>
+					<bottom>OFFSET_FLYOUT_LIST_BOTTOM</bottom>
+					<left>PADDING_BASE_50P</left>
+					<right>PADDING_BASE_50P</right>
+
+					<itemgap>GAP_FLYOUT_GROUPLIST</itemgap>
+					<usecontrolcoords>true</usecontrolcoords>
+
+					<control type="label" id="1">
+						<left>PADDING_BASE_20P</left>
+						<right>PADDING_BASE_20P</right>
+						<width>100%</width>
+						<height>150</height>
+						<font>SUBTITLE</font>
+						<wrapmultiline>true</wrapmultiline>
+						<label></label>
+					</control>
+					<!-- Message -->
+					<control type="textbox" id="9">
+						<visible>!String.IsEmpty($INFO[Control.GetLabel(9)])</visible>
+						<width>100%</width>
+						<height>100</height>
+						<left>PADDING_BASE_20P</left>
+						<right>PADDING_BASE_20P</right>
+						<font>BODY</font>
+						<textcolor>FOREGROUND_DARK</textcolor>
+						<autoscroll time="3000" delay="5000" repeat="5000">true</autoscroll>
+					</control>
+
+					<!-- Padding -->
+					<control type="label">
+						<height>PADDING_BASE</height>
+					</control>
+
+					<!-- Yes/Ok -->
+					<control type="button" id="11">
+						<width>100%</width>
+						<height>HEIGHT_FLYOUT_BUTTON</height>
+					</control>
+					<!-- No -->
+					<control type="button" id="10">
+						<width>100%</width>
+						<height>HEIGHT_FLYOUT_BUTTON</height>
+					</control>
+					<!-- Future -->
+					<control type="button" id="12">
+						<width>100%</width>
+						<height>HEIGHT_FLYOUT_BUTTON</height>
+					</control>
 				</control>
-				<control type="button" id="10">
-					<width>300</width>
-					<height>100</height>
-					<label></label>
-					<font>body</font>
-					<textoffsetx>20</textoffsetx>
-					<onclick></onclick>
-					<wrapmultiline>false</wrapmultiline>
-					<align>center</align>
-					<visible>true</visible>
-					<enable>true</enable>
-				</control>
-				<control type="button" id="12">
-					<width>300</width>
-					<height>100</height>
-					<label></label>
-					<font>body</font>
-					<textoffsetx>20</textoffsetx>
-					<onclick></onclick>
-					<wrapmultiline>false</wrapmultiline>
-					<align>center</align>
-					<visible>true</visible>
-					<enable>true</enable>
-				</control>
-			</control>
-		</control>
+			</include>
+		</include>
 	</include>
 
-	<!--todo-->
-	<include name="StandardDialogColorPicker">
-		<control type="group">
-			<height>400</height>
-			<centertop>50%</centertop>
-			<centerleft>50%</centerleft>
-			<width>915</width>
-			<control type="label" id="1">
-				<left>30</left>
-				<top>82</top>
-				<width>855</width>
-				<height>165</height>
-				<label></label>
-			</control>
-			<control type="button" id="7">
-				<width>300</width>
-				<height>100</height>
-				<label></label>
-				<font>body</font>
-				<textoffsetx>20</textoffsetx>
-				<onclick></onclick>
-				<wrapmultiline>false</wrapmultiline>
-				<align>center</align>
-				<texturefocus border="40" colordiffuse="FFFF0000">diffuse.png</texturefocus>
-				<texturenofocus border="40">diffuse.png</texturenofocus>
-				<visible>true</visible>
-				<enable>true</enable>
-			</control>
-			<control type="panel" id="6">
-				<left>0</left>
-				<top>290</top>
-				<width>915</width>
-				<itemlayout height="80" width="80">
-					<control type="image">
-						<texture colordiffuse="$INFO[ListItem.Label2]">diffuse.png</texture>
-					</control>
-				</itemlayout>
-				<focusedlayout height="80" width="80">
-					<control type="image">
-						<texture colordiffuse="$INFO[ListItem.Label2]">diffuse.png</texture>
-					</control>
-				</focusedlayout>
-			</control>
-		</control>
-	</include>
+	<!-- Color picker (not used outside settings?) -->
+	<include name="StandardDialogColorPicker"></include>
 
 	<!-- Dialog context menu -->
 	<include name="StandardDialogContextMenu">
@@ -289,6 +284,77 @@
 				<bottom>PADDING_BASE_20P</bottom>
 
 				<!-- Content -->
+				<nested />
+			</control>
+		</definition>
+	</include>
+
+
+	<!-- Notification -->
+	<include name="Notification">
+		<param name="icon"></param>
+		<param name="icon_fallback">1080p/icons/info.png</param>
+		<param name="title"></param>
+		<param name="message"></param>
+
+		<definition>
+			<control type="group">
+				<animation type="WindowOpen"><effect type="slide" start="0,PADDING_BASE" end="0,0" time="ANIMATION_SLOW" tween="back" easing="out" reversible="true" /></animation>
+				<animation type="WindowClose"><effect type="slide" start="0,0" end="0,PADDING_BASE" time="ANIMATION_SLOW" tween="back" easing="in" reversible="true" /></animation>
+
+				<right>PADDING_BASE_80P</right>
+				<bottom>PADDING_BASE_80P</bottom>
+				<height>HEIGHT_NOTIFICATION</height>
+				<width>WIDTH_NOTIFICATION</width>
+
+				<!-- Background -->
+				<control type="image">
+					<width>70</width>
+					<height>HEIGHT_NOTIFICATION</height>
+					<texture colordiffuse="BACKGROUND_NOTIFICATION">1080p/controls/notification-start.png</texture>
+				</control>
+				<control type="image">
+					<left>70</left>
+					<width>WIDTH_NOTIFICATION_BACKGROUND_MID</width>
+					<height>HEIGHT_NOTIFICATION</height>
+					<texture colordiffuse="BACKGROUND_NOTIFICATION">1080p/controls/notification-middle.png</texture>
+				</control>
+				<control type="image">
+					<right>0</right>
+					<width>70</width>
+					<height>HEIGHT_NOTIFICATION</height>
+					<texture flipx="true" colordiffuse="BACKGROUND_NOTIFICATION">1080p/controls/notification-start.png</texture>
+				</control>
+
+				<!-- Icon -->
+				<control type="image">
+					<centertop>50%</centertop>
+					<left>PADDING_NOTIFICATION_CONTENT</left>
+					<width>SIZE_NOTIFICATION_ICON</width>
+					<height>SIZE_NOTIFICATION_ICON</height>
+					<texture fallback="$PARAM[icon_fallback]" diffuse="1080p/diffuse/circle.png">$PARAM[icon]</texture>
+				</control>
+
+				<!-- Title -->
+				<control type="label">
+					<top>PADDING_BASE_20P</top>
+					<left>PADDING_NOTIFICATION_CONTENT_AFTER_ICON</left>
+					<right>PADDING_NOTIFICATION_CONTENT</right>
+					<height>FONT_SIZE_BODY</height>
+					<font>BODY_STRONG</font>
+					<label>$PARAM[title]</label>
+				</control>
+				<!-- Message -->
+				<control type="label">
+					<bottom>PADDING_BASE_50P</bottom>
+					<left>PADDING_NOTIFICATION_CONTENT_AFTER_ICON</left>
+					<right>PADDING_NOTIFICATION_CONTENT</right>
+					<height>FONT_SIZE_CAPTION2</height>
+					<font>CAPTION2</font>
+					<label>$PARAM[message]</label>
+				</control>
+				
+				<!-- Additional custom content -->
 				<nested />
 			</control>
 		</definition>

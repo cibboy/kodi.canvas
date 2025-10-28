@@ -6,4 +6,12 @@
 	<constant name="OFFSET_FLYOUT_LIST">152</constant>
 	<constant name="OFFSET_FLYOUT_LIST_BOTTOM">152</constant>
 	<constant name="GAP_FLYOUT_GROUPLIST">-35</constant>
+	<constant name="HEIGHT_FLYOUT_DIALOG_LIST">500</constant>
+
+	<constant name="HEIGHT_NOTIFICATION">140</constant>
+	<constant name="WIDTH_NOTIFICATION">480</constant>
+	<constant name="WIDTH_NOTIFICATION_BACKGROUND_MID">340</constant>	<!-- WIDTH_NOTIFICATION - (70 * 2) -->
+	<constant name="SIZE_NOTIFICATION_ICON">80</constant>
+	<constant name="PADDING_NOTIFICATION_CONTENT">30</constant>
+	<constant name="PADDING_NOTIFICATION_CONTENT_AFTER_ICON">125</constant>	<!-- PADDING_NOTIFICATION_CONTENT + SIZE_NOTIFICATION_ICON + 15 -->
 </includes>

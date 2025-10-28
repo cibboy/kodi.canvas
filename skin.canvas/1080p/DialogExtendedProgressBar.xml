@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<controls>
+		<include content="Center169AspectRatio">
+			<control type="group">
+				<visible>!Window.IsVisible(notification)</visible>
+				<include content="ShowHideFadeAnimation" />
+
+				<include content="Notification">
+					<param name="icon"></param>
+					<param name="icon_fallback"></param>
+					<param name="title">$INFO[Control.GetLabel(30)]</param>
+					<param name="message">$INFO[Control.GetLabel(31)]</param>
+
+					<!-- Progress icon (dark background, empty circle, progress)-->
+					<control type="group">
+						<centertop>50%</centertop>
+						<left>PADDING_NOTIFICATION_CONTENT</left>
+						<width>SIZE_NOTIFICATION_ICON</width>
+						<height>SIZE_NOTIFICATION_ICON</height>
+
+						<control type="image">
+							<width>SIZE_NOTIFICATION_ICON</width>
+							<height>SIZE_NOTIFICATION_ICON</height>
+							<texture colordiffuse="BACKGROUND_OPAQUE50">1080p/progress/circle-bg.png</texture>
+						</control>
+						<control type="image">
+							<width>SIZE_NOTIFICATION_ICON</width>
+							<height>SIZE_NOTIFICATION_ICON</height>
+							<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-$INFO[Control.GetLabel(32)].png</texture>
+						</control>
+					</control>
+
+					<!-- Title (hide native, show custom by picking info from original) -->
+					<control type="label" id="30">
+						<visible>false</visible>
+					</control>
+					<!-- Message (hide native, show custom by picking info from original) -->
+					<control type="label" id="31">
+						<visible>false</visible>
+					</control>
+					<!-- Progress (hide native, show custom by picking info from original) -->
+					<control type="progress" id="32">
+						<visible>false</visible>
+						<left>99999</left>
+						<top>99999</top>
+					</control>
+				</include>
+			</control>
+		</include>
+	</controls>
+</window>

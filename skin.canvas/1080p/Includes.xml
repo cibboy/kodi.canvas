@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 	<!-- Constants: times -->
-	<constant name="ANIMATION_FAST">150</constant>
-	<constant name="ANIMATION_MID">200</constant>
-	<constant name="ANIMATION_SLOW">300</constant>
+	<constant name="ANIMATION_FAST">250</constant>
+	<constant name="ANIMATION_MID">350</constant>
+	<constant name="ANIMATION_SLOW">500</constant>
 	<constant name="ANIMATION_CRAWL">1000</constant>
 
 	<!-- Constants: padding -->

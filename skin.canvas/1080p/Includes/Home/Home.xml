@@ -732,6 +732,7 @@
 
 					<onback condition="!$EXP[HasHomeLoaded]">SetFocus(99999)</onback>
 					<onback condition="$EXP[HasHomeLoaded]">SetFocus(200)</onback>
+					<onup>SetFocus(1001,5)</onup>
 					<ondown>SetFocus(1001,0)</ondown>
 					<onclick>SetFocus(200)</onclick>
 					<onclick>$INFO[ListItem.Property(onclick)]</onclick>
@@ -773,6 +774,7 @@
 
 					<onback>SetFocus(200)</onback>
 					<onup>SetFocus(1000,0)</onup>
+					<ondown>SetFocus(1000,0)</ondown>
 					<onclick>SetFocus(200)</onclick>
 					<onclick>$INFO[ListItem.Property(onclick)]</onclick>
 

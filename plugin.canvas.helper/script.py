@@ -31,7 +31,7 @@ def get_additional_media_info_from_listitem(itemtype, itemid, currentposition = 
 
     # Poor man's implementation of debouncing.
     window.setProperty('ActiveItemId.Debounce', itemid)
-    time.sleep(0.25)
+    time.sleep(0.2)
     debounce_value = window.getProperty('ActiveItemId.Debounce')
     if debounce_value == itemid:    # Continue if there were no new requests.
         # Sync list with ID 501 if requested (used by home that has several lists).
@@ -145,8 +145,10 @@ def update_hidden_active_list_position(position):
     window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
 
     # Get control and set position.
-    pos = int(position)
-    window.getControl(501).selectItem(pos - 1)
+    try:
+        pos = int(position)
+        window.getControl(501).selectItem(pos - 1)
+    except: pass
 
 
 # Navigates to the first visible candidate in the list and returns its ID and type (list or empty list placeholder).
@@ -349,6 +351,8 @@ def navigate_movie_episode_videonav(containerid):
     # Retrieve info from selected item.
     type = xbmc.getInfoLabel(f"Container({containerid}).ListItem.DBTYPE")
     content = 'special://skin/playlists/empty.xsp'
+    tvshowid = ''
+    season = ''
     episode = ''
     if type == 'movie':
         movieid = xbmc.getInfoLabel(f"Container({containerid}).ListItem.DBID")
@@ -457,10 +461,11 @@ def set_active_episode():
                 offset = i
                 break
 
-    # Set focus with computed offset.
-    xbmc.executebuiltin(f"SetFocus(501,{offset},absolute)")
     # Set window property to show the list.
     xbmc.executebuiltin('SetProperty(ShowList,true,1110)')
+    # Set focus with computed offset.
+    xbmc.log(f"shifting to {offset}",xbmc.LOGINFO)
+    xbmc.executebuiltin(f"SetFocus(501,{offset},absolute)")
 
 
 if __name__ == '__main__':

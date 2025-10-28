@@ -190,7 +190,7 @@
 					<param name="id">411</param>
 					<param name="icon">$VAR[MediaNavPlayIcon]</param>
 					<param name="label">$VAR[MediaNavPlayButtonLabel]</param>
-					<param name="action">PlayMedia($INFO[ListItem.FileNameAndPath],playoffset=0)</param>
+					<param name="action">PlayMedia($INFO[ListItem.FileNameAndPath],noresume,playoffset=0)</param>
 					<param name="switch_to_601">$PARAM[switch_to_601_on_more]</param>
 					<param name="visible">$EXP[HasMediaNavActionPlay]</param>
 				</include>
@@ -208,7 +208,7 @@
 					<param name="id">413</param>
 					<param name="icon">$VAR[MediaNavPlayFromStartIcon]</param>
 					<param name="label">$VAR[MediaNavPlayFromStartButtonLabel]</param>
-					<param name="action">PlayMedia($INFO[ListItem.FileNameAndPath],playoffset=0)</param>
+					<param name="action">PlayMedia($INFO[ListItem.FileNameAndPath],noresume,playoffset=0)</param>
 					<param name="switch_to_601">$PARAM[switch_to_601_on_more]</param>
 					<param name="visible">$EXP[HasMediaNavActionPlayFromStart]</param>
 				</include>

@@ -24,9 +24,9 @@
 			<screenshot>resources/screenshot-07.jpg</screenshot>
 			<screenshot>resources/screenshot-08.jpg</screenshot>
 		</assets>-->
-		<summary lang="en_US">Minimialistic Kodi skin</summary>
+		<summary lang="en_US">Minimalistic Kodi skin</summary>
 		<summary lang="it_IT">Skin minimalistica per Kodi</summary>
-		<description lang="en_US">Minimialistic Kodi skin</description>
+		<description lang="en_US">Minimalistic Kodi skin</description>
 		<description lang="it_IT">Skin minimalistica per Kodi</description>
 	</extension>
 </addon>

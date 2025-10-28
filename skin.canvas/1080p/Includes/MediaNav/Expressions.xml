@@ -12,7 +12,8 @@
 	<!-- Has time remaining? -->
 	<expression name="HasMediaNavTimeRemaining">
 		[$EXP[IsDetailsItemTypeEpisode] | $EXP[IsDetailsItemTypeMovie]] +
-		!String.IsEmpty(Container(501).ListItem.Property(Item.TimeRemaining))
+		Integer.IsGreater(Container(501).ListItem.PercentPlayed,0) +
+		Integer.IsLess(Container(501).ListItem.PercentPlayed,100)
 	</expression>
 	<!-- Has episodes remaining? -->
 	<expression name="HasMediaNavEpisodesRemaining">

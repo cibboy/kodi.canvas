@@ -54,6 +54,7 @@
 		<param name="description_color">FOREGROUND_OPAQUE50</param>
 		<param name="description_color_selected">FOREGROUND_ACCENT_OPAQUE50</param>
 		<param name="description">$INFO[ListItem.Property(description)]</param>
+		<param name="single_line">false</param>
 		<param name="scroll">false</param>
 
 		<definition>
@@ -82,6 +83,7 @@
 						<centertop>50%</centertop>
 						<centerleft>50%</centerleft>
 						<texture colordiffuse="$PARAM[icon_color]">$PARAM[icon]</texture>
+						<aspectratio scalediffuse="false">scale</aspectratio>
 					</control>
 					<!-- Icon (circle) -->
 					<control type="image">
@@ -91,6 +93,7 @@
 						<centertop>50%</centertop>
 						<centerleft>50%</centerleft>
 						<texture diffuse="1080p/diffuse/circle.png">$PARAM[icon]</texture>
+						<aspectratio scalediffuse="false">scale</aspectratio>
 					</control>
 				</control>
 
@@ -99,8 +102,19 @@
 					<height>HEIGHT_SETTINGS_OPTION_CONTENT</height>
 					<left>OFFSET_SETTINGS_OPTIONS_CONTENT</left>
 
+					<!-- Single text line -->
+					<control type="label">
+						<visible>$PARAM[single_line]</visible>
+						<centertop>OFFSET_SETTINGS_OPTION_TITLE_SINGLELINE</centertop>
+						<font>BODY_STRONG</font>
+						<textcolor>$PARAM[text_color]</textcolor>
+						<selectedcolor>$PARAM[text_color_selected]</selectedcolor>
+						<label>$PARAM[text]</label>
+						<scroll>$PARAM[scroll]</scroll>
+					</control>
 					<!-- First text line -->
 					<control type="label">
+						<visible>!$PARAM[single_line]</visible>
 						<top>OFFSET_SETTINGS_OPTION_TITLE</top>
 						<font>BODY_STRONG</font>
 						<textcolor>$PARAM[text_color]</textcolor>

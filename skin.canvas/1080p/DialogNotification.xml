@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<controls>
+		<include content="Center169AspectRatio">
+			<include content="Notification">
+				<param name="icon">$INFO[Control.GetLabel(400)]</param>
+				<param name="title">$INFO[Control.GetLabel(401)]</param>
+				<param name="message">$INFO[Control.GetLabel(402)]</param>
+
+				<!-- Icon (hide native, show custom by picking info from original) -->
+				<control type="image" id="400">
+					<visible>false</visible>
+				</control>
+				<!-- Title (hide native, show custom by picking info from original) -->
+				<control type="label" id="401">
+					<visible>false</visible>
+				</control>
+				<!-- Message (hide native, show custom by picking info from original) -->
+				<control type="label" id="402">
+					<visible>false</visible>
+				</control>
+			</include>
+		</include>
+	</controls>
+</window>

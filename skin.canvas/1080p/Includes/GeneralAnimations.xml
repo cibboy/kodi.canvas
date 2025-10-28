@@ -4,17 +4,19 @@
 	<include name="ShowHideFadeSlideVerticalAnimation">
 		<param name="slide_amount">100</param>
 		<param name="speed">ANIMATION_SLOW</param>
+		<param name="delay_in">0</param>
+		<param name="delay_out">0</param>
 		<param name="visible_condition">Visible</param>
 		<param name="hidden_condition">Hidden</param>
 
 		<definition>
 			<animation type="$PARAM[visible_condition]">
-				<effect type="slide" start="0,$PARAM[slide_amount]" end="0,0" time="$PARAM[speed]" tween="circle" easing="out" />
-				<effect type="fade" start="0" end="100" time="$PARAM[speed]" tween="circle" easing="out" />
+				<effect type="slide" start="0,$PARAM[slide_amount]" end="0,0" time="$PARAM[speed]" delay="$PARAM[delay_in]" tween="circle" easing="out" />
+				<effect type="fade" start="0" end="100" time="$PARAM[speed]" delay="$PARAM[delay_in]" tween="circle" easing="out" />
 			</animation>
 			<animation type="$PARAM[hidden_condition]">
-				<effect type="slide" start="0,0" end="0,$PARAM[slide_amount]" time="$PARAM[speed]" tween="circle" easing="out" />
-				<effect type="fade" start="100" end="0" time="$PARAM[speed]" tween="circle" easing="out" />
+				<effect type="slide" start="0,0" end="0,$PARAM[slide_amount]" time="$PARAM[speed]" delay="$PARAM[delay_out]" tween="circle" easing="out" />
+				<effect type="fade" start="100" end="0" time="$PARAM[speed]" delay="$PARAM[delay_out]" tween="circle" easing="out" />
 			</animation>
 		</definition>
 	</include>
@@ -23,17 +25,19 @@
 	<include name="ShowHideFadeSlideHorizontalAnimation">
 		<param name="slide_amount">100</param>
 		<param name="speed">ANIMATION_SLOW</param>
+		<param name="delay_in">0</param>
+		<param name="delay_out">0</param>
 		<param name="visible_condition">Visible</param>
 		<param name="hidden_condition">Hidden</param>
 
 		<definition>
 			<animation type="$PARAM[visible_condition]">
-				<effect type="slide" start="$PARAM[slide_amount],0" end="0,0" time="$PARAM[speed]" tween="circle" easing="out" />
-				<effect type="fade" start="0" end="100" time="$PARAM[speed]" tween="circle" easing="out" />
+				<effect type="slide" start="$PARAM[slide_amount],0" end="0,0" time="$PARAM[speed]" delay="$PARAM[delay_in]" tween="circle" easing="out" />
+				<effect type="fade" start="0" end="100" time="$PARAM[speed]" delay="$PARAM[delay_in]" tween="circle" easing="out" />
 			</animation>
 			<animation type="$PARAM[hidden_condition]">
-				<effect type="slide" start="0,0" end="$PARAM[slide_amount],0" time="$PARAM[speed]" tween="circle" easing="out" />
-				<effect type="fade" start="100" end="0" time="$PARAM[speed]" tween="circle" easing="out" />
+				<effect type="slide" start="0,0" end="$PARAM[slide_amount],0" time="$PARAM[speed]" delay="$PARAM[delay_out]" tween="circle" easing="out" />
+				<effect type="fade" start="100" end="0" time="$PARAM[speed]" delay="$PARAM[delay_out]" tween="circle" easing="out" />
 			</animation>
 		</definition>
 	</include>
@@ -41,16 +45,18 @@
 	<!-- Fade on visible/hidden -->
 	<include name="ShowHideFadeAnimation">
 		<param name="speed">ANIMATION_SLOW</param>
+		<param name="delay_in">0</param>
+		<param name="delay_out">0</param>
 		<param name="visible_condition">Visible</param>
 		<param name="hidden_condition">Hidden</param>
 		<param name="tween">circle</param>
 
 		<definition>
 			<animation type="$PARAM[visible_condition]">
-				<effect type="fade" start="0" end="100" time="$PARAM[speed]" tween="$PARAM[tween]" easing="out" />
+				<effect type="fade" start="0" end="100" time="$PARAM[speed]" delay="$PARAM[delay_in]" tween="$PARAM[tween]" easing="out" />
 			</animation>
 			<animation type="$PARAM[hidden_condition]">
-				<effect type="fade" start="100" end="0" time="$PARAM[speed]" tween="$PARAM[tween]" easing="out" />
+				<effect type="fade" start="100" end="0" time="$PARAM[speed]" delay="$PARAM[delay_out]" tween="$PARAM[tween]" easing="out" />
 			</animation>
 		</definition>
 	</include>

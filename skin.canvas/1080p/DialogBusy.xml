@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<controls>
+		<include content="Center169AspectRatio">
+			<include content="DarkeningLayer" />
+
+			<!-- Progress icon (dark background, empty circle, progress)-->
+			<control type="group">
+				<centertop>50%</centertop>
+				<centerleft>50%</centerleft>
+				<width>100</width>
+				<height>100</height>
+
+				<control type="image">
+					<width>100</width>
+					<height>100</height>
+					<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-$INFO[Control.GetLabel(10)].png</texture>
+				</control>
+			</control>
+
+			<!-- Progress (hide native, show custom by picking info from original) -->
+			<control type="progress" id="10">
+				<visible>false</visible>
+				<left>99999</left>
+				<top>99999</top>
+			</control>
+		</include>
+	</controls>
+</window>

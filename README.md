@@ -2,6 +2,8 @@ TOFIX:
 - empty list "add content" button on home needs ACTION
 - home flyout menu: mettere VideoLibrary.Clean?
 - ricerca todo e sistemarli
+- videonav ogni tanto torna indietro quando ci si muove rapidamente, sulla home non sembrano esserci problemi...
+- choose art not available as action, needs to be a button in dialogvideoinfo.xml, id 10 (anche id 6 per refresh utile)
 
 TODO:
 - dialog in settings da fare:
@@ -21,6 +23,7 @@ TODO:
 - manca il caricamento della lista pictures
 - creare possibilità di sbiancare la cache in temp
 - ricordarsi nel setup iniziale di gestire anche advancedsettings.xml per la questione rimozione splash screen originale
+- playing theme in tv shows
 
 - skin settings (skinsettings) > sub of interface
 - pvr, profiles, file manager
