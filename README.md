@@ -24,6 +24,7 @@ TODO:
 - creare possibilità di sbiancare la cache in temp
 - ricordarsi nel setup iniziale di gestire anche advancedsettings.xml per la questione rimozione splash screen originale
 - playing theme in tv shows
+- constant notification on home/navigation for currently playing item (escludere theme in tv shows)
 
 - skin settings (skinsettings) > sub of interface
 - pvr, profiles, file manager

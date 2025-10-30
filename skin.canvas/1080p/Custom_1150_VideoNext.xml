@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="window" id="1150">
+	<!-- Video exit strategy window: if still going, stop; if almost done show next episode -->
+	<defaultcontrol always="true">1</defaultcontrol>
+	<!-- Set focus after a second, otherwise it's lost somehow... -->
+	<onload>AlarmClock(redirect,SetFocus(1),00:00:01,silent)</onload>
+
+	<controls>
+		<include content="Center169AspectRatio"><!--todo-->
+			<!-- Current video -->
+			<control type="videowindow">
+				<left>80</left>
+				<top>60</top>
+				<width>250</width>
+				<height>200</height>
+				<visible>true</visible>
+			</control>
+
+			<control type="button" id="1">
+				<label>stop</label>
+				<onback>PlayerControl(Stop)</onback>
+				<onclick>ActivateWindow(12005)</onclick>
+			</control>
+		</include>
+	</controls>
+</window>

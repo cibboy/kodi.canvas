@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<!-- Elapsed time (with speed factor) -->
+	<variable name="PlayerOSDElapsedTime">
+		<value condition="!String.IsEqual(Player.PlaySpeed,1.00) + !String.IsEqual(Player.PlaySpeed,0.00)">$INFO[Player.TimeSpeed]</value>
+		<value>$INFO[Player.Time()]</value>
+	</variable>
+
+	
+	<!-- Icons -->
+	<variable name="PlayerOSDPlayPauseIcon">
+		<value condition="Player.Playing">1080p/icons/pause.png</value>
+		<value>1080p/icons/play.png</value>
+	</variable>
+
+
+	<!-- Constants -->
+	<constant name="SIZE_PLAYER_STATUS_INDICATOR">200</constant>
+	<constant name="SIZE_PLAYER_SEEK_INDICATOR">100</constant>
+
+	<constant name="SIZE_OSD_BUTTON">80</constant>
+	<constant name="SIZE_OSD_BUTTON_FOCUS">110</constant>
+	<constant name="SIZE_OSD_BUTTON_ICON">40</constant>
+	<constant name="SIZE_OSD_BUTTON_BIG">100</constant>
+	<constant name="SIZE_OSD_BUTTON_BIG_FOCUS">140</constant>
+	<constant name="SIZE_OSD_BUTTON_BIG_ICON">60</constant>
+
+	<constant name="OFFSET_OSD_PROGRESS">250</constant>
+</includes>

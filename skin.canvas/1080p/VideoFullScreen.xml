@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol></defaultcontrol>
+
+	<!-- All controls need to have and ID to show. Also, includes need IDs as well -->
+	<controls>
+		<!-- Pause icon -->
+		<include content="PlayerStatusIndicatorFade">
+			<param name="id">100</param>
+			<param name="size">SIZE_PLAYER_STATUS_INDICATOR</param>
+			<param name="icon">1080p/icons/pause.png</param>
+			<param name="condition">Player.Paused</param>
+		</include>
+		<!-- Forwarding icon -->
+		<include content="PlayerStatusIndicatorFade">
+			<param name="id">101</param>
+			<param name="size">SIZE_PLAYER_STATUS_INDICATOR</param>
+			<param name="icon">1080p/icons/ff.png</param>
+			<param name="condition">Player.Forwarding</param>
+		</include>
+		<!-- Rewinding icon -->
+		<include content="PlayerStatusIndicatorFade">
+			<param name="id">102</param>
+			<param name="size">SIZE_PLAYER_STATUS_INDICATOR</param>
+			<param name="icon">1080p/icons/ff.png</param>
+			<param name="flip_icon">true</param>
+			<param name="condition">Player.Rewinding</param>
+		</include>
+
+		<!-- Caching spinner -->
+		<control type="image" id="103">
+			<visible>Player.Caching</visible>
+			<animation effect="rotate" start="360" end="0" center="auto" time="ANIMATION_CRAWL" reversible="false" loop="true" condition="true">Conditional</animation>
+
+			<width>100</width>
+			<height>100</height>
+			<centertop>50%</centertop>
+			<centerleft>50%</centerleft>
+			<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-50.png</texture>
+		</control>
+
+		<!-- Seek right -->
+		<include content="PlayerSeekingIndicator">
+			<param name="id">104</param>
+			<param name="condition">Player.Seeking + !String.StartsWith(Player.SeekStepSize,-) + !String.IsEmpty(Player.SeekStepSize)</param>
+			<param name="darkening_left">SCREEN_WIDTH_HALF</param>
+			<param name="content_left">1520</param>
+			<param name="slide_to">200</param>
+		</include>
+		<!-- Seek left -->
+		<include content="PlayerSeekingIndicator">
+			<param name="id">105</param>
+			<param name="flip">true</param>
+			<param name="condition">Player.Seeking + String.StartsWith(Player.SeekStepSize,-) + !String.IsEmpty(Player.SeekStepSize)</param>
+			<param name="darkening_left">0</param>
+			<param name="content_left">0</param>
+			<param name="slide_from">300</param>
+			<param name="slide_to">100</param>
+		</include>
+	</controls>
+</window>

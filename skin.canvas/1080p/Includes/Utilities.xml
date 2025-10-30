@@ -73,6 +73,11 @@
 		</control>
 	</include>
 
+	<!-- Redirector to video exit window when video is playing -->
+	<include name="VideoPlayingRedirect">
+		<onload condition="Player.HasVideo">ActivateWindow(1150)</onload>
+	</include>
+
 	<!-- Is info dialog visible? -->
 	<expression name="IsDialogMusicInfoVisible">Window.IsActive(12001)</expression>
 	<expression name="IsDialogVideoInfoVisible">Window.IsActive(12003)</expression>

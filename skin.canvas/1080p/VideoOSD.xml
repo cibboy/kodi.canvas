@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">100</defaultcontrol>
+
+	<controls>
+		<include content="Center169AspectRatio">
+			<!-- OSD -->
+			<include content="PlayerOSD">
+				<param name="left_control">202</param>
+				<param name="right_control">201</param>
+
+				<!-- Title/clearlogo -->
+				<!--todo-->
+
+				<!-- Episode title -->
+				<!--todo-->
+
+				<!-- Minimal details -->
+				<!--todo-->
+
+				<!-- HDR, video resolution, channels -->
+				<!--todo-->
+
+				<!-- Additional controls -->
+				<control type="grouplist" id="200">
+					<orientation>horizontal</orientation>
+					<itemgap>PADDING_BASE_20P_NEG</itemgap>
+					<usecontrolcoords>true</usecontrolcoords>
+					<defaultcontrol>201</defaultcontrol>
+
+					<height>SIZE_OSD_BUTTON_BIG_FOCUS</height>
+					<width>1000</width>
+					<right>PADDING_BASE_125P</right>
+					<centerbottom>PADDING_BASE_125P</centerbottom>
+					<align>right</align>
+
+					<onleft>103</onleft>
+					<onright>101</onright>
+
+					<!-- Subtitles settings -->
+					<include content="PlayerOSDButton">
+						<param name="id">201</param>
+						<param name="size">SIZE_OSD_BUTTON</param>
+						<param name="size_focus">SIZE_OSD_BUTTON_FOCUS</param>
+						<param name="size_icon">SIZE_OSD_BUTTON_ICON</param>
+						<param name="icon">1080p/icons/subtitles.png</param>
+						<param name="flip_icon">true</param>
+						<param name="action"><!--todo--></param>
+					</include>
+					<!-- Audio settings -->
+					<include content="PlayerOSDButton">
+						<param name="id">202</param>
+						<param name="size">SIZE_OSD_BUTTON</param>
+						<param name="size_focus">SIZE_OSD_BUTTON_FOCUS</param>
+						<param name="size_icon">SIZE_OSD_BUTTON_ICON</param>
+						<param name="icon">1080p/icons/speaker.png</param>
+						<param name="action"><!--todo--></param>
+					</include>
+				</control>
+			</include>
+
+			<!-- Full details -->
+			<!--todo--><!--with actor list!!!-->
+
+			<!-- Clock -->
+			<control type="group">
+				<include content="ShowHideFadeSlideVerticalAnimation">
+					<param name="slide_amount">-100</param>
+					<param name="speed">ANIMATION_MID</param>
+					<param name="visible_condition">WindowOpen</param>
+					<param name="hidden_condition">WindowClose</param>
+				</include>
+
+				<include content="TopBar" />
+			</control>
+		</include>
+	</controls>
+</window>

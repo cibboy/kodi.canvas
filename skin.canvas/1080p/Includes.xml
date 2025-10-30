@@ -11,10 +11,13 @@
 	<constant name="PADDING_BASE_5P">5</constant>
 	<constant name="PADDING_BASE_10P">10</constant>
 	<constant name="PADDING_BASE_20P">20</constant>
+	<constant name="PADDING_BASE_20P_NEG">-20</constant>
+	<constant name="PADDING_BASE_30P">30</constant>
 	<constant name="PADDING_BASE_50P">50</constant>
 	<constant name="PADDING_BASE_50P_NEG">-50</constant>
 	<constant name="PADDING_BASE_60P">60</constant>
 	<constant name="PADDING_BASE_80P">80</constant>
+	<constant name="PADDING_BASE_125P">125</constant>
 
 	<!-- Constants: sizes -->
 	<constant name="SIZE_ITEM_SHADOW_ART">20</constant>
@@ -66,5 +69,6 @@
 	<include file="Includes/Details/Details.xml" />
 	<include file="Includes/Home/Home.xml" />
 	<include file="Includes/MediaNav/MediaNav.xml" />
+	<include file="Includes/Players/Players.xml" />
 	<include file="Includes/Settings/Settings.xml" />
 </includes>

@@ -4,6 +4,7 @@
 	<defaultcontrol>99999</defaultcontrol>
 	<!-- Wait until lists have loaded, then move to the first one available -->
 	<onload>Skin.TimerStart(homelistselection)</onload>
+	<include content="VideoPlayingRedirect" />
 
 	<controls>
 		<include content="Center169AspectRatio">
@@ -36,10 +37,10 @@
 			<control type="button" id="99999">
 				<visible allowhiddenfocus="true">false</visible>
 				<onback>SetFocus(1001,0)</onback>
-				<onleft>noop</onleft>
-				<onright>noop</onright>
-				<onup>noop</onup>
-				<ondown>noop</ondown>
+				<onleft>SetFocus(1001,0)</onleft>
+				<onright>SetFocus(1001,0)</onright>
+				<onup>SetFocus(1001,0)</onup>
+				<ondown>SetFocus(1001,0)</ondown>
 			</control>
 
 			<!-- Main content -->
@@ -81,6 +82,15 @@
 						</control>
 					</control>
 				</control>
+			</control>
+
+			<control type="videowindow" id="2">
+				<description>My first video control</description>
+				<left>80</left>
+				<top>60</top>
+				<width>250</width>
+				<height>200</height>
+				<visible>true</visible>
 			</control>
 
 			<!-- Clock -->

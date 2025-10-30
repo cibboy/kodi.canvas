@@ -111,10 +111,10 @@
 					<param name="hidden_condition">WindowClose</param>
 				</include>
 				
-				<width>1120</width>
-				<height>880</height>
+				<width>1120</width>		<!-- SCREEN_WIDTH - WIDTH_FLYOUT - (PADDING_BASE * 2) -->
+				<height>880</height>	<!-- SCREEN_HEIGHT - (PADDING_BASE * 2) -->
 				<centertop>50%</centertop>
-				<right>700</right>
+				<right>700</right>		<!-- WIDTH_FLYOUT + PADDING_BASE -->
 				<fadetime>ANIMATION_SLOW</fadetime>
 				<texture>$INFO[Container(451).ListItem.Icon]</texture>
 				<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND_OPAQUE50">1080p/diffuse/shadow-art.png</bordertexture>

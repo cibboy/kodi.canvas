@@ -464,7 +464,6 @@ def set_active_episode():
     # Set window property to show the list.
     xbmc.executebuiltin('SetProperty(ShowList,true,1110)')
     # Set focus with computed offset.
-    xbmc.log(f"shifting to {offset}",xbmc.LOGINFO)
     xbmc.executebuiltin(f"SetFocus(501,{offset},absolute)")
 
 

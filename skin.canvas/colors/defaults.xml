@@ -62,4 +62,7 @@
 	<color name="BACKGROUND_DIALOG">FF15171B</color>
 	<color name="BACKGROUND_NOTIFICATION">FF1F2329</color>
 	<color name="BACKGROUND_SETTINGS_TINT">FF1F2329</color>
+
+	<!-- Transparent -->
+	<color name="TRANSPARENT">00FFFFFF</color>
 </colors>

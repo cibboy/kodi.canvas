@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<include file="Includes/Players/Variables.xml" />
+
+	<!-- Fading indicator (like pause or forwarding/rewinding) -->
+	<include name="PlayerStatusIndicatorFade">
+		<param name="id"></param>
+		<param name="size"></param>
+		<param name="icon"></param>
+		<param name="flip_icon">false</param>
+		<param name="text"></param>
+		<param name="condition">false</param>
+
+		<definition>
+			<control type="image" id="$PARAM[id]">
+				<!-- Show only on condition, zoom and fade out briefly -->
+				<visible>$PARAM[condition]</visible>
+				<animation type="Visible" reversible="false">
+					<effect type="zoom" start="100" end="200" time="ANIMATION_CRAWL" tween="circle" easing="out" center="auto" />
+					<effect type="fade" start="100" end="0" time="ANIMATION_CRAWL" tween="circle" easing="out" />
+				</animation>
+
+				<width>$PARAM[size]</width>
+				<height>$PARAM[size]</height>
+				<centertop>50%</centertop>
+				<centerleft>50%</centerleft>
+				<texture flipx="$PARAM[flip_icon]">$PARAM[icon]</texture>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Seeking indicator -->
+	<include name="PlayerSeekingIndicator">
+		<param name="id"></param>
+		<param name="size"></param>
+		<param name="flip">false</param>
+		<param name="condition">false</param>
+		<param name="darkening_left"></param>
+		<param name="content_left"></param>
+		<param name="slide_from">0</param>
+		<param name="slide_to">0</param>
+
+		<definition>
+			<!-- Darkening -->
+			<control type="image" id="$PARAM[id]">
+				<!-- Show only on condition, fade -->
+				<visible>$PARAM[condition]</visible>
+				<include content="ShowHideFadeAnimation" />
+
+				<width>50%</width>
+				<height>100%</height>
+				<left>$PARAM[darkening_left]</left>
+				<texture flipx="$PARAM[flip]" colordiffuse="BACKGROUND">1080p/diffuse/fade-side.png</texture>
+			</control>
+
+			<!-- Indicator -->
+			<control type="image" id="$PARAM[id]">
+				<!-- Show only on condition, slide and fade out briefly -->
+				<visible>$PARAM[condition]</visible>
+				<animation type="Visible" reversible="false">
+					<effect type="slide" start="$PARAM[slide_from],0" end="$PARAM[slide_to],0" time="ANIMATION_CRAWL" tween="circle" easing="out" center="auto" />
+					<effect type="fade" start="100" end="0" time="ANIMATION_CRAWL" tween="circle" easing="out" />
+				</animation>
+
+				<width>SIZE_PLAYER_SEEK_INDICATOR</width>
+				<height>SIZE_PLAYER_SEEK_INDICATOR</height>
+				<centertop>50%</centertop>
+				<left>$PARAM[content_left]</left>
+				<texture flipx="$PARAM[flip]">1080p/icons/chevron-right.png</texture>
+			</control>
+
+			<!-- Amount -->
+			<control type="label" id="$PARAM[id]">
+				<!-- Show only on condition, fade -->
+				<visible>$PARAM[condition]</visible>
+				<include content="ShowHideFadeAnimation">
+					<param name="speed">ANIMATION_CRAWL</param>
+				</include>
+
+				<centertop>50%</centertop>
+				<left>$PARAM[content_left]</left>
+				<height>$PARAM[size]</height>
+				<width>400</width>
+				<align>center</align>
+				<aligny>center</aligny>
+				<font>TITLE3</font>
+				<textcolor>HIGHLIGHT</textcolor>
+				<label>$INFO[Player.SeekStepSize]</label>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Generic OSD -->
+	<include name="PlayerOSD">
+		<param name="left_control">100</param>
+		<param name="right_control">100</param>
+
+		<definition>
+			<control type="group">
+				<include content="ShowHideFadeSlideVerticalAnimation">
+					<param name="slide_amount">100</param>
+					<param name="speed">ANIMATION_MID</param>
+					<param name="visible_condition">WindowOpen</param>
+					<param name="hidden_condition">WindowClose</param>
+				</include>
+
+				<width>SCREEN_WIDTH</width>
+				<height>SCREEN_HEIGHT_HALF</height>
+				<bottom>0</bottom>
+
+				<!-- Darkening -->
+				<control type="image">
+					<width>100%</width>
+					<height>100%</height>
+					<texture colordiffuse="BACKGROUND_OPAQUE90">1080p/diffuse/fade-bottom.png</texture>
+				</control>
+
+				<!-- Progress -->
+				<control type="group">
+					<centerbottom>OFFSET_OSD_PROGRESS</centerbottom>
+					<left>PADDING_BASE_125P</left>
+					<right>PADDING_BASE_125P</right>
+					<height>12</height>
+					
+					<control type="progress">	<!-- Caching -->
+						<texturebg colordiffuse="BACKGROUND_OPAQUE35" border="6">1080p/progress/bg.png</texturebg>
+						<midtexture colordiffuse="FOREGROUND_OPAQUE35" border="6">1080p/progress/mid.png</midtexture>
+						<info>Player.ProgressCache</info>
+					</control>
+					<control type="progress">	<!-- Actual progress -->
+						<texturebg colordiffuse="TRANSPARENT" border="6">1080p/progress/bg.png</texturebg>
+						<info>Player.Progress</info>
+					</control>
+				</control>
+
+				<!-- Time -->
+				<control type="group">
+					<bottom>OFFSET_OSD_PROGRESS</bottom>
+					<left>PADDING_BASE_125P</left>
+					<right>PADDING_BASE_125P</right>
+					<height>FONT_SIZE_CAPTION2</height>
+
+					<!-- Elapsed -->
+					<control type="label">
+						<top>PADDING_BASE_30P</top>
+						<font>CAPTION_STRONG</font>
+						<label>$VAR[PlayerOSDElapsedTime]</label>
+					</control>
+					<!-- Remaining -->
+					<control type="label">
+						<top>PADDING_BASE_30P</top>
+						<right>0</right>
+						<width>100%</width>
+						<font>CAPTION_STRONG</font>
+						<align>right</align>
+						<label>$INFO[Player.TimeRemaining()]</label>
+					</control>
+				</control>
+
+				<!-- Controls -->
+				<control type="grouplist" id="100">
+					<orientation>horizontal</orientation>
+					<itemgap>PADDING_BASE_20P_NEG</itemgap>
+					<usecontrolcoords>true</usecontrolcoords>
+					<defaultcontrol>102</defaultcontrol>
+
+					<height>SIZE_OSD_BUTTON_BIG_FOCUS</height>
+					<left>PADDING_BASE_125P</left>
+					<right>PADDING_BASE_125P</right>
+					<centerbottom>PADDING_BASE_125P</centerbottom>
+
+					<onleft>$PARAM[left_control]</onleft>
+					<onright>$PARAM[right_control]</onright>
+
+					<!-- Rewind -->
+					<include content="PlayerOSDButton">
+						<param name="id">101</param>
+						<param name="size">SIZE_OSD_BUTTON</param>
+						<param name="size_focus">SIZE_OSD_BUTTON_FOCUS</param>
+						<param name="size_icon">SIZE_OSD_BUTTON_ICON</param>
+						<param name="icon">1080p/icons/ff.png</param>
+						<param name="flip_icon">true</param>
+						<param name="action">PlayerControl(Rewind)</param>
+					</include>
+					<!-- Play/pause -->
+					<include content="PlayerOSDButton">
+						<param name="id">102</param>
+						<param name="size">SIZE_OSD_BUTTON_BIG</param>
+						<param name="size_focus">SIZE_OSD_BUTTON_BIG_FOCUS</param>
+						<param name="size_icon">SIZE_OSD_BUTTON_BIG_ICON</param>
+						<param name="icon">$VAR[PlayerOSDPlayPauseIcon]</param>
+						<param name="action">PlayerControl(Play)</param>
+					</include>
+					<!-- Forward -->
+					<include content="PlayerOSDButton">
+						<param name="id">103</param>
+						<param name="size">SIZE_OSD_BUTTON</param>
+						<param name="size_focus">SIZE_OSD_BUTTON_FOCUS</param>
+						<param name="size_icon">SIZE_OSD_BUTTON_ICON</param>
+						<param name="icon">1080p/icons/ff.png</param>
+						<param name="action">PlayerControl(Forward)</param>
+					</include>
+				</control>
+
+				<!-- Custom controls -->
+				<nested />
+			</control>
+		</definition>
+	</include>
+
+	<!-- OSD button -->
+	<include name="PlayerOSDButton">
+		<param name="id"></param>
+		<param name="size"></param>
+		<param name="size_focus"></param>
+		<param name="size_icon"></param>
+		<param name="icon"></param>
+		<param name="flip_icon">false</param>
+		<param name="action"></param>
+
+		<definition>
+			<control type="group" id="99$PARAM[id]">
+				<width>SIZE_OSD_BUTTON_BIG_FOCUS</width>
+				<height>SIZE_OSD_BUTTON_BIG_FOCUS</height>
+
+				<!-- Background -->
+				<control type="image">	<!-- Without focus -->
+					<visible>!Control.HasFocus($PARAM[id])</visible>
+					<include content="ShowHideFadeAnimation"><param name="speed">ANIMATION_FAST</param></include>
+
+					<centertop>50%</centertop>
+					<centerleft>50%</centerleft>
+					<width>$PARAM[size]</width>
+					<height>$PARAM[size]</height>
+					<texture colordiffuse="BACKGROUND_OPAQUE20">1080p/diffuse/circle.png</texture>
+				</control>
+				<control type="image">	<!-- With focus -->
+					<visible>Control.HasFocus($PARAM[id])</visible>
+					<include content="ShowHideFadeAnimation"><param name="speed">ANIMATION_FAST</param></include>
+
+					<centertop>50%</centertop>
+					<centerleft>50%</centerleft>
+					<width>$PARAM[size_focus]</width>
+					<height>$PARAM[size_focus]</height>
+					<texture colordiffuse="FOREGROUND_ACCENT">1080p/controls/button-circle.png</texture>
+				</control>
+
+				<!-- Icon -->
+				<control type="image">	<!-- Without focus -->
+					<visible>!Control.HasFocus($PARAM[id])</visible>
+					<include content="ShowHideFadeAnimation"><param name="speed">ANIMATION_FAST</param></include>
+
+					<centertop>50%</centertop>
+					<centerleft>50%</centerleft>
+					<width>$PARAM[size_icon]</width>
+					<height>$PARAM[size_icon]</height>
+					<fadetime>200</fadetime>
+					<texture colordiffuse="FOREGROUND_OPAQUE75" flipx="$PARAM[flip_icon]">$PARAM[icon]</texture>
+				</control>
+				<control type="image">	<!-- With focus -->
+					<visible>Control.HasFocus($PARAM[id])</visible>
+					<include content="ShowHideFadeAnimation"><param name="speed">ANIMATION_FAST</param></include>
+
+					<centertop>50%</centertop>
+					<centerleft>50%</centerleft>
+					<width>$PARAM[size_icon]</width>
+					<height>$PARAM[size_icon]</height>
+					<fadetime>200</fadetime>
+					<texture colordiffuse="BACKGROUND_OPAQUE75" flipx="$PARAM[flip_icon]">$PARAM[icon]</texture>
+				</control>
+			</control>
+
+			<!-- Hidden button for action -->
+			<control type="button" id="$PARAM[id]">
+				<visible allowhiddenfocus="true">false</visible>
+				<onclick>$PARAM[action]</onclick>
+			</control>
+		</definition>
+	</include>
+</includes>
