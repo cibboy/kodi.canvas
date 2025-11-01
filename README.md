@@ -6,6 +6,7 @@ TOFIX:
 - choose art not available as action, needs to be a button in dialogvideoinfo.xml, id 10 (anche id 6 per refresh utile)
 - home, button nascosto 99999 dovrebbe spostarsi sul menù quando si usano i direzionali e le liste sono caricate
 - osd: progress chapters
+- movie custom nav: default focus must be on play
 - episode custom nav: show list of episodes when not scrolling. Possibilities:
   - timer stop when not scrolling
   - alarm as onstop lungo quanto il tempo di scrolling

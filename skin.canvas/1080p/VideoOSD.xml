@@ -40,7 +40,7 @@
 								<aligny>center</aligny>
 								<font>TITLE1</font>
 								<textcolor>HIGHLIGHT</textcolor>
-								<label>$INFO[Window(home).Property(Player.Item.Clearlogo)]</label>
+								<label>$VAR[DetailsTitle]</label>
 							</control>
 							<!-- Clearlogo -->
 							<control type="image">
@@ -221,13 +221,13 @@
 					<control type="group">
 						<bottom>PADDING_BASE_125P</bottom>
 						<right>PADDING_BASE</right>
-						<width>WIDTH_DETAILS_LANDSCAPE</width>
-						<height>HEIGHT_DETAILS_LANDSCAPE</height>
+						<width>WIDTH_DETAILS_POSTER</width>
+						<height>HEIGHT_DETAILS_POSTER</height>
 
 						<include content="ArtListsPoster">
 							<param name="art">$VAR[PlayerOSDPosterArt]</param>
-							<param name="width">WIDTH_DETAILS_LANDSCAPE</param>
-							<param name="height">HEIGHT_DETAILS_LANDSCAPE</param>
+							<param name="width">WIDTH_DETAILS_POSTER</param>
+							<param name="height">HEIGHT_DETAILS_POSTER</param>
 							<param name="show_decorators">false</param>
 						</include>
 					</control>

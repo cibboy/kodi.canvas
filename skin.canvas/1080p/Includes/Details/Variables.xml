@@ -66,9 +66,9 @@
 	</variable>
 	<!-- HDR type -->
 	<variable name="DetailsHdrType">
-		<value condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(ListItem.HdrType,hdr10)">HDR</value>
-		<value condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(ListItem.HdrType,dolbyvision)">Dolby Vision</value>
-		<value condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(ListItem.HdrType,hlg)">HLG</value>
+		<value condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(VideoPlayer.HdrType,hdr10)">HDR</value>
+		<value condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(VideoPlayer.HdrType,dolbyvision)">Dolby Vision</value>
+		<value condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(VideoPlayer.HdrType,hlg)">HLG</value>
 		<value condition="$EXP[IsVideoPlayerVisible]">[UPPERCASE]$INFO[VideoPlayer.HdrType][/UPPERCASE]</value>
 		<value condition="$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.HdrType,hdr10)">HDR</value>
 		<value condition="$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.HdrType,dolbyvision)">Dolby Vision</value>
