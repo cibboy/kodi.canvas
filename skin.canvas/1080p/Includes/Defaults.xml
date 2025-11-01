@@ -144,6 +144,13 @@
 		<midtexture colordiffuse="FOREGROUND_ACCENT" border="6">1080p/progress/mid.png</midtexture>
 	</default>
 
+	<!-- Ranges -->
+	<default type="ranges">
+		<height>12</height>
+		<texturebg colordiffuse="TRANSPARENT">1080p/controls/marker-bg.png</texturebg>
+		<righttexture colordiffuse="BACKGROUND_OPAQUE50">1080p/controls/marker.png</righttexture>
+	</default>
+
 	<!--todo
 	<default type="image">
 		<texture></texture>

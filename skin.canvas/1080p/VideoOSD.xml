@@ -5,6 +5,12 @@
 
 	<controls>
 		<include content="Center169AspectRatio">
+			<control type="label">
+				<width>auto</width>
+				<textcolor>HIGHLIGHT</textcolor>
+				<label>$INFO[Player.Chapters]</label>
+			</control>
+
 			<!-- Composite OSD -->
 			<control type="group">
 				<include content="ShowHideFadeSlideVerticalAnimation">

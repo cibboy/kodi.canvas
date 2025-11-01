@@ -182,23 +182,26 @@
 					<texturebg colordiffuse="TRANSPARENT" border="6">1080p/progress/bg.png</texturebg>
 					<info>Player.Progress</info>
 				</control>
+				<control type="ranges" id="304">	<!-- Chapters -->
+					<info>Player.Chapters</info>
+				</control>
 			</control>
 
 			<!-- Time -->
-			<control type="group" id="304">
+			<control type="group" id="310">
 				<bottom>OFFSET_OSD_PROGRESS</bottom>
 				<left>PADDING_BASE_125P</left>
 				<right>PADDING_BASE_125P</right>
 				<height>FONT_SIZE_CAPTION2</height>
 
 				<!-- Elapsed -->
-				<control type="label" id="305">
+				<control type="label" id="311">
 					<top>PADDING_BASE_30P</top>
 					<font>CAPTION_STRONG</font>
 					<label>$VAR[PlayerOSDElapsedTime]</label>
 				</control>
 				<!-- Remaining -->
-				<control type="label" id="306">
+				<control type="label" id="312">
 					<top>PADDING_BASE_30P</top>
 					<right>0</right>
 					<width>100%</width>

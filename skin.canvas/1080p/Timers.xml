@@ -28,7 +28,7 @@
 		<name>movieepisodevideonavredir</name>
 		<stop>!Container(501).IsUpdating</stop>
 		<!-- If showing movies, set focus on list of actors, since the actual list of items is hidden and there only for structure purposes -->
-		<onstop condition="String.IsEqual(Window(1110).Property(Content.Type),movie)">SetFocus(601)</onstop>
+		<onstop condition="String.IsEqual(Window(1110).Property(Content.Type),movie)">SetFocus(410)</onstop>
 		<!-- If showing episodes, first navigate to proper episode, then show list by setting property -->
 		<onstop condition="String.IsEqual(Window(1110).Property(Content.Type),episode)">RunScript(script.canvas.helper,set_active_episode)</onstop>
 	</timer>
