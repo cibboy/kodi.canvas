@@ -45,6 +45,8 @@
 
 	<!-- Actor list -->
 	<include name="MediaNavActorList">
+		<param name="content">plugin://script.canvas.helper/actors/?dbid=$INFO[Container(501).ListItem.DBID]&amp;dbtype=$INFO[Container(501).ListItem.DBTYPE]</param>
+
 		<definition>
 			<!-- Label -->
 			<include content="ListLabel">
@@ -68,7 +70,7 @@
 					<param name="info2_color">$VAR[ContrastTextForegroundColor]</param>
 				</include>
 
-				<content>plugin://script.canvas.helper/actors/?dbid=$INFO[Container(501).ListItem.DBID]&amp;dbtype=$INFO[Container(501).ListItem.DBTYPE]</content>
+				<content>$PARAM[content]</content>
 			</include>
 		</definition>
 	</include>

@@ -11,7 +11,7 @@ episode_properties_query = ['file', 'art', 'showtitle', 'title', 'season', 'epis
 
 
 # Returns additional, non-native info from a movie.
-def get_additional_movie_info_from_listitem(itemid):
+def get_additional_movie_info(itemid):
     # Load movie details.
     query = {
         'movieid': itemid,
@@ -36,7 +36,7 @@ def get_additional_movie_info_from_listitem(itemid):
     }
 
 # Returns additional, non-native info from a TV show.
-def get_additional_tvshow_info_from_listitem(itemid):
+def get_additional_tvshow_info(itemid):
     # Load TV show details.
     query = {
         'tvshowid': itemid,
@@ -50,7 +50,7 @@ def get_additional_tvshow_info_from_listitem(itemid):
     }
 
 # Returns additional, non-native info from a TV show season.
-def get_additional_season_info_from_listitem(itemid):
+def get_additional_season_info(itemid):
     # Load season details.
     query = {
         'seasonid': itemid,
@@ -72,7 +72,7 @@ def get_additional_season_info_from_listitem(itemid):
     }
 
 # Returns additional, non-native info from a TV show episode.
-def get_additional_episode_info_from_listitem(itemid):
+def get_additional_episode_info(itemid):
     # Load episode details.
     query = {
         'episodeid': itemid,
@@ -330,7 +330,7 @@ def list_actors(params, handle):
     elif type == 'tvshow' and id is not None:
         item = call_rpc('VideoLibrary.GetTVShowDetails', { 'tvshowid': int(id), 'properties': ['cast'] }).get('tvshowdetails', None)
     # Episodes.
-    elif type == 'episode':
+    elif type == 'episode' and id is not None:
         item = call_rpc('VideoLibrary.GetEpisodeDetails', { 'episodeid': int(id), 'properties': ['cast'] }).get('episodedetails', None)
 
     # Add actors.
@@ -341,7 +341,7 @@ def list_actors(params, handle):
             li = get_actor_listitem(actor)
             xbmcplugin.addDirectoryItem(
                 handle=handle,
-                url=actor['name'],
+                url=actor['name'],#todo:fix with proper url
                 listitem=li,
                 isFolder=False
             )

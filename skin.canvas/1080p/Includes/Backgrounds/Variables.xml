@@ -3,7 +3,7 @@
 	<!-- Contrast text color (against blur art) -->
 	<variable name="ContrastTextForegroundColor">
 		<!-- Force light when home menu has focus (there is a darkening layer) -->
-		<value condition="$EXP[HasHomeMenuFocus]">FOREGROUND_CONTRAST_LIGHT</value>
+		<value condition="$EXP[HasHomeMenuFocus] | $EXP[IsVideoPlayerVisible] | $EXP[IsMusicPlayerVisible]">FOREGROUND_CONTRAST_LIGHT</value>
 		<!-- Light color -->
 		<value condition="$EXP[IsBestTextColorLight]">FOREGROUND_CONTRAST_LIGHT</value>
 		<!-- Dark color -->
@@ -13,7 +13,7 @@
 	</variable>
 	<variable name="ContrastTextHighlightColor">
 		<!-- Force light when home menu has focus (there is a darkening layer) -->
-		<value condition="$EXP[HasHomeMenuFocus]">HIGHLIGHT_CONTRAST_LIGHT</value>
+		<value condition="$EXP[HasHomeMenuFocus] | $EXP[IsVideoPlayerVisible] | $EXP[IsMusicPlayerVisible]">HIGHLIGHT_CONTRAST_LIGHT</value>
 		<!-- Light color -->
 		<value condition="$EXP[IsBestTextColorLight]">HIGHLIGHT_CONTRAST_LIGHT</value>
 		<!-- Dark color -->

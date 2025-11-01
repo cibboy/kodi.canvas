@@ -6,17 +6,43 @@
 		<value>$INFO[Player.Time()]</value>
 	</variable>
 
+	<!-- Poster art -->
+	<variable name="PlayerOSDPosterArt">
+		<value condition="!String.IsEmpty(VideoPlayer.Art(season.poster))">$INFO[VideoPlayer.Art(season.poster)]</value>
+		<value condition="!String.IsEmpty(VideoPlayer.Art(tvshow.poster))">$INFO[VideoPlayer.Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(VideoPlayer.Art(poster))">$INFO[VideoPlayer.Art(poster)]</value>
+		<value condition="!String.IsEmpty(MusicPlayer.Art(thumb))">$INFO[MusicPlayer.Art(thumb)]</value>
+	</variable>
+
+
+	<!-- Actions -->
+	<variable name="PlayerOSDPrevRewindAction">
+		<value condition="$EXP[IsVideoPlayerVisible]">PlayerControl(Rewind)</value>
+		<value>PlayerControl(Previous)</value>
+	</variable>
+	<variable name="PlayerOSDNextForwardAction">
+		<value condition="$EXP[IsVideoPlayerVisible]">PlayerControl(Forward)</value>
+		<value>PlayerControl(Next)</value>
+	</variable>
 	
 	<!-- Icons -->
 	<variable name="PlayerOSDPlayPauseIcon">
 		<value condition="Player.Playing">1080p/icons/pause.png</value>
 		<value>1080p/icons/play.png</value>
 	</variable>
+	<variable name="PlayerOSDNextForwardIcon">
+		<value condition="$EXP[IsVideoPlayerVisible]">1080p/icons/ff.png</value>
+		<value>1080p/icons/next.png</value>
+	</variable>
 
-
+	
 	<!-- Constants -->
 	<constant name="SIZE_PLAYER_STATUS_INDICATOR">200</constant>
 	<constant name="SIZE_PLAYER_SEEK_INDICATOR">100</constant>
+
+	<constant name="HEIGHT_OSD">650</constant>
+	<constant name="HEIGHT_OSD_CLEARLOGO">100</constant>
+	<constant name="HEIGHT_OSD_PLOT">200</constant>
 
 	<constant name="SIZE_OSD_BUTTON">80</constant>
 	<constant name="SIZE_OSD_BUTTON_FOCUS">110</constant>

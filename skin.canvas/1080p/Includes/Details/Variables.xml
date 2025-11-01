@@ -2,13 +2,17 @@
 <includes>
 	<!-- Custom clearlogo -->
 	<variable name="DetailsClearlogo">
-		<value>$INFO[Window(home).Property(Item.ClearlogoBig)]</value>
+		<value condition="$EXP[IsVideoPlayerVisible]">$INFO[Window(home).Property(Player.Item.Clearlogo)]</value>
+		<value>$INFO[Window(home).Property(Item.Clearlogo)]</value>
 	</variable>
 	<!-- Title -->
 	<variable name="DetailsTitle">
 		<!-- Episodes and seasons show TV show title -->
+		<value condition="$EXP[IsVideoPlayerVisible] + [$EXP[IsDetailsItemTypeEpisode] | $EXP[IsDetailsItemTypeSeason]]">$INFO[VideoPlayer.TVShowTitle]</value>
 		<value condition="$EXP[IsDialogInfoVisible] + [$EXP[IsDetailsItemTypeEpisode] | $EXP[IsDetailsItemTypeSeason]]">$INFO[ListItem.TVShowTitle]</value>
 		<!-- Everything else shows the actual item title -->
+		<value condition="$EXP[IsVideoPlayerVisible]">$INFO[VideoPlayer.Title]</value>
+		<value condition="$EXP[IsMusicPlayerVisible]">$INFO[MusicPlayer.Title]</value>
 		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.Title]</value>
 		<!-- Episodes and seasons show TV show title -->
 		<value condition="$EXP[IsDetailsItemTypeEpisode] | $EXP[IsDetailsItemTypeSeason]">$INFO[Container(501).ListItem.TVShowTitle]</value>
@@ -19,10 +23,13 @@
 	<!-- Episode title for episodes, season title for seasons, album name for songs -->
 	<variable name="DetailsTitle2">
 		<!-- Episode title -->
+		<value condition="$EXP[IsVideoPlayerVisible] + $EXP[IsDetailsItemTypeEpisode]">$INFO[VideoPlayer.Title]</value>
 		<value condition="$EXP[IsDialogInfoVisible] + $EXP[IsDetailsItemTypeEpisode]">$INFO[ListItem.Title]</value>
 		<!-- Season title -->
+		<value condition="$EXP[IsVideoPlayerVisible] + $EXP[IsDetailsItemTypeSeason]">$INFO[VideoPlayer.Title]</value>
 		<value condition="$EXP[IsDialogInfoVisible] + $EXP[IsDetailsItemTypeSeason]">$INFO[ListItem.Title]</value>
 		<!-- Album name -->
+		<value condition="$EXP[IsMusicPlayerVisible] + $EXP[IsDetailsItemTypeSong]">$INFO[MusicPlayer.Album]</value>
 		<value condition="$EXP[IsDialogInfoVisible] + $EXP[IsDetailsItemTypeSong]">$INFO[ListItem.Album]</value>
 		<!-- Episode title -->
 		<value condition="$EXP[IsDetailsItemTypeEpisode]">$INFO[Container(501).ListItem.Title]</value>
@@ -34,27 +41,35 @@
 
 	<!-- Studio -->
 	<variable name="DetailsStudio">
+		<value condition="$EXP[IsVideoPlayerVisible]">$INFO[VideoPlayer.Studio]</value>
 		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.Studio]</value>
 		<value>$INFO[Container(501).ListItem.Studio]</value>
 	</variable>
 
 	<!-- Resolution -->
 	<variable name="DetailsResolution">
+		<value condition="$EXP[IsVideoPlayerVisible]">$INFO[VideoPlayer.VideoResolution]</value>
 		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.VideoResolution]</value>
 		<value>$INFO[Container(501).ListItem.VideoResolution]</value>
 	</variable>
 	<!-- Video codec -->
 	<variable name="DetailsVideoCodec">
+		<value condition="$EXP[IsVideoPlayerVisible]">$INFO[VideoPlayer.VideoCodec]</value>
 		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.VideoCodec]</value>
 		<value>$INFO[Container(501).ListItem.VideoCodec]</value>
 	</variable>
 	<!-- Aspect ratio -->
 	<variable name="DetailsAspectRatio">
+		<value condition="$EXP[IsVideoPlayerVisible]">$INFO[VideoPlayer.VideoAspect]</value>
 		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.VideoAspect]</value>
 		<value>$INFO[Container(501).ListItem.VideoAspect]</value>
 	</variable>
 	<!-- HDR type -->
 	<variable name="DetailsHdrType">
+		<value condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(ListItem.HdrType,hdr10)">HDR</value>
+		<value condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(ListItem.HdrType,dolbyvision)">Dolby Vision</value>
+		<value condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(ListItem.HdrType,hlg)">HLG</value>
+		<value condition="$EXP[IsVideoPlayerVisible]">[UPPERCASE]$INFO[VideoPlayer.HdrType][/UPPERCASE]</value>
 		<value condition="$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.HdrType,hdr10)">HDR</value>
 		<value condition="$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.HdrType,dolbyvision)">Dolby Vision</value>
 		<value condition="$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.HdrType,hlg)">HLG</value>
@@ -66,6 +81,17 @@
 	</variable>
 	<!-- Audio channels -->
 	<variable name="DetailsAudioChannels">
+		<value condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(VideoPlayer.AudioChannels,1)">1.0</value>
+		<value condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(VideoPlayer.AudioChannels,2)">2.0</value>
+		<value condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(VideoPlayer.AudioChannels,3)">2.1</value>
+		<value condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(VideoPlayer.AudioChannels,4)">4.0</value>
+		<value condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(VideoPlayer.AudioChannels,5)">4.1</value>
+		<value condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(VideoPlayer.AudioChannels,6)">5.1</value>
+		<value condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(VideoPlayer.AudioChannels,7)">6.1</value>
+		<value condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(VideoPlayer.AudioChannels,8)">7.1</value>
+		<value condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(VideoPlayer.AudioChannels,9)">8.1</value>
+		<value condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(VideoPlayer.AudioChannels,10)">9.1</value>
+		<value condition="$EXP[IsVideoPlayerVisible]">$INFO[VideoPlayer.AudioChannels]</value>
 		<value condition="$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.AudioChannels,1)">1.0</value>
 		<value condition="$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.AudioChannels,2)">2.0</value>
 		<value condition="$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.AudioChannels,3)">2.1</value>
@@ -101,17 +127,17 @@
 		<value condition="$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.Property(AudioChannels.1),9)">8.1</value>
 		<value condition="$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.Property(AudioChannels.1),10)">9.1</value>
 		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.Property(AudioChannels.1)]</value>
-		<value condition="String.IsEqual(Container(501).ListItem.Property(AudioChannels.1),1)">1.0</value>
-		<value condition="String.IsEqual(Container(501).ListItem.Property(AudioChannels.1),2)">2.0</value>
-		<value condition="String.IsEqual(Container(501).ListItem.Property(AudioChannels.1),3)">2.1</value>
-		<value condition="String.IsEqual(Container(501).ListItem.Property(AudioChannels.1),4)">4.0</value>
-		<value condition="String.IsEqual(Container(501).ListItem.Property(AudioChannels.1),5)">4.1</value>
-		<value condition="String.IsEqual(Container(501).ListItem.Property(AudioChannels.1),6)">5.1</value>
-		<value condition="String.IsEqual(Container(501).ListItem.Property(AudioChannels.1),7)">6.1</value>
-		<value condition="String.IsEqual(Container(501).ListItem.Property(AudioChannels.1),8)">7.1</value>
-		<value condition="String.IsEqual(Container(501).ListItem.Property(AudioChannels.1),9)">8.1</value>
-		<value condition="String.IsEqual(Container(501).ListItem.Property(AudioChannels.1),10)">9.1</value>
-		<value>$INFO[Container(501).ListItem.Property(AudioChannels.1)]</value>
+		<value condition="!EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.Property(AudioChannels.1),1)">1.0</value>
+		<value condition="!EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.Property(AudioChannels.1),2)">2.0</value>
+		<value condition="!EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.Property(AudioChannels.1),3)">2.1</value>
+		<value condition="!EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.Property(AudioChannels.1),4)">4.0</value>
+		<value condition="!EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.Property(AudioChannels.1),5)">4.1</value>
+		<value condition="!EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.Property(AudioChannels.1),6)">5.1</value>
+		<value condition="!EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.Property(AudioChannels.1),7)">6.1</value>
+		<value condition="!EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.Property(AudioChannels.1),8)">7.1</value>
+		<value condition="!EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.Property(AudioChannels.1),9)">8.1</value>
+		<value condition="!EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.Property(AudioChannels.1),10)">9.1</value>
+		<value condition="!EXP[IsVideoPlayerVisible]">$INFO[Container(501).ListItem.Property(AudioChannels.1)]</value>
 	</variable>
 	<variable name="DetailsAudioChannelsStream2">
 		<value condition="$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.Property(AudioChannels.2),1)">1.0</value>
@@ -125,50 +151,54 @@
 		<value condition="$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.Property(AudioChannels.2),9)">8.1</value>
 		<value condition="$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.Property(AudioChannels.2),10)">9.1</value>
 		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.Property(AudioChannels.2)]</value>
-		<value condition="String.IsEqual(Container(501).ListItem.Property(AudioChannels.2),1)">1.0</value>
-		<value condition="String.IsEqual(Container(501).ListItem.Property(AudioChannels.2),2)">2.0</value>
-		<value condition="String.IsEqual(Container(501).ListItem.Property(AudioChannels.2),3)">2.1</value>
-		<value condition="String.IsEqual(Container(501).ListItem.Property(AudioChannels.2),4)">4.0</value>
-		<value condition="String.IsEqual(Container(501).ListItem.Property(AudioChannels.2),5)">4.1</value>
-		<value condition="String.IsEqual(Container(501).ListItem.Property(AudioChannels.2),6)">5.1</value>
-		<value condition="String.IsEqual(Container(501).ListItem.Property(AudioChannels.2),7)">6.1</value>
-		<value condition="String.IsEqual(Container(501).ListItem.Property(AudioChannels.2),8)">7.1</value>
-		<value condition="String.IsEqual(Container(501).ListItem.Property(AudioChannels.2),9)">8.1</value>
-		<value condition="String.IsEqual(Container(501).ListItem.Property(AudioChannels.2),10)">9.1</value>
-		<value>$INFO[Container(501).ListItem.Property(AudioChannels.2)]</value>
+		<value condition="!$EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.Property(AudioChannels.2),1)">1.0</value>
+		<value condition="!$EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.Property(AudioChannels.2),2)">2.0</value>
+		<value condition="!$EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.Property(AudioChannels.2),3)">2.1</value>
+		<value condition="!$EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.Property(AudioChannels.2),4)">4.0</value>
+		<value condition="!$EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.Property(AudioChannels.2),5)">4.1</value>
+		<value condition="!$EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.Property(AudioChannels.2),6)">5.1</value>
+		<value condition="!$EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.Property(AudioChannels.2),7)">6.1</value>
+		<value condition="!$EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.Property(AudioChannels.2),8)">7.1</value>
+		<value condition="!$EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.Property(AudioChannels.2),9)">8.1</value>
+		<value condition="!$EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.Property(AudioChannels.2),10)">9.1</value>
+		<value condition="!$EXP[IsVideoPlayerVisible]">$INFO[Container(501).ListItem.Property(AudioChannels.2)]</value>
 	</variable>
 	<!-- Audio language -->
 	<variable name="DetailsAudioLanguageStream1">
 		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.Property(AudioLanguage.1)]</value>
-		<value>$INFO[Container(501).ListItem.Property(AudioLanguage.1)]</value>
+		<value condition="!$EXP[IsVideoPlayerVisible]">$INFO[Container(501).ListItem.Property(AudioLanguage.1)]</value>
 	</variable>
 	<variable name="DetailsAudioLanguageStream2">
 		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.Property(AudioLanguage.2)]</value>
-		<value>$INFO[Container(501).ListItem.Property(AudioLanguage.2)]</value>
+		<value condition="!$EXP[IsVideoPlayerVisible]">$INFO[Container(501).ListItem.Property(AudioLanguage.2)]</value>
 	</variable>
 	<!-- Audio codec -->
 	<variable name="DetailsAudioCodecStream1">
 		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.Property(AudioCodec.1)]</value>
-		<value>$INFO[Container(501).ListItem.Property(AudioCodec.1)]</value>
+		<value condition="!$EXP[IsVideoPlayerVisible]">$INFO[Container(501).ListItem.Property(AudioCodec.1)]</value>
 	</variable>
 	<variable name="DetailsAudioCodecStream2">
 		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.Property(AudioCodec.2)]</value>
-		<value>$INFO[Container(501).ListItem.Property(AudioCodec.2)]</value>
+		<value condition="!$EXP[IsVideoPlayerVisible]">$INFO[Container(501).ListItem.Property(AudioCodec.2)]</value>
 	</variable>
 
 	<!-- Year -->
 	<variable name="DetailsYear">
+		<value condition="$EXP[IsVideoPlayerVisible]">$INFO[VideoPlayer.Year]</value>
+		<value condition="$EXP[IsMusicPlayerVisible]">$INFO[MusicPlayer.Year]</value>
 		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.Year]</value>
 		<value>$INFO[Container(501).ListItem.Year]</value>
 	</variable>
 
 	<!-- Episode number -->
 	<variable name="DetailsEpisodeNumber">
+		<value condition="$EXP[IsVideoPlayerVisible]">S$INFO[VideoPlayer.Season]·E$INFO[VideoPlayer.Episode]</value>
 		<value condition="$EXP[IsDialogInfoVisible]">S$INFO[ListItem.Season]·E$INFO[ListItem.Episode]</value>
 		<value>S$INFO[Container(501).ListItem.Season]·E$INFO[Container(501).ListItem.Episode]</value>
 	</variable>
 	<!-- Episode premiere -->
 	<variable name="DetailsEpisodePremiere">
+		<value condition="$EXP[IsVideoPlayerVisible]">$INFO[VideoPlayer.Premiered]</value>
 		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.Premiered]</value>
 		<value>$INFO[Container(501).ListItem.Premiered]</value>
 	</variable>
@@ -176,18 +206,23 @@
 	<variable name="DetailsNumberOfEpisodes">
 		<value condition="$EXP[IsDialogInfoVisible] + Integer.IsGreater(ListItem.Property(TotalEpisodes),1)">$INFO[ListItem.Property(TotalEpisodes)] episodes</value>
 		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.Property(TotalEpisodes)] episode</value>
-		<value condition="Integer.IsGreater(Container(501).ListItem.Property(TotalEpisodes),1)">$INFO[Container(501).ListItem.Property(TotalEpisodes)] episodes</value>
-		<value>$INFO[Container(501).ListItem.Property(TotalEpisodes)] episode</value>
+		<value condition="!$EXP[IsVideoPlayerVisible] + Integer.IsGreater(Container(501).ListItem.Property(TotalEpisodes),1)">$INFO[Container(501).ListItem.Property(TotalEpisodes)] episodes</value>
+		<value condition="!$EXP[IsVideoPlayerVisible]">$INFO[Container(501).ListItem.Property(TotalEpisodes)] episode</value>
 	</variable>
 
 	<!-- Artist -->
 	<variable name="DetailsArtist">
+		<value condition="$EXP[IsMusicPlayerVisible]">$INFO[MusicPlayer.Artist]</value>
 		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.Artist]</value>
 		<value>$INFO[Container(501).ListItem.Artist]</value>
 	</variable>
 
 	<!-- Duration -->
 	<variable name="DetailsDuration">
+		<value condition="$EXP[IsVideoPlayerVisible] + !String.IsEqual(Player.Duration(h),0)">$INFO[Player.Duration(h)]h $INFO[Player.Duration(mm)]m</value>
+		<value condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(Player.Duration(h),0)">$INFO[Player.Duration(mm)]m</value>
+		<value condition="$EXP[IsMusicPlayerVisible] + !String.IsEqual(Player.Duration(h),0)">$INFO[Player.Duration(h)]h $INFO[Player.Duration(mm)]m $INFO[Player.Duration(ss)]s</value>
+		<value condition="$EXP[IsMusicPlayerVisible] + String.IsEqual(Player.Duration(h),0)">$INFO[Player.Duration(m)]m $INFO[Player.Duration(ss)]s</value>
 		<value condition="$EXP[IsDialogInfoVisible] + $EXP[IsDetailsItemTypeVideo] + !String.IsEqual(ListItem.Duration(h),0)">$INFO[ListItem.Duration(h)]h $INFO[ListItem.Duration(mm)]m</value>
 		<value condition="$EXP[IsDialogInfoVisible] + $EXP[IsDetailsItemTypeVideo] + String.IsEqual(ListItem.Duration(h),0)">$INFO[ListItem.Duration(mm)]m</value>
 		<value condition="$EXP[IsDialogInfoVisible] + !$EXP[IsDetailsItemTypeVideo] + !String.IsEqual(ListItem.Duration(h),0)">$INFO[ListItem.Duration(h)]h $INFO[ListItem.Duration(mm)]m $INFO[ListItem.Duration(ss)]s</value>
@@ -200,23 +235,26 @@
 
 	<!-- MPAA -->
 	<variable name="DetailsMpaa">
+		<value condition="$EXP[IsVideoPlayerVisible]">$INFO[Window(home).Property(Player.Item.Mpaa)]</value>
 		<value>$INFO[Window(home).Property(Item.Mpaa)]</value>
 	</variable>
 
 	<!-- Status -->
 	<variable name="DetailsStatus">
 		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.Status]</value>
-		<value>$INFO[Container(501).ListItem.Status]</value>
+		<value condition="!$EXP[IsVideoPlayerVisible]">$INFO[Container(501).ListItem.Status]</value>
 	</variable>
 
 	<!-- Track number -->
 	<variable name="DetailsTrackNumber">
+		<value condition="$EXP[IsMusicPlayerVisible]">Track $INFO[MusicPlayer.TrackNumber]</value>
 		<value condition="$EXP[IsDialogInfoVisible]">Track $INFO[ListItem.TrackNumber]</value>
 		<value>Track $INFO[Container(501).ListItem.TrackNumber]</value>
 	</variable>
 
 	<!-- Genre -->
 	<variable name="DetailsGenre">
+		<value condition="$EXP[IsVideoPlayerVisible]">$INFO[VideoPlayer.Genre(comma)]</value>
 		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.Genre(comma)]</value>
 		<value>$INFO[Container(501).ListItem.Genre(comma)]</value>
 	</variable>
@@ -224,7 +262,7 @@
 	<!-- Episodes remaining -->
 	<variable name="DetailsEpisodesRemaining">
 		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.Property(WatchedEpisodes)] of $INFO[ListItem.Property(TotalEpisodes)] watched</value>
-		<value>$INFO[Container(501).ListItem.Property(WatchedEpisodes)] of $INFO[Container(501).ListItem.Property(TotalEpisodes)] watched</value>
+		<value condition="!$EXP[IsVideoPlayerVisible]">$INFO[Container(501).ListItem.Property(WatchedEpisodes)] of $INFO[Container(501).ListItem.Property(TotalEpisodes)] watched</value>
 	</variable>
 	<!-- Percent played -->
 	<variable name="DetailsPercentPlayed">
@@ -233,44 +271,48 @@
 		<!-- Evertyhing else -->
 		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.PercentPlayed]</value>
 		<!-- TV shows and season -->
-		<value condition="$EXP[IsDetailsItemTypeTvShow] | $EXP[IsDetailsItemTypeSeason]">$INFO[Container(501).ListItem.Property(WatchedEpisodePercent)]</value>
+		<value condition="!$EXP[IsVideoPlayerVisible] + !$EXP[IsMusicPlayerVisible] + [$EXP[IsDetailsItemTypeTvShow] | $EXP[IsDetailsItemTypeSeason]]">$INFO[Container(501).ListItem.Property(WatchedEpisodePercent)]</value>
 		<!-- Evertyhing else -->
-		<value>$INFO[Container(501).ListItem.PercentPlayed]</value>
+		<value condition="!$EXP[IsVideoPlayerVisible] + !$EXP[IsMusicPlayerVisible]">$INFO[Container(501).ListItem.PercentPlayed]</value>
 	</variable>
 	<!-- Time remaining -->
 	<variable name="DetailsTimeRemaining">
+		<value condition="$EXP[IsVideoPlayerVisible] | $EXP[IsMusicPlayerVisible]">$INFO[Window(home).Property(Player.Item.TimeRemaining)] left</value>
 		<value>$INFO[Window(home).Property(Item.TimeRemaining)] left</value>
 	</variable>
 
 	<!-- Plot -->
 	<variable name="DetailsPlot">
+		<value condition="$EXP[IsVideoPlayerVisible]">$INFO[VideoPlayer.Plot]</value>
 		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.Plot]</value>
 		<value>$INFO[Container(501).ListItem.Plot]</value>
 	</variable>
 
 	<!-- Director -->
 	<variable name="DetailsDirector">
+		<value condition="$EXP[IsVideoPlayerVisible]">$INFO[VideoPlayer.Director(comma)]</value>
 		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.Director(comma)]</value>
 		<value>$INFO[Container(501).ListItem.Director(comma)]</value>
 	</variable>
 	<!-- Writer -->
 	<variable name="DetailsWriter">
+		<value condition="$EXP[IsVideoPlayerVisible]">$INFO[VideoPlayer.Writer(comma)]</value>
 		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.Writer(comma)]</value>
 		<value>$INFO[Container(501).ListItem.Writer(comma)]</value>
 	</variable>
 	<!-- File path -->
 	<variable name="DetailsFilePath">
 		<value condition="$EXP[IsDialogInfoVisible]">$INFO[ListItem.FileNameAndPath]</value>
-		<value>$INFO[Container(501).ListItem.FileNameAndPath]</value>
+		<value condition="!$EXP[IsVideoPlayerVisible]">$INFO[Container(501).ListItem.FileNameAndPath]</value>
 	</variable>
 	<!-- Audio stream -->
 	<variable name="DetailsAudioStream1">
-		<value condition="$EXP[HasDetailsAudioLanguageStream1]">[CAPITALIZE]$VAR[DetailsAudioLanguageStream1][/CAPITALIZE] / [UPPERCASE]$VAR[DetailsAudioCodecStream1][/UPPERCASE] / $VAR[DetailsAudioChannelsStream1]</value>
-		<value>[UPPERCASE]$VAR[DetailsAudioCodecStream1][/UPPERCASE] / $VAR[DetailsAudioChannelsStream1]</value>
+		<value condition="!$EXP[IsVideoPlayerVisible] + $EXP[HasDetailsAudioLanguageStream1]">[CAPITALIZE]$VAR[DetailsAudioLanguageStream1][/CAPITALIZE] / [UPPERCASE]$VAR[DetailsAudioCodecStream1][/UPPERCASE] / $VAR[DetailsAudioChannelsStream1]</value>
+		<value condition="!$EXP[IsVideoPlayerVisible]">[UPPERCASE]$VAR[DetailsAudioCodecStream1][/UPPERCASE] / $VAR[DetailsAudioChannelsStream1]</value>
 	</variable>
 	<variable name="DetailsAudioStream2">
-		<value condition="$EXP[HasDetailsAudioLanguageStream1] + $EXP[HasDetailsAudioCodecStream2] + $EXP[HasDetailsAudioChannelsStream2]">[CAPITALIZE]$VAR[DetailsAudioLanguageStream2][/CAPITALIZE] / [UPPERCASE]$VAR[DetailsAudioCodecStream2][/UPPERCASE] / $VAR[DetailsAudioChannelsStream2]</value>
-		<value condition="$EXP[HasDetailsAudioCodecStream2] + $EXP[HasDetailsAudioChannelsStream2]">[UPPERCASE]$VAR[DetailsAudioCodecStream2][/UPPERCASE] / $VAR[DetailsAudioChannelsStream2]</value>
+		<value condition="!$EXP[IsVideoPlayerVisible] + $EXP[HasDetailsAudioLanguageStream1] + $EXP[HasDetailsAudioCodecStream2] + $EXP[HasDetailsAudioChannelsStream2]">[CAPITALIZE]$VAR[DetailsAudioLanguageStream2][/CAPITALIZE] / [UPPERCASE]$VAR[DetailsAudioCodecStream2][/UPPERCASE] / $VAR[DetailsAudioChannelsStream2]</value>
+		<value condition="!$EXP[IsVideoPlayerVisible] + $EXP[HasDetailsAudioCodecStream2] + $EXP[HasDetailsAudioChannelsStream2]">[UPPERCASE]$VAR[DetailsAudioCodecStream2][/UPPERCASE] / $VAR[DetailsAudioChannelsStream2]</value>
 	</variable>
 
 
@@ -293,9 +335,8 @@
 	<constant name="OFFSET_X_DETAILS_TAG">8</constant>
 	<constant name="OFFSET_Y_DETAILS_TAG">-2</constant>
 
-	<constant name="OFFSET_DETAILS_ART">200</constant>
-	<constant name="HEIGHT_DETAILS_POSTER">450</constant>
-	<constant name="WIDTH_DETAILS_POSTER">315</constant>
+	<constant name="HEIGHT_DETAILS_POSTER">585</constant>
+	<constant name="WIDTH_DETAILS_POSTER">410</constant>
 	<constant name="HEIGHT_DETAILS_LANDSCAPE">338</constant>
 	<constant name="WIDTH_DETAILS_LANDSCAPE">600</constant>
 

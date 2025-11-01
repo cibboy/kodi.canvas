@@ -39,6 +39,8 @@
 	<!-- Constants: screen-related sizes -->
 	<constant name="SCREEN_HEIGHT">1080</constant>
 	<constant name="SCREEN_WIDTH">1920</constant>
+	<constant name="SCREEN_HEIGHT_NEG">-1080</constant>
+	<constant name="SCREEN_WIDTH_NEG">-1920</constant>
 	<constant name="SCREEN_HEIGHT_HALF">540</constant>
 	<constant name="SCREEN_WIDTH_HALF">960</constant>
 	<constant name="SCREEN_HEIGHT_HALF_NEG">-540</constant>
@@ -48,7 +50,7 @@
 	<constant name="FONT_SIZE_TITLE1">90</constant>
 	<constant name="FONT_SIZE_TITLE2">75</constant>
 	<constant name="FONT_SIZE_TITLE3">62</constant>
-	<constant name="FONT_SIZE_SUBTITLE">38</constant>
+	<constant name="FONT_SIZE_SUBTITLE">42</constant>
 	<constant name="FONT_SIZE_BODY">32</constant>
 	<constant name="FONT_SIZE_BODY2">25</constant>
 	<constant name="FONT_SIZE_CAPTION">24</constant>

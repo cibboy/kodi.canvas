@@ -19,6 +19,7 @@
 			<control type="button" id="1">
 				<label>stop</label>
 				<onback>PlayerControl(Stop)</onback>
+				<onback>ClearProperty(Player.Item.DBID,home)</onback>
 				<onclick>ActivateWindow(12005)</onclick>
 			</control>
 		</include>

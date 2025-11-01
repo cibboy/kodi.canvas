@@ -57,5 +57,16 @@
 			<param name="slide_from">300</param>
 			<param name="slide_to">100</param>
 		</include>
+
+		<!-- Progress and time (during seeking) -->
+		<control type="group" id="300">
+			<visible>Player.Seeking</visible>
+			<include content="ShowHideFadeSlideVerticalAnimation">
+				<param name="speed">ANIMATION_MID</param>
+				<param name="delay_out">1000</param>
+			</include>
+
+			<include content="PlayerOSDProgress" />
+		</control>
 	</controls>
 </window>

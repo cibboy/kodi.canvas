@@ -153,7 +153,7 @@
 					</control>
 					<!-- Message -->
 					<control type="textbox" id="9">
-						<visible>!String.IsEmpty($INFO[Control.GetLabel(9)])</visible>
+						<visible>!String.IsEmpty(Control.GetLabel(9))</visible>
 						<width>100%</width>
 						<height>100</height>
 						<left>PADDING_BASE_20P</left>

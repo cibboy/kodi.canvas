@@ -50,7 +50,7 @@
 				<width>50%</width>
 				<height>100%</height>
 				<left>$PARAM[darkening_left]</left>
-				<texture flipx="$PARAM[flip]" colordiffuse="BACKGROUND">1080p/diffuse/fade-side.png</texture>
+				<texture flipx="$PARAM[flip]" colordiffuse="BACKGROUND">1080p/diffuse/fade-seek.png</texture>
 			</control>
 
 			<!-- Indicator -->
@@ -92,70 +92,25 @@
 
 	<!-- Generic OSD -->
 	<include name="PlayerOSD">
-		<param name="left_control">100</param>
-		<param name="right_control">100</param>
+		<param name="onleft">SetFocus(100)</param>
+		<param name="onright">SetFocus(100)</param>
+		<param name="ondown">noop</param>
 
 		<definition>
 			<control type="group">
-				<include content="ShowHideFadeSlideVerticalAnimation">
-					<param name="slide_amount">100</param>
-					<param name="speed">ANIMATION_MID</param>
-					<param name="visible_condition">WindowOpen</param>
-					<param name="hidden_condition">WindowClose</param>
-				</include>
-
 				<width>SCREEN_WIDTH</width>
-				<height>SCREEN_HEIGHT_HALF</height>
+				<height>HEIGHT_OSD</height>
 				<bottom>0</bottom>
 
 				<!-- Darkening -->
 				<control type="image">
 					<width>100%</width>
 					<height>100%</height>
-					<texture colordiffuse="BACKGROUND_OPAQUE90">1080p/diffuse/fade-bottom.png</texture>
+					<texture colordiffuse="BACKGROUND_OPAQUE90">1080p/diffuse/fade-osd.png</texture>
 				</control>
 
-				<!-- Progress -->
-				<control type="group">
-					<centerbottom>OFFSET_OSD_PROGRESS</centerbottom>
-					<left>PADDING_BASE_125P</left>
-					<right>PADDING_BASE_125P</right>
-					<height>12</height>
-					
-					<control type="progress">	<!-- Caching -->
-						<texturebg colordiffuse="BACKGROUND_OPAQUE35" border="6">1080p/progress/bg.png</texturebg>
-						<midtexture colordiffuse="FOREGROUND_OPAQUE35" border="6">1080p/progress/mid.png</midtexture>
-						<info>Player.ProgressCache</info>
-					</control>
-					<control type="progress">	<!-- Actual progress -->
-						<texturebg colordiffuse="TRANSPARENT" border="6">1080p/progress/bg.png</texturebg>
-						<info>Player.Progress</info>
-					</control>
-				</control>
-
-				<!-- Time -->
-				<control type="group">
-					<bottom>OFFSET_OSD_PROGRESS</bottom>
-					<left>PADDING_BASE_125P</left>
-					<right>PADDING_BASE_125P</right>
-					<height>FONT_SIZE_CAPTION2</height>
-
-					<!-- Elapsed -->
-					<control type="label">
-						<top>PADDING_BASE_30P</top>
-						<font>CAPTION_STRONG</font>
-						<label>$VAR[PlayerOSDElapsedTime]</label>
-					</control>
-					<!-- Remaining -->
-					<control type="label">
-						<top>PADDING_BASE_30P</top>
-						<right>0</right>
-						<width>100%</width>
-						<font>CAPTION_STRONG</font>
-						<align>right</align>
-						<label>$INFO[Player.TimeRemaining()]</label>
-					</control>
-				</control>
+				<!-- Progress and time -->
+				<include content="PlayerOSDProgress" />
 
 				<!-- Controls -->
 				<control type="grouplist" id="100">
@@ -169,18 +124,19 @@
 					<right>PADDING_BASE_125P</right>
 					<centerbottom>PADDING_BASE_125P</centerbottom>
 
-					<onleft>$PARAM[left_control]</onleft>
-					<onright>$PARAM[right_control]</onright>
+					<onleft>$PARAM[onleft]</onleft>
+					<onright>$PARAM[onright]</onright>
+					<ondown>$PARAM[ondown]</ondown>
 
-					<!-- Rewind -->
+					<!-- Previous/Rewind -->
 					<include content="PlayerOSDButton">
 						<param name="id">101</param>
 						<param name="size">SIZE_OSD_BUTTON</param>
 						<param name="size_focus">SIZE_OSD_BUTTON_FOCUS</param>
 						<param name="size_icon">SIZE_OSD_BUTTON_ICON</param>
-						<param name="icon">1080p/icons/ff.png</param>
+						<param name="icon">$VAR[PlayerOSDNextForwardIcon]</param>
 						<param name="flip_icon">true</param>
-						<param name="action">PlayerControl(Rewind)</param>
+						<param name="action">$VAR[PlayerOSDPrevRewindAction]</param>
 					</include>
 					<!-- Play/pause -->
 					<include content="PlayerOSDButton">
@@ -191,14 +147,14 @@
 						<param name="icon">$VAR[PlayerOSDPlayPauseIcon]</param>
 						<param name="action">PlayerControl(Play)</param>
 					</include>
-					<!-- Forward -->
+					<!-- Next/Forward -->
 					<include content="PlayerOSDButton">
 						<param name="id">103</param>
 						<param name="size">SIZE_OSD_BUTTON</param>
 						<param name="size_focus">SIZE_OSD_BUTTON_FOCUS</param>
 						<param name="size_icon">SIZE_OSD_BUTTON_ICON</param>
-						<param name="icon">1080p/icons/ff.png</param>
-						<param name="action">PlayerControl(Forward)</param>
+						<param name="icon">$VAR[PlayerOSDNextForwardIcon]</param>
+						<param name="action">$VAR[PlayerOSDNextForwardAction]</param>
 					</include>
 				</control>
 
@@ -207,7 +163,69 @@
 			</control>
 		</definition>
 	</include>
+	<!-- OSD progress -->
+	<include name="PlayerOSDProgress">
+		<definition>
+			<!-- Progress -->
+			<control type="group" id="301">
+				<centerbottom>OFFSET_OSD_PROGRESS</centerbottom>
+				<left>PADDING_BASE_125P</left>
+				<right>PADDING_BASE_125P</right>
+				<height>12</height>
+				
+				<control type="progress" id="302">	<!-- Caching -->
+					<texturebg colordiffuse="FOREGROUND_OPAQUE50" border="6">1080p/progress/bg.png</texturebg>
+					<midtexture colordiffuse="FOREGROUND_OPAQUE50" border="6">1080p/progress/mid.png</midtexture>
+					<info>Player.ProgressCache</info>
+				</control>
+				<control type="progress" id="303">	<!-- Actual progress -->
+					<texturebg colordiffuse="TRANSPARENT" border="6">1080p/progress/bg.png</texturebg>
+					<info>Player.Progress</info>
+				</control>
+			</control>
 
+			<!-- Time -->
+			<control type="group" id="304">
+				<bottom>OFFSET_OSD_PROGRESS</bottom>
+				<left>PADDING_BASE_125P</left>
+				<right>PADDING_BASE_125P</right>
+				<height>FONT_SIZE_CAPTION2</height>
+
+				<!-- Elapsed -->
+				<control type="label" id="305">
+					<top>PADDING_BASE_30P</top>
+					<font>CAPTION_STRONG</font>
+					<label>$VAR[PlayerOSDElapsedTime]</label>
+				</control>
+				<!-- Remaining -->
+				<control type="label" id="306">
+					<top>PADDING_BASE_30P</top>
+					<right>0</right>
+					<width>100%</width>
+					<font>CAPTION_STRONG</font>
+					<align>right</align>
+					<label>-$INFO[Player.TimeRemaining()]</label>
+				</control>
+			</control>
+		</definition>
+	</include>
+	<!-- OSD info text -->
+	<include name="PlayerOSDInfoText">	
+		<param name="visible">true</param>
+		<param name="text"></param>
+
+		<definition>
+			<control type="label">
+				<visible>$PARAM[visible]</visible>
+				<bottom>6</bottom>
+				<height>FONT_SIZE_CAPTION</height>
+				<width>auto</width>
+				<aligny>center</aligny>
+				<font>CAPTION_STRONG</font>
+				<label>$PARAM[text]</label>
+			</control>
+		</definition>
+	</include>
 	<!-- OSD button -->
 	<include name="PlayerOSDButton">
 		<param name="id"></param>

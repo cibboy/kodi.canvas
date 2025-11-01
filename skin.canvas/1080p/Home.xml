@@ -84,15 +84,6 @@
 				</control>
 			</control>
 
-			<control type="videowindow" id="2">
-				<description>My first video control</description>
-				<left>80</left>
-				<top>60</top>
-				<width>250</width>
-				<height>200</height>
-				<visible>true</visible>
-			</control>
-
 			<!-- Clock -->
 			<include content="TopBar" />
 
