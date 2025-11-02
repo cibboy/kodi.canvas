@@ -122,6 +122,8 @@ def get_next_episode(tvshowid, season, episode):
         # Load all show episodes.
         episodes = call_rpc('VideoLibrary.GetEpisodes', {
             'tvshowid': tvshowid,
+            # Sort by episode, ascending.
+            'sort': {'order': 'ascending', 'method': 'episode'},
             'properties': ['season', 'episode']
         }).get('episodes', [])
 
