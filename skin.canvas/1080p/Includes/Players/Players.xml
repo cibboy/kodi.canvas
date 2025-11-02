@@ -298,4 +298,39 @@
 			</control>
 		</definition>
 	</include>
+
+	<!-- Video next focus animation -->
+	<include name="VideoNextUnFocusArtDarkening">
+		<param name="reference_control_id"></param>
+
+		<definition>
+			<!-- Unfocus darkening -->
+			<control type="image">
+				<include content="VideoNextFocusAnimation">
+					<param name="reference_control_id">$PARAM[reference_control_id]</param>
+					<param name="start">100</param>
+					<param name="end">0</param>
+				</include>
+
+				<width>100%</width>
+				<height>100%</height>
+				<texture colordiffuse="BACKGROUND_OPAQUE50">diffuse.png</texture>
+			</control>
+		</definition>
+	</include>
+	<!-- Video next focus animation -->
+	<include name="VideoNextFocusAnimation">
+		<param name="reference_control_id"></param>
+		<param name="start">50</param>
+		<param name="end">100</param>
+
+		<definition>
+			<animation type="Conditional" condition="Control.HasFocus($PARAM[reference_control_id])">
+				<effect type="fade" start="$PARAM[start]" end="$PARAM[end]" time="ANIMATION_FAST" tween="linear" easing="out" />
+			</animation>
+			<animation type="Conditional" condition="!Control.HasFocus($PARAM[reference_control_id])">
+				<effect type="fade" start="$PARAM[end]" end="$PARAM[start]" time="ANIMATION_FAST" tween="linear" easing="out" />
+			</animation>
+		</definition>
+	</include>
 </includes>

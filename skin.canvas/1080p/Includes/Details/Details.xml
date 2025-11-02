@@ -142,6 +142,35 @@
 	</include>
 
 
+	<!-- Title/clearlogo -->
+	<include name="DetailsTitleClearlogo">
+		<definition>
+			<control type="group">
+				<height>HEIGHT_DETAILS_TITLE_SECTION</height>
+
+				<!-- Title (if clearlogo not available) -->
+				<control type="label">
+					<visible>![$EXP[IsDetailsClearlogoAvailable]]</visible>
+					<top>40</top>
+					<width>1000</width>
+					<height>HEIGHT_DETAILS_TITLE</height>
+					<aligny>center</aligny>
+					<font>TITLE1</font>
+					<textcolor>$VAR[ContrastTextHighlightColor]</textcolor>
+					<label>$VAR[DetailsTitle]</label>
+				</control>
+				<!-- Clearlogo -->
+				<control type="image">
+					<width>WIDTH_DETAILS_CLEARLOGO</width>
+					<height>HEIGHT_DETAILS_CLEARLOGO</height>
+					<fadetime>ANIMATION_SLOW</fadetime>
+					<texture background="true">$VAR[DetailsClearlogo]</texture>
+					<aspectratio align="left">keep</aspectratio>
+				</control>
+			</control>
+		</definition>
+	</include>
+
 	<!-- Details -->
 	<include name="SelectionDetails">
 		<param name="plot_height">HEIGHT_DETAILS_PLOT</param>
@@ -152,29 +181,7 @@
 				<itemgap>PADDING_BASE_20P</itemgap>
 
 				<!-- Title/clearlogo -->
-				<control type="group">
-					<height>HEIGHT_DETAILS_TITLE_SECTION</height>
-
-					<!-- Title (if clearlogo not available) -->
-					<control type="label">
-						<visible>![$EXP[IsDetailsClearlogoAvailable]]</visible>
-						<top>40</top>
-						<width>1000</width>
-						<height>HEIGHT_DETAILS_TITLE</height>
-						<aligny>center</aligny>
-						<font>TITLE1</font>
-						<textcolor>$VAR[ContrastTextHighlightColor]</textcolor>
-						<label>$VAR[DetailsTitle]</label>
-					</control>
-					<!-- Clearlogo -->
-					<control type="image">
-						<width>WIDTH_DETAILS_CLEARLOGO</width>
-						<height>HEIGHT_DETAILS_CLEARLOGO</height>
-						<fadetime>ANIMATION_SLOW</fadetime>
-						<texture background="true">$VAR[DetailsClearlogo]</texture>
-						<aspectratio align="left">keep</aspectratio>
-					</control>
-				</control>
+				<include content="DetailsTitleClearlogo" />
 
 				<!-- Media info lines -->
 				<control type="grouplist">

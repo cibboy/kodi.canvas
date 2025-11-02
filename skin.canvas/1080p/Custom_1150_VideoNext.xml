@@ -1,26 +1,253 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window type="window" id="1150">
-	<!-- Video exit strategy window: if still going, stop; if almost done show next episode -->
 	<defaultcontrol always="true">1</defaultcontrol>
-	<!-- Set focus after a second, otherwise it's lost somehow... -->
-	<onload>AlarmClock(redirect,SetFocus(1),00:00:01,silent)</onload>
+	<onload>ClearProperty(Player.NextItem.Present,home)</onload>
+	<!-- Find next episode, if any -->
+	<onload>RunScript(script.canvas.helper,load_nextup,$INFO[VideoPlayer.TVShowDBID],$INFO[VideoPlayer.Season],$INFO[VideoPlayer.Episode])</onload>
 
 	<controls>
-		<include content="Center169AspectRatio"><!--todo-->
-			<!-- Current video -->
-			<control type="videowindow">
-				<left>80</left>
-				<top>60</top>
-				<width>250</width>
-				<height>200</height>
-				<visible>true</visible>
-			</control>
+		<include content="Center169AspectRatio">
+			<!-- Background with blurred quadrants -->
+			<include content="BackgroundQuadrantBlur" />
 
-			<control type="button" id="1">
-				<label>stop</label>
-				<onback>PlayerControl(Stop)</onback>
-				<onback>ClearProperty(Player.Item.DBID,home)</onback>
-				<onclick>ActivateWindow(12005)</onclick>
+			<!-- Darkening -->
+			<include content="DarkeningLayer">
+				<param name="colordiffuse">BACKGROUND_OPAQUE75</param>
+			</include>
+
+			<!-- Content -->
+			<control type="group">
+				<top>80</top>
+				<left>PADDING_BASE</left>
+
+				<!-- Title/clearlogo -->
+				<include content="DetailsTitleClearlogo" />
+
+				<!-- Current video -->
+				<control type="group">
+					<top>180</top>
+					<width>600</width>
+					<height>HEIGHT_NEXTVIDEO_SECTION</height>
+
+					<!-- Hidden button for actions -->
+					<control type="button" id="1">
+						<visible allowhiddenfocus="true">false</visible>
+						<onback>PlayerControl(Stop)</onback>
+						<onback>ClearProperty(Player.Item.DBID,home)</onback>
+						<onclick>ActivateWindow(12005)</onclick>
+						<ondown condition="String.IsEqual(Window(home).Property(Player.NextItem.Present),true)">SetFocus(2)</ondown>
+					</control>
+
+					<!-- Now playing label -->
+					<control type="label">
+						<!-- Focus fade -->
+						<include content="VideoNextFocusAnimation">
+							<param name="reference_control_id">1</param>
+						</include>
+
+						<font>BODY_STRONG</font>
+						<textcolor>FOREGROUND_ACCENT</textcolor>
+						<label>Now playing</label>
+					</control>
+
+					<!-- Current video -->
+					<control type="group">
+						<top>PADDING_BASE_60P</top>
+						<width>WIDTH_NEXTVIDEO_LANDSCAPE</width>
+						<height>HEIGHT_NEXTVIDEO_LANDSCAPE</height>
+
+						<!-- Video -->
+						<control type="videowindow">
+							<width>WIDTH_NEXTVIDEO_LANDSCAPE</width>
+							<height>HEIGHT_NEXTVIDEO_LANDSCAPE</height>
+						</control>
+						<!-- Unfocus darkening -->
+						<include content="VideoNextUnFocusArtDarkening">
+							<param name="reference_control_id">1</param>
+						</include>
+					</control>
+				</control>
+
+				<!-- Next video -->
+				<control type="group">
+					<visible>String.IsEqual(Window(home).Property(Player.NextItem.Present),true)</visible>
+
+					<bottom>PADDING_BASE</bottom>
+					<right>PADDING_BASE</right>
+					<width>1250</width>
+					<height>HEIGHT_NEXTVIDEO_SECTION</height>
+
+					<!-- Hidden button for actions -->
+					<control type="button" id="2">
+						<visible allowhiddenfocus="true">false</visible>
+						<onback>PlayerControl(Stop)</onback>
+						<onback>ClearProperty(Player.Item.DBID,home)</onback>
+						<onclick>PlayMedia($INFO[Window(home).Property(Player.NextItem.File)])</onclick>
+						<onup>SetFocus(1)</onup>
+					</control>
+
+					<!-- Up next label -->
+					<control type="label">
+						<!-- Focus fade -->
+						<include content="VideoNextFocusAnimation">
+							<param name="reference_control_id">2</param>
+						</include>
+
+						<right>0</right>
+						<width>200</width>
+						<align>right</align>
+						<font>BODY_STRONG</font>
+						<textcolor>FOREGROUND_ACCENT</textcolor>
+						<label>Up next</label>
+					</control>
+
+					<!-- Thumbnail of next episode -->
+					<control type="group">
+						<bottom>0</bottom>
+						<right>0</right>
+						<width>WIDTH_NEXTVIDEO_LANDSCAPE</width>
+						<height>HEIGHT_NEXTVIDEO_LANDSCAPE</height>
+
+						<!-- Thumbnail -->
+						<control type="image">
+							<width>WIDTH_NEXTVIDEO_LANDSCAPE</width>
+							<height>HEIGHT_NEXTVIDEO_LANDSCAPE</height>
+							<texture fallback="1080p/fallback/landscape.png">$INFO[Window(home).Property(Player.NextItem.Thumb)]</texture>
+						</control>
+						<!-- Play icon -->
+						<control type="group">
+							<centertop>50%</centertop>
+							<centerleft>50%</centerleft>
+							<width>100</width>
+							<height>100</height>
+
+							<control type="image">
+								<centertop>50%</centertop>
+								<centerleft>50%</centerleft>
+								<width>100</width>
+								<height>100</height>
+								<texture colordiffuse="FOREGROUND_ACCENT">1080p/controls/button-circle.png</texture>
+							</control>
+							<control type="image">
+								<centertop>50%</centertop>
+								<centerleft>50%</centerleft>
+								<width>45</width>
+								<height>45</height>
+								<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/icons/play.png</texture>
+							</control>
+						</control>
+						<!-- Unfocus darkening -->
+						<include content="VideoNextUnFocusArtDarkening">
+							<param name="reference_control_id">2</param>
+						</include>
+					</control>
+
+					<!-- Details of next episode -->
+					<control type="grouplist">
+						<!-- Focus fade -->
+						<include content="VideoNextFocusAnimation">
+							<param name="reference_control_id">2</param>
+						</include>
+
+						<itemgap>PADDING_BASE_20P</itemgap>
+						<top>PADDING_BASE_30P</top>
+
+						<!-- TV show episode title -->
+						<control type="label">
+							<width>1000</width>
+							<height>HEIGHT_DETAILS_INFOLINE</height>
+							<aligny>center</aligny>
+							<font>SUBTITLE</font>
+							<textcolor>$VAR[ContrastTextHighlightColor]</textcolor>
+							<label>$INFO[Window(home).Property(Player.NextItem.Title)]</label>
+						</control>
+
+						<!-- Media info -->
+						<control type="grouplist">
+							<orientation>horizontal</orientation>
+							<itemgap>PADDING_BASE_10P</itemgap>
+							<height>HEIGHT_DETAILS_INFOLINE</height>
+							<top>OFFSET_DETAILS_INFOLINE_CONTENT</top>
+
+							<!-- Episode -->
+							<include content="DetailsInfoText">
+								<param name="text">S$INFO[Window(home).Property(Player.NextItem.Season)]·E$INFO[Window(home).Property(Player.NextItem.Episode)]</param>
+								<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+								<param name="visible">!String.IsEmpty(Window(home).Property(Player.NextItem.Season)) + !String.IsEmpty(Window(home).Property(Player.NextItem.Episode))</param>
+							</include>
+							<!-- Premiered -->
+							<include content="DetailsInfoText">
+								<param name="text">$INFO[Window(home).Property(Player.NextItem.Premiered)]</param>
+								<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+								<param name="visible">!String.IsEmpty(Window(home).Property(Player.NextItem.Premiered))</param>
+							</include>
+							<!-- Duration -->
+							<include content="DetailsInfoText">
+								<param name="text">$INFO[Window(home).Property(Player.NextItem.Duration)]</param>
+								<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+								<param name="visible">!String.IsEmpty(Window(home).Property(Player.NextItem.Duration))</param>
+							</include>
+						</control>
+
+						<!-- Summary -->
+						<control type="textbox">
+							<width>700</width>
+							<height>200</height>
+
+							<font>BODY2</font>
+							<textcolor>$VAR[ContrastTextForegroundColor]</textcolor>
+							<label>$INFO[Window(home).Property(Player.NextItem.Plot)]</label>
+							<autoscroll delay="10000" time="1000" repeat="10000">true</autoscroll>
+						</control>
+					</control>
+				</control>
+
+				<!-- Hints -->
+				<control type="grouplist">
+					<orientation>horizontal</orientation>
+					<itemgap>PADDING_BASE_10P</itemgap>
+					<usecontrolcoords>true</usecontrolcoords>
+					
+					<bottom>PADDING_BASE</bottom>
+					<height>HEIGHT_NEXTVIDEO_HINTS</height>
+
+					<!-- Back -->
+					<control type="image">
+						<centertop>50%</centertop>
+						<width>SIZE_NEXTVIDEO_HINTS_ICON</width>
+						<height>SIZE_NEXTVIDEO_HINTS_ICON</height>
+						<texture colordiffuse="FOREGROUND">1080p/icons/back.png</texture>
+					</control>
+					<control type="label">
+						<width>auto</width>
+						<height>HEIGHT_NEXTVIDEO_HINTS</height>
+						<aligny>center</aligny>
+						<font>CAPTION_STRONG</font>
+						<textcolor>FOREGROUND</textcolor>
+						<label>Back</label>
+					</control>
+
+					<!-- Padding -->
+					<control type="label">
+						<width>PADDING_BASE_20P</width>
+					</control>
+
+					<!-- Ok -->
+					<control type="image">
+						<centertop>50%</centertop>
+						<width>SIZE_NEXTVIDEO_HINTS_ICON</width>
+						<height>SIZE_NEXTVIDEO_HINTS_ICON</height>
+						<texture colordiffuse="FOREGROUND">1080p/icons/watched-bg.png</texture>
+					</control>
+					<control type="label">
+						<width>auto</width>
+						<height>HEIGHT_NEXTVIDEO_HINTS</height>
+						<aligny>center</aligny>
+						<font>CAPTION_STRONG</font>
+						<textcolor>FOREGROUND</textcolor>
+						<label>$VAR[VideoNextOkHint]</label>
+					</control>
+				</control>
 			</control>
 		</include>
 	</controls>

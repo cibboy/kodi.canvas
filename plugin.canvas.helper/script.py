@@ -3,6 +3,7 @@ import xbmc, xbmcgui
 from datetime import datetime
 from image import get_blurred, get_cropped_clearlogo
 from media import *
+from utils import *
 
 # Clear custom listitem properties on home used for additional details.
 def clear_listitem_properties(property_base = 'Item', include_navigation = True):
@@ -110,15 +111,9 @@ def get_additional_media_info_from_player():
     if current_windowid == 12005: player = 'VideoPlayer'        # VideoOSD
     elif current_windowid == 12006: player = 'MusicPlayer'      # MusicOSD
 
-    # Compute itemtype from content.
-    itemtype = ''
-    if current_windowid == 12006: itemtype = 'song'
-    elif current_windowid == 12005:
-        if xbmc.getInfoLabel('VideoPlayer.Episode') != '': itemtype = 'episode'
-        else: itemtype = 'movie'
-
     active_itemid = window.getProperty('Player.Item.DBID')
     itemid = xbmc.getInfoLabel(f"{player}.DBID")
+    itemtype = window.getProperty('Player.Item.DBTYPE')
     # Continue if working with a different item. This prevents trying to
     # access information with xbmc.getInfoLabel() when a dialog appeared
     # above the window where we are trying to run that method.
@@ -128,7 +123,6 @@ def get_additional_media_info_from_player():
         window.setProperty('Player.Item.Clearlogo', 'transparent.png')
         # Set the new active item ID and type.
         window.setProperty('Player.Item.DBID', itemid)
-        window.setProperty('Player.Item.DBTYPE', itemtype)
         # Populate properties.
         get_additional_media_info(window, itemtype, itemid, player, 'Player.Item', True)
 
@@ -508,6 +502,49 @@ def set_active_episode():
     xbmc.executebuiltin(f"SetFocus(501,{offset},absolute)")
 
 
+# Finds the next episode to play, if any.
+def load_nextup(tvshowid, season, episode):
+    # All properties reside on home window.
+    window = xbmcgui.Window(10000)
+
+    # Clear up.
+    window.clearProperty('Player.NextItem.Title')
+    window.clearProperty('Player.NextItem.Season')
+    window.clearProperty('Player.NextItem.Episode')
+    window.clearProperty('Player.NextItem.Premiered')
+    window.clearProperty('Player.NextItem.Duration')
+    window.clearProperty('Player.NextItem.Plot')
+    window.clearProperty('Player.NextItem.Thumb')
+    window.clearProperty('Player.NextItem.File')
+    window.clearProperty('Player.NextItem.Present')
+
+    ep = get_next_episode(tvshowid, season, episode)
+
+    # Populate if found.
+    if ep is not None:
+        window.setProperty('Player.NextItem.Title', ep.get('title', ''))
+        window.setProperty('Player.NextItem.Season', str(ep.get('season', '')))
+        window.setProperty('Player.NextItem.Episode', str(ep.get('episode', '')))
+        window.setProperty('Player.NextItem.Premiered', ep.get('firstaired', ''))
+        window.setProperty('Player.NextItem.Plot', ep.get('plot', ''))
+        window.setProperty('Player.NextItem.Thumb', ep.get('art', {}).get('thumb', ''))
+        window.setProperty('Player.NextItem.File', ep.get('file', ''))
+        window.setProperty('Player.NextItem.Present', 'true')
+        # Direct compute of duration string.
+        duration = int(ep.get('streamdetails', {}).get('video', [{}])[0].get('duration', -1))
+        if duration == -1: duration = ''
+        elif duration > 3600: duration = format_timespan(duration, '[H]h [m]m')
+        else: duration = format_timespan(duration, '[m]m')
+        window.setProperty('Player.NextItem.Duration', duration)
+        # Set focus on play next. Set focus after a second, otherwise it's lost somehow...
+        time.sleep(1)
+        xbmc.executebuiltin('SetFocus(2)')
+    else:
+        # Set focus on currently playing. Set focus after a second, otherwise it's lost somehow...
+        time.sleep(1)
+        xbmc.executebuiltin('SetFocus(1)')
+
+
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         method = sys.argv[1]
@@ -552,6 +589,9 @@ if __name__ == '__main__':
         # Move active element to requested episode (retrieved from window properties).
         elif method == 'set_active_episode':
             set_active_episode()
+        # Finds the next episode to play, if any.
+        elif method == 'load_nextup':
+            load_nextup(sys.argv[2], sys.argv[3], sys.argv[4])
 
         # Test method.
         elif method == 'ping':

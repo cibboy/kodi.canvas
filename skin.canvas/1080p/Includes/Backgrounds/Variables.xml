@@ -24,6 +24,12 @@
 
 	<!-- Background image -->
 	<variable name="BackgroundArt">
+		<!-- Next video window visible -->
+		<value condition="$EXP[IsVideoPlayerVisible] + $EXP[IsDetailsItemTypeEpisode] + !String.IsEmpty(VideoPlayer.Art(season.fanart))">$INFO[VideoPlayer.Art(season.fanart)]</value>
+		<value condition="$EXP[IsVideoPlayerVisible] + $EXP[IsDetailsItemTypeEpisode] + !String.IsEmpty(VideoPlayer.Art(tvshow.fanart))">$INFO[VideoPlayer.Art(tvshow.fanart)]</value>
+		<value condition="$EXP[IsVideoPlayerVisible] + $EXP[IsDetailsItemTypeSeason] + !String.IsEmpty(VideoPlayer.Art(fanart))">$INFO[VideoPlayer.Art(fanart)]</value>
+		<value condition="$EXP[IsVideoPlayerVisible] + $EXP[IsDetailsItemTypeSeason] + !String.IsEmpty(VideoPlayer.Art(tvshow.fanart))">$INFO[VideoPlayer.Art(tvshow.fanart)]</value>
+		<value condition="$EXP[IsVideoPlayerVisible]">$INFO[ListItem.Art(fanart)]</value>
 		<!-- Info dialog visible (only ListItem is accessible) -->
 		<value condition="$EXP[IsDialogInfoVisible] + $EXP[IsDetailsItemTypeEpisode] + !String.IsEmpty(ListItem.Art(season.fanart))">$INFO[ListItem.Art(season.fanart)]</value>
 		<value condition="$EXP[IsDialogInfoVisible] + $EXP[IsDetailsItemTypeEpisode] + !String.IsEmpty(ListItem.Art(tvshow.fanart))">$INFO[ListItem.Art(tvshow.fanart)]</value>

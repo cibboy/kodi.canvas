@@ -105,6 +105,51 @@ def get_additional_episode_info(itemid):
     }
 
 
+# Finds the next episode to play, if any.
+def get_next_episode(tvshowid, season, episode):
+    try:
+        tvshowid = int(tvshowid)
+        season = int(season)
+        episode = int(episode)
+    except:
+        tvshowid = -1
+        season = -1
+        episode = -1
+
+    # Look up.
+    ep = None
+    if tvshowid > -1 and season > -1 and episode > -1:
+        # Load all show episodes.
+        episodes = call_rpc('VideoLibrary.GetEpisodes', {
+            'tvshowid': tvshowid,
+            'properties': ['season', 'episode']
+        }).get('episodes', [])
+
+        # Find episode:
+        # - if season 0 ok to select season 0
+        # - otherwise skip specials, propose actual next
+        found_current = False
+        for e in episodes:
+            ep_num = e.get('episode', -1)
+            s_num = e.get('season', -1)
+            if ep_num > -1 and s_num > -1 and ep_num == episode and s_num == season:
+                found_current = True
+                continue
+            if found_current:
+                if (s_num == 0 and season == 0) or (season > 0 and s_num != 0):
+                    ep = e
+                    break
+
+    # Load details if found.
+    if ep is not None:
+        ep = call_rpc('VideoLibrary.GetEpisodeDetails', {
+            'episodeid': ep['episodeid'],
+            'properties': episode_properties_query
+        }).get('episodedetails', None)
+
+    return ep
+
+
 # Create a list of continue watching items: movies in progress, episodes in progress,
 # TV shows in progress. It collapses TV shows and episodes into one single item if
 # from the same TV show.

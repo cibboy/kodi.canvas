@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
 	<defaultcontrol always="true">100</defaultcontrol>
-	<onload>RunScript(script.canvas.helper,get_additional_media_info_from_player)</onload>
 
 	<controls>
 		<include content="Center169AspectRatio">
-			<control type="label">
-				<width>auto</width>
-				<textcolor>HIGHLIGHT</textcolor>
-				<label>$INFO[Player.Chapters]</label>
-			</control>
-
 			<!-- Composite OSD -->
 			<control type="group">
 				<include content="ShowHideFadeSlideVerticalAnimation">
@@ -182,7 +175,7 @@
 					<width>SCREEN_WIDTH</width>
 					<top>SCREEN_HEIGHT</top>
 
-					<!-- Darneking -->
+					<!-- Darkening -->
 					<include content="DarkeningLayer">
 						<param name="colordiffuse">BACKGROUND_OPAQUE75</param>
 					</include>

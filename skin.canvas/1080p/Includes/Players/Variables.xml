@@ -14,7 +14,6 @@
 		<value condition="!String.IsEmpty(MusicPlayer.Art(thumb))">$INFO[MusicPlayer.Art(thumb)]</value>
 	</variable>
 
-
 	<!-- Actions -->
 	<variable name="PlayerOSDPrevRewindAction">
 		<value condition="$EXP[IsVideoPlayerVisible]">PlayerControl(Rewind)</value>
@@ -23,6 +22,12 @@
 	<variable name="PlayerOSDNextForwardAction">
 		<value condition="$EXP[IsVideoPlayerVisible]">PlayerControl(Forward)</value>
 		<value>PlayerControl(Next)</value>
+	</variable>
+
+	<!-- Video next hints -->
+	<variable name="VideoNextOkHint">
+		<value condition="Control.HasFocus(1)">Return to video</value>
+		<value condition="Control.HasFocus(2)">Play next</value>
 	</variable>
 	
 	<!-- Icons -->
@@ -52,4 +57,10 @@
 	<constant name="SIZE_OSD_BUTTON_BIG_ICON">60</constant>
 
 	<constant name="OFFSET_OSD_PROGRESS">250</constant>
+
+	<constant name="WIDTH_NEXTVIDEO_LANDSCAPE">500</constant>
+	<constant name="HEIGHT_NEXTVIDEO_LANDSCAPE">281</constant>
+	<constant name="HEIGHT_NEXTVIDEO_SECTION">341</constant>
+	<constant name="HEIGHT_NEXTVIDEO_HINTS">35</constant>
+	<constant name="SIZE_NEXTVIDEO_HINTS_ICON">28</constant>
 </includes>

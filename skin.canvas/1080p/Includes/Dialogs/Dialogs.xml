@@ -337,7 +337,7 @@
 
 				<!-- Title -->
 				<control type="label">
-					<top>PADDING_BASE_20P</top>
+					<top>PADDING_BASE_30P</top>
 					<left>PADDING_NOTIFICATION_CONTENT_AFTER_ICON</left>
 					<right>PADDING_NOTIFICATION_CONTENT</right>
 					<height>FONT_SIZE_BODY</height>
