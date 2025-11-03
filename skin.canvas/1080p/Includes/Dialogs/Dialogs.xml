@@ -215,6 +215,105 @@
 		</include>
 	</include>
 
+	<!-- Multi-option select dialog -->
+	<include name="StandardDialogSettings">
+		<include content="StandardFlyoutBase">
+			<param name="visible">true</param>
+
+			<include content="StandardFlyoutStructure">
+				<control type="grouplist">
+					<top>OFFSET_FLYOUT_LIST</top>
+					<bottom>OFFSET_FLYOUT_LIST_BOTTOM</bottom>
+					<left>PADDING_BASE_50P</left>
+					<right>PADDING_BASE_50P</right>
+
+					<itemgap>GAP_FLYOUT_GROUPLIST</itemgap>
+					<usecontrolcoords>true</usecontrolcoords>
+
+					<!-- Header -->
+					<control type="label" id="2">
+						<left>PADDING_BASE_20P</left>
+						<right>PADDING_BASE_20P</right>
+						<width>100%</width>
+						<height>150</height>
+						<font>SUBTITLE</font>
+						<wrapmultiline>true</wrapmultiline>
+						<label></label>
+					</control>
+
+					<!-- Multiselect list -->
+					<control type="grouplist" id="5">
+						<itemgap>GAP_FLYOUT_GROUPLIST</itemgap>
+						<usecontrolcoords>true</usecontrolcoords>
+						<height>HEIGHT_FLYOUT_DIALOG_LIST</height>
+
+						<!-- Close dialog on left, right, by simulating a click on OK (necessary for multiselects) -->
+						<!--<onleft>SendClick(5)</onleft>
+						<onright>SendClick(5)</onright>-->
+					</control>
+
+					<!-- Button template -->
+					<control type="button" id="7">
+						<width>100%</width>
+						<height>HEIGHT_FLYOUT_BUTTON</height>
+					</control>
+					<!-- Radiobutton template -->
+					<control type="radiobutton" id="8">
+						<width>100%</width>
+						<height>HEIGHT_FLYOUT_BUTTON</height>
+					</control>
+					<!-- Spin control template -->
+					<control type="spincontrolex" id="9">
+						<width>100%</width>
+						<height>HEIGHT_FLYOUT_BUTTON</height>
+					</control>
+					<!-- Image template -->
+					<control type="image" id="11"><!--todo: ????-->
+						<width>100%</width>
+						<height>HEIGHT_FLYOUT_BUTTON</height>
+					</control>
+					<!-- Edit template -->
+					<control type="edit" id="12"><!--todo: ????-->
+						<width>100%</width>
+						<height>HEIGHT_FLYOUT_BUTTON</height>
+					</control>
+					<!-- Slider template -->
+					<control type="sliderex" id="13">
+						<width>100%</width>
+						<height>HEIGHT_FLYOUT_BUTTON</height>
+					</control>
+					<!-- Label template -->
+					<control type="edit" id="14">
+						<width>100%</width>
+						<height>HEIGHT_FLYOUT_BUTTON</height>
+						<label></label>
+					</control>
+
+					<!-- Padding -->
+					<control type="label" id="999">
+						<height>PADDING_BASE</height>
+					</control>
+
+					<!-- Ok -->
+					<control type="button" id="28">
+						<width>100%</width>
+						<height>HEIGHT_FLYOUT_BUTTON</height>
+					</control>
+					<!-- Cancel -->
+					<control type="button" id="29">
+						<width>100%</width>
+						<height>HEIGHT_FLYOUT_BUTTON</height>
+					</control>
+					<!-- Clear/settings -->
+					<control type="button" id="30">
+						<width>100%</width>
+						<height>HEIGHT_FLYOUT_BUTTON</height>
+					</control>
+				</control>
+			</include>
+		</include>
+	</include>
+
 
 	<!-- Flyout menu -->
 	<include name="StandardFlyoutBase">

@@ -5,22 +5,59 @@
 	<controls>
 		<include content="Center169AspectRatio">
 			<!-- Background (structure split) -->
-			<include content="SettingsBackgroundSplit" />
+			<include content="SettingsBackground" />
 
-			<!-- Content structure -->
+			<!-- Main settings -->
 			<control type="group">
-				<animation type="Conditional" condition="!$EXP[HasSettingSectionsFocus]">
-					<effect type="slide" end="-1200,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
+				<animation type="Conditional" condition="$EXP[IsSettingsDialogSelectActive] | $EXP[IsSettingsDialogConfirmActive] | $EXP[IsSettingsDialogColorPickerActive]">
+					<effect type="slide" end="WIDTH_BACKGROUND_SPLIT_REMAINING_NEG,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
 				</animation>
-				<animation type="Conditional" condition="$EXP[HasSettingSectionsFocus]">
-					<effect type="slide" end="0,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
+				<animation type="Conditional" condition="$EXP[IsSettingsDialogSettingsActive]">
+					<effect type="slide" end="SCREEN_WIDTH_NEG,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
 				</animation>
 
-				<!-- Main categories (left side) -->
-				<include content="MainSettings" />
+				<include content="SettingsBackgroundSplit">
+					<!--
+						When the main sections don't have focus, the split inverts.
+						The slide amount should be equivalent to window width - (narrow side * 2) (1920 - 1440).
+					-->
+					<animation type="Conditional" condition="!$EXP[HasSettingSectionsFocus]">
+						<effect type="slide" end="-480,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
+					</animation>
+					<animation type="Conditional" condition="$EXP[HasSettingSectionsFocus]">
+						<effect type="slide" end="0,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
+					</animation>
+				</include>
 
-				<!-- Dynamically loadede settings -->
-				<include content="DynamicSettings" />
+				<!-- Content structure -->
+				<control type="group">
+					<animation type="Conditional" condition="!$EXP[HasSettingSectionsFocus]">
+						<effect type="slide" end="WIDTH_BACKGROUND_SPLIT_NEG,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
+					</animation>
+					<animation type="Conditional" condition="$EXP[HasSettingSectionsFocus]">
+						<effect type="slide" end="0,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
+					</animation>
+
+					<!-- Main categories (left side) -->
+					<include content="MainSettings" />
+
+					<!-- Dynamically loaded settings -->
+					<include content="DynamicSettings" />
+				</control>
+			</control>
+
+			<!-- Dialogs -->
+			<control type="group">
+				<animation type="Conditional" condition="$EXP[IsSettingsDialogSelectActive] | $EXP[IsSettingsDialogConfirmActive] | $EXP[IsSettingsDialogColorPickerActive]">
+					<effect type="slide" end="WIDTH_BACKGROUND_SPLIT_REMAINING_NEG,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
+				</animation>
+				<animation type="Conditional" condition="$EXP[IsSettingsDialogSettingsActive]">
+					<effect type="slide" end="SCREEN_WIDTH_NEG,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
+				</animation>
+
+				<left>SCREEN_WIDTH</left>
+
+				<include content="SettingsBackgroundSplit" />
 			</control>
 
 			<!-- Clock -->

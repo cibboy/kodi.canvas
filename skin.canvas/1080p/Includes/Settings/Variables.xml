@@ -49,7 +49,9 @@
 
 	<!-- Constants -->
 	<constant name="WIDTH_BACKGROUND_SPLIT">1200</constant>
+	<constant name="WIDTH_BACKGROUND_SPLIT_NEG">-1200</constant>
 	<constant name="WIDTH_BACKGROUND_SPLIT_REMAINING">720</constant>
+	<constant name="WIDTH_BACKGROUND_SPLIT_REMAINING_NEG">-720</constant>
 
 	<constant name="PADDING_SETTINGS_VERTICAL">80</constant>
 	<constant name="PADDING_SETTINGS_WIDE_SIDE">100</constant>

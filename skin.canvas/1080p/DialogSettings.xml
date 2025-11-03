@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol>5</defaultcontrol>
+	<controls>
+		<include content="Center169AspectRatio">
+			<!-- Standard DialogSettings -->
+			<include content="StandardDialogSettings" condition="!$EXP[IsSettingsDialogSettingsActive]" />
+
+			<!-- DialogSettings for settings -->
+			<include content="SettingsDialogSettings" condition="$EXP[IsSettingsDialogSettingsActive]" />
+		</include>
+	</controls>
+</window>
