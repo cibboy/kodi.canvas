@@ -395,10 +395,6 @@
 
 			<!-- List with title -->
 			<control type="group">
-				<!-- Hide when a dialog is visible (the dialog's content will be here) -->
-				<visible>!$EXP[IsSettingsAnyDialogActive]</visible>
-				<include content="ShowHideFadeSlideHorizontalAnimation" />
-
 				<top>PADDING_SETTINGS_VERTICAL</top>
 				<bottom>PADDING_SETTINGS_VERTICAL</bottom>
 				<right>PADDING_SETTINGS_NARROW_SIDE</right>
@@ -602,9 +598,7 @@
 		</control>
 	</include>
 	<!-- Dialog panel content integration (needs a separate include because <nested /> too deep is not supported -.-) -->
-	<include name="SettingsDialogContainerContent">
-		<param name="title_width"></param>
-
+	<include name="SettingsDialogContainerContentNarrow">
 		<definition>
 			<!-- List with title -->
 			<control type="group">
@@ -615,7 +609,7 @@
 
 				<!-- Option name -->
 				<control type="label" id="1">
-					<width>$PARAM[title_width]</width>
+					<width>560</width>
 					<top>PADDING_BASE_30P</top>
 					<height>FONT_SIZE_TITLE3</height>
 					<right>PADDING_SETTINGS_TITLE</right>
@@ -633,9 +627,7 @@
 	<!-- DialogSelect for settings (integrated) -->
 	<include name="SettingsDialogSelect">
 		<include content="SettingsDialogContainerNarrow">
-			<include content="SettingsDialogContainerContent">
-				<param name="title_width">560</param>
-
+			<include content="SettingsDialogContainerContentNarrow">
 				<!-- Options -->
 				<control type="group">
 					<top>OFFSET_SETTINGS_OPTIONS_START</top>
@@ -732,9 +724,7 @@
 	<!-- DialogConfirm for settings (integrated) -->
 	<include name="SettingsDialogConfirm">
 		<include content="SettingsDialogContainerNarrow">
-			<include content="SettingsDialogContainerContent">
-				<param name="title_width">560</param>
-
+			<include content="SettingsDialogContainerContentNarrow">
 				<!-- Content -->
 				<control type="grouplist">
 					<top>OFFSET_SETTINGS_OPTIONS_START</top>
@@ -783,9 +773,7 @@
 	<!-- DialogColorPicker for settings (integrated) -->
 	<include name="SettingsDialogColorPicker">
 		<include content="SettingsDialogContainerNarrow">
-			<include content="SettingsDialogContainerContent">
-				<param name="title_width">560</param>
-
+			<include content="SettingsDialogContainerContentNarrow">
 				<!-- Color table -->
 				<control type="panel" id="6">
 					<top>OFFSET_SETTINGS_OPTIONS_START</top>
@@ -824,101 +812,126 @@
 	</include>
 
 	<!-- DialogSettings for settings (integrated) -->
-	<include name="SettingsDialogSettings"><!--todo-->
-		<include content="SettingsDialogContainerNarrow">
-			<include content="SettingsDialogContainerContent">
-				<param name="title_width">560</param><!--todo-->
-
+	<include name="SettingsDialogSettings">
+		<include content="SettingsDialogContainerWide">
+			<control type="group">
+				<top>PADDING_SETTINGS_VERTICAL</top>
+				<bottom>PADDING_SETTINGS_VERTICAL</bottom>
+				<width>WIDTH_BACKGROUND_SPLIT</width>
+				
 				<!-- Options -->
 				<control type="group">
-					<top>OFFSET_SETTINGS_OPTIONS_START</top>
+					<left>PADDING_SETTINGS_WIDE_SIDE</left>
+					<right>PADDING_SETTINGS_WIDE_SIDE</right>
+
+					<!-- Option name -->
+					<control type="label" id="2">
+						<width>auto</width>
+						<top>PADDING_BASE_30P</top>
+						<height>FONT_SIZE_TITLE3</height>
+						<right>PADDING_SETTINGS_TITLE</right>
+						<left>PADDING_SETTINGS_TITLE</left>
+						<font>TITLE3</font>
+						<label></label>
+					</control>
 
 					<!-- List of options -->
-					<control type="list" id="3">
+					<control type="grouplist" id="5">
 						<itemgap>GAP_SETTINGS_LIST_OPTION</itemgap>
 						<usecontrolcoords>true</usecontrolcoords>
+						
+						<top>OFFSET_SETTINGS_OPTIONS_START</top>
 						<height>HEIGHT_SETTINGS_DIALOG_LIST</height>
+						<width>100%</width>
 
-						<!-- Close dialog on left, right, by simulating a click on OK (necessary for multiselects) -->
-						<onleft>SendClick(5)</onleft>
-						<onright>SendClick(5)</onright>
-
-						<focusedlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
-							<!-- Fake button selection -->
-							<control type="image">
-								<height>HEIGHT_BUTTON_DEFAULT</height>
-								<texture colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texture>
-							</control>
-
-							<!-- Content -->
-							<include content="SettingsOptionContentWithSelection">
-								<param name="selectionmark_color">FOREGROUND_ACCENT_ALT</param>
-								<param name="is_selected">ListItem.IsSelected</param>
-								<param name="text_color">FOREGROUND_INVERSE</param>
-								<param name="text_color_selected">FOREGROUND_ACCENT_ALT</param>
-								<param name="text_scroll">true</param>
-							</include>
-						</focusedlayout>
-
-						<itemlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
-							<include content="SettingsOptionContentWithSelection">
-								<param name="is_selected">ListItem.IsSelected</param>
-								<param name="text_scroll">false</param>
-							</include>
-						</itemlayout>
+						<!-- Close dialog on left, go to ok/cancel on right -->
+						<onleft>Back</onleft>
+						<onright>SetFocus(999)</onright>
 					</control>
 
-					<!-- List of addons -->
-					<control type="list" id="6">
-						<itemgap>GAP_SETTINGS_LIST_OPTION</itemgap>
-						<usecontrolcoords>true</usecontrolcoords>
-						<height>HEIGHT_SETTINGS_DIALOG_LIST</height>
-
-						<onleft>Close</onleft>
-						<onright>Close</onright>
-
-						<focusedlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
-							<!-- Fake button selection -->
-							<control type="image">
-								<height>HEIGHT_BUTTON_DEFAULT</height>
-								<texture colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texture>
-							</control>
-							<!-- Content -->
-							<include content="SettingsOptionContentWithIcon">
-								<param name="icon_circle_color">BACKGROUND_INVERSE_OPAQUE90</param>
-								<param name="icon_color">FOREGROUND_INVERSE</param>
-								<param name="icon_type_circle">$EXP[HasSettingsDialogSelectIcon]</param>
-								<param name="icon">$VAR[SettingsDialogSelectIcon]</param>
-								<param name="text_color">FOREGROUND_INVERSE</param>
-								<param name="text_color_selected">FOREGROUND_ACCENT_ALT</param>
-								<param name="text">$INFO[ListItem.Label]</param>
-								<param name="description_color">FOREGROUND_INVERSE_OPAQUE75</param>
-								<param name="description_color_selected">FOREGROUND_ACCENT_ALT_OPAQUE75</param>
-								<param name="description">$INFO[ListItem.Label2]</param>
-								<param name="single_line">String.IsEmpty(ListItem.Label2)</param>
-								<param name="scroll">true</param>
-							</include>
-						</focusedlayout>
-
-						<itemlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
-							<include content="SettingsOptionContentWithIcon">
-								<param name="icon_type_circle">$EXP[HasSettingsDialogSelectIcon]</param>
-								<param name="icon">$VAR[SettingsDialogSelectIcon]</param>
-								<param name="text">$INFO[ListItem.Label]</param>
-								<param name="description">$INFO[ListItem.Label2]</param>
-								<param name="single_line">String.IsEmpty(ListItem.Label2)</param>
-								<param name="scroll">false</param>
-							</include>
-						</itemlayout>
+					<!-- Button template -->
+					<control type="button" id="7">
+						<width>WIDTH_SETTINGS_OPTION_WIDE</width>
+						<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
 					</control>
-
-					<!-- Chevrons up/down if more content is available -->
-					<include content="SettingsUpDownChevrons">
-						<param name="visible_up">[Control.HasFocus(3) + Integer.IsGreater(Container(3).NumItems,6)] | [Control.HasFocus(6) + Integer.IsGreater(Container(6).NumItems,6)]</param>
-						<param name="visible_down">[Control.HasFocus(3) + Integer.IsGreater(Container(3).NumItems,6)] | [Control.HasFocus(6) + Integer.IsGreater(Container(6).NumItems,6)]</param>
-					</include>
+					<!-- Radiobutton template -->
+					<control type="radiobutton" id="8">
+						<width>WIDTH_SETTINGS_OPTION_WIDE</width>
+						<radioposx>OFFSET_SETTINGS_OPTION_RADIO_WIDE</radioposx>
+						<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
+					</control>
+					<!-- Spin control template -->
+					<control type="spincontrolex" id="9">
+						<width>WIDTH_SETTINGS_OPTION_WIDE</width>
+						<spinposx>OFFSET_SETTINGS_OPTION_SPIN_WIDE</spinposx>
+						<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
+					</control>
+					<!-- Image template -->
+					<control type="image" id="11">
+						<visible>false</visible>
+						<width>0</width>
+						<height>0</height>
+						<texture>transparent.png</texture>
+					</control>
+					<!-- Edit template -->
+					<control type="edit" id="12">
+						<width>WIDTH_SETTINGS_OPTION_WIDE</width>
+						<height>HEIGHT_BUTTON_DEFAULT</height>
+						<label></label>
+						<hinttext></hinttext>
+					</control>
+					<!-- Slider template -->
+					<control type="sliderex" id="13">
+						<width>WIDTH_SETTINGS_OPTION_WIDE</width>
+						<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
+					</control>
+					<!-- Label template -->
+					<control type="label" id="14">
+						<height>HEIGHT_SETTINGS_CAPTION</height>
+						<left>PADDING_BUTTON_HORIZONTAL</left>
+						<top>OFFSET_SETTINGS_CAPTION</top>
+						<label>ciao</label>
+						<align>left</align>
+						<font>SETTINGS_CAPTION</font>
+						<textcolor>FOREGROUND_ACCENT_ALT</textcolor>
+					</control>
 				</control>
-			</include>
+			
+				<!-- Action buttons -->
+				<control type="grouplist" id="999">
+					<!-- Hide when a secondary dialog appears -->
+					<visible>!$EXP[IsSettingsAnySimpleDialogActive]</visible>
+					<animation type="Visible">
+						<effect type="fade" end="100" time="ANIMATION_FAST" tween="circle" easing="out" />
+					</animation>
+					<animation type="Hidden">
+						<effect type="fade" end="0" time="ANIMATION_FAST" tween="circle" easing="out" />
+					</animation>
+
+					<top>OFFSET_SETTINGS_OPTIONS_START</top>
+					<left>WIDTH_BACKGROUND_SPLIT</left>
+					<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+
+					<!-- Go to options on left -->
+					<onleft>SetFocus(5)</onleft>
+
+					<!-- Ok -->
+					<control type="button" id="28">
+						<width>100%</width>
+						<height>HEIGHT_FLYOUT_BUTTON</height>
+					</control>
+					<!-- Cancel -->
+					<control type="button" id="29">
+						<width>100%</width>
+						<height>HEIGHT_FLYOUT_BUTTON</height>
+					</control>
+					<!-- Clear/settings -->
+					<control type="button" id="30">
+						<width>100%</width>
+						<height>HEIGHT_FLYOUT_BUTTON</height>
+					</control>
+				</control>
+			</control>
 		</include>
 	</include>
 </includes>

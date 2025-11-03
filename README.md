@@ -7,7 +7,6 @@ TOFIX:
 - episode custom nav: show list of episodes when not scrolling. Possibilities:
   - timer stop when not scrolling
   - alarm as onstop lungo quanto il tempo di scrolling
-- kodi bug: showing subtitle settings flyout returns focus to videofullscreen.xml
 
 TODO:
 - dialog in settings da fare:

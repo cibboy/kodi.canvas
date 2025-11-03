@@ -217,82 +217,113 @@
 
 	<!-- Multi-option select dialog -->
 	<include name="StandardDialogSettings">
-		<include content="StandardFlyoutBase">
+		<!--<include content="StandardFlyoutBase">
 			<param name="visible">true</param>
 
 			<include content="StandardFlyoutStructure">
-				<control type="grouplist">
-					<top>OFFSET_FLYOUT_LIST</top>
-					<bottom>OFFSET_FLYOUT_LIST_BOTTOM</bottom>
-					<left>PADDING_BASE_50P</left>
-					<right>PADDING_BASE_50P</right>
+				
+			</include>
+		</include>-->
+		<include content="DarkeningLayer" />
+		<include content="SettingsDialogContainerWide">
+			<control type="group">
+				<top>PADDING_SETTINGS_VERTICAL</top>
+				<bottom>PADDING_SETTINGS_VERTICAL</bottom>
+				<width>WIDTH_BACKGROUND_SPLIT</width>
+				
+				<!-- Options -->
+				<control type="group">
+					<left>PADDING_SETTINGS_WIDE_SIDE</left>
+					<right>PADDING_SETTINGS_WIDE_SIDE</right>
 
-					<itemgap>GAP_FLYOUT_GROUPLIST</itemgap>
-					<usecontrolcoords>true</usecontrolcoords>
-
-					<!-- Header -->
+					<!-- Option name -->
 					<control type="label" id="2">
-						<left>PADDING_BASE_20P</left>
-						<right>PADDING_BASE_20P</right>
-						<width>100%</width>
-						<height>150</height>
-						<font>SUBTITLE</font>
-						<wrapmultiline>true</wrapmultiline>
+						<width>auto</width>
+						<top>PADDING_BASE_30P</top>
+						<height>FONT_SIZE_TITLE3</height>
+						<right>PADDING_SETTINGS_TITLE</right>
+						<left>PADDING_SETTINGS_TITLE</left>
+						<font>TITLE3</font>
 						<label></label>
 					</control>
 
-					<!-- Multiselect list -->
+					<!-- List of options -->
 					<control type="grouplist" id="5">
-						<itemgap>GAP_FLYOUT_GROUPLIST</itemgap>
+						<itemgap>GAP_SETTINGS_LIST_OPTION</itemgap>
 						<usecontrolcoords>true</usecontrolcoords>
-						<height>HEIGHT_FLYOUT_DIALOG_LIST</height>
+						
+						<top>OFFSET_SETTINGS_OPTIONS_START</top>
+						<height>HEIGHT_SETTINGS_DIALOG_LIST</height>
+						<width>100%</width>
 
-						<!-- Close dialog on left, right, by simulating a click on OK (necessary for multiselects) -->
-						<!--<onleft>SendClick(5)</onleft>
-						<onright>SendClick(5)</onright>-->
+						<!-- Close dialog on left, go to ok/cancel on right -->
+						<onleft>Back</onleft>
+						<onright>SetFocus(999)</onright>
 					</control>
 
 					<!-- Button template -->
 					<control type="button" id="7">
-						<width>100%</width>
-						<height>HEIGHT_FLYOUT_BUTTON</height>
+						<width>WIDTH_SETTINGS_OPTION_WIDE</width>
+						<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
 					</control>
 					<!-- Radiobutton template -->
 					<control type="radiobutton" id="8">
-						<width>100%</width>
-						<height>HEIGHT_FLYOUT_BUTTON</height>
+						<width>WIDTH_SETTINGS_OPTION_WIDE</width>
+						<radioposx>OFFSET_SETTINGS_OPTION_RADIO_WIDE</radioposx>
+						<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
 					</control>
 					<!-- Spin control template -->
 					<control type="spincontrolex" id="9">
-						<width>100%</width>
-						<height>HEIGHT_FLYOUT_BUTTON</height>
+						<width>WIDTH_SETTINGS_OPTION_WIDE</width>
+						<spinposx>OFFSET_SETTINGS_OPTION_SPIN_WIDE</spinposx>
+						<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
 					</control>
 					<!-- Image template -->
-					<control type="image" id="11"><!--todo: ????-->
-						<width>100%</width>
-						<height>HEIGHT_FLYOUT_BUTTON</height>
+					<control type="image" id="11">
+						<visible>false</visible>
+						<width>0</width>
+						<height>0</height>
+						<texture>transparent.png</texture>
 					</control>
 					<!-- Edit template -->
 					<control type="edit" id="12"><!--todo: ????-->
-						<width>100%</width>
-						<height>HEIGHT_FLYOUT_BUTTON</height>
+						<width>WIDTH_SETTINGS_OPTION_WIDE</width>
+						<height>HEIGHT_BUTTON_DEFAULT</height>
 					</control>
 					<!-- Slider template -->
 					<control type="sliderex" id="13">
-						<width>100%</width>
-						<height>HEIGHT_FLYOUT_BUTTON</height>
+						<width>WIDTH_SETTINGS_OPTION_WIDE</width>
+						<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
 					</control>
 					<!-- Label template -->
-					<control type="edit" id="14">
-						<width>100%</width>
-						<height>HEIGHT_FLYOUT_BUTTON</height>
-						<label></label>
+					<control type="label" id="14">
+						<height>HEIGHT_SETTINGS_CAPTION</height>
+						<left>PADDING_BUTTON_HORIZONTAL</left>
+						<top>OFFSET_SETTINGS_CAPTION</top>
+						<label>ciao</label>
+						<align>left</align>
+						<font>SETTINGS_CAPTION</font>
+						<textcolor>FOREGROUND_ACCENT_ALT</textcolor>
 					</control>
+				</control>
+			
+				<!-- Action buttons -->
+				<control type="grouplist" id="999">
+					<!-- Hide when a secondary dialog appears -->
+					<visible>!$EXP[IsSettingsAnySimpleDialogActive]</visible>
+					<animation type="Visible">
+						<effect type="fade" end="100" time="ANIMATION_FAST" tween="circle" easing="out" />
+					</animation>
+					<animation type="Hidden">
+						<effect type="fade" end="0" time="ANIMATION_FAST" tween="circle" easing="out" />
+					</animation>
 
-					<!-- Padding -->
-					<control type="label" id="999">
-						<height>PADDING_BASE</height>
-					</control>
+					<top>OFFSET_SETTINGS_OPTIONS_START</top>
+					<left>WIDTH_BACKGROUND_SPLIT</left>
+					<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+
+					<!-- Go to options on left -->
+					<onleft>SetFocus(5)</onleft>
 
 					<!-- Ok -->
 					<control type="button" id="28">
@@ -310,7 +341,7 @@
 						<height>HEIGHT_FLYOUT_BUTTON</height>
 					</control>
 				</control>
-			</include>
+			</control>
 		</include>
 	</include>
 

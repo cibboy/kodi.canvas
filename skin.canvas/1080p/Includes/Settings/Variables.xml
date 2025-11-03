@@ -43,8 +43,8 @@
 
 	<!-- Button background texture color diffuse to allow fade when dialog open -->
 	<variable name="SettingsOptionButtonColor">
-		<value condition="!$EXP[IsSettingsAnyDialogActive]">BACKGROUND_INVERSE_OPAQUE90</value>
-		<value condition="$EXP[IsSettingsAnyDialogActive]">BACKGROUND_INVERSE_OPAQUE50</value>
+		<value condition="!$EXP[IsSettingsAnySimpleDialogActive]">BACKGROUND_INVERSE_OPAQUE90</value>
+		<value condition="$EXP[IsSettingsAnySimpleDialogActive]">BACKGROUND_INVERSE_OPAQUE50</value>
 	</variable>
 
 	<!-- Constants -->
