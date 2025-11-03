@@ -638,9 +638,8 @@
 						<usecontrolcoords>true</usecontrolcoords>
 						<height>HEIGHT_SETTINGS_DIALOG_LIST</height>
 
-						<!-- Close dialog on left, right, by simulating a click on OK (necessary for multiselects) -->
+						<!-- Close dialog on left by simulating a click on OK (necessary for multiselects) -->
 						<onleft>SendClick(5)</onleft>
-						<onright>SendClick(5)</onright>
 
 						<focusedlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
 							<!-- Fake button selection -->
@@ -749,21 +748,18 @@
 					<control type="button" id="11">
 						<width>WIDTH_SETTINGS_GROUPLIST_NARROW_OPTION</width>
 						<onleft>Close</onleft>
-						<onright>Close</onright>
 					</control>
 
 					<!-- No -->
 					<control type="button" id="10">
 						<width>WIDTH_SETTINGS_GROUPLIST_NARROW_OPTION</width>
 						<onleft>Close</onleft>
-						<onright>Close</onright>
 					</control>
 					
 					<!-- Future -->
 					<control type="button" id="12">
 						<width>WIDTH_SETTINGS_GROUPLIST_NARROW_OPTION</width>
 						<onleft>Close</onleft>
-						<onright>Close</onright>
 					</control>
 				</control>
 			</include>

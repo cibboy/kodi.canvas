@@ -101,5 +101,4 @@
 	<constant name="PADDING_HOME_FLYOUT_BUTTON_VERTICAL">35</constant>
 	<constant name="OFFSET_HOME_FLYOUT_BUTTON_CONTENT">90</constant>
 	<constant name="OFFSET_HOME_FLYOUT_BUTTON_TEXT">7</constant>
-	<constant name="OFFSET_HOME_FLYOUT_HORIZONTAL_LIST_LEFT">90</constant>
 </includes>

@@ -726,8 +726,8 @@
 			<include content="StandardFlyoutStructure">
 				<!-- Horizontal list of icon buttons -->
 				<control type="list" id="1000">
-					<top>PADDING_BASE_60P</top>
-					<left>OFFSET_HOME_FLYOUT_HORIZONTAL_LIST_LEFT</left>
+					<top>70</top>
+					<left>80</left>
 					<orientation>horizontal</orientation>
 
 					<onback condition="!$EXP[HasHomeLoaded]">SetFocus(99999)</onback>
@@ -767,10 +767,10 @@
 
 				<!-- Vertical list of buttons -->
 				<control type="list" id="1001">
-					<top>OFFSET_FLYOUT_LIST</top>
+					<top>172</top>
 					<bottom>PADDING_BASE</bottom>
-					<left>PADDING_BASE_50P</left>
-					<right>PADDING_BASE_50P</right>
+					<left>PADDING_BASE_40P</left>
+					<right>PADDING_BASE_40P</right>
 
 					<onback>SetFocus(200)</onback>
 					<onup>SetFocus(1000,0)</onup>

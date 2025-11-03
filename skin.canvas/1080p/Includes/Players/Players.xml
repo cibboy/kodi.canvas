@@ -247,46 +247,44 @@
 				<!-- Background -->
 				<control type="image">	<!-- Without focus -->
 					<visible>!Control.HasFocus($PARAM[id])</visible>
-					<include content="ShowHideFadeAnimation"><param name="speed">ANIMATION_FAST</param></include>
 
 					<centertop>50%</centertop>
 					<centerleft>50%</centerleft>
 					<width>$PARAM[size]</width>
 					<height>$PARAM[size]</height>
+					<fadetime>0</fadetime>
 					<texture colordiffuse="BACKGROUND_OPAQUE20">1080p/diffuse/circle.png</texture>
 				</control>
 				<control type="image">	<!-- With focus -->
 					<visible>Control.HasFocus($PARAM[id])</visible>
-					<include content="ShowHideFadeAnimation"><param name="speed">ANIMATION_FAST</param></include>
 
 					<centertop>50%</centertop>
 					<centerleft>50%</centerleft>
 					<width>$PARAM[size_focus]</width>
 					<height>$PARAM[size_focus]</height>
+					<fadetime>0</fadetime>
 					<texture colordiffuse="FOREGROUND_ACCENT">1080p/controls/button-circle.png</texture>
 				</control>
 
 				<!-- Icon -->
 				<control type="image">	<!-- Without focus -->
 					<visible>!Control.HasFocus($PARAM[id])</visible>
-					<include content="ShowHideFadeAnimation"><param name="speed">ANIMATION_FAST</param></include>
 
 					<centertop>50%</centertop>
 					<centerleft>50%</centerleft>
 					<width>$PARAM[size_icon]</width>
 					<height>$PARAM[size_icon]</height>
-					<fadetime>200</fadetime>
+					<fadetime>0</fadetime>
 					<texture colordiffuse="FOREGROUND_OPAQUE75" flipx="$PARAM[flip_icon]">$PARAM[icon]</texture>
 				</control>
 				<control type="image">	<!-- With focus -->
 					<visible>Control.HasFocus($PARAM[id])</visible>
-					<include content="ShowHideFadeAnimation"><param name="speed">ANIMATION_FAST</param></include>
 
 					<centertop>50%</centertop>
 					<centerleft>50%</centerleft>
 					<width>$PARAM[size_icon]</width>
 					<height>$PARAM[size_icon]</height>
-					<fadetime>200</fadetime>
+					<fadetime>0</fadetime>
 					<texture colordiffuse="BACKGROUND_OPAQUE75" flipx="$PARAM[flip_icon]">$PARAM[icon]</texture>
 				</control>
 			</control>
@@ -493,6 +491,32 @@
 					<param name="visible_up">[Control.HasFocus(3) + Integer.IsGreater(Container(3).NumItems,6)] | [Control.HasFocus(6) + Integer.IsGreater(Container(6).NumItems,6)]</param>
 					<param name="visible_down">[Control.HasFocus(3) + Integer.IsGreater(Container(3).NumItems,6)] | [Control.HasFocus(6) + Integer.IsGreater(Container(6).NumItems,6)]</param>
 				</include>
+			</control>
+		</control>
+	</include>
+	<!-- DialogSubtitles for player -->
+	<include name="PlayerDialogSubtitles">
+		<control type="group">
+			<include content="ShowHideFadeSlideHorizontalAnimation">
+				<param name="speed">ANIMATION_MID</param>
+				<param name="visible_condition">WindowOpen</param>
+				<param name="hidden_condition">WindowClose</param>
+			</include>
+
+			<top>PADDING_SETTINGS_VERTICAL</top>
+			<bottom>PADDING_SETTINGS_VERTICAL</bottom>
+			<right>PADDING_SETTINGS_VERTICAL</right>
+			<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+
+			<control type="label" id="998">
+				<top>OFFSET_SETTINGS_OPTIONS_START</top>
+				<label>No subtitle services available</label>
+			</control>
+
+			<!-- Focus trapper -->
+			<control type="button" id="999">
+				<visible allowhiddenfocus="true">0</visible>
+				<onleft>Close</onleft>
 			</control>
 		</control>
 	</include>

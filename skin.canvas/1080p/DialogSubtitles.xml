@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">999</defaultcontrol>
+	<controls>
+		<include content="Center169AspectRatio">
+			<!-- DialogSubtitles for player -->
+			<include content="PlayerDialogSubtitles" condition="$EXP[IsPlayerVisible]" />
+		</include>
+	</controls>
+</window>

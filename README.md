@@ -4,9 +4,15 @@ TOFIX:
 - ricerca todo e sistemarli
 - videonav ogni tanto torna indietro quando ci si muove rapidamente, sulla home non sembrano esserci problemi...
 - choose art not available as action, needs to be a button in dialogvideoinfo.xml, id 10 (anche id 6 per refresh utile)
-- episode custom nav: show list of episodes when not scrolling. Possibilities:
+- episode custom nav: show list of episodes when finished scrolling. Possibilities:
   - timer stop when not scrolling
   - alarm as onstop lungo quanto il tempo di scrolling
+- attempt home rewrite with simplification:
+  - one "page" per menu item
+  - a page is a grouplist with always at least 1 element (a list or the empty placeholder)
+  - navigation between lists is with setfocus
+  - pages are inside a grouplist
+  - basically reintroduce some concepts of previous implementation, but attempt to implement native navigation
 
 TODO:
 - dialog in settings da fare:
@@ -42,6 +48,9 @@ TODO:
   ? media > videos > show "all items" entry: false
   - media > videos > flatten tv show seasons: never
   - media > videos > select first unwatched...: always
+  - player > language > preferred audio language: eng (NON ENG US!!!!)
+  - player > language > preferr default audio stream: false
+  - player > language > preferred subtitle language: none
 
 
 

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
+	<!-- Needs to include check on previous window because of weird selection when switching from another skin -->
 	<controls>
 		<include content="Center169AspectRatio">
 			<!-- Standard DialogSelect -->
-			<include content="StandardDialogConfirm" condition="!$EXP[IsSettingsDialogConfirmActive]" />
+			<include content="StandardDialogConfirm" condition="!$EXP[IsSettingsDialogConfirmActive] + !$EXP[IsPlayerVisible] + !Window.Previous(appearancesettings)" />
 
 			<!-- DialogSelect for settings -->
-			<include content="SettingsDialogConfirm" condition="$EXP[IsSettingsDialogConfirmActive]" />
+			<include content="SettingsDialogConfirm" condition="$EXP[IsSettingsDialogConfirmActive] | $EXP[IsPlayerVisible] | Window.Previous(appearancesettings)" />
 		</include>
 	</controls>
 </window>

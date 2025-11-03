@@ -279,9 +279,9 @@
 		<definition>
 			<control type="group">
 				<width>WIDTH_FLYOUT</width>
-				<right>PADDING_BASE_20P</right>
-				<top>PADDING_BASE_20P</top>
-				<bottom>PADDING_BASE_20P</bottom>
+				<right>PADDING_BASE_10P</right>
+				<top>PADDING_BASE_10P</top>
+				<bottom>PADDING_BASE_10P</bottom>
 
 				<!-- Content -->
 				<nested />

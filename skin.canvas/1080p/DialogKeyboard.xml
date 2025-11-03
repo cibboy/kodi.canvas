@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">300</defaultcontrol>
+
+	<controls>
+		<!-- Darkening -->
+		<include content="DarkeningLayer" />
+
+		<control type="button" id="300">
+			<label></label>
+		</control>
+		<control type="edit" id="312">
+			<label></label>
+		</control>
+	</controls>
+</window>
