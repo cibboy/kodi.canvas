@@ -14,10 +14,14 @@
 				<animation type="Conditional" condition="Control.HasFocus(401) | Control.HasFocus(601)">
 					<effect type="slide" start="0,0" end="0,SCREEN_HEIGHT_NEG" time="ANIMATION_MID" tween="circle" easing="out" />
 				</animation>
+				<!-- Hide when an advanced setting dialog is open -->
+				<animation type="Conditional" condition="Window.IsVisible(DialogSettings.xml)">
+					<effect type="fade" start="100" end="0" time="ANIMATION_MID" tween="linear" easing="out" />
+				</animation>
 
 				<!-- OSD -->
 				<include content="PlayerOSD">
-					<param name="onleft">SetFocus(203)</param>
+					<param name="onleft">SetFocus(204)</param>
 					<param name="onright">SetFocus(201)</param>
 					<param name="ondown">SetFocus(400)</param>
 
@@ -163,8 +167,17 @@
 							<param name="size">SIZE_OSD_BUTTON</param>
 							<param name="size_focus">SIZE_OSD_BUTTON_FOCUS</param>
 							<param name="size_icon">SIZE_OSD_BUTTON_ICON</param>
-							<param name="icon">1080p/icons/video.png</param>
+							<param name="icon">1080p/icons/tvshows.png</param>
 							<param name="action">ActivateWindow(osdvideosettings)</param>
+						</include>
+						<!-- Color management -->
+						<include content="PlayerOSDButton">
+							<param name="id">204</param>
+							<param name="size">SIZE_OSD_BUTTON</param>
+							<param name="size_focus">SIZE_OSD_BUTTON_FOCUS</param>
+							<param name="size_icon">SIZE_OSD_BUTTON_ICON</param>
+							<param name="icon">1080p/icons/color.png</param>
+							<param name="action">ActivateWindow(osdcmssettings)</param>
 						</include>
 					</control>
 				</include>
@@ -235,6 +248,13 @@
 					<include content="BottomBar" />
 				</control>
 			</control>
+
+			<!-- Dialog darkening -->
+			<include content="DarkeningLayer">
+				<param name="visible">Window.IsVisible(DialogSettings.xml)</param>
+				<param name="colordiffuse">C9000000</param>
+				<param name="fade_speed">ANIMATION_MID</param>
+			</include>
 
 			<!-- Clock -->
 			<control type="group">

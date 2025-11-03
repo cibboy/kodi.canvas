@@ -4,7 +4,10 @@
 	<controls>
 		<include content="Center169AspectRatio">
 			<!-- Standard DialogSelect -->
-			<include content="StandardDialogSelect" condition="!$EXP[IsSettingsDialogSelectActive]" />
+			<include content="StandardDialogSelect" condition="!$EXP[IsSettingsDialogSelectActive] + !$EXP[IsPlayerVisible]" />
+
+			<!-- DialogSelect for player -->
+			<include content="PlayerDialogSelect" condition="$EXP[IsPlayerVisible]" />
 
 			<!-- DialogSelect for settings -->
 			<include content="SettingsDialogSelect" condition="$EXP[IsSettingsDialogSelectActive]" />

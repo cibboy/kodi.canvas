@@ -3,8 +3,8 @@
 	<defaultcontrol>5</defaultcontrol>
 	<controls>
 		<include content="Center169AspectRatio">
-			<!-- Standard DialogSettings -->
-			<include content="StandardDialogSettings" condition="!$EXP[IsSettingsDialogSettingsActive]" />
+			<!-- DialogSettings for player -->
+			<include content="PlayerDialogSettings" condition="$EXP[IsPlayerVisible]" />
 
 			<!-- DialogSettings for settings -->
 			<include content="SettingsDialogSettings" condition="$EXP[IsSettingsDialogSettingsActive]" />

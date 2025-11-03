@@ -86,4 +86,5 @@
 	<!-- Is player visible?-->
 	<expression name="IsMusicPlayerVisible">Window.IsActive(12006)</expression>
 	<expression name="IsVideoPlayerVisible">Window.IsActive(12005) | Window.IsActive(1150)</expression>		<!-- Include "play next" window -->
+	<expression name="IsPlayerVisible">$EXP[IsMusicPlayerVisible] | $EXP[IsVideoPlayerVisible]</expression>
 </includes>
