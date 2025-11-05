@@ -13,6 +13,7 @@ TOFIX:
   - navigation between lists is with setfocus
   - pages are inside a grouplist
   - basically reintroduce some concepts of previous implementation, but attempt to implement native navigation
+  - consider Control.Message(id,message) > message: movedown, moveup (https://kodi.wiki/view/List_of_built-in_functions#GUI_control_built-in's)
 
 TODO:
 - dialog in settings da fare:
@@ -42,15 +43,17 @@ TODO:
 - event log (eventlog)
 
 - settings changes on first run:
-  - no pointer
+  - system > input > enable mouse and touch screen support: false
+  - services > caching > memory size: 256MB
+  - services > caching > read factor: adaptive
+  - player > language > preferred audio language: eng (NON ENG US!!!!)
+  - player > language > preferr default audio stream: false
+  - player > language > preferred subtitle language: none
   - media > videos > default select action: resume
   - media > videos > default play action: resume
   ? media > videos > show "all items" entry: false
   - media > videos > flatten tv show seasons: never
   - media > videos > select first unwatched...: always
-  - player > language > preferred audio language: eng (NON ENG US!!!!)
-  - player > language > preferr default audio stream: false
-  - player > language > preferred subtitle language: none
 
 
 

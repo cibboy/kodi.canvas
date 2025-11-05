@@ -14,4 +14,13 @@
 	<constant name="SIZE_NOTIFICATION_ICON">80</constant>
 	<constant name="PADDING_NOTIFICATION_CONTENT">30</constant>
 	<constant name="PADDING_NOTIFICATION_CONTENT_AFTER_ICON">125</constant>	<!-- PADDING_NOTIFICATION_CONTENT + SIZE_NOTIFICATION_ICON + 15 -->
+
+	<constant name="SIZE_KEY">110</constant>
+	<constant name="WIDTH_KEY_DOUBLE">190</constant>	<!-- (SIZE_KEY * 2) - abs(PADDING_KEY) -->
+	<constant name="PADDING_KEY">-30</constant>
+	<constant name="WIDTH_KEYPAD">530</constant>
+	<constant name="WIDTH_KEYBOARD">1170</constant>
+	<constant name="WIDTH_KEYPAD_CONTENT">430</constant>	<!-- WIDTH_KEYPAD - (PADDING_BASE_50P * 2) -->
+	<constant name="WIDTH_KEYBOARD_CONTENT">1070</constant>	<!-- WIDTH_KEYBOARD - (PADDING_BASE_50P * 2) -->
+	<constant name="HEIGHT_KEYBOARD_CONTENT">470</constant>
 </includes>

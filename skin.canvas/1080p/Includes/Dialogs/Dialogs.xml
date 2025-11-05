@@ -2,6 +2,519 @@
 <includes>
 	<include file="Includes/Dialogs/Variables.xml" />
 
+	<!-- Keyboard/keypad button -->
+	<include name="KeyboardButtonSingle">
+		<param name="id"></param>
+		<param name="label"></param>
+		<param name="onup"></param>
+		<param name="ondown"></param>
+
+		<definition>
+			<control type="button" id="$PARAM[id]">
+				<include content="FocusZoomAnimation">
+					<param name="reference_id">$PARAM[id]</param>
+				</include>
+
+				<width>SIZE_KEY</width>
+				<height>SIZE_KEY</height>
+				<textoffsety>0</textoffsety>
+				<textoffsetx>0</textoffsetx>
+				<align>center</align>
+				<texturenofocus colordiffuse="BACKGROUND_OPAQUE20" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturenofocus>
+				<label>$PARAM[label]</label>
+
+				<onup>SetFocus($PARAM[onup])</onup>
+				<ondown>SetFocus($PARAM[ondown])</ondown>
+			</control>
+		</definition>
+	</include>
+	<include name="KeyboardButtonCustom">
+		<param name="visible">true</param>
+		<param name="id"></param>
+		<param name="type">button</param>
+		<param name="width">WIDTH_KEY_DOUBLE</param>
+		<param name="focus_amount">110</param>
+		<param name="label"></param>
+		<param name="icon"></param>
+		<param name="icon_left">75</param>	<!-- (WIDTH_KEY_DOUBLE / 2) - (40 / 2) -->
+		<param name="selected"></param>
+		<param name="onup"></param>
+		<param name="ondown"></param>
+		<param name="onclick"></param>
+
+		<definition>
+			<control type="$PARAM[type]" id="$PARAM[id]">
+				<visible>$PARAM[visible]</visible>
+				<include content="FocusZoomAnimation">
+					<param name="reference_id">$PARAM[id]</param>
+					<param name="amount">$PARAM[focus_amount]</param>
+				</include>
+
+				<width>$PARAM[width]</width>
+				<height>SIZE_KEY</height>
+				<textoffsety>0</textoffsety>
+				<textoffsetx>0</textoffsetx>
+				<selected>$PARAM[selected]</selected>
+				<align>center</align>
+				<label>$PARAM[label]</label>
+				<texturenofocus colordiffuse="BACKGROUND_OPAQUE20" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturenofocus>
+				<textureradioonfocus colordiffuse="FOREGROUND_ACCENT_ALT">$PARAM[icon]</textureradioonfocus>
+				<textureradioonnofocus colordiffuse="FOREGROUND_ACCENT">$PARAM[icon]</textureradioonnofocus>
+				<textureradioondisabled colordiffuse="FOREGROUND_ACCENT">$PARAM[icon]</textureradioondisabled>
+				<textureradioofffocus colordiffuse="FOREGROUND_INVERSE">$PARAM[icon]</textureradioofffocus>
+				<textureradiooffnofocus colordiffuse="FOREGROUND_OPAQUE75">$PARAM[icon]</textureradiooffnofocus>
+				<textureradiooffdisabled colordiffuse="FOREGROUND_OPAQUE35">$PARAM[icon]</textureradiooffdisabled>
+				<radiowidth>40</radiowidth>
+				<radioheight>40</radioheight>
+				<radioposx>$PARAM[icon_left]l</radioposx>
+
+				<onup>SetFocus($PARAM[onup])</onup>
+				<ondown>SetFocus($PARAM[ondown])</ondown>
+				<onclick>$PARAM[onclick]</onclick>
+			</control>
+		</definition>
+	</include>
+	<!-- Keyboard keys -->
+	<include name="KeyboardKeys">
+		<definition>
+			<!-- Line 1 -->
+			<control type="grouplist" id="400">
+				<orientation>horizontal</orientation>
+				<itemgap>PADDING_KEY</itemgap>
+
+				<top>90</top>
+				<width>WIDTH_KEYBOARD_CONTENT</width>
+				<height>SIZE_KEY</height>
+
+				<onleft>SetFocus(410,4,absolute)</onleft>
+
+				<!-- IP -->
+				<include content="KeyboardButtonCustom">
+					<param name="id">307</param>
+					<param name="type">radiobutton</param>
+					<param name="icon">1080p/icons/network.png</param>
+					<param name="selected">false</param>
+					<param name="onup">312</param>
+					<param name="ondown">303</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">120</param>
+					<param name="onup">312</param>
+					<param name="ondown">140</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">121</param>
+					<param name="onup">312</param>
+					<param name="ondown">141</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">122</param>
+					<param name="onup">312</param>
+					<param name="ondown">142</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">123</param>
+					<param name="onup">312</param>
+					<param name="ondown">143</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">124</param>
+					<param name="onup">312</param>
+					<param name="ondown">144</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">125</param>
+					<param name="onup">312</param>
+					<param name="ondown">145</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">126</param>
+					<param name="onup">312</param>
+					<param name="ondown">146</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">127</param>
+					<param name="onup">312</param>
+					<param name="ondown">147</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">128</param>
+					<param name="onup">312</param>
+					<param name="ondown">148</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">129</param>
+					<param name="onup">312</param>
+					<param name="ondown">149</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">130</param>
+					<param name="onup">312</param>
+					<param name="ondown">131</param>
+				</include>
+			</control>
+			<!-- Line 2 -->
+			<control type="grouplist" id="401">
+				<orientation>horizontal</orientation>
+				<itemgap>PADDING_KEY</itemgap>
+
+				<top>180</top>
+				<width>WIDTH_KEYBOARD_CONTENT</width>
+				<height>SIZE_KEY</height>
+
+				<!-- Caps lock -->
+				<include content="KeyboardButtonCustom">
+					<param name="id">303</param>
+					<param name="type">radiobutton</param>
+					<param name="icon">1080p/icons/capslock.png</param>
+					<param name="onup">307</param>
+					<param name="ondown">302</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">140</param>
+					<param name="onup">120</param>
+					<param name="ondown">160</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">141</param>
+					<param name="onup">121</param>
+					<param name="ondown">161</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">142</param>
+					<param name="onup">122</param>
+					<param name="ondown">162</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">143</param>
+					<param name="onup">123</param>
+					<param name="ondown">163</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">144</param>
+					<param name="onup">124</param>
+					<param name="ondown">164</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">145</param>
+					<param name="onup">125</param>
+					<param name="ondown">165</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">146</param>
+					<param name="onup">126</param>
+					<param name="ondown">166</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">147</param>
+					<param name="onup">127</param>
+					<param name="ondown">167</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">148</param>
+					<param name="onup">128</param>
+					<param name="ondown">168</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">149</param>
+					<param name="onup">129</param>
+					<param name="ondown">169</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">131</param>
+					<param name="onup">130</param>
+					<param name="ondown">150</param>
+				</include>
+			</control>
+			<!-- Line 3 -->
+			<control type="grouplist" id="402">
+				<orientation>horizontal</orientation>
+				<itemgap>PADDING_KEY</itemgap>
+
+				<top>270</top>
+				<width>WIDTH_KEYBOARD_CONTENT</width>
+				<height>SIZE_KEY</height>
+
+				<!-- Shift -->
+				<include content="KeyboardButtonCustom">
+					<param name="id">302</param>
+					<param name="type">radiobutton</param>
+					<param name="icon">1080p/icons/shift.png</param>
+					<param name="onup">303</param>
+					<param name="ondown">304</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">160</param>
+					<param name="onup">140</param>
+					<param name="ondown">32</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">161</param>
+					<param name="onup">141</param>
+					<param name="ondown">32</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">162</param>
+					<param name="onup">142</param>
+					<param name="ondown">32</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">163</param>
+					<param name="onup">143</param>
+					<param name="ondown">32</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">164</param>
+					<param name="onup">144</param>
+					<param name="ondown">32</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">165</param>
+					<param name="onup">145</param>
+					<param name="ondown">32</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">166</param>
+					<param name="onup">146</param>
+					<param name="ondown">32</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">167</param>
+					<param name="onup">147</param>
+					<param name="ondown">110</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">168</param>
+					<param name="onup">148</param>
+					<param name="ondown">111</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">112</param>
+					<param name="onup">149</param>
+					<param name="ondown">132</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">150</param>
+					<param name="onup">131</param>
+					<param name="ondown">169</param>
+				</include>
+			</control>
+			<!-- Line 4 -->
+			<control type="grouplist" id="403">
+				<orientation>horizontal</orientation>
+				<itemgap>PADDING_KEY</itemgap>
+
+				<top>360</top>
+				<width>WIDTH_KEYBOARD_CONTENT</width>
+				<height>SIZE_KEY</height>
+
+				<!-- Clean -->
+				<include content="KeyboardButtonCustom">
+					<param name="id">308</param>
+					<param name="type">radiobutton</param>
+					<param name="width">SIZE_KEY</param>
+					<param name="icon">1080p/icons/clear.png</param>
+					<param name="icon_left">35</param>
+					<param name="selected">false</param>
+					<param name="onup">302</param>
+					<param name="ondown">307</param>
+				</include>
+				<!-- Switch to symbols -->
+				<include content="KeyboardButtonCustom">
+					<param name="id">304</param>
+					<param name="type">radiobutton</param>
+					<param name="width">SIZE_KEY</param>
+					<param name="icon">1080p/icons/symbols.png</param>
+					<param name="icon_left">35</param>
+					<param name="onup">302</param>
+					<param name="ondown">307</param>
+				</include>
+				<!-- Spacebar -->
+				<include content="KeyboardButtonCustom">
+					<param name="id">32</param>
+					<param name="type">radiobutton</param>
+					<param name="width">590</param>	<!-- (SIZE_KEY * 7) - abs(PADDING_KEY * 6) -->
+					<param name="focus_amount">103,110</param>
+					<param name="icon">1080p/icons/spacebar.png</param>
+					<param name="icon_left">275</param>	<!-- ((SIZE_KEY * 7) - abs(PADDING_KEY * 6) / 2) - (40 / 2) -->
+					<param name="selected">false</param>
+					<param name="onup">163</param>
+					<param name="ondown">123</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">110</param>
+					<param name="onup">167</param>
+					<param name="ondown">127</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">111</param>
+					<param name="onup">168</param>
+					<param name="ondown">128</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">132</param>
+					<param name="onup">112</param>
+					<param name="ondown">129</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">169</param>
+					<param name="onup">150</param>
+					<param name="ondown">130</param>
+				</include>
+			</control>
+		</definition>
+	</include>
+	<!-- Numpad keys -->
+	<include name="NumpadKeys">
+		<param name="digit_prefix"></param>
+		<param name="backspace_id"></param>
+		<param name="cancel_id"></param>
+		<param name="done_id"></param>
+		<param name="left_id"></param>
+		<param name="right_id"></param>
+
+		<definition>
+			<!-- Line 1 -->
+			<control type="grouplist" id="410">
+				<orientation>horizontal</orientation>
+				<itemgap>PADDING_KEY</itemgap>
+
+				<top>90</top>
+				<width>WIDTH_KEYPAD_CONTENT</width>
+				<height>SIZE_KEY</height>
+
+				<onleft>Control.SetFocus(400,10,absolute)</onleft>
+				<onright>Control.SetFocus(400,1,absolute)</onright>
+
+				<include content="KeyboardButtonSingle">
+					<param name="id">$PARAM[digit_prefix]6</param>
+					<param name="onup">312</param>
+					<param name="ondown">$PARAM[digit_prefix]3</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">$PARAM[digit_prefix]7</param>
+					<param name="onup">312</param>
+					<param name="ondown">$PARAM[digit_prefix]4</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">$PARAM[digit_prefix]8</param>
+					<param name="onup">312</param>
+					<param name="ondown">$PARAM[digit_prefix]5</param>
+				</include>
+				<!-- Backspace -->
+				<include content="KeyboardButtonCustom">
+					<param name="id">$PARAM[backspace_id]</param>
+					<param name="type">radiobutton</param>
+					<param name="icon">1080p/icons/backspace.png</param>
+					<param name="onup">312</param>
+					<param name="ondown">$PARAM[cancel_id]</param>
+				</include>
+			</control>
+			<!-- Line 2 -->
+			<control type="grouplist" id="411">
+				<orientation>horizontal</orientation>
+				<itemgap>PADDING_KEY</itemgap>
+
+				<top>180</top>
+				<width>WIDTH_KEYPAD_CONTENT</width>
+				<height>SIZE_KEY</height>
+
+				<include content="KeyboardButtonSingle">
+					<param name="id">$PARAM[digit_prefix]3</param>
+					<param name="onup">$PARAM[digit_prefix]6</param>
+					<param name="ondown">$PARAM[digit_prefix]0</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">$PARAM[digit_prefix]4</param>
+					<param name="onup">$PARAM[digit_prefix]7</param>
+					<param name="ondown">$PARAM[digit_prefix]1</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">$PARAM[digit_prefix]5</param>
+					<param name="onup">$PARAM[digit_prefix]8</param>
+					<param name="ondown">$PARAM[digit_prefix]2</param>
+				</include>
+				<!-- Cancel -->
+				<include content="KeyboardButtonCustom">
+					<param name="id">$PARAM[cancel_id]</param>
+					<param name="type">button</param>
+					<param name="label">Cancel</param>
+					<param name="onup">$PARAM[backspace_id]</param>
+					<param name="ondown">$PARAM[done_id]</param>
+				</include>
+			</control>
+			<!-- Line 3 -->
+			<control type="grouplist" id="412">
+				<orientation>horizontal</orientation>
+				<itemgap>PADDING_KEY</itemgap>
+
+				<top>270</top>
+				<width>WIDTH_KEYPAD_CONTENT</width>
+				<height>SIZE_KEY</height>
+
+				<include content="KeyboardButtonSingle">
+					<param name="id">$PARAM[digit_prefix]0</param>
+					<param name="onup">$PARAM[digit_prefix]3</param>
+					<param name="ondown">$PARAM[left_id]</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">$PARAM[digit_prefix]1</param>
+					<param name="onup">$PARAM[digit_prefix]4</param>
+					<param name="ondown">$PARAM[digit_prefix]9</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">$PARAM[digit_prefix]2</param>
+					<param name="onup">$PARAM[digit_prefix]5</param>
+					<param name="ondown">$PARAM[right_id]</param>
+				</include>
+				<!-- Done -->
+				<include content="KeyboardButtonCustom">
+					<param name="id">$PARAM[done_id]</param>
+					<param name="type">button</param>
+					<param name="label">Done</param>
+					<param name="onup">$PARAM[cancel_id]</param>
+					<param name="ondown">$PARAM[backspace_id]</param>
+				</include>
+			</control>
+			<!-- Line 4 -->
+			<control type="grouplist" id="413">
+				<orientation>horizontal</orientation>
+				<itemgap>PADDING_KEY</itemgap>
+
+				<top>360</top>
+				<width>WIDTH_KEYPAD_CONTENT</width>
+				<height>SIZE_KEY</height>
+
+				<!-- Navigate left -->
+				<include content="KeyboardButtonCustom">
+					<param name="id">$PARAM[left_id]</param>
+					<param name="type">radiobutton</param>
+					<param name="width">SIZE_KEY</param>
+					<param name="icon">1080p/icons/chevron-left.png</param>
+					<param name="icon_left">35</param>
+					<param name="onup">$PARAM[digit_prefix]0</param>
+					<param name="ondown">$PARAM[digit_prefix]6</param>
+				</include>
+				<include content="KeyboardButtonSingle">
+					<param name="id">$PARAM[digit_prefix]9</param>
+					<param name="onup">$PARAM[digit_prefix]1</param>
+					<param name="ondown">$PARAM[digit_prefix]7</param>
+				</include>
+				<!-- Navigate right -->
+				<include content="KeyboardButtonCustom">
+					<param name="id">$PARAM[right_id]</param>
+					<param name="type">radiobutton</param>
+					<param name="width">SIZE_KEY</param>
+					<param name="icon">1080p/icons/chevron-right.png</param>
+					<param name="icon_left">35</param>
+					<param name="onup">$PARAM[digit_prefix]2</param>
+					<param name="ondown">$PARAM[digit_prefix]8</param>
+				</include>
+			</control>
+		</definition>
+	</include>
+
+
 	<!-- Multi-option select dialog -->
 	<include name="StandardDialogSelect">
 		<include content="StandardFlyoutBase">

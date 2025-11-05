@@ -1,16 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-	<defaultcontrol always="true">300</defaultcontrol>
+	<defaultcontrol always="true">312</defaultcontrol>
 
 	<controls>
-		<!-- Darkening -->
-		<include content="DarkeningLayer" />
+		<control type="group">
+			<!-- Darkening -->
+			<include content="DarkeningLayer" />
 
-		<control type="button" id="300">
-			<label></label>
-		</control>
-		<control type="edit" id="312">
-			<label></label>
+			<control type="group">
+				<!-- Hide when numeric is visible (ip address input) -->
+				<visible>!Window.IsVisible(DialogNumeric.xml)</visible>
+				<include content="ShowHideFadeSlideVerticalAnimation">
+					<param name="speed">ANIMATION_MID</param>
+					<param name="visible_condition">Visible</param>
+					<param name="hidden_condition">Hidden</param>
+				</include>
+				<include content="ShowHideFadeSlideVerticalAnimation">
+					<param name="speed">ANIMATION_MID</param>
+					<param name="visible_condition">WindowOpen</param>
+					<param name="hidden_condition">WindowClose</param>
+				</include>
+
+				<!-- Label -->
+				<control type="label" id="311">
+					<bottom>SCREEN_HEIGHT_HALF</bottom>
+					<width>SCREEN_WIDTH</width>
+					<height>FONT_SIZE_SUBTITLE</height>
+					<font>BODY_STRONG</font>
+					<align>center</align>
+					<label></label>
+				</control>
+
+				<!-- Keyboard -->
+				<control type="group">
+					<bottom>0</bottom>
+					<width>SCREEN_WIDTH</width>
+					<height>SCREEN_HEIGHT_HALF</height>
+
+					<!-- Background -->
+					<control type="image">
+						<width>100%</width>
+						<height>100%</height>
+						<texture colordiffuse="BACKGROUND_SETTINGS_TINT" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texture>
+					</control>
+					
+					<!-- Content -->
+					<control type="group">
+						<top>PADDING_BASE_30P</top>
+						<bottom>PADDING_BASE_30P</bottom>
+						<left>PADDING_BASE_50P</left>
+						<right>PADDING_BASE_50P</right>
+
+						<!-- Input box -->
+						<control type="grouplist">
+							<orientation>horizontal</orientation>
+							<itemgap>0</itemgap>
+							<align>center</align>
+
+							<width>100%</width>
+							<height>100</height>
+
+							<control type="edit" id="312">
+								<width>800</width>
+								<height>100</height>
+								<label></label>
+								<ondown>SetFocus(400)</ondown>
+							</control>
+						</control>
+
+						<!--<control type="image">
+							<width>WIDTH_KEYBOARD_CONTENT</width>
+							<height>HEIGHT_KEYBOARD_CONTENT</height>
+							<texture colordiffuse="33ff0000">diffuse.png</texture>
+						</control>
+						<control type="image">
+							<left>WIDTH_KEYBOARD_CONTENT</left>
+							<width>WIDTH_KEYPAD_CONTENT</width>
+							<height>HEIGHT_KEYBOARD_CONTENT</height>
+							<texture colordiffuse="3300ff00">diffuse.png</texture>
+						</control>-->
+
+						<!-- Keyboard-->
+						<include content="KeyboardKeys" />
+						<!-- Numpad -->
+						<control type="group">
+							<left>WIDTH_KEYBOARD_CONTENT</left>
+							<include content="NumpadKeys">
+								<param name="digit_prefix">10</param>
+								<param name="backspace_id">8</param>
+								<param name="cancel_id">301</param>
+								<param name="done_id">300</param>
+								<param name="left_id">305</param>
+								<param name="right_id">306</param>
+							</include>
+						</control>
+					</control>
+				</control>
+			</control>
 		</control>
 	</controls>
 </window>
