@@ -37,6 +37,82 @@
 			</control>
 		</definition>
 	</include>
+
+
+	<!-- Systeminfo button -->
+	<include name="SysteminfoMenuItem">
+		<param name="id"></param>
+		<param name="icon"></param>
+
+		<definition>
+			<!-- Icon button -->
+			<control type="group">
+				<width>WIDTH_HOME_MENU</width>
+				<height>SIZE_HOME_MENU_ICON_SELECTION</height>
+
+				<!-- Selected case (circle background, dark icon) -->
+				<control type="group">
+					<visible>Control.HasFocus($PARAM[id])</visible>
+					<width>WIDTH_HOME_MENU</width>
+					<height>SIZE_HOME_MENU_ICON_SELECTION</height>
+
+					<!-- Circle background -->
+					<control type="image">
+						<width>SIZE_HOME_MENU_ICON_SELECTION</width>
+						<height>SIZE_HOME_MENU_ICON_SELECTION</height>
+						<centertop>50%</centertop>
+						<centerleft>50%</centerleft>
+						<texture colordiffuse="FOREGROUND_ACCENT">1080p/diffuse/circle.png</texture>
+						<bordertexture border="SIZE_ITEM_SHADOW_SMALLCIRCLE_DOUBLE" colordiffuse="BACKGROUND_OPAQUE75">1080p/diffuse/shadow-circle-small.png</bordertexture>
+						<bordersize>SIZE_ITEM_SHADOW_SMALLCIRCLE</bordersize>
+					</control>
+					<!-- Icon -->
+					<control type="image">
+						<width>SIZE_HOME_MENU_ICON</width>
+						<height>SIZE_HOME_MENU_ICON</height>
+						<centertop>50%</centertop>
+						<centerleft>50%</centerleft>
+						<texture colordiffuse="BACKGROUND_OPAQUE75">$PARAM[icon]</texture>
+					</control>
+				</control>
+
+				<!-- Unselected case (icon only, light color) -->
+				<control type="image">
+					<visible>!Control.HasFocus($PARAM[id])</visible>
+					<width>SIZE_HOME_MENU_ICON</width>
+					<height>SIZE_HOME_MENU_ICON</height>
+					<centertop>50%</centertop>
+					<centerleft>50%</centerleft>
+					<texture colordiffuse="FOREGROUND_OPAQUE50">$PARAM[icon]</texture>
+				</control>
+
+				<!-- Actual button -->
+				<control type="button" id="$PARAM[id]">
+					<visible allowhiddenfocus="true">false</visible>
+					<texturefocus />
+					<onfocus>SendClick($PARAM[id])</onfocus>
+				</control>
+			</control>
+		</definition>
+	</include>
+	<!-- Systeminfo label -->
+	<include name="SysteminfoLabel">
+		<param name="id"></param>
+		<param name="font">BODY</param>
+		<param name="color">FOREGROUND</param>
+		<param name="label"></param>
+		
+		<definition>
+			<control type="label" id="$PARAM[id]">
+				<width>auto</width>
+				<height>FONT_SIZE_SUBTITLE</height>
+				<aligny>center</aligny>
+				<font>$PARAM[font]</font>
+				<textcolor>$PARAM[color]</textcolor>
+				<label>$PARAM[label]</label>
+			</control>
+		</definition>
+	</include>
 	
 
 	<!-- Content for fake option button with icon (multiline) -->

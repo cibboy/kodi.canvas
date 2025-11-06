@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol>94</defaultcontrol>
+
+	<controls>
+		<include content="Center169AspectRatio">
+			<!-- Background (monocolor) -->
+			<include content="SettingsBackground" />
+
+			<control type="group">
+				<top>PADDING_BASE_80P</top>
+				<bottom>PADDING_BASE</bottom>
+				<left>PADDING_BASE</left>
+				<right>PADDING_BASE</right>
+				<width>WIDTH_HOME_MENU</width>
+				
+				<!-- Menu -->
+				<control type="group">
+					<width>WIDTH_HOME_MENU</width>
+
+					<!-- Logo -->
+					<control type="image">
+						<width>SIZE_HOME_MENU_LOGO</width>
+						<height>SIZE_HOME_MENU_LOGO</height>
+						<centerleft>50%</centerleft>
+						<texture colordiffuse="HIGHLIGHT">$VAR[LogoIcon]</texture>
+						<aspectratio>keep</aspectratio>
+					</control>
+
+					<!-- Menu -->
+					<control type="grouplist" id="200">
+						<orientation>vertical</orientation>
+						<itemgap>-20</itemgap>
+						<usecontrolcoords>true</usecontrolcoords>
+
+						<top>200</top>
+						<bottom>0</bottom>
+
+						<include content="SysteminfoMenuItem">
+							<param name="id">94</param>
+							<param name="icon">1080p/icons/drive.png</param>
+						</include>
+						<include content="SysteminfoMenuItem">
+							<param name="id">95</param>
+							<param name="icon">1080p/icons/systeminfo.png</param>
+						</include>
+						<include content="SysteminfoMenuItem">
+							<param name="id">96</param>
+							<param name="icon">1080p/icons/network.png</param>
+						</include>
+						<include content="SysteminfoMenuItem">
+							<param name="id">97</param>
+							<param name="icon">1080p/icons/video.png</param>
+						</include>
+						<include content="SysteminfoMenuItem">
+							<param name="id">98</param>
+							<param name="icon">1080p/icons/system.png</param>
+						</include>
+						<include content="SysteminfoMenuItem">
+							<param name="id">99</param>
+							<param name="icon">1080p/icons/tvshows.png</param>
+						</include>
+						<include content="SysteminfoMenuItem">
+							<param name="id">100</param>
+							<param name="icon">1080p/icons/info.png</param>
+						</include>
+					</control>
+				</control>
+
+				<!-- Content -->
+				<control type="grouplist">
+					<orientation>vertical</orientation>
+					<itemgap>0</itemgap>
+					<usecontrolcoords>true</usecontrolcoords>
+
+					<left>WIDTH_HOME_MENU</left>
+					<right>0</right>
+					<height>100%</height>
+
+					<!-- Title -->
+					<control type="group">
+						<height>HEIGHT_DETAILS_TITLE_SECTION</height>
+
+						<control type="label" id="40">
+							<top>40</top>
+							<width>auto</width>
+							<height>HEIGHT_DETAILS_TITLE</height>
+							<aligny>center</aligny>
+							<font>TITLE1</font>
+							<textcolor>HIGHLIGHT</textcolor>
+							<label></label>
+						</control>
+					</control>
+
+					<!-- Labels -->
+					<include content="SysteminfoLabel"><param name="id">2</param></include>
+					<include content="SysteminfoLabel"><param name="id">3</param></include>
+					<include content="SysteminfoLabel"><param name="id">4</param></include>
+					<include content="SysteminfoLabel"><param name="id">5</param></include>
+					<include content="SysteminfoLabel"><param name="id">6</param></include>
+					<include content="SysteminfoLabel"><param name="id">7</param></include>
+					<include content="SysteminfoLabel"><param name="id">8</param></include>
+					<include content="SysteminfoLabel"><param name="id">9</param></include>
+					<include content="SysteminfoLabel"><param name="id">10</param></include>
+					<include content="SysteminfoLabel"><param name="id">11</param></include>
+					<include content="SysteminfoLabel"><param name="id">12</param></include>
+					<include content="SysteminfoLabel"><param name="id">13</param></include>
+
+					<!-- Privacy policy -->
+					<control type="textbox" id="30">
+						<visible>Control.HasFocus(100)</visible>
+						<width>100%</width>
+						<height>740</height>	<!-- SCREEN_HEIGHT - PADDING_BASE_80P - HEIGHT_DETAILS_TITLE_SECTION - FONT_SIZE_SUBTITLE (build info) - PADDING_BASE --><!--todo: check if clipping is consisten with text (no clipped text mid-height)-->
+						<font>BODY</font>
+						<textcolor>FOREGROUND</textcolor>
+						<label></label>
+					</control>
+
+					<!-- Build info -->
+					<control type="grouplist">
+						<visible>Control.HasFocus(100)</visible>
+						<orientation>horizontal</orientation>
+						<itemgap>PADDING_BASE_10P</itemgap>
+
+						<width>100%</width>
+						<height>FONT_SIZE_SUBTITLE</height>
+
+						<include content="SysteminfoLabel">
+							<param name="id">152</param>
+							<param name="font">CAPTION_STRONG</param>
+							<param name="color">HIGHLIGHT</param>
+							<param name="label">Build:</param>
+						</include>
+						<include content="SysteminfoLabel">
+							<param name="id">400</param>
+							<param name="font">CAPTION</param>
+							<param name="color">HIGHLIGHT</param>
+							<param name="label">$INFO[System.BuildVersionShort]$INFO[System.BuildVersionCode, (,)]</param>
+						</include>
+						<include content="SysteminfoLabel">
+							<param name="id">401</param>
+							<param name="font">CAPTION_STRONG</param>
+							<param name="color">HIGHLIGHT</param>
+							<param name="label">  Git:</param>
+						</include>
+						<include content="SysteminfoLabel">
+							<param name="id">402</param>
+							<param name="font">CAPTION</param>
+							<param name="color">HIGHLIGHT</param>
+							<param name="label">$INFO[System.BuildVersionGit]</param>
+						</include>
+						<include content="SysteminfoLabel">
+							<param name="id">153</param>
+							<param name="font">CAPTION_STRONG</param>
+							<param name="color">HIGHLIGHT</param>
+							<param name="label">  Date:</param>
+						</include>
+						<include content="SysteminfoLabel">
+							<param name="id">53</param>
+							<param name="font">CAPTION</param>
+							<param name="color">HIGHLIGHT</param>
+						</include>
+					</control>
+				</control>
+			</control>
+		</include>
+	</control>
+</window>

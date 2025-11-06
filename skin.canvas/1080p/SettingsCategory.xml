@@ -4,7 +4,7 @@
 
 	<controls>
 		<include content="Center169AspectRatio">
-			<!-- Background (structure split) -->
+			<!-- Background (monocolor) -->
 			<include content="SettingsBackground" />
 
 			<!-- Main settings -->
@@ -16,6 +16,7 @@
 					<effect type="slide" end="SCREEN_WIDTH_NEG,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
 				</animation>
 
+				<!-- Background (structure split) -->
 				<include content="SettingsBackgroundSplit">
 					<!--
 						When the main sections don't have focus, the split inverts.
