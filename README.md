@@ -14,6 +14,9 @@ TOFIX:
   - pages are inside a grouplist
   - basically reintroduce some concepts of previous implementation, but attempt to implement native navigation
   - consider Control.Message(id,message) > message: movedown, moveup (https://kodi.wiki/view/List_of_built-in_functions#GUI_control_built-in's)
+- testare cosa succede sulla vista 1150 quando finisce il video:
+  potrebbe servire mettere l'immagine thumb, che si può visualizzare sempre sotto il video con le stesse dimensioni, e il video ha visibility sul player playing something
+- testare layout tastiera italiano per vedere che succede con simboli e simile
 
 TODO:
 - dialog in settings da fare:

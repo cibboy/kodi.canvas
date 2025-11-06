@@ -34,8 +34,68 @@
 				<!-- Keyboard -->
 				<control type="group">
 					<bottom>0</bottom>
-					<width>SCREEN_WIDTH</width>
+					<centerleft>50%</centerleft>
+					<width>WIDTH_KEYBOARD</width>
 					<height>SCREEN_HEIGHT_HALF</height>
+
+					<!-- Hidden navigation buttons. These allow to move between keys safely even when some keys don't show up -->
+					<control type="group">
+						<control type="button" id="9130">	<!-- Line 1, char 1 -->
+							<visible allowhiddenfocus="true">false</visible>
+							<onfocus condition="Control.IsVisible(130)">SetFocus(130)</onfocus>
+							<onfocus condition="!Control.IsVisible(130)">SetFocus(129)</onfocus>
+						</control>
+						<control type="button" id="9149">	<!-- Line 2, char 1 -->
+							<visible allowhiddenfocus="true">false</visible>
+							<onfocus condition="Control.IsVisible(149)">SetFocus(149)</onfocus>
+							<onfocus condition="!Control.IsVisible(149)">SetFocus(148)</onfocus>
+						</control>
+						<control type="button" id="9131">	<!-- Line 2, char 2 -->
+							<visible allowhiddenfocus="true">false</visible>
+							<onfocus condition="Control.IsVisible(131)">SetFocus(131)</onfocus>
+							<onfocus condition="!Control.IsVisible(131)">SetFocus(149)</onfocus>
+						</control>
+						<control type="button" id="9167">	<!-- Line 3, char 1 -->
+							<visible allowhiddenfocus="true">false</visible>
+							<onfocus condition="Control.IsVisible(167)">SetFocus(167)</onfocus>
+							<onfocus condition="!Control.IsVisible(167)">SetFocus(166)</onfocus>
+						</control>
+						<control type="button" id="9168">	<!-- Line 3, char 2 -->
+							<visible allowhiddenfocus="true">false</visible>
+							<onfocus condition="Control.IsVisible(168)">SetFocus(168)</onfocus>
+							<onfocus condition="!Control.IsVisible(168)">SetFocus(167)</onfocus>
+						</control>
+						<control type="button" id="9112">	<!-- Line 3, char 3 -->
+							<visible allowhiddenfocus="true">false</visible>
+							<onfocus condition="Control.IsVisible(112)">SetFocus(112)</onfocus>
+							<onfocus condition="!Control.IsVisible(112)">SetFocus(168)</onfocus>
+						</control>
+						<control type="button" id="9150">	<!-- Line 3, char 4 -->
+							<visible allowhiddenfocus="true">false</visible>
+							<onfocus condition="Control.IsVisible(150)">SetFocus(150)</onfocus>
+							<onfocus condition="!Control.IsVisible(150)">SetFocus(112)</onfocus>
+						</control>
+						<control type="button" id="9110">	<!-- Line 4, char 1 -->
+							<visible allowhiddenfocus="true">false</visible>
+							<onfocus condition="Control.IsVisible(110)">SetFocus(110)</onfocus>
+							<onfocus condition="!Control.IsVisible(110)">SetFocus(32)</onfocus>
+						</control>
+						<control type="button" id="9111">	<!-- Line 4, char 2 -->
+							<visible allowhiddenfocus="true">false</visible>
+							<onfocus condition="Control.IsVisible(111)">SetFocus(111)</onfocus>
+							<onfocus condition="!Control.IsVisible(111)">SetFocus(110)</onfocus>
+						</control>
+						<control type="button" id="9132">	<!-- Line 4, char 3 -->
+							<visible allowhiddenfocus="true">false</visible>
+							<onfocus condition="Control.IsVisible(132)">SetFocus(132)</onfocus>
+							<onfocus condition="!Control.IsVisible(113212)">SetFocus(111)</onfocus>
+						</control>
+						<control type="button" id="9169">	<!-- Line 4, char 4 -->
+							<visible allowhiddenfocus="true">false</visible>
+							<onfocus condition="Control.IsVisible(169)">SetFocus(169)</onfocus>
+							<onfocus condition="!Control.IsVisible(169)">SetFocus(132)</onfocus>
+						</control>
+					</control>
 
 					<!-- Background -->
 					<control type="image">
@@ -52,47 +112,466 @@
 						<right>PADDING_BASE_50P</right>
 
 						<!-- Input box -->
-						<control type="grouplist">
-							<orientation>horizontal</orientation>
-							<itemgap>0</itemgap>
-							<align>center</align>
-
-							<width>100%</width>
+						<control type="edit" id="312">
+							<centerleft>50%</centerleft>
+							<width>800</width>
 							<height>100</height>
+							<label></label>
+							<ondown>SetFocus(400)</ondown>
+						</control>
 
-							<control type="edit" id="312">
-								<width>800</width>
-								<height>100</height>
-								<label></label>
-								<ondown>SetFocus(400)</ondown>
+						<!-- Keyboard-->
+						<control type="group">
+							<width>WIDTH_KEYBOARD_CONTENT</width>
+
+							<!-- Line 1 -->
+							<control type="grouplist" id="400">
+								<orientation>horizontal</orientation>
+								<itemgap>PADDING_KEY</itemgap>
+
+								<top>90</top>
+								<width>WIDTH_KEYBOARD_CONTENT</width>
+								<height>SIZE_KEY</height>
+
+								<onleft>SetFocus(8)</onleft>
+								<onright>SetFocus(106)</onright>
+
+								<!-- IP -->
+								<include content="KeyboardButtonCustom">
+									<param name="id">307</param>
+									<param name="type">radiobutton</param>
+									<param name="icon">1080p/icons/network.png</param>
+									<param name="selected">false</param>
+									<param name="onup">312</param>
+									<param name="ondown">303</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">120</param>
+									<param name="onup">312</param>
+									<param name="ondown">140</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">121</param>
+									<param name="onup">312</param>
+									<param name="ondown">141</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">122</param>
+									<param name="onup">312</param>
+									<param name="ondown">142</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">123</param>
+									<param name="onup">312</param>
+									<param name="ondown">143</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">124</param>
+									<param name="onup">312</param>
+									<param name="ondown">144</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">125</param>
+									<param name="onup">312</param>
+									<param name="ondown">145</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">126</param>
+									<param name="onup">312</param>
+									<param name="ondown">146</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">127</param>
+									<param name="onup">312</param>
+									<param name="ondown">147</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">128</param>
+									<param name="onup">312</param>
+									<param name="ondown">148</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">129</param>
+									<param name="onup">312</param>
+									<param name="ondown">9149</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">130</param>
+									<param name="onup">312</param>
+									<param name="ondown">9131</param>
+								</include>
+							</control>
+							<!-- Line 2 -->
+							<control type="grouplist" id="401">
+								<orientation>horizontal</orientation>
+								<itemgap>PADDING_KEY</itemgap>
+
+								<top>180</top>
+								<width>WIDTH_KEYBOARD_CONTENT</width>
+								<height>SIZE_KEY</height>
+
+								<onleft>SetFocus(301)</onleft>
+								<onright>SetFocus(103)</onright>
+
+								<!-- Caps lock -->
+								<include content="KeyboardButtonCustom">
+									<param name="id">303</param>
+									<param name="type">radiobutton</param>
+									<param name="icon">1080p/icons/capslock.png</param>
+									<param name="onup">307</param>
+									<param name="ondown">302</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">140</param>
+									<param name="onup">120</param>
+									<param name="ondown">160</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">141</param>
+									<param name="onup">121</param>
+									<param name="ondown">161</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">142</param>
+									<param name="onup">122</param>
+									<param name="ondown">162</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">143</param>
+									<param name="onup">123</param>
+									<param name="ondown">163</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">144</param>
+									<param name="onup">124</param>
+									<param name="ondown">164</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">145</param>
+									<param name="onup">125</param>
+									<param name="ondown">165</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">146</param>
+									<param name="onup">126</param>
+									<param name="ondown">166</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">147</param>
+									<param name="onup">127</param>
+									<param name="ondown">9167</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">148</param>
+									<param name="onup">128</param>
+									<param name="ondown">9168</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">149</param>
+									<param name="onup">129</param>
+									<param name="ondown">9169</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">131</param>
+									<param name="onup">9130</param>
+									<param name="ondown">9150</param>
+								</include>
+							</control>
+							<!-- Line 3 -->
+							<control type="grouplist" id="402">
+								<orientation>horizontal</orientation>
+								<itemgap>PADDING_KEY</itemgap>
+
+								<top>270</top>
+								<width>WIDTH_KEYBOARD_CONTENT</width>
+								<height>SIZE_KEY</height>
+
+								<onleft>SetFocus(300)</onleft>
+								<onright>SetFocus(100)</onright>
+
+								<!-- Shift -->
+								<include content="KeyboardButtonCustom">
+									<param name="id">302</param>
+									<param name="type">radiobutton</param>
+									<param name="icon">1080p/icons/shift.png</param>
+									<param name="onup">303</param>
+									<param name="ondown">304</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">160</param>
+									<param name="onup">140</param>
+									<param name="ondown">32</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">161</param>
+									<param name="onup">141</param>
+									<param name="ondown">32</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">162</param>
+									<param name="onup">142</param>
+									<param name="ondown">32</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">163</param>
+									<param name="onup">143</param>
+									<param name="ondown">32</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">164</param>
+									<param name="onup">144</param>
+									<param name="ondown">32</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">165</param>
+									<param name="onup">145</param>
+									<param name="ondown">32</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">166</param>
+									<param name="onup">146</param>
+									<param name="ondown">32</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">167</param>
+									<param name="onup">147</param>
+									<param name="ondown">9110</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">168</param>
+									<param name="onup">148</param>
+									<param name="ondown">9111</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">112</param>
+									<param name="onup">9149</param>
+									<param name="ondown">9132</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">150</param>
+									<param name="onup">9131</param>
+									<param name="ondown">9169</param>
+								</include>
+							</control>
+							<!-- Line 4 -->
+							<control type="grouplist" id="403">
+								<orientation>horizontal</orientation>
+								<itemgap>PADDING_KEY</itemgap>
+
+								<top>360</top>
+								<width>WIDTH_KEYBOARD_CONTENT</width>
+								<height>SIZE_KEY</height>
+
+								<onleft>SetFocus(306)</onleft>
+								<onright>SetFocus(305)</onright>
+
+								<!-- Clean -->
+								<include content="KeyboardButtonCustom">
+									<param name="id">308</param>
+									<param name="type">radiobutton</param>
+									<param name="width">SIZE_KEY</param>
+									<param name="icon">1080p/icons/clear.png</param>
+									<param name="icon_left">35</param>
+									<param name="selected">false</param>
+									<param name="onup">302</param>
+									<param name="ondown">307</param>
+								</include>
+								<!-- Switch to symbols -->
+								<include content="KeyboardButtonCustom">
+									<param name="id">304</param>
+									<param name="type">radiobutton</param>
+									<param name="width">SIZE_KEY</param>
+									<param name="icon">1080p/icons/symbols.png</param>
+									<param name="icon_left">35</param>
+									<param name="onup">302</param>
+									<param name="ondown">307</param>
+								</include>
+								<!-- Spacebar -->
+								<include content="KeyboardButtonCustom">
+									<param name="id">32</param>
+									<param name="type">radiobutton</param>
+									<param name="width">590</param>	<!-- (SIZE_KEY * 7) - abs(PADDING_KEY * 6) -->
+									<param name="focus_amount">103,110</param>
+									<param name="icon">1080p/icons/spacebar.png</param>
+									<param name="icon_left">275</param>	<!-- ((SIZE_KEY * 7) - abs(PADDING_KEY * 6) / 2) - (40 / 2) -->
+									<param name="selected">false</param>
+									<param name="onup">163</param>
+									<param name="ondown">123</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">110</param>
+									<param name="onup">9167</param>
+									<param name="ondown">127</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">111</param>
+									<param name="onup">9168</param>
+									<param name="ondown">128</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">132</param>
+									<param name="onup">9112</param>
+									<param name="ondown">129</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">169</param>
+									<param name="onup">9150</param>
+									<param name="ondown">9130</param>
+								</include>
 							</control>
 						</control>
 
-						<!--<control type="image">
-							<width>WIDTH_KEYBOARD_CONTENT</width>
-							<height>HEIGHT_KEYBOARD_CONTENT</height>
-							<texture colordiffuse="33ff0000">diffuse.png</texture>
-						</control>
-						<control type="image">
-							<left>WIDTH_KEYBOARD_CONTENT</left>
-							<width>WIDTH_KEYPAD_CONTENT</width>
-							<height>HEIGHT_KEYBOARD_CONTENT</height>
-							<texture colordiffuse="3300ff00">diffuse.png</texture>
-						</control>-->
-
-						<!-- Keyboard-->
-						<include content="KeyboardKeys" />
 						<!-- Numpad -->
 						<control type="group">
 							<left>WIDTH_KEYBOARD_CONTENT</left>
-							<include content="NumpadKeys">
-								<param name="digit_prefix">10</param>
-								<param name="backspace_id">8</param>
-								<param name="cancel_id">301</param>
-								<param name="done_id">300</param>
-								<param name="left_id">305</param>
-								<param name="right_id">306</param>
-							</include>
+							<width>WIDTH_KEYPAD_CONTENT</width>
+
+							<!-- Line 1 -->
+							<control type="grouplist" id="410">
+								<orientation>horizontal</orientation>
+								<itemgap>PADDING_KEY</itemgap>
+
+								<top>90</top>
+								<width>WIDTH_KEYPAD_CONTENT</width>
+								<height>SIZE_KEY</height>
+
+								<onleft>SetFocus(9130)</onleft>
+								<onright>SetFocus(307)</onright>
+
+								<include content="KeyboardButtonSingle">
+									<param name="id">106</param>
+									<param name="onup">312</param>
+									<param name="ondown">103</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">107</param>
+									<param name="onup">312</param>
+									<param name="ondown">104</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">108</param>
+									<param name="onup">312</param>
+									<param name="ondown">105</param>
+								</include>
+								<!-- Backspace -->
+								<include content="KeyboardButtonCustom">
+									<param name="id">8</param>
+									<param name="type">radiobutton</param>
+									<param name="icon">1080p/icons/backspace.png</param>
+									<param name="onup">312</param>
+									<param name="ondown">301</param>
+								</include>
+							</control>
+							<!-- Line 2 -->
+							<control type="grouplist" id="411">
+								<orientation>horizontal</orientation>
+								<itemgap>PADDING_KEY</itemgap>
+
+								<top>180</top>
+								<width>WIDTH_KEYPAD_CONTENT</width>
+								<height>SIZE_KEY</height>
+
+								<onleft>SetFocus(9131)</onleft>
+								<onright>SetFocus(303)</onright>
+
+								<include content="KeyboardButtonSingle">
+									<param name="id">103</param>
+									<param name="onup">106</param>
+									<param name="ondown">100</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">104</param>
+									<param name="onup">107</param>
+									<param name="ondown">101</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">105</param>
+									<param name="onup">108</param>
+									<param name="ondown">102</param>
+								</include>
+								<!-- Cancel -->
+								<include content="KeyboardButtonCustom">
+									<param name="id">301</param>
+									<param name="type">button</param>
+									<param name="label">Cancel</param>
+									<param name="onup">8</param>
+									<param name="ondown">300</param>
+								</include>
+							</control>
+							<!-- Line 3 -->
+							<control type="grouplist" id="412">
+								<orientation>horizontal</orientation>
+								<itemgap>PADDING_KEY</itemgap>
+
+								<top>270</top>
+								<width>WIDTH_KEYPAD_CONTENT</width>
+								<height>SIZE_KEY</height>
+
+								<onleft>SetFocus(9150)</onleft>
+								<onright>SetFocus(302)</onright>
+
+								<include content="KeyboardButtonSingle">
+									<param name="id">100</param>
+									<param name="onup">103</param>
+									<param name="ondown">305</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">101</param>
+									<param name="onup">104</param>
+									<param name="ondown">109</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">102</param>
+									<param name="onup">105</param>
+									<param name="ondown">306</param>
+								</include>
+								<!-- Done -->
+								<include content="KeyboardButtonCustom">
+									<param name="id">300</param>
+									<param name="type">button</param>
+									<param name="label">Done</param>
+									<param name="onup">301</param>
+									<param name="ondown">8</param>
+								</include>
+							</control>
+							<!-- Line 4 -->
+							<control type="grouplist" id="413">
+								<orientation>horizontal</orientation>
+								<itemgap>PADDING_KEY</itemgap>
+
+								<top>360</top>
+								<width>WIDTH_KEYPAD_CONTENT</width>
+								<height>SIZE_KEY</height>
+
+								<onleft>SetFocus(9169)</onleft>
+								<onright>SetFocus(308)</onright>
+
+								<!-- Navigate left -->
+								<include content="KeyboardButtonCustom">
+									<param name="id">305</param>
+									<param name="type">radiobutton</param>
+									<param name="width">SIZE_KEY</param>
+									<param name="icon">1080p/icons/chevron-left.png</param>
+									<param name="icon_left">35</param>
+									<param name="onup">100</param>
+									<param name="ondown">106</param>
+								</include>
+								<include content="KeyboardButtonSingle">
+									<param name="id">109</param>
+									<param name="onup">101</param>
+									<param name="ondown">107</param>
+								</include>
+								<!-- Navigate right -->
+								<include content="KeyboardButtonCustom">
+									<param name="id">306</param>
+									<param name="type">radiobutton</param>
+									<param name="width">SIZE_KEY</param>
+									<param name="icon">1080p/icons/chevron-right.png</param>
+									<param name="icon_left">35</param>
+									<param name="onup">102</param>
+									<param name="ondown">108</param>
+								</include>
+							</control>
 						</control>
 					</control>
 				</control>

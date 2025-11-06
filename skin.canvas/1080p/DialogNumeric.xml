@@ -5,6 +5,7 @@
 	<controls>
 		<!-- Darkening -->
 		<control type="group">
+			<!-- Hide when keyboard is visible (this is ip address input) -->
 			<visible>!Window.IsVisible(DialogKeyboard.xml)</visible>
 			<include content="DarkeningLayer" />
 		</control>
