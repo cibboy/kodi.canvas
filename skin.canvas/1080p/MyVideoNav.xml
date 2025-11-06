@@ -1,43 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-	<defaultcontrol always="true">501</defaultcontrol>
+	<defaultcontrol always="true">9999</defaultcontrol>
 	<views>501</views>
+	<views>502</views>
 
 	<controls>
+		<!-- View type selector button (based on content/source) -->
+		<control type="button" id="9999">
+			<visible allowhiddenfocus="true">false</visible>
+			<onfocus condition="!Window.Previous(SettingsCategory.xml)">501</onfocus>
+			<onfocus condition="Window.Previous(SettingsCategory.xml)">502</onfocus>
+		</control>
+
 		<include content="Center169AspectRatio">
-			<!-- Background with blurred quadrants -->
-			<include content="BackgroundQuadrantBlur" />
-
-			<!-- Previous/next season indicators (for episode list view) -->
-			<include content="MediaNavPrevNextSeasonIndicators" />
-
+			<!-- 501 view for season/episode navigation from home -->
 			<control type="group">
-				<top>PADDING_BASE_80P</top>
-				<left>PADDING_BASE</left>
+				<visible>!Window.Previous(SettingsCategory.xml)</visible>
 
-				<!-- Selection details -->
-				<include content="SelectionDetails" />
+				<!-- Background with blurred quadrants -->
+				<include content="BackgroundQuadrantBlur" />
 
-				<!-- Item controls -->
-				<include content="MediaNavActionButtons" />
+				<!-- Previous/next season indicators (for episode list view) -->
+				<include content="MediaNavPrevNextSeasonIndicators" />
 
-				<!-- Lists -->
-				<control type="grouplist" id="400">
+				<control type="group">
+					<top>PADDING_BASE_80P</top>
+					<left>PADDING_BASE</left>
+
+					<!-- Selection details -->
+					<include content="SelectionDetails" />
+
+					<!-- Item controls -->
+					<include content="MediaNavActionButtons" />
+
+					<!-- Lists -->
+					<control type="grouplist" id="400">
+						<orientation>vertical</orientation>
+						<itemgap>0</itemgap>
+						<usecontrolcoords>true</usecontrolcoords>
+
+						<bottom>0</bottom>
+						<height>HEIGHT_LIST_CONTAINER_WITH_LABEL</height>
+
+						<onup>SetFocus(410)</onup>
+						<ondown>noop</ondown>
+
+						<!-- Media items -->
+						<include content="MediaNavItemList" />
+
+						<!-- Actor list -->
+						<include content="MediaNavActorList" />
+					</control>
+				</control>
+			</control>
+
+			<!-- 502 view for navigation from settings > library -->
+			<control type="group">
+				<visible>Window.Previous(SettingsCategory.xml)</visible>
+
+				<control type="fixedlist" id="502">
+					<autoscroll>false</autoscroll>
 					<orientation>vertical</orientation>
-					<itemgap>0</itemgap>
-					<usecontrolcoords>true</usecontrolcoords>
-
-					<bottom>0</bottom>
-					<height>HEIGHT_LIST_CONTAINER_WITH_LABEL</height>
-
-					<onup>SetFocus(410)</onup>
-					<ondown>noop</ondown>
-
-					<!-- Media items -->
-					<include content="MediaNavItemList" />
-
-					<!-- Actor list -->
-					<include content="MediaNavActorList" />
+					
+					<itemlayout width="500" height="100">
+						<control type="label">
+							<label>$INFO[ListItem.Label]</label>
+							<font>BODY</font>
+						</control>
+					</itemlayout>
+					<focusedlayout width="500" height="100">
+						<control type="label">
+							<label>$INFO[ListItem.Label]</label>
+							<font>BODY_STRONG</font>
+						</control>
+					</focusedlayout>
 				</control>
 			</control>
 
@@ -45,7 +81,10 @@
 			<include content="TopBar" />
 
 			<!-- Studio -->
-			<include content="BottomBar" />
+			<control type="group">
+				<visible>!Window.Previous(SettingsCategory.xml)</visible>
+				<include content="BottomBar" />
+			</control>
 		</include>
 	</controls>
 </window>

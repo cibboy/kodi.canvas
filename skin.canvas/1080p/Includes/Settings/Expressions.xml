@@ -2,15 +2,11 @@
 <includes>
 	<!-- Is any settings page active? -->
 	<expression name="IsAnySettingsPageActive">
-		Window.IsActive(appearancesettings) |
-		Window.IsActive(systemsettings) |
-		Window.IsActive(servicesettings) |
-		Window.IsActive(playersettings) |
-		Window.IsActive(mediasettings)
+		Window.IsActive(SettingsCategory.xml)
 	</expression>
 
 	<!-- Is interface settings page active? -->
-	<expression name="IsInterfaceSettingsPageActive">Window.IsActive(appearancesettings)</expression>
+	<expression name="IsInterfaceSettingsPageActive">Window.IsActive(interfacesettings)</expression>
 	<!-- Is system settings page active? -->
 	<expression name="IsSystemSettingsPageActive">Window.IsActive(systemsettings)</expression>
 	<!-- Is service settings page active? -->
@@ -22,13 +18,7 @@
 
 	<!-- Is DialogSelect active in settings? -->
 	<expression name="IsSettingsDialogSelectActive">
-		[
-			Window.IsActive(appearancesettings) |
-			Window.IsActive(systemsettings) |
-			Window.IsActive(servicesettings) |
-			Window.IsActive(playersettings) |
-			Window.IsActive(mediasettings)
-		] +
+		Window.IsActive(SettingsCategory.xml) +
 		[
 			Window.IsDialogTopmost(selectdialog) |
 			Window.IsDialogTopmost(peripherals)
@@ -36,35 +26,17 @@
 	</expression>
 	<!-- Is DialogConfirm active in settings? -->
 	<expression name="IsSettingsDialogConfirmActive">
-		[
-			Window.IsActive(appearancesettings) |
-			Window.IsActive(systemsettings) |
-			Window.IsActive(servicesettings) |
-			Window.IsActive(playersettings) |
-			Window.IsActive(mediasettings)
-		] +
+		Window.IsActive(SettingsCategory.xml) +
 		Window.IsDialogTopmost(DialogConfirm.xml)
 	</expression>
 	<!-- Is DialogColorPicker active in settings? -->
 	<expression name="IsSettingsDialogColorPickerActive">
-		[
-			Window.IsActive(appearancesettings) |
-			Window.IsActive(systemsettings) |
-			Window.IsActive(servicesettings) |
-			Window.IsActive(playersettings) |
-			Window.IsActive(mediasettings)
-		] +
+		Window.IsActive(SettingsCategory.xml) +
 		Window.IsDialogTopmost(dialogcolorpicker)
 	</expression>
 	<!-- Is DialogSettings active in settings? -->
 	<expression name="IsSettingsDialogSettingsActive">
-		[
-			Window.IsActive(appearancesettings) |
-			Window.IsActive(systemsettings) |
-			Window.IsActive(servicesettings) |
-			Window.IsActive(playersettings) |
-			Window.IsActive(mediasettings)
-		] +
+		Window.IsActive(SettingsCategory.xml) +
 		Window.IsVisible(DialogSettings.xml)
 	</expression>
 	<!-- Is any "simple" dialog active in settings? -->

@@ -14,6 +14,7 @@ TOFIX:
   - pages are inside a grouplist
   - basically reintroduce some concepts of previous implementation, but attempt to implement native navigation
   - consider Control.Message(id,message) > message: movedown, moveup (https://kodi.wiki/view/List_of_built-in_functions#GUI_control_built-in's)
+  - !!! onfocus "get additional info" da mettere sugli oggetti della 501 nascosta e non sulle altre?
 - testare cosa succede sulla vista 1150 quando finisce il video:
   potrebbe servire mettere l'immagine thumb, che si può visualizzare sempre sotto il video con le stesse dimensioni, e il video ha visibility sul player playing something
 - testare layout tastiera italiano per vedere che succede con simboli e simile
@@ -21,14 +22,11 @@ TOFIX:
 TODO:
 - dialog in settings da fare:
   - SettingsScreenCalibration.xml: system > display
-  - DialogSettings.xml (per master lock? courtesy screen "not supported"): interface > master lock
   - DialogGameControllers.xml (courtesy screen "not supported"): system > input
   - MyVideoNav.xml: media > library > videos
   - MyMusicNav.xml: media > library > music
   - MyPics.xml: media > library > pictures
   - Generici (o quasi)
-    - DialogKeyboard.xml (dove serve digitare, ad esempio system > internet > proxy > server)
-    - DialogNumeric.xml (dove serve digitare numeri, ad esempio interface > master lock > activate numeric only)
     - AddonBrowser.xml: system > addons > manage dependencies
     - FileBrowser.xml (ad esempio system > logging > screenshot folder)
     - Eventlog.xml: system > logging > show event log
