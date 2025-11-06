@@ -8,8 +8,8 @@
 		<!-- View type selector button (based on content/source) -->
 		<control type="button" id="9999">
 			<visible allowhiddenfocus="true">false</visible>
-			<onfocus condition="!Window.Previous(SettingsCategory.xml)">501</onfocus>
-			<onfocus condition="Window.Previous(SettingsCategory.xml)">502</onfocus>
+			<onfocus condition="!Window.Previous(SettingsCategory.xml)">SetFocus(501)</onfocus>
+			<onfocus condition="Window.Previous(SettingsCategory.xml)">SetFocus(502)</onfocus>
 		</control>
 
 		<include content="Center169AspectRatio">
@@ -54,7 +54,7 @@
 				</control>
 			</control>
 
-			<!-- 502 view for navigation from settings > library -->
+			<!-- 502 view for navigation from settings > library --><!--todo-->
 			<control type="group">
 				<visible>Window.Previous(SettingsCategory.xml)</visible>
 

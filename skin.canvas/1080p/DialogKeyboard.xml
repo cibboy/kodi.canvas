@@ -53,7 +53,7 @@
 						<control type="button" id="9131">	<!-- Line 2, char 2 -->
 							<visible allowhiddenfocus="true">false</visible>
 							<onfocus condition="Control.IsVisible(131)">SetFocus(131)</onfocus>
-							<onfocus condition="!Control.IsVisible(131)">SetFocus(149)</onfocus>
+							<onfocus condition="!Control.IsVisible(131)">SetFocus(9149)</onfocus>
 						</control>
 						<control type="button" id="9167">	<!-- Line 3, char 1 -->
 							<visible allowhiddenfocus="true">false</visible>
@@ -63,17 +63,17 @@
 						<control type="button" id="9168">	<!-- Line 3, char 2 -->
 							<visible allowhiddenfocus="true">false</visible>
 							<onfocus condition="Control.IsVisible(168)">SetFocus(168)</onfocus>
-							<onfocus condition="!Control.IsVisible(168)">SetFocus(167)</onfocus>
+							<onfocus condition="!Control.IsVisible(168)">SetFocus(9167)</onfocus>
 						</control>
 						<control type="button" id="9112">	<!-- Line 3, char 3 -->
 							<visible allowhiddenfocus="true">false</visible>
 							<onfocus condition="Control.IsVisible(112)">SetFocus(112)</onfocus>
-							<onfocus condition="!Control.IsVisible(112)">SetFocus(168)</onfocus>
+							<onfocus condition="!Control.IsVisible(112)">SetFocus(9168)</onfocus>
 						</control>
 						<control type="button" id="9150">	<!-- Line 3, char 4 -->
 							<visible allowhiddenfocus="true">false</visible>
 							<onfocus condition="Control.IsVisible(150)">SetFocus(150)</onfocus>
-							<onfocus condition="!Control.IsVisible(150)">SetFocus(112)</onfocus>
+							<onfocus condition="!Control.IsVisible(150)">SetFocus(9112)</onfocus>
 						</control>
 						<control type="button" id="9110">	<!-- Line 4, char 1 -->
 							<visible allowhiddenfocus="true">false</visible>
@@ -83,17 +83,17 @@
 						<control type="button" id="9111">	<!-- Line 4, char 2 -->
 							<visible allowhiddenfocus="true">false</visible>
 							<onfocus condition="Control.IsVisible(111)">SetFocus(111)</onfocus>
-							<onfocus condition="!Control.IsVisible(111)">SetFocus(110)</onfocus>
+							<onfocus condition="!Control.IsVisible(111)">SetFocus(9110)</onfocus>
 						</control>
 						<control type="button" id="9132">	<!-- Line 4, char 3 -->
 							<visible allowhiddenfocus="true">false</visible>
 							<onfocus condition="Control.IsVisible(132)">SetFocus(132)</onfocus>
-							<onfocus condition="!Control.IsVisible(113212)">SetFocus(111)</onfocus>
+							<onfocus condition="!Control.IsVisible(132)">SetFocus(9111)</onfocus>
 						</control>
 						<control type="button" id="9169">	<!-- Line 4, char 4 -->
 							<visible allowhiddenfocus="true">false</visible>
 							<onfocus condition="Control.IsVisible(169)">SetFocus(169)</onfocus>
-							<onfocus condition="!Control.IsVisible(169)">SetFocus(132)</onfocus>
+							<onfocus condition="!Control.IsVisible(169)">SetFocus(9132)</onfocus>
 						</control>
 					</control>
 
@@ -269,7 +269,7 @@
 								<include content="KeyboardButtonSingle">
 									<param name="id">149</param>
 									<param name="onup">129</param>
-									<param name="ondown">9169</param>
+									<param name="ondown">9112</param>
 								</include>
 								<include content="KeyboardButtonSingle">
 									<param name="id">131</param>

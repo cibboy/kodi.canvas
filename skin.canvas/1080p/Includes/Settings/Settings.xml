@@ -43,6 +43,8 @@
 	<include name="SysteminfoMenuItem">
 		<param name="id"></param>
 		<param name="icon"></param>
+		<param name="onup"></param>
+		<param name="ondown"></param>
 
 		<definition>
 			<!-- Icon button -->
@@ -91,6 +93,8 @@
 					<visible allowhiddenfocus="true">false</visible>
 					<texturefocus />
 					<onfocus>SendClick($PARAM[id])</onfocus>
+					<onup>SetFocus($PARAM[onup])</onup>
+					<ondown>SetFocus($PARAM[ondown])</ondown>
 				</control>
 			</control>
 		</definition>
@@ -104,6 +108,7 @@
 		
 		<definition>
 			<control type="label" id="$PARAM[id]">
+				<visible>true</visible><!--todo: if there is content-->
 				<width>auto</width>
 				<height>FONT_SIZE_SUBTITLE</height>
 				<aligny>center</aligny>
