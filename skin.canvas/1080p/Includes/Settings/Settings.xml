@@ -101,6 +101,7 @@
 	</include>
 	<!-- Systeminfo label -->
 	<include name="SysteminfoLabel">
+		<param name="visible">true</param>
 		<param name="id"></param>
 		<param name="font">BODY</param>
 		<param name="color">FOREGROUND</param>
@@ -108,7 +109,7 @@
 		
 		<definition>
 			<control type="label" id="$PARAM[id]">
-				<visible>true</visible><!--todo: if there is content-->
+				<visible>$PARAM[visible]</visible>
 				<width>auto</width>
 				<height>FONT_SIZE_SUBTITLE</height>
 				<aligny>center</aligny>
@@ -319,8 +320,8 @@
 				<height>SCREEN_HEIGHT</height>
 
 				<control type="group">
-					<top>PADDING_SETTINGS_VERTICAL</top>
-					<bottom>PADDING_SETTINGS_VERTICAL</bottom>
+					<top>PADDING_BASE_80P</top>
+					<bottom>PADDING_BASE_80P</bottom>
 					<left>PADDING_SETTINGS_WIDE_SIDE</left>
 					<right>PADDING_SETTINGS_WIDE_SIDE</right>
 
@@ -476,8 +477,8 @@
 
 			<!-- List with title -->
 			<control type="group">
-				<top>PADDING_SETTINGS_VERTICAL</top>
-				<bottom>PADDING_SETTINGS_VERTICAL</bottom>
+				<top>PADDING_BASE_80P</top>
+				<bottom>PADDING_BASE_80P</bottom>
 				<right>PADDING_SETTINGS_NARROW_SIDE</right>
 				<left>PADDING_SETTINGS_NARROW_SIDE</left>
 
@@ -683,8 +684,8 @@
 		<definition>
 			<!-- List with title -->
 			<control type="group">
-				<top>PADDING_SETTINGS_VERTICAL</top>
-				<bottom>PADDING_SETTINGS_VERTICAL</bottom>
+				<top>PADDING_BASE_80P</top>
+				<bottom>PADDING_BASE_80P</bottom>
 				<right>PADDING_SETTINGS_NARROW_SIDE</right>
 				<left>PADDING_SETTINGS_NARROW_SIDE</left>
 
@@ -892,8 +893,8 @@
 	<include name="SettingsDialogSettings">
 		<include content="SettingsDialogContainerWide">
 			<control type="group">
-				<top>PADDING_SETTINGS_VERTICAL</top>
-				<bottom>PADDING_SETTINGS_VERTICAL</bottom>
+				<top>PADDING_BASE_80P</top>
+				<bottom>PADDING_BASE_80P</bottom>
 				<width>WIDTH_BACKGROUND_SPLIT</width>
 				
 				<!-- Options -->

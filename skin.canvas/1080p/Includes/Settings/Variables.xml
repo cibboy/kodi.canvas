@@ -53,7 +53,6 @@
 	<constant name="WIDTH_BACKGROUND_SPLIT_REMAINING">720</constant>
 	<constant name="WIDTH_BACKGROUND_SPLIT_REMAINING_NEG">-720</constant>
 
-	<constant name="PADDING_SETTINGS_VERTICAL">80</constant>
 	<constant name="PADDING_SETTINGS_WIDE_SIDE">100</constant>
 	<constant name="PADDING_SETTINGS_NARROW_SIDE">80</constant>
 	

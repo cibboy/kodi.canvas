@@ -306,8 +306,8 @@
 				<param name="hidden_condition">WindowClose</param>
 			</include>
 
-			<top>PADDING_SETTINGS_VERTICAL</top>
-			<bottom>PADDING_SETTINGS_VERTICAL</bottom>
+			<top>PADDING_BASE_80P</top>
+			<bottom>PADDING_BASE_80P</bottom>
 			<width>WIDTH_BACKGROUND_SPLIT</width>
 			
 			<!-- Options -->
@@ -398,9 +398,9 @@
 				<param name="hidden_condition">WindowClose</param>
 			</include>
 
-			<top>PADDING_SETTINGS_VERTICAL</top>
-			<bottom>PADDING_SETTINGS_VERTICAL</bottom>
-			<right>PADDING_SETTINGS_VERTICAL</right>
+			<top>PADDING_BASE_80P</top>
+			<bottom>PADDING_BASE_80P</bottom>
+			<right>PADDING_BASE_80P</right>
 			<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
 
 			<!-- Options -->
@@ -503,9 +503,9 @@
 				<param name="hidden_condition">WindowClose</param>
 			</include>
 
-			<top>PADDING_SETTINGS_VERTICAL</top>
-			<bottom>PADDING_SETTINGS_VERTICAL</bottom>
-			<right>PADDING_SETTINGS_VERTICAL</right>
+			<top>PADDING_BASE_80P</top>
+			<bottom>PADDING_BASE_80P</bottom>
+			<right>PADDING_BASE_80P</right>
 			<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
 
 			<control type="label" id="998">

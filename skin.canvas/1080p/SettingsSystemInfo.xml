@@ -12,7 +12,6 @@
 				<bottom>PADDING_BASE</bottom>
 				<left>0</left>
 				<right>PADDING_BASE</right>
-				<width>WIDTH_HOME_MENU</width>
 				
 				<!-- Menu -->
 				<control type="group">
@@ -35,6 +34,8 @@
 
 						<top>200</top>
 						<bottom>0</bottom>
+
+						<onright condition="Control.IsVisibile(30)">SetFocus(60)</onright>
 
 						<include content="SysteminfoMenuItem">
 							<param name="id">95</param>
@@ -75,6 +76,7 @@
 					</control>
 				</control>
 
+				<!-- Content -->
 				<control type="group">
 					<left>350</left>
 					<right>0</right>
@@ -85,20 +87,12 @@
 						<width>auto</width>
 						<height>HEIGHT_DETAILS_TITLE</height>
 						<aligny>center</aligny>
-						<font>TITLE1</font>
+						<font>TITLE2</font>
 						<textcolor>HIGHLIGHT</textcolor>
 						<label></label>
 					</control>
 
-					<control type="image">
-						<left>0</left>
-						<right>0</right>
-						<top>HEIGHT_DETAILS_TITLE_SECTION</top>
-						<bottom>0</bottom>
-						<texture colordiffuse="33ff0000">diffuse.png</texture>
-					</control>
-
-					<!-- Content -->
+					<!-- Content (labels) -->
 					<control type="grouplist">
 						<orientation>vertical</orientation>
 						<itemgap>PADDING_BASE_20P</itemgap>
@@ -110,7 +104,7 @@
 						<bottom>0</bottom>
 
 						<!-- Labels -->
-						<!--<include content="SysteminfoLabel"><param name="id">2</param></include>
+						<include content="SysteminfoLabel"><param name="id">2</param></include>
 						<include content="SysteminfoLabel"><param name="id">3</param></include>
 						<include content="SysteminfoLabel"><param name="id">4</param></include>
 						<include content="SysteminfoLabel"><param name="id">5</param></include>
@@ -121,23 +115,44 @@
 						<include content="SysteminfoLabel"><param name="id">10</param></include>
 						<include content="SysteminfoLabel"><param name="id">11</param></include>
 						<include content="SysteminfoLabel"><param name="id">12</param></include>
-						<include content="SysteminfoLabel"><param name="id">13</param></include>-->
+						<include content="SysteminfoLabel"><param name="id">13</param></include>
+					</control>
+					<!-- Content (privacy) -->
+					<control type="grouplist">
+						<orientation>vertical</orientation>
+						<itemgap>PADDING_BASE_20P</itemgap>
+						<usecontrolcoords>true</usecontrolcoords>
+
+						<left>0</left>
+						<right>0</right>
+						<top>HEIGHT_DETAILS_TITLE_SECTION</top>
+						<bottom>0</bottom>
 
 						<!-- Privacy policy -->
 						<control type="textbox" id="30">
-							<width>800</width>	<!--todo-->
-							<height>640</height>	<!--todo-->
+							<width>1000</width>
+							<!-- SCREEN_HEIGHT - PADDING_BASE_80P - HEIGHT_DETAILS_TITLE - 100 (build info with padding) - PADDING_BASE -->
+							<height>640</height>
 							<font>BODY</font>
 							<align>left</align>
 							<textcolor>FOREGROUND</textcolor>
 							<label></label>
-							<pagecontrol>60</pagecontrol><!--todo-->
+							<pagecontrol>60</pagecontrol>
 							<autoscroll delay="5000" repeat="7500" time="5000">!Control.HasFocus(60)</autoscroll>
+						</control>
+						<!-- Scrollbar -->
+						<control type="scrollbar" id="60">
+							<right>0</right>
+							<!-- SCREEN_HEIGHT - PADDING_BASE_80P - HEIGHT_DETAILS_TITLE - 100 (build info with padding) - PADDING_BASE -->
+							<height>640</height>
+							<orientation>vertical</orientation>
+							<onleft>SetFocus(200)</onleft>
+							<visible>Control.IsVisible(30)</visible>
 						</control>
 
 						<!-- Build info -->
 						<control type="grouplist">
-							<visible>Control.HasFocus(100)</visible>
+							<visible>Control.IsVisible(30)</visible>
 							<orientation>horizontal</orientation>
 							<itemgap>PADDING_BASE_10P</itemgap>
 
@@ -184,60 +199,39 @@
 					</control>
 
 					<!-- Additional system info -->
-					<control type="grouplist"><!--todo-->
-						<left>420</left>
+					<control type="grouplist">
 						<orientation>vertical</orientation>
-						<control type="label">
-							<description>Memory Text</description>
-							<width>auto</width>
-							<height>80</height>
-							<label>$LOCALIZE[31030]: $INFO[system.memory(used)] [B]/[/B] $INFO[system.memory(total)] [B]-[/B] $INFO[system.memory(used.percent)]</label>
-							<aligny>top</aligny>
-							<textoffsety>40</textoffsety>
-							<shadowcolor>black</shadowcolor>
-							<font>font12</font>
-						</control>
+						<itemgap>PADDING_BASE_10P</itemgap>
+
+						<left>0</left>
+						<right>0</right>
+						<bottom>0</bottom>
+						<!-- RAM values, with bar -->
+						<include content="SysteminfoLabel">
+							<param name="id">410</param>
+							<param name="font">CAPTION_STRONG</param>
+							<param name="color">HIGHLIGHT</param>
+							<param name="label">Memory: $INFO[System.Memory(used)] [B]/[/B] $INFO[System.Memory(total)] [B]-[/B] $INFO[System.Memory(used.percent)]</param>
+						</include>
 						<control type="progress">
-							<description>Memory BAR</description>
 							<width>730</width>
 							<height>16</height>
-							<info>system.memory(used)</info>
+							<info>System.Memory(used)</info>
 						</control>
-						<control type="label">
-							<description>CPU Text</description>
-							<width>auto</width>
-							<height>40</height>
-							<label>$LOCALIZE[13271] $INFO[System.CPUUsage]</label>
-							<aligny>center</aligny>
-							<shadowcolor>black</shadowcolor>
-							<font>font12</font>
-							<visible>System.SupportsCPUUsage</visible>
-						</control>
+						<!-- CPU values, with bar -->
+						<include content="SysteminfoLabel">
+							<param name="visible">System.SupportsCPUUsage</param>
+							<param name="id">411</param>
+							<param name="font">CAPTION_STRONG</param>
+							<param name="color">HIGHLIGHT</param>
+							<param name="label">CPU: $INFO[System.CPUUsage]</param>
+						</include>
 						<control type="progress">
-							<description>CPU BAR</description>
 							<width>730</width>
 							<height>16</height>
 							<info>System.CPUUsage</info>
 							<visible>System.SupportsCPUUsage</visible>
 						</control>
-					</control>
-
-					<!-- Scrollbar -->
-					<control type="scrollbar" id="60"><!--todo-->
-						<right>0</right>
-						<top>0</top>
-						<width>12</width>
-						<bottom>340</bottom>
-						<orientation>vertical</orientation>
-						<texturesliderbackground />
-						<animation effect="slide" end="6,0" time="300" tween="sine" easing="inout" condition="!Control.HasFocus(60)">conditional</animation>
-						<onleft>9000</onleft>
-						<onright>9000</onright>
-						<visible>Control.IsVisible(30)</visible>
-						<animation effect="fade" start="0" end="100" time="200" delay="300">Visible</animation>
-						<animation effect="fade" start="100" end="0" time="200">Hidden</animation>
-						<animation effect="fade" start="0" end="100" delay="300" time="320">WindowOpen</animation>
-						<animation effect="fade" start="100" end="0" time="150">WindowClose</animation>
 					</control>
 				</control>
 			</control>
