@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-	<defaultcontrol>94</defaultcontrol>
+	<defaultcontrol>95</defaultcontrol>
 
 	<controls>
 		<include content="Center169AspectRatio">
@@ -218,7 +218,7 @@
 							<param name="id">410</param>
 							<param name="font">CAPTION_STRONG</param>
 							<param name="color">HIGHLIGHT</param>
-							<param name="label">Memory: $INFO[System.Memory(used)] [B]/[/B] $INFO[System.Memory(total)] [B]-[/B] $INFO[System.Memory(used.percent)]</param>
+							<param name="label">Memory: $INFO[System.Memory(used)] / $INFO[System.Memory(total)] - $INFO[System.Memory(used.percent)]</param>
 						</include>
 						<control type="progress">
 							<width>730</width>
@@ -236,6 +236,29 @@
 							<width>730</width>
 							<info>System.CPUUsage</info>
 							<visible>System.SupportsCPUUsage</visible>
+						</control>
+					</control>
+					<!-- Additional storage info -->
+					<control type="grouplist">
+						<visible>Control.HasFocus(94)</visible>
+						<orientation>vertical</orientation>
+						<itemgap>PADDING_BASE_10P</itemgap>
+
+						<left>0</left>
+						<right>0</right>
+						<bottom>0</bottom>
+						<height>64</height>	<!-- FONT_SIZE_SUBTITLE + 12 + PADDING_BASE_10P -->
+
+						<!-- Storage values, with bar -->
+						<include content="SysteminfoLabel">
+							<param name="id">410</param>
+							<param name="font">CAPTION_STRONG</param>
+							<param name="color">HIGHLIGHT</param>
+							<param name="label">Storage: $INFO[System.UsedSpace] / $INFO[System.TotalSpace] - $INFO[System.UsedSpacePercent]</param>
+						</include>
+						<control type="progress">
+							<width>730</width>
+							<info>System.UsedSpace</info>
 						</control>
 					</control>
 				</control>
