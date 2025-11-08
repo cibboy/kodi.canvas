@@ -45,6 +45,7 @@
 		<param name="icon"></param>
 		<param name="onup"></param>
 		<param name="ondown"></param>
+		<param name="onright"></param>
 
 		<definition>
 			<!-- Icon button -->
@@ -95,6 +96,7 @@
 					<onfocus>SendClick($PARAM[id])</onfocus>
 					<onup>SetFocus($PARAM[onup])</onup>
 					<ondown>SetFocus($PARAM[ondown])</ondown>
+					<onright>SetFocus($PARAM[onright])</onright>
 				</control>
 			</control>
 		</definition>

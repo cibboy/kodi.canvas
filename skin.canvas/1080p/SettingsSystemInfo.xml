@@ -52,7 +52,7 @@
 						<include content="SysteminfoMenuItem">
 							<param name="id">96</param>
 							<param name="icon">1080p/icons/network.png</param>
-							<param name="onup">95</param>
+							<param name="onup">94</param>
 							<param name="ondown">97</param>
 						</include>
 						<include content="SysteminfoMenuItem">
@@ -72,6 +72,7 @@
 							<param name="icon">1080p/icons/info.png</param>
 							<param name="onup">98</param>
 							<param name="ondown">95</param>
+							<param name="onright">60</param>
 						</include>
 					</control>
 				</control>
@@ -140,15 +141,7 @@
 							<pagecontrol>60</pagecontrol>
 							<autoscroll delay="5000" repeat="7500" time="5000">!Control.HasFocus(60)</autoscroll>
 						</control>
-						<!-- Scrollbar -->
-						<control type="scrollbar" id="60">
-							<right>0</right>
-							<!-- SCREEN_HEIGHT - PADDING_BASE_80P - HEIGHT_DETAILS_TITLE - 100 (build info with padding) - PADDING_BASE -->
-							<height>640</height>
-							<orientation>vertical</orientation>
-							<onleft>SetFocus(200)</onleft>
-							<visible>Control.IsVisible(30)</visible>
-						</control>
+						
 
 						<!-- Build info -->
 						<control type="grouplist">
@@ -198,14 +191,28 @@
 						</control>
 					</control>
 
+					<!-- Privacy scrollbar -->
+					<control type="scrollbar" id="60">
+						<right>0</right>
+						<top>HEIGHT_DETAILS_TITLE_SECTION</top>
+						<!-- SCREEN_HEIGHT - PADDING_BASE_80P - HEIGHT_DETAILS_TITLE - 100 (build info with padding) - PADDING_BASE -->
+						<height>640</height>
+						<orientation>vertical</orientation>
+						<onleft>SetFocus(200)</onleft>
+						<visible>Control.IsVisible(30)</visible>
+					</control>
+
 					<!-- Additional system info -->
 					<control type="grouplist">
+						<visible>Control.HasFocus(95)</visible>
 						<orientation>vertical</orientation>
 						<itemgap>PADDING_BASE_10P</itemgap>
 
 						<left>0</left>
 						<right>0</right>
 						<bottom>0</bottom>
+						<height>138</height>	<!-- (FONT_SIZE_SUBTITLE * 2) + (12 * 2) + (PADDING_BASE_10P * 3) -->
+
 						<!-- RAM values, with bar -->
 						<include content="SysteminfoLabel">
 							<param name="id">410</param>
@@ -215,7 +222,6 @@
 						</include>
 						<control type="progress">
 							<width>730</width>
-							<height>16</height>
 							<info>System.Memory(used)</info>
 						</control>
 						<!-- CPU values, with bar -->
@@ -228,7 +234,6 @@
 						</include>
 						<control type="progress">
 							<width>730</width>
-							<height>16</height>
 							<info>System.CPUUsage</info>
 							<visible>System.SupportsCPUUsage</visible>
 						</control>

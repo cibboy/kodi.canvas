@@ -26,6 +26,7 @@
 
 				<!-- Current video -->
 				<control type="group">
+					<visible>Player.HasVideo</visible>
 					<top>180</top>
 					<width>600</width>
 					<height>HEIGHT_NEXTVIDEO_SECTION</height>
@@ -84,7 +85,7 @@
 						<onback>PlayerControl(Stop)</onback>
 						<onback>ClearProperty(Player.Item.DBID,home)</onback>
 						<onclick>PlayMedia($INFO[Window(home).Property(Player.NextItem.File)])</onclick>
-						<onup>SetFocus(1)</onup>
+						<onup condition="Player.HasVideo">SetFocus(1)</onup>
 					</control>
 
 					<!-- Next episode label -->
