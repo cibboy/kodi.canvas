@@ -19,6 +19,9 @@ def clear_listitem_properties(property_base = 'Item', include_navigation = True)
     window.clearProperty(f"{property_base}.Clearlogo")
     window.clearProperty(f"{property_base}.Blur")
     window.clearProperty(f"{property_base}.Contrast")
+    window.clearProperty(f"{property_base}.Fanart")
+    window.clearProperty(f"{property_base}.Thumb")
+    window.clearProperty(f"{property_base}.FilenameAndPath")
 
 # Populate window properties with additional information about the requested item.
 def get_additional_media_info(window, itemtype, itemid, item_ref, property_base, find_navigation):
@@ -81,6 +84,8 @@ def get_additional_media_info(window, itemtype, itemid, item_ref, property_base,
     window.setProperty(f"{property_base}.Clearlogo", clearlogo)
     window.setProperty(f"{property_base}.Blur", blur)
     window.setProperty(f"{property_base}.Contrast", contrast)
+    window.setProperty(f"{property_base}.Fanart", fanart)
+    window.setProperty(f"{property_base}.Thumb", xbmc.getInfoLabel(f"{item_ref}.Art(thumb)"))
 
     # Retrieve type-specific additional info.
     if itemtype == 'movie':
@@ -123,8 +128,10 @@ def get_additional_media_info_from_player():
         window.setProperty('Player.Item.Clearlogo', 'transparent.png')
         # Set the new active item ID and type.
         window.setProperty('Player.Item.DBID', itemid)
+        # Set the current file full path.
+        window.setProperty('Player.Item.FilenameAndPath', xbmc.getInfoLabel('Player.FilenameAndPath'))
         # Populate properties.
-        get_additional_media_info(window, itemtype, itemid, player, 'Player.Item', True)
+        get_additional_media_info(window, itemtype, itemid, player, 'Player.Item', False)
 
 # Populate window properties with additional information about the specified
 # list ID's selected item. This allows the skin to work with information

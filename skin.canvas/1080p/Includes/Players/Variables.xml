@@ -24,9 +24,15 @@
 		<value>PlayerControl(Next)</value>
 	</variable>
 
+	<!-- Video next current video label -->
+	<variable name="VideoNextCurrentLabel">
+		<value condition="Player.HasVideo">Currently playing</value>
+		<value condition="!Player.HasVideo">Just played</value>
+	</variable>
 	<!-- Video next hints -->
 	<variable name="VideoNextOkHint">
-		<value condition="Control.HasFocus(1)">Return to video</value>
+		<value condition="Control.HasFocus(1) + Player.HasVideo">Return to video</value>
+		<value condition="Control.HasFocus(1) + !Player.HasVideo">Play again</value>
 		<value condition="Control.HasFocus(2)">Play next</value>
 	</variable>
 	

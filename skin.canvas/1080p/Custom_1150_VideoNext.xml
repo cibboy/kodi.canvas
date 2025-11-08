@@ -26,7 +26,6 @@
 
 				<!-- Current video -->
 				<control type="group">
-					<visible>Player.HasVideo</visible>
 					<top>180</top>
 					<width>600</width>
 					<height>HEIGHT_NEXTVIDEO_SECTION</height>
@@ -36,7 +35,8 @@
 						<visible allowhiddenfocus="true">false</visible>
 						<onback>PlayerControl(Stop)</onback>
 						<onback>ClearProperty(Player.Item.DBID,home)</onback>
-						<onclick>ActivateWindow(12005)</onclick>
+						<onclick condition="Player.HasVideo">ActivateWindow(12005)</onclick>
+						<onclick condition="!Player.HasVideo">PlayMedia($INFO[Window(home).Property(Player.Item.FilenameAndPath)],noresume,playoffset=0)</onclick>
 						<ondown condition="String.IsEqual(Window(home).Property(Player.NextItem.Present),true)">SetFocus(2)</ondown>
 					</control>
 
@@ -49,7 +49,7 @@
 
 						<font>BODY_STRONG</font>
 						<textcolor>FOREGROUND_ACCENT</textcolor>
-						<label>Now playing</label>
+						<label>$VAR[VideoNextCurrentLabel]</label>
 					</control>
 
 					<!-- Current video -->
@@ -58,8 +58,45 @@
 						<width>WIDTH_NEXTVIDEO_LANDSCAPE</width>
 						<height>HEIGHT_NEXTVIDEO_LANDSCAPE</height>
 
+						<!-- Thumbnail of next episode -->
+						<control type="group">
+							<bottom>0</bottom>
+							<right>0</right>
+							<width>WIDTH_NEXTVIDEO_LANDSCAPE</width>
+							<height>HEIGHT_NEXTVIDEO_LANDSCAPE</height>
+
+							<!-- Thumbnail -->
+							<control type="image">
+								<width>WIDTH_NEXTVIDEO_LANDSCAPE</width>
+								<height>HEIGHT_NEXTVIDEO_LANDSCAPE</height>
+								<texture fallback="1080p/fallback/landscape.png">$INFO[Window(home).Property(Player.Item.Thumb)]</texture>
+							</control>
+							<!-- Play icon -->
+							<control type="group">
+								<centertop>50%</centertop>
+								<centerleft>50%</centerleft>
+								<width>100</width>
+								<height>100</height>
+
+								<control type="image">
+									<centertop>50%</centertop>
+									<centerleft>50%</centerleft>
+									<width>100</width>
+									<height>100</height>
+									<texture colordiffuse="FOREGROUND_ACCENT">1080p/controls/button-circle.png</texture>
+								</control>
+								<control type="image">
+									<centertop>50%</centertop>
+									<centerleft>50%</centerleft>
+									<width>45</width>
+									<height>45</height>
+									<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/icons/play.png</texture>
+								</control>
+							</control>
+						</control>
 						<!-- Video -->
 						<control type="videowindow">
+							<visible>Player.HasVideo</visible>
 							<width>WIDTH_NEXTVIDEO_LANDSCAPE</width>
 							<height>HEIGHT_NEXTVIDEO_LANDSCAPE</height>
 						</control>
@@ -85,7 +122,7 @@
 						<onback>PlayerControl(Stop)</onback>
 						<onback>ClearProperty(Player.Item.DBID,home)</onback>
 						<onclick>PlayMedia($INFO[Window(home).Property(Player.NextItem.File)])</onclick>
-						<onup condition="Player.HasVideo">SetFocus(1)</onup>
+						<onup>SetFocus(1)</onup>
 					</control>
 
 					<!-- Next episode label -->
