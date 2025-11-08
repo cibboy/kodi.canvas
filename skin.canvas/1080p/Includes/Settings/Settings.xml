@@ -8,8 +8,8 @@
 		<definition>
 			<!-- Background color -->
 			<control type="image">
-				<width>SCREEN_WIDTH</width>
-				<height>SCREEN_HEIGHT</height>
+				<width>100%</width>
+				<height>100%</height>
 				<texture colordiffuse="BACKGROUND_SETTINGS_TINT">1080p/diffuse/noise.png</texture>
 			</control>
 		</definition>

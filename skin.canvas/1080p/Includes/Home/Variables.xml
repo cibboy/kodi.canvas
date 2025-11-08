@@ -71,8 +71,7 @@
 	<variable name="SettingsIcon"><value>1080p/icons/settings.png</value></variable>
 	<variable name="QuitIcon"><value>1080p/icons/exit.png</value></variable>
 	<variable name="ShutdownIcon"><value>1080p/icons/shutdown.png</value></variable>
-	<variable name="UpdateLibrariesIcon"><value>1080p/icons/refresh.png</value></variable>
-	<variable name="ReloadHomeIcon"><value>1080p/icons/reload.png</value></variable>
+	<variable name="UpdateLibrariesIcon"><value>1080p/icons/reload.png</value></variable>
 	<variable name="AddonsIcon"><value>1080p/icons/box.png</value></variable>
 	<variable name="FileManagerIcon"><value>1080p/icons/folder.png</value></variable>
 	<variable name="SystemInfoIcon"><value>1080p/icons/systeminfo.png</value></variable>
