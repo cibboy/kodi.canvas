@@ -38,8 +38,7 @@
 	-->
 	<expression name="HasMediaNavActionResume">
 		[$EXP[HasMediaNavTimeRemaining] | $EXP[HasMediaNavEpisodesRemaining]] +
-		!$EXP[IsMediaNavAllNew] +
-		!$EXP[IsMediaNavWatched]
+		!$EXP[IsMediaNavAllNew]
 	</expression>
 	<!-- Has play from start action? -->
 	<expression name="HasMediaNavActionPlayFromStart">$EXP[HasMediaNavTimeRemaining]</expression>

@@ -445,7 +445,8 @@ def toggle_watched(item_type, itemid, watched):
     if item_type == 'movie':
         call_rpc('VideoLibrary.SetMovieDetails', {
             'movieid': int(itemid),
-            'playcount': count
+            'playcount': count,
+            'resume': {'position': 0, 'total': 0}
         })
     # TV shows.
     elif item_type == 'tvshow':
@@ -460,7 +461,8 @@ def toggle_watched(item_type, itemid, watched):
     elif item_type == 'episode':
         call_rpc('VideoLibrary.SetEpisodeDetails', {
             'episodeid': int(itemid),
-            'playcount': count
+            'playcount': count,
+            'resume': {'position': 0, 'total': 0}
         })
 
 

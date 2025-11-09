@@ -33,7 +33,7 @@
 
 		<definition>
 			<control type="group">
-				<visible>Integer.IsGreater(ListItem.PlayCount,0)</visible>
+				<visible>!ListItem.IsResumable + Integer.IsGreater(ListItem.PlayCount,0)</visible>
 				<centertop>$PARAM[offset_top]</centertop>
 				<centerright>$PARAM[offset_right]</centerright>
 				<width>SIZE_LIST_WATCHED_ICON</width>
@@ -94,7 +94,7 @@
 		<definition>
 			<!-- Progress bar -->
 			<control type="progress">
-				<visible>$EXP[IsArtListVideo] + Integer.IsGreater(ListItem.PercentPlayed) + Integer.IsEqual(ListItem.PlayCount,0)</visible>
+				<visible>$EXP[IsArtListVideo] + Integer.IsGreater(ListItem.PercentPlayed)</visible>
 				<width>$PARAM[width]</width>
 				<centertop>$PARAM[offset_top]</centertop>
 				<centerleft>$PARAM[offset_left]</centerleft>

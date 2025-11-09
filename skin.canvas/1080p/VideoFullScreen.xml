@@ -4,8 +4,6 @@
 	<onload condition="$EXP[IsDetailsItemTypeEpisode]">SetProperty(Player.Item.DBTYPE,episode,home)</onload>
 	<onload condition="$EXP[IsDetailsItemTypeMovie]">SetProperty(Player.Item.DBTYPE,movies,home)</onload>
 	<onload>RunScript(script.canvas.helper,get_additional_media_info_from_player)</onload>
-	<!-- Mark as unwatched to avoid case where the video has been watched and it's being watched again (= in progress + playcount > 0) -->
-	<onload>AlarmClock(mark_as_unwatched,RunScript(script.canvas.helper,toggle_watched,$INFO[Window(home).Property(Player.Item.DBTYPE)],$INFO[VideoPlayer.DBID],false),00:00:01,silent)</onload>
 
 	<!-- All controls need to have and ID to show. Also, includes need IDs as well -->
 	<controls>
@@ -65,10 +63,10 @@
 
 		<!-- Progress and time (during seeking) -->
 		<control type="group" id="300">
-			<visible>Player.Seeking</visible>
+			<visible>Player.Seeking + !Window.IsActive(VideoOSD.xml)</visible>
 			<include content="ShowHideFadeSlideVerticalAnimation">
 				<param name="speed">ANIMATION_MID</param>
-				<param name="delay_out">1000</param>
+				<param name="delay_out">$VAR[PlayerOSDSeekProgressHideDelay]</param>
 			</include>
 
 			<include content="PlayerOSDProgress" />

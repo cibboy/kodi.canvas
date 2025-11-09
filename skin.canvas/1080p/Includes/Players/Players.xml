@@ -102,6 +102,20 @@
 				<height>HEIGHT_OSD</height>
 				<bottom>0</bottom>
 
+				<!-- Hidden button for progress focus -->
+				<control type="button" id="150">
+					<visible allowhiddenfocus="true">false</visible>
+					<onup>Close</onup>
+					<ondown>SetFocus(102)</ondown>
+					<!-- [Video OSD] With click activate frame advance, with left/right advance by frame (seek otherwise)-->
+					<onleft condition="!String.IsEqual(Window(videoosd).Property(FrameAdvance),true) | !$EXP[IsVideoPlayerVisible]">PlayerControl(SmallSkipBackward)</onleft>
+					<onleft condition="String.IsEqual(Window(videoosd).Property(FrameAdvance),true)">Seek(-1)</onleft>
+					<onright condition="!String.IsEqual(Window(videoosd).Property(FrameAdvance),true) | !$EXP[IsVideoPlayerVisible]">PlayerControl(SmallSkipForward)</onright>
+					<onright condition="String.IsEqual(Window(videoosd).Property(FrameAdvance),true)">PlayerControl(FrameAdvance(1))</onright>
+					<onclick condition="$EXP[IsVideoPlayerVisible] + !String.IsEqual(Window(videoosd).Property(FrameAdvance),true)">SetProperty(FrameAdvance,true,videoosd)</onclick>
+					<onclick condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(Window(videoosd).Property(FrameAdvance),true)">ClearProperty(FrameAdvance)</onclick>
+				</control>
+
 				<!-- Darkening -->
 				<control type="image">
 					<width>100%</width>
@@ -126,6 +140,7 @@
 
 					<onleft>$PARAM[onleft]</onleft>
 					<onright>$PARAM[onright]</onright>
+					<onup>SetFocus(150)</onup>
 					<ondown>$PARAM[ondown]</ondown>
 
 					<!-- Previous/Rewind -->
@@ -184,6 +199,20 @@
 				</control>
 				<control type="ranges" id="304">	<!-- Chapters -->
 					<info>Player.Chapters</info>
+				</control>
+				<control type="progress" id="305">	<!-- Progress nib (visible when focus is on progress) -->
+					<visible>Control.HasFocus(150)</visible>
+					<include content="ShowHideFadeAnimation">
+						<param name="speed">ANIMATION_FAST</param>
+					</include>
+
+					<top>-8</top>
+					<left>-12</left>
+					<height>12</height>
+					<texturebg colordiffuse="TRANSPARENT" border="6">1080p/progress/bg.png</texturebg>
+					<midtexture colordiffuse="TRANSPARENT" border="6">1080p/progress/mid.png</midtexture>
+					<righttexture colordiffuse="$VAR[PlayerOSDProgressNibColor]" border="10">1080p/progress/nib.png</righttexture>
+					<info>Player.Progress</info>
 				</control>
 			</control>
 

@@ -297,7 +297,7 @@
 						<include content="DetailsInfoTagWithIcon">
 							<!-- Text has space for icon -->
 							<param name="text">      Watched</param>
-							<param name="visible">$EXP[IsDetailsWatched] + !$EXP[IsDetailsAllNew] + $PARAM[show_progress]</param>
+							<param name="visible">!$EXP[IsDetailsResumable] + $EXP[IsDetailsWatched] + !$EXP[IsDetailsAllNew] + $PARAM[show_progress]</param>
 
 							<!-- Icon -->
 							<control type="image">

@@ -140,6 +140,7 @@
 
 						<onleft>SetFocus(103)</onleft>
 						<onright>SetFocus(101)</onright>
+						<onup>SetFocus(150)</onup>
 						<ondown>SetFocus(400)</ondown>
 
 						<!-- Subtitles settings -->

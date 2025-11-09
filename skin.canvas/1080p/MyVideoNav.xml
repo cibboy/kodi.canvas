@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
 	<defaultcontrol always="true">9999</defaultcontrol>
-	<views>501</views>
-	<views>502</views>
+	<views>501,502</views>
+	<include content="VideoPlayingRedirect" />
 
 	<controls>
-		<!-- View type selector button (based on content/source) -->
+		<!-- todo:Window.Previous(SettingsCategory.xml) is not enough of a check (test: play a video from 502, finish it and it returns where the previous is obviously not SettingsCategory.xml) -->
+		<!--
+			View type redirect button (based on content/source).
+			Autochange the view type if not the expected one.
+		-->
 		<control type="button" id="9999">
 			<visible allowhiddenfocus="true">false</visible>
+			<onfocus condition="!Window.Previous(SettingsCategory.xml) + !Control.IsVisible(501)">Sendclick(2)</onfocus>
 			<onfocus condition="!Window.Previous(SettingsCategory.xml)">SetFocus(501)</onfocus>
+			<onfocus condition="Window.Previous(SettingsCategory.xml) + !Control.IsVisible(502)">Sendclick(2)</onfocus>
 			<onfocus condition="Window.Previous(SettingsCategory.xml)">SetFocus(502)</onfocus>
+		</control>
+		<!-- View type selector button (hidden as not used by the user) -->
+		<control type="button" id="2">
+			<visible>false</visible>
 		</control>
 
 		<include content="Center169AspectRatio">
@@ -58,7 +68,16 @@
 			<control type="group">
 				<visible>Window.Previous(SettingsCategory.xml)</visible>
 
-				<control type="fixedlist" id="502">
+				<!-- Background (monocolor) -->
+				<include content="SettingsBackground" />
+
+				<control type="label">
+					<visible>Control.IsVisible(502)</visible>
+					<left>300</left>
+					<label>true</label>
+				</control>
+
+				<control type="wraplist" id="502">
 					<autoscroll>false</autoscroll>
 					<orientation>vertical</orientation>
 					
@@ -70,6 +89,10 @@
 					</itemlayout>
 					<focusedlayout width="500" height="100">
 						<control type="label">
+							<label>$INFO[ListItem.Label]</label>
+							<font>BODY_STRONG</font>
+						</control>
+						<control type="button">
 							<label>$INFO[ListItem.Label]</label>
 							<font>BODY_STRONG</font>
 						</control>

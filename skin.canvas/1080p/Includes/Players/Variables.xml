@@ -24,6 +24,17 @@
 		<value>PlayerControl(Next)</value>
 	</variable>
 
+	<!-- Seek progress hide delay -->
+	<variable name="PlayerOSDSeekProgressHideDelay">
+		<value condition="!Window.IsActive(VideoOSD.xml)">1000</value>
+		<value>0</value>
+	</variable>
+	<!-- Progress nib color -->
+	<variable name="PlayerOSDProgressNibColor">
+		<value condition="String.IsEqual(Window(videoosd).Property(FrameAdvance),true)">FOREGROUND_ACCENT</value>
+		<value>HIGHLIGHT</value>
+	</variable>
+	
 	<!-- Video next current video label -->
 	<variable name="VideoNextCurrentLabel">
 		<value condition="Player.HasVideo">Currently playing</value>

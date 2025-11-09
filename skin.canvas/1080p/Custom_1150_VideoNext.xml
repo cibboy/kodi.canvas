@@ -94,6 +94,13 @@
 								</control>
 							</control>
 						</control>
+						<!-- Force 16:9 on video with black bars, where video does not have that aspect ratio -->
+						<control type="image">
+							<visible>Player.HasVideo</visible>
+							<width>WIDTH_NEXTVIDEO_LANDSCAPE</width>
+							<height>HEIGHT_NEXTVIDEO_LANDSCAPE</height>
+							<texture colordiffuse="BACKGROUND">diffuse.png</texture>
+						</control>
 						<!-- Video -->
 						<control type="videowindow">
 							<visible>Player.HasVideo</visible>
