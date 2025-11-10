@@ -83,8 +83,30 @@
 	<expression name="IsDialogVideoInfoVisible">Window.IsActive(12003)</expression>
 	<expression name="IsDialogInfoVisible">$EXP[IsDialogMusicInfoVisible] | $EXP[IsDialogVideoInfoVisible]</expression>
 	
-	<!-- Is player visible?-->
+	<!-- Is player visible? -->
 	<expression name="IsMusicPlayerVisible">Window.IsActive(12006)</expression>
 	<expression name="IsVideoPlayerVisible">Window.IsActive(12005) | Window.IsActive(1150)</expression>		<!-- Include "play next" window -->
 	<expression name="IsPlayerVisible">$EXP[IsMusicPlayerVisible] | $EXP[IsVideoPlayerVisible]</expression>
+
+	<!-- List icon name translation -->
+	<variable name="ListIconTranslated">
+		<value condition="String.IsEqual(ListItem.Icon,DefaultHardDisk.png)">1080p/icons/drive.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultFolder.png)">1080p/icons/folder.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultAddSource.png)">1080p/icons/add.png</value>
+		<value>$INFO[ListItem.Icon]</value>
+	</variable>
+	<!-- List icon name translation (simplified) -->
+	<variable name="ListIconTranslatedSimplified">
+		<value condition="String.IsEqual(ListItem.Icon,DefaultHardDisk.png)">1080p/icons/drive.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultFolder.png)">1080p/icons/folder.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultAddSource.png)">1080p/icons/add.png</value>
+		<value condition="ListItem.IsFolder">1080p/icons/folder.png</value>
+		<value>1080p/icons/file.png</value>
+	</variable>
+	<!-- Is the translated icon a native icon? -->
+	<expression name="IsListIconTranslatedNative">
+		String.IsEqual(ListItem.Icon,DefaultHardDisk.png) |
+		String.IsEqual(ListItem.Icon,DefaultFolder.png) |
+		String.IsEqual(ListItem.Icon,DefaultAddSource.png)
+	</expression>
 </includes>

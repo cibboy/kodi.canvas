@@ -290,4 +290,139 @@
 			</control>
 		</definition>
 	</include>
+
+
+	<!-- File nav info label -->
+	<include name="FileNavInfoLabel">
+		<param name="visible">true</param>
+		<param name="label"></param>
+		<param name="value"></param>
+		<param name="wrap">false</param>
+
+		<definition>
+			<!-- Label -->
+			<control type="label">
+				<visible>$PARAM[visible]</visible>
+				<height>FONT_SIZE_BODY</height>
+				<font>CAPTION_STRONG</font>
+				<textcolor>FOREGROUND</textcolor>
+				<label>$PARAM[label]</label>
+			</control>
+			<!-- Value (no wrap) -->
+			<control type="label">
+				<visible>$PARAM[visible] + !$PARAM[wrap]</visible>
+				<top>-10</top>
+				<width>100%</width>
+				<height>FONT_SIZE_BODY</height>
+				<haspath>true</haspath>
+				<font>CAPTION</font>
+				<textcolor>FOREGROUND</textcolor>
+				<label>$PARAM[value]</label>
+			</control>
+			<!-- Value (with wrap) -->
+			<control type="label">
+				<visible>$PARAM[visible] + $PARAM[wrap]</visible>
+				<top>-10</top>
+				<width>100%</width>
+				<height>300</height>
+				<haspath>true</haspath>
+				<wrapmultiline>true</wrapmultiline>
+				<font>CAPTION</font>
+				<textcolor>FOREGROUND</textcolor>
+				<label>$PARAM[value]</label>
+			</control>
+		</definition>
+	</include>
+
+	<!-- File nav list -->
+	<include name="FileNavItemList">
+		<param name="id"></param>
+		<param name="title"></param>
+
+		<definition>
+			<control type="group">
+				<width>WIDTH_BACKGROUND_SPLIT</width>
+				<height>SCREEN_HEIGHT</height>
+
+				<control type="group">
+					<top>PADDING_BASE_80P</top>
+					<bottom>PADDING_BASE</bottom>
+					<left>PADDING_SETTINGS_WIDE_SIDE</left>
+					<right>PADDING_SETTINGS_WIDE_SIDE</right>
+
+					<!-- Title -->
+					<control type="label">
+						<width>auto</width>
+						<height>FONT_SIZE_TITLE2</height>
+						<right>PADDING_SETTINGS_TITLE</right>
+						<left>PADDING_SETTINGS_TITLE</left>
+						<font>TITLE2</font>
+						<label>$PARAM[title]</label>
+					</control>
+
+					<control type="group">
+						<top>OFFSET_SETTINGS_OPTIONS_START</top>
+
+						<!-- List of sections -->
+						<control type="list" id="$PARAM[id]">
+							<left>0</left>
+							<right>0</right>
+							<autoscroll>false</autoscroll>
+
+							<focusedlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+								<control type="button">
+									<visible allowhiddenfocus="true">false</visible>
+								</control>
+
+								<!-- Fake button for selection (only when focus is in the actual list, not when on expert button) -->
+								<control type="group">
+									<visible>Control.HasFocus($PARAM[id])</visible>
+									<!-- Fake button selection -->
+									<control type="image">
+										<height>HEIGHT_BUTTON_DEFAULT</height>
+										<texture colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texture>
+									</control>
+									<!-- Content -->
+									<include content="SettingsOptionContentWithIcon">
+										<param name="icon">$VAR[ListIconTranslatedSimplified]</param>
+										<param name="text">$INFO[ListItem.Label]</param>
+										<param name="icon_circle_color">BACKGROUND_INVERSE_OPAQUE90</param>
+										<param name="icon_color">FOREGROUND_INVERSE</param>
+										<param name="text_color">FOREGROUND_INVERSE</param>
+										<param name="description">$INFO[ListItem.Label2]</param>
+										<param name="description_color">FOREGROUND_INVERSE_OPAQUE75</param>
+										<param name="single_line">String.IsEmpty(ListItem.Label2)</param>
+									</include>
+								</control>
+								<control type="group">
+									<visible>!Control.HasFocus($PARAM[id])</visible>
+									<include content="SettingsOptionContentWithIcon">
+										<param name="icon">$VAR[ListIconTranslatedSimplified]</param>
+										<param name="text">$INFO[ListItem.Label]</param>
+										<param name="description">$INFO[ListItem.Label2]</param>
+										<param name="single_line">String.IsEmpty(ListItem.Label2)</param>
+									</include>
+								</control>
+							</focusedlayout>
+
+							<itemlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+								<include content="SettingsOptionContentWithIcon">
+									<param name="icon">$VAR[ListIconTranslatedSimplified]</param>
+									<param name="text">$INFO[ListItem.Label]</param>
+									<param name="description">$INFO[ListItem.Label2]</param>
+									<param name="single_line">String.IsEmpty(ListItem.Label2)</param>
+								</include>
+							</itemlayout>
+						</control>
+
+						<!-- Chevrons up/down if more content is available -->
+						<include content="SettingsUpDownChevrons">
+							<param name="visible_up">Integer.IsGreater(Container($PARAM[id]).NumItems,6)</param>
+							<param name="visible_down">Integer.IsGreater(Container($PARAM[id]).NumItems,6)</param>
+						</include>
+					</control>
+				</control>
+			</control>
+		</definition>
+	</include>
 </includes>

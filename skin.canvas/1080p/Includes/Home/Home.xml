@@ -284,7 +284,9 @@
 		<param name="id"></param>
 		<param name="label"></param>
 		<param name="menuid"></param>
-		<param name="onclick"></param>
+		<param name="isvideo">false</param>
+		<param name="ismusic">false</param>
+		<param name="ispictures">false</param>
 
 		<definition>
 			<control type="group" id="97$PARAM[id]">
@@ -307,7 +309,9 @@
 					<align>center</align>
 					<label>$PARAM[label]</label>
 
-					<onclick>$PARAM[onclick]</onclick>
+					<onclick condition="$PARAM[isvideo]">SetProperty(LibraryNav,true,videos)</onclick>
+					<onclick condition="$PARAM[isvideo]">ActivateWindow(Videos,sources://video/)</onclick>
+					<!-- todo:add navigation to music library and pictures library -->
 					<onup>RunScript(script.canvas.helper,navigate_home_lists,$PARAM[id],up)</onup>
 					<ondown>RunScript(script.canvas.helper,navigate_home_lists,$PARAM[id],down)</ondown>
 					<onleft>SetFocus($PARAM[menuid])</onleft>
@@ -374,6 +378,7 @@
 					<param name="id">105</param>
 					<param name="label">Add content</param>
 					<param name="menuid">201</param>
+					<param name="isvideo">true</param>
 				</include>
 				<!-- Movies -->
 				<include content="HomeItemWall">
@@ -390,6 +395,7 @@
 					<param name="id">107</param>
 					<param name="label">Add movies</param>
 					<param name="menuid">202</param>
+					<param name="isvideo">true</param>
 				</include>
 				<!-- TV shows -->
 				<include content="HomeItemWall">
@@ -406,6 +412,7 @@
 					<param name="id">109</param>
 					<param name="label">Add TV shows</param>
 					<param name="menuid">203</param>
+					<param name="isvideo">true</param>
 				</include>
 				<!-- Yoga With Adriene -->
 				<include content="HomeItemStrip">
@@ -422,6 +429,7 @@
 					<param name="id">111</param>
 					<param name="label">Add yoga</param>
 					<param name="menuid">204</param>
+					<param name="isvideo">true</param>
 				</include>
 				<!-- Music -->
 				<include content="HomeItemWall">
@@ -438,6 +446,7 @@
 					<param name="id">113</param>
 					<param name="label">Add music</param>
 					<param name="menuid">205</param>
+					<param name="ismusic">true</param>
 				</include>
 				<!-- Fake pictures (empty page so full height wall can be shown) -->
 				<include content="HomeItemEmptyPage">
@@ -450,6 +459,7 @@
 					<param name="id">115</param>
 					<param name="label">Add pictures</param>
 					<param name="menuid">206</param>
+					<param name="ispictures">true</param>
 				</include>
 			</control>
 
@@ -620,7 +630,7 @@
 	-->
 	<include name="HomeActiveItemSyncList">
 		<definition>
-			<control type="fixedlist" id="501">
+			<control type="list" id="501">
 				<autoscroll>false</autoscroll>
 				<orientation>horizontal</orientation>
 				<preloaditems>1</preloaditems>

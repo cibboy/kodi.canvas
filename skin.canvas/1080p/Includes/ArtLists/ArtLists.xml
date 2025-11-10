@@ -662,7 +662,7 @@
 		<param name="id"></param>
 
 		<definition>
-			<control type="fixedlist" id="$PARAM[id]">
+			<control type="list" id="$PARAM[id]">
 				<autoscroll>false</autoscroll>
 				<orientation>horizontal</orientation>
 				<preloaditems>8</preloaditems>

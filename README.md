@@ -1,5 +1,4 @@
 TOFIX:
-- empty list "add content" button on home needs ACTION
 - home flyout menu: mettere VideoLibrary.Clean?
 - ricerca todo e sistemarli
 - videonav ogni tanto torna indietro quando ci si muove rapidamente, sulla home non sembrano esserci problemi...
@@ -15,6 +14,10 @@ TOFIX:
   - basically reintroduce some concepts of previous implementation, but attempt to implement native navigation
   - consider Control.Message(id,message) > message: movedown, moveup (https://kodi.wiki/view/List_of_built-in_functions#GUI_control_built-in's)
   - !!! onfocus "get additional info" da mettere sugli oggetti della 501 nascosta e non sulle altre?
+- file list navigation:
+  - scroll for selected item with text too long
+  - integrate dialogs
+  - integrate dialogosettings.xml with full width shift
 
 TODO:
 - dialog in settings da fare:

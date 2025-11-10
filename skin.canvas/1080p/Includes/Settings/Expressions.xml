@@ -2,7 +2,8 @@
 <includes>
 	<!-- Is any settings page active? -->
 	<expression name="IsAnySettingsPageActive">
-		Window.IsActive(SettingsCategory.xml)
+		Window.IsActive(SettingsCategory.xml) | 
+		$EXP[IsMediaNavLibraryNavigation]
 	</expression>
 
 	<!-- Is interface settings page active? -->
@@ -18,7 +19,7 @@
 
 	<!-- Is DialogSelect active in settings? -->
 	<expression name="IsSettingsDialogSelectActive">
-		Window.IsActive(SettingsCategory.xml) +
+		$EXP[IsAnySettingsPageActive] +
 		[
 			Window.IsDialogTopmost(selectdialog) |
 			Window.IsDialogTopmost(peripherals)
@@ -26,17 +27,17 @@
 	</expression>
 	<!-- Is DialogConfirm active in settings? -->
 	<expression name="IsSettingsDialogConfirmActive">
-		Window.IsActive(SettingsCategory.xml) +
+		$EXP[IsAnySettingsPageActive] +
 		Window.IsDialogTopmost(DialogConfirm.xml)
 	</expression>
 	<!-- Is DialogColorPicker active in settings? -->
 	<expression name="IsSettingsDialogColorPickerActive">
-		Window.IsActive(SettingsCategory.xml) +
+		$EXP[IsAnySettingsPageActive] +
 		Window.IsDialogTopmost(dialogcolorpicker)
 	</expression>
 	<!-- Is DialogSettings active in settings? -->
 	<expression name="IsSettingsDialogSettingsActive">
-		Window.IsActive(SettingsCategory.xml) +
+		$EXP[IsAnySettingsPageActive] +
 		Window.IsVisible(DialogSettings.xml)
 	</expression>
 	<!-- Is any "simple" dialog active in settings? -->
