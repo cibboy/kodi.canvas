@@ -78,88 +78,94 @@
 				<!-- Background (monocolor) -->
 				<include content="SettingsBackground" />
 				
-				<!-- Background (structure split) -->
-				<include content="SettingsBackgroundSplit" />
-
-				<!-- Left side (title + list) -->
-				<include content="FileNavItemList">
-					<param name="id">502</param>
-					<param name="title">Video library</param>
-				</include>
-
-				<!-- Right side (details when no dialog is visible) -->
 				<control type="group">
-					<visible>!$EXP[IsSettingsAnyDialogActive]</visible>
-					<include content="ShowHideFadeSlideHorizontalAnimation">
-						<param name="slide_amount">-100</param>
+					<animation type="Conditional" condition="$EXP[IsSettingsDialogSettingsActive]">
+						<effect type="slide" end="SCREEN_WIDTH_NEG,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
+					</animation>
+
+					<!-- Background (structure split) -->
+					<include content="FileNavBackgroundSplit" />
+
+					<!-- Left side (title + list) -->
+					<include content="FileNavItemList">
+						<param name="id">502</param>
+						<param name="title">Video library</param>
 					</include>
 
-					<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
-					<height>SCREEN_HEIGHT</height>
-					<left>WIDTH_BACKGROUND_SPLIT</left>
-
+					<!-- Right side (details when no dialog is visible) -->
 					<control type="group">
-						<top>PADDING_BASE_80P</top>
-						<bottom>PADDING_BASE_80P</bottom>
-						<right>PADDING_SETTINGS_NARROW_SIDE</right>
-						<left>PADDING_SETTINGS_NARROW_SIDE</left>
+						<visible>!$EXP[IsSettingsAnyDialogActive]</visible>
+						<include content="ShowHideFadeSlideHorizontalAnimation">
+							<param name="slide_amount">-100</param>
+						</include>
 
-						<control type="grouplist">
-							<orientation>vertical</orientation>
-							<itemgap>PADDING_BASE_20P</itemgap>
-							<usecontrolcoords>true</usecontrolcoords>
+						<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+						<height>SCREEN_HEIGHT</height>
+						<left>WIDTH_BACKGROUND_SPLIT</left>
 
+						<control type="group">
 							<top>PADDING_BASE_80P</top>
+							<bottom>PADDING_BASE_80P</bottom>
+							<right>PADDING_SETTINGS_NARROW_SIDE</right>
+							<left>PADDING_SETTINGS_NARROW_SIDE</left>
 
-							<!-- Icon -->
-							<control type="image">
-								<visible>$EXP[IsListIconTranslatedNative]</visible>
-								<centerleft>50%</centerleft>
-								<width>100</width>
-								<height>100</height>
-								<texture fallback="1080p/icons/file.png">$VAR[ListIconTranslated]</texture>
-								<aspectratio>keep</aspectratio>
-							</control>
-							<!-- Preview -->
-							<control type="image">
-								<visible>!$EXP[IsListIconTranslatedNative]</visible>
-								<centerleft>50%</centerleft>
-								<width>500</width>
-								<height>300</height>
-								<texture fallback="1080p/fallback/file.png">$VAR[ListIconTranslated]</texture>
-								<aspectratio>keep</aspectratio>
-							</control>
+							<control type="grouplist">
+								<orientation>vertical</orientation>
+								<itemgap>PADDING_BASE_20P</itemgap>
+								<usecontrolcoords>true</usecontrolcoords>
 
-							<!-- Size -->
-							<include content="FileNavInfoLabel">
-								<param name="visible">!String.IsEmpty(ListItem.Size)</param>
-								<param name="label">Size</param>
-								<param name="value">$INFO[ListItem.Size]</param>
-							</include>
-							<!-- File name -->
-							<include content="FileNavInfoLabel">
-								<param name="visible">!String.IsEmpty(ListItem.FileName) + !String.IsEqual(ListItem.FileName,add)</param>
-								<param name="label">File name</param>
-								<param name="value">$INFO[ListItem.FileName]</param>
-							</include>
-							<!-- Folder -->
-							<include content="FileNavInfoLabel">
-								<param name="visible">!String.IsEmpty(ListItem.Path) + !ListItem.IsFolder</param>
-								<param name="label">Folder</param>
-								<param name="value">$INFO[ListItem.Path]</param>
-							</include>
-							<!-- Path -->
-							<include content="FileNavInfoLabel">
-								<param name="visible">!String.IsEmpty(ListItem.FileNameAndPath) + !String.IsEqual(ListItem.FileNameAndPath,add)</param>
-								<param name="label">Full path</param>
-								<param name="value">$INFO[ListItem.FileNameAndPath]</param>
-								<param name="wrap">true</param>
-							</include>
-							<!-- Add source (special case) -->
-							<include content="FileNavInfoLabel">
-								<param name="visible">String.IsEqual(ListItem.FileNameAndPath,add)</param>
-								<param name="label">Add source</param>
-							</include>
+								<top>PADDING_BASE_80P</top>
+
+								<!-- Icon -->
+								<control type="image">
+									<visible>$EXP[IsListIconTranslatedNative]</visible>
+									<centerleft>50%</centerleft>
+									<width>100</width>
+									<height>100</height>
+									<texture fallback="1080p/icons/file.png">$VAR[ListIconTranslated]</texture>
+									<aspectratio>keep</aspectratio>
+								</control>
+								<!-- Preview -->
+								<control type="image">
+									<visible>!$EXP[IsListIconTranslatedNative]</visible>
+									<centerleft>50%</centerleft>
+									<width>500</width>
+									<height>300</height>
+									<texture fallback="1080p/fallback/file.png">$VAR[ListIconTranslated]</texture>
+									<aspectratio>keep</aspectratio>
+								</control>
+
+								<!-- Size -->
+								<include content="FileNavInfoLabel">
+									<param name="visible">!String.IsEmpty(ListItem.Size)</param>
+									<param name="label">Size</param>
+									<param name="value">$INFO[ListItem.Size]</param>
+								</include>
+								<!-- File name -->
+								<include content="FileNavInfoLabel">
+									<param name="visible">!String.IsEmpty(ListItem.FileName) + !String.IsEqual(ListItem.FileName,add)</param>
+									<param name="label">File name</param>
+									<param name="value">$INFO[ListItem.FileName]</param>
+								</include>
+								<!-- Folder -->
+								<include content="FileNavInfoLabel">
+									<param name="visible">!String.IsEmpty(ListItem.Path) + !ListItem.IsFolder</param>
+									<param name="label">Folder</param>
+									<param name="value">$INFO[ListItem.Path]</param>
+								</include>
+								<!-- Path -->
+								<include content="FileNavInfoLabel">
+									<param name="visible">!String.IsEmpty(ListItem.FileNameAndPath) + !String.IsEqual(ListItem.FileNameAndPath,add)</param>
+									<param name="label">Full path</param>
+									<param name="value">$INFO[ListItem.FileNameAndPath]</param>
+									<param name="wrap">true</param>
+								</include>
+								<!-- Add source (special case) -->
+								<include content="FileNavInfoLabel">
+									<param name="visible">String.IsEqual(ListItem.FileNameAndPath,add)</param>
+									<param name="label">Add source</param>
+								</include>
+							</control>
 						</control>
 					</control>
 				</control>

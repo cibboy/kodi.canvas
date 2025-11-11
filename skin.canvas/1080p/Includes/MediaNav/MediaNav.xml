@@ -292,6 +292,46 @@
 	</include>
 
 
+	<!-- File nav background split -->
+	<include name="FileNavBackgroundSplit">
+		<definition>
+			<!-- Background split overlay -->
+			<control type="group">
+				<!-- Left -->
+				<control type="image">
+					<width>WIDTH_BACKGROUND_SPLIT</width>
+					<height>SCREEN_HEIGHT</height>
+					<texture colordiffuse="BACKGROUND_OPAQUE20">diffuse.png</texture>
+				</control>
+				<!-- Right -->
+				<control type="image">
+					<left>WIDTH_BACKGROUND_SPLIT</left>
+					<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+					<height>SCREEN_HEIGHT</height>
+					<texture colordiffuse="BACKGROUND_OPAQUE10">diffuse.png</texture>
+				</control>
+			</control>
+			<!-- Additional repeat for when DialogSettings is open -->
+			<control type="group">
+				<left>SCREEN_WIDTH</left>
+
+				<!-- Left -->
+				<control type="image">
+					<width>WIDTH_BACKGROUND_SPLIT</width>
+					<height>SCREEN_HEIGHT</height>
+					<texture colordiffuse="BACKGROUND_OPAQUE20">diffuse.png</texture>
+				</control>
+				<!-- Right -->
+				<control type="image">
+					<left>WIDTH_BACKGROUND_SPLIT</left>
+					<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+					<height>SCREEN_HEIGHT</height>
+					<texture colordiffuse="BACKGROUND_OPAQUE10">diffuse.png</texture>
+				</control>
+			</control>
+		</definition>
+	</include>
+
 	<!-- File nav info label -->
 	<include name="FileNavInfoLabel">
 		<param name="visible">true</param>
