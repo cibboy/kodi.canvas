@@ -45,6 +45,11 @@
 		$EXP[IsAnySettingsPageActive] +
 		Window.IsVisible(DialogSettings.xml)
 	</expression>
+	<!-- Is DialogMediaSource active in settings? -->
+	<expression name="IsSettingsDialogMediaSourceActive">
+		$EXP[IsAnySettingsPageActive] +
+		Window.IsVisible(DialogMediaSource.xml)
+	</expression>
 	<!-- Is FileBrowser active in settings? -->
 	<expression name="IsSettingsFileBrowserActive">
 		$EXP[IsAnySettingsPageActive] +

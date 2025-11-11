@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">10</defaultcontrol>
+	<controls>
+		<include content="Center169AspectRatio">
+			<include content="SettingsDialogContainerWide">
+				<control type="group">
+					<top>PADDING_BASE_80P</top>
+					<bottom>PADDING_BASE_80P</bottom>
+					<width>WIDTH_BACKGROUND_SPLIT</width>
+					
+					<!-- Options -->
+					<control type="group">
+						<left>PADDING_SETTINGS_WIDE_SIDE</left>
+						<right>PADDING_SETTINGS_WIDE_SIDE</right>
+
+						<!-- Option name -->
+						<control type="label" id="2">
+							<width>auto</width>
+							<top>PADDING_BASE_30P</top>
+							<height>FONT_SIZE_TITLE3</height>
+							<right>PADDING_SETTINGS_TITLE</right>
+							<left>PADDING_SETTINGS_TITLE</left>
+							<font>TITLE3</font>
+							<label></label>
+						</control>
+
+						<!-- List of options -->
+						<control type="list" id="10">
+							<itemgap>GAP_SETTINGS_LIST_OPTION</itemgap>
+							<usecontrolcoords>true</usecontrolcoords>
+							
+							<top>OFFSET_SETTINGS_OPTIONS_START</top>
+							<height>HEIGHT_SETTINGS_DIALOG_LIST</height>
+							<width>100%</width>
+
+							<!-- Close dialog on left, go to ok/cancel on right -->
+							<onleft>Back</onleft>
+							<onright>SetFocus(999)</onright>
+
+							<focusedlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+								<!-- Fake button selection -->
+								<control type="image">
+									<height>HEIGHT_BUTTON_DEFAULT</height>
+									<texture colordiffuse="$VAR[DialogMediaSourceOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texture>
+								</control>
+								<!-- Content -->
+								<include content="SettingsOptionContentWithIcon">
+									<param name="icon_circle_color">BACKGROUND_INVERSE_OPAQUE90</param>
+									<param name="icon_color">FOREGROUND_INVERSE</param>
+									<param name="icon_type_circle">true</param>
+									<param name="icon">$INFO[ListItem.Icon]</param>
+									<param name="text_color">FOREGROUND_INVERSE</param>
+									<param name="text_color_selected">FOREGROUND_ACCENT_ALT</param>
+									<param name="text">$INFO[ListItem.Label]</param>
+									<param name="single_line">true</param>
+									<param name="scroll">true</param>
+								</include>
+							</focusedlayout>
+
+							<itemlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+								<include content="SettingsOptionContentWithIcon">
+									<param name="icon_type_circle">true</param>
+									<param name="icon">$INFO[ListItem.Icon]</param>
+									<param name="text">$INFO[ListItem.Label]</param>
+									<param name="single_line">true</param>
+									<param name="scroll">false</param>
+								</include>
+							</itemlayout>
+						</control>
+					</control>
+				
+					<!-- Action buttons -->
+					<control type="group">
+						<top>OFFSET_SETTINGS_OPTIONS_START</top>
+						<left>WIDTH_BACKGROUND_SPLIT</left>
+						<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+
+						<control type="grouplist" id="999">
+							<!-- Hide when a secondary dialog appears -->
+							<visible>!$EXP[IsAnyDialogActiveOverDialogSettings]</visible>
+							<animation type="Visible">
+								<effect type="fade" end="100" time="ANIMATION_FAST" tween="circle" easing="out" />
+							</animation>
+							<animation type="Hidden">
+								<effect type="fade" end="0" time="ANIMATION_FAST" tween="circle" easing="out" />
+							</animation>
+
+							<left>PADDING_SETTINGS_NARROW_SIDE</left>
+							<right>PADDING_SETTINGS_NARROW_SIDE</right>
+
+							<!-- Go to options on left -->
+							<onleft>SetFocus(10)</onleft>
+
+							<!-- Name for the media source -->
+							<control type="edit" id="12">
+								<width>100%</width>
+								<height>HEIGHT_BUTTON_DEFAULT</height>
+								<label></label>
+								<hinttext>Source name</hinttext>
+							</control>
+
+							<!-- Ok -->
+							<control type="button" id="11">
+								<width>100%</width>
+								<label>Browse...</label>
+							</control>
+							<!-- Cancel -->
+							<control type="button" id="13">
+								<width>100%</width>
+								<label>Add new source</label>
+							</control>
+							<!-- Clear/settings -->
+							<control type="button" id="14">
+								<width>100%</width>
+								<label>Delete source</label>
+							</control>
+							<!-- Clear/settings -->
+							<control type="button" id="18">
+								<width>100%</width>
+								<label>Ok</label>
+							</control>
+						</control>
+					</control>
+				</control>
+			</include>
+		</include>
+	</controls>
+</window>

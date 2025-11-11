@@ -47,8 +47,8 @@
 						<top>OFFSET_SETTINGS_OPTIONS_START</top>
 						<height>HEIGHT_SETTINGS_DIALOG_LIST</height>
 
-						<onup condition="Control.IsVisible(414)">SetFocus(414)</onup>
-						<onup condition="!Control.IsVisible(414) + Control.IsVisible(415)">SetFocus(415)</onup>
+						<onup condition="Control.IsVisible(413)">SetFocus(413)</onup>
+						<onup condition="!Control.IsVisible(413) + Control.IsVisible(415)">SetFocus(415)</onup>
 						<ondown>SetFocus(451,0,absolute)</ondown>
 
 						<!-- Single selection list -->
@@ -57,6 +57,10 @@
 							<usecontrolcoords>true</usecontrolcoords>
 							<height>HEIGHT_DIALOG_LIMITED_LIST</height>
 
+							<onup condition="Control.IsVisible(413)">SetFocus(413)</onup>
+							<onup condition="!Control.IsVisible(413) + Control.IsVisible(415)">SetFocus(415)</onup>
+							<ondown condition="Control.IsVisible(415)">SetFocus(415)</ondown>
+							<ondown condition="!Control.IsVisible(415) + Control.IsVisible(413)">SetFocus(413)</ondown>
 							<onright>Close</onright>
 
 							<focusedlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
@@ -90,17 +94,17 @@
 							</itemlayout>
 						</control>
 
-						<!-- Ok not necessary as selecting an element is equivalent -->
 						<!-- Create folder -->
 						<control type="button" id="415">
 							<width>100%</width>
 							<label>Create folder</label>
 						</control>
-						<!-- Cancel -->
-						<control type="button" id="414">
+						<!-- Ok -->
+						<control type="button" id="413">
 							<width>100%</width>
-							<label>Cancel</label>
+							<label>Ok</label>
 						</control>
+						<!-- Cancel not necessary as the control can be closed with back or right -->
 					</control>
 				</include>
 			</include>

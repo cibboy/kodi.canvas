@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 	<include file="Includes/Dialogs/Variables.xml" />
+	<include file="Includes/Dialogs/Expressions.xml" />
 
 	<!-- Keyboard/keypad button -->
 	<include name="KeyboardButtonSingle">

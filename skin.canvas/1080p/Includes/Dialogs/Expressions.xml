@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<!-- Is any dialog active over DialogSettings.xml? -->
+	<expression name="IsAnyDialogActiveOverDialogSettings">
+		Window.IsVisible(DialogSelect.xml) |
+		Window.IsVisible(DialogConfirm.xml) |
+		Window.IsVisible(DialogContextMenu.xml) |
+		Window.IsVisible(dialogcolorpicker) |
+		Window.IsVisible(FileBrowser.xml)
+	</expression>
+</includes>

@@ -79,7 +79,7 @@
 				<include content="SettingsBackground" />
 				
 				<control type="group">
-					<animation type="Conditional" condition="$EXP[IsSettingsDialogSettingsActive]">
+					<animation type="Conditional" condition="$EXP[IsSettingsDialogSettingsActive] | $EXP[IsSettingsDialogMediaSourceActive]">
 						<effect type="slide" end="SCREEN_WIDTH_NEG,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
 					</animation>
 

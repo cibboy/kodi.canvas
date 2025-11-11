@@ -5,6 +5,10 @@
 		<value condition="Control.HasFocus(451)">BACKGROUND_INVERSE_OPAQUE90</value>
 		<value condition="!Control.HasFocus(451)">BACKGROUND_INVERSE_OPAQUE50</value>
 	</variable>
+	<variable name="DialogMediaSourceOptionButtonColor">
+		<value condition="Control.HasFocus(10)">BACKGROUND_INVERSE_OPAQUE90</value>
+		<value condition="!Control.HasFocus(10)">BACKGROUND_INVERSE_OPAQUE50</value>
+	</variable>
 
 
 	<!-- Constants -->
