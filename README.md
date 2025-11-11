@@ -15,12 +15,9 @@ TOFIX:
   - consider Control.Message(id,message) > message: movedown, moveup (https://kodi.wiki/view/List_of_built-in_functions#GUI_control_built-in's)
   - !!! onfocus "get additional info" da mettere sugli oggetti della 501 nascosta e non sulle altre?
 - file list navigation:
-  - scroll for selected item with text too long
-  - integrate dialogs
   - integrate dialogosettings.xml with full width shift
   - integrate infovideodialog.xml (e equivalent music/picture) in simplified way to show management buttons (change art for episode/movie/...)
     - integrate filebrowser.xml in specific way here?
-- !!!!!! INTEGRATE DIALOGS INTO NEW MODE !!!!!!
 
 TODO:
 - dialog in settings da fare:

@@ -21,8 +21,7 @@
 		Has left menu focus?
 		Consider true any of the following conditions:
 		- Focus on actual left menu
-		- Focus on modal menu (only accessible through left menu)
-		- Focus on filter menu
+		- Left menu is transitioning from an item to another (takes a perceptible amount of ime)
 	-->
 	<expression name="HasHomeMenuFocus">
 		Control.HasFocus(200) |
@@ -33,8 +32,7 @@
 		Control.HasFocus(205) |
 		Control.HasFocus(206) |
 		Control.HasFocus(207) |
-		$EXP[IsHomeMenuMoving] |
-		$EXP[IsHomeFlyoutVisible]
+		$EXP[IsHomeMenuMoving]
 	</expression>
 
 	<!-- Is menu flyout visible? -->

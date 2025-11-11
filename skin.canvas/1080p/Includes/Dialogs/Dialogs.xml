@@ -76,272 +76,11 @@
 	</include>
 
 
-	<!-- Multi-option select dialog -->
-	<include name="StandardDialogSelect">
-		<include content="StandardFlyoutBase">
-			<param name="visible">true</param>
-
-			<include content="StandardFlyoutStructure">
-				<control type="grouplist">
-					<top>OFFSET_FLYOUT_LIST</top>
-					<bottom>OFFSET_FLYOUT_LIST_BOTTOM</bottom>
-					<left>PADDING_BASE_50P</left>
-					<right>PADDING_BASE_50P</right>
-
-					<itemgap>GAP_FLYOUT_GROUPLIST</itemgap>
-					<usecontrolcoords>true</usecontrolcoords>
-
-					<!-- Header -->
-					<control type="label" id="1">
-						<left>PADDING_BASE_20P</left>
-						<right>PADDING_BASE_20P</right>
-						<width>100%</width>
-						<height>150</height>
-						<font>SUBTITLE</font>
-						<wrapmultiline>true</wrapmultiline>
-						<label></label>
-					</control>
-
-					<!-- Multiselect list -->
-					<control type="list" id="3">
-						<itemgap>GAP_FLYOUT_GROUPLIST</itemgap>
-						<usecontrolcoords>true</usecontrolcoords>
-						<height>HEIGHT_FLYOUT_DIALOG_LIST</height>
-
-						<!-- Close dialog on left, right, by simulating a click on OK (necessary for multiselects) -->
-						<onleft>SendClick(5)</onleft>
-						<onright>SendClick(5)</onright>
-
-						<focusedlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
-							<!-- Fake button selection -->
-							<control type="image">
-								<height>HEIGHT_BUTTON_DEFAULT</height>
-								<texture colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texture>
-							</control>
-
-							<!-- Content -->
-							<include content="SettingsOptionContentWithSelection">
-								<param name="selectionmark_color">FOREGROUND_ACCENT_ALT</param>
-								<param name="is_selected">ListItem.IsSelected</param>
-								<param name="text_color">FOREGROUND_INVERSE</param>
-								<param name="text_color_selected">FOREGROUND_ACCENT_ALT</param>
-								<param name="text_scroll">true</param>
-							</include>
-						</focusedlayout>
-
-						<itemlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
-							<include content="SettingsOptionContentWithSelection">
-								<param name="is_selected">ListItem.IsSelected</param>
-								<param name="text_scroll">false</param>
-							</include>
-						</itemlayout>
-					</control>
-
-					<!-- Single selection list -->
-					<control type="list" id="6">
-						<itemgap>GAP_FLYOUT_GROUPLIST</itemgap>
-						<usecontrolcoords>true</usecontrolcoords>
-						<height>HEIGHT_FLYOUT_DIALOG_LIST</height>
-
-						<onright>Close</onright>
-
-						<focusedlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
-							<!-- Fake button selection -->
-							<control type="image">
-								<height>HEIGHT_BUTTON_DEFAULT</height>
-								<texture colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texture>
-							</control>
-							<!-- Content -->
-							<include content="SettingsOptionContentWithIcon">
-								<param name="icon_circle_color">BACKGROUND_INVERSE_OPAQUE90</param>
-								<param name="icon_color">FOREGROUND_INVERSE</param>
-								<param name="icon_type_circle">true</param>
-								<param name="icon">$INFO[ListItem.Icon]</param>
-								<param name="text_color">FOREGROUND_INVERSE</param>
-								<param name="text_color_selected">FOREGROUND_ACCENT_ALT</param>
-								<param name="text">[CAPITALIZE]$INFO[ListItem.Label][/CAPITALIZE]</param>
-								<param name="single_line">true</param>
-								<param name="scroll">true</param>
-							</include>
-						</focusedlayout>
-
-						<itemlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
-							<include content="SettingsOptionContentWithIcon">
-								<param name="icon_type_circle">true</param>
-								<param name="icon">$INFO[ListItem.Icon]</param>
-								<param name="text">[CAPITALIZE]$INFO[ListItem.Label][/CAPITALIZE]</param>
-								<param name="single_line">true</param>
-								<param name="scroll">false</param>
-							</include>
-						</itemlayout>
-					</control>
-
-					<!-- Padding -->
-					<control type="label" id="999">
-						<height>PADDING_BASE</height>
-					</control>
-
-					<!-- Ok/Get more -->
-					<control type="button" id="5">
-						<width>100%</width>
-						<height>HEIGHT_FLYOUT_BUTTON</height>
-					</control>
-					<!-- Cancel -->
-					<control type="button" id="7">
-						<width>100%</width>
-						<height>HEIGHT_FLYOUT_BUTTON</height>
-					</control>
-					<!-- Add/Get more -->
-					<control type="button" id="8">
-						<width>100%</width>
-						<height>HEIGHT_FLYOUT_BUTTON</height>
-					</control>
-				</control>
-			</include>
-		</include>
-	</include>
-
-	<!-- Confirmation dialog -->
-	<include name="StandardDialogConfirm">
-		<include content="StandardFlyoutBase">
-			<param name="visible">true</param>
-
-			<include content="StandardFlyoutStructure">
-				<control type="grouplist">
-					<top>OFFSET_FLYOUT_LIST</top>
-					<bottom>OFFSET_FLYOUT_LIST_BOTTOM</bottom>
-					<left>PADDING_BASE_50P</left>
-					<right>PADDING_BASE_50P</right>
-
-					<itemgap>GAP_FLYOUT_GROUPLIST</itemgap>
-					<usecontrolcoords>true</usecontrolcoords>
-
-					<control type="label" id="1">
-						<left>PADDING_BASE_20P</left>
-						<right>PADDING_BASE_20P</right>
-						<width>100%</width>
-						<height>150</height>
-						<font>SUBTITLE</font>
-						<wrapmultiline>true</wrapmultiline>
-						<label></label>
-					</control>
-					<!-- Message -->
-					<control type="textbox" id="9">
-						<visible>!String.IsEmpty(Control.GetLabel(9))</visible>
-						<width>100%</width>
-						<height>100</height>
-						<left>PADDING_BASE_20P</left>
-						<right>PADDING_BASE_20P</right>
-						<font>BODY</font>
-						<textcolor>FOREGROUND_DARK</textcolor>
-						<autoscroll time="3000" delay="5000" repeat="5000">true</autoscroll>
-					</control>
-
-					<!-- Padding -->
-					<control type="label">
-						<height>PADDING_BASE</height>
-					</control>
-
-					<!-- Yes/Ok -->
-					<control type="button" id="11">
-						<width>100%</width>
-						<height>HEIGHT_FLYOUT_BUTTON</height>
-					</control>
-					<!-- No -->
-					<control type="button" id="10">
-						<width>100%</width>
-						<height>HEIGHT_FLYOUT_BUTTON</height>
-					</control>
-					<!-- Future -->
-					<control type="button" id="12">
-						<width>100%</width>
-						<height>HEIGHT_FLYOUT_BUTTON</height>
-					</control>
-				</control>
-			</include>
-		</include>
-	</include>
-
-	<!-- Color picker (not used outside settings?) -->
-	<include name="StandardDialogColorPicker"></include>
-
-
-	<!-- Flyout menu -->
-	<include name="StandardFlyoutBase">
-		<param name="visible">false</param>
-		<param name="show_clock">true</param>
-
-		<definition>
-			<!-- Darkening layer (with fade) -->
-			<include content="DarkeningLayer">
-				<param name="visible">$PARAM[visible]</param>
-			</include>
-
-			<control type="group">
-				<visible>$PARAM[visible]</visible>
-				<!-- Slide in from the side (custom flyout) -->
-				<include content="ShowHideFadeSlideHorizontalAnimation">
-					<param name="slide_amount">300</param>
-					<param name="speed">ANIMATION_MID</param>
-				</include>
-				<!-- Slide in from the side (dialog flyout) -->
-				<include content="ShowHideFadeSlideHorizontalAnimation">
-					<param name="slide_amount">300</param>
-					<param name="speed">ANIMATION_MID</param>
-					<param name="visible_condition">WindowOpen</param>
-					<param name="hidden_condition">WindowClose</param>
-				</include>
-
-				<!-- Flyout background -->
-				<include content="StandardFlyoutStructure">
-					<!-- Background with shadow -->
-					<control type="image">
-						<width>100%</width>
-						<height>100%</height>
-						<texture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND_DIALOG">1080p/controls/button.png</texture>
-					</control>
-					<!-- Border -->
-					<control type="image">
-						<width>100%</width>
-						<height>100%</height>
-						<texture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="FOREGROUND_OPAQUE5">1080p/diffuse/square-outline.png</texture>
-						<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
-					</control>
-				</include>
-
-				<!-- Actual content -->
-				<nested />
-
-				<!-- Clock (no animation) -->
-				<control type="group">
-					<visible>$PARAM[show_clock]</visible>
-					<include content="ShowHideFadeAnimation" />
-
-					<include content="TopBar">
-						<param name="show_background">false</param>
-					</include>
-				</control>
-			</control>
-		</definition>
-	</include>
-	<!-- Flyout menu structure (needs a separate include because <nested /> too deep is not supported -.-) -->
-	<include name="StandardFlyoutStructure">
-		<definition>
-			<control type="group">
-				<width>WIDTH_FLYOUT</width>
-				<right>PADDING_BASE_10P</right>
-				<top>PADDING_BASE_10P</top>
-				<bottom>PADDING_BASE_10P</bottom>
-
-				<!-- Content -->
-				<nested />
-			</control>
-		</definition>
-	</include>
-
 	<!-- Flyout menu background (for non-integrated version) -->
 	<include name="StandardFlyoutBackground">
 		<param name="visible">true</param>
+		<param name="animation_show_condition">WindowOpen</param>
+		<param name="animation_hide_condition">WindowClose</param>
 
 		<definition>
 			<!-- Darkening layer (with fade) -->
@@ -352,11 +91,11 @@
 			<!-- Actual background -->
 			<control type="group">
 				<visible>$PARAM[visible]</visible>
-				<animation type="WindowOpen">
-					<effect type="slide" start="WIDTH_BACKGROUND_SPLIT_REMAINING,0" end="0,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
+				<animation type="$PARAM[animation_show_condition]">
+					<effect type="slide" start="WIDTH_BACKGROUND_SPLIT_REMAINING,0" end="0,0" time="ANIMATION_MID" tween="circle" easing="out" />
 				</animation>
-				<animation type="WindowClose" condition="$PARAM[visible]">
-					<effect type="slide" start="0,0" end="WIDTH_BACKGROUND_SPLIT_REMAINING,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
+				<animation type="$PARAM[animation_hide_condition]" condition="$PARAM[close_animation]">
+					<effect type="slide" start="0,0" end="WIDTH_BACKGROUND_SPLIT_REMAINING,0" time="ANIMATION_MID" tween="circle" easing="out" />
 				</animation>
 
 				<right>0</right>
@@ -392,15 +131,19 @@
 
 	<!-- Dialog main container -->
 	<include name="DialogContainer">
+		<param name="visible">true</param>
 		<param name="close_animation">false</param>
+		<param name="animation_show_condition">WindowOpen</param>
+		<param name="animation_hide_condition">WindowClose</param>
 
 		<definition>
 			<control type="group">
-				<animation type="WindowOpen">
-					<effect type="slide" start="WIDTH_BACKGROUND_SPLIT_REMAINING,0" end="0,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
+				<visible>$PARAM[visible]</visible>
+				<animation type="$PARAM[animation_show_condition]">
+					<effect type="slide" start="WIDTH_BACKGROUND_SPLIT_REMAINING,0" end="0,0" time="ANIMATION_MID" tween="circle" easing="out" />
 				</animation>
-				<animation type="WindowClose" condition="$PARAM[close_animation]">
-					<effect type="slide" start="0,0" end="WIDTH_BACKGROUND_SPLIT_REMAINING,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
+				<animation type="$PARAM[animation_hide_condition]" condition="$PARAM[close_animation]">
+					<effect type="slide" start="0,0" end="WIDTH_BACKGROUND_SPLIT_REMAINING,0" time="ANIMATION_MID" tween="circle" easing="out" />
 				</animation>
 
 				<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
@@ -422,19 +165,24 @@
 				<left>PADDING_SETTINGS_NARROW_SIDE</left>
 				<right>PADDING_SETTINGS_NARROW_SIDE</right>
 
-				<!-- Option name -->
-				<control type="label" id="1">
-					<width>560</width>
-					<top>PADDING_BASE_30P</top>
-					<height>FONT_SIZE_TITLE3</height>
-					<right>PADDING_SETTINGS_TITLE</right>
-					<left>PADDING_SETTINGS_TITLE</left>
-					<font>TITLE3</font>
-					<label></label>
-				</control>
-
 				<!-- Content -->
 				<nested />
+			</control>
+		</definition>
+	</include>
+	<!-- Standard dialog header -->
+	<include name="StandardDialogHeader">
+		<param name="id">1</param>
+
+		<definition>
+			<control type="label" id="$PARAM[id]">
+				<width>560</width>
+				<top>PADDING_BASE_30P</top>
+				<height>FONT_SIZE_TITLE3</height>
+				<right>PADDING_SETTINGS_TITLE</right>
+				<left>PADDING_SETTINGS_TITLE</left>
+				<font>TITLE3</font>
+				<label></label>
 			</control>
 		</definition>
 	</include>

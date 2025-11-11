@@ -730,14 +730,23 @@
 
 	<!-- Flyout menu -->
 	<include name="HomeMenuFlyout">
-		<include content="StandardFlyoutBase">
+		<!-- Background -->
+		<include content="StandardFlyoutBackground">
 			<param name="visible">$EXP[IsHomeMenuFlyoutVisible]</param>
+			<param name="animation_show_condition">Visible</param>
+			<param name="animation_hide_condition">Hidden</param>
+		</include>
 
-			<include content="StandardFlyoutStructure">
+		<include content="DialogContainer">
+			<param name="visible">$EXP[IsHomeMenuFlyoutVisible]</param>
+			<param name="close_animation">!$EXP[IsHomeMenuFlyoutVisible]</param>
+			<param name="animation_show_condition">Visible</param>
+			<param name="animation_hide_condition">Hidden</param>
+
+			<include content="DialogContainerContent">
 				<!-- Horizontal list of icon buttons -->
 				<control type="list" id="1000">
-					<top>70</top>
-					<left>80</left>
+					<left>40</left>
 					<orientation>horizontal</orientation>
 
 					<onback condition="!$EXP[HasHomeLoaded]">SetFocus(99999)</onback>
@@ -777,10 +786,8 @@
 
 				<!-- Vertical list of buttons -->
 				<control type="list" id="1001">
-					<top>172</top>
+					<top>102</top>
 					<bottom>PADDING_BASE</bottom>
-					<left>PADDING_BASE_40P</left>
-					<right>PADDING_BASE_40P</right>
 
 					<onback>SetFocus(200)</onback>
 					<onup>SetFocus(1000,0)</onup>
@@ -858,10 +865,20 @@
 	</include>
 	<!-- Flyout section options menu -->
 	<include name="HomeFilterFlyout">
-		<include content="StandardFlyoutBase">
+		<!-- Background -->
+		<include content="StandardFlyoutBackground">
 			<param name="visible">$EXP[IsHomeFilterFlyoutVisible]</param>
+			<param name="animation_show_condition">Visible</param>
+			<param name="animation_hide_condition">Hidden</param>
+		</include>
 
-			<include content="StandardFlyoutStructure">
+		<include content="DialogContainer">
+			<param name="visible">$EXP[IsHomeFilterFlyoutVisible]</param>
+			<param name="close_animation">!$EXP[IsHomeFilterFlyoutVisible]</param>
+			<param name="animation_show_condition">Visible</param>
+			<param name="animation_hide_condition">Hidden</param>
+
+			<include content="DialogContainerContent">
 				<control type="grouplist">
 					<control type="label">
 						<label>$VAR[test]</label>

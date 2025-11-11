@@ -2,43 +2,60 @@
 <window>
 	<defaultcontrol>400</defaultcontrol>
 	<controls>
-		<!-- Flyout for picture selection -->
-		<control type="group">
-			<visible>String.IsEqual(Container(451).Viewmode,Album icons)</visible>
+		<include content="Center169AspectRatio">
+			<!-- Background (for non-integrated version) -->
+			<include content="StandardFlyoutBackground">
+				<param name="visible">!$EXP[IsSettingsFileBrowserActive] + !$EXP[IsPlayerVisible]</param>
+			</include>
 
-			<!-- Additional darkening layer (with fade) -->
-			<include content="DarkeningLayer" />
-			
-			<!-- Flyout -->
-			<include content="StandardFlyoutBase">
-				<param name="visible">true</param>
+			<!-- Picture preview -->
+			<control type="image">
+				<!-- Slide in from the side -->
+				<include content="ShowHideFadeSlideHorizontalAnimation">
+					<param name="slide_amount">300</param>
+					<param name="speed">ANIMATION_MID</param>
+					<param name="delay_in">ANIMATION_MID</param>
+					<param name="visible_condition">WindowOpen</param>
+					<param name="hidden_condition">WindowClose</param>
+				</include>
+				
+				<width>800</width>
+				<height>880</height>
+				<centertop>50%</centertop>
+				<right>750</right>
+				<fadetime>ANIMATION_SLOW</fadetime>
+				<texture>$INFO[Container(451).ListItem.Icon]</texture>
+				<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND_OPAQUE50">1080p/diffuse/shadow-art.png</bordertexture>
+				<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
+				<aspectratio scalediffuse="false" align="right">keep</aspectratio>
+			</control>
 
-				<include content="StandardFlyoutStructure">
+			<include content="DialogContainer">
+				<param name="close_animation">!$EXP[IsSettingsFileBrowserActive] + !$EXP[IsPlayerVisible]</param>
+
+				<include content="DialogContainerContent">
+					<!-- Header -->
+					<include content="StandardDialogHeader">
+						<param name="id">411</param>
+					</include>
+
 					<control type="grouplist" id="400">
-						<top>OFFSET_FLYOUT_LIST</top>
-						<bottom>OFFSET_FLYOUT_LIST_BOTTOM</bottom>
-						<left>PADDING_BASE_50P</left>
-						<right>PADDING_BASE_50P</right>
-
-						<itemgap>GAP_FLYOUT_GROUPLIST</itemgap>
+						<orientation>vertical</orientation>
 						<usecontrolcoords>true</usecontrolcoords>
+						<itemgap>GAP_SETTINGS_LIST_OPTION</itemgap>
 
-						<!-- Header -->
-						<control type="label" id="411">
-							<left>PADDING_BASE_20P</left>
-							<right>PADDING_BASE_20P</right>
-							<width>100%</width>
-							<height>150</height>
-							<font>SUBTITLE</font>
-							<wrapmultiline>true</wrapmultiline>
-							<label></label>
-						</control>
+						<top>OFFSET_SETTINGS_OPTIONS_START</top>
+						<height>HEIGHT_SETTINGS_DIALOG_LIST</height>
+
+						<onup condition="Control.IsVisible(414)">SetFocus(414)</onup>
+						<onup condition="!Control.IsVisible(414) + Control.IsVisible(415)">SetFocus(415)</onup>
+						<ondown>SetFocus(451,0,absolute)</ondown>
 
 						<!-- Single selection list -->
 						<control type="list" id="451">
-							<itemgap>GAP_FLYOUT_GROUPLIST</itemgap>
+							<itemgap>GAP_SETTINGS_LIST_OPTION</itemgap>
 							<usecontrolcoords>true</usecontrolcoords>
-							<height>HEIGHT_FLYOUT_DIALOG_LIST</height>
+							<height>HEIGHT_DIALOG_LIMITED_LIST</height>
 
 							<onright>Close</onright>
 
@@ -46,7 +63,7 @@
 								<!-- Fake button selection -->
 								<control type="image">
 									<height>HEIGHT_BUTTON_DEFAULT</height>
-									<texture colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texture>
+									<texture colordiffuse="$VAR[FileBrowserOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texture>
 								</control>
 								<!-- Content -->
 								<include content="SettingsOptionContentWithIcon">
@@ -73,54 +90,20 @@
 							</itemlayout>
 						</control>
 
-						<!-- Padding -->
-						<control type="label" id="999">
-							<height>PADDING_BASE</height>
-						</control>
-
+						<!-- Ok not necessary as selecting an element is equivalent -->
 						<!-- Create folder -->
 						<control type="button" id="415">
 							<width>100%</width>
-							<height>HEIGHT_FLYOUT_BUTTON</height>
 							<label>Create folder</label>
-						</control>
-						<!-- Ok -->
-						<control type="button" id="413">
-							<width>100%</width>
-							<height>HEIGHT_FLYOUT_BUTTON</height>
-							<label>Ok</label>
 						</control>
 						<!-- Cancel -->
 						<control type="button" id="414">
 							<width>100%</width>
-							<height>HEIGHT_FLYOUT_BUTTON</height>
 							<label>Cancel</label>
 						</control>
 					</control>
 				</include>
 			</include>
-
-			<!-- Picture preview -->
-			<control type="image">
-				<!-- Slide in from the side -->
-				<include content="ShowHideFadeSlideHorizontalAnimation">
-					<param name="slide_amount">300</param>
-					<param name="speed">ANIMATION_MID</param>
-					<param name="delay_in">ANIMATION_MID</param>
-					<param name="visible_condition">WindowOpen</param>
-					<param name="hidden_condition">WindowClose</param>
-				</include>
-				
-				<width>1120</width>		<!-- SCREEN_WIDTH - WIDTH_FLYOUT - (PADDING_BASE * 2) -->
-				<height>880</height>	<!-- SCREEN_HEIGHT - (PADDING_BASE * 2) -->
-				<centertop>50%</centertop>
-				<right>700</right>		<!-- WIDTH_FLYOUT + PADDING_BASE -->
-				<fadetime>ANIMATION_SLOW</fadetime>
-				<texture>$INFO[Container(451).ListItem.Icon]</texture>
-				<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND_OPAQUE50">1080p/diffuse/shadow-art.png</bordertexture>
-				<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
-				<aspectratio scalediffuse="false" align="right">keep</aspectratio>
-			</control>
-		</control>
+		</include>
 	</controls>
 </window>

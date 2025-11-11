@@ -3,11 +3,53 @@
 	<defaultcontrol>6</defaultcontrol>
 	<controls>
 		<include content="Center169AspectRatio">
-			<!-- Standard DialogSelect -->
-			<include content="StandardDialogColorPicker" condition="!$EXP[IsSettingsDialogColorPickerActive]" />
+			<!-- Background (for non-integrated version) -->
+			<include content="StandardFlyoutBackground">
+				<param name="visible">!$EXP[IsSettingsDialogColorPickerActive] + !$EXP[IsPlayerVisible]</param>
+			</include>
 
-			<!-- DialogSelect for settings -->
-			<include content="SettingsDialogColorPicker" condition="$EXP[IsSettingsDialogColorPickerActive]" />
+			<include content="DialogContainer">
+				<param name="close_animation">!$EXP[IsSettingsDialogColorPickerActive] + !$EXP[IsPlayerVisible]</param>
+
+				<include content="DialogContainerContent">
+					<!-- Header -->
+					<include content="StandardDialogHeader" />
+
+					<!-- Content (color table) -->
+					<control type="panel" id="6">
+						<top>OFFSET_SETTINGS_OPTIONS_START</top>
+
+						<itemlayout height="SIZE_SETTINGS_DIALOG_COLOR" width="SIZE_SETTINGS_DIALOG_COLOR">
+							<control type="group">
+								<control type="image">
+									<top>1</top>
+									<bottom>1</bottom>
+									<left>1</left>
+									<right>1</right>
+									<width>SIZE_SETTINGS_DIALOG_COLOR_PADDED</width>
+									<height>SIZE_SETTINGS_DIALOG_COLOR_PADDED</height>
+									<texture colordiffuse="$INFO[ListItem.Label2]">diffuse.png</texture>
+								</control>
+							</control>
+						</itemlayout>
+
+						<focusedlayout height="SIZE_SETTINGS_DIALOG_COLOR" width="SIZE_SETTINGS_DIALOG_COLOR">
+							<control type="group">
+								<animation effect="zoom" time="ANIMATION_FAST" tween="sine" easing="inout" start="190" end="210" center="auto">Focus</animation>
+
+								<control type="image">
+									<width>SIZE_SETTINGS_DIALOG_COLOR</width>
+									<height>SIZE_SETTINGS_DIALOG_COLOR</height>
+									<texture colordiffuse="$INFO[ListItem.Label2]" diffuse="1080p/diffuse/square.png" border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE">diffuse.png</texture>
+									<bordertexture border="SIZE_ITEM_SHADOW_SQUARE_DOUBLE" colordiffuse="BACKGROUND">1080p/diffuse/shadow-square.png</bordertexture>
+									<bordersize>SIZE_ITEM_SHADOW_SQUARE</bordersize>
+									<aspectratio scalediffuse="false">scale</aspectratio>
+								</control>
+							</control>
+						</focusedlayout>
+					</control>
+				</include>
+			</include>
 		</include>
 	</controls>
 </window>

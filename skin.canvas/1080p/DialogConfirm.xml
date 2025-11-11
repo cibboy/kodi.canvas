@@ -3,11 +3,58 @@
 	<!-- Needs to include check on previous window because of weird selection when switching from another skin -->
 	<controls>
 		<include content="Center169AspectRatio">
-			<!-- Standard DialogSelect -->
-			<include content="StandardDialogConfirm" condition="!$EXP[IsSettingsDialogConfirmActive] + !$EXP[IsPlayerVisible] + !Window.Previous(appearancesettings)" />
+			<!-- Background (for non-integrated version) -->
+			<include content="StandardFlyoutBackground">
+				<param name="visible">!$EXP[IsSettingsDialogConfirmActive] + !$EXP[IsPlayerVisible] + !Window.Previous(appearancesettings)</param>
+			</include>
 
-			<!-- DialogSelect for settings -->
-			<include content="SettingsDialogConfirm" condition="$EXP[IsSettingsDialogConfirmActive] | $EXP[IsPlayerVisible] | Window.Previous(appearancesettings)" />
+			<include content="DialogContainer">
+				<param name="close_animation">!$EXP[IsSettingsDialogConfirmActive] + !$EXP[IsPlayerVisible] + !Window.Previous(appearancesettings)</param>
+
+				<include content="DialogContainerContent">
+					<!-- Header -->
+					<include content="StandardDialogHeader" />
+					
+					<!-- Content -->
+					<control type="grouplist">
+						<top>OFFSET_SETTINGS_OPTIONS_START</top>
+						<usecontrolcoords>true</usecontrolcoords>
+
+						<!-- Message -->
+						<control type="textbox" id="9">
+							<height>135</height>
+							<right>PADDING_SETTINGS_TITLE</right>
+							<left>PADDING_SETTINGS_TITLE</left>
+							<font>BODY</font>
+							<textcolor>FOREGROUND_DARK</textcolor>
+							<autoscroll time="3000" delay="5000" repeat="5000">true</autoscroll>
+						</control>
+
+						<!-- Fake padding -->
+						<control type="label">
+							<height>PADDING_BASE</height>
+						</control>
+
+						<!-- Yes/Ok -->
+						<control type="button" id="11">
+							<width>WIDTH_SETTINGS_GROUPLIST_NARROW_OPTION</width>
+							<onleft>Close</onleft>
+						</control>
+
+						<!-- No -->
+						<control type="button" id="10">
+							<width>WIDTH_SETTINGS_GROUPLIST_NARROW_OPTION</width>
+							<onleft>Close</onleft>
+						</control>
+						
+						<!-- Future -->
+						<control type="button" id="12">
+							<width>WIDTH_SETTINGS_GROUPLIST_NARROW_OPTION</width>
+							<onleft>Close</onleft>
+						</control>
+					</control>
+				</include>
+			</include>
 		</include>
 	</controls>
 </window>

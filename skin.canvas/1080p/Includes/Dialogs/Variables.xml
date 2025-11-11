@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
+	<!-- Button background texture color diffuse to allow fade when focused but focus is not on its list -->
+	<variable name="FileBrowserOptionButtonColor">
+		<value condition="Control.HasFocus(451)">BACKGROUND_INVERSE_OPAQUE90</value>
+		<value condition="!Control.HasFocus(451)">BACKGROUND_INVERSE_OPAQUE50</value>
+	</variable>
+
+
 	<!-- Constants -->
-	<constant name="WIDTH_FLYOUT">600</constant>
-	<constant name="HEIGHT_FLYOUT_BUTTON">140</constant>
-	<constant name="OFFSET_FLYOUT_LIST">152</constant>
-	<constant name="OFFSET_FLYOUT_LIST_BOTTOM">152</constant>
-	<constant name="GAP_FLYOUT_GROUPLIST">-35</constant>
-	<constant name="HEIGHT_FLYOUT_DIALOG_LIST">500</constant>
+	<constant name="HEIGHT_DIALOG_LIMITED_LIST">510</constant>
 
 	<constant name="HEIGHT_NOTIFICATION">140</constant>
 	<constant name="WIDTH_NOTIFICATION">480</constant>

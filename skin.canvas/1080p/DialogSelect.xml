@@ -3,14 +3,110 @@
 	<defaultcontrol>3</defaultcontrol>
 	<controls>
 		<include content="Center169AspectRatio">
-			<!-- Standard DialogSelect -->
-			<include content="StandardDialogSelect" condition="!$EXP[IsSettingsDialogSelectActive] + !$EXP[IsPlayerVisible]" />
+			<!-- Background (for non-integrated version) -->
+			<include content="StandardFlyoutBackground">
+				<param name="visible">!$EXP[IsSettingsDialogSelectActive] + !$EXP[IsPlayerVisible]</param>
+			</include>
 
-			<!-- DialogSelect for player -->
-			<include content="PlayerDialogSelect" condition="$EXP[IsPlayerVisible]" />
+			<include content="DialogContainer">
+				<param name="close_animation">!$EXP[IsSettingsDialogSelectActive] + !$EXP[IsPlayerVisible]</param>
 
-			<!-- DialogSelect for settings -->
-			<include content="SettingsDialogSelect" condition="$EXP[IsSettingsDialogSelectActive]" />
+				<include content="DialogContainerContent">
+					<!-- Header -->
+					<include content="StandardDialogHeader" />
+					
+					<!-- Options -->
+					<control type="group">
+						<top>OFFSET_SETTINGS_OPTIONS_START</top>
+
+						<!-- List of options -->
+						<control type="list" id="3">
+							<itemgap>GAP_SETTINGS_LIST_OPTION</itemgap>
+							<usecontrolcoords>true</usecontrolcoords>
+							<height>HEIGHT_SETTINGS_DIALOG_LIST</height>
+
+							<!-- Close dialog on left (and if requested on right) by simulating a click on OK (necessary for multiselects in settings) -->
+							<onleft condition="!$EXP[IsPlayerVisible]">SendClick(5)</onleft>
+							<onleft condition="$EXP[IsPlayerVisible]">Close</onleft>
+							<onright condition="$EXP[IsPlayerVisible]">Close</onright>
+
+							<focusedlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+								<!-- Fake button selection -->
+								<control type="image">
+									<height>HEIGHT_BUTTON_DEFAULT</height>
+									<texture colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texture>
+								</control>
+
+								<!-- Content -->
+								<include content="SettingsOptionContentWithSelection">
+									<param name="selectionmark_color">FOREGROUND_ACCENT_ALT</param>
+									<param name="is_selected">ListItem.IsSelected</param>
+									<param name="text_color">FOREGROUND_INVERSE</param>
+									<param name="text_color_selected">FOREGROUND_ACCENT_ALT</param>
+									<param name="text_scroll">true</param>
+								</include>
+							</focusedlayout>
+
+							<itemlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+								<include content="SettingsOptionContentWithSelection">
+									<param name="is_selected">ListItem.IsSelected</param>
+									<param name="text_scroll">false</param>
+								</include>
+							</itemlayout>
+						</control>
+
+						<!-- List of addons -->
+						<control type="list" id="6">
+							<itemgap>GAP_SETTINGS_LIST_OPTION</itemgap>
+							<usecontrolcoords>true</usecontrolcoords>
+							<height>HEIGHT_SETTINGS_DIALOG_LIST</height>
+
+							<onleft>Close</onleft>
+							<onright>Close</onright>
+
+							<focusedlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+								<!-- Fake button selection -->
+								<control type="image">
+									<height>HEIGHT_BUTTON_DEFAULT</height>
+									<texture colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texture>
+								</control>
+								<!-- Content -->
+								<include content="SettingsOptionContentWithIcon">
+									<param name="icon_circle_color">BACKGROUND_INVERSE_OPAQUE90</param>
+									<param name="icon_color">FOREGROUND_INVERSE</param>
+									<param name="icon_type_circle">$EXP[HasSettingsDialogSelectIcon]</param>
+									<param name="icon">$VAR[SettingsDialogSelectIcon]</param>
+									<param name="text_color">FOREGROUND_INVERSE</param>
+									<param name="text_color_selected">FOREGROUND_ACCENT_ALT</param>
+									<param name="text">[CAPITALIZE]$INFO[ListItem.Label][/CAPITALIZE]</param>
+									<param name="description_color">FOREGROUND_INVERSE_OPAQUE75</param>
+									<param name="description_color_selected">FOREGROUND_ACCENT_ALT_OPAQUE75</param>
+									<param name="description">$INFO[ListItem.Label2]</param>
+									<param name="single_line">String.IsEmpty(ListItem.Label2)</param>
+									<param name="scroll">true</param>
+								</include>
+							</focusedlayout>
+
+							<itemlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+								<include content="SettingsOptionContentWithIcon">
+									<param name="icon_type_circle">$EXP[HasSettingsDialogSelectIcon]</param>
+									<param name="icon">$VAR[SettingsDialogSelectIcon]</param>
+									<param name="text">[CAPITALIZE]$INFO[ListItem.Label][/CAPITALIZE]</param>
+									<param name="description">$INFO[ListItem.Label2]</param>
+									<param name="single_line">String.IsEmpty(ListItem.Label2)</param>
+									<param name="scroll">false</param>
+								</include>
+							</itemlayout>
+						</control>
+
+						<!-- Chevrons up/down if more content is available -->
+						<include content="SettingsUpDownChevrons">
+							<param name="visible_up">[Control.HasFocus(3) + Integer.IsGreater(Container(3).NumItems,6)] | [Control.HasFocus(6) + Integer.IsGreater(Container(6).NumItems,6)]</param>
+							<param name="visible_down">[Control.HasFocus(3) + Integer.IsGreater(Container(3).NumItems,6)] | [Control.HasFocus(6) + Integer.IsGreater(Container(6).NumItems,6)]</param>
+						</include>
+					</control>
+				</include>
+			</include>
 		</include>
 	</controls>
 </window>

@@ -45,6 +45,11 @@
 		$EXP[IsAnySettingsPageActive] +
 		Window.IsVisible(DialogSettings.xml)
 	</expression>
+	<!-- Is FileBrowser active in settings? -->
+	<expression name="IsSettingsFileBrowserActive">
+		$EXP[IsAnySettingsPageActive] +
+		Window.IsVisible(FileBrowser.xml)
+	</expression>
 	<!-- Is any "simple" dialog active in settings? -->
 	<expression name="IsSettingsAnySimpleDialogActive">
 		$EXP[IsSettingsDialogSelectActive] |
@@ -57,7 +62,8 @@
 		$EXP[IsSettingsDialogConfirmActive] |
 		$EXP[IsSettingsDialogContextMenuActive] |
 		$EXP[IsSettingsDialogColorPickerActive] |
-		$EXP[IsSettingsDialogSettingsActive]
+		$EXP[IsSettingsDialogSettingsActive] |
+		$EXP[IsSettingsFileBrowserActive]
 	</expression>
 
 	<!-- Has DialogSelect an actual icon? -->
