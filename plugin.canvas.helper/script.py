@@ -140,7 +140,11 @@ def get_additional_media_info_from_player():
 # in cases where a dialog appears rapidly before the xbmc.getInfoLabel()
 # method can be invoked.
 # "Debounced" to improve responsiveness.
-def get_additional_media_info_from_listitem(itemtype, itemid, currentposition = 1, sync_501 = False):
+# sync_501 is used to sync list with ID 501 to the current list position,
+# so that details can be more easily pulled from the same list ID all the
+# time. It is a string (later transformed into boolean) to handle fake
+# boolean coming from the skin as strings.
+def get_additional_media_info_from_listitem(itemtype, itemid, currentposition = 1, sync_501 = 'false'):
     # All properties reside on home window.
     window = xbmcgui.Window(10000)
 
@@ -150,6 +154,9 @@ def get_additional_media_info_from_listitem(itemtype, itemid, currentposition = 
     debounce_value = window.getProperty('Item.DBID.Debounce')
     if debounce_value == itemid:    # Continue if there were no new requests.
         # Sync list with ID 501 if requested (used by home that has several lists).
+        sync_501 = sync_501.lower()
+        if sync_501 == 'true' or sync_501 == 'yes': sync_501 = True
+        else: sync_501 = False
         if sync_501: update_hidden_active_list_position(currentposition)
 
         # Retrieve current active list ID.
