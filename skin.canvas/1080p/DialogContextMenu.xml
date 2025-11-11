@@ -1,10 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-	<defaultcontrol>3</defaultcontrol>
+	<defaultcontrol>996</defaultcontrol>
 	<controls>
 		<include content="Center169AspectRatio">
-			<!-- Standard DialogSelect -->
-			<include content="StandardDialogContextMenu" />
+			<!-- Background (for non-integrated version) -->
+			<include content="StandardFlyoutBackground">
+				<param name="visible">!$EXP[IsSettingsDialogContextMenuActive] + !$EXP[IsPlayerVisible]</param>
+			</include>
+
+			<include content="DialogContainer">
+				<param name="close_animation">!$EXP[IsSettingsDialogContextMenuActive] + !$EXP[IsPlayerVisible]</param>
+
+				<include content="DialogContainerContent">
+					<!-- Content -->
+					<control type="grouplist" id="996">
+						<orientation>vertical</orientation>
+						<usecontrolcoords>true</usecontrolcoords>
+						<itemgap>GAP_SETTINGS_LIST_OPTION</itemgap>
+						
+						<top>OFFSET_SETTINGS_OPTIONS_START</top>
+						<height>HEIGHT_SETTINGS_DIALOG_LIST</height>
+
+						<!-- Button template -->
+						<control type="button" id="1000">
+							<width>WIDTH_SETTINGS_GROUPLIST_NARROW_OPTION</width>
+							<onleft>Close</onleft>
+						</control>
+					</control>
+				</include>
+			</include>
 		</include>
 	</controls>
 </window>

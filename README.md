@@ -18,6 +18,9 @@ TOFIX:
   - scroll for selected item with text too long
   - integrate dialogs
   - integrate dialogosettings.xml with full width shift
+  - integrate infovideodialog.xml (e equivalent music/picture) in simplified way to show management buttons (change art for episode/movie/...)
+    - integrate filebrowser.xml in specific way here?
+- !!!!!! INTEGRATE DIALOGS INTO NEW MODE !!!!!!
 
 TODO:
 - dialog in settings da fare:

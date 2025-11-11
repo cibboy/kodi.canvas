@@ -21,19 +21,24 @@
 	<expression name="IsSettingsDialogSelectActive">
 		$EXP[IsAnySettingsPageActive] +
 		[
-			Window.IsDialogTopmost(selectdialog) |
-			Window.IsDialogTopmost(peripherals)
+			Window.IsVisible(selectdialog) |
+			Window.IsVisible(peripherals)
 		]
 	</expression>
 	<!-- Is DialogConfirm active in settings? -->
 	<expression name="IsSettingsDialogConfirmActive">
 		$EXP[IsAnySettingsPageActive] +
-		Window.IsDialogTopmost(DialogConfirm.xml)
+		Window.IsVisible(DialogConfirm.xml)
+	</expression>
+	<!-- Is DialogContextMenu active in settings? -->
+	<expression name="IsSettingsDialogContextMenuActive">
+		$EXP[IsAnySettingsPageActive] +
+		Window.IsVisible(DialogContextMenu.xml)
 	</expression>
 	<!-- Is DialogColorPicker active in settings? -->
 	<expression name="IsSettingsDialogColorPickerActive">
 		$EXP[IsAnySettingsPageActive] +
-		Window.IsDialogTopmost(dialogcolorpicker)
+		Window.IsVisible(dialogcolorpicker)
 	</expression>
 	<!-- Is DialogSettings active in settings? -->
 	<expression name="IsSettingsDialogSettingsActive">
@@ -50,6 +55,7 @@
 	<expression name="IsSettingsAnyDialogActive">
 		$EXP[IsSettingsDialogSelectActive] |
 		$EXP[IsSettingsDialogConfirmActive] |
+		$EXP[IsSettingsDialogContextMenuActive] |
 		$EXP[IsSettingsDialogColorPickerActive] |
 		$EXP[IsSettingsDialogSettingsActive]
 	</expression>

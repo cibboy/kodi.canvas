@@ -89,6 +89,11 @@
 
 				<!-- Right side (details when no dialog is visible) -->
 				<control type="group">
+					<visible>!$EXP[IsSettingsAnyDialogActive]</visible>
+					<include content="ShowHideFadeSlideHorizontalAnimation">
+						<param name="slide_amount">-100</param>
+					</include>
+
 					<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
 					<height>SCREEN_HEIGHT</height>
 					<left>WIDTH_BACKGROUND_SPLIT</left>
@@ -105,7 +110,6 @@
 							<usecontrolcoords>true</usecontrolcoords>
 
 							<top>PADDING_BASE_80P</top>
-							<!--<height>100</height>-->
 
 							<!-- Icon -->
 							<control type="image">

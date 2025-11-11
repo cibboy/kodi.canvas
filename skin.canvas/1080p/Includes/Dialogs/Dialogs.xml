@@ -265,30 +265,6 @@
 	<!-- Color picker (not used outside settings?) -->
 	<include name="StandardDialogColorPicker"></include>
 
-	<!-- Dialog context menu -->
-	<include name="StandardDialogContextMenu">
-		<include content="StandardFlyoutBase">
-			<param name="visible">true</param>
-
-			<include content="StandardFlyoutStructure">
-				<control type="grouplist" id="996">
-					<top>OFFSET_FLYOUT_LIST</top>
-					<bottom>OFFSET_FLYOUT_LIST_BOTTOM</bottom>
-					<left>PADDING_BASE_50P</left>
-					<right>PADDING_BASE_50P</right>
-
-					<itemgap>GAP_FLYOUT_GROUPLIST</itemgap>
-					<onleft>Close</onleft>
-
-					<control type="button" id="1000">
-						<width>100%</width>
-						<height>HEIGHT_FLYOUT_BUTTON</height>
-					</control>
-				</control>
-			</include>
-		</include>
-	</include>
-
 
 	<!-- Flyout menu -->
 	<include name="StandardFlyoutBase">
@@ -356,6 +332,106 @@
 				<right>PADDING_BASE_10P</right>
 				<top>PADDING_BASE_10P</top>
 				<bottom>PADDING_BASE_10P</bottom>
+
+				<!-- Content -->
+				<nested />
+			</control>
+		</definition>
+	</include>
+
+	<!-- Flyout menu background (for non-integrated version) -->
+	<include name="StandardFlyoutBackground">
+		<param name="visible">true</param>
+
+		<definition>
+			<!-- Darkening layer (with fade) -->
+			<include content="DarkeningLayer">
+				<param name="visible">$PARAM[visible]</param>
+			</include>
+
+			<!-- Actual background -->
+			<control type="group">
+				<visible>$PARAM[visible]</visible>
+				<animation type="WindowOpen">
+					<effect type="slide" start="WIDTH_BACKGROUND_SPLIT_REMAINING,0" end="0,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
+				</animation>
+				<animation type="WindowClose" condition="$PARAM[visible]">
+					<effect type="slide" start="0,0" end="WIDTH_BACKGROUND_SPLIT_REMAINING,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
+				</animation>
+
+				<right>0</right>
+				<top>0</top>
+				<bottom>0</bottom>
+				<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+
+				<!-- Background with shadow -->
+				<control type="image">
+					<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+					<height>100%</height>
+					<texture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND_DIALOG">1080p/controls/button.png</texture>
+				</control>
+				<!-- Border -->
+				<control type="image">
+					<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+					<height>100%</height>
+					<texture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="FOREGROUND_OPAQUE5">1080p/diffuse/square-outline.png</texture>
+					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
+				</control>
+			</control>
+
+			<!-- Clock (no animation) -->
+			<control type="group">
+				<visible>$PARAM[visible]</visible>
+
+				<include content="TopBar">
+					<param name="show_background">false</param>
+				</include>
+			</control>
+		</definition>
+	</include>
+
+	<!-- Dialog main container -->
+	<include name="DialogContainer">
+		<param name="close_animation">false</param>
+
+		<definition>
+			<control type="group">
+				<animation type="WindowOpen">
+					<effect type="slide" start="WIDTH_BACKGROUND_SPLIT_REMAINING,0" end="0,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
+				</animation>
+				<animation type="WindowClose" condition="$PARAM[close_animation]">
+					<effect type="slide" start="0,0" end="WIDTH_BACKGROUND_SPLIT_REMAINING,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
+				</animation>
+
+				<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+				<height>SCREEN_HEIGHT</height>
+				<right>0</right>
+
+				<!-- Content -->
+				<nested />
+			</control>
+		</definition>
+	</include>
+	<!-- Dialog structure (needs a separate include because <nested /> too deep is not supported -.-) -->
+	<include name="DialogContainerContent">
+		<definition>
+			<!-- List with title -->
+			<control type="group">
+				<top>PADDING_BASE_80P</top>
+				<bottom>PADDING_BASE_80P</bottom>
+				<left>PADDING_SETTINGS_NARROW_SIDE</left>
+				<right>PADDING_SETTINGS_NARROW_SIDE</right>
+
+				<!-- Option name -->
+				<control type="label" id="1">
+					<width>560</width>
+					<top>PADDING_BASE_30P</top>
+					<height>FONT_SIZE_TITLE3</height>
+					<right>PADDING_SETTINGS_TITLE</right>
+					<left>PADDING_SETTINGS_TITLE</left>
+					<font>TITLE3</font>
+					<label></label>
+				</control>
 
 				<!-- Content -->
 				<nested />
