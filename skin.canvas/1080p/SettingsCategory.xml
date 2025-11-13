@@ -9,10 +9,10 @@
 
 			<!-- Main settings -->
 			<control type="group">
-				<animation type="Conditional" condition="$EXP[IsSettingsAnySimpleDialogActive] + !$EXP[IsSettingsDialogSettingsActive]">
+				<animation type="Conditional" condition="$EXP[IsSettingsAnySimpleDialogActive] + !$EXP[IsSettingsDialogSettingsActive] + !$EXP[IsSettingsDialogAddonSettingsActive]">
 					<effect type="slide" end="WIDTH_BACKGROUND_SPLIT_REMAINING_NEG,0" time="ANIMATION_MID" tween="circle" easing="out" />
 				</animation>
-				<animation type="Conditional" condition="$EXP[IsSettingsDialogSettingsActive]">
+				<animation type="Conditional" condition="$EXP[IsSettingsDialogSettingsActive] | $EXP[IsSettingsDialogAddonSettingsActive]">
 					<effect type="slide" end="SCREEN_WIDTH_NEG,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
 				</animation>
 
@@ -49,10 +49,10 @@
 
 			<!-- Dialogs -->
 			<control type="group">
-				<animation type="Conditional" condition="$EXP[IsSettingsAnySimpleDialogActive] + !$EXP[IsSettingsDialogSettingsActive]">
+				<animation type="Conditional" condition="$EXP[IsSettingsAnySimpleDialogActive] + !$EXP[IsSettingsDialogSettingsActive] + !$EXP[IsSettingsDialogAddonSettingsActive]">
 					<effect type="slide" end="WIDTH_BACKGROUND_SPLIT_REMAINING_NEG,0" time="ANIMATION_MID" tween="circle" easing="out" />
 				</animation>
-				<animation type="Conditional" condition="$EXP[IsSettingsDialogSettingsActive]">
+				<animation type="Conditional" condition="$EXP[IsSettingsDialogSettingsActive] | $EXP[IsSettingsDialogAddonSettingsActive]">
 					<effect type="slide" end="SCREEN_WIDTH_NEG,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
 				</animation>
 

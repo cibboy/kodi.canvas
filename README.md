@@ -1,6 +1,5 @@
 TOFIX:
 - ricerca todo e sistemarli
-- choose art not available as action, needs to be a button in dialogvideoinfo.xml, id 10 (anche id 6 per refresh utile)
 - attempt home rewrite with simplification:
   - one "page" per menu item
   - a page is a grouplist with always at least 1 element (a list or the empty placeholder)
@@ -9,9 +8,7 @@ TOFIX:
   - basically reintroduce some concepts of previous implementation, but attempt to implement native navigation
   - consider Control.Message(id,message) > message: movedown, moveup (https://kodi.wiki/view/List_of_built-in_functions#GUI_control_built-in's)
   - !!! onfocus "get additional info" da mettere sugli oggetti della 501 nascosta e non sulle altre?
-- file list navigation:
-  - integrate infovideodialog.xml (e equivalent music/picture) in simplified way to show management buttons (change art for episode/movie/...)
-    - integrate filebrowser.xml in specific way here?
+- player > subtitles > custom subtitle folder: apre filebrowser che non è integrato
 
 TODO:
 - dialog in settings da fare:

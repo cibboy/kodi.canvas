@@ -672,6 +672,13 @@
 	<include name="SettingsDialogSettings">
 		<include content="SettingsDialogContainerWide">
 			<control type="group">
+				<!-- Hide when a secondary dialog appears -->
+				<visible>!$EXP[IsSettingsDialogAddonSettingsActive]</visible>
+				<animation type="Visible">
+					<effect type="slide" start="-100,0" end="0,0" time="ANIMATION_MID" tween="circle" easing="out" />
+					<effect type="fade" start="0" end="100" time="ANIMATION_MID" tween="circle" easing="out" />
+				</animation>
+
 				<top>PADDING_BASE_80P</top>
 				<bottom>PADDING_BASE_80P</bottom>
 				<width>WIDTH_BACKGROUND_SPLIT</width>
@@ -785,6 +792,158 @@
 							<width>100%</width>
 						</control>
 						<!-- Clear/settings -->
+						<control type="button" id="30">
+							<width>100%</width>
+						</control>
+					</control>
+				</control>
+			</control>
+		</include>
+	</include>
+
+	<!-- DialogAddonSettings for settings (integrated) -->
+	<include name="SettingsDialogAddonSettings">
+		<include content="SettingsDialogContainerWide">
+			<control type="group">
+				<top>PADDING_BASE_80P</top>
+				<bottom>PADDING_BASE_80P</bottom>
+				<width>WIDTH_BACKGROUND_SPLIT</width>
+				
+				<!-- Options -->
+				<control type="group">
+					<left>PADDING_SETTINGS_WIDE_SIDE</left>
+					<right>PADDING_SETTINGS_WIDE_SIDE</right>
+
+					<!-- Option name -->
+					<control type="label" id="2">
+						<width>auto</width>
+						<top>PADDING_BASE_30P</top>
+						<height>FONT_SIZE_TITLE3</height>
+						<right>PADDING_SETTINGS_TITLE</right>
+						<left>PADDING_SETTINGS_TITLE</left>
+						<font>TITLE3</font>
+						<label></label>
+					</control>
+
+					<!-- List of options -->
+					<control type="grouplist" id="5">
+						<itemgap>GAP_SETTINGS_LIST_OPTION</itemgap>
+						<usecontrolcoords>true</usecontrolcoords>
+						
+						<top>OFFSET_SETTINGS_OPTIONS_START</top>
+						<height>HEIGHT_SETTINGS_DIALOG_LIST</height>
+						<width>100%</width>
+
+						<!-- Close dialog on left, go to ok/cancel on right -->
+						<onleft>Back</onleft>
+						<onright>SetFocus(999)</onright>
+					</control>
+
+					<!-- Button template -->
+					<control type="button" id="7">
+						<width>100%</width>
+						<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
+					</control>
+					<!-- Radiobutton template -->
+					<control type="radiobutton" id="8">
+						<width>100%</width>
+						<radioposx>OFFSET_SETTINGS_OPTION_RADIO_WIDE</radioposx>
+						<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
+					</control>
+					<!-- Spin control template -->
+					<control type="spincontrolex" id="9">
+						<width>100%</width>
+						<spinposx>OFFSET_SETTINGS_OPTION_SPIN_WIDE</spinposx>
+						<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
+					</control>
+					<!-- Togglebutton template -->
+					<control type="button" id="10">
+						<width>560</width>	<!-- WIDTH_BACKGROUND_SPLIT_REMAINING - (PADDING_SETTINGS_NARROW_SIDE * 2) -->
+						<radioposx>OFFSET_SETTINGS_OPTION_RADIO_WIDE</radioposx>
+						<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
+					</control>
+					<!-- Image template -->
+					<control type="image" id="11">
+						<visible>false</visible>
+						<width>0</width>
+						<height>0</height>
+						<texture>transparent.png</texture>
+					</control>
+					<!-- Edit template -->
+					<control type="edit" id="12">
+						<width>100%</width>
+						<height>HEIGHT_BUTTON_DEFAULT</height>
+						<label></label>
+						<hinttext></hinttext>
+					</control>
+					<!-- Slider template -->
+					<control type="sliderex" id="13">
+						<width>100%</width>
+						<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
+					</control>
+					<!-- Label template -->
+					<control type="label" id="14">
+						<height>HEIGHT_SETTINGS_CAPTION</height>
+						<left>PADDING_BUTTON_HORIZONTAL</left>
+						<top>OFFSET_SETTINGS_CAPTION</top>
+						<label>ciao</label>
+						<align>left</align>
+						<font>SETTINGS_CAPTION</font>
+						<textcolor>FOREGROUND_ACCENT_ALT</textcolor>
+					</control>
+					<!-- Slider template -->
+					<control type="colorbutton" id="15">
+						<width>100%</width>
+						<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
+					</control>
+				</control>
+			
+				<!-- Action buttons -->
+				<control type="group">
+					<top>OFFSET_SETTINGS_OPTIONS_START</top>
+					<left>WIDTH_BACKGROUND_SPLIT</left>
+					<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+
+					<control type="grouplist" id="999">
+						<!-- Hide when a secondary dialog appears -->
+						<visible>!$EXP[IsSettingsAnySimpleDialogActive]</visible>
+						<animation type="Visible">
+							<effect type="fade" end="100" time="ANIMATION_FAST" tween="circle" easing="out" />
+						</animation>
+						<animation type="Hidden">
+							<effect type="fade" end="0" time="ANIMATION_FAST" tween="circle" easing="out" />
+						</animation>
+
+						<orientation>vertical</orientation>
+						<itemgap>0</itemgap>
+
+						<left>PADDING_SETTINGS_NARROW_SIDE</left>
+						<right>PADDING_SETTINGS_NARROW_SIDE</right>
+
+						<!-- Go to options on left -->
+						<onleft>SetFocus(5)</onleft>
+
+						<!-- List of options -->
+						<control type="grouplist" id="3">
+							<itemgap>GAP_SETTINGS_LIST_OPTION</itemgap>
+							<usecontrolcoords>true</usecontrolcoords>
+							
+							<height>300</height>
+							<width>100%</width>
+
+							<!-- Go to actual settings with left -->
+							<onleft>SetFocus(5)</onleft>
+						</control>
+
+						<!-- Ok -->
+						<control type="button" id="28">
+							<width>100%</width>
+						</control>
+						<!-- Cancel -->
+						<control type="button" id="29">
+							<width>100%</width>
+						</control>
+						<!-- Defaults -->
 						<control type="button" id="30">
 							<width>100%</width>
 						</control>

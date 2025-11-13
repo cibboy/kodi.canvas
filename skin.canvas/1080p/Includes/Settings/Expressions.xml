@@ -45,6 +45,11 @@
 		$EXP[IsAnySettingsPageActive] +
 		Window.IsVisible(DialogSettings.xml)
 	</expression>
+	<!-- Is DialogAddonSettings active in settings? -->
+	<expression name="IsSettingsDialogAddonSettingsActive">
+		$EXP[IsAnySettingsPageActive] +
+		Window.IsVisible(DialogAddonSettings.xml)
+	</expression>
 	<!-- Is DialogMediaSource active in settings? -->
 	<expression name="IsSettingsDialogMediaSourceActive">
 		$EXP[IsAnySettingsPageActive] +
@@ -68,6 +73,7 @@
 		$EXP[IsSettingsDialogContextMenuActive] |
 		$EXP[IsSettingsDialogColorPickerActive] |
 		$EXP[IsSettingsDialogSettingsActive] |
+		$EXP[IsSettingsDialogAddonSettingsActive] |
 		$EXP[IsSettingsFileBrowserActive]
 	</expression>
 
