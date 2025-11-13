@@ -10,6 +10,10 @@
 		<value condition="!Control.HasFocus(10)">BACKGROUND_INVERSE_OPAQUE50</value>
 	</variable>
 
+	<!-- DialogVideoInfo action button labels -->
+	<variable name="DialogVideoInfoRefreshButtonLabel"><value condition="Control.HasFocus(6)">  Refresh</value></variable>
+	<variable name="DialogVideoInfoManageArtButtonLabel"><value condition="Control.HasFocus(10)">  Manage art</value></variable>
+
 
 	<!-- Constants -->
 	<constant name="HEIGHT_DIALOG_LIMITED_LIST">510</constant>

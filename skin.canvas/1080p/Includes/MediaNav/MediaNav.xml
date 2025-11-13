@@ -409,6 +409,8 @@
 							<right>0</right>
 							<autoscroll>false</autoscroll>
 
+							<onright>Info</onright>
+
 							<focusedlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
 								<control type="button">
 									<visible allowhiddenfocus="true">false</visible>

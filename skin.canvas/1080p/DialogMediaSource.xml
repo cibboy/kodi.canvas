@@ -100,25 +100,25 @@
 								<hinttext>Source name</hinttext>
 							</control>
 
-							<!-- Ok -->
+							<!-- Browse -->
 							<control type="button" id="11">
 								<width>100%</width>
 								<label>Browse...</label>
 							</control>
-							<!-- Cancel -->
+							<!-- Add new source -->
 							<control type="button" id="13">
 								<width>100%</width>
 								<label>Add new source</label>
 							</control>
-							<!-- Clear/settings -->
+							<!-- Delete source -->
 							<control type="button" id="14">
 								<width>100%</width>
 								<label>Delete source</label>
 							</control>
-							<!-- Clear/settings -->
+							<!-- Ok -->
 							<control type="button" id="18">
 								<width>100%</width>
-								<label>Ok</label>
+								<label>Continue</label>
 							</control>
 						</control>
 					</control>

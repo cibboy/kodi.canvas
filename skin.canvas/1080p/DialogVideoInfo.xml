@@ -1,27 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
 	<!-- Prevent opening if from library navigation, as it wouldn't work as expected -->
-	<onload condition="$EXP[IsMediaNavLibraryNavigation]">Close</onload>
+	<!--<onload condition="$EXP[IsMediaNavLibraryNavigation]">Close</onload>-->
+	<defaultcontrol always="true">400</defaultcontrol>
 
 	<controls>
 		<include content="Center169AspectRatio">
-			<!-- Background with blurred quadrants -->
-			<include content="BackgroundQuadrantBlur" />
-
-			<!-- Details -->
+			<!-- Full version -->
 			<control type="group">
-				<top>PADDING_BASE_80P</top>
-				<left>PADDING_BASE</left>
-				<right>PADDING_BASE</right>
+				<visible>!$EXP[IsMediaNavLibraryNavigation]</visible>
 
-				<include content="VideoInfoDetails" />
+				<!-- Background with blurred quadrants -->
+				<include content="BackgroundQuadrantBlur" />
+
+				<!-- Details -->
+				<control type="group">
+					<top>PADDING_BASE_80P</top>
+					<left>PADDING_BASE</left>
+					<right>PADDING_BASE</right>
+
+					<include content="VideoInfoDetails" />
+				</control>
+
+				<!-- Actions -->
+				<control type="grouplist" id="400">
+					<itemgap>0</itemgap>
+					<orientation>horizontal</orientation>
+					<usecontrolcoords>true</usecontrolcoords>
+					<align>right</align>
+					<defaultcontrol always="true">6</defaultcontrol>
+
+					<width>100%</width>
+					<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
+					<right>PADDING_BASE</right>
+					<bottom>PADDING_BASE_125P</bottom>
+
+					<!-- Refresh -->
+					<include content="DialogInfoActionButton">
+						<param name="id">6</param>
+						<param name="icon">1080p/icons/reload.png</param>
+						<param name="label">$VAR[DialogVideoInfoRefreshButtonLabel]</param>
+					</include>
+					<!-- Manage art -->
+					<include content="DialogInfoActionButton">
+						<param name="id">10</param>
+						<param name="icon">1080p/icons/interface.png</param>
+						<param name="label">$VAR[DialogVideoInfoManageArtButtonLabel]</param>
+					</include>
+				</control>
+
+				<!-- Clock -->
+				<include content="TopBar" />
+
+				<!-- Studio -->
+				<include content="BottomBar" />
 			</control>
 
-			<!-- Clock -->
-			<include content="TopBar" />
+			<!-- Library navigation integrated version -->
+			<control type="group">
+				<visible>$EXP[IsMediaNavLibraryNavigation] + !$EXP[IsSettingsAnyDialogActive]</visible>
 
-			<!-- Studio -->
-			<include content="BottomBar" />
+				<include content="DialogContainer">
+					<param name="close_animation">true</param>
+
+					<include content="DialogContainerContent">
+						<control type="grouplist" id="400">
+							<itemgap>0</itemgap>
+							<orientation>horizontal</orientation>
+							<usecontrolcoords>true</usecontrolcoords>
+							<defaultcontrol always="true">6</defaultcontrol>
+
+							<width>100%</width>
+
+							<!-- Refresh -->
+							<include content="DialogInfoActionButton">
+								<param name="id">6</param>
+								<param name="icon">1080p/icons/reload.png</param>
+								<param name="label">$VAR[DialogVideoInfoRefreshButtonLabel]</param>
+							</include>
+							<!-- Manage art -->
+							<include content="DialogInfoActionButton">
+								<param name="id">10</param>
+								<param name="icon">1080p/icons/interface.png</param>
+								<param name="label">$VAR[DialogVideoInfoManageArtButtonLabel]</param>
+							</include>
+						</control>
+					</include>
+				</include>
+			</control>
 		</include>
 	</controls>
 </window>

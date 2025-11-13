@@ -37,8 +37,6 @@
 		<value condition="!$EXP[HasSettingsDialogSelectIcon] + String.IsEqual(Control.GetLabel(1),$LOCALIZE[24118])">1080p/icons/speaker.png</value>
 		<value condition="!$EXP[HasSettingsDialogSelectIcon] + String.IsEqual(Control.GetLabel(1),$LOCALIZE[20193])">1080p/icons/music.png</value>
 		<value condition="!$EXP[HasSettingsDialogSelectIcon] + String.IsEqual(Control.GetLabel(1),$LOCALIZE[20194])">1080p/icons/music.png</value>
-		<!-- Ultimate fallback -->
-		<value condition="!$EXP[HasSettingsDialogSelectIcon]">1080p/icons/settings.png</value>
 	</variable>
 
 	<!-- Button background texture color diffuse to allow fade when dialog open -->

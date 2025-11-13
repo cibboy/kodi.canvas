@@ -518,7 +518,7 @@
 			<control type="group">
 				<visible>$EXP[IsDetailsItemTypeEpisode]</visible>
 
-				<bottom>PADDING_BASE_125P</bottom>
+				<bottom>200</bottom>
 				<right>0</right>
 				<width>WIDTH_DETAILS_LANDSCAPE</width>
 				<height>HEIGHT_DETAILS_LANDSCAPE</height>
@@ -534,7 +534,7 @@
 			<control type="group">
 				<visible>!$EXP[IsDetailsItemTypeEpisode]</visible>
 
-				<bottom>PADDING_BASE_125P</bottom>
+				<bottom>200</bottom>
 				<right>0</right>
 				<width>WIDTH_DETAILS_POSTER</width>
 				<height>HEIGHT_DETAILS_POSTER</height>

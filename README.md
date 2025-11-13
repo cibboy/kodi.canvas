@@ -1,11 +1,6 @@
 TOFIX:
-- home flyout menu: mettere VideoLibrary.Clean?
 - ricerca todo e sistemarli
-- videonav ogni tanto torna indietro quando ci si muove rapidamente, sulla home non sembrano esserci problemi...
 - choose art not available as action, needs to be a button in dialogvideoinfo.xml, id 10 (anche id 6 per refresh utile)
-- episode custom nav: show list of episodes when finished scrolling. Possibilities:
-  - timer stop when not scrolling
-  - alarm as onstop lungo quanto il tempo di scrolling
 - attempt home rewrite with simplification:
   - one "page" per menu item
   - a page is a grouplist with always at least 1 element (a list or the empty placeholder)
@@ -20,9 +15,6 @@ TOFIX:
 
 TODO:
 - dialog in settings da fare:
-  - SettingsScreenCalibration.xml: system > display
-  - DialogGameControllers.xml (courtesy screen "not supported"): system > input
-  - MyVideoNav.xml: media > library > videos
   - MyMusicNav.xml: media > library > music
   - MyPics.xml: media > library > pictures
   - Generici (o quasi)
@@ -37,9 +29,7 @@ TODO:
 - constant notification on home/navigation for currently playing item (escludere theme in tv shows)
 
 - skin settings (skinsettings) > sub of interface
-- pvr, profiles, file manager
 - addons (addonbrowser)
-- information (systeminfo)
 - event log (eventlog)
 
 - settings changes on first run:
@@ -64,6 +54,7 @@ not in spotify:
 in spotify:
 - Wake me up, Avicii (al momento live, ma non è bella)
 - Maria, Ricky Martin (c'è, ma l'altra è la versione veloce)
+- It's Raining Men, The Weather Girls (versione lunga e strana)
 
 
 

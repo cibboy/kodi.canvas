@@ -489,7 +489,7 @@ def get_season_listitem(season):
     li.setProperty('TotalEpisodes', str(total))
     li.setProperty('WatchedEpisodes', str(watched))
     li.setProperty('UnWatchedEpisodes', str(unwatched))
-    li.setProperty('WatchedPercentage', str(watched_percentage))
+    li.setProperty('WatchedEpisodePercent', str(watched_percentage))
     li.setProperty('TvShowId', str(season.get('tvshow', {}).get('tvshowid', '')))
 
     return li

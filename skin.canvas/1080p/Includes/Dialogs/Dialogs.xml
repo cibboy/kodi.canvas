@@ -189,6 +189,91 @@
 	</include>
 
 
+	<!--
+		Action button for info dialog. When unfocused it's just an icon, when focused it
+		has a background and text.
+
+		It's a workaround: can't use a group because we need autowidth from the button,
+		but the button control is not flexible enough to include an icon (togglebutton
+		doesn't support autowidth -.-).
+		
+		So we use a sequence of controls, most images, assign an id based on the selected
+		button's id so navigation inside the grouplist works as expected and use negative
+		<left> values (together with <usecontrolcoords> to true in grouplist) as to
+		pack/overlap controls as needed.
+	-->
+	<include name="DialogInfoActionButton">
+		<param name="id"></param>
+		<param name="icon"></param>
+		<param name="label"></param>
+		<param name="visible">true</param>
+
+		<definition>
+			<!-- Icon when button is not focused -->
+			<control type="group" id="90$PARAM[id]">
+				<visible>!Control.HasFocus($PARAM[id]) + $PARAM[visible]</visible>
+				<width>WIDTH_MEDIANAV_ACTIONBUTTON_ICON_UNFOCUSED</width>
+				<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
+
+				<!-- Background -->
+				<control type="image">
+					<centertop>50%</centertop>
+					<centerleft>50%</centerleft>
+					<width>SIZE_MEDIANAV_ACTIONBUTTON_BACKGROUND</width>
+					<height>SIZE_MEDIANAV_ACTIONBUTTON_BACKGROUND</height>
+					<texture colordiffuse="FOREGROUND_OPAQUE20">1080p/diffuse/circle.png</texture>
+				</control>
+				<!-- Icon -->
+				<control type="image">
+					<centertop>50%</centertop>
+					<centerleft>50%</centerleft>
+					<width>SIZE_MEDIANAV_ACTIONBUTTON_ICON</width>
+					<height>SIZE_MEDIANAV_ACTIONBUTTON_ICON</height>
+					<texture colordiffuse="FOREGROUND_OPAQUE90">$PARAM[icon]</texture>
+				</control>
+			</control>
+
+			<!-- Left part of the button (with space for icon) when focused -->
+			<control type="image" id="91$PARAM[id]">
+				<visible>Control.HasFocus($PARAM[id]) + $PARAM[visible]</visible>
+				<width>WIDTH_MEDIANAV_ACTIONBUTTON_START</width>
+				<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
+				<texture colordiffuse="FOREGROUND_ACCENT">1080p/controls/round-button-extended-start.png</texture>
+			</control>
+			<!-- Icon when focused -->
+			<control type="image" id="92$PARAM[id]">
+				<visible>Control.HasFocus($PARAM[id]) + $PARAM[visible]</visible>
+				<left>OFFSET_MEDIANAV_ACTIONBUTTON_ICON_LEFT_FOCUSED</left>
+				<top>OFFSET_MEDIANAV_ACTIONBUTTON_ICON_TOP</top>
+				<width>SIZE_MEDIANAV_ACTIONBUTTON_ICON</width>
+				<height>SIZE_MEDIANAV_ACTIONBUTTON_ICON</height>
+				<texture colordiffuse="BACKGROUND_OPAQUE75">$PARAM[icon]</texture>
+			</control>
+			<!-- Actual button (with autowidth text) -->
+			<control type="button" id="$PARAM[id]">
+				<visible>$PARAM[visible]</visible>
+				<width>auto</width>
+				<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
+
+				<texturefocus colordiffuse="FOREGROUND_ACCENT">1080p/controls/round-button-middle.png</texturefocus>
+				<textcolor>FOREGROUND_OPAQUE90</textcolor>
+				<font>BODY2_STRONG</font>
+				<focusedcolor>BACKGROUND_OPAQUE75</focusedcolor>
+				<textoffsety>0</textoffsety>
+				<textoffsetx>0</textoffsetx>
+				<label>$PARAM[label]</label>
+			</control>
+			<!-- Right part of the button when focused -->
+			<control type="image" id="93$PARAM[id]">
+				<visible>Control.HasFocus($PARAM[id]) + $PARAM[visible]</visible>
+				<width>WIDTH_MEDIANAV_ACTIONBUTTON_END</width>
+				<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
+				<texture colordiffuse="FOREGROUND_ACCENT" flipx="true">1080p/controls/round-button-start.png</texture>
+			</control>
+		</definition>
+	</include>
+
+
 	<!-- Notification -->
 	<include name="Notification">
 		<param name="icon"></param>
