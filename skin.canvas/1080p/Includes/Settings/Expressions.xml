@@ -64,7 +64,8 @@
 	<expression name="IsSettingsAnySimpleDialogActive">
 		$EXP[IsSettingsDialogSelectActive] |
 		$EXP[IsSettingsDialogConfirmActive] |
-		$EXP[IsSettingsDialogColorPickerActive]
+		$EXP[IsSettingsDialogColorPickerActive] |
+		$EXP[IsSettingsFileBrowserActive]
 	</expression>
 	<!-- Is any dialog active in settings? -->
 	<expression name="IsSettingsAnyDialogActive">

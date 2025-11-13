@@ -8,7 +8,6 @@ TOFIX:
   - basically reintroduce some concepts of previous implementation, but attempt to implement native navigation
   - consider Control.Message(id,message) > message: movedown, moveup (https://kodi.wiki/view/List_of_built-in_functions#GUI_control_built-in's)
   - !!! onfocus "get additional info" da mettere sugli oggetti della 501 nascosta e non sulle altre?
-- player > subtitles > custom subtitle folder: apre filebrowser che non è integrato
 
 TODO:
 - dialog in settings da fare:
