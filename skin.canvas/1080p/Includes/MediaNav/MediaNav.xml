@@ -299,14 +299,14 @@
 			<control type="group">
 				<!-- Left -->
 				<control type="image">
-					<width>WIDTH_BACKGROUND_SPLIT</width>
+					<width>WIDTH_BACKGROUND_SPLIT_WIDE</width>
 					<height>SCREEN_HEIGHT</height>
 					<texture colordiffuse="BACKGROUND_OPAQUE20">diffuse.png</texture>
 				</control>
 				<!-- Right -->
 				<control type="image">
-					<left>WIDTH_BACKGROUND_SPLIT</left>
-					<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+					<left>WIDTH_BACKGROUND_SPLIT_WIDE</left>
+					<width>WIDTH_BACKGROUND_SPLIT_NARROW</width>
 					<height>SCREEN_HEIGHT</height>
 					<texture colordiffuse="BACKGROUND_OPAQUE10">diffuse.png</texture>
 				</control>
@@ -317,14 +317,14 @@
 
 				<!-- Left -->
 				<control type="image">
-					<width>WIDTH_BACKGROUND_SPLIT</width>
+					<width>WIDTH_BACKGROUND_SPLIT_WIDE</width>
 					<height>SCREEN_HEIGHT</height>
 					<texture colordiffuse="BACKGROUND_OPAQUE20">diffuse.png</texture>
 				</control>
 				<!-- Right -->
 				<control type="image">
-					<left>WIDTH_BACKGROUND_SPLIT</left>
-					<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+					<left>WIDTH_BACKGROUND_SPLIT_WIDE</left>
+					<width>WIDTH_BACKGROUND_SPLIT_NARROW</width>
 					<height>SCREEN_HEIGHT</height>
 					<texture colordiffuse="BACKGROUND_OPAQUE10">diffuse.png</texture>
 				</control>
@@ -381,7 +381,7 @@
 
 		<definition>
 			<control type="group">
-				<width>WIDTH_BACKGROUND_SPLIT</width>
+				<width>WIDTH_BACKGROUND_SPLIT_WIDE</width>
 				<height>SCREEN_HEIGHT</height>
 
 				<control type="group">

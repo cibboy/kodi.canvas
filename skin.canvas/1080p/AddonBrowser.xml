@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">503</defaultcontrol>
+	<views>503</views>
+
+	<controls>
+		<include content="Center169AspectRatio">
+			<!-- Background (monocolor) -->
+			<include content="SettingsBackground" />
+
+			<!-- Background (structure split) -->
+			<include content="FileNavBackgroundSplit" />
+
+			<!-- Left side (list of items with title) -->
+			<control type="group">
+				<width>WIDTH_BACKGROUND_SPLIT_WIDE</width>
+				<height>SCREEN_HEIGHT</height>
+
+				<control type="group">
+					<top>PADDING_BASE_80P</top>
+					<bottom>PADDING_BASE</bottom>
+					<left>PADDING_SETTINGS_WIDE_SIDE</left>
+					<right>PADDING_SETTINGS_WIDE_SIDE</right>
+
+					<!-- Title -->
+					<control type="label">
+						<width>auto</width>
+						<height>FONT_SIZE_TITLE2</height>
+						<right>PADDING_SETTINGS_TITLE</right>
+						<left>PADDING_SETTINGS_TITLE</left>
+						<font>TITLE2</font>
+						<label>Addons</label>
+					</control>
+
+					<control type="group">
+						<top>OFFSET_SETTINGS_OPTIONS_START</top>
+
+						<!-- List of items -->
+						<control type="list" id="503">
+							<left>0</left>
+							<right>0</right>
+							<autoscroll>false</autoscroll>
+
+							<onright>SetFocus(400)</onright>
+
+							<focusedlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+								<control type="group">
+									<!-- Fake button for selection (only when focus is in the actual list, not when on expert button) -->
+									<control type="button">
+										<visible allowhiddenfocus="true">false</visible>
+									</control>
+
+									<control type="group">
+										<visible>Control.HasFocus(503)</visible>
+										<!-- Fake button selection -->
+										<control type="image">
+											<height>HEIGHT_BUTTON_DEFAULT</height>
+											<texture colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texture>
+										</control>
+										<!-- Content -->
+										<include content="SettingsOptionContentWithIcon">
+											<param name="icon">$VAR[ListIconTranslated]</param>
+											<param name="icon_type_circle">$EXP[HasTranslatedIcon]</param>
+											<param name="icon_circle_color">BACKGROUND_INVERSE_OPAQUE90</param>
+											<param name="icon_color">FOREGROUND_INVERSE</param>
+											<param name="text">$INFO[ListItem.Label]</param>
+											<param name="text_color">FOREGROUND_INVERSE</param>
+											<param name="description">$INFO[ListItem.Label2]</param>
+											<param name="description_color">FOREGROUND_INVERSE_OPAQUE75</param>
+											<param name="description_color_selected">FOREGROUND_ACCENT_ALT_OPAQUE75</param>
+											<param name="single_line">String.IsEmpty(ListItem.Label2)</param>
+											<param name="scroll">true</param>
+										</include>
+									</control>
+									<control type="group">
+										<visible>!Control.HasFocus(503)</visible>
+										<include content="SettingsOptionContentWithIcon">
+											<param name="icon">$VAR[ListIconTranslated]</param>
+											<param name="icon_type_circle">$EXP[HasTranslatedIcon]</param>
+											<param name="text">$INFO[ListItem.Label]</param>
+											<param name="description">$INFO[ListItem.Label2]</param>
+											<param name="description_color">FOREGROUND_INVERSE_OPAQUE75</param>
+											<param name="description_color_selected">FOREGROUND_ACCENT_ALT_OPAQUE75</param>
+											<param name="single_line">String.IsEmpty(ListItem.Label2)</param>
+										</include>
+									</control>
+								</control>
+							</focusedlayout>
+
+							<itemlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+								<control type="group">
+									<include content="SettingsOptionContentWithIcon">
+										<param name="icon">$VAR[ListIconTranslated]</param>
+										<param name="icon_type_circle">$EXP[HasTranslatedIcon]</param>
+										<param name="text">$INFO[ListItem.Label]</param>
+										<param name="description">$INFO[ListItem.Label2]</param>
+										<param name="single_line">String.IsEmpty(ListItem.Label2)</param>
+									</include>
+								</control>
+							</itemlayout>
+						</control>
+
+						<!-- Chevrons up/down if more content is available -->
+						<include content="SettingsUpDownChevrons">
+							<param name="visible_up">Integer.IsGreater(Container($PARAM[id]).NumItems,6)</param>
+							<param name="visible_down">Integer.IsGreater(Container($PARAM[id]).NumItems,6)</param>
+						</include>
+					</control>
+				</control>
+			</control>
+
+			<!-- Right side (controls) -->
+			<control type="group">
+				<visible>!$EXP[IsSettingsAnyDialogActive]</visible>
+				<include content="ShowHideFadeSlideHorizontalAnimation">
+					<param name="slide_amount">-100</param>
+				</include>
+
+				<width>WIDTH_BACKGROUND_SPLIT_NARROW</width>
+				<height>SCREEN_HEIGHT</height>
+				<left>WIDTH_BACKGROUND_SPLIT_WIDE</left>
+
+				<control type="group">
+					<top>PADDING_BASE_80P</top>
+					<bottom>PADDING_BASE</bottom>
+					<right>PADDING_SETTINGS_NARROW_SIDE</right>
+					<left>PADDING_SETTINGS_NARROW_SIDE</left>
+
+					<control type="grouplist" id="400">
+						<orientation>vertical</orientation>
+						<itemgap>GAP_SETTINGS_LIST_OPTION</itemgap>
+						<usecontrolcoords>true</usecontrolcoords>
+
+						<top>OFFSET_SETTINGS_OPTIONS_START</top>
+
+						<onleft>SetFocus(503)</onleft>
+
+						<!-- Auto-update installed -->
+						<control type="radiobutton" id="5">
+							<width>100%</width>
+							<radioposx>OFFSET_SETTINGS_OPTION_RADIO_NARROW</radioposx>
+							<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
+							<label>Auto-update installed</label>
+						</control>
+						<!-- Add-on notifications -->
+						<control type="radiobutton" id="6">
+							<width>100%</width>
+							<radioposx>OFFSET_SETTINGS_OPTION_RADIO_NARROW</radioposx>
+							<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
+							<label>Add-on notifications</label>
+						</control>
+						<!-- Hide broken addons -->
+						<control type="radiobutton" id="8">
+							<width>100%</width>
+							<radioposx>OFFSET_SETTINGS_OPTION_RADIO_NARROW</radioposx>
+							<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
+							<label>Hide broken addons</label>
+						</control>
+						<!-- Check for repo updates -->
+						<control type="button" id="9">
+							<width>100%</width>
+							<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
+							<label>Check for repo updates</label>
+						</control>
+					</control>
+				</control>
+			</control>
+
+			<!-- Clock -->
+			<include content="TopBar">
+				<param name="show_background">false</param>
+			</include>
+		</include>
+	</controls>
+</window>

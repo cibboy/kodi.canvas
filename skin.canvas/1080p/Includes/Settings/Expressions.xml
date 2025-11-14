@@ -3,6 +3,7 @@
 	<!-- Is any settings page active? -->
 	<expression name="IsAnySettingsPageActive">
 		Window.IsActive(SettingsCategory.xml) | 
+		Window.IsActive(AddonBrowser.xml) | 
 		$EXP[IsMediaNavLibraryNavigation]
 	</expression>
 
@@ -80,6 +81,8 @@
 
 	<!-- Has DialogSelect an actual icon? -->
 	<expression name="HasSettingsDialogSelectIcon">!String.IsEmpty(ListItem.Icon) + !String.IsEqual(ListItem.Icon,DefaultAddon.png)</expression>
+	<!-- Has a translated icon? -->
+	<expression name="HasTranslatedIcon">!String.IsEmpty(ListItem.Icon) + !$EXP[IsListIconTranslatedNative]</expression>
 
 	<!--
 		Has main section list focus?

@@ -73,22 +73,26 @@
 								<include content="SettingsOptionContentWithIcon">
 									<param name="icon_circle_color">BACKGROUND_INVERSE_OPAQUE90</param>
 									<param name="icon_color">FOREGROUND_INVERSE</param>
-									<param name="icon_type_circle">true</param>
-									<param name="icon">$INFO[ListItem.Icon]</param>
+									<param name="icon_type_circle">$EXP[HasTranslatedIcon]</param>
+									<param name="icon">$VAR[ListIconTranslated]</param>
 									<param name="text_color">FOREGROUND_INVERSE</param>
 									<param name="text_color_selected">FOREGROUND_ACCENT_ALT</param>
 									<param name="text">$INFO[ListItem.Label]</param>
-									<param name="single_line">true</param>
+									<param name="description_color">FOREGROUND_INVERSE_OPAQUE75</param>
+									<param name="description_color_selected">FOREGROUND_ACCENT_ALT_OPAQUE75</param>
+									<param name="description">$INFO[ListItem.Label2]</param>
+									<param name="single_line">String.IsEmpty(ListItem.Label2)</param>
 									<param name="scroll">true</param>
 								</include>
 							</focusedlayout>
 
 							<itemlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
 								<include content="SettingsOptionContentWithIcon">
-									<param name="icon_type_circle">true</param>
-									<param name="icon">$INFO[ListItem.Icon]</param>
+									<param name="icon_type_circle">$EXP[HasTranslatedIcon]</param>
+									<param name="icon">$VAR[ListIconTranslated]</param>
 									<param name="text">$INFO[ListItem.Label]</param>
-									<param name="single_line">true</param>
+									<param name="description">$INFO[ListItem.Label2]</param>
+									<param name="single_line">String.IsEmpty(ListItem.Label2)</param>
 									<param name="scroll">false</param>
 								</include>
 							</itemlayout>

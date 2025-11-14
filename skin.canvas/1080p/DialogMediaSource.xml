@@ -7,7 +7,7 @@
 				<control type="group">
 					<top>PADDING_BASE_80P</top>
 					<bottom>PADDING_BASE_80P</bottom>
-					<width>WIDTH_BACKGROUND_SPLIT</width>
+					<width>WIDTH_BACKGROUND_SPLIT_WIDE</width>
 					
 					<!-- Options -->
 					<control type="group">
@@ -73,8 +73,8 @@
 					<!-- Action buttons -->
 					<control type="group">
 						<top>OFFSET_SETTINGS_OPTIONS_START</top>
-						<left>WIDTH_BACKGROUND_SPLIT</left>
-						<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+						<left>WIDTH_BACKGROUND_SPLIT_WIDE</left>
+						<width>WIDTH_BACKGROUND_SPLIT_NARROW</width>
 
 						<control type="grouplist" id="999">
 							<!-- Hide when a secondary dialog appears -->

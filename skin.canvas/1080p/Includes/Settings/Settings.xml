@@ -23,14 +23,14 @@
 
 				<!-- Left -->
 				<control type="image">
-					<width>WIDTH_BACKGROUND_SPLIT</width>
+					<width>WIDTH_BACKGROUND_SPLIT_WIDE</width>
 					<height>SCREEN_HEIGHT</height>
 					<texture colordiffuse="BACKGROUND_OPAQUE20">diffuse.png</texture>
 				</control>
 				<!-- Right -->
 				<control type="image">
-					<left>WIDTH_BACKGROUND_SPLIT</left>
-					<width>WIDTH_BACKGROUND_SPLIT</width>
+					<left>WIDTH_BACKGROUND_SPLIT_WIDE</left>
+					<width>WIDTH_BACKGROUND_SPLIT_WIDE</width>
 					<height>SCREEN_HEIGHT</height>
 					<texture colordiffuse="BACKGROUND_OPAQUE10">diffuse.png</texture>
 				</control>
@@ -318,7 +318,7 @@
 		<definition>
 			<!-- Nested groups for proper sizes/padding -->
 			<control type="group">
-				<width>WIDTH_BACKGROUND_SPLIT</width>
+				<width>WIDTH_BACKGROUND_SPLIT_WIDE</width>
 				<height>SCREEN_HEIGHT</height>
 
 				<control type="group">
@@ -473,9 +473,9 @@
 	<include name="DynamicSettings">
 		<!-- List of pages (right side when main settings are visible, left otherwise) -->
 		<control type="group">
-			<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+			<width>WIDTH_BACKGROUND_SPLIT_NARROW</width>
 			<height>SCREEN_HEIGHT</height>
-			<left>WIDTH_BACKGROUND_SPLIT</left>
+			<left>WIDTH_BACKGROUND_SPLIT_WIDE</left>
 
 			<!-- List with title -->
 			<control type="group">
@@ -546,7 +546,7 @@
 
 		<!-- List of options (right side when main settings are not visible) -->
 		<control type="group">
-			<width>WIDTH_BACKGROUND_SPLIT</width>
+			<width>WIDTH_BACKGROUND_SPLIT_WIDE</width>
 			<height>SCREEN_HEIGHT</height>
 			<left>SCREEN_WIDTH</left>
 
@@ -681,7 +681,7 @@
 
 				<top>PADDING_BASE_80P</top>
 				<bottom>PADDING_BASE_80P</bottom>
-				<width>WIDTH_BACKGROUND_SPLIT</width>
+				<width>WIDTH_BACKGROUND_SPLIT_WIDE</width>
 				
 				<!-- Options -->
 				<control type="group">
@@ -764,8 +764,8 @@
 				<!-- Action buttons -->
 				<control type="group">
 					<top>OFFSET_SETTINGS_OPTIONS_START</top>
-					<left>WIDTH_BACKGROUND_SPLIT</left>
-					<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+					<left>WIDTH_BACKGROUND_SPLIT_WIDE</left>
+					<width>WIDTH_BACKGROUND_SPLIT_NARROW</width>
 
 					<control type="grouplist" id="999">
 						<!-- Hide when a secondary dialog appears -->
@@ -807,7 +807,7 @@
 			<control type="group">
 				<top>PADDING_BASE_80P</top>
 				<bottom>PADDING_BASE_80P</bottom>
-				<width>WIDTH_BACKGROUND_SPLIT</width>
+				<width>WIDTH_BACKGROUND_SPLIT_WIDE</width>
 				
 				<!-- Options -->
 				<control type="group">
@@ -858,7 +858,7 @@
 					</control>
 					<!-- Togglebutton template -->
 					<control type="button" id="10">
-						<width>560</width>	<!-- WIDTH_BACKGROUND_SPLIT_REMAINING - (PADDING_SETTINGS_NARROW_SIDE * 2) -->
+						<width>560</width>	<!-- WIDTH_BACKGROUND_SPLIT_NARROW - (PADDING_SETTINGS_NARROW_SIDE * 2) -->
 						<radioposx>OFFSET_SETTINGS_OPTION_RADIO_WIDE</radioposx>
 						<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
 					</control>
@@ -901,8 +901,8 @@
 				<!-- Action buttons -->
 				<control type="group">
 					<top>OFFSET_SETTINGS_OPTIONS_START</top>
-					<left>WIDTH_BACKGROUND_SPLIT</left>
-					<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+					<left>WIDTH_BACKGROUND_SPLIT_WIDE</left>
+					<width>WIDTH_BACKGROUND_SPLIT_NARROW</width>
 
 					<control type="grouplist" id="999">
 						<!-- Hide when a secondary dialog appears -->

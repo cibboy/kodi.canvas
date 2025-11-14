@@ -93,26 +93,26 @@
 			<control type="group">
 				<visible>$PARAM[visible]</visible>
 				<animation type="$PARAM[animation_show_condition]">
-					<effect type="slide" start="WIDTH_BACKGROUND_SPLIT_REMAINING,0" end="0,0" time="ANIMATION_MID" tween="circle" easing="out" />
+					<effect type="slide" start="WIDTH_BACKGROUND_SPLIT_NARROW,0" end="0,0" time="ANIMATION_MID" tween="circle" easing="out" />
 				</animation>
 				<animation type="$PARAM[animation_hide_condition]" condition="$PARAM[close_animation]">
-					<effect type="slide" start="0,0" end="WIDTH_BACKGROUND_SPLIT_REMAINING,0" time="ANIMATION_MID" tween="circle" easing="out" />
+					<effect type="slide" start="0,0" end="WIDTH_BACKGROUND_SPLIT_NARROW,0" time="ANIMATION_MID" tween="circle" easing="out" />
 				</animation>
 
 				<right>0</right>
 				<top>0</top>
 				<bottom>0</bottom>
-				<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+				<width>WIDTH_BACKGROUND_SPLIT_NARROW</width>
 
 				<!-- Background with shadow -->
 				<control type="image">
-					<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+					<width>WIDTH_BACKGROUND_SPLIT_NARROW</width>
 					<height>100%</height>
 					<texture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND_DIALOG">1080p/controls/button.png</texture>
 				</control>
 				<!-- Border -->
 				<control type="image">
-					<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+					<width>WIDTH_BACKGROUND_SPLIT_NARROW</width>
 					<height>100%</height>
 					<texture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="FOREGROUND_OPAQUE5">1080p/diffuse/square-outline.png</texture>
 					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
@@ -141,13 +141,13 @@
 			<control type="group">
 				<visible>$PARAM[visible]</visible>
 				<animation type="$PARAM[animation_show_condition]">
-					<effect type="slide" start="WIDTH_BACKGROUND_SPLIT_REMAINING,0" end="0,0" time="ANIMATION_MID" tween="circle" easing="out" />
+					<effect type="slide" start="WIDTH_BACKGROUND_SPLIT_NARROW,0" end="0,0" time="ANIMATION_MID" tween="circle" easing="out" />
 				</animation>
 				<animation type="$PARAM[animation_hide_condition]" condition="$PARAM[close_animation]">
-					<effect type="slide" start="0,0" end="WIDTH_BACKGROUND_SPLIT_REMAINING,0" time="ANIMATION_MID" tween="circle" easing="out" />
+					<effect type="slide" start="0,0" end="WIDTH_BACKGROUND_SPLIT_NARROW,0" time="ANIMATION_MID" tween="circle" easing="out" />
 				</animation>
 
-				<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+				<width>WIDTH_BACKGROUND_SPLIT_NARROW</width>
 				<height>SCREEN_HEIGHT</height>
 				<right>0</right>
 

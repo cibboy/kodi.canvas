@@ -14,10 +14,7 @@ TODO:
   - MyMusicNav.xml: media > library > music
   - MyPics.xml: media > library > pictures
   - Generici (o quasi)
-    - AddonBrowser.xml: system > addons > manage dependencies
-    - FileBrowser.xml (ad esempio system > logging > screenshot folder)
     - Eventlog.xml: system > logging > show event log
-    - DialogAddonSettings.xml (ad esempio player > discs > encoder > setting)
 - manca il caricamento della lista pictures
 - creare possibilità di sbiancare la cache in temp
 - ricordarsi nel setup iniziale di gestire anche advancedsettings.xml per la questione rimozione splash screen originale
@@ -25,7 +22,6 @@ TODO:
 - constant notification on home/navigation for currently playing item (escludere theme in tv shows)
 
 - skin settings (skinsettings) > sub of interface
-- addons (addonbrowser)
 - event log (eventlog)
 
 - settings changes on first run:

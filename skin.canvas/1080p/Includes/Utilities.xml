@@ -94,14 +94,32 @@
 	<variable name="ListIconTranslated">
 		<value condition="String.IsEqual(ListItem.Icon,DefaultHardDisk.png)">1080p/icons/drive.png</value>
 		<value condition="String.IsEqual(ListItem.Icon,DefaultFolder.png)">1080p/icons/folder.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultNetwork.png)">1080p/icons/network.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultFile.png)">1080p/icons/file.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultFolderBack.png)">1080p/icons/back.png</value>
 		<value condition="String.IsEqual(ListItem.Icon,DefaultAddSource.png)">1080p/icons/add.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultAddon.png)">1080p/icons/addon.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultAddonsInstalled.png)">1080p/icons/addon-installed.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultAddonsUpdates.png)">1080p/icons/addon-update.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultAddonsRepo.png)">1080p/icons/addon-repo.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultAddonsZip.png)">1080p/icons/addon-zip.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultAddonsSearch.png)">1080p/icons/addon-search.png</value>
 		<value>$INFO[ListItem.Icon]</value>
 	</variable>
 	<!-- List icon name translation (simplified) -->
 	<variable name="ListIconTranslatedSimplified">
 		<value condition="String.IsEqual(ListItem.Icon,DefaultHardDisk.png)">1080p/icons/drive.png</value>
 		<value condition="String.IsEqual(ListItem.Icon,DefaultFolder.png)">1080p/icons/folder.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultNetwork.png)">1080p/icons/network.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultFile.png)">1080p/icons/file.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultFolderBack.png)">1080p/icons/back.png</value>
 		<value condition="String.IsEqual(ListItem.Icon,DefaultAddSource.png)">1080p/icons/add.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultAddon.png)">1080p/icons/addon.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultAddonsInstalled.png)">1080p/icons/addon-installed.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultAddonsUpdates.png)">1080p/icons/addon-update.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultAddonsRepo.png)">1080p/icons/addon-repo.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultAddonsZip.png)">1080p/icons/addon-zip.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultAddonsSearch.png)">1080p/icons/addon-search.png</value>
 		<value condition="ListItem.IsFolder">1080p/icons/folder.png</value>
 		<value>1080p/icons/file.png</value>
 	</variable>
@@ -109,6 +127,15 @@
 	<expression name="IsListIconTranslatedNative">
 		String.IsEqual(ListItem.Icon,DefaultHardDisk.png) |
 		String.IsEqual(ListItem.Icon,DefaultFolder.png) |
-		String.IsEqual(ListItem.Icon,DefaultAddSource.png)
+		String.IsEqual(ListItem.Icon,DefaultNetwork.png) |
+		String.IsEqual(ListItem.Icon,DefaultFile.png) |
+		String.IsEqual(ListItem.Icon,DefaultFolderBack.png) |
+		String.IsEqual(ListItem.Icon,DefaultAddSource.png) |
+		String.IsEqual(ListItem.Icon,DefaultAddon.png) |
+		String.IsEqual(ListItem.Icon,DefaultAddonsInstalled.png) |
+		String.IsEqual(ListItem.Icon,DefaultAddonsUpdates.png) |
+		String.IsEqual(ListItem.Icon,DefaultAddonsRepo.png) |
+		String.IsEqual(ListItem.Icon,DefaultAddonsZip.png) |
+		String.IsEqual(ListItem.Icon,DefaultAddonsSearch.png)
 	</expression>
 </includes>

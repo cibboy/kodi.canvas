@@ -337,7 +337,7 @@
 
 			<top>PADDING_BASE_80P</top>
 			<bottom>PADDING_BASE_80P</bottom>
-			<width>WIDTH_BACKGROUND_SPLIT</width>
+			<width>WIDTH_BACKGROUND_SPLIT_WIDE</width>
 			
 			<!-- Options -->
 			<control type="group">
@@ -430,7 +430,7 @@
 			<top>PADDING_BASE_80P</top>
 			<bottom>PADDING_BASE_80P</bottom>
 			<right>PADDING_BASE_80P</right>
-			<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+			<width>WIDTH_BACKGROUND_SPLIT_NARROW</width>
 
 			<control type="label" id="998">
 				<top>OFFSET_SETTINGS_OPTIONS_START</top>

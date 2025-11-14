@@ -99,9 +99,9 @@
 							<param name="slide_amount">-100</param>
 						</include>
 
-						<width>WIDTH_BACKGROUND_SPLIT_REMAINING</width>
+						<width>WIDTH_BACKGROUND_SPLIT_NARROW</width>
 						<height>SCREEN_HEIGHT</height>
-						<left>WIDTH_BACKGROUND_SPLIT</left>
+						<left>WIDTH_BACKGROUND_SPLIT_WIDE</left>
 
 						<control type="group">
 							<top>PADDING_BASE_80P</top>
