@@ -794,6 +794,7 @@
 					<ondown>SetFocus(1000,0)</ondown>
 					<onclick>SetFocus(200)</onclick>
 					<onclick>$INFO[ListItem.Property(onclick)]</onclick>
+					<onclick>$INFO[ListItem.Property(onclick2)]</onclick>
 
 					<itemlayout height="HEIGHT_HOME_FLYOUT_BUTTON_CONTAINER">
 						<include content="HomeButtonContentWithIconForFlyout" />
@@ -838,7 +839,8 @@
 						<item id="3">
 							<thumb>$VAR[UpdateLibrariesIcon]</thumb>
 							<label>Update libraries</label>
-							<property name="onclick">UpdateLibrary()</property>
+							<property name="onclick">UpdateLibrary(video)</property>
+							<property name="onclick2">UpdateLibrary(music)</property>
 						</item>
 						<!-- Addons -->
 						<item id="4">
