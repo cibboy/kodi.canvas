@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">999</defaultcontrol>
+
+	<controls>
+		<include content="Center169AspectRatio">
+			<include content="SettingsDialogContainerWide">
+				<control type="group">
+					<animation type="Conditional" condition="$EXP[IsSettingsDialogAddonSettingsActive]">
+						<effect type="slide" end="SCREEN_WIDTH_NEG,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
+					</animation>
+
+					<top>PADDING_BASE_80P</top>
+					<bottom>PADDING_BASE</bottom>
+					<width>WIDTH_BACKGROUND_SPLIT_WIDE</width>
+					
+					<!-- Details -->
+					<control type="group">
+						<left>PADDING_SETTINGS_WIDE_SIDE</left>
+						<right>PADDING_SETTINGS_WIDE_SIDE</right>
+						<bottom>0</bottom>
+
+						<control type="grouplist">
+							<orientation>vertical</orientation>
+							<itemgap>0</itemgap>
+							<usecontrolcoords>true</usecontrolcoords>
+
+							<!-- Addon name -->
+							<control type="label">
+								<width>auto</width>
+								<top>PADDING_BASE_30P</top>
+								<height>FONT_SIZE_TITLE1</height>
+								<font>TITLE2</font>
+								<label>$INFO[ListItem.AddonName]</label>
+							</control>
+
+							<!-- Addon details, line 1 -->
+							<control type="grouplist">
+								<orientation>horizontal</orientation>
+								<itemgap>PADDING_BASE_10P</itemgap>
+
+								<top>PADDING_BASE_30P</top>
+								<height>HEIGHT_DETAILS_INFOLINE</height>
+
+								<!-- Addon type -->
+								<include content="DetailsInfoText">
+									<param name="text">$INFO[ListItem.AddonType]</param>
+									<param name="visible">!String.IsEmpty(ListItem.AddonType)</param>
+								</include>
+								<!-- Addon version -->
+								<include content="DetailsInfoText">
+									<param name="text">$INFO[ListItem.AddonVersion]</param>
+									<param name="visible">!String.IsEmpty(ListItem.AddonVersion)</param>
+								</include>
+								<!-- Addon creator -->
+								<include content="DetailsInfoText">
+									<param name="text">$INFO[ListItem.AddonCreator]</param>
+									<param name="visible">!String.IsEmpty(ListItem.AddonCreator)</param>
+								</include>
+							</control>
+
+							<!-- Addon details, line 2 -->
+							<control type="grouplist">
+								<orientation>horizontal</orientation>
+								<itemgap>PADDING_BASE_10P</itemgap>
+								<height>HEIGHT_DETAILS_INFOLINE</height>
+
+								<!-- Addon origin -->
+								<include content="DetailsInfoText">
+									<param name="text">$INFO[ListItem.AddonOrigin]</param>
+									<param name="visible">!String.IsEmpty(ListItem.AddonOrigin)</param>
+								</include>
+								<!-- Addon size -->
+								<include content="DetailsInfoText">
+									<param name="text">$INFO[ListItem.AddonSize]</param>
+									<param name="visible">!String.IsEmpty(ListItem.AddonSize)</param>
+								</include>
+								<!-- Addon binary? -->
+								<include content="DetailsInfoText">
+									<param name="text">Binary</param>
+									<param name="visible">ListItem.Property(Addon.IsBinary)</param>
+								</include>
+							</control>
+
+							<!-- Addon status -->
+							<control type="group">
+								<height>HEIGHT_DETAILS_INFOLINE</height>
+								
+								<include content="DetailsInfoText">
+									<param name="text">$INFO[ListItem.Property(Addon.Status)]$INFO[ListItem.Property(Addon.ValidUpdateVersion), ($LOCALIZE[19114]: ,)]</param>
+									<param name="visible">!String.IsEmpty(ListItem.Property(Addon.Status))</param>
+									<param name="width_limit">800</param>
+								</include>
+							</control>
+						</control>
+
+						<!-- Summary, description, disclaimer -->
+						<control type="textbox">
+							<bottom>0</bottom>
+							<width>700</width>
+							<height>600</height>
+							
+							<align>left</align>
+							<font>CAPTION</font>
+							<textcolor>FOREGROUND</textcolor>
+							<autoscroll delay="5000" repeat="7500" time="5000">true</autoscroll>
+							<label>$INFO[ListItem.AddonSummary,[B],[/B][CR][CR]]$INFO[ListItem.AddonDescription,,[CR][CR]]$INFO[ListItem.AddonDisclaimer,[I],[/I]]</label>
+						</control>
+
+						<!-- Icon -->
+						<control type="image">
+							<bottom>0</bottom>
+							<right>0</right>
+							<width>200</width>
+							<height>600</height>
+							<texture fallback="1080p/fallback/addon.png">$INFO[ListItem.Art(thumb)]</texture>
+							<aspectratio aligny="top">keep</aspectratio>
+						</control>
+					</control>
+				
+					<!-- Action buttons -->
+					<control type="group">
+						<top>OFFSET_SETTINGS_OPTIONS_START</top>
+						<left>WIDTH_BACKGROUND_SPLIT_WIDE</left>
+						<width>WIDTH_BACKGROUND_SPLIT_NARROW</width>
+
+						<control type="grouplist" id="999">
+							<!-- Hide when a secondary dialog appears -->
+							<visible>!$EXP[IsAnyDialogActiveOverDialogSettings]</visible>
+							<animation type="Visible">
+								<effect type="fade" end="100" time="ANIMATION_FAST" tween="circle" easing="out" />
+							</animation>
+							<animation type="Hidden">
+								<effect type="fade" end="0" time="ANIMATION_FAST" tween="circle" easing="out" />
+							</animation>
+
+							<orientation>vertical</orientation>
+							<itemgap>GAP_SETTINGS_LIST_OPTION</itemgap>
+							<usecontrolcoords>true</usecontrolcoords>
+
+							<left>PADDING_SETTINGS_NARROW_SIDE</left>
+							<right>PADDING_SETTINGS_NARROW_SIDE</right>
+							<top>0</top>
+							<bottom>0</bottom>
+
+							<!-- Install/uninstall -->
+							<control type="button" id="6">
+								<width>100%</width>
+							</control>
+							<!-- Select add-on version -->
+							<control type="button" id="14">
+								<width>100%</width>
+								<label>Select version</label>
+							</control>
+							<!-- Enable/disable -->
+							<control type="radiobutton" id="7">
+								<width>100%</width>
+								<textureradioonfocus />
+								<textureradioonnofocus />
+								<textureradioondisabled />
+								<textureradioofffocus />
+								<textureradiooffnofocus />
+								<textureradiooffdisabled />
+							</control>
+							<!-- Run/use -->
+							<control type="button" id="12">
+								<width>100%</width>
+							</control>
+							<!-- Settings -->
+							<control type="button" id="9">
+								<width>100%</width>
+								<label>Settings</label>
+							</control>
+							<!-- Dependencies -->
+							<control type="button" id="10">
+								<width>100%</width>
+								<label>Dependencies</label>
+							</control>
+							<!-- Update -->
+							<control type="button" id="8">
+								<width>100%</width>
+								<label>Update</label>
+							</control>
+							<!-- Auto-update -->
+							<control type="radiobutton" id="13">
+								<width>100%</width>
+								<radioposx>OFFSET_SETTINGS_OPTION_RADIO_NARROW</radioposx>
+							</control>
+						</control>
+					</control>
+				</control>
+			</include>
+		</include>
+	</controls>
+</window>

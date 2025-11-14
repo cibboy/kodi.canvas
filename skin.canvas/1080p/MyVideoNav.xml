@@ -176,7 +176,7 @@
 
 			<!-- Studio -->
 			<control type="group">
-				<visible>!Window.Previous(SettingsCategory.xml)</visible>
+				<visible>!$EXP[IsMediaNavLibraryNavigation]</visible>
 				<include content="BottomBar" />
 			</control>
 		</include>

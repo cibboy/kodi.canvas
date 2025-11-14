@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="skin.canvas" version="4.0.0" name="Canvas" provider-name="zeppy">
+<addon id="skin.canvas" version="4.0.0" name="Canvas" provider-name="Gabriele Seppi">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
+		<import addon="script.canvas.helper" version="5.17.0"/>
 	</requires>
 	<extension point="xbmc.gui.skin" debugging="false">
 		<res width="1920" height="1080" aspect="16:9" default="true" folder="1080p" />
@@ -26,7 +27,7 @@
 		</assets>-->
 		<summary lang="en_US">Minimalistic Kodi skin</summary>
 		<summary lang="it_IT">Skin minimalistica per Kodi</summary>
-		<description lang="en_US">Minimalistic Kodi skin</description>
-		<description lang="it_IT">Skin minimalistica per Kodi</description>
+		<description lang="en_US">Canvas is a minimalistic Kodi skin</description>
+		<description lang="it_IT">Canvas è una skin minimalistica per Kodi</description>
 	</extension>
 </addon>
