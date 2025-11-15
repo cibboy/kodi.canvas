@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">400</defaultcontrol>
+	<views>504</views>
+
+	<controls>
+		<include content="Center169AspectRatio">
+			<!-- Background (monocolor) -->
+			<include content="SettingsBackground" />
+
+			<!-- Background split overlay -->
+			<control type="group">
+				<!-- Left -->
+				<control type="image">
+					<width>WIDTH_BACKGROUND_SPLIT_NARROW</width>
+					<height>SCREEN_HEIGHT</height>
+					<texture colordiffuse="BACKGROUND_OPAQUE10">diffuse.png</texture>
+				</control>
+				<!-- Right -->
+				<control type="image">
+					<left>WIDTH_BACKGROUND_SPLIT_NARROW</left>
+					<width>WIDTH_BACKGROUND_SPLIT_WIDE</width>
+					<height>SCREEN_HEIGHT</height>
+					<texture colordiffuse="BACKGROUND_OPAQUE20">diffuse.png</texture>
+				</control>
+			</control>
+
+			<control type="group">
+				<!-- Left side (list of controls with title) -->
+				<control type="group">
+					<width>WIDTH_BACKGROUND_SPLIT_NARROW</width>
+					<height>SCREEN_HEIGHT</height>
+
+					<control type="group">
+						<top>PADDING_BASE_80P</top>
+						<bottom>PADDING_BASE</bottom>
+						<left>PADDING_SETTINGS_NARROW_SIDE</left>
+						<right>PADDING_SETTINGS_NARROW_SIDE</right>
+
+						<!-- Title -->
+						<control type="label">
+							<width>auto</width>
+							<height>FONT_SIZE_TITLE2</height>
+							<right>PADDING_SETTINGS_TITLE</right>
+							<left>PADDING_SETTINGS_TITLE</left>
+							<font>TITLE2</font>
+							<label>Event log</label>
+						</control>
+
+						<control type="grouplist" id="400">
+							<orientation>vertical</orientation>
+							<itemgap>GAP_SETTINGS_LIST_OPTION</itemgap>
+							<usecontrolcoords>true</usecontrolcoords>
+
+							<top>OFFSET_SETTINGS_OPTIONS_START</top>
+
+							<onright>SetFocus(504)</onright>
+
+							<!-- Sort -->
+							<control type="togglebutton" id="4">
+								<width>100%</width>
+								<radioposx>OFFSET_SETTINGS_OPTION_RADIO_NARROW</radioposx>
+								<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
+								<label>Sort: Ascending</label>
+								<altlabel>Sort: Descending</altlabel>
+							</control>
+							<!-- Level -->
+							<control type="button" id="21">
+								<width>100%</width>
+								<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
+							</control>
+							<!-- Show only current level -->
+							<control type="radiobutton" id="22">
+								<width>100%</width>
+								<radioposx>OFFSET_SETTINGS_OPTION_RADIO_NARROW</radioposx>
+								<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
+							</control>
+							<!-- Clear -->
+							<control type="button" id="20">
+								<width>100%</width>
+								<texturefocus colordiffuse="$VAR[SettingsOptionButtonColor]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
+								<label>Clear</label>
+							</control>
+						</control>
+					</control>
+				</control>
+
+				<!-- Right side (events) -->
+				<control type="group">
+					<top>PADDING_BASE_80P</top>
+					<bottom>PADDING_BASE</bottom>
+					<left>WIDTH_BACKGROUND_SPLIT_NARROW</left>
+					<width>WIDTH_BACKGROUND_SPLIT_WIDE</width>
+
+					<control type="group">
+						<top>OFFSET_SETTINGS_OPTIONS_START</top>
+						<right>PADDING_SETTINGS_NARROW_SIDE</right>
+						<left>PADDING_SETTINGS_NARROW_SIDE</left>
+
+						<!-- List of items -->
+						<control type="list" id="504">
+							<left>0</left>
+							<right>0</right>
+							<autoscroll>false</autoscroll>
+							<pagecontrol>60</pagecontrol>
+
+							<onright>SetFocus(60)</onright>
+							<onleft>SetFocus(400)</onleft>
+
+							<focusedlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+								<control type="group">
+									<!-- Fake button for selection (only when focus is in the actual list, not when on expert button) -->
+									<control type="button">
+										<visible allowhiddenfocus="true">false</visible>
+										<onclick>noop</onclick>
+									</control>
+
+									<control type="group">
+										<visible>Control.HasFocus(504)</visible>
+										<!-- Fake button selection -->
+										<control type="image">
+											<height>HEIGHT_BUTTON_DEFAULT</height>
+											<texture colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texture>
+										</control>
+										<!-- Content -->
+										<include content="SettingsOptionContentWithIcon">
+											<param name="icon">$VAR[ListIconTranslated]</param>
+											<param name="icon_type_circle">$EXP[HasTranslatedIcon]</param>
+											<param name="icon_circle_color">BACKGROUND_INVERSE_OPAQUE90</param>
+											<param name="icon_color">FOREGROUND_INVERSE</param>
+											<param name="text">$INFO[ListItem.Label]</param>
+											<param name="text_color">FOREGROUND_INVERSE</param>
+											<param name="description">$INFO[ListItem.Label2]</param>
+											<param name="description_color">FOREGROUND_INVERSE_OPAQUE75</param>
+											<param name="description_color_selected">FOREGROUND_ACCENT_ALT_OPAQUE75</param>
+											<param name="single_line">String.IsEmpty(ListItem.Label2)</param>
+											<param name="scroll">true</param>
+										</include>
+									</control>
+									<control type="group">
+										<visible>!Control.HasFocus(504)</visible>
+										<include content="SettingsOptionContentWithIcon">
+											<param name="icon">$VAR[ListIconTranslated]</param>
+											<param name="icon_type_circle">$EXP[HasTranslatedIcon]</param>
+											<param name="text">$INFO[ListItem.Label]</param>
+											<param name="description">$INFO[ListItem.Label2]</param>
+											<param name="single_line">String.IsEmpty(ListItem.Label2)</param>
+										</include>
+									</control>
+								</control>
+							</focusedlayout>
+
+							<itemlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+								<control type="group">
+									<include content="SettingsOptionContentWithIcon">
+										<param name="icon">$VAR[ListIconTranslated]</param>
+										<param name="icon_type_circle">$EXP[HasTranslatedIcon]</param>
+										<param name="text">$INFO[ListItem.Label]</param>
+										<param name="description">$INFO[ListItem.Label2]</param>
+										<param name="single_line">String.IsEmpty(ListItem.Label2)</param>
+									</include>
+								</control>
+							</itemlayout>
+						</control>
+
+						<!-- Scrollbar -->
+						<control type="scrollbar" id="60">
+							<right>PADDING_BASE_20P_NEG</right>
+							<height>100%</height>
+							<orientation>vertical</orientation>
+							<onleft>SetFocus(504)</onleft>
+							<visible>Control.IsVisible(504)</visible>
+						</control>
+					</control>
+				</control>
+			</control>
+
+			<!-- Clock -->
+			<include content="TopBar">
+				<param name="show_background">false</param>
+			</include>
+		</include>
+	</controls>
+</window>

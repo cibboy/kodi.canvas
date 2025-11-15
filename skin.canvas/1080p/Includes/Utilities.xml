@@ -96,7 +96,7 @@
 		<value condition="String.IsEqual(ListItem.Icon,DefaultFolder.png)">1080p/icons/folder.png</value>
 		<value condition="String.IsEqual(ListItem.Icon,DefaultNetwork.png)">1080p/icons/network.png</value>
 		<value condition="String.IsEqual(ListItem.Icon,DefaultFile.png)">1080p/icons/file.png</value>
-		<value condition="String.IsEqual(ListItem.Icon,DefaultFolderBack.png)">1080p/icons/back.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultFolderBack.png)">1080p/icons/up.png</value>
 		<value condition="String.IsEqual(ListItem.Icon,DefaultAddSource.png)">1080p/icons/add.png</value>
 		<value condition="String.IsEqual(ListItem.Icon,DefaultAddon.png)">1080p/icons/addon.png</value>
 		<value condition="String.IsEqual(ListItem.Icon,DefaultAddonsInstalled.png)">1080p/icons/addon-installed.png</value>
@@ -112,7 +112,7 @@
 		<value condition="String.IsEqual(ListItem.Icon,DefaultFolder.png)">1080p/icons/folder.png</value>
 		<value condition="String.IsEqual(ListItem.Icon,DefaultNetwork.png)">1080p/icons/network.png</value>
 		<value condition="String.IsEqual(ListItem.Icon,DefaultFile.png)">1080p/icons/file.png</value>
-		<value condition="String.IsEqual(ListItem.Icon,DefaultFolderBack.png)">1080p/icons/back.png</value>
+		<value condition="String.IsEqual(ListItem.Icon,DefaultFolderBack.png)">1080p/icons/up.png</value>
 		<value condition="String.IsEqual(ListItem.Icon,DefaultAddSource.png)">1080p/icons/add.png</value>
 		<value condition="String.IsEqual(ListItem.Icon,DefaultAddon.png)">1080p/icons/addon.png</value>
 		<value condition="String.IsEqual(ListItem.Icon,DefaultAddonsInstalled.png)">1080p/icons/addon-installed.png</value>
