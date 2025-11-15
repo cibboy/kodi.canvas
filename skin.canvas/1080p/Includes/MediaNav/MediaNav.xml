@@ -469,4 +469,123 @@
 			</control>
 		</definition>
 	</include>
+	<include name="FileNavItemFileList">
+		<param name="id"></param>
+		<param name="scrollbar_id"></param>
+		<param name="path_id"></param>
+		<param name="other_id"></param>
+		<param name="list_name"></param>
+
+		<definition>
+			<control type="group">
+				<include content="ShowHideFadeSlideHorizontalAnimation">
+					<param name="slide_amount">-100</param>
+					<param name="delay_in">ANIMATION_MID</param>
+					<param name="visible_type">Conditional</param>
+					<param name="hidden_type">Conditional</param>
+					<param name="visible_condition">Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[scrollbar_id])</param>
+					<param name="hidden_condition">!Control.HasFocus($PARAM[id]) + !Control.HasFocus($PARAM[scrollbar_id])</param>
+					<param name="tween">cubic</param>
+				</include>
+
+				<top>PADDING_BASE_125P</top>
+
+				<!-- Name and path -->
+				<control type="grouplist">
+					<orientation>horizontal</orientation>
+					<itemgap>PADDING_BASE_10P</itemgap>
+					
+					<height>FONT_SIZE_SUBTITLE</height>
+					<right>PADDING_SETTINGS_TITLE</right>
+					<left>PADDING_SETTINGS_TITLE</left>
+
+					<!-- Name -->
+					<control type="label">
+						<width>auto</width>
+						<height>FONT_SIZE_CAPTION</height>
+						<font>CAPTION_STRONG</font>
+						<label>$PARAM[list_name]</label>
+					</control>
+					<!-- Path -->
+					<control type="label" id="$PARAM[path_id]">
+						<width max="800">auto</width>
+						<height>FONT_SIZE_CAPTION</height>
+						<font>CAPTION</font>
+						<haspath>true</haspath>
+					</control>
+				</control>
+
+				<!-- Items and scrollbar -->
+				<control type="group">
+					<top>PADDING_BASE_50P</top>
+
+					<!-- Items -->
+					<control type="list" id="$PARAM[id]">
+						<left>0</left>
+						<right>PADDING_BASE_30P</right>
+						<autoscroll>false</autoscroll>
+						<pagecontrol>$PARAM[scrollbar_id]</pagecontrol>
+
+						<onright condition="Control.IsVisible($PARAM[scrollbar_id])">SetFocus($PARAM[scrollbar_id])</onright>
+						<onleft>SetFocus($PARAM[other_id])</onleft>
+
+						<focusedlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+							<control type="button">
+								<visible allowhiddenfocus="true">false</visible>
+							</control>
+
+							<!-- Fake button for selection (only when focus is in the actual list, not when on expert button) -->
+							<control type="group">
+								<visible>Control.HasFocus($PARAM[id])</visible>
+								<!-- Fake button selection -->
+								<control type="image">
+									<height>HEIGHT_BUTTON_DEFAULT</height>
+									<texture colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texture>
+								</control>
+								<!-- Content -->
+								<include content="SettingsOptionContentWithIcon">
+									<param name="icon">$VAR[ListIconTranslatedSimplified]</param>
+									<param name="text">$INFO[ListItem.Label]</param>
+									<param name="icon_circle_color">BACKGROUND_INVERSE_OPAQUE90</param>
+									<param name="icon_color">FOREGROUND_INVERSE</param>
+									<param name="text_color">FOREGROUND_INVERSE</param>
+									<param name="description">$INFO[ListItem.Label2]</param>
+									<param name="description_color">FOREGROUND_INVERSE_OPAQUE75</param>
+									<param name="single_line">String.IsEmpty(ListItem.Label2)</param>
+									<param name="scroll">true</param>
+								</include>
+							</control>
+							<control type="group">
+								<visible>!Control.HasFocus($PARAM[id])</visible>
+								<include content="SettingsOptionContentWithIcon">
+									<param name="icon">$VAR[ListIconTranslatedSimplified]</param>
+									<param name="text">$INFO[ListItem.Label]</param>
+									<param name="description">$INFO[ListItem.Label2]</param>
+									<param name="single_line">String.IsEmpty(ListItem.Label2)</param>
+									<param name="scroll">true</param>
+								</include>
+							</control>
+						</focusedlayout>
+
+						<itemlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
+							<include content="SettingsOptionContentWithIcon">
+								<param name="icon">$VAR[ListIconTranslatedSimplified]</param>
+								<param name="text">$INFO[ListItem.Label]</param>
+								<param name="description">$INFO[ListItem.Label2]</param>
+								<param name="single_line">String.IsEmpty(ListItem.Label2)</param>
+							</include>
+						</itemlayout>
+					</control>
+
+					<!-- Scrollbar -->
+					<control type="scrollbar" id="$PARAM[scrollbar_id]">
+						<right>PADDING_BASE_30P_NEG</right>
+						<height>100%</height>
+						<orientation>vertical</orientation>
+						<onleft>SetFocus($PARAM[id])</onleft>
+					</control>
+				</control>
+			</control>
+		</definition>
+	</include>
 </includes>

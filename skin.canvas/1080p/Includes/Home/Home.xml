@@ -852,7 +852,7 @@
 						<item id="5">
 							<thumb>$VAR[FileManagerIcon]</thumb>
 							<label>File manager</label>
-							<property name="onclick">ActivateWindow(filebrowser)</property>
+							<property name="onclick">ActivateWindow(filemanager)</property>
 						</item>
 						<!-- System info -->
 						<item id="6">

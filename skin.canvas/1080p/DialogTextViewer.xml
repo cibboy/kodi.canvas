@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">60</defaultcontrol>
+
+	<controls>
+		<include content="Center169AspectRatio">
+			<control type="group">
+				<include content="ShowHideFadeSlideHorizontalAnimation">
+					<param name="slide_amount">-100</param>
+					<param name="visible_type">WindowOpen</param>
+					<param name="hidden_type">WindowClose</param>
+				</include>
+
+				<control type="group">
+					<width>WIDTH_BACKGROUND_SPLIT_WIDE</width>
+					<height>SCREEN_HEIGHT</height>
+
+					<control type="group">
+						<top>PADDING_BASE_80P</top>
+						<bottom>PADDING_BASE_80P</bottom>
+						<left>PADDING_SETTINGS_WIDE_SIDE</left>
+						<right>PADDING_SETTINGS_WIDE_SIDE</right>
+
+						<!-- Title -->
+						<control type="label" id="1">
+							<width>auto</width>
+							<height>FONT_SIZE_TITLE2</height>
+							<font>TITLE2</font>
+						</control>
+
+						<!-- File content -->
+						<control type="group">
+							<top>OFFSET_SETTINGS_OPTIONS_START</top>
+
+							<control type="textbox" id="5">
+								<right>PADDING_BASE_30P</right>
+								<top>0</top>
+								<bottom>PADDING_BASE_40P</bottom>
+								<font>CAPTION</font>
+								<textcolor>FOREGROUND</textcolor>
+								<pagecontrol>60</pagecontrol>
+							</control>
+
+							<!-- Scrollbar -->
+							<control type="scrollbar" id="60">
+								<right>PADDING_BASE_30P_NEG</right>
+								<height>100%</height>
+								<orientation>vertical</orientation>
+							</control>
+						</control>
+					</control>
+				</control>
+			</control>
+		</include>
+	</controls>
+</window>

@@ -94,8 +94,8 @@
 
 					<control type="group">
 						<top>OFFSET_SETTINGS_OPTIONS_START</top>
-						<right>PADDING_SETTINGS_NARROW_SIDE</right>
-						<left>PADDING_SETTINGS_NARROW_SIDE</left>
+						<right>PADDING_SETTINGS_WIDE_SIDE</right>
+						<left>PADDING_SETTINGS_WIDE_SIDE</left>
 
 						<!-- List of items -->
 						<control type="list" id="504">
@@ -166,7 +166,7 @@
 
 						<!-- Scrollbar -->
 						<control type="scrollbar" id="60">
-							<right>PADDING_BASE_20P_NEG</right>
+							<right>PADDING_BASE_30P_NEG</right>
 							<height>100%</height>
 							<orientation>vertical</orientation>
 							<onleft>SetFocus(504)</onleft>

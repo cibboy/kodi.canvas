@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">20</defaultcontrol>
+
+	<controls>
+		<include content="Center169AspectRatio">
+			<!-- Background (monocolor) -->
+			<include content="SettingsBackground" />
+
+			<!-- Background (monocolor) -->
+			<include content="SettingsBackground" />
+			
+			<control type="group">
+				<animation type="Conditional" condition="$EXP[IsSettingsDialogMediaSourceActive]">
+					<effect type="slide" end="SCREEN_WIDTH_NEG,0" time="ANIMATION_SLOW" tween="circle" easing="out" />
+				</animation>
+				
+				<!-- Background (structure split) -->
+				<include content="FileNavBackgroundSplit" />
+
+				<!-- Left side (title + lists) -->
+				<control type="group">
+					<include content="ShowHideFadeSlideHorizontalAnimation">
+						<param name="slide_amount">-100</param>
+						<param name="delay_in">ANIMATION_MID</param>
+						<param name="visible_type">Conditional</param>
+						<param name="hidden_type">Conditional</param>
+						<param name="visible_condition">!Window.IsActive(DialogTextViewer.xml)</param>
+						<param name="hidden_condition">Window.IsActive(DialogTextViewer.xml)</param>
+						<param name="tween">cubic</param>
+					</include>
+
+					<width>WIDTH_BACKGROUND_SPLIT_WIDE</width>
+					<height>SCREEN_HEIGHT</height>
+
+					<control type="group">
+						<top>PADDING_BASE_80P</top>
+						<bottom>PADDING_BASE_80P</bottom>
+						<left>PADDING_SETTINGS_WIDE_SIDE</left>
+						<right>PADDING_SETTINGS_WIDE_SIDE</right>
+
+						<!-- Title -->
+						<control type="label">
+							<width>auto</width>
+							<height>FONT_SIZE_TITLE2</height>
+							<right>PADDING_SETTINGS_TITLE</right>
+							<left>PADDING_SETTINGS_TITLE</left>
+							<font>TITLE2</font>
+							<label>File manager</label>
+						</control>
+
+						<!-- List of files/folders -->
+						<include content="FileNavItemFileList">
+							<param name="id">20</param>
+							<param name="scrollbar_id">60</param>
+							<param name="path_id">101</param>
+							<param name="other_id">21</param>
+							<param name="list_name">Source:</param>
+						</include>
+						<include content="FileNavItemFileList">
+							<param name="id">21</param>
+							<param name="scrollbar_id">61</param>
+							<param name="path_id">102</param>
+							<param name="other_id">20</param>
+							<param name="list_name">Destination:</param>
+						</include>
+
+						<!-- Chevron left (switch between explorers) -->
+						<control type="image">
+							<width>80</width>
+							<height>80</height>
+							<left>PADDING_BASE_80P_NEG</left>
+							<centertop>50%</centertop>
+							<texture colordiffuse="FOREGROUND_OPAQUE10" flipx="true">1080p/icons/chevron-right.png</texture>
+							<aspectratio>keep</aspectratio>
+						</control>
+					</control>
+				</control>
+
+				<!-- Right side (details when no dialog is visible) -->
+				<control type="group">
+					<visible>!$EXP[IsSettingsAnyDialogActive] + !Control.HasFocus(60) + !Control.HasFocus(61)</visible>
+					<include content="ShowHideFadeSlideHorizontalAnimation">
+						<param name="slide_amount">-100</param>
+					</include>
+
+					<width>WIDTH_BACKGROUND_SPLIT_NARROW</width>
+					<height>SCREEN_HEIGHT</height>
+					<left>WIDTH_BACKGROUND_SPLIT_WIDE</left>
+
+					<control type="group">
+						<top>PADDING_BASE_80P</top>
+						<bottom>PADDING_BASE</bottom>
+						<right>PADDING_SETTINGS_NARROW_SIDE</right>
+						<left>PADDING_SETTINGS_NARROW_SIDE</left>
+
+						<control type="grouplist">
+							<orientation>vertical</orientation>
+							<itemgap>PADDING_BASE_20P</itemgap>
+							<usecontrolcoords>true</usecontrolcoords>
+
+							<top>PADDING_BASE</top>
+
+							<!-- Icon -->
+							<control type="image">
+								<centerleft>50%</centerleft>
+								<width>100</width>
+								<height>100</height>
+								<texture fallback="1080p/icons/file.png">$VAR[ListIconTranslated]</texture>
+								<aspectratio>keep</aspectratio>
+							</control>
+
+							<!-- Size -->
+							<include content="FileNavInfoLabel">
+								<param name="visible">!String.IsEmpty(ListItem.Size)</param>
+								<param name="label">Size</param>
+								<param name="value">$INFO[ListItem.Size]</param>
+							</include>
+							<!-- File name -->
+							<include content="FileNavInfoLabel">
+								<param name="visible">!String.IsEmpty(ListItem.FileName) + !String.IsEqual(ListItem.FileName,add)</param>
+								<param name="label">File name</param>
+								<param name="value">$INFO[ListItem.FileName]</param>
+							</include>
+							<!-- Folder -->
+							<include content="FileNavInfoLabel">
+								<param name="visible">!String.IsEmpty(ListItem.Path) + !ListItem.IsFolder</param>
+								<param name="label">Folder</param>
+								<param name="value">$INFO[ListItem.Path]</param>
+							</include>
+							<!-- Path -->
+							<include content="FileNavInfoLabel">
+								<param name="visible">!String.IsEmpty(ListItem.FileNameAndPath) + !String.IsEqual(ListItem.FileNameAndPath,add)</param>
+								<param name="label">Full path</param>
+								<param name="value">$INFO[ListItem.FileNameAndPath]</param>
+								<param name="wrap">true</param>
+							</include>
+							<!-- Add source (special case) -->
+							<include content="FileNavInfoLabel">
+								<param name="visible">String.IsEqual(ListItem.FileNameAndPath,add)</param>
+								<param name="label">Add source</param>
+							</include>
+						</control>
+					</control>
+				</control>
+			</control>
+
+			<!-- Clock -->
+			<include content="TopBar">
+				<param name="show_background">false</param>
+			</include>
+		</include>
+	</controls>
+</window>

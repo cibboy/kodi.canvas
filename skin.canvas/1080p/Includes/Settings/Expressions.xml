@@ -2,8 +2,9 @@
 <includes>
 	<!-- Is any settings page active? -->
 	<expression name="IsAnySettingsPageActive">
-		Window.IsActive(SettingsCategory.xml) | 
-		Window.IsActive(AddonBrowser.xml) | 
+		Window.IsActive(SettingsCategory.xml) |
+		Window.IsActive(AddonBrowser.xml) |
+		Window.IsActive(FileManager.xml) |
 		$EXP[IsMediaNavLibraryNavigation]
 	</expression>
 

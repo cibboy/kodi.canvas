@@ -423,8 +423,8 @@
 		<control type="group">
 			<include content="ShowHideFadeSlideHorizontalAnimation">
 				<param name="speed">ANIMATION_MID</param>
-				<param name="visible_condition">WindowOpen</param>
-				<param name="hidden_condition">WindowClose</param>
+				<param name="visible_type">WindowOpen</param>
+				<param name="hidden_type">WindowClose</param>
 			</include>
 
 			<top>PADDING_BASE_80P</top>

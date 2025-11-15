@@ -13,16 +13,14 @@ TODO:
 - dialog in settings da fare:
   - MyMusicNav.xml: media > library > music
   - MyPics.xml: media > library > pictures
-  - Generici (o quasi)
-    - Eventlog.xml: system > logging > show event log
 - manca il caricamento della lista pictures
 - creare possibilità di sbiancare la cache in temp
 - ricordarsi nel setup iniziale di gestire anche advancedsettings.xml per la questione rimozione splash screen originale
 - playing theme in tv shows
 - constant notification on home/navigation for currently playing item (escludere theme in tv shows)
+- spostare le icone studio all'addon dedicato (terze parti, da mettere come dipendenza)
 
 - skin settings (skinsettings) > sub of interface
-- event log (eventlog)
 
 - settings changes on first run:
   - system > input > enable mouse and touch screen support: false

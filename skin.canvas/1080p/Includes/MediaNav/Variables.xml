@@ -71,4 +71,7 @@
 
 	<constant name="SIZE_MEDIANAV_PREVNEXT_INDICATOR">80</constant>
 	<constant name="OFFSET_MEDIANAV_TOP_PREVNEXT_INDICATOR">141</constant>		<!-- HEIGHT_LANDSCAPE / 2 -->
+
+	<constant name="SIZE_FILENAV_ITEM">150</constant>
+	<constant name="SIZE_FILENAV_ICON">70</constant>
 </includes>

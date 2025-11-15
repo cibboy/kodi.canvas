@@ -13,11 +13,13 @@
 	<constant name="PADDING_BASE_20P">20</constant>
 	<constant name="PADDING_BASE_20P_NEG">-20</constant>
 	<constant name="PADDING_BASE_30P">30</constant>
+	<constant name="PADDING_BASE_30P_NEG">-30</constant>
 	<constant name="PADDING_BASE_40P">40</constant>
 	<constant name="PADDING_BASE_50P">50</constant>
 	<constant name="PADDING_BASE_50P_NEG">-50</constant>
 	<constant name="PADDING_BASE_60P">60</constant>
 	<constant name="PADDING_BASE_80P">80</constant>
+	<constant name="PADDING_BASE_80P_NEG">-80</constant>
 	<constant name="PADDING_BASE_125P">125</constant>
 
 	<!-- Constants: sizes -->
