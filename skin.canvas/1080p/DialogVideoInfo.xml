@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
 	<!-- Prevent opening if from library navigation, as it wouldn't work as expected -->
-	<!--<onload condition="$EXP[IsMediaNavLibraryNavigation]">Close</onload>-->
 	<defaultcontrol always="true">400</defaultcontrol>
 
 	<controls>

@@ -4,12 +4,12 @@
 	<views>501,502</views>
 	<include content="VideoPlayingRedirect" />
 	<!--
-		Go to home if not arriving here from settings and not showing 501.
+		Go to home if not arriving here from settings and showing 502.
 		Basically, this is the case of playing a video from 502 and then exiting
 		(it would want to show 502, but it's mixed up because it's coming from
 		the video player, and so on. Yeah, just a giant mess of quirks in Kodi...)
 	-->
-	<onload condition="!$EXP[IsMediaNavLibraryNavigation] + !Control.IsVisible(501)">ReplaceWindow(home)</onload>
+	<onload condition="!$EXP[IsMediaNavLibraryNavigation] + Control.IsVisible(502)">ReplaceWindow(home)</onload>
 	<onunload>ClearProperty(LibraryNav,videos)</onunload>
 
 	<controls>

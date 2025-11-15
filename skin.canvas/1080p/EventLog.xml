@@ -106,6 +106,7 @@
 
 							<onright>SetFocus(60)</onright>
 							<onleft>SetFocus(400)</onleft>
+							<onclick>noop</onclick>
 
 							<focusedlayout height="HEIGHT_SETTINGS_OPTION_CONTAINER">
 								<control type="group">
