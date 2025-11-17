@@ -71,7 +71,7 @@
 				</control>
 			</control>
 
-			<!-- 502 view for navigation from settings > library --><!--todo-->
+			<!-- 502 view for navigation from settings > library -->
 			<control type="group">
 				<visible>$EXP[IsMediaNavLibraryNavigation]</visible>
 

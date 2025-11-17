@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="window" id="1197">
+	<!-- Immediately redirect to first run wizard -->
+	<onload>ReplaceWindow(1198)</onload>
+	<controls></controls>
+</window>

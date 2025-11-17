@@ -2,8 +2,10 @@
 <window type="window" id="1150">
 	<defaultcontrol always="true">1</defaultcontrol>
 	<onload>ClearProperty(Player.NextItem.Present,home)</onload>
+	<onload condition="Integer.IsLess(Player.Progress,90)">PlayerControl(Stop)</onload>
+	<onload condition="Integer.IsLess(Player.Progress,90)">Back</onload>
 	<!-- Find next episode, if any -->
-	<onload>RunScript(script.canvas.helper,load_nextup,$INFO[VideoPlayer.TVShowDBID],$INFO[VideoPlayer.Season],$INFO[VideoPlayer.Episode])</onload>
+	<onload condition="Integer.IsGreaterOrEqual(Player.Progress,90)">RunScript(script.canvas.helper,load_nextup,$INFO[VideoPlayer.TVShowDBID],$INFO[VideoPlayer.Season],$INFO[VideoPlayer.Episode])</onload>
 
 	<controls>
 		<include content="Center169AspectRatio">

@@ -14,4 +14,6 @@
 	<constant name="SPLASH_TEXTCOLORFADE_DELAY">3050</constant>
 	<constant name="SPLASH_LOGOZOOM_TIME">1000</constant>
 	<constant name="SPLASH_LOGOZOOM_DELAY">3450</constant>
+
+	<constant name="FIRSTRUN_LISTITEM_HEIGHT">50</constant>
 </includes>

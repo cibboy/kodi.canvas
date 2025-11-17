@@ -1,5 +1,6 @@
-import sys, re, time
-import xbmc, xbmcgui
+import sys, os, shutil, re, time
+import xml.etree.ElementTree as ET
+import xbmc, xbmcgui, xbmcvfs
 from datetime import datetime
 from image import get_blurred, get_cropped_clearlogo
 from media import *
@@ -561,12 +562,81 @@ def load_nextup(tvshowid, season, episode):
         xbmc.executebuiltin('SetFocus(1)')
 
 
+# Apply first run customizations.
+def apply_customizations():
+    # Change settings.
+    call_rpc('Settings.SetSettingValue', {'setting': 'input.enablemouse', 'value': False})
+    call_rpc('Settings.SetSettingValue', {'setting': 'filecache.memorysize', 'value': 256})
+    call_rpc('Settings.SetSettingValue', {'setting': 'filecache.readfactor', 'value': 0})
+    call_rpc('Settings.SetSettingValue', {'setting': 'locale.audiolanguage', 'value': 'English'})
+    call_rpc('Settings.SetSettingValue', {'setting': 'videoplayer.preferdefaultflag', 'value': False})
+    call_rpc('Settings.SetSettingValue', {'setting': 'locale.subtitlelanguage', 'value': 'none'})
+    call_rpc('Settings.SetSettingValue', {'setting': 'myvideos.selectaction', 'value': 2})
+    call_rpc('Settings.SetSettingValue', {'setting': 'myvideos.playaction', 'value': 1})
+    call_rpc('Settings.SetSettingValue', {'setting': 'videolibrary.showallitems', 'value': False})
+    call_rpc('Settings.SetSettingValue', {'setting': 'videolibrary.flattentvshows', 'value': 0})
+    call_rpc('Settings.SetSettingValue', {'setting': 'videolibrary.tvshowsselectfirstunwatcheditem', 'value': 1})
+
+    # Update advancedsettings.xml
+    xml = xbmcvfs.translatePath('special://userdata/advancedsettings.xml')
+    if os.path.exists(xml):
+        # Load existing XML.
+        tree = ET.parse(xml)
+        root = tree.getroot()
+
+        # Look for "splash" element.
+        found = False
+        for child in root:
+            if child.tag == 'splash':
+                found = True
+                break
+
+        # Add "splash" element if not found.
+        if not found:
+            splash = ET.SubElement(root, 'splash')
+            splash.text = 'false'
+            tree = ET.ElementTree(root)
+            tree.write(xml, encoding="utf-8", xml_declaration=False)
+    else:
+        # Write file with only splash removal option.
+        with open(xml, 'w') as f:
+            f.writelines([
+                '<advancedsettings version="1.0">\n',
+                '    <splash>false</splash>\n',
+                '</advancedsettings>'
+            ])
+
+# Clear custom cache (blur bg, cropped clearlogos, themes).
+def clear_custom_cache():
+    # Retrieve folders. If found, delete them.
+    blur_folder = xbmcvfs.translatePath('special://temp/temp/canvas.blur/')
+    clearlogo_folder = xbmcvfs.translatePath('special://temp/temp/canvas.clearlogo/')
+    theme_folder = xbmcvfs.translatePath('special://temp/temp/canvas.theme/')
+
+    if os.path.exists(blur_folder):
+        xbmc.log(f"Removing {blur_folder}", xbmc.LOGINFO)
+        shutil.rmtree(blur_folder)
+    if os.path.exists(clearlogo_folder):
+        xbmc.log(f"Removing {clearlogo_folder}", xbmc.LOGINFO)
+        shutil.rmtree(clearlogo_folder)
+    if os.path.exists(theme_folder):
+        xbmc.log(f"Removing {theme_folder}", xbmc.LOGINFO)
+        shutil.rmtree(theme_folder)
+
+
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         method = sys.argv[1]
+
+        # Apply first run customizations.
+        if method == 'apply_customizations':
+            apply_customizations()
+        # Clear custom cache.
+        elif method == 'clear_custom_cache':
+            clear_custom_cache()
         
         # Get additional info from player media for skin usage.
-        if method == 'get_additional_media_info_from_player':
+        elif method == 'get_additional_media_info_from_player':
             get_additional_media_info_from_player()
         # Get additional info from media for skin usage.
         elif method == 'get_additional_media_info_from_listitem':

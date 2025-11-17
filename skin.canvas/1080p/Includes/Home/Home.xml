@@ -311,7 +311,6 @@
 
 					<onclick condition="$PARAM[isvideo]">SetProperty(LibraryNav,true,videos)</onclick>
 					<onclick condition="$PARAM[isvideo]">ActivateWindow(Videos,sources://video/)</onclick>
-					<!-- todo:add navigation to music library and pictures library -->
 					<onup>RunScript(script.canvas.helper,navigate_home_lists,$PARAM[id],up)</onup>
 					<ondown>RunScript(script.canvas.helper,navigate_home_lists,$PARAM[id],down)</ondown>
 					<onleft>SetFocus($PARAM[menuid])</onleft>
@@ -617,7 +616,8 @@
 					<ondown>RunScript(script.canvas.helper,navigate_home_menu,$PARAM[id],down)</ondown>
 					<onright condition="!$PARAM[is_menu_button]">RunScript(script.canvas.helper,navigate_home_from_menu_to_lists,$PARAM[id])</onright>
 					<onclick condition="!$PARAM[is_menu_button]">RunScript(script.canvas.helper,navigate_home_from_menu_to_lists,$PARAM[id])</onclick>
-					<onclick condition="$PARAM[is_menu_button]">SetFocus(1001,0)</onclick>
+					<!--<onclick condition="$PARAM[is_menu_button]">SetFocus(1001,0)</onclick>--><!--todo:recover-->
+					<onclick condition="$PARAM[is_menu_button]">ReplaceWindow(1198)</onclick>
 					<onfocus>SetProperty(Menu.ActiveId,$PARAM[id],home)</onfocus>
 				</control>
 			</control>

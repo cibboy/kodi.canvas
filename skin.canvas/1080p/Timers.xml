@@ -4,8 +4,8 @@
 	<timer>
 		<name>splashredirect</name>
 		<stop>Integer.IsGreaterOrEqual(Skin.TimerElapsedSecs(splashredirect),5)</stop>
-		<onstop>ReplaceWindow(home)</onstop>
-		<!--todo: conditional onstop, redirect either to home or first run window-->
+		<onstop condition="Skin.HasSetting(canvas.firstrun)">ReplaceWindow(home)</onstop>
+		<onstop condition="!Skin.HasSetting(canvas.firstrun)">ReplaceWindow(1198)</onstop>
 	</timer>
 
 	<!-- Home redirection to first available list -->

@@ -69,7 +69,6 @@
 			</control>
 		</definition>
 	</include>
-
 	<!-- With Canvas -->
 	<include name="SplashCanvas">
 		<param name="color">HIGHLIGHT</param>
@@ -165,6 +164,128 @@
 				<include content="SplashCanvas">
 					<param name="color">BACKGROUND_SETTINGS_TINT</param>
 				</include>
+			</control>
+		</control>
+	</include>
+
+	<!-- First time wizard -->
+	<include name="FirstTimeWizard">
+		<include content="SettingsBackground" />
+
+		<control type="group">
+			<top>PADDING_BASE</top>
+			<bottom>PADDING_BASE</bottom>
+			<left>PADDING_BASE</left>
+			<right>PADDING_BASE</right>
+
+			<!-- Title -->
+			<control type="label">
+				<width>100%</width>
+				<height>FONT_SIZE_TITLE2</height>
+				<font>TITLE2</font>
+				<align>center</align>
+				<label>Welcome to [COLOR FOREGROUND_ACCENT]Canvas[/COLOR]</label>
+			</control>
+
+			<control type="grouplist">
+				<orientation>vertical</orientation>
+				<itemgap>PADDING_BASE</itemgap>
+				<usecontrolcoords>true</usecontrolcoords>
+
+				<top>PADDING_BASE</top>
+
+				<!-- Description -->
+				<control type="label">
+					<top>PADDING_BASE</top>
+					<width>100%</width>
+					<height>FONT_SIZE_SUBTITLE</height>
+					<font>CAPTION</font>
+					<align>center</align>
+					<label>[COLOR FOREGROUND_ACCENT]Canvas[/COLOR] is a minimalistic Kodi skin. Some settings require a tweak for optimal results. Here is what will be changed:</label>
+				</control>
+
+				<!-- List of changes -->
+				<control type="panel">
+					<width>1350</width>
+					<height>400</height>
+					<centerleft>50%</centerleft>
+
+					<itemlayout width="675" height="FIRSTRUN_LISTITEM_HEIGHT">
+						<!-- Checkmark -->
+						<control type="image">
+							<width>30</width>
+							<height>30</height>
+							<left>PADDING_BASE_20P</left>
+							<top>8</top>
+							<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/watched.png</texture>
+						</control>
+
+						<!-- Text -->
+						<control type="label">
+							<left>70</left>
+							<width>auto</width>
+							<height>FIRSTRUN_LISTITEM_HEIGHT</height>
+							<font>CAPTION</font>
+							<aligny>top</aligny>
+							<label>$INFO[ListItem.Label]</label>
+						</control>
+					</itemlayout>
+
+					<focusedlayout></focusedlayout>
+
+					<content>
+						<item id="1"><label>Disable mouse</label></item>
+						<item id="2"><label>Cache buffer: 256MB</label></item>
+						<item id="3"><label>Cache read factor: adaptive</label></item>
+						<item id="4"><label>Preferred audio language: English</label></item>
+						<item id="5"><label>Prefer default audio language: false</label></item>
+						<item id="6"><label>No subtitles by default</label></item>
+						<item id="7"><label>Default video action: resume</label></item>
+						<item id="8"><label>Hide "all items" entry</label></item>
+						<item id="9"><label>Never flatten TV Show seasons</label></item>
+						<item id="10"><label>Select first unwatched season/episode on first entry</label></item>
+						<item id="11"><label>Remove Kodi splash screen</label></item>
+					</content>
+				</control>
+			</control>
+
+			<control type="grouplist">
+				<orientation>horizontal</orientation>
+				<itemgap>PADDING_BASE_50P</itemgap>
+				<usecontrolcoords>true</usecontrolcoords>
+				<align>center</align>
+
+				<bottom>0</bottom>
+
+				<!-- Continue (first run) -->
+				<control type="button" id="1">
+					<visible>!Window.Is(skinsettings)</visible>
+					<bottom>0</bottom>
+					<width>auto</width>
+					<label>Continue</label>
+					<onclick>Skin.SetBool(canvas.firstrun,true)</onclick>
+					<onclick>RunScript(script.canvas.helper,apply_customizations)</onclick>
+					<onclick>ReplaceWindow(home)</onclick>
+				</control>
+				<!-- Apply (from skin settings) -->
+				<control type="button" id="2">
+					<visible>Window.Is(skinsettings)</visible>
+					<bottom>0</bottom>
+					<width>auto</width>
+					<label>Apply</label>
+					<onclick>Skin.SetBool(canvas.firstrun,true)</onclick>
+					<onclick>RunScript(script.canvas.helper,apply_customizations)</onclick>
+					<onclick>Back</onclick>
+				</control>
+				<!-- Clear cache (from skin settings) -->
+				<control type="button" id="3">
+					<visible>Window.Is(skinsettings)</visible>
+					<bottom>0</bottom>
+					<width>auto</width>
+					<label>Clear cache</label>
+					<onclick>RunScript(script.canvas.helper,clear_custom_cache)</onclick>
+					<onclick>Back</onclick>
+				</control>
 			</control>
 		</control>
 	</include>
