@@ -26,7 +26,7 @@
 					<right>PADDING_BASE</right>
 					<bottom>PADDING_BASE_10P</bottom>
 					<fadetime>ANIMATION_MID</fadetime>
-					<texture>1080p/studios/$VAR[DetailsStudio].png</texture>
+					<texture>resource://resource.images.studios.coloured/$VAR[DetailsStudio].png</texture>
 				</control>
 			</control>
 		</definition>
