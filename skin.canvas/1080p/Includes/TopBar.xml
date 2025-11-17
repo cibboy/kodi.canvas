@@ -33,7 +33,7 @@
 
 					<!-- ETA -->
 					<control type="label">
-						<visible>Player.HasMedia</visible>
+						<visible>Player.HasMedia + !$EXP[IsTvShowThemePlaying]</visible>
 						<top>35</top>
 						<align>right</align>
 						<aligny>center</aligny>

@@ -30,7 +30,7 @@ def get_additional_media_info(window, itemtype, itemid, item_ref, property_base,
     # and next season path for navigation from videonav.
     if find_navigation:
         path = xbmc.getInfoLabel(f"{item_ref.replace('.ListItem', '')}.FolderPath")
-        if path is None or path == '': path = xbmc.getInfoLabel(f"Window(1110).Property(Content)")
+        if path is None or path == '': path = xbmc.getInfoLabel('Window(1110).Property(Content)')
         pattern = r"^videodb://tvshows/titles/(\d+)/(\d+)(?:/|$)"
         match = re.match(pattern, path)
         if match:
@@ -562,6 +562,57 @@ def load_nextup(tvshowid, season, episode):
         xbmc.executebuiltin('SetFocus(1)')
 
 
+# Plays the TV show theme, if available and if allowed.
+def play_show_theme():
+    # All properties reside on home window.
+    window = xbmcgui.Window(10000)
+
+    tvshowid = ''
+
+    # Attempt to retrieve TV show ID.
+    path = xbmc.getInfoLabel('Container(501).FolderPath')
+    if path is None or path == '': path = xbmc.getInfoLabel('Window(1110).Property(Content)')
+    pattern = r"^videodb://tvshows/titles/(\d+)(?:/|$)"
+    match = re.match(pattern, path)
+    if match: tvshowid = match.group(1)
+
+    # If found, look for theme mp3 file.
+    if tvshowid is not None and tvshowid != '':
+        # Create cache folder if missing.
+        cache_folder = xbmcvfs.translatePath('special://temp/temp/canvas.theme/')
+        if not os.path.exists(cache_folder): os.makedirs(cache_folder)
+        
+        # Check if theme already present. If not look for it in TV show folder.
+        cache_theme = xbmcvfs.translatePath('special://temp/temp/canvas.theme/' + tvshowid + '.mp3')
+        if not xbmcvfs.exists(cache_theme):
+            # Retrieve TV show folder.
+            folder = call_rpc('VideoLibrary.GetTVShowDetails', {
+                'tvshowid': int(tvshowid),
+                'properties': ['file']
+            }).get('tvshowdetails', {}).get('file', '')
+
+            # Look for theme.
+            if folder is not None and folder != '':
+                theme = folder + 'theme.mp3'
+                # If found, copy it over to cache.
+                if os.path.exists(theme):
+                    shutil.copyfile(theme, cache_theme)
+
+        # Play theme if available in cache and allowed to play:
+        # - not already playing
+        # - nothing else playing
+        player = xbmc.Player()
+        theme_playing = window.getProperty('Player.PlayingTheme')
+        if xbmcvfs.exists(cache_theme):
+            if not player.isPlaying() or (theme_playing == 'true' and player.getPlayingFile() != cache_theme):
+                # Sleep 1 second to give Kodi the chance to complete focusing on 501.
+                time.sleep(1)
+                # Set the theme flag, the play in loop.
+                window.setProperty('Player.PlayingTheme', 'true')
+                player.play(cache_theme, windowed=True, startpos=0)
+                xbmc.executebuiltin('PlayerControl(RepeatOne)')
+
+
 # Apply first run customizations.
 def apply_customizations():
     # Change settings.
@@ -641,6 +692,7 @@ if __name__ == '__main__':
         # Get additional info from media for skin usage.
         elif method == 'get_additional_media_info_from_listitem':
             get_additional_media_info_from_listitem(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
+       
         # Removes additional info previously loaded.
         elif method == 'clear_listitem_properties':
             clear_listitem_properties()
@@ -651,6 +703,7 @@ if __name__ == '__main__':
         # one (used for details).
         elif method == 'update_hidden_active_list_position':
             update_hidden_active_list_position(sys.argv[2])
+        
         # Navigate between home lists according to availability.
         elif method == 'navigate_home_lists':
             navigate_home_lists(sys.argv[2], sys.argv[3])
@@ -669,16 +722,22 @@ if __name__ == '__main__':
         # Navigates to TV show of a specific episode.
         elif method == 'navigate_to_show':
             navigate_to_show(sys.argv[2])
+        
         # Sets watched/unwatched status.
         elif method == 'toggle_watched':
             toggle_watched(sys.argv[2], sys.argv[3], sys.argv[4])
         # Move active element to requested episode (retrieved from window properties).
         elif method == 'set_active_episode':
             set_active_episode()
+        
         # Finds the next episode to play, if any.
         elif method == 'load_nextup':
             load_nextup(sys.argv[2], sys.argv[3], sys.argv[4])
 
+        # Play TV show theme, if available:
+        elif method == 'play_show_theme':
+            play_show_theme()
+        
         # Test method.
         elif method == 'ping':
             timestamp = datetime.today().strftime('%Y-%m-%d %H:%M:%S')

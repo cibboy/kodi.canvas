@@ -14,9 +14,7 @@ TODO:
   - MyMusicNav.xml: media > library > music
   - MyPics.xml: media > library > pictures
 - manca il caricamento della lista pictures
-- playing theme in tv shows
 - constant notification on home/navigation for currently playing item (escludere theme in tv shows)
-- spostare le icone studio all'addon dedicato (terze parti, da mettere come dipendenza)
 
 
 

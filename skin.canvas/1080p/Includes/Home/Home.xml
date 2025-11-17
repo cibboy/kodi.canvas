@@ -369,6 +369,7 @@
 					<param name="label">Recently added music</param>
 					<param name="content">$VAR[HomeRecentSongsContent]</param>
 					<param name="menuid">201</param>
+					<param name="onclick">PlayMedia($INFO[ListItem.FileNameAndPath],noresume,playoffset=0)</param>
 					<param name="darken_art">$PARAM[darken_art]</param>
 				</include>
 				<!-- No recent content page -->
@@ -436,7 +437,7 @@
 					<param name="label">Music</param>
 					<param name="content">$VAR[HomeSongsContent]</param>
 					<param name="menuid">205</param>
-					<param name="onclick"></param><!--todo-->
+					<param name="onclick">PlayMedia($INFO[ListItem.FileNameAndPath],noresume,playoffset=0)</param>
 					<param name="darken_art">$PARAM[darken_art]</param>
 				</include>
 				<!-- No music page -->

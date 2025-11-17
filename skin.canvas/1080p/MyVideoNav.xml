@@ -10,6 +10,9 @@
 		the video player, and so on. Yeah, just a giant mess of quirks in Kodi...)
 	-->
 	<onload condition="!$EXP[IsMediaNavLibraryNavigation] + Control.IsVisible(502)">ReplaceWindow(home)</onload>
+	<onload>RunScript(script.canvas.helper,play_show_theme)</onload>
+	<onunload condition="$EXP[IsTvShowThemePlaying] + !Window.Next(MyVideoNav.xml) + !Window.Next(VideoFullScreen.xml)">PlayerControl(stop)</onunload>
+	<onunload condition="$EXP[IsTvShowThemePlaying] + !Window.Next(MyVideoNav.xml)">ClearProperty(Player.PlayingTheme,home)</onunload>
 	<onunload>ClearProperty(LibraryNav,videos)</onunload>
 
 	<controls>

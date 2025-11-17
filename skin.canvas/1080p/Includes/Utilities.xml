@@ -90,6 +90,10 @@
 	<expression name="IsPlayerVisible">$EXP[IsMusicPlayerVisible] | $EXP[IsVideoPlayerVisible]</expression>
 
 
+	<!-- Is TV show theme playing? -->
+	<expression name="IsTvShowThemePlaying">String.IsEqual(Window(home).Property(Player.PlayingTheme),true)</expression>
+
+
 	<!-- List icon name translation -->
 	<variable name="ListIconTranslated">
 		<value condition="String.IsEqual(ListItem.Icon,DefaultHardDisk.png)">1080p/icons/drive.png</value>
