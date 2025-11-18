@@ -3,19 +3,24 @@
 	<defaultcontrol></defaultcontrol>
 
 	<controls>
-		<!-- Background --><!--todo: consider multiple ones with shifts and different opacities-->
+		<!-- Background -->
 		<control type="image">
-			<animation condition="true" effect="zoom" center="auto" end="500" time="0">Conditional</animation>
+			<!-- Fake blur by using huge zoom, so it's responsive to changes -->
+			<animation condition="true" effect="zoom" center="auto" end="10000" time="0">Conditional</animation>
+			<!-- Continuous fading and back + slide (VERY slow) to give a sense of motion -->
+			<animation condition="true" effect="fade" start="100" end="50" time="5000" pulse="true">Conditional</animation>
+			<animation condition="true" effect="slide" start="-500,-200" end="500,200" time="360000" pulse="true">Conditional</animation>
 			<width>100%</width>
 			<height>100%</height>
 			<texture fallback="1080p/fallback/bg.png">$INFO[Player.Art(thumb)]</texture>
+			<aspectratio>scale</aspectratio>
 		</control>
 		<!-- Darkening -->
 		<include content="DarkeningLayer" />
 
 		<!-- Art and info -->
 		<control type="group">
-			<top>PADDING_BASE_200P</top>
+			<top>PADDING_BASE_150P</top>
 			<bottom>PADDING_BASE_200P</bottom>
 			<right>PADDING_BASE_200P</right>
 			<left>PADDING_BASE_200P</left>
@@ -25,7 +30,7 @@
 				<visible>!String.IsEmpty(Player.Art(thumb))</visible>
 				<width>SIZE_PLAYER_ALBUMART</width>
 				<height>SIZE_PLAYER_ALBUMART</height>
-				<texture>$INFO[Player.Art(thumb)]</texture>
+				<texture background="true" diffuse="1080p/diffuse/square.png">$INFO[Player.Art(thumb)]</texture>
 				<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND_OPAQUE50">1080p/diffuse/shadow-art.png</bordertexture>
 				<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
 				<aspectratio scalediffuse="false">scale</aspectratio>

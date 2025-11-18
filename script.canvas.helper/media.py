@@ -388,7 +388,7 @@ def list_actors(params, handle):
             li = get_actor_listitem(actor)
             xbmcplugin.addDirectoryItem(
                 handle=handle,
-                url=f"videodb://actors/{actor.get('id', '')}/"
+                url=f"videodb://actors/{actor.get('id', '')}/",
                 listitem=li,
                 isFolder=False
             )

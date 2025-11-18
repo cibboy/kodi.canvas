@@ -8,6 +8,10 @@ TOFIX:
   - basically reintroduce some concepts of previous implementation, but attempt to implement native navigation
   - consider Control.Message(id,message) > message: movedown, moveup (https://kodi.wiki/view/List_of_built-in_functions#GUI_control_built-in's)
   - !!! onfocus "get additional info" da mettere sugli oggetti della 501 nascosta e non sulle altre?
+- actors: onclick deve fare l'action nativa (visualizza i film/episodi con quell'attore?)
+- testare rimozione media: se serve attivare l'opzione nelle impostazioni bisogna aggiornare first run wizard (visual + script)!
+- dialogmusicinfo.xml uguale a musicvisualization.xml + percorso file e codec audio (simile a video)?
+- stop in musicosd?
 
 TODO:
 - dialog in settings da fare:

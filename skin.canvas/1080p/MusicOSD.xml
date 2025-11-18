@@ -30,6 +30,17 @@
 						<left>PADDING_BASE_125P</left>
 						<right>PADDING_BASE_125P</right>
 
+						<!-- Title -->
+						<control type="label">
+							<bottom>310</bottom>
+							<width>1500</width>
+							<height>HEIGHT_OSD_CLEARLOGO</height>
+							<aligny>center</aligny>
+							<font>TITLE3</font>
+							<textcolor>HIGHLIGHT</textcolor>
+							<label>$VAR[DetailsTitle]</label>
+						</control>
+
 						<!-- Details left -->
 						<control type="grouplist">
 							<orientation>horizontal</orientation>
@@ -38,6 +49,16 @@
 
 							<bottom>275</bottom>
 							<height>FONT_SIZE_SUBTITLE</height>
+
+							<!-- Album -->
+							<control type="label">
+								<height>FONT_SIZE_SUBTITLE</height>
+								<width max="600">auto</width>
+								<aligny>center</aligny>
+								<font>BODY_STRONG</font>
+								<textcolor>HIGHLIGHT</textcolor>
+								<label>$VAR[DetailsTitle2]</label>
+							</control>
 							
 							<!-- Duration -->
 							<include content="PlayerOSDInfoText">	

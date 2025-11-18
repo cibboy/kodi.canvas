@@ -21,6 +21,7 @@
 	<constant name="PADDING_BASE_80P">80</constant>
 	<constant name="PADDING_BASE_80P_NEG">-80</constant>
 	<constant name="PADDING_BASE_125P">125</constant>
+	<constant name="PADDING_BASE_150P">150</constant>
 	<constant name="PADDING_BASE_200P">200</constant>
 
 	<!-- Constants: sizes -->
