@@ -297,7 +297,7 @@
 						<include content="DetailsInfoTagWithIcon">
 							<!-- Text has space for icon -->
 							<param name="text">      Watched</param>
-							<param name="visible">!$EXP[IsDetailsResumable] + $EXP[IsDetailsWatched] + !$EXP[IsDetailsAllNew] + $PARAM[show_progress]</param>
+							<param name="visible">$EXP[IsDetailsItemTypeVideoLike] + !$EXP[IsDetailsResumable] + $EXP[IsDetailsWatched] + !$EXP[IsDetailsAllNew] + $PARAM[show_progress]</param>
 
 							<!-- Icon -->
 							<control type="image">
@@ -311,14 +311,14 @@
 						<!-- All new -->
 						<include content="DetailsInfoTag">
 							<param name="text">All new</param>
-							<param name="visible">$EXP[IsDetailsAllNew] + $PARAM[show_progress]</param>
+							<param name="visible">$EXP[IsDetailsItemTypeVideoLike] + $EXP[IsDetailsAllNew] + $PARAM[show_progress]</param>
 							<param name="textcolor">FOREGROUND_ACCENT</param>
 						</include>
 						<!-- Episodes remaining -->
 						<include content="DetailsInfoTagWithIcon">
 							<!-- Text has space for icon -->
 							<param name="text">      $VAR[DetailsEpisodesRemaining]</param>
-							<param name="visible">!$EXP[IsDetailsWatched] + !$EXP[IsDetailsAllNew] + [$EXP[IsDetailsItemTypeTvShow] | $EXP[IsDetailsItemTypeSeason]] + $PARAM[show_progress]</param>
+							<param name="visible">$EXP[IsDetailsItemTypeVideoLike] + !$EXP[IsDetailsWatched] + !$EXP[IsDetailsAllNew] + [$EXP[IsDetailsItemTypeTvShow] | $EXP[IsDetailsItemTypeSeason]] + $PARAM[show_progress]</param>
 
 							<!-- Round icon -->
 							<control type="group">
@@ -339,7 +339,7 @@
 						<include content="DetailsInfoTagWithIcon">
 							<!-- Text has space for icon -->
 							<param name="text">      $VAR[DetailsTimeRemaining]</param>
-							<param name="visible">$EXP[IsDetailsResumable] + $EXP[IsDetailsItemTypeVideo] + $PARAM[show_progress]</param>
+							<param name="visible">$EXP[IsDetailsItemTypeVideoLike] + $EXP[IsDetailsResumable] + $EXP[IsDetailsItemTypeVideo] + $PARAM[show_progress]</param>
 
 							<!-- Round icon -->
 							<control type="group">

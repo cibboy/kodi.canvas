@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">100</defaultcontrol>
+
+	<controls>
+		<include content="Center169AspectRatio">
+			<!-- Composite OSD -->
+			<control type="group">
+				<include content="ShowHideFadeSlideVerticalAnimation">
+					<param name="speed">ANIMATION_MID</param>
+					<param name="visible_condition">WindowOpen</param>
+					<param name="hidden_condition">WindowClose</param>
+				</include>
+				<animation type="Conditional" condition="Control.HasFocus(401) | Control.HasFocus(601)">
+					<effect type="slide" start="0,0" end="0,SCREEN_HEIGHT_NEG" time="ANIMATION_MID" tween="circle" easing="out" />
+				</animation>
+				<!-- Hide when an advanced setting dialog is open -->
+				<animation type="Conditional" condition="Window.IsVisible(DialogSettings.xml)">
+					<effect type="fade" start="100" end="0" time="ANIMATION_MID" tween="linear" easing="out" />
+				</animation>
+
+				<!-- OSD -->
+				<include content="PlayerOSD">
+					<param name="onleft">SetFocus(204)</param>
+					<param name="onright">SetFocus(201)</param>
+					<param name="ondown">SetFocus(400)</param>
+
+					<!-- Media info -->
+					<control type="group">
+						<left>PADDING_BASE_125P</left>
+						<right>PADDING_BASE_125P</right>
+
+						<!-- Title/clearlogo -->
+						<control type="group">
+							<bottom>335</bottom>
+							<height>HEIGHT_OSD_CLEARLOGO</height>
+
+							<!-- Title (if clearlogo not available) -->
+							<control type="label">
+								<visible>![$EXP[IsDetailsClearlogoAvailable]]</visible>
+								<width>1000</width>
+								<height>HEIGHT_OSD_CLEARLOGO</height>
+								<aligny>center</aligny>
+								<font>TITLE1</font>
+								<textcolor>HIGHLIGHT</textcolor>
+								<label>$VAR[DetailsTitle]</label>
+							</control>
+							<!-- Clearlogo -->
+							<control type="image">
+								<width>WIDTH_DETAILS_CLEARLOGO</width>
+								<height>HEIGHT_OSD_CLEARLOGO</height>
+								<fadetime>ANIMATION_SLOW</fadetime>
+								<texture background="true">$VAR[DetailsClearlogo]</texture>
+								<aspectratio align="left">keep</aspectratio>
+							</control>
+						</control>
+
+						<!-- Details left -->
+						<control type="grouplist">
+							<orientation>horizontal</orientation>
+							<itemgap>PADDING_BASE_30P</itemgap>
+							<usecontrolcoords>true</usecontrolcoords>
+
+							<bottom>275</bottom>
+							<height>FONT_SIZE_SUBTITLE</height>
+
+							<!-- Episode title/album name -->
+							<control type="label">
+								<visible>$EXP[IsDetailsItemTypeEpisode]</visible>
+								<height>FONT_SIZE_SUBTITLE</height>
+								<width max="600">auto</width>
+								<aligny>center</aligny>
+								<font>BODY_STRONG</font>
+								<textcolor>HIGHLIGHT</textcolor>
+								<label>$VAR[DetailsTitle2]</label>
+							</control>
+
+							<!-- Episode number -->
+							<include content="PlayerOSDInfoText">	
+								<param name="visible">$EXP[HasDetailsEpisodeNumber]</param>
+								<param name="text">$VAR[DetailsEpisodeNumber]</param>
+							</include>
+							<!-- Premiered -->
+							<include content="PlayerOSDInfoText">	
+								<param name="visible">$EXP[HasDetailsEpisodePremiered]</param>
+								<param name="text">$VAR[DetailsEpisodePremiere]</param>
+							</include>
+							<!-- Year -->
+							<include content="PlayerOSDInfoText">	
+								<param name="visible">$EXP[HasDetailsYear]</param>
+								<param name="text">$VAR[DetailsYear]</param>
+							</include>
+							<!-- Duration -->
+							<include content="PlayerOSDInfoText">	
+								<param name="visible">$EXP[HasDetailsDuration]</param>
+								<param name="text">$VAR[DetailsDuration]</param>
+							</include>
+						</control>
+						<!-- Details right -->
+						<control type="grouplist">
+							<orientation>horizontal</orientation>
+							<itemgap>PADDING_BASE_10P</itemgap>
+							<usecontrolcoords>true</usecontrolcoords>
+
+							<bottom>267</bottom>
+							<right>0</right>
+							<height>FONT_SIZE_SUBTITLE</height>
+							<align>right</align>
+
+							<!-- Resolution -->
+							<include content="DetailsInfoTag">
+								<param name="text">$VAR[DetailsResolution]</param>
+								<param name="visible">$EXP[HasDetailsResolution]</param>
+							</include>
+							<!-- HDR -->
+							<include content="DetailsInfoTag">
+								<param name="text">$VAR[DetailsHdrType]</param>
+								<param name="visible">$EXP[IsDetailsHdr]</param>
+							</include>
+							<!-- Audio channels -->
+							<include content="DetailsInfoTag">
+								<param name="text">$VAR[DetailsAudioChannels]</param>
+								<param name="visible">$EXP[HasDetailsAudioChannels]</param>
+							</include>
+						</control>
+					</control>
+
+					<!-- Additional controls -->
+					<control type="grouplist" id="200">
+						<orientation>horizontal</orientation>
+						<itemgap>PADDING_BASE_20P_NEG</itemgap>
+						<usecontrolcoords>true</usecontrolcoords>
+						<defaultcontrol>201</defaultcontrol>
+
+						<height>SIZE_OSD_BUTTON_BIG_FOCUS</height>
+						<width>1000</width>
+						<right>PADDING_BASE_125P</right>
+						<centerbottom>PADDING_BASE_125P</centerbottom>
+						<align>right</align>
+
+						<onleft>SetFocus(103)</onleft>
+						<onright>SetFocus(101)</onright>
+						<onup>SetFocus(150)</onup>
+						<ondown>SetFocus(400)</ondown>
+
+						<!-- Subtitles settings -->
+						<include content="PlayerOSDButton">
+							<param name="id">201</param>
+							<param name="size">SIZE_OSD_BUTTON</param>
+							<param name="size_focus">SIZE_OSD_BUTTON_FOCUS</param>
+							<param name="size_icon">SIZE_OSD_BUTTON_ICON</param>
+							<param name="icon">1080p/icons/subtitles.png</param>
+							<param name="flip_icon">true</param>
+							<param name="action">ActivateWindow(osdsubtitlesettings)</param>
+						</include>
+						<!-- Audio settings -->
+						<include content="PlayerOSDButton">
+							<param name="id">202</param>
+							<param name="size">SIZE_OSD_BUTTON</param>
+							<param name="size_focus">SIZE_OSD_BUTTON_FOCUS</param>
+							<param name="size_icon">SIZE_OSD_BUTTON_ICON</param>
+							<param name="icon">1080p/icons/speaker.png</param>
+							<param name="action">ActivateWindow(osdaudiosettings)</param>
+						</include>
+						<!-- Video settings -->
+						<include content="PlayerOSDButton">
+							<param name="id">203</param>
+							<param name="size">SIZE_OSD_BUTTON</param>
+							<param name="size_focus">SIZE_OSD_BUTTON_FOCUS</param>
+							<param name="size_icon">SIZE_OSD_BUTTON_ICON</param>
+							<param name="icon">1080p/icons/tvshows.png</param>
+							<param name="action">ActivateWindow(osdvideosettings)</param>
+						</include>
+						<!-- Color management -->
+						<include content="PlayerOSDButton">
+							<param name="id">204</param>
+							<param name="size">SIZE_OSD_BUTTON</param>
+							<param name="size_focus">SIZE_OSD_BUTTON_FOCUS</param>
+							<param name="size_icon">SIZE_OSD_BUTTON_ICON</param>
+							<param name="icon">1080p/icons/color.png</param>
+							<param name="action">ActivateWindow(osdcmssettings)</param>
+						</include>
+					</control>
+				</include>
+
+				<!-- Full details -->
+				<control type="group">
+					<height>SCREEN_HEIGHT</height>
+					<width>SCREEN_WIDTH</width>
+					<top>SCREEN_HEIGHT</top>
+
+					<!-- Darkening -->
+					<include content="DarkeningLayer">
+						<param name="colordiffuse">BACKGROUND_OPAQUE75</param>
+					</include>
+
+					<!-- Details -->
+					<control type="group">
+						<top>PADDING_BASE_80P</top>
+						<left>PADDING_BASE</left>
+
+						<include content="SelectionDetails">
+							<param name="plot_height">HEIGHT_OSD_PLOT</param>
+							<param name="show_progress">false</param>
+						</include>
+					</control>
+
+					<!-- Actor list -->
+					<control type="grouplist" id="400">
+						<orientation>vertical</orientation>
+						<itemgap>0</itemgap>
+						<usecontrolcoords>true</usecontrolcoords>
+
+						<bottom>0</bottom>
+						<left>PADDING_BASE</left>
+						<height>HEIGHT_LIST_CONTAINER_WITH_LABEL</height>
+						<width>1200</width>	<!-- WIDTH_PERSON_LIST_ITEM_CONTAINER * 5 -->
+						<onup>SetFocus(102)</onup>
+
+						<!-- Focus capture for empty actor list -->
+						<control type="button" id="401">
+							<visible>!Integer.IsGreater(Container(601).NumItems,0)</visible>
+							<width>0</width>
+							<height>0</height>
+							<texturefocus />
+						</control>
+						<!-- Actor list -->
+						<include content="MediaNavActorList">
+							<param name="content">plugin://script.canvas.helper/actors/?dbid=$INFO[Window(home).Property(Player.Item.DBID)]&amp;dbtype=$INFO[Window(home).Property(Player.Item.DBTYPE)]</param>
+						</include>
+					</control>
+
+					<!-- Poster art -->
+					<control type="group">
+						<bottom>PADDING_BASE_125P</bottom>
+						<right>PADDING_BASE</right>
+						<width>WIDTH_DETAILS_POSTER</width>
+						<height>HEIGHT_DETAILS_POSTER</height>
+
+						<include content="ArtListsPoster">
+							<param name="art">$VAR[PlayerOSDPosterArt]</param>
+							<param name="width">WIDTH_DETAILS_POSTER</param>
+							<param name="height">HEIGHT_DETAILS_POSTER</param>
+							<param name="show_decorators">false</param>
+						</include>
+					</control>
+
+					<!-- Studio -->
+					<include content="BottomBar" />
+				</control>
+			</control>
+
+			<!-- Dialog darkening -->
+			<include content="DarkeningLayer">
+				<param name="visible">Window.IsVisible(DialogSettings.xml)</param>
+				<param name="colordiffuse">C9000000</param>
+				<param name="fade_speed">ANIMATION_MID</param>
+			</include>
+
+			<!-- Clock -->
+			<control type="group">
+				<include content="ShowHideFadeSlideVerticalAnimation">
+					<param name="slide_amount">-100</param>
+					<param name="speed">ANIMATION_MID</param>
+					<param name="visible_condition">WindowOpen</param>
+					<param name="hidden_condition">WindowClose</param>
+				</include>
+
+				<include content="TopBar" />
+			</control>
+		</include>
+	</controls>
+</window>

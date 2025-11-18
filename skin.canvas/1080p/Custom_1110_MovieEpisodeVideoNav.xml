@@ -5,6 +5,7 @@
 	<onload>RunScript(script.canvas.helper,play_show_theme)</onload>
 	<onunload condition="$EXP[IsTvShowThemePlaying] + !Window.Next(MyVideoNav.xml) + !Window.Next(VideoFullScreen.xml)">PlayerControl(stop)</onunload>
 	<onunload condition="$EXP[IsTvShowThemePlaying] + !Window.Next(MyVideoNav.xml)">ClearProperty(Player.PlayingTheme,home)</onunload>
+	<onunload condition="$EXP[IsTvShowThemePlaying] + !Window.Next(MyVideoNav.xml)">PlayerControl(RepeatOff)</onunload>
 
 	<controls>
 		<include content="Center169AspectRatio">

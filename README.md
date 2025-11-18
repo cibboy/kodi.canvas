@@ -15,6 +15,9 @@ TODO:
   - MyPics.xml: media > library > pictures
 - manca il caricamento della lista pictures
 - constant notification on home/navigation for currently playing item (escludere theme in tv shows)
+- dialogmusicinfo.xml
+- musicvisualisation.xml
+- musicosd.xml
 
 
 

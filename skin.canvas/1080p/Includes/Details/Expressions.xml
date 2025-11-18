@@ -35,6 +35,8 @@
 	</expression>
 	<!-- Is active element video? -->
 	<expression name="IsDetailsItemTypeVideo">$EXP[IsDetailsItemTypeEpisode] | $EXP[IsDetailsItemTypeMovie]</expression>
+	<!-- Is active element video-like? -->
+	<expression name="IsDetailsItemTypeVideoLike">$EXP[IsDetailsItemTypeEpisode] | $EXP[IsDetailsItemTypeSeason] | $EXP[IsDetailsItemTypeTvShow] | $EXP[IsDetailsItemTypeMovie]</expression>
 
 
 	<!-- Is custom clearlogo available? -->
