@@ -108,10 +108,10 @@
 					<onup>Close</onup>
 					<ondown>SetFocus(102)</ondown>
 					<!-- [Video OSD] With click activate frame advance, with left/right advance by frame (seek otherwise)-->
-					<onleft condition="!String.IsEqual(Window(videoosd).Property(FrameAdvance),true) | !$EXP[IsVideoPlayerVisible]">PlayerControl(SmallSkipBackward)</onleft>
-					<onleft condition="String.IsEqual(Window(videoosd).Property(FrameAdvance),true)">Seek(-1)</onleft>
-					<onright condition="!String.IsEqual(Window(videoosd).Property(FrameAdvance),true) | !$EXP[IsVideoPlayerVisible]">PlayerControl(SmallSkipForward)</onright>
-					<onright condition="String.IsEqual(Window(videoosd).Property(FrameAdvance),true)">PlayerControl(FrameAdvance(1))</onright>
+					<onleft condition="[$EXP[IsVideoPlayerVisible] + !String.IsEqual(Window(videoosd).Property(FrameAdvance),true)] | !$EXP[IsVideoPlayerVisible]">PlayerControl(SmallSkipBackward)</onleft>
+					<onleft condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(Window(videoosd).Property(FrameAdvance),true)">Seek(-1)</onleft>
+					<onright condition="[$EXP[IsVideoPlayerVisible] + !String.IsEqual(Window(videoosd).Property(FrameAdvance),true)] | !$EXP[IsVideoPlayerVisible]">PlayerControl(SmallSkipForward)</onright>
+					<onright condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(Window(videoosd).Property(FrameAdvance),true)">PlayerControl(FrameAdvance(1))</onright>
 					<onclick condition="$EXP[IsVideoPlayerVisible] + !String.IsEqual(Window(videoosd).Property(FrameAdvance),true)">SetProperty(FrameAdvance,true,videoosd)</onclick>
 					<onclick condition="$EXP[IsVideoPlayerVisible] + String.IsEqual(Window(videoosd).Property(FrameAdvance),true)">ClearProperty(FrameAdvance)</onclick>
 				</control>

@@ -133,36 +133,6 @@
 		</definition>
 	</include>
 
-	<!-- Full screen background with blur -->
-	<include name="BackgroundBlur">
-		<definition>
-			<control type="group">
-				<!-- Fallback -->
-				<control type="image">
-					<width>100%</width>
-					<height>100%</height>
-					<texture flipy="false">1080p/fallback/bg.png</texture>
-				</control>
-
-				<!-- Background blur -->
-				<control type="image">
-					<width>100%</width>
-					<height>100%</height>
-					<fadetime>ANIMATION_CRAWL</fadetime>
-					<texture>$INFO[Window(home).Property(Item.Blur)]</texture>
-				</control>
-
-				<!-- Darkening overlay -->
-				<control type="image">
-					<width>100%</width>
-					<height>100%</height>
-					<fadetime>ANIMATION_CRAWL</fadetime>
-					<texture colordiffuse="BACKGROUND_OPAQUE75" flipx="true" flipy="true">diffuse.png</texture>
-				</control>
-			</control>
-		</definition>
-	</include>
-
 	<!-- Full screen darkening layer -->
 	<include name="DarkeningLayer">
 		<param name="visible">true</param>

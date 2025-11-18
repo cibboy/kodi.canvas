@@ -64,7 +64,7 @@
 							<bottom>275</bottom>
 							<height>FONT_SIZE_SUBTITLE</height>
 
-							<!-- Episode title/album name -->
+							<!-- Episode title -->
 							<control type="label">
 								<visible>$EXP[IsDetailsItemTypeEpisode]</visible>
 								<height>FONT_SIZE_SUBTITLE</height>

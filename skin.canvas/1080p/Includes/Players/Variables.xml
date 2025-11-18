@@ -56,6 +56,15 @@
 		<value condition="$EXP[IsVideoPlayerVisible]">1080p/icons/ff.png</value>
 		<value>1080p/icons/next.png</value>
 	</variable>
+	<variable name="PlayerOSDRepeatIcon">
+		<value condition="Playlist.IsRepeat">1080p/icons/repeat-all.png</value>
+		<value condition="Playlist.IsRepeatOne">1080p/icons/repeat-one.png</value>
+		<value>1080p/icons/repeat-off.png</value>
+	</variable>
+	<variable name="PlayerOSDShuffleIcon">
+		<value condition="Playlist.IsRandom">1080p/icons/shuffle-on.png</value>
+		<value>1080p/icons/shuffle-off.png</value>
+	</variable>
 
 	
 	<!-- Constants -->
@@ -80,4 +89,7 @@
 	<constant name="HEIGHT_NEXTVIDEO_SECTION">341</constant>
 	<constant name="HEIGHT_NEXTVIDEO_HINTS">35</constant>
 	<constant name="SIZE_NEXTVIDEO_HINTS_ICON">28</constant>
+
+	<constant name="SIZE_PLAYER_ALBUMART">500</constant>
+	<constant name="WIDTH_PLAYER_MUSICINFO">920</constant>	<!-- SCREEN_WIDTH - (PADDING_BASE_200P * 2) - SIZE_PLAYER_ALBUMART - PADDING_BASE -->
 </includes>
