@@ -92,6 +92,7 @@
 
 	<!-- Generic OSD -->
 	<include name="PlayerOSD">
+		<param name="show_stop">false</param>
 		<param name="onleft">SetFocus(100)</param>
 		<param name="onright">SetFocus(100)</param>
 		<param name="ondown">noop</param>
@@ -170,6 +171,15 @@
 						<param name="size_icon">SIZE_OSD_BUTTON_ICON</param>
 						<param name="icon">$VAR[PlayerOSDNextForwardIcon]</param>
 						<param name="action">$VAR[PlayerOSDNextForwardAction]</param>
+					</include>
+					<!-- Stop -->
+					<include content="PlayerOSDButton">
+						<param name="id">104</param>
+						<param name="size">SIZE_OSD_BUTTON</param>
+						<param name="size_focus">SIZE_OSD_BUTTON_FOCUS</param>
+						<param name="size_icon">SIZE_OSD_BUTTON_ICON</param>
+						<param name="icon">1080p/icons/stop.png</param>
+						<param name="action">PlayerControl(Stop)</param>
 					</include>
 				</control>
 

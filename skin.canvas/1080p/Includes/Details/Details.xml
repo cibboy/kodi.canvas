@@ -548,4 +548,112 @@
 			</control>
 		</definition>
 	</include>
+
+	<!-- Music info details -->
+	<include name="MusicInfoDetails">
+		<param name="show_art">true</param>
+		<param name="art"></param>
+		<param name="art_fallback"></param>
+
+		<definition>
+			<!-- Background -->
+			<control type="image">
+				<!-- Fake blur by using huge zoom, so it's responsive to changes -->
+				<animation condition="true" effect="zoom" center="auto" end="10000" time="0">Conditional</animation>
+				<!-- Continuous fading and back + slide (VERY slow) to give a sense of motion -->
+				<animation condition="true" effect="fade" start="100" end="50" time="5000" pulse="true">Conditional</animation>
+				<animation condition="true" effect="slide" start="-500,-200" end="500,200" time="360000" pulse="true">Conditional</animation>
+				<width>100%</width>
+				<height>100%</height>
+				<texture fallback="1080p/fallback/bg.png">$PARAM[art]</texture>
+				<aspectratio>scale</aspectratio>
+			</control>
+			<!-- Darkening -->
+			<include content="DarkeningLayer" />
+
+			<!-- Art and info -->
+			<control type="group">
+				<top>PADDING_BASE_150P</top>
+				<bottom>PADDING_BASE_200P</bottom>
+				<right>PADDING_BASE_200P</right>
+				<left>PADDING_BASE_200P</left>
+
+				<!-- Cover -->
+				<control type="image">
+					<visible>$PARAM[show_art]</visible>
+					<width>SIZE_PLAYER_ALBUMART</width>
+					<height>SIZE_PLAYER_ALBUMART</height>
+					<texture fallback="$PARAM[art_fallback]" background="true" diffuse="1080p/diffuse/square.png">$PARAM[art]</texture>
+					<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND_OPAQUE50">1080p/diffuse/shadow-art.png</bordertexture>
+					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+				</control>
+
+				<!-- Info -->
+				<control type="grouplist">
+					<orientation>vertical</orientation>
+					<itemgap>PADDING_BASE_20P</itemgap>
+					<usecontrolcoords>true</usecontrolcoords>
+
+					<width>WIDTH_PLAYER_MUSICINFO</width>
+					<height>100%</height>
+					<right>0</right>
+
+					<!-- Title -->
+					<control type="label">
+						<width max="WIDTH_PLAYER_MUSICINFO">auto</width>
+						<height>FONT_SIZE_TITLE1</height>
+						<font>TITLE2</font>
+						<textcolor>HIGHLIGHT</textcolor>
+						<label>$VAR[DetailsTitle]</label>
+					</control>
+
+					<!-- Album name -->
+					<control type="label">
+						<top>PADDING_BASE_10P</top>
+						<width max="WIDTH_PLAYER_MUSICINFO">auto</width>
+						<height>HEIGHT_DETAILS_INFOLINE</height>
+						<font>SUBTITLE</font>
+						<label>$VAR[DetailsTitle2]</label>
+					</control>
+
+					<!-- Track number and year -->
+					<control type="grouplist">
+						<orientation>horizontal</orientation>
+						<itemgap>PADDING_BASE_30P</itemgap>
+						<usecontrolcoords>true</usecontrolcoords>
+
+						<width>WIDTH_PLAYER_MUSICINFO</width>
+						<height>HEIGHT_DETAILS_INFOLINE_TEXT</height>
+
+						<!-- Track number -->
+						<control type="label">
+							<visible>$EXP[HasDetailsTrackNumber]</visible>
+							<width>auto</width>
+							<height>HEIGHT_DETAILS_INFOLINE_TEXT</height>
+							<font>CAPTION_STRONG</font>
+							<label>$VAR[DetailsTrackNumber]</label>
+						</control>
+
+						<!-- Year -->
+						<control type="label">
+							<visible>$EXP[HasDetailsYear]</visible>
+							<width>auto</width>
+							<height>HEIGHT_DETAILS_INFOLINE_TEXT</height>
+							<font>CAPTION_STRONG</font>
+							<label>$VAR[DetailsYear]</label>
+						</control>
+					</control>
+
+					<!-- Artist -->
+					<control type="label">
+						<width max="WIDTH_PLAYER_MUSICINFO">auto</width>
+						<height>HEIGHT_DETAILS_INFOLINE_TEXT</height>
+						<font>CAPTION_STRONG</font>
+						<label>$VAR[DetailsArtist]</label>
+					</control>
+				</control>
+			</control>
+		</definition>
+	</include>
 </includes>

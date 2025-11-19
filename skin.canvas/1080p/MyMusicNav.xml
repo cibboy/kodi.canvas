@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">9999</defaultcontrol>
+	<views>501,502</views>
+	<onunload>ClearProperty(LibraryNav,music)</onunload>
+
+	<controls>
+		<!--
+			View type redirect button (based on content/source).
+			Autochange the view type if not the expected one.
+		-->
+		<control type="button" id="9999">
+			<visible allowhiddenfocus="true">false</visible>
+			<onfocus condition="!$EXP[IsMediaNavLibraryNavigation]">SetFocus(501)</onfocus>
+			<onfocus condition="$EXP[IsMediaNavLibraryNavigation] + !Control.IsVisible(502)">Sendclick(2)</onfocus>
+			<onfocus condition="$EXP[IsMediaNavLibraryNavigation]">SetFocus(502)</onfocus>
+			<onfocus condition="$EXP[IsMediaNavLibraryNavigation]">SetProperty(LibraryNav,true,music)</onfocus>
+		</control>
+		<!-- View type selector button (hidden as not used by the user) -->
+		<control type="button" id="2">
+			<visible>false</visible>
+		</control>
+
+		<include content="Center169AspectRatio">
+			<!-- 501 view for season/episode navigation from home -->
+			<control type="group">
+				<visible>!$EXP[IsMediaNavLibraryNavigation]</visible>
+
+				<!-- Background with blurred quadrants -->
+				<include content="BackgroundQuadrantBlur" />
+
+				<control type="group">
+					<top>PADDING_BASE_80P</top>
+					<left>PADDING_BASE</left>
+
+					<!--todo-->
+					<control type="list" id="501">
+						<itemlayout width="500" height="100">
+							<control type="label">
+								<label>$INFO[ListItem.Title]</label>
+							</control>
+						</itemlayout>
+
+						<focusedlayout width="500" height="100">
+							<control type="label">
+								<label>$INFO[ListItem.Title]</label>
+							</control>
+						</focusedlayout>
+					</control>
+				</control>
+			</control>
+
+			<!-- 502 view for navigation from settings > library -->
+			<include content="MediaNavItemListForLibrary">
+				<param name="title">Music library</param>
+			</include>
+
+			<!-- Clock -->
+			<include content="TopBar" />
+
+			<!-- Studio -->
+			<control type="group">
+				<visible>!$EXP[IsMediaNavLibraryNavigation]</visible>
+				<include content="BottomBar" />
+			</control>
+		</include>
+	</controls>
+</window>

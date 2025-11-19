@@ -11,7 +11,6 @@ TOFIX:
 - actors: onclick deve fare l'action nativa (visualizza i film/episodi con quell'attore?)
 - testare rimozione media: se serve attivare l'opzione nelle impostazioni bisogna aggiornare first run wizard (visual + script)!
 - dialogmusicinfo.xml uguale a musicvisualization.xml + percorso file e codec audio (simile a video)?
-- stop in musicosd?
 
 TODO:
 - dialog in settings da fare:
@@ -22,6 +21,23 @@ TODO:
 - dialogmusicinfo.xml
 - musicvisualisation.xml
 - musicosd.xml
+
+
+BLIND WORK DONE:
+- video nav from library: ora è un include
+- music nav: nuovo (from library dovrebbe andare, base è DA FARE)
+- aggiunto stop a music osd
+- spostato anno dopo track number in music viz
+- music viz usa include
+- dialogmusicinfo: nuovo
+- modifica variabile per content lista musica su home
+
+
+<onclick>PlayerControl(Random)</onclick>
+<onclick>PlayMedia(musicdb://songs/)</onclick>
+
+<onclick>PlayerControl(RandomOff)</onclick>
+<onclick>PlayMedia(musicdb://albums/AlbumID/)</onclick>
 
 
 

@@ -44,6 +44,7 @@
 		<value condition="String.IsEqual(Window(home).Property(ActiveListId),106)">$VAR[HomeMoviesContent]</value>
 		<value condition="String.IsEqual(Window(home).Property(ActiveListId),108)">$VAR[HomeTVShowsContent]</value>
 		<value condition="String.IsEqual(Window(home).Property(ActiveListId),110)">$VAR[HomeYogaContent]</value>
+		<value condition="String.IsEqual(Window(home).Property(ActiveListId),112) + String.IsEqual(Skin.String(canvas.homemusic),album)">$VAR[HomeAlbumsContent]</value>
 		<value condition="String.IsEqual(Window(home).Property(ActiveListId),112)">$VAR[HomeSongsContent]</value>
 		<value>special://skin/playlists/empty.xsp</value>
 	</variable>
@@ -57,6 +58,7 @@
 	<variable name="HomeTVShowsContent"><value>special://skin/playlists/tvshows.xsp</value></variable>
 	<variable name="HomeYogaContent"><value>plugin://script.canvas.helper/yoga/</value></variable>
 	<variable name="HomeSongsContent"><value>special://skin/playlists/songs.xsp</value></variable>
+	<variable name="HomeAlbumsContent"><value>special://skin/playlists/albums.xsp</value></variable>
 	
 	
 	<!-- Icons -->

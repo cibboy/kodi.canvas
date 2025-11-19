@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 	<!-- Is library navigation? -->
-	<expression name="IsMediaNavLibraryNavigation">[Window.IsVisible(MyVideoNav.xml) + String.IsEqual(Window(videos).Property(LibraryNav),true)] | Window.Previous(SettingsCategory.xml)</expression>
-
+	<expression name="IsMediaNavLibraryNavigation">
+		[Window.IsVisible(MyVideoNav.xml) + String.IsEqual(Window(videos).Property(LibraryNav),true)] |
+		[Window.IsVisible(MyMusicNav.xml) + String.IsEqual(Window(music).Property(LibraryNav),true)] |
+		Window.Previous(SettingsCategory.xml)
+	</expression>
 
 	<!-- Is all new? -->
 	<expression name="IsMediaNavAllNew">

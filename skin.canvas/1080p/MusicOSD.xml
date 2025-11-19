@@ -21,6 +21,7 @@
 
 				<!-- OSD -->
 				<include content="PlayerOSD">
+					<param name="show_stop">true</param>
 					<param name="onleft">SetFocus(203)</param>
 					<param name="onright">SetFocus(201)</param>
 					<param name="ondown">noop</param>
@@ -81,7 +82,7 @@
 						<centerbottom>PADDING_BASE_125P</centerbottom>
 						<align>right</align>
 
-						<onleft>SetFocus(103)</onleft>
+						<onleft>SetFocus(104)</onleft>
 						<onright>SetFocus(101)</onright>
 						<onup>SetFocus(150)</onup>
 

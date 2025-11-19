@@ -1,17 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
+	<!-- Prevent opening if from library navigation, as it wouldn't work as expected -->
+	<defaultcontrol always="true">400</defaultcontrol>
+
 	<controls>
 		<include content="Center169AspectRatio">
-			<!-- Background with blurred quadrants -->
-			<include content="BackgroundQuadrantBlur" />
+			<!-- Full version -->
+			<control type="group">
+				<visible>!$EXP[IsMediaNavLibraryNavigation]</visible>
 
-			<!--todo-->
+				<include content="MusicInfoDetails">
+					<param name="art">$INFO[ListItem.Art(thumb)]</param>
+					<param name="art_fallback">1080p/fallback/music.png</param>
+				</include>
 
-			<!-- Clock -->
-			<include content="TopBar" />
+				<!-- Additional details -->
+				<control type="grouplist">
+					<itemgap>PADDING_BASE_10P</itemgap>
 
-			<!-- Studio -->
-			<include content="BottomBar" />
+					<bottom>PADDING_BASE</bottom>
+					<right>PADDING_BASE_200P</right>
+					<left>PADDING_BASE_200P</left>
+
+					<!-- Path -->
+					<include content="DetailsInfoLabelValue">
+						<param name="label">Path</param>
+						<param name="value">$VAR[DetailsFilePath]</param>
+						<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+						<param name="visible">$EXP[HasDetailsFilePath]</param>
+						<param name="width_limit">1500</param>
+					</include>
+
+					<!-- Audio codec and channels -->
+					<include content="DetailsInfoCustom">
+						<param name="visible">[$EXP[HasDetailsAudioCodecStream1] + $EXP[HasDetailsAudioChannelsStream1]]</param>
+
+						<!-- Icon -->
+						<control type="image">
+							<width>HEIGHT_DETAILS_INFOLINE_CUSTOM</width>
+							<height>HEIGHT_DETAILS_INFOLINE_CUSTOM</height>
+							<texture colordiffuse="$VAR[ContrastTextForegroundColor]">1080p/icons/speaker.png</texture>
+						</control>
+
+						<!-- Codec and channle -->
+						<include content="DetailsInfoTag">
+							<param name="text">$VAR[DetailsAudioStream1]</param>
+							<param name="visible">$EXP[HasDetailsAudioCodecStream1] + $EXP[HasDetailsAudioChannelsStream1]</param>
+						</include>
+					</include>
+				</control>
+
+				<!-- Actions -->
+				<control type="grouplist" id="400">
+					<itemgap>0</itemgap>
+					<orientation>horizontal</orientation>
+					<usecontrolcoords>true</usecontrolcoords>
+					<align>left</align>
+					<defaultcontrol always="true">6</defaultcontrol>
+
+					<width>WIDTH_PLAYER_MUSICINFO</width>
+					<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
+					<right>PADDING_BASE_200P</right>
+					<top>570</top>	<!-- PADDING_BASE_150P + SIZE_PLAYER_ALBUMART - HEIGHT_MEDIANAV_ACTIONBUTTON -->
+
+					<!-- Refresh -->
+					<include content="DialogInfoActionButton">
+						<param name="id">6</param>
+						<param name="icon">1080p/icons/reload.png</param>
+						<param name="label">$VAR[DialogVideoInfoRefreshButtonLabel]</param>
+					</include>
+					<!-- Manage art -->
+					<include content="DialogInfoActionButton">
+						<param name="id">10</param>
+						<param name="icon">1080p/icons/interface.png</param>
+						<param name="label">$VAR[DialogVideoInfoManageArtButtonLabel]</param>
+					</include>
+				</control>
+
+				<!-- Clock -->
+				<include content="TopBar" />
+			</control>
+
+			<!-- Library navigation integrated version -->
+			<control type="group">
+				<visible>$EXP[IsMediaNavLibraryNavigation] + !$EXP[IsSettingsAnyDialogActive]</visible>
+
+				<include content="DialogContainer">
+					<param name="close_animation">true</param>
+
+					<include content="DialogContainerContent">
+						<control type="grouplist" id="400">
+							<itemgap>0</itemgap>
+							<orientation>horizontal</orientation>
+							<usecontrolcoords>true</usecontrolcoords>
+							<defaultcontrol always="true">6</defaultcontrol>
+
+							<width>100%</width>
+
+							<!-- Refresh -->
+							<include content="DialogInfoActionButton">
+								<param name="id">6</param>
+								<param name="icon">1080p/icons/reload.png</param>
+								<param name="label">$VAR[DialogVideoInfoRefreshButtonLabel]</param>
+							</include>
+							<!-- Manage art -->
+							<include content="DialogInfoActionButton">
+								<param name="id">10</param>
+								<param name="icon">1080p/icons/interface.png</param>
+								<param name="label">$VAR[DialogVideoInfoManageArtButtonLabel]</param>
+							</include>
+						</control>
+					</include>
+				</include>
+			</control>
 		</include>
 	</controls>
 </window>
