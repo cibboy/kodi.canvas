@@ -398,6 +398,45 @@
 	</include>
 
 
+	<!-- Album song list layout -->
+	<include name="AlbumNavSongListLayoutContent">
+		<param name="font"></param>
+
+		<definition>
+			<control type="group">
+				<width>WIDTH_ALBUMNAV_ITEM</width>
+				<height>HEIGHT_ALBUMNAV_ITEM</height>
+
+				<!-- Playing icon -->
+				<control type="image">
+					<width>SIZE_ALBUMNAV_ICON</width>
+					<height>SIZE_ALBUMNAV_ICON</height>
+					<top>10</top>
+					<texture colordiffuse="$VAR[ContrastTextForegroundColor]">$VAR[AlbumNavSongIcon]</texture>
+				</control>
+				<!-- Song title -->
+				<control type="label">
+					<left>40</left>
+					<width max="595">auto</width>	<!-- max: WIDTH_ALBUMNAV_ITEM - SIZE_ALBUMNAV_ICON - (40 * 2) - 100 -->
+					<font>$PARAM[font]</font>
+					<textcolor>$VAR[ContrastTextForegroundColor]</textcolor>
+					<selectedcolor>$VAR[ContrastTextForegroundColor]</selectedcolor>
+					<label>$INFO[ListItem.Title]</label>
+				</control>
+				<!-- Duration -->
+				<control type="label">
+					<right>0</right>
+					<width>100</width>
+					<font>$PARAM[font]</font>
+					<textcolor>$VAR[ContrastTextForegroundColor]</textcolor>
+					<selectedcolor>$VAR[ContrastTextForegroundColor]</selectedcolor>
+					<label>$INFO[ListItem.Duration]</label>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+
 	<!-- File nav background split -->
 	<include name="FileNavBackgroundSplit">
 		<definition>

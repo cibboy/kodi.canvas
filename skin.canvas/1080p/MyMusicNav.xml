@@ -22,32 +22,96 @@
 		</control>
 
 		<include content="Center169AspectRatio">
-			<!-- 501 view for season/episode navigation from home -->
+			<!-- 501 view for album navigation from home -->
 			<control type="group">
 				<visible>!$EXP[IsMediaNavLibraryNavigation]</visible>
 
-				<!-- Blurred background -->
-				<include content="BackgroundSingleBlur" />
+				<!-- Background -->
+				<include content="BackgroundSingleBlur">
+					<param name="darken">false</param>
+				</include>
+				<!-- Darkening overlay -->
+				<control type="image">
+					<width>100%</width>
+					<height>100%</height>
+					<fadetime>ANIMATION_CRAWL</fadetime>
+					<texture colordiffuse="BACKGROUND_OPAQUE50" diffuse="1080p/diffuse/background.png" flipx="true" flipy="true">diffuse.png</texture>
+				</control>
 
 				<control type="group">
 					<top>PADDING_BASE_80P</top>
-					<left>PADDING_BASE</left>
+					<left>PADDING_BASE_200P</left>
 
-					<!--todo-->
-					<control type="list" id="501">
-						<visible>!$EXP[IsMediaNavLibraryNavigation]</visible>
-						<itemlayout width="500" height="100">
-							<control type="label">
-								<label>$INFO[ListItem.Title]</label>
-							</control>
-						</itemlayout>
+					<!-- Details -->
+					<control type="grouplist">
+						<itemgap>PADDING_BASE_20P</itemgap>
 
-						<focusedlayout width="500" height="100">
+						<!-- Album title -->
+						<control type="group">
+							<height>HEIGHT_DETAILS_TITLE_SECTION</height>
 							<control type="label">
-								<label>$INFO[ListItem.Title]</label>
+								<top>40</top>
+								<width>1400</width>
+								<height>HEIGHT_DETAILS_TITLE</height>
+								<aligny>center</aligny>
+								<font>TITLE1</font>
+								<textcolor>$VAR[ContrastTextHighlightColor]</textcolor>
+								<label>$INFO[ListItem.Album]</label>
 							</control>
-						</focusedlayout>
+						</control>
+
+						<!-- Year -->
+						<include content="DetailsInfoText">
+							<param name="text">$INFO[ListItem.Year]</param>
+							<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+						</include>
+
+						<!-- Artist -->
+						<include content="DetailsInfoText">
+							<param name="text">$INFO[ListItem.Artist]</param>
+							<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+						</include>
 					</control>
+
+					<!-- Cover -->
+					<control type="image">
+						<top>PADDING_BASE_200P</top>
+						<right>PADDING_BASE_200P</right>
+						<width>SIZE_PLAYER_ALBUMART</width>
+						<height>SIZE_PLAYER_ALBUMART</height>
+						<texture fallback="1080p/fallback/music.png" background="true" diffuse="1080p/diffuse/square.png">$INFO[ListItem.Art(thumb)]</texture>
+						<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND_OPAQUE50">1080p/diffuse/shadow-art.png</bordertexture>
+						<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
+						<aspectratio scalediffuse="false">scale</aspectratio>
+					</control>
+
+					<!-- Available songs -->
+					<control type="group">
+						<top>PADDING_BASE_200P</top>
+						<bottom>PADDING_BASE_150P</bottom>
+						<left>PADDING_BASE_50P</left>
+
+						<control type="list" id="501">
+							<visible>!$EXP[IsMediaNavLibraryNavigation]</visible>
+							<top>PADDING_BASE_150P</top>
+							<bottom>0</bottom>
+
+							<itemlayout width="WIDTH_ALBUMNAV_ITEM" height="HEIGHT_ALBUMNAV_ITEM">
+								<include content="AlbumNavSongListLayoutContent">
+									<param name="font">CAPTION</param>
+								</include>
+							</itemlayout>
+
+							<focusedlayout width="WIDTH_ALBUMNAV_ITEM" height="HEIGHT_ALBUMNAV_ITEM">
+								<include content="AlbumNavSongListLayoutContent">
+									<param name="font">CAPTION_STRONG</param>
+								</include>
+							</focusedlayout>
+						</control>
+					</control>
+
+					<!-- Additional controls -->
+					<!--todo: play all-->
 				</control>
 			</control>
 

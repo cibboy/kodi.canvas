@@ -135,13 +135,28 @@
 
 	<!-- Full screen background with single blur -->
 	<include name="BackgroundSingleBlur">
+		<param name="darken">true</param>
+
 		<definition>
+			<!-- Fallback -->
+			<control type="image">
+				<width>100%</width>
+				<height>100%</height>
+				<texture flipy="false">1080p/fallback/bg.png</texture>
+			</control>
+
+			<!-- Blur -->
 			<control type="image">
 				<width>100%</width>
 				<height>100%</height>
 				<fadetime>ANIMATION_CRAWL</fadetime>
 				<texture>$VAR[BlurArt]</texture>
 			</control>
+
+			<!-- Darkening -->
+			<include content="DarkeningLayer">
+				<param name="visible">$PARAM[darken]</param>
+			</include>
 		</definition>
 	</include>
 

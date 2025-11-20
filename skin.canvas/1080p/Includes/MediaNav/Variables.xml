@@ -55,6 +55,10 @@
 	<variable name="MediaNavGoToShowIcon"><value>1080p/icons/tvshows.png</value></variable>
 	<variable name="MediaNavInfoIcon"><value>1080p/icons/info.png</value></variable>
 	<variable name="MediaNavMoreIcon"><value>1080p/icons/more.png</value></variable>
+	<variable name="AlbumNavSongIcon">
+		<value condition="ListItem.IsPlaying">1080p/icons/play.png</value>
+		<value>1080p/icons/music.png</value>
+	</variable>
 
 
 	<!-- Constants -->
@@ -71,6 +75,10 @@
 
 	<constant name="SIZE_MEDIANAV_PREVNEXT_INDICATOR">80</constant>
 	<constant name="OFFSET_MEDIANAV_TOP_PREVNEXT_INDICATOR">141</constant>		<!-- HEIGHT_LANDSCAPE / 2 -->
+
+	<constant name="WIDTH_ALBUMNAV_ITEM">800</constant>
+	<constant name="HEIGHT_ALBUMNAV_ITEM">50</constant>
+	<constant name="SIZE_ALBUMNAV_ICON">25</constant>
 
 	<constant name="SIZE_FILENAV_ITEM">150</constant>
 	<constant name="SIZE_FILENAV_ICON">70</constant>

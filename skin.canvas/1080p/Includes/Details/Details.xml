@@ -558,8 +558,6 @@
 		<definition>
 			<!-- Blurred background -->
 			<include content="BackgroundSingleBlur" />
-			<!-- Darkening -->
-			<include content="DarkeningLayer" />
 
 			<!-- Art and info -->
 			<control type="group">

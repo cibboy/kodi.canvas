@@ -43,7 +43,7 @@
 	</variable>
 	<!-- Blur image -->
 	<variable name="BlurArt">
-		<value condition="$EXP[Window.IsActive(12006)]">$INFO[Window(12006).Property(Item.Blur)]</value>
+		<value condition="Window.IsActive(12006)">$INFO[Window(12006).Property(Item.Blur)]</value>
 		<value>$INFO[Window(home).Property(Item.Blur)]</value>
 	</variable>
 </includes>
