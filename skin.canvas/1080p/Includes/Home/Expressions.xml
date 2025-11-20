@@ -35,13 +35,20 @@
 		$EXP[IsHomeMenuMoving]
 	</expression>
 
+	<!-- Is home music active? -->
+	<expression name="IsHomeMusicActive">Integer.IsEqual(Container(200).Position,4)</expression>
+	<!-- Is home pictures active? -->
+	<expression name="IsHomePicturesActive">Integer.IsEqual(Container(200).Position,5)</expression>
+
 	<!-- Is home music type albums? -->
 	<expression name="IsHomeMusicTypeAlbums">String.IsEqual(Skin.String(canvas.homemusic),album)</expression>
+	<!-- Is home picture type albums? -->
+	<expression name="IsHomePictureTypeAlbums">String.IsEqual(Skin.String(canvas.homepicture),album)</expression>
 
 	<!-- Is menu flyout visible? -->
 	<expression name="IsHomeMenuFlyoutVisible">Control.HasFocus(1000) | Control.HasFocus(1001)</expression>
 	<!-- Is filter flyout visible? -->
-	<expression name="IsHomeFilterFlyoutVisible">Control.HasFocus(1100) | Control.HasFocus(1101)</expression>
+	<expression name="IsHomeFilterFlyoutVisible">Control.HasFocus(1100)</expression>
 	<!--
 		Is any flyout visible? Consider:
 		- Menu flyout

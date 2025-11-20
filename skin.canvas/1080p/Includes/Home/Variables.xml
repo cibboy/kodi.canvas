@@ -66,15 +66,20 @@
 		<value condition="$EXP[IsHomeMusicTypeAlbums]">ActivateWindow(music,musicdb://albums/$INFO[ListItem.DBID],return)</value>
 		<value>PlayMedia($INFO[ListItem.FileNameAndPath],noresume,playoffset=0)</value>
 	</variable>
-	<!-- Home music type onclick action -->
-	<variable name="HomeMusicTypeOnClick">
-		<value condition="$EXP[IsHomeMusicTypeAlbums]">Skin.SetString(canvas.homemusic,song)</value>
-		<value>Skin.SetString(canvas.homemusic,album)</value>
+
+	<!-- Home filter type onclick action -->
+	<variable name="HomeFilterTypeOnClick">
+		<value condition="$EXP[IsHomeMusicActive] + $EXP[IsHomeMusicTypeAlbums]">Skin.SetString(canvas.homemusic,song)</value>
+		<value condition="$EXP[IsHomeMusicActive]">Skin.SetString(canvas.homemusic,album)</value>
+		<value condition="$EXP[IsHomePicturesActive] + $EXP[IsHomePictureTypeAlbums]">Skin.SetString(canvas.homepicture,picture)</value>
+		<value condition="$EXP[IsHomePicturesActive]">Skin.SetString(canvas.homepicture,album)</value>
 	</variable>
-	<!-- Home music type onclick label -->
-	<variable name="HomeMusicTypeLabel">
-		<value condition="$EXP[IsHomeMusicTypeAlbums]">View type: albums</value>
-		<value>View type: songs</value>
+	<!-- Home filter type onclick label -->
+	<variable name="HomeFilterTypeLabel">
+		<value condition="$EXP[IsHomeMusicActive] + $EXP[IsHomeMusicTypeAlbums]">View type: albums</value>
+		<value condition="$EXP[IsHomeMusicActive]">View type: songs</value>
+		<value condition="$EXP[IsHomePicturesActive] + $EXP[IsHomePictureTypeAlbums]">View type: albums</value>
+		<value condition="$EXP[IsHomePicturesActive]">View type: pictures</value>
 	</variable>
 	
 	
@@ -96,9 +101,11 @@
 	<variable name="SystemInfoIcon"><value>1080p/icons/systeminfo.png</value></variable>
 	<variable name="PlayIcon"><value>1080p/icons/play.png</value></variable>
 	<variable name="ShuffleIcon"><value>1080p/icons/shuffle-on.png</value></variable>
-	<variable name="MusicTypeIcon">
-		<value condition="$EXP[IsHomeMusicTypeAlbums]">1080p/icons/collection.png</value>
-		<value>1080p/icons/music.png</value>
+	<variable name="FilterTypeIcon">
+		<value condition="$EXP[IsHomeMusicActive] + $EXP[IsHomeMusicTypeAlbums]">1080p/icons/collection.png</value>
+		<value condition="$EXP[IsHomeMusicActive]">1080p/icons/music.png</value>
+		<value condition="$EXP[IsHomePicturesActive] + $EXP[IsHomePictureTypeAlbums]">1080p/icons/collection.png</value>
+		<value condition="$EXP[IsHomePicturesActive]">1080p/icons/pictures.png</value>
 	</variable>
 
 
