@@ -1,12 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-	<defaultcontrol></defaultcontrol>
+	<defaultcontrol>900</defaultcontrol>
+	<onunload>ClearProperty(Item.Thumb,12006)</onunload>
 
 	<controls>
 		<include content="MusicInfoDetails">
 			<param name="show_art">!String.IsEmpty(Player.Art(thumb))</param>
 			<param name="art">$INFO[Player.Art(thumb)]</param>
 		</include>
+
+		<!-- Invisible list with content the currently plyaing song. This allows to trigger a script on song change (useful for background updates) -->
+		<control type="list" id="900">
+			<itemlayout></itemlayout>
+			<focusedlayout>
+				<control type="button">
+					<visible allowhiddenfocus="true">false</visible>
+					<onfocus>SetProperty(Item.Thumb,$INFO[Player.Art(thumb)],12006)</onfocus>
+					<onfocus>RunScript(script.canvas.helper,get_musicplayer_bg_info)</onfocus>
+				</control>
+			</focusedlayout>
+			<content>plugin://script.canvas.helper/song/?dbid=$INFO[MusicPlayer.DBID]</content>
+		</control>
 
 		<!-- Pause icon -->
 		<include content="PlayerStatusIndicatorFade">

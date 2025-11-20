@@ -24,6 +24,18 @@ def clear_listitem_properties(property_base = 'Item', include_navigation = True)
     window.clearProperty(f"{property_base}.Thumb")
     window.clearProperty(f"{property_base}.FilenameAndPath")
 
+# Populate window properties with additional background information for the music player.
+def get_musicplayer_bg_info():
+    # Work on MusicVisualisation.xml.
+    window = xbmcgui.Window(12006)
+
+    # Get blurred background.
+    blur, contrast = get_blurred(str(window.getProperty('Item.Thumb')))
+    
+    # Set properties.
+    window.setProperty('Item.Blur', blur)
+    window.setProperty('Item.Contrast', contrast)
+
 # Populate window properties with additional information about the requested item.
 def get_additional_media_info(window, itemtype, itemid, item_ref, property_base, find_navigation):
     # If the container is showing the list of episodes of a season, compute previous
@@ -63,12 +75,14 @@ def get_additional_media_info(window, itemtype, itemid, item_ref, property_base,
     elif itemtype == 'season':
         # Find fanart.
         fanart = xbmc.getInfoLabel(f"{item_ref}.Art(fanart)")
-        if (fanart is None or fanart == ''): fanart = xbmc.getInfoLabel(f"{item_ref}.Art(tvshow.fanart)")
+        if fanart is None or fanart == '': fanart = xbmc.getInfoLabel(f"{item_ref}.Art(tvshow.fanart)")
         # Find clearlogo.
         clearlogo_original = xbmc.getInfoLabel(f"{item_ref}.Art(tvshow.clearlogo)")
     elif itemtype == 'song' or itemtype == 'album':
         # Find fanart.
         fanart = xbmc.getInfoLabel(f"{item_ref}.Art(thumb)")
+        if fanart is None or fanart == '':
+            fanart = xbmc.getInfoLabel(f"{item_ref}.Art(album.thumb)")
         # Find clearlogo.
         clearlogo_original = xbmc.getInfoLabel(f"{item_ref}.Art(clearlogo)")
     else:
@@ -692,6 +706,9 @@ if __name__ == '__main__':
         # Get additional info from media for skin usage.
         elif method == 'get_additional_media_info_from_listitem':
             get_additional_media_info_from_listitem(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
+        # Get background info for music player.
+        elif method == 'get_musicplayer_bg_info':
+            get_musicplayer_bg_info()
        
         # Removes additional info previously loaded.
         elif method == 'clear_listitem_properties':

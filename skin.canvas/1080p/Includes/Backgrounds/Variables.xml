@@ -41,4 +41,9 @@
 		<value condition="!$EXP[IsHomeMenuMoving] + $EXP[IsDetailsItemTypeMusic]">$INFO[Container(501).ListItem.Art(thumb)]</value>
 		<value condition="!$EXP[IsHomeMenuMoving]">$INFO[Container(501).ListItem.Art(fanart)]</value>
 	</variable>
+	<!-- Blur image -->
+	<variable name="BlurArt">
+		<value condition="$EXP[Window.IsActive(12006)]">$INFO[Window(12006).Property(Item.Blur)]</value>
+		<value>$INFO[Window(home).Property(Item.Blur)]</value>
+	</variable>
 </includes>

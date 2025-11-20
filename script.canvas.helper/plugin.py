@@ -1,7 +1,7 @@
 import sys
 import xbmc, xbmcplugin
 from urllib.parse import urlparse, parse_qsl
-from media import list_continue_watching, list_recent_episodes, list_yoga_seasons, list_single_movie, list_actors, list_pictures
+from media import list_continue_watching, list_recent_episodes, list_yoga_seasons, list_single_movie, list_single_song, list_actors, list_pictures
 
 handle = int(sys.argv[1])
 
@@ -33,6 +33,8 @@ if __name__ == '__main__':
         list_yoga_seasons(handle)
     elif method == 'movie':
         list_single_movie(params, handle)
+    elif method == 'song':
+        list_single_song(params, handle)
     elif method == 'actors':
         list_actors(params, handle)
     elif method == 'pictures':

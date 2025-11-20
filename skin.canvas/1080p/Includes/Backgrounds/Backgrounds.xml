@@ -133,6 +133,18 @@
 		</definition>
 	</include>
 
+	<!-- Full screen background with single blur -->
+	<include name="BackgroundSingleBlur">
+		<definition>
+			<control type="image">
+				<width>100%</width>
+				<height>100%</height>
+				<fadetime>ANIMATION_CRAWL</fadetime>
+				<texture>$VAR[BlurArt]</texture>
+			</control>
+		</definition>
+	</include>
+
 	<!-- Full screen darkening layer -->
 	<include name="DarkeningLayer">
 		<param name="visible">true</param>

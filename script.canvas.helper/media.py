@@ -357,6 +357,29 @@ def list_single_movie(params, handle):
 
     return 0
 
+# Create a list with the single requested song.
+def list_single_song(params, handle):
+    songid = int(params.get('dbid', -1))
+    if songid > -1:
+        # Find requested song.
+        song = call_rpc('AudioLibrary.GetSongDetails', {
+            'songid': songid,
+            'properties': ['title']
+        }).get('songdetails', None)
+
+        if song is not None:
+            li = get_song_listitem(song)
+            xbmcplugin.addDirectoryItem(
+                handle = handle,
+                url = '',
+                listitem = li,
+                isFolder = False
+            )
+
+            return 1
+
+    return 0
+
 # Create a list of actors.
 def list_actors(params, handle):
     # Retrieve item type and ID from parameters.
@@ -539,6 +562,13 @@ def get_episode_listitem(episode):
     
     # Set custom properties.
     li.setProperty('TvShowId', str(episode.get('tvshow', {}).get('tvshowid', '')))
+
+    return li
+
+# Build a listitem for songs (title only, used only in player to trigger info reload).
+def get_song_listitem(song):
+    # Create movie-type listitem.
+    li = xbmcgui.ListItem(label = song.get('title', ''))
 
     return li
 

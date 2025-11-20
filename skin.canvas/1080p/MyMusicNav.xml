@@ -26,8 +26,8 @@
 			<control type="group">
 				<visible>!$EXP[IsMediaNavLibraryNavigation]</visible>
 
-				<!-- Background with blurred quadrants -->
-				<include content="BackgroundQuadrantBlur" />
+				<!-- Blurred background -->
+				<include content="BackgroundSingleBlur" />
 
 				<control type="group">
 					<top>PADDING_BASE_80P</top>
