@@ -8,12 +8,12 @@
 	<!-- First line of info in albums (depends on type, might be song, album, picture...) -->
 	<variable name="HomeAlbumInfo1">
 		<value condition="String.IsEqual(ListItem.DBTYPE,song)">$INFO[ListItem.Title]</value>
-		<!-- todo -->
+		<value condition="String.IsEqual(ListItem.DBTYPE,album)">$INFO[ListItem.Album]</value>
 	</variable>
 	<!-- Second line of info in albums (depends on type, might be song, album, picture...) -->
 	<variable name="HomeAlbumInfo2">
 		<value condition="String.IsEqual(ListItem.DBTYPE,song)">$INFO[ListItem.Album]</value>
-		<!-- todo -->
+		<value condition="String.IsEqual(ListItem.DBTYPE,album)">$INFO[ListItem.Artist]</value>
 	</variable>
 
 	<!-- Empty list title -->
@@ -44,8 +44,7 @@
 		<value condition="String.IsEqual(Window(home).Property(ActiveListId),106)">$VAR[HomeMoviesContent]</value>
 		<value condition="String.IsEqual(Window(home).Property(ActiveListId),108)">$VAR[HomeTVShowsContent]</value>
 		<value condition="String.IsEqual(Window(home).Property(ActiveListId),110)">$VAR[HomeYogaContent]</value>
-		<value condition="String.IsEqual(Window(home).Property(ActiveListId),112) + String.IsEqual(Skin.String(canvas.homemusic),album)">$VAR[HomeAlbumsContent]</value>
-		<value condition="String.IsEqual(Window(home).Property(ActiveListId),112)">$VAR[HomeSongsContent]</value>
+		<value condition="String.IsEqual(Window(home).Property(ActiveListId),112)">$VAR[HomeMusicContent]</value>
 		<value>special://skin/playlists/empty.xsp</value>
 	</variable>
 
@@ -57,8 +56,26 @@
 	<variable name="HomeMoviesContent"><value>special://skin/playlists/movies.xsp</value></variable>
 	<variable name="HomeTVShowsContent"><value>special://skin/playlists/tvshows.xsp</value></variable>
 	<variable name="HomeYogaContent"><value>plugin://script.canvas.helper/yoga/</value></variable>
-	<variable name="HomeSongsContent"><value>special://skin/playlists/songs.xsp</value></variable>
-	<variable name="HomeAlbumsContent"><value>special://skin/playlists/albums.xsp</value></variable>
+	<variable name="HomeMusicContent">
+		<value condition="$EXP[IsHomeMusicTypeAlbums]">special://skin/playlists/albums.xsp</value>
+		<value>special://skin/playlists/songs.xsp</value>
+	</variable>
+
+	<!-- Home music onclick action -->
+	<variable name="HomeMusicOnClick">
+		<value condition="$EXP[IsHomeMusicTypeAlbums]">ActivateWindow(music,musicdb://albums/$INFO[ListItem.DBID],return)</value>
+		<value>PlayMedia($INFO[ListItem.FileNameAndPath],noresume,playoffset=0)</value>
+	</variable>
+	<!-- Home music type onclick action -->
+	<variable name="HomeMusicTypeOnClick">
+		<value condition="$EXP[IsHomeMusicTypeAlbums]">Skin.SetString(canvas.homemusic,song)</value>
+		<value>Skin.SetString(canvas.homemusic,album)</value>
+	</variable>
+	<!-- Home music type onclick label -->
+	<variable name="HomeMusicTypeLabel">
+		<value condition="$EXP[IsHomeMusicTypeAlbums]">View type: albums</value>
+		<value>View type: songs</value>
+	</variable>
 	
 	
 	<!-- Icons -->
@@ -77,6 +94,12 @@
 	<variable name="AddonsIcon"><value>1080p/icons/addon.png</value></variable>
 	<variable name="FileManagerIcon"><value>1080p/icons/folder.png</value></variable>
 	<variable name="SystemInfoIcon"><value>1080p/icons/systeminfo.png</value></variable>
+	<variable name="PlayIcon"><value>1080p/icons/play.png</value></variable>
+	<variable name="ShuffleIcon"><value>1080p/icons/shuffle-on.png</value></variable>
+	<variable name="MusicTypeIcon">
+		<value condition="$EXP[IsHomeMusicTypeAlbums]">1080p/icons/collection.png</value>
+		<value>1080p/icons/music.png</value>
+	</variable>
 
 
 	<!-- Constants -->
@@ -96,7 +119,7 @@
 
 	<constant name="SIZE_HOME_FLYOUT_ICON">40</constant>
 	<constant name="SIZE_HOME_FLYOUT_ICONBUTTON_CONTAINER">80</constant>
-	<constant name="HEIGHT_HOME_FLYOUT_BUTTON_CONTAINER">105</constant>
+	<constant name="HEIGHT_HOME_FLYOUT_BUTTON_CONTAINER">120</constant>
 	<constant name="HEIGHT_HOME_FLYOUT_BUTTON">140</constant>
 	<constant name="HEIGHT_HOME_FLYOUT_BUTTON_CONTENT">70</constant>
 	<constant name="PADDING_HOME_FLYOUT_BUTTON_VERTICAL">35</constant>

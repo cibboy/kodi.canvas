@@ -80,8 +80,8 @@
 
 
 	<!-- Is info dialog visible? -->
-	<expression name="IsDialogMusicInfoVisible">Window.IsActive(12001)</expression>
-	<expression name="IsDialogVideoInfoVisible">Window.IsActive(12003)</expression>
+	<expression name="IsDialogMusicInfoVisible">Window.IsActive(12001) | Window.IsActive(DialogMusicInfo.xml)</expression>
+	<expression name="IsDialogVideoInfoVisible">Window.IsActive(12003) | Window.IsActive(DialogVideoInfo.xml)</expression>
 	<expression name="IsDialogInfoVisible">$EXP[IsDialogMusicInfoVisible] | $EXP[IsDialogVideoInfoVisible]</expression>
 	
 	<!-- Is player visible? -->

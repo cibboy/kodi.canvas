@@ -435,9 +435,9 @@
 				<include content="HomeItemWall">
 					<param name="id">112</param>
 					<param name="label">Music</param>
-					<param name="content">$VAR[HomeSongsContent]</param>
+					<param name="content">$VAR[HomeMusicContent]</param>
 					<param name="menuid">205</param>
-					<param name="onclick">PlayMedia($INFO[ListItem.FileNameAndPath],noresume,playoffset=0)</param>
+					<param name="onclick">$VAR[HomeMusicOnClick]</param>
 					<param name="darken_art">$PARAM[darken_art]</param>
 				</include>
 				<!-- No music page -->
@@ -532,11 +532,13 @@
 					<include content="HomeMainMenuItem">
 						<param name="id">205</param>
 						<param name="icon">$VAR[MusicIcon]</param>
+						<param name="filter_id">1100</param>
 						<param name="has_filter">true</param>
 					</include>
 					<include content="HomeMainMenuItem">
 						<param name="id">206</param>
 						<param name="icon">$VAR[PicturesIcon]</param>
+						<param name="filter_id">1101</param>
 						<param name="has_filter">true</param>
 					</include>
 					<include content="HomeMainMenuItem">
@@ -551,6 +553,7 @@
 	<include name="HomeMainMenuItem">
 		<param name="id"></param>
 		<param name="icon"></param>
+		<param name="filter_id"></param>
 		<param name="has_filter">false</param>
 		<param name="is_menu_button">false</param>
 
@@ -615,6 +618,7 @@
 					<onback condition="!Player.HasMedia">SetFocus(1001,0)</onback>
 					<onup>RunScript(script.canvas.helper,navigate_home_menu,$PARAM[id],up)</onup>
 					<ondown>RunScript(script.canvas.helper,navigate_home_menu,$PARAM[id],down)</ondown>
+					<onleft condition="$PARAM[has_filter]">SetFocus($PARAM[filter_id],0)</onleft>
 					<onright condition="!$PARAM[is_menu_button]">RunScript(script.canvas.helper,navigate_home_from_menu_to_lists,$PARAM[id])</onright>
 					<onclick condition="!$PARAM[is_menu_button]">RunScript(script.canvas.helper,navigate_home_from_menu_to_lists,$PARAM[id])</onclick>
 					<onclick condition="$PARAM[is_menu_button]">SetFocus(1001,0)</onclick>
@@ -787,9 +791,9 @@
 				<!-- Vertical list of buttons -->
 				<control type="list" id="1001">
 					<top>102</top>
-					<bottom>PADDING_BASE</bottom>
 
 					<onback>SetFocus(200)</onback>
+					<onleft>SetFocus(200)</onleft>
 					<onup>SetFocus(1000,0)</onup>
 					<ondown>SetFocus(1000,0)</ondown>
 					<onclick>SetFocus(200)</onclick>
@@ -815,7 +819,7 @@
 								<param name="text_color">FOREGROUND_INVERSE</param>
 							</include>
 						</control>
-						<!-- When the list is actually focused -->
+						<!-- When the list is not actually focused -->
 						<control type="group">
 							<visible>!Control.HasFocus(1001)</visible>
 							<include content="HomeButtonContentWithIconForFlyout" />
@@ -865,7 +869,7 @@
 			</include>
 		</include>
 	</include>
-	<!-- Flyout section options menu -->
+	<!-- Flyout options menu -->
 	<include name="HomeFilterFlyout">
 		<!-- Background -->
 		<include content="StandardFlyoutBackground">
@@ -881,18 +885,69 @@
 			<param name="animation_hide_condition">Hidden</param>
 
 			<include content="DialogContainerContent">
-				<control type="grouplist">
-					<control type="label">
-						<label>$VAR[test]</label>
-					</control>
-					<control type="button" id="1100">
-						<onback>SetFocus(200)</onback>
-						<onleft>SetFocus(200)</onleft>
-						<onright>SetFocus(200)</onright>
-						<label>Filter</label>
-					</control>
+				<!-- List of options for music -->
+				<control type="list" id="1100">
+					<include content="HomeFilterFlyoutCommon" />
+
+					<content>
+						<!-- Play all -->
+						<item id="1">
+							<visible>!$EXP[IsHomeMusicTypeAlbums]</visible>
+							<thumb>$VAR[PlayIcon]</thumb>
+							<label>Play all</label>
+							<property name="onclick">PlayMedia(special://skin/playlists/songs.xsp)</property>
+							<property name="onclick2">PlayerControl(RandomOff)</property>
+							<property name="close_on_click">true</property>
+						</item>
+						<!-- Shuffle all -->
+						<item id="2">
+							<visible>!$EXP[IsHomeMusicTypeAlbums]</visible>
+							<thumb>$VAR[ShuffleIcon]</thumb>
+							<label>Shuffle all</label>
+							<property name="onclick">PlayMedia(special://skin/playlists/songs.xsp)</property>
+							<property name="onclick2">PlayerControl(Random)</property>
+							<property name="onclick3">PlayerControl(Next)</property>
+							<property name="close_on_click">true</property>
+						</item>
+						<!-- View type -->
+						<item id="3">
+							<thumb>$VAR[MusicTypeIcon]</thumb>
+							<label>$VAR[HomeMusicTypeLabel]</label>
+							<property name="onclick">$VAR[HomeMusicTypeOnClick]</property>
+						</item>
+					</content>
 				</control>
 			</include>
 		</include>
+	</include>
+	<!-- Flyout options menu common -->
+	<include name="HomeFilterFlyoutCommon">
+		<top>102</top>
+
+		<onback>SetFocus(200)</onback>
+		<onleft>SetFocus(200)</onleft>
+		<onclick condition="String.IsEqual(ListItem.Property(close_on_click),true)">SetFocus(200)</onclick>
+		<onclick>$INFO[ListItem.Property(onclick)]</onclick>
+		<onclick>$INFO[ListItem.Property(onclick2)]</onclick>
+		<onclick>$INFO[ListItem.Property(onclick3)]</onclick>
+
+		<itemlayout height="HEIGHT_HOME_FLYOUT_BUTTON_CONTAINER">
+			<include content="HomeButtonContentWithIconForFlyout" />
+		</itemlayout>
+		<focusedlayout height="HEIGHT_HOME_FLYOUT_BUTTON_CONTAINER">
+			<control type="group">
+				<!-- Fake button selection -->
+				<control type="image">
+					<height>HEIGHT_HOME_FLYOUT_BUTTON</height>
+					<texture colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texture>
+				</control>
+				<!-- Content -->
+				<include content="HomeButtonContentWithIconForFlyout">
+					<param name="icon_circle_color">BACKGROUND_INVERSE_OPAQUE90</param>
+					<param name="icon_color">FOREGROUND_INVERSE</param>
+					<param name="text_color">FOREGROUND_INVERSE</param>
+				</include>
+			</control>
+		</focusedlayout>
 	</include>
 </includes>

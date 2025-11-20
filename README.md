@@ -10,7 +10,9 @@ TOFIX:
   - !!! onfocus "get additional info" da mettere sugli oggetti della 501 nascosta e non sulle altre?
 - actors: onclick deve fare l'action nativa (visualizza i film/episodi con quell'attore?)
 - testare rimozione media: se serve attivare l'opzione nelle impostazioni bisogna aggiornare first run wizard (visual + script)!
-- dialogmusicinfo.xml uguale a musicvisualization.xml + percorso file e codec audio (simile a video)?
+- sfondo musica: se possibile usare il blur, perchè lo zoom + slide non è che sia proprio ottimale... però occhio che il blur è fisso sull'ultimo elemento visualizzato, non sull'attuale (che cambia se si ascoltano diverse canzoni e non è necessariamente quello giusto se si ascoltano dalla library)
+- mymusicnav.xml per album
+
 
 TODO:
 - dialog in settings da fare:
@@ -18,19 +20,6 @@ TODO:
   - MyPics.xml: media > library > pictures
 - manca il caricamento della lista pictures
 - constant notification on home/navigation for currently playing item (escludere theme in tv shows)
-- dialogmusicinfo.xml
-- musicvisualisation.xml
-- musicosd.xml
-
-
-BLIND WORK DONE:
-- video nav from library: ora è un include
-- music nav: nuovo (from library dovrebbe andare, base è DA FARE)
-- aggiunto stop a music osd
-- spostato anno dopo track number in music viz
-- music viz usa include
-- dialogmusicinfo: nuovo
-- modifica variabile per content lista musica su home
 
 
 <onclick>PlayerControl(Random)</onclick>

@@ -37,6 +37,8 @@
 	<expression name="IsDetailsItemTypeVideo">$EXP[IsDetailsItemTypeEpisode] | $EXP[IsDetailsItemTypeMovie]</expression>
 	<!-- Is active element video-like? -->
 	<expression name="IsDetailsItemTypeVideoLike">$EXP[IsDetailsItemTypeEpisode] | $EXP[IsDetailsItemTypeSeason] | $EXP[IsDetailsItemTypeTvShow] | $EXP[IsDetailsItemTypeMovie]</expression>
+	<!-- Is active element music? -->
+	<expression name="IsDetailsItemTypeMusic">$EXP[IsDetailsItemTypeSong] | $EXP[IsDetailsItemTypeAlbum]</expression>
 
 
 	<!-- Is custom clearlogo available? -->
@@ -111,7 +113,7 @@
 
 	<!-- Has year? -->
 	<expression name="HasDetailsYear">
-		[$EXP[IsDetailsItemTypeTvShow] | $EXP[IsDetailsItemTypeSeason] | $EXP[IsDetailsItemTypeMovie]] +
+		[$EXP[IsDetailsItemTypeTvShow] | $EXP[IsDetailsItemTypeSeason] | $EXP[IsDetailsItemTypeMovie] | $EXP[IsDetailsItemTypeSong] | $EXP[IsDetailsItemTypeAlbum]] +
 		[
 			[$EXP[IsMusicPlayerVisible] + !String.IsEmpty(MusicPlayer.Year)] |
 			[$EXP[IsVideoPlayerVisible] + !String.IsEmpty(VideoPlayer.Year)] |
@@ -163,7 +165,7 @@
 	<expression name="HasDetailsDuration">
 		[[$EXP[IsVideoPlayerVisible] | $EXP[IsMusicPlayerVisible]] + !String.IsEmpty(Player.Duration())] |
 		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Duration)] |
-		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !$EXP[IsMusicPlayerVisible] + !String.IsEmpty(Container(501).ListItem.Duration)]
+		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !$EXP[IsMusicPlayerVisible] + !$EXP[IsDetailsItemTypeAlbum] + !String.IsEmpty(Container(501).ListItem.Duration)]
 	</expression>
 
 	<!-- Has MPAA? -->

@@ -66,7 +66,7 @@ def get_additional_media_info(window, itemtype, itemid, item_ref, property_base,
         if (fanart is None or fanart == ''): fanart = xbmc.getInfoLabel(f"{item_ref}.Art(tvshow.fanart)")
         # Find clearlogo.
         clearlogo_original = xbmc.getInfoLabel(f"{item_ref}.Art(tvshow.clearlogo)")
-    elif itemtype == 'song':
+    elif itemtype == 'song' or itemtype == 'album':
         # Find fanart.
         fanart = xbmc.getInfoLabel(f"{item_ref}.Art(thumb)")
         # Find clearlogo.

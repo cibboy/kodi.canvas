@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
 	<defaultcontrol></defaultcontrol>
+	<onload>PlayerControl(RandomOff)</onload>
+	<onload>PlayerControl(RepeatOff)</onload>
 	<onload condition="$EXP[IsDetailsItemTypeEpisode]">SetProperty(Player.Item.DBTYPE,episode,home)</onload>
 	<onload condition="$EXP[IsDetailsItemTypeMovie]">SetProperty(Player.Item.DBTYPE,movies,home)</onload>
 	<onload>RunScript(script.canvas.helper,get_additional_media_info_from_player)</onload>

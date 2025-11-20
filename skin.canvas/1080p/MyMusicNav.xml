@@ -35,6 +35,7 @@
 
 					<!--todo-->
 					<control type="list" id="501">
+						<visible>!$EXP[IsMediaNavLibraryNavigation]</visible>
 						<itemlayout width="500" height="100">
 							<control type="label">
 								<label>$INFO[ListItem.Title]</label>
@@ -57,12 +58,6 @@
 
 			<!-- Clock -->
 			<include content="TopBar" />
-
-			<!-- Studio -->
-			<control type="group">
-				<visible>!$EXP[IsMediaNavLibraryNavigation]</visible>
-				<include content="BottomBar" />
-			</control>
 		</include>
 	</controls>
 </window>

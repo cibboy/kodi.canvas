@@ -47,13 +47,17 @@
 			<!-- Main content -->
 			<control type="group">
 				<!-- Hide the content while initially loading lists -->
-				<animation type="Conditional" condition="!$EXP[HasHomeLoaded]"><effect type="slide" start="0,0" end="0,-99999" time="0" tween="cubic" easing="out" reversible="true" /></animation>
+				<animation type="Conditional" condition="!$EXP[HasHomeLoaded]">
+					<effect type="slide" start="0,0" end="0,-99999" time="0" tween="cubic" easing="out" reversible="true" />
+				</animation>
 				
 				<top>PADDING_BASE_80P</top>
 				<left>OFFSET_HOME_MENU_END_NEG</left>	<!-- Start assuming the side menu doesn't have focus. The animation will take care of shifting -->
 
 				<control type="group">
-					<animation type="Conditional" condition="$EXP[HasHomeMenuFocus]"><effect type="slide" start="0,0" end="OFFSET_HOME_MENU_END,0" time="ANIMATION_FAST" tween="cubic" easing="out" reversible="true" /></animation>
+					<animation type="Conditional" condition="$EXP[HasHomeMenuFocus] | $EXP[IsHomeFlyoutVisible]">
+						<effect type="slide" start="0,0" end="OFFSET_HOME_MENU_END,0" time="ANIMATION_FAST" tween="cubic" easing="out" reversible="true" />
+					</animation>
 					
 					<!-- Menu -->
 					<include content="HomeMainMenu" />
@@ -93,6 +97,7 @@
 
 			<!-- Right modal menus -->
 			<include content="HomeMenuFlyout" />
+			<include content="HomeFilterFlyout" />
 		</include>
 	</controls>
 </window>

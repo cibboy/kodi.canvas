@@ -558,16 +558,26 @@
 		<definition>
 			<!-- Background -->
 			<control type="image">
+				<width>100%</width>
+				<height>100%</height>
+				<texture colordiffuse="FF000000">diffuse.png</texture>
+			</control>
+			<control type="image">
+				<width>100%</width>
+				<height>100%</height>
+				<texture>$INFO[Window(home).Property(Item.Blur)]</texture><!--todo: different on musicvisualization because the item changes, but not the property-->
+			</control>
+			<!--<control type="image">-->
 				<!-- Fake blur by using huge zoom, so it's responsive to changes -->
-				<animation condition="true" effect="zoom" center="auto" end="10000" time="0">Conditional</animation>
+				<!--<animation condition="true" effect="zoom" center="auto" end="10000" time="0">Conditional</animation>-->
 				<!-- Continuous fading and back + slide (VERY slow) to give a sense of motion -->
-				<animation condition="true" effect="fade" start="100" end="50" time="5000" pulse="true">Conditional</animation>
+				<!--<animation condition="true" effect="fade" start="100" end="50" time="5000" pulse="true">Conditional</animation>
 				<animation condition="true" effect="slide" start="-500,-200" end="500,200" time="360000" pulse="true">Conditional</animation>
 				<width>100%</width>
 				<height>100%</height>
 				<texture fallback="1080p/fallback/bg.png">$PARAM[art]</texture>
 				<aspectratio>scale</aspectratio>
-			</control>
+			</control>-->
 			<!-- Darkening -->
 			<include content="DarkeningLayer" />
 

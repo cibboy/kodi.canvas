@@ -26,7 +26,7 @@
 					<control type="group">
 						<!-- Top (videos first, then music) -->
 						<control type="image">
-							<visible>!$EXP[IsDetailsItemTypeSong]</visible>
+							<visible>!$EXP[IsDetailsItemTypeMusic]</visible>
 							<width>67%</width>
 							<height>67%</height>
 							<right>67%</right>
@@ -35,7 +35,7 @@
 							<texture flipx="true" flipy="false">$INFO[Window(home).Property(Item.Blur)]</texture>
 						</control>
 						<control type="image">
-							<visible>$EXP[IsDetailsItemTypeSong]</visible>
+							<visible>$EXP[IsDetailsItemTypeMusic]</visible>
 							<width>75%</width>
 							<height>67%</height>
 							<right>25%</right>
@@ -45,7 +45,7 @@
 						</control>
 						<!-- Bottom (videos first, then music) -->
 						<control type="image">
-							<visible>!$EXP[IsDetailsItemTypeSong]</visible>
+							<visible>!$EXP[IsDetailsItemTypeMusic]</visible>
 							<width>67%</width>
 							<height>67%</height>
 							<right>67%</right>
@@ -54,7 +54,7 @@
 							<texture flipx="true" flipy="true">$INFO[Window(home).Property(Item.Blur)]</texture>
 						</control>
 						<control type="image">
-							<visible>$EXP[IsDetailsItemTypeSong]</visible>
+							<visible>$EXP[IsDetailsItemTypeMusic]</visible>
 							<width>75%</width>
 							<height>67%</height>
 							<right>25%</right>
@@ -67,7 +67,7 @@
 					<control type="group">
 						<!-- Top (videos first, then music) -->
 						<control type="image">
-							<visible>!$EXP[IsDetailsItemTypeSong]</visible>
+							<visible>!$EXP[IsDetailsItemTypeMusic]</visible>
 							<width>67%</width>
 							<height>67%</height>
 							<left>33%</left>
@@ -76,7 +76,7 @@
 							<texture flipx="false" flipy="false">$INFO[Window(home).Property(Item.Blur)]</texture>
 						</control>
 						<control type="image">
-							<visible>$EXP[IsDetailsItemTypeSong]</visible>
+							<visible>$EXP[IsDetailsItemTypeMusic]</visible>
 							<width>75%</width>
 							<height>67%</height>
 							<left>75%</left>
@@ -86,7 +86,7 @@
 						</control>
 						<!-- Bottom (videos first, then music) -->
 						<control type="image">
-							<visible>!$EXP[IsDetailsItemTypeSong]</visible>
+							<visible>!$EXP[IsDetailsItemTypeMusic]</visible>
 							<width>67%</width>
 							<height>67%</height>
 							<left>33%</left>
@@ -95,7 +95,7 @@
 							<texture flipx="false" flipy="true">$INFO[Window(home).Property(Item.Blur)]</texture>
 						</control>
 						<control type="image">
-							<visible>$EXP[IsDetailsItemTypeSong]</visible>
+							<visible>$EXP[IsDetailsItemTypeMusic]</visible>
 							<width>75%</width>
 							<height>67%</height>
 							<left>75%</left>
