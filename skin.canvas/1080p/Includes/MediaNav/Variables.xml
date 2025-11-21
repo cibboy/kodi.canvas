@@ -45,6 +45,21 @@
 	<variable name="MediaNavInfoButtonLabel"><value condition="Control.HasFocus(417)">  Info</value></variable>
 	<variable name="MediaNavMoreButtonLabel"><value condition="Control.HasFocus(418)">  More</value></variable>
 
+	<!-- Album nav "play all" button -->
+	<variable name="AlbumNavPlayAllButtonColor">
+		<value condition="Control.HasFocus(94600)">FOREGROUND_ACCENT</value>
+		<value>FOREGROUND_OPAQUE20</value>
+	</variable>
+	<variable name="AlbumNavContrastButtonIconColor">
+		<value condition="Control.HasFocus(94600)">BACKGROUND_OPAQUE75</value>
+		<!-- Light color -->
+		<value condition="$EXP[IsBestTextColorLight]">FOREGROUND_OPAQUE90</value>
+		<!-- Dark color -->
+		<value condition="$EXP[IsBestTextColorDark]">BACKGROUND_OPAQUE50</value>
+		<!-- Fallback -->
+		<value>FOREGROUND_OPAQUE75</value>
+	</variable>
+
 
 	<!-- Icons -->
 	<variable name="MediaNavPlayIcon"><value>1080p/icons/playc.png</value></variable>
@@ -76,7 +91,7 @@
 	<constant name="SIZE_MEDIANAV_PREVNEXT_INDICATOR">80</constant>
 	<constant name="OFFSET_MEDIANAV_TOP_PREVNEXT_INDICATOR">141</constant>		<!-- HEIGHT_LANDSCAPE / 2 -->
 
-	<constant name="WIDTH_ALBUMNAV_ITEM">800</constant>
+	<constant name="WIDTH_ALBUMNAV_ITEM">900</constant>
 	<constant name="HEIGHT_ALBUMNAV_ITEM">50</constant>
 	<constant name="SIZE_ALBUMNAV_ICON">25</constant>
 

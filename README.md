@@ -10,14 +10,12 @@ TOFIX:
   - !!! onfocus "get additional info" da mettere sugli oggetti della 501 nascosta e non sulle altre?
 - actors: onclick deve fare l'action nativa (visualizza i film/episodi con quell'attore?)
 - testare rimozione media: se serve attivare l'opzione nelle impostazioni bisogna aggiornare first run wizard (visual + script)!
-- mymusicnav.xml per album (manca pulsante play all)
 
 
 TODO:
 - dialog in settings da fare:
   - MyPics.xml: media > library > pictures
 - manca il caricamento della lista pictures
-- constant notification on home/navigation for currently playing item (escludere theme in tv shows)
 
 
 

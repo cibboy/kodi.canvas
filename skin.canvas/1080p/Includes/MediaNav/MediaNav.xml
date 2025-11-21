@@ -417,7 +417,7 @@
 				<!-- Song title -->
 				<control type="label">
 					<left>40</left>
-					<width max="595">auto</width>	<!-- max: WIDTH_ALBUMNAV_ITEM - SIZE_ALBUMNAV_ICON - (40 * 2) - 100 -->
+					<width max="695">auto</width>	<!-- max: WIDTH_ALBUMNAV_ITEM - SIZE_ALBUMNAV_ICON - (40 * 2) - 100 -->
 					<font>$PARAM[font]</font>
 					<textcolor>$VAR[ContrastTextForegroundColor]</textcolor>
 					<selectedcolor>$VAR[ContrastTextForegroundColor]</selectedcolor>
@@ -430,6 +430,7 @@
 					<font>$PARAM[font]</font>
 					<textcolor>$VAR[ContrastTextForegroundColor]</textcolor>
 					<selectedcolor>$VAR[ContrastTextForegroundColor]</selectedcolor>
+					<align>right</align>
 					<label>$INFO[ListItem.Duration]</label>
 				</control>
 			</control>

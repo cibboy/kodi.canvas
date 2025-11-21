@@ -89,29 +89,94 @@
 					<control type="group">
 						<top>PADDING_BASE_200P</top>
 						<bottom>PADDING_BASE_150P</bottom>
-						<left>PADDING_BASE_50P</left>
 
-						<control type="list" id="501">
-							<visible>!$EXP[IsMediaNavLibraryNavigation]</visible>
+						<control type="group">
 							<top>PADDING_BASE_150P</top>
-							<bottom>0</bottom>
 
-							<itemlayout width="WIDTH_ALBUMNAV_ITEM" height="HEIGHT_ALBUMNAV_ITEM">
-								<include content="AlbumNavSongListLayoutContent">
-									<param name="font">CAPTION</param>
-								</include>
-							</itemlayout>
+							<!-- Label -->
+							<include content="ListLabel">
+								<param name="id">99501</param>
+								<param name="label">Songs</param>
+								<param name="textcolor">$VAR[ContrastTextHighlightColor]</param>
+							</include>
 
-							<focusedlayout width="WIDTH_ALBUMNAV_ITEM" height="HEIGHT_ALBUMNAV_ITEM">
-								<include content="AlbumNavSongListLayoutContent">
-									<param name="font">CAPTION_STRONG</param>
-								</include>
-							</focusedlayout>
+							<!-- List of songs -->
+							<control type="list" id="501">
+								<visible>!$EXP[IsMediaNavLibraryNavigation]</visible>
+								<top>OFFSET_HOME_LIST_AFTER_LABEL</top>
+								<bottom>0</bottom>
+
+								<onright>SetFocus(600)</onright>
+
+								<itemlayout width="WIDTH_ALBUMNAV_ITEM" height="HEIGHT_ALBUMNAV_ITEM">
+									<include content="AlbumNavSongListLayoutContent">
+										<param name="font">CAPTION</param>
+									</include>
+								</itemlayout>
+
+								<focusedlayout width="WIDTH_ALBUMNAV_ITEM" height="HEIGHT_ALBUMNAV_ITEM">
+									<include content="AlbumNavSongListLayoutContent">
+										<param name="font">CAPTION_STRONG</param>
+									</include>
+								</focusedlayout>
+							</control>
 						</control>
 					</control>
 
-					<!-- Additional controls -->
-					<!--todo: play all-->
+					<!-- Play all -->
+					<control type="grouplist" id="600">
+						<orientation>horizontal</orientation>
+						<itemgap>0</itemgap>
+						<usecontrolcoords>true</usecontrolcoords>
+						<defaultcontrol always="true">94600</defaultcontrol>
+
+						<right>PADDING_BASE_200P</right>
+						<bottom>PADDING_BASE_150P</bottom>
+						<width>SIZE_PLAYER_ALBUMART</width>
+						<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
+
+						<onleft>SetFocus(501)</onleft>
+
+						<!-- Left part of the button (with space for icon) -->
+						<control type="image" id="91600">
+							<left>PADDING_BASE_20P</left>
+							<width>WIDTH_MEDIANAV_ACTIONBUTTON_START</width>
+							<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
+							<texture colordiffuse="$VAR[AlbumNavPlayAllButtonColor]">1080p/controls/round-button-extended-start.png</texture>
+						</control>
+						<!-- Icon -->
+						<control type="image" id="92600">
+							<left>OFFSET_MEDIANAV_ACTIONBUTTON_ICON_LEFT_FOCUSED</left>
+							<top>OFFSET_MEDIANAV_ACTIONBUTTON_ICON_TOP</top>
+							<width>SIZE_MEDIANAV_ACTIONBUTTON_ICON</width>
+							<height>SIZE_MEDIANAV_ACTIONBUTTON_ICON</height>
+							<texture colordiffuse="$VAR[AlbumNavContrastButtonIconColor]">1080p/icons/play.png</texture>
+						</control>
+						<!-- Actual button (with autowidth text) -->
+						<control type="button" id="94600">
+							<width>auto</width>
+							<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
+
+							<texturefocus colordiffuse="$VAR[AlbumNavPlayAllButtonColor]">1080p/controls/round-button-middle.png</texturefocus>
+							<texturenofocus colordiffuse="$VAR[AlbumNavPlayAllButtonColor]">1080p/controls/round-button-middle.png</texturenofocus>
+							<font>BODY2_STRONG</font>
+							<textcolor>$VAR[AlbumNavContrastButtonIconColor]</textcolor>
+							<focusedcolor>BACKGROUND_OPAQUE75</focusedcolor>
+							<textoffsety>0</textoffsety>
+							<textoffsetx>0</textoffsetx>
+							<label>  Play all</label>
+
+							<onclick>SetFocus(501)</onclick>
+							<onclick>RunScript(script.canvas.helper,play_full_album,$INFO[Container(501).FolderPath])</onclick>
+							<onclick>PlayerControl(RandomOff)</onclick>
+						</control>
+						<!-- Right part of the button -->
+						<control type="image" id="93600">
+							<width>WIDTH_MEDIANAV_ACTIONBUTTON_END</width>
+							<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
+							<texture colordiffuse="$VAR[AlbumNavPlayAllButtonColor]" flipx="true">1080p/controls/round-button-start.png</texture>
+						</control>
+					</control>
 				</control>
 			</control>
 

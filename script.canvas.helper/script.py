@@ -25,12 +25,13 @@ def clear_listitem_properties(property_base = 'Item', include_navigation = True)
     window.clearProperty(f"{property_base}.FilenameAndPath")
 
 # Populate window properties with additional background information for the music player.
-def get_musicplayer_bg_info():
+def get_musicplayer_bg_info(thumb):
     # Work on MusicVisualisation.xml.
     window = xbmcgui.Window(12006)
 
     # Get blurred background.
-    blur, contrast = get_blurred(str(window.getProperty('Item.Thumb')))
+    #blur, contrast = get_blurred(str(window.getProperty('Item.Thumb')))
+    blur, contrast = get_blurred(thumb)
     
     # Set properties.
     window.setProperty('Item.Blur', blur)
@@ -626,6 +627,19 @@ def play_show_theme():
                 player.play(cache_theme, windowed=True, startpos=0)
                 xbmc.executebuiltin('PlayerControl(RepeatOne)')
 
+# Play the album showing in music nav.
+def play_full_album(container_path):
+    path = None
+
+    # Extract actual path from container path.
+    pattern = r"^musicdb://albums/(\d+)(?:/|$)"
+    match = re.match(pattern, container_path)
+    if match:
+        path = f"musicdb://albums/{match.group(1)}"
+
+    # Play if path is valid.
+    if path is not None: xbmc.executebuiltin(f"PlayMedia({path})")
+
 
 # Apply first run customizations.
 def apply_customizations():
@@ -708,7 +722,7 @@ if __name__ == '__main__':
             get_additional_media_info_from_listitem(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
         # Get background info for music player.
         elif method == 'get_musicplayer_bg_info':
-            get_musicplayer_bg_info()
+            get_musicplayer_bg_info(sys.argv[2])
        
         # Removes additional info previously loaded.
         elif method == 'clear_listitem_properties':
@@ -751,9 +765,13 @@ if __name__ == '__main__':
         elif method == 'load_nextup':
             load_nextup(sys.argv[2], sys.argv[3], sys.argv[4])
 
-        # Play TV show theme, if available:
+        # Play TV show theme, if available.
         elif method == 'play_show_theme':
             play_show_theme()
+        
+        # Play the album showing in music nav.
+        elif method == 'play_full_album':
+            play_full_album(sys.argv[2])
         
         # Test method.
         elif method == 'ping':

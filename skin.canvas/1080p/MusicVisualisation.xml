@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
 	<defaultcontrol>900</defaultcontrol>
-	<onunload>ClearProperty(Item.Thumb,12006)</onunload>
 
 	<controls>
 		<include content="MusicInfoDetails">
@@ -15,8 +14,7 @@
 			<focusedlayout>
 				<control type="button">
 					<visible allowhiddenfocus="true">false</visible>
-					<onfocus>SetProperty(Item.Thumb,$INFO[Player.Art(thumb)],12006)</onfocus>
-					<onfocus>RunScript(script.canvas.helper,get_musicplayer_bg_info)</onfocus>
+					<onfocus>RunScript(script.canvas.helper,get_musicplayer_bg_info,$INFO[Player.Art(thumb)])</onfocus>
 				</control>
 			</focusedlayout>
 			<content>plugin://script.canvas.helper/song/?dbid=$INFO[MusicPlayer.DBID]</content>
