@@ -13,12 +13,6 @@ TOFIX:
 - home empty page: button to add not working
 
 
-TODO:
-- dialog in settings da fare:
-  - MyPics.xml: media > library > pictures
-- manca il caricamento della lista pictures
-
-
 
 
 not in spotify:

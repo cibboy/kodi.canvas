@@ -454,7 +454,7 @@ def list_pictures(params, handle):
                             li = xbmcgui.ListItem(label = f"{p.get('label', '')}")
                             li.setProperty('Type', 'picture')
                             pic_path = p.get('file', '')
-                            if pic_path is not '': li.setProperty('Album', os.path.basename(os.path.dirname(pic_path)))
+                            if pic_path != '': li.setProperty('Album', os.path.basename(os.path.dirname(pic_path)))
                             xbmcplugin.addDirectoryItem(
                                 handle = handle,
                                 url = pic_path,
