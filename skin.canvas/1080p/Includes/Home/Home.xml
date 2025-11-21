@@ -219,15 +219,17 @@
 					<!-- Picure layout -->
 					<include content="AlbumLayout">
 						<param name="art">$INFO[ListItem.Art(thumb)]</param>
-						<param name="fallback">1080p/fallback/picture.png</param>
+						<param name="fallback">$VAR[HomePictureFallbackArt]</param>
+						<param name="overlay_icon">$VAR[HomePictureOverlayIcon]</param>
 						<param name="dark_unfocused">$PARAM[darken_art]</param>
 						<param name="condition">Integer.IsEqual($PARAM[id],302)</param>
 						<param name="get_additional_data">false</param>
 						<param name="sync_501">true</param>
-						<!--todo<param name="info1">$VAR[HomeAlbumInfo1]</param>
+						<!--todo-->
+						<param name="info1">$VAR[HomeAlbumInfo1]</param>
 						<param name="info2">$VAR[HomeAlbumInfo2]</param>
 						<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
-						<param name="info2_color">$VAR[ContrastTextForegroundColor]</param>-->
+						<param name="info2_color">$VAR[ContrastTextForegroundColor]</param>
 					</include>
 
 					<content>$PARAM[content]</content>
@@ -480,9 +482,9 @@
 				<include content="HomeItemFullWall">
 					<param name="id">302</param>
 					<param name="label">Pictures</param>
-					<param name="content">plugin://script.canvas.helper/pictures/</param>
+					<param name="content">$VAR[HomePicturesContent]</param>
 					<param name="menuid">206</param>
-					<param name="onclick"></param><!--todo-->
+					<param name="onclick">$VAR[HomePictureOnClick]</param>
 					<param name="darken_art">$PARAM[darken_art]</param>
 				</include>
 			</control>
@@ -888,6 +890,7 @@
 
 					<onback>SetFocus(200)</onback>
 					<onleft>SetFocus(200)</onleft>
+					<onright>SetFocus(200)</onright>
 					<onclick condition="String.IsEqual(ListItem.Property(close_on_click),true)">SetFocus(200)</onclick>
 					<onclick>$INFO[ListItem.Property(onclick)]</onclick>
 					<onclick>$INFO[ListItem.Property(onclick2)]</onclick>

@@ -252,6 +252,7 @@
 	<include name="ArtListsAlbum">
 		<param name="art"></param>
 		<param name="fallback">1080p/fallback/music.png</param>
+		<param name="overlay_icon"></param>
 		<param name="width">WIDTH_ALBUM</param>
 		<param name="height">HEIGHT_ALBUM</param>
 		<param name="darken">false</param>
@@ -279,6 +280,14 @@
 					<bordertexture border="SIZE_ITEM_SHADOW_ART_DOUBLE" colordiffuse="BACKGROUND_OPAQUE50">1080p/diffuse/shadow-art.png</bordertexture>
 					<bordersize>SIZE_ITEM_SHADOW_ART</bordersize>
 					<aspectratio scalediffuse="false">scale</aspectratio>
+				</control>
+				<!-- Overlay icon -->
+				<control type="image">
+					<width>80</width>
+					<height>80</height>
+					<centertop>50%</centertop>
+					<centerleft>50%</centerleft>
+					<texture>$PARAM[overlay_icon]</texture>
 				</control>
 				<!-- Dark overlay, if requested -->
 				<control type="image">
@@ -549,6 +558,7 @@
 	<include name="AlbumLayout">
 		<param name="art"></param>
 		<param name="fallback">1080p/fallback/music.png</param>
+		<param name="overlay_icon"></param>
 		<param name="dark_unfocused">false</param>
 		<param name="dark_focused">false</param>
 		<param name="condition">true</param>
@@ -566,6 +576,7 @@
 					<include content="ArtListsAlbum">
 						<param name="art">$PARAM[art]</param>
 						<param name="fallback">$PARAM[fallback]</param>
+						<param name="overlay_icon">$PARAM[overlay_icon]</param>
 						<param name="darken">$PARAM[dark_unfocused]</param>
 					</include>
 
@@ -591,6 +602,7 @@
 					<include content="ArtListsAlbum">
 						<param name="art">$PARAM[art]</param>
 						<param name="fallback">$PARAM[fallback]</param>
+						<param name="overlay_icon">$PARAM[overlay_icon]</param>
 						<param name="darken">$PARAM[dark_focused]</param>
 					</include>
 

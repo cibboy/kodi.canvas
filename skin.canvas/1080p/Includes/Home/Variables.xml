@@ -5,15 +5,27 @@
 		<value condition="String.IsEqual(ListItem.DBTYPE,episode)">$INFO[ListItem.Art(tvshow.poster)]</value>
 		<value>$INFO[ListItem.Art(poster)]</value>
 	</variable>
+	<!-- Picture fallback art (depends on type of item in pictures) -->
+	<variable name="HomePictureFallbackArt">
+		<value condition="String.IsEqual(ListItem.Property(Type),picture)">1080p/fallback/picture.png</value>
+		<value condition="String.IsEqual(ListItem.Property(Type),picturealbum)">1080p/fallback/none.png</value>
+	</variable>
+	<!-- Picture overlay icon (only visible in albums) -->
+	<variable name="HomePictureOverlayIcon">
+		<value condition="String.IsEqual(ListItem.Property(Type),picturealbum)">1080p/icons/collection.png</value>
+	</variable>
 	<!-- First line of info in albums (depends on type, might be song, album, picture...) -->
 	<variable name="HomeAlbumInfo1">
 		<value condition="String.IsEqual(ListItem.DBTYPE,song)">$INFO[ListItem.Title]</value>
 		<value condition="String.IsEqual(ListItem.DBTYPE,album)">$INFO[ListItem.Album]</value>
+		<value>$INFO[ListItem.Label]</value>
 	</variable>
 	<!-- Second line of info in albums (depends on type, might be song, album, picture...) -->
 	<variable name="HomeAlbumInfo2">
 		<value condition="String.IsEqual(ListItem.DBTYPE,song)">$INFO[ListItem.Album]</value>
 		<value condition="String.IsEqual(ListItem.DBTYPE,album)">$INFO[ListItem.Artist]</value>
+		<value condition="String.IsEqual(ListItem.Property(Type),picture)">$INFO[ListItem.Property(Album)]</value>
+		<value condition="String.IsEqual(ListItem.Property(Type),picturealbum)">Album</value>
 	</variable>
 
 	<!-- Empty list title -->
@@ -60,11 +72,21 @@
 		<value condition="$EXP[IsHomeMusicTypeAlbums]">special://skin/playlists/albums.xsp</value>
 		<value>special://skin/playlists/songs.xsp</value>
 	</variable>
+	<variable name="HomePicturesContent">
+		<value condition="$EXP[IsHomePictureTypeAlbums]">plugin://script.canvas.helper/pictures/?type=album</value>
+		<value>plugin://script.canvas.helper/pictures/?type=picture</value>
+	</variable>
 
 	<!-- Home music onclick action -->
 	<variable name="HomeMusicOnClick">
 		<value condition="$EXP[IsHomeMusicTypeAlbums]">ActivateWindow(music,musicdb://albums/$INFO[ListItem.DBID],return)</value>
 		<value>PlayMedia($INFO[ListItem.FileNameAndPath],noresume,playoffset=0)</value>
+	</variable>
+	<!-- Home picture onclick action -->
+	<variable name="HomePictureOnClick">
+		<!--<value condition="$EXP[IsHomePictureTypeAlbums]">ActivateWindow(music,musicdb://albums/$INFO[ListItem.DBID],return)</value>
+		<value>PlayMedia($INFO[ListItem.FileNameAndPath],noresume,playoffset=0)</value>-->
+		<!--todo-->
 	</variable>
 
 	<!-- Home filter type onclick action -->

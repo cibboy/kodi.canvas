@@ -38,7 +38,7 @@ if __name__ == '__main__':
     elif method == 'actors':
         list_actors(params, handle)
     elif method == 'pictures':
-        list_pictures(handle)
+        list_pictures(params, handle)
 
     # Close list.
     xbmcplugin.endOfDirectory(handle)

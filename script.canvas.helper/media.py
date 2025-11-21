@@ -1,3 +1,4 @@
+import os
 import xbmcplugin
 import xbmcgui
 from collections import defaultdict
@@ -410,10 +411,10 @@ def list_actors(params, handle):
         for actor in actors:
             li = get_actor_listitem(actor)
             xbmcplugin.addDirectoryItem(
-                handle=handle,
-                url=f"videodb://actors/{actor.get('id', '')}/",
-                listitem=li,
-                isFolder=False
+                handle = handle,
+                url = f"videodb://actors/{actor.get('id', '')}/",
+                listitem = li,
+                isFolder = False
             )
             
         return len(actors)
@@ -421,20 +422,64 @@ def list_actors(params, handle):
     return 0
 
 # Create a list of pictures.
-def list_pictures(handle):
-    #todo: search pictures
-    # For each picture found add to list.
-    for i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]:
-        li = xbmcgui.ListItem(label = f"{i}")
-        xbmcplugin.addDirectoryItem(
-            handle=handle,
-            url='',
-            listitem=li,
-            isFolder=False
-        )
-        
-    #return len(actors)
-    return 10
+def list_pictures(params, handle):
+    type = params.get('type', None)
+    total = 0
+
+    # Get all picture sources.
+    sources = call_rpc('Files.GetSources', { 'media': 'pictures' }).get('sources', [])
+    # For each source, get all directories.
+    for s in sources:
+        source_dir = s.get('file', None)
+        if source_dir is not None:
+            dirs = call_rpc('Files.GetDirectory', { 'directory': source_dir }).get('files', [])
+            # For each directory create a list item if requesting albums, otherwise work recursively.
+            for d in dirs:
+                if type == 'album':
+                    total += 1
+                    li = xbmcgui.ListItem(label = f"{d.get('label', '')}")
+                    li.setProperty('Type', 'picturealbum')
+                    xbmcplugin.addDirectoryItem(
+                        handle = handle,
+                        url = d.get('file', ''),
+                        listitem = li,
+                        isFolder = True
+                    )
+                else:
+                    path = d.get('file', None)
+                    if path is not None:
+                        pics = get_pictures_recursive(path)
+                        for p in pics:
+                            total += 1
+                            li = xbmcgui.ListItem(label = f"{p.get('label', '')}")
+                            li.setProperty('Type', 'picture')
+                            pic_path = p.get('file', '')
+                            if pic_path is not '': li.setProperty('Album', os.path.basename(os.path.dirname(pic_path)))
+                            xbmcplugin.addDirectoryItem(
+                                handle = handle,
+                                url = pic_path,
+                                listitem = li,
+                                isFolder = False
+                            )
+                            
+    return total
+
+# Recursive function to retrieve pictures.
+def get_pictures_recursive(path):
+    ret = []
+
+    # Get elements in path.
+    dirs = call_rpc('Files.GetDirectory', { 'directory': path }).get('files', [])
+    for e in dirs:
+        elem_type = e.get('filetype', '')
+        # If element is a file, add to list.
+        if elem_type == 'file': ret.append(e)
+        # Otherwise search recursively.
+        elif elem_type == 'directory':
+            p = e.get('file', None)
+            if p is not None: ret.extend(get_pictures_recursive(p))
+
+    return ret
 
 
 # Build a listitem for movies.

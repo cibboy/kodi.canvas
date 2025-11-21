@@ -4,6 +4,7 @@
 	<expression name="IsMediaNavLibraryNavigation">
 		[$EXP[IsDialogVideoInfoVisible] + String.IsEqual(Window(videos).Property(LibraryNav),true)] |
 		[$EXP[IsDialogMusicInfoVisible] + String.IsEqual(Window(music).Property(LibraryNav),true)] |
+		[$EXP[IsDialogPictureInfoVisible] + String.IsEqual(Window(pictures).Property(LibraryNav),true)] |
 		Window.Previous(SettingsCategory.xml)
 	</expression>
 

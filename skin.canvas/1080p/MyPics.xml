@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">9999</defaultcontrol>
+	<views>501,502</views>
+	<onunload>ClearProperty(LibraryNav,pictures)</onunload>
+
+	<controls>
+		<!--
+			View type redirect button (based on content/source).
+			Autochange the view type if not the expected one.
+		-->
+		<control type="button" id="9999">
+			<visible allowhiddenfocus="true">false</visible>
+			<onfocus condition="!$EXP[IsMediaNavLibraryNavigation]">SetFocus(501)</onfocus>
+			<onfocus condition="$EXP[IsMediaNavLibraryNavigation] + !Control.IsVisible(502)">Sendclick(2)</onfocus>
+			<onfocus condition="$EXP[IsMediaNavLibraryNavigation]">SetFocus(502)</onfocus>
+			<onfocus condition="$EXP[IsMediaNavLibraryNavigation]">SetProperty(LibraryNav,true,pictures)</onfocus>
+		</control>
+		<!-- View type selector button (hidden as not used by the user) -->
+		<control type="button" id="2">
+			<visible>false</visible>
+		</control>
+
+		<include content="Center169AspectRatio">
+			<!-- 501 view for album navigation from home -->
+			<control type="group">
+				<visible>!$EXP[IsMediaNavLibraryNavigation]</visible>
+
+				<control type="list" id="501">
+					<visible>!$EXP[IsMediaNavLibraryNavigation]</visible>
+					<top>OFFSET_HOME_LIST_AFTER_LABEL</top>
+					<bottom>0</bottom>
+
+					<itemlayout width="WIDTH_ALBUMNAV_ITEM" height="HEIGHT_ALBUMNAV_ITEM">
+						
+					</itemlayout>
+
+					<focusedlayout width="WIDTH_ALBUMNAV_ITEM" height="HEIGHT_ALBUMNAV_ITEM">
+						
+					</focusedlayout>
+				</control>
+			</control>
+
+			<!-- 502 view for navigation from settings > library -->
+			<include content="MediaNavItemListForLibrary">
+				<param name="title">Picture library</param>
+			</include>
+
+			<!-- Clock -->
+			<include content="TopBar" />
+		</include>
+	</controls>
+</window>

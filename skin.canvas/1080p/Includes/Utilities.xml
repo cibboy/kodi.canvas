@@ -80,14 +80,15 @@
 
 
 	<!-- Is info dialog visible? -->
-	<expression name="IsDialogMusicInfoVisible">Window.IsActive(12001) | Window.IsActive(DialogMusicInfo.xml)</expression>
 	<expression name="IsDialogVideoInfoVisible">Window.IsActive(12003) | Window.IsActive(DialogVideoInfo.xml)</expression>
-	<expression name="IsDialogInfoVisible">$EXP[IsDialogMusicInfoVisible] | $EXP[IsDialogVideoInfoVisible]</expression>
+	<expression name="IsDialogMusicInfoVisible">Window.IsActive(12001) | Window.IsActive(DialogMusicInfo.xml)</expression>
+	<expression name="IsDialogPictureInfoVisible">Window.IsActive(10139) | Window.IsActive(DialogPictureInfo.xml)</expression>
+	<expression name="IsDialogInfoVisible">$EXP[IsDialogVideoInfoVisible] | $EXP[IsDialogMusicInfoVisible] | $EXP[IsDialogPictureInfoVisible]</expression>
 	
 	<!-- Is player visible? -->
 	<expression name="IsMusicPlayerVisible">Window.IsActive(12006)</expression>
 	<expression name="IsVideoPlayerVisible">Window.IsActive(12005) | Window.IsActive(1150)</expression>		<!-- Include "play next" window -->
-	<expression name="IsPlayerVisible">$EXP[IsMusicPlayerVisible] | $EXP[IsVideoPlayerVisible]</expression>
+	<expression name="IsPlayerVisible">$EXP[IsMusicPlayerVisible] | $EXP[IsVideoPlayerVisible]</expression>		<!--todo: include slideshow?-->
 
 
 	<!-- Is TV show theme playing? -->
