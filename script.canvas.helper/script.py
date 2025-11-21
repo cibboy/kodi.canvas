@@ -640,6 +640,13 @@ def play_full_album(container_path):
     # Play if path is valid.
     if path is not None: xbmc.executebuiltin(f"PlayMedia({path})")
 
+# Start a slideshow of all pictures, recursively (only first source supported).
+def play_all_pictures():
+    sources = call_rpc('Files.GetSources', { 'media': 'pictures' }).get('sources', [])
+    if len(sources) > 0:
+        dir = sources[0].get('file', None)
+        if dir is not None: xbmc.executebuiltin(f"RecursiveSlideShow({dir})")
+
 
 # Apply first run customizations.
 def apply_customizations():
@@ -772,6 +779,10 @@ if __name__ == '__main__':
         # Play the album showing in music nav.
         elif method == 'play_full_album':
             play_full_album(sys.argv[2])
+        
+        # Start a slideshow of all pictures, recursively (only first source supported).
+        elif method == 'play_all_pictures':
+            play_all_pictures()
         
         # Test method.
         elif method == 'ping':

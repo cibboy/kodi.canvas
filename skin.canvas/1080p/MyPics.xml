@@ -25,19 +25,83 @@
 			<!-- 501 view for album navigation from home -->
 			<control type="group">
 				<visible>!$EXP[IsMediaNavLibraryNavigation]</visible>
+				<height>SCREEN_HEIGHT</height>
 
-				<control type="list" id="501">
-					<visible>!$EXP[IsMediaNavLibraryNavigation]</visible>
-					<top>OFFSET_HOME_LIST_AFTER_LABEL</top>
-					<bottom>0</bottom>
+				<!-- Background -->
+				<include content="BackgroundQuadrantBlur" />
 
-					<itemlayout width="WIDTH_ALBUMNAV_ITEM" height="HEIGHT_ALBUMNAV_ITEM">
-						
-					</itemlayout>
+				<!-- Content -->
+				<control type="group">
+					<left>PADDING_BASE</left>
+					<top>PADDING_BASE_80P</top>
 
-					<focusedlayout width="WIDTH_ALBUMNAV_ITEM" height="HEIGHT_ALBUMNAV_ITEM">
-						
-					</focusedlayout>
+					<!-- Title -->
+					<control type="label">
+						<width>auto</width>
+						<height>HEIGHT_DETAILS_TITLE</height>
+						<aligny>center</aligny>
+						<font>TITLE1</font>
+						<textcolor>HIGHLIGHT_CONTRAST_LIGHT</textcolor>
+						<label>Pictures</label>
+					</control>
+
+					<control type="group">
+						<top>PADDING_BASE</top>
+						<height>HEIGHT_HOME_FULL_WALL_CONTENT</height>
+
+						<!-- Album name -->
+						<control type="grouplist">
+							<orientation>horizontal</orientation>
+							<itemgap>PADDING_BASE_10P</itemgap>
+							<usecontrolcoords>true</usecontrolcoords>
+
+							<!-- Album name -->
+							<control type="label">
+								<left>PADDING_BASE_5P</left>
+								<width>auto</width>
+								<height>FONT_SIZE_TITLE3</height>
+								<aligny>center</aligny>
+								<font>SUBTITLE</font>
+								<textcolor>HIGHLIGHT_CONTRAST_LIGHT</textcolor>
+								<label>$INFO[Container.FolderName]</label>
+							</control>
+							<!-- Number of items -->
+							<control type="label">
+								<left>PADDING_BASE_5P</left>
+								<width>auto</width>
+								<height>FONT_SIZE_TITLE3</height>
+								<aligny>center</aligny>
+								<font>CAPTION_STRONG</font>
+								<textcolor>HIGHLIGHT_CONTRAST_LIGHT</textcolor>
+								<label>$INFO[Container.NumItems,(, pictures)]</label>
+							</control>
+						</control>
+
+						<!-- Media item wall -->
+						<include content="ItemWall">
+							<param name="id">501</param>
+
+							<top>FONT_SIZE_TITLE1</top>
+							<bottom>0</bottom>
+
+							<onup>noop</onup>
+							<ondown>noop</ondown>
+
+							<!-- Picure layout -->
+							<include content="AlbumLayout">
+								<param name="art">$INFO[ListItem.Art(thumb)]</param>
+								<param name="fallback">$VAR[HomePictureFallbackArt]</param>
+								<param name="overlay_icon">$VAR[HomePictureOverlayIcon]</param>
+								<param name="dark_unfocused">$PARAM[darken_art]</param>
+								<param name="condition">Integer.IsEqual($PARAM[id],302)</param>
+								<param name="get_additional_data">false</param>
+								<param name="info1">$VAR[HomeAlbumInfo1]</param>
+								<param name="info2">$VAR[HomeAlbumInfo2]</param>
+								<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
+								<param name="info2_color">$VAR[ContrastTextForegroundColor]</param>
+							</include>
+						</include>
+					</control>
 				</control>
 			</control>
 

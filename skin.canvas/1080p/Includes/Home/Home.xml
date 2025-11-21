@@ -97,7 +97,7 @@
 					<param name="textcolor">$VAR[ContrastTextHighlightColor]</param>
 				</include>
 
-				<!-- Media item strip -->
+				<!-- Media item wall -->
 				<include content="ItemWall">
 					<param name="id">$PARAM[id]</param>
 
@@ -200,7 +200,7 @@
 					<label>$PARAM[label]</label>
 				</control>
 
-				<!-- Media item strip -->
+				<!-- Media item wall -->
 				<include content="ItemWall">
 					<param name="id">$PARAM[id]</param>
 
@@ -225,7 +225,6 @@
 						<param name="condition">Integer.IsEqual($PARAM[id],302)</param>
 						<param name="get_additional_data">false</param>
 						<param name="sync_501">true</param>
-						<!--todo-->
 						<param name="info1">$VAR[HomeAlbumInfo1]</param>
 						<param name="info2">$VAR[HomeAlbumInfo2]</param>
 						<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
@@ -935,8 +934,17 @@
 							<property name="onclick3">PlayerControl(Next)</property>
 							<property name="close_on_click">true</property>
 						</item>
-						<!-- View type -->
+						<!-- Show all (pictures) -->
 						<item id="3">
+							<visible>$EXP[IsHomePicturesActive] + !$EXP[IsHomePictureTypeAlbums]</visible>
+							<thumb>$VAR[PlayIcon]</thumb>
+							<label>Start slideshow</label>
+							<property name="onclick">RunScript(script.canvas.helper,play_all_pictures)</property>
+							<property name="onclick2">PlayerControl(RandomOff)</property>
+							<property name="close_on_click">true</property>
+						</item>
+						<!-- View type -->
+						<item id="4">
 							<thumb>$VAR[FilterTypeIcon]</thumb>
 							<label>$VAR[HomeFilterTypeLabel]</label>
 							<property name="onclick">$VAR[HomeFilterTypeOnClick]</property>

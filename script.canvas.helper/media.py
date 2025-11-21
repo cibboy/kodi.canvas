@@ -472,11 +472,14 @@ def get_pictures_recursive(path):
     dirs = call_rpc('Files.GetDirectory', { 'directory': path }).get('files', [])
     for e in dirs:
         elem_type = e.get('filetype', '')
+        p = e.get('file', None)
         # If element is a file, add to list.
-        if elem_type == 'file': ret.append(e)
+        if elem_type == 'file':
+            p = p.lower()
+            if p.endswith('.jpg') or p.endswith('.jpeg') or p.endswith('.png') or p.endswith('.gif'):
+                ret.append(e)
         # Otherwise search recursively.
         elif elem_type == 'directory':
-            p = e.get('file', None)
             if p is not None: ret.extend(get_pictures_recursive(p))
 
     return ret

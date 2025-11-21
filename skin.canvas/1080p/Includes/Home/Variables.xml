@@ -84,9 +84,8 @@
 	</variable>
 	<!-- Home picture onclick action -->
 	<variable name="HomePictureOnClick">
-		<!--<value condition="$EXP[IsHomePictureTypeAlbums]">ActivateWindow(music,musicdb://albums/$INFO[ListItem.DBID],return)</value>
-		<value>PlayMedia($INFO[ListItem.FileNameAndPath],noresume,playoffset=0)</value>-->
-		<!--todo-->
+		<value condition="$EXP[IsHomePictureTypeAlbums]">ActivateWindow(pictures,$INFO[ListItem.FolderPath],return)</value>
+		<value>ShowPicture($INFO[ListItem.FileNameAndPath])</value>
 	</variable>
 
 	<!-- Home filter type onclick action -->
