@@ -1,16 +1,5 @@
 TOFIX:
-- ricerca todo e sistemarli
-- attempt home rewrite with simplification:
-  - one "page" per menu item
-  - a page is a grouplist with always at least 1 element (a list or the empty placeholder)
-  - navigation between lists is with setfocus
-  - pages are inside a grouplist
-  - basically reintroduce some concepts of previous implementation, but attempt to implement native navigation
-  - consider Control.Message(id,message) > message: movedown, moveup (https://kodi.wiki/view/List_of_built-in_functions#GUI_control_built-in's)
-  - !!! onfocus "get additional info" da mettere sugli oggetti della 501 nascosta e non sulle altre?
-- actors: onclick deve fare l'action nativa (visualizza i film/episodi con quell'attore?)
 - testare rimozione media: se serve attivare l'opzione nelle impostazioni bisogna aggiornare first run wizard (visual + script)!
-- home empty page: button to add not working
 
 
 

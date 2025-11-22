@@ -412,7 +412,7 @@ def list_actors(params, handle):
             li = get_actor_listitem(actor)
             xbmcplugin.addDirectoryItem(
                 handle = handle,
-                url = f"videodb://actors/{actor.get('id', '')}/",
+                url = '',   # Leave empty. Will not do the local search, but at least it doesn't have any negative side effect.
                 listitem = li,
                 isFolder = False
             )

@@ -310,8 +310,8 @@
 					<align>center</align>
 					<label>$PARAM[label]</label>
 
-					<onclick condition="$PARAM[isvideo]">SetProperty(LibraryNav,true,videos)</onclick>
-					<onclick condition="$PARAM[isvideo]">ActivateWindow(Videos,sources://video/)</onclick>
+					<onclick>SetProperty(Settings.ActivePage,sources,settings)</onclick>
+					<onclick>RunScript(script.canvas.helper,navigate_home_to_active_settings,mediasettings)</onclick>
 					<onup>RunScript(script.canvas.helper,navigate_home_lists,$PARAM[id],up)</onup>
 					<ondown>RunScript(script.canvas.helper,navigate_home_lists,$PARAM[id],down)</ondown>
 					<onleft>SetFocus($PARAM[menuid])</onleft>

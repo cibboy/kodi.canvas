@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
 	<defaultcontrol>1000</defaultcontrol>
+	<onload condition="String.IsEqual(Window(settings).Property(Settings.ActivePage),sources)">SetFocus(1000,4)</onload>
 
 	<controls>
 		<include content="Center169AspectRatio">

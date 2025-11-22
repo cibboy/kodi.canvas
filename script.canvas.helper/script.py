@@ -787,4 +787,5 @@ if __name__ == '__main__':
         # Test method.
         elif method == 'ping':
             timestamp = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
-            xbmc.log(f'ping {timestamp}',xbmc.LOGINFO)
+            if len(sys.argv) > 2: xbmc.log(f'ping {timestamp} - {sys.argv[2]}',xbmc.LOGINFO)
+            else: xbmc.log(f'ping {timestamp}',xbmc.LOGINFO)
