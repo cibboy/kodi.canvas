@@ -189,6 +189,35 @@
 	</include>
 
 
+	<!-- Dialog picture info layout -->
+	<include name="DialogPictureInfoItemLayout">
+		<definition>
+			<control type="group">
+				<right>0</right>
+				<left>0</left>
+
+				<!-- Label -->
+				<control type="label">
+					<height>FONT_SIZE_BODY</height>
+					<font>CAPTION_STRONG</font>
+					<textcolor>FOREGROUND</textcolor>
+					<label>$INFO[ListItem.Label]</label>
+				</control>
+				<!-- Value -->
+				<control type="label">
+					<top>FONT_SIZE_BODY</top>
+					<height>FONT_SIZE_BODY</height>
+					<haspath>true</haspath>
+					<font>CAPTION</font>
+					<textcolor>FOREGROUND</textcolor>
+					<label>$INFO[ListItem.Label2]</label>
+					<haspath>true</haspath>
+				</control>
+			</control>
+		</definition>
+	</include>
+
+
 	<!--
 		Action button for info dialog. When unfocused it's just an icon, when focused it
 		has a background and text.

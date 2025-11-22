@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">60</defaultcontrol>
+
+	<controls>
+		<include content="Center169AspectRatio">
+			<!-- Background -->
+			<control type="group">
+				<visible>!$EXP[IsMediaNavLibraryNavigation]</visible>
+				<include content="BackgroundQuadrantBlur" />
+			</control>
+
+			<!-- Image -->
+			<control type="group">
+				<visible>!$EXP[IsMediaNavLibraryNavigation]</visible>
+				<width>WIDTH_BACKGROUND_SPLIT_WIDE</width>
+				<height>SCREEN_HEIGHT</height>
+
+				<control type="group">
+					<top>PADDING_BASE_80P</top>
+					<bottom>PADDING_BASE_80P</bottom>
+					<left>PADDING_SETTINGS_WIDE_SIDE</left>
+					<right>PADDING_SETTINGS_WIDE_SIDE</right>
+
+					<control type="group">
+						<top>PADDING_BASE_80P</top>
+						<control type="image">
+							<top>PADDING_BASE_80P</top>
+							<bottom>0</bottom>
+							<right>0</right>
+							<left>0</left>
+
+							<texture fallback="1080p/fallback/picture.png" background="true">$INFO[ListItem.Art(thumb)]</texture>
+							<aspectratio scalediffuse="false">keep</aspectratio>
+						</control>
+					</control>
+				</control>
+			</control>
+
+			<!-- Info -->
+			<include content="DialogContainer">
+				<param name="close_animation">true</param>
+
+				<include content="DialogContainerContent">
+					<control type="group">
+						<width>100%</width>
+						<top>PADDING_BASE_80P</top>
+						<bottom>0</bottom>
+
+						<control type="group">
+							<top>PADDING_BASE_80P</top>
+							<bottom>0</bottom>
+
+							<!-- Properties -->
+							<control type="list" id="5">
+								<pagecontrol>60</pagecontrol>
+								<itemlayout width="530" height="85">	<!-- WIDTH_BACKGROUND_SPLIT_NARROW - (PADDING_SETTINGS_NARROW_SIDE * 2) -->
+									<include content="DialogPictureInfoItemLayout" />
+								</itemlayout>
+								<focusedlayout width="530" height="85">	<!-- WIDTH_BACKGROUND_SPLIT_NARROW - (PADDING_SETTINGS_NARROW_SIDE * 2) -->
+									<include content="DialogPictureInfoItemLayout" />
+								</focusedlayout>
+							</control>
+
+							<!-- List scrollbar -->
+							<control type="scrollbar" id="60">
+								<top>0</top>
+								<bottom>0</bottom>
+								<right>PADDING_BASE_20P_NEG</right>
+								<onleft>Close</onleft>
+							</control>
+						</control>
+					</control>
+				</include>
+			</include>
+
+			<!-- Clock -->
+			<control type="group">
+				<visible>!$EXP[IsMediaNavLibraryNavigation]</visible>
+				<include content="TopBar" />
+			</control>
+		</include>
+	</controls>
+</window>

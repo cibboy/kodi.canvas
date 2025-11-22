@@ -11,6 +11,7 @@
 		-->
 		<control type="button" id="9999">
 			<visible allowhiddenfocus="true">false</visible>
+			<onfocus condition="!$EXP[IsMediaNavLibraryNavigation] + !Control.IsVisible(501)">Sendclick(2)</onfocus>
 			<onfocus condition="!$EXP[IsMediaNavLibraryNavigation]">SetFocus(501)</onfocus>
 			<onfocus condition="$EXP[IsMediaNavLibraryNavigation] + !Control.IsVisible(502)">Sendclick(2)</onfocus>
 			<onfocus condition="$EXP[IsMediaNavLibraryNavigation]">SetFocus(502)</onfocus>
@@ -80,6 +81,7 @@
 						<!-- Media item wall -->
 						<include content="ItemWall">
 							<param name="id">501</param>
+							<visible>!$EXP[IsMediaNavLibraryNavigation]</visible>
 
 							<top>FONT_SIZE_TITLE1</top>
 							<bottom>0</bottom>

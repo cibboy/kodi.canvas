@@ -70,7 +70,7 @@
 
 					<!-- Right side (details when no dialog is visible) -->
 					<control type="group">
-						<visible>!$EXP[IsSettingsAnyDialogActive]</visible>
+						<visible>!$EXP[IsSettingsAnyDialogActive] + !Window.IsVisible(DialogPictureInfo.xml)</visible>
 						<include content="ShowHideFadeSlideHorizontalAnimation">
 							<param name="slide_amount">-100</param>
 						</include>

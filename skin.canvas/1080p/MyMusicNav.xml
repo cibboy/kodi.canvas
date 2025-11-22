@@ -11,6 +11,7 @@
 		-->
 		<control type="button" id="9999">
 			<visible allowhiddenfocus="true">false</visible>
+			<onfocus condition="!$EXP[IsMediaNavLibraryNavigation] + !Control.IsVisible(501)">Sendclick(2)</onfocus>
 			<onfocus condition="!$EXP[IsMediaNavLibraryNavigation]">SetFocus(501)</onfocus>
 			<onfocus condition="$EXP[IsMediaNavLibraryNavigation] + !Control.IsVisible(502)">Sendclick(2)</onfocus>
 			<onfocus condition="$EXP[IsMediaNavLibraryNavigation]">SetFocus(502)</onfocus>
