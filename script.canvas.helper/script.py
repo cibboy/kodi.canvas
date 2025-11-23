@@ -662,6 +662,7 @@ def apply_customizations():
     call_rpc('Settings.SetSettingValue', {'setting': 'videolibrary.showallitems', 'value': False})
     call_rpc('Settings.SetSettingValue', {'setting': 'videolibrary.flattentvshows', 'value': 0})
     call_rpc('Settings.SetSettingValue', {'setting': 'videolibrary.tvshowsselectfirstunwatcheditem', 'value': 1})
+    call_rpc('Settings.SetSettingValue', {'setting': 'filelists.allowfiledeletion', 'value': True})
 
     # Update advancedsettings.xml
     xml = xbmcvfs.translatePath('special://userdata/advancedsettings.xml')

@@ -206,11 +206,11 @@
 
 				<!-- List of changes -->
 				<control type="panel">
-					<width>1350</width>
+					<width>1360</width>
 					<height>400</height>
 					<centerleft>50%</centerleft>
 
-					<itemlayout width="675" height="FIRSTRUN_LISTITEM_HEIGHT">
+					<itemlayout width="680" height="FIRSTRUN_LISTITEM_HEIGHT">
 						<!-- Checkmark -->
 						<control type="image">
 							<width>30</width>
@@ -244,7 +244,8 @@
 						<item id="8"><label>Hide "all items" entry</label></item>
 						<item id="9"><label>Never flatten TV Show seasons</label></item>
 						<item id="10"><label>Select first unwatched season/episode on first entry</label></item>
-						<item id="11"><label>Remove Kodi splash screen</label></item>
+						<item id="11"><label>Allow file renaming and deletion</label></item>
+						<item id="12"><label>Remove Kodi splash screen</label></item>
 					</content>
 				</control>
 			</control>

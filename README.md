@@ -1,20 +1,3 @@
-TOFIX:
-- testare rimozione media: se serve attivare l'opzione nelle impostazioni bisogna aggiornare first run wizard (visual + script)!
-
-
-
-
-not in spotify:
-- Always Getting Over You, Angela Ammons, American Pie 2
-- Right Here, Right Now, Fatboy Slim, You've Come a Long Way, Baby
-- I Like The Way You Move, Bodyrockers
-in spotify:
-- Wake me up, Avicii (al momento live, ma non è bella)
-- Maria, Ricky Martin (c'è, ma l'altra è la versione veloce)
-- It's Raining Men, The Weather Girls (versione lunga e strana)
-
-
-
 Guidelines:
 https://medium.com/you-i-tv/designing-for-10ft-ceeb202c1315
 
@@ -44,41 +27,3 @@ Docs:
 
 <!--?xsp={"rules":{"and":[{"field":"title","operator":"is","value":["$INFO[Window.Property(videoinfo_encoded_title)]"]}]},"type":"tvshows"}-->
 <!--videodb://tvshows/titles/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22title%22%2c%22operator%22%3a%22doesnotcontain%22%2c%22value%22%3a%5b%22Pitt%22%5d%7d%5d%7d%2c%22type%22%3a%22tvshows%22%7d-->
-
-
-
-<variable name="TVShowOnClickActionVar">
-  <value condition="String.IsEqual(ListItem.Property(node.type),target_folder)">ActivateWindow(videos,$INFO[ListItem.FilenameAndPath],return)</value>
-  <value condition="Skin.HasSetting(tvshow_onclick_browse)">ActivateWindow(videos,videodb://tvshows/titles/$INFO[ListItem.DBID]/,return)</value>
-  <value condition="Skin.HasSetting(tvshow_onclick_continuewatching)">PlayMedia(videodb://tvshows/titles/$INFO[ListItem.DBID]/,resume)</value>
-  <value condition="Skin.HasSetting(tvshow_onclick_playfrombeginning)">PlayMedia(videodb://tvshows/titles/$INFO[ListItem.DBID]/,noresume)</value>
-  <value condition="Skin.HasSetting(tvshow_onclick_playnext)">QueueMedia(videodb://tvshows/titles/$INFO[ListItem.DBID]/,playnext)</value>
-  <value condition="Skin.HasSetting(tvshow_onclick_queue)">QueueMedia(videodb://tvshows/titles/$INFO[ListItem.DBID]/)</value>
-  <value>ActivateWindow(videos,videodb://tvshows/titles/$INFO[ListItem.DBID]/,return)</value>
-</variable>
-
-
-
-<onClick>RunScript(script.blur_fanart,
-  width=1920&height=1080&radius=15&prop=MyBlurProp
-)</onClick>
-
-<control type="image" id="5000"
-         posX="0" posY="0"
-         width="1280" height="720">
-
-  <texture condition="StringLength(
-    Window.Property(BlurredFanart)
-  ) &gt; 0">
-    $INFO[Window.Property(BlurredFanart)]
-  </texture>
-
-  <texture condition="StringLength(
-    Window.Property(BlurredFanart)
-  ) == 0">
-    special://skin/media/default_bg.jpg
-  </texture>
-</control>
-
-
-special://temp/blurred_fanart.jpg
