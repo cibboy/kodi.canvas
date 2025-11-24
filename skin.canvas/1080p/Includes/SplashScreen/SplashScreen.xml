@@ -189,7 +189,7 @@
 
 			<control type="grouplist">
 				<orientation>vertical</orientation>
-				<itemgap>PADDING_BASE</itemgap>
+				<itemgap>PADDING_BASE_60P</itemgap>
 				<usecontrolcoords>true</usecontrolcoords>
 
 				<top>PADDING_BASE</top>
@@ -241,11 +241,13 @@
 						<item id="5"><label>Prefer default audio language: false</label></item>
 						<item id="6"><label>No subtitles by default</label></item>
 						<item id="7"><label>Default video action: resume</label></item>
-						<item id="8"><label>Hide "all items" entry</label></item>
+						<item id="8"><label>Hide "all items" entries</label></item>
 						<item id="9"><label>Never flatten TV Show seasons</label></item>
 						<item id="10"><label>Select first unwatched season/episode on first entry</label></item>
 						<item id="11"><label>Allow file renaming and deletion</label></item>
-						<item id="12"><label>Remove Kodi splash screen</label></item>
+						<item id="12"><label>Update libraries on startup</label></item>
+						<item id="13"><label>Locale: English (US) and European time/date</label></item>
+						<item id="14"><label>Remove Kodi splash screen</label></item>
 					</content>
 				</control>
 			</control>
