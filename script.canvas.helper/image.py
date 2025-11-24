@@ -99,6 +99,7 @@ def get_image(imgPath):
         thumb = xbmc.getCacheThumbName(imgPath)
         thumb = thumb[:-4]
         full_path = os.path.join(cache, thumb[0], thumb + '.jpg')
+        found = True
         if (xbmcvfs.exists(full_path)):
             thumb = thumb + '.jpg'
         else:
@@ -110,7 +111,21 @@ def get_image(imgPath):
                 if (xbmcvfs.exists(full_path)):
                     thumb = thumb + '.jpeg'
                 else:
-                    return
+                    found = False
+                
+        # If not found, try one last move: use the imgPath path.
+        if not found:
+            if imgPath.endswith('.jpg'):
+                full_path = imgPath
+                thumb = thumb + '.jpg'
+            elif imgPath.endswith('.png'):
+                full_path = imgPath
+                thumb = thumb + '.png'
+            elif imgPath.endswith('.jpeg'):
+                full_path = imgPath
+                thumb = thumb + '.jpeg'
+            else:
+                return
 
         return (full_path, thumb)
     except:
@@ -182,7 +197,7 @@ def get_cropped_clearlogo(imgPath):
             # Errors with single channel L conversion to RGBa so catch exceptions
             img_rgba = img.convert('RGBa')
             img = img.crop(img_rgba.getbbox())
-        except Exception:
+        except:
             # If we get a conversion error just try getting bounding box with current channel
             # We'll probably be okay with single channel texture since Kodi now handles these better
             img = img.crop(img.getbbox())
