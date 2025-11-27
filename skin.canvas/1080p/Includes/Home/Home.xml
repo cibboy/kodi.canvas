@@ -404,7 +404,7 @@
 					<param name="label">TV Shows</param>
 					<param name="content">$VAR[HomeTVShowsContent]</param>
 					<param name="menuid">203</param>
-					<param name="onclick">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.DBID],return)</param>
+					<param name="onclick">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.DBID]/,return)</param>
 					<param name="darken_art">$PARAM[darken_art]</param>
 				</include>
 				<!-- No TV shows page -->
@@ -827,6 +827,7 @@
 					<content>
 						<!-- Shutdown -->
 						<item id="1">
+							<visible>System.HasShutdown</visible>
 							<thumb>$VAR[ShutdownIcon]</thumb>
 							<label>Shutdown</label>
 							<property name="onclick">PowerDown()</property>
