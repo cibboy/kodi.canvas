@@ -45,6 +45,17 @@
 	<variable name="MediaNavInfoButtonLabel"><value condition="Control.HasFocus(417)">  Info</value></variable>
 	<variable name="MediaNavMoreButtonLabel"><value condition="Control.HasFocus(418)">  More</value></variable>
 
+	<!-- Video nav "play" button action -->
+	<variable name="MediaNavPlayButtonAction">
+		<value condition="$EXP[IsDetailsItemTypeSeason] | $EXP[IsDetailsItemTypeTvShow]">PlayMedia($INFO[ListItem.FolderPath],isdir,noresume,playoffset=0)</value>
+		<value>PlayMedia($INFO[ListItem.FileNameAndPath],noresume,playoffset=0)</value>
+	</variable>
+	<!-- Video nav "resume" button action -->
+	<variable name="MediaNavResumeButtonAction">
+		<value condition="$EXP[IsDetailsItemTypeSeason] | $EXP[IsDetailsItemTypeTvShow]">PlayMedia($INFO[ListItem.FolderPath],isdir,resume)</value>
+		<value>PlayMedia($INFO[ListItem.FileNameAndPath],resume)</value>
+	</variable>
+
 	<!-- Album nav "play all" button -->
 	<variable name="AlbumNavPlayAllButtonColor">
 		<value condition="Control.HasFocus(94600)">FOREGROUND_ACCENT</value>

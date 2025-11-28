@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="script.canvas.helper" name="Canvas Skin Helper Addon" version="1.0.0" provider-name="Gabriele Seppi">
+<addon id="script.canvas.helper" name="Canvas Skin Helper Addon" version="1.0.1" provider-name="Gabriele Seppi">
 	<requires>
 		<import addon="xbmc.python" version="3.0.1"/>
 		<!-- Require Pillow module -->

@@ -620,8 +620,6 @@ def play_show_theme():
         theme_playing = window.getProperty('Player.PlayingTheme')
         if xbmcvfs.exists(cache_theme):
             if not player.isPlaying() or (theme_playing == 'true' and player.getPlayingFile() != cache_theme):
-                # Sleep 1 second to give Kodi the chance to complete focusing on 501.
-                time.sleep(1)
                 # Set the theme flag, the play in loop.
                 window.setProperty('Player.PlayingTheme', 'true')
                 player.play(cache_theme, windowed=True, startpos=0)
