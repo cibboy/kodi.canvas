@@ -640,7 +640,13 @@
 				<height>0</height>
 				
 				<itemlayout width="WIDTH_POSTER_LIST_ITEM_CONTAINER" height="HEIGHT_POSTER_LIST_ITEM_CONTAINER"></itemlayout>
-				<focusedlayout width="WIDTH_POSTER_LIST_ITEM_CONTAINER" height="HEIGHT_POSTER_LIST_ITEM_CONTAINER"></focusedlayout>
+				<focusedlayout width="WIDTH_POSTER_LIST_ITEM_CONTAINER" height="HEIGHT_POSTER_LIST_ITEM_CONTAINER">
+					<!-- Prevent lingering focus on this list when coming from views with 501 with focus (damn Kodi...) -->
+					<control type="button">	
+						<visible allowhiddenfocus="true">false</visible>
+						<onfocus>SetFocus(100)</onfocus>
+					</control>
+				</focusedlayout>
 				<content>$VAR[HomeActiveItemListContent]</content>
 
 				<onback>SetFocus(200)</onback>
