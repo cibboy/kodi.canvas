@@ -616,14 +616,17 @@ def play_show_theme():
         # Play theme if available in cache and allowed to play:
         # - not already playing
         # - nothing else playing
+        # - in MyVideoNav.xml (10025) or MovieEpisodeVideoNav.xml (11110)
         player = xbmc.Player()
         theme_playing = window.getProperty('Player.PlayingTheme')
         if xbmcvfs.exists(cache_theme):
             if not player.isPlaying() or (theme_playing == 'true' and player.getPlayingFile() != cache_theme):
-                # Set the theme flag, the play in loop.
-                window.setProperty('Player.PlayingTheme', 'true')
-                player.play(cache_theme, windowed=True, startpos=0)
-                xbmc.executebuiltin('PlayerControl(RepeatOne)')
+                current = xbmcgui.getCurrentWindowId()
+                if current == 10025 or current == 11110:
+                    # Set the theme flag, the play in loop.
+                    window.setProperty('Player.PlayingTheme', 'true')
+                    player.play(cache_theme, windowed=True, startpos=0)
+                    xbmc.executebuiltin('PlayerControl(RepeatOne)')
 
 # Play the album showing in music nav.
 def play_full_album(container_path):
