@@ -173,7 +173,7 @@
 						<param name="action">$VAR[PlayerOSDNextForwardAction]</param>
 					</include>
 					<!-- Stop -->
-					<include content="PlayerOSDButton">
+					<include content="PlayerOSDButton" condition="$PARAM[show_stop]">
 						<param name="id">104</param>
 						<param name="size">SIZE_OSD_BUTTON</param>
 						<param name="size_focus">SIZE_OSD_BUTTON_FOCUS</param>
