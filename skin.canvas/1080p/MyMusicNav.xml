@@ -118,6 +118,7 @@
 								<focusedlayout width="WIDTH_ALBUMNAV_ITEM" height="HEIGHT_ALBUMNAV_ITEM">
 									<include content="AlbumNavSongListLayoutContent">
 										<param name="font">CAPTION_STRONG</param>
+										<param name="highlight_background">BACKGROUND_OPAQUE20</param>
 									</include>
 								</focusedlayout>
 							</control>

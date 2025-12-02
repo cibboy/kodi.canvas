@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="skin.canvas" version="1.0.5" name="Canvas" provider-name="Gabriele Seppi">
+<addon id="skin.canvas" version="1.0.6" name="Canvas" provider-name="Gabriele Seppi">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<import addon="script.canvas.helper" version="1.0.2"/>

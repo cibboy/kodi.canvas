@@ -401,37 +401,50 @@
 	<!-- Album song list layout -->
 	<include name="AlbumNavSongListLayoutContent">
 		<param name="font"></param>
+		<param name="highlight_background">TRANSPARENT</param>
 
 		<definition>
 			<control type="group">
 				<width>WIDTH_ALBUMNAV_ITEM</width>
 				<height>HEIGHT_ALBUMNAV_ITEM</height>
 
-				<!-- Playing icon -->
+				<!-- Focus background -->
 				<control type="image">
-					<width>SIZE_ALBUMNAV_ICON</width>
-					<height>SIZE_ALBUMNAV_ICON</height>
-					<top>10</top>
-					<texture colordiffuse="$VAR[ContrastTextForegroundColor]">$VAR[AlbumNavSongIcon]</texture>
+					<width>100%</width>
+					<height>100%</height>
+					<texture colordiffuse="$PARAM[highlight_background]">diffuse.png</texture>
 				</control>
-				<!-- Song title -->
-				<control type="label">
-					<left>40</left>
-					<width max="695">auto</width>	<!-- max: WIDTH_ALBUMNAV_ITEM - SIZE_ALBUMNAV_ICON - (40 * 2) - 100 -->
-					<font>$PARAM[font]</font>
-					<textcolor>$VAR[ContrastTextForegroundColor]</textcolor>
-					<selectedcolor>$VAR[ContrastTextForegroundColor]</selectedcolor>
-					<label>$INFO[ListItem.Title]</label>
-				</control>
-				<!-- Duration -->
-				<control type="label">
-					<right>0</right>
-					<width>100</width>
-					<font>$PARAM[font]</font>
-					<textcolor>$VAR[ContrastTextForegroundColor]</textcolor>
-					<selectedcolor>$VAR[ContrastTextForegroundColor]</selectedcolor>
-					<align>right</align>
-					<label>$INFO[ListItem.Duration]</label>
+
+				<control type="group">
+					<top>3</top>
+
+					<!-- Playing icon -->
+					<control type="image">
+						<width>SIZE_ALBUMNAV_ICON</width>
+						<height>SIZE_ALBUMNAV_ICON</height>
+						<top>10</top>
+						<left>PADDING_BASE_10P</left>
+						<texture colordiffuse="$VAR[ContrastTextForegroundColor]">$VAR[AlbumNavSongIcon]</texture>
+					</control>
+					<!-- Song title -->
+					<control type="label">
+						<left>PADDING_BASE_50P</left>
+						<width max="685">auto</width>	<!-- max: WIDTH_ALBUMNAV_ITEM - SIZE_ALBUMNAV_ICON - PADDING_BASE_50P - 40 - 100 -->
+						<font>$PARAM[font]</font>
+						<textcolor>$VAR[ContrastTextForegroundColor]</textcolor>
+						<selectedcolor>$VAR[ContrastTextForegroundColor]</selectedcolor>
+						<label>$INFO[ListItem.Title]</label>
+					</control>
+					<!-- Duration -->
+					<control type="label">
+						<right>PADDING_BASE_10P</right>
+						<width>100</width>
+						<font>$PARAM[font]</font>
+						<textcolor>$VAR[ContrastTextForegroundColor]</textcolor>
+						<selectedcolor>$VAR[ContrastTextForegroundColor]</selectedcolor>
+						<align>right</align>
+						<label>$INFO[ListItem.Duration]</label>
+					</control>
 				</control>
 			</control>
 		</definition>
