@@ -429,6 +429,7 @@
 						<font>CAPTION</font>
 						<textcolor>$PARAM[info1_color]</textcolor>
 						<label>$PARAM[info1]</label>
+						<align>center</align>
 						<scroll>$PARAM[scroll]</scroll>
 						<scrollspeed>40</scrollspeed>
 					</control>
@@ -439,6 +440,7 @@
 						<font>CAPTION2</font>
 						<textcolor>$PARAM[info2_color]</textcolor>
 						<label>$PARAM[info2]</label>
+						<align>center</align>
 						<scroll>$PARAM[scroll]</scroll>
 						<scrollspeed>40</scrollspeed>
 					</control>
