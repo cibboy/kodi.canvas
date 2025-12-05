@@ -532,6 +532,11 @@ def set_active_episode():
     xbmc.executebuiltin('SetProperty(ShowList,true,1110)')
     # Set focus with computed offset.
     xbmc.executebuiltin(f"SetFocus(501,{offset},absolute)")
+    # Kodi is stupid, sometimes it says it the list has focus, but it doesn't.
+    # So we need to force it again after a small sleep. Most of the time it will
+    # visibly double focus, but it's better than not having focus...
+    time.sleep(0.1)
+    xbmc.executebuiltin(f"SetFocus(501,{offset},absolute)")
 
 
 # Finds the next episode to play, if any.
