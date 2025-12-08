@@ -539,6 +539,51 @@ def set_active_episode():
     xbmc.executebuiltin(f"SetFocus(501,{offset},absolute)")
 
 
+# Removes the requested movie/episode/season/TV show from library.
+def remove_video_item(type, id, close_dialog):
+    # Retrieve item path.
+    path = None
+    title = ''
+    if type == 'movie':
+        item = call_rpc('VideoLibrary.GetMovieDetails', { 'movieid': int(id), 'properties': ['file'] }).get('moviedetails', {})
+        path = item.get('file', None)
+        title = item.get('label', '')
+    elif type == 'tvshow':
+        item = call_rpc('VideoLibrary.GetTVShowDetails', { 'tvshowid': int(id), 'properties': ['file'] }).get('tvshowdetails', {})
+        path = item.get('file', None)
+        title = item.get('label', '')
+    elif type == 'episode':
+        item = call_rpc('VideoLibrary.GetEpisodeDetails', { 'episodeid': int(id), 'properties': ['file'] }).get('episodedetails', {})
+        path = item.get('file', None)
+        title = item.get('label', '')
+
+    # Continue only if a path was found.
+    if path is not None:
+        # Ask for confirmation
+        if xbmcgui.Dialog().yesno(f"Remove {type}", f"Would you really remove '{title}' from the library?"):
+            xbmc.log(f"Removing {type} with ID {id}", xbmc.LOGINFO)
+
+            # Remove item from library.
+            if type == 'movie':
+                call_rpc('VideoLibrary.RemoveMovie', { 'movieid': int(id) })
+            elif type == 'tvshow':
+                call_rpc('VideoLibrary.RemoveTVShow', { 'tvshowid': int(id) })
+            elif type == 'episode':
+                call_rpc('VideoLibrary.RemoveEpisode', { 'episodeid': int(id) })
+
+            # Ask for confirmation to remove actual item.
+            if xbmcgui.Dialog().yesno("Confirm delete", f"Would you like to delete the selected file(s)?\nWarning - this action can't be undone!\n{path}"):
+                xbmc.log(f"Deletind item at path {path}", xbmc.LOGINFO)
+
+                # Remove actual item.
+                if os.path.isfile(path): os.remove(path)
+                elif os.path.isdir(path): shutil.rmtree(path)
+
+            # Close dialog if requested.
+            if str(close_dialog) == 'true':
+                xbmc.executebuiltin('Action(Close)')
+
+
 # Finds the next episode to play, if any.
 def load_nextup(tvshowid, season, episode):
     # All properties reside on home window.
@@ -780,6 +825,9 @@ if __name__ == '__main__':
         # Move active element to requested episode (retrieved from window properties).
         elif method == 'set_active_episode':
             set_active_episode()
+        # Remove video item.
+        elif method == 'remove_video_item':
+            remove_video_item(sys.argv[2], sys.argv[3], sys.argv[4])
         
         # Finds the next episode to play, if any.
         elif method == 'load_nextup':

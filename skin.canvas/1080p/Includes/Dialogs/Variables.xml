@@ -13,6 +13,7 @@
 	<!-- DialogVideoInfo action button labels -->
 	<variable name="DialogVideoInfoRefreshButtonLabel"><value condition="Control.HasFocus(6)">  Refresh</value></variable>
 	<variable name="DialogVideoInfoManageArtButtonLabel"><value condition="Control.HasFocus(10)">  Manage art</value></variable>
+	<variable name="DialogVideoInfoRemoveButtonLabel"><value condition="Control.HasFocus(100)">  Remove</value></variable>
 
 
 	<!-- Constants -->

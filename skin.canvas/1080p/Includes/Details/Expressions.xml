@@ -165,7 +165,7 @@
 	<expression name="HasDetailsDuration">
 		[[$EXP[IsVideoPlayerVisible] | $EXP[IsMusicPlayerVisible]] + !String.IsEmpty(Player.Duration())] |
 		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Duration)] |
-		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !$EXP[IsMusicPlayerVisible] + !$EXP[IsDetailsItemTypeAlbum] + !String.IsEmpty(Container(501).ListItem.Duration)]
+		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !$EXP[IsMusicPlayerVisible] + !$EXP[IsDetailsItemTypeAlbum] + $EXP[IsDetailsItemTypeVideo] + !String.IsEmpty(Container(501).ListItem.Duration)]
 	</expression>
 
 	<!-- Has MPAA? -->

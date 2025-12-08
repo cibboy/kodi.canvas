@@ -45,6 +45,14 @@
 						<param name="icon">1080p/icons/interface.png</param>
 						<param name="label">$VAR[DialogVideoInfoManageArtButtonLabel]</param>
 					</include>
+					<!-- Remove -->
+					<include content="DialogInfoActionButton">
+						<param name="id">100</param>
+						<param name="icon">1080p/icons/delete.png</param>
+						<param name="label">$VAR[DialogVideoInfoRemoveButtonLabel]</param>
+						<param name="onclick">RunScript(script.canvas.helper,remove_video_item,$INFO[ListItem.DBTYPE],$INFO[ListItem.DBID],true)</param>
+						<param name="visible">!String.IsEqual(ListItem.DBTYPE,season)</param>
+					</include>
 				</control>
 
 				<!-- Clock -->
@@ -81,6 +89,14 @@
 								<param name="id">10</param>
 								<param name="icon">1080p/icons/interface.png</param>
 								<param name="label">$VAR[DialogVideoInfoManageArtButtonLabel]</param>
+							</include>
+							<!-- Remove -->
+							<include content="DialogInfoActionButton">
+								<param name="id">100</param>
+								<param name="icon">1080p/icons/delete.png</param>
+								<param name="label">$VAR[DialogVideoInfoRemoveButtonLabel]</param>
+								<param name="onclick">RunScript(script.canvas.helper,remove_video_item,$INFO[ListItem.DBTYPE],$INFO[ListItem.DBID],true)</param>
+								<param name="visible">!String.IsEqual(ListItem.DBTYPE,season)</param>
 							</include>
 						</control>
 					</include>
