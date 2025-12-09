@@ -60,7 +60,7 @@
 						<width>WIDTH_NEXTVIDEO_LANDSCAPE</width>
 						<height>HEIGHT_NEXTVIDEO_LANDSCAPE</height>
 
-						<!-- Thumbnail of next episode -->
+						<!-- Thumbnail of current episode -->
 						<control type="group">
 							<bottom>0</bottom>
 							<right>0</right>
@@ -72,6 +72,7 @@
 								<width>WIDTH_NEXTVIDEO_LANDSCAPE</width>
 								<height>HEIGHT_NEXTVIDEO_LANDSCAPE</height>
 								<texture fallback="1080p/fallback/landscape.png">$INFO[Window(home).Property(Player.Item.Thumb)]</texture>
+								<aspectratio scalediffuse="false">scale</aspectratio>
 							</control>
 							<!-- Play icon -->
 							<control type="group">
@@ -161,6 +162,7 @@
 							<width>WIDTH_NEXTVIDEO_LANDSCAPE</width>
 							<height>HEIGHT_NEXTVIDEO_LANDSCAPE</height>
 							<texture fallback="1080p/fallback/landscape.png">$INFO[Window(home).Property(Player.NextItem.Thumb)]</texture>
+							<aspectratio scalediffuse="false">scale</aspectratio>
 						</control>
 						<!-- Play icon -->
 						<control type="group">
