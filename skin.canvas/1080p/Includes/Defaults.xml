@@ -186,6 +186,6 @@
 	<default type="ranges">
 		<height>12</height>
 		<texturebg colordiffuse="TRANSPARENT">1080p/controls/marker-bg.png</texturebg>
-		<righttexture colordiffuse="BACKGROUND_OPAQUE50">1080p/controls/marker.png</righttexture>
+		<righttexture colordiffuse="FOREGROUND_OPAQUE90">1080p/controls/marker.png</righttexture>
 	</default>
 </includes>

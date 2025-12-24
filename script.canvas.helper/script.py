@@ -533,10 +533,16 @@ def set_active_episode():
     # Set focus with computed offset.
     xbmc.executebuiltin(f"SetFocus(501,{offset},absolute)")
     # Kodi is stupid, sometimes it says it the list has focus, but it doesn't.
-    # So we need to force it again after a small sleep. Most of the time it will
-    # visibly double focus, but it's better than not having focus...
+    # So we need to force it again while the focused episoded is not the requested one.
     time.sleep(0.1)
     xbmc.executebuiltin(f"SetFocus(501,{offset},absolute)")
+    count = 0
+    selected = int(xbmc.getInfoLabel('Container(501).ListItem.DBID'))
+    while count < 10 and selected != episode:
+        count += 1
+        xbmc.executebuiltin(f"SetFocus(501,{offset},absolute)")
+        time.sleep(1)
+        selected = int(xbmc.getInfoLabel('Container(501).ListItem.DBID'))
 
 
 # Removes the requested movie/episode/season/TV show from library.
