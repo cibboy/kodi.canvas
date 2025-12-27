@@ -537,12 +537,18 @@ def set_active_episode():
     time.sleep(0.1)
     xbmc.executebuiltin(f"SetFocus(501,{offset},absolute)")
     count = 0
-    selected = int(xbmc.getInfoLabel('Container(501).ListItem.DBID'))
+    current = xbmcgui.getCurrentWindowId()
+    if current != 11110: return
+    try: selected = int(xbmc.getInfoLabel('Container(501).ListItem.DBID'))
+    except: return
     while count < 10 and selected != episode:
         count += 1
         xbmc.executebuiltin(f"SetFocus(501,{offset},absolute)")
         time.sleep(1)
-        selected = int(xbmc.getInfoLabel('Container(501).ListItem.DBID'))
+        current = xbmcgui.getCurrentWindowId()
+        if current != 11110: return
+        try: selected = int(xbmc.getInfoLabel('Container(501).ListItem.DBID'))
+        except: return
 
 
 # Removes the requested movie/episode/season/TV show from library.
