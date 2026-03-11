@@ -52,12 +52,11 @@ def get_musicplayer_bg_info(thumb):
     window = xbmcgui.Window(12006)
 
     # Get blurred background.
-    #blur, contrast = get_blurred(str(window.getProperty('Item.Thumb')))
     blur, contrast = get_blurred(thumb)
     
     # Set properties.
-    window.setProperty('Item.Blur', blur)
-    window.setProperty('Item.Contrast', contrast)
+    window.setProperty('MusicPlayer.Blur', blur)
+    window.setProperty('MusicPlayer.Contrast', contrast)
 
 # Populate window properties with information about the requested item to be used in details.
 def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
@@ -96,6 +95,8 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
     clearlogo_original = ''
     watched = 'false'
     all_new = 'false'
+    has_eng_sub = 'false'
+    has_ita_sub = 'false'
 
     # Retrieve info based on type.
     if itemtype == 'episode':
@@ -121,6 +122,10 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
             # Watched is true if playcount is > 0 and we're not currently playing it.
             if int(xbmc.getInfoLabel(f"{item_ref}.PlayCount") > 0) and time_remaining == '': watched = 'true'
         except: pass
+        # Find subs.
+        for i in range(20):
+            if xbmc.getInfoLabel(f"{item_ref}.Property(SubtitleLanguage.{i+1})") == 'eng': has_eng_sub = 'true'
+            elif xbmc.getInfoLabel(f"{item_ref}.Property(SubtitleLanguage.{i+1})") == 'ita': has_ita_sub = 'true'
         # Find fanart.
         fanart = xbmc.getInfoLabel(f"{item_ref}.Art(season.fanart)")
         if (fanart is None or fanart == ''): fanart = xbmc.getInfoLabel(f"{item_ref}.Art(tvshow.fanart)")
@@ -207,6 +212,10 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
             # Watched is true if playcount is > 0 and we're not currently playing it.
             if int(xbmc.getInfoLabel(f"{item_ref}.PlayCount") > 0) and time_remaining == '': watched = 'true'
         except: pass
+        # Find subs.
+        for i in range(20):
+            if xbmc.getInfoLabel(f"{item_ref}.Property(SubtitleLanguage.{i+1})") == 'eng': has_eng_sub = 'true'
+            elif xbmc.getInfoLabel(f"{item_ref}.Property(SubtitleLanguage.{i+1})") == 'ita': has_ita_sub = 'true'
         # Find fanart.
         fanart = xbmc.getInfoLabel(f"{item_ref}.Art(fanart)")
         # Find clearlogo.
@@ -267,6 +276,12 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
     if hdr_type == 'HDR10': hdr_type = 'HDR'
     elif hdr_type == 'DOLBYVISION': hdr_type = 'Dolby Vision'
     audio_channels = format_audio_channels(xbmc.getInfoLabel(f"{item_ref}.AudioChannels"))
+    audio_channels_s1 = format_audio_channels(xbmc.getInfoLabel(f"{item_ref}.Property(AudioChannels.1)"))
+    audio_channels_s2 = format_audio_channels(xbmc.getInfoLabel(f"{item_ref}.Property(AudioChannels.2)"))
+    audio_lang_s1 = xbmc.getInfoLabel(f"{item_ref}.Property(AudioLanguage.1)")
+    audio_lang_s2 = xbmc.getInfoLabel(f"{item_ref}.Property(AudioLanguage.2)")
+    audio_codec_s1 = xbmc.getInfoLabel(f"{item_ref}.Property(AudioCodec.1)")
+    audio_codec_s2 = xbmc.getInfoLabel(f"{item_ref}.Property(AudioCodec.2)")
     genre = xbmc.getInfoLabel(f"{item_ref}.Genre(comma)")
     plot = xbmc.getInfoLabel(f"{item_ref}.Plot")
     director = xbmc.getInfoLabel(f"{item_ref}.Director(comma)")
@@ -287,6 +302,12 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
     window.setProperty('Details.AspectRatio', aspect_ratio)
     window.setProperty('Details.HdrType', hdr_type)
     window.setProperty('Details.AudioChannels', audio_channels)
+    window.setProperty('Details.AudioChannels.1', audio_channels_s1)
+    window.setProperty('Details.AudioChannels.2', audio_channels_s2)
+    window.setProperty('Details.AudioLanguage.1', audio_lang_s1)
+    window.setProperty('Details.AudioLanguage.2', audio_lang_s2)
+    window.setProperty('Details.AudioCodec.1', audio_codec_s1)
+    window.setProperty('Details.AudioCodec.2', audio_codec_s2)
     window.setProperty('Details.Year', year)
     window.setProperty('Details.EpisodeNumber', ep_number)
     window.setProperty('Details.EpisodePremiere', ep_premiere)
@@ -311,6 +332,8 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
     window.setProperty('Details.Thumb', xbmc.getInfoLabel(f"{item_ref}.Art(thumb)"))
     window.setProperty('Details.Watched', watched)
     window.setProperty('Details.AllNew', all_new)
+    window.setProperty('Details.HasEngSubs', has_eng_sub)
+    window.setProperty('Details.HasItaSubs', has_ita_sub)
 
     # If the container is showing the list of episodes of a season, compute previous
     # and next season path for navigation from videonav.

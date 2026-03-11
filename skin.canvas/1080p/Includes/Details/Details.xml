@@ -505,7 +505,7 @@
 							<param name="text">Eng</param>
 							<param name="visible">$EXP[HasDetailsEngSubtitle]</param>
 						</include>
-						<!-- Ira -->
+						<!-- Ita -->
 						<include content="DetailsInfoTag">
 							<param name="text">Ita</param>
 							<param name="visible">$EXP[HasDetailsItaSubtitle]</param>

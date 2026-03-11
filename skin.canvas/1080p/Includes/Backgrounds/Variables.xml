@@ -28,8 +28,8 @@
 		<value>$INFO[Window(home).Property(Details.Fanart)]</value>
 	</variable>
 	<!-- Blur image -->
-		<!--<value condition="Window.IsActive(12006)">$INFO[Window(12006).Property(Item.Blur)]</value>-->
 	<variable name="BlurArt">
+		<value condition="Window.IsActive(12006)">$INFO[Window(12006).Property(MusicPlayer.Blur)]</value>
 		<value>$INFO[Window(home).Property(Details.Blur)]</value>
 	</variable>
 </includes>
