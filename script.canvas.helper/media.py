@@ -387,9 +387,6 @@ def list_actors(params, handle):
     type = params.get('dbtype', None)
     id = params.get('dbid', None)
 
-    xbmc.log(str(type), xbmc.LOGINFO)
-    xbmc.log(str(id), xbmc.LOGINFO)
-
     item = None
 
     # Seasons don't have cast, so retrieve tvshow and use that.

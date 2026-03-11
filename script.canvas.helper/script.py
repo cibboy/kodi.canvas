@@ -94,6 +94,8 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
     filepath = ''
     fanart = ''
     clearlogo_original = ''
+    watched = 'false'
+    all_new = 'false'
 
     # Retrieve info based on type.
     if itemtype == 'episode':
@@ -113,7 +115,12 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
             else: duration = f"{dur_m}m"
         except: pass
         # Find percentage played.
-        perc_played = xbmc.getInfoLabel(f"{item_ref}.Property(PercentPlayed)")
+        perc_played = xbmc.getInfoLabel(f"{item_ref}.PercentPlayed")
+        # Find if watched.
+        try:
+            # Watched is true if playcount is > 0 and we're not currently playing it.
+            if int(xbmc.getInfoLabel(f"{item_ref}.PlayCount") > 0) and time_remaining == '': watched = 'true'
+        except: pass
         # Find fanart.
         fanart = xbmc.getInfoLabel(f"{item_ref}.Art(season.fanart)")
         if (fanart is None or fanart == ''): fanart = xbmc.getInfoLabel(f"{item_ref}.Art(tvshow.fanart)")
@@ -128,14 +135,20 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
         # Find titles.
         title = xbmc.getInfoLabel(f"{item_ref}.TVShowTitle")
         title2 = xbmc.getInfoLabel(f"{item_ref}.Title")
+        # Find year.
+        year = xbmc.getInfoLabel(f"{item_ref}.Year")
         # Find season-specific info.
         eps_w = xbmc.getInfoLabel(f"{item_ref}.Property(WatchedEpisodes)")
         eps_t = xbmc.getInfoLabel(f"{item_ref}.Property(TotalEpisodes)")
         eps_remaining = f"{eps_w} of {eps_t} watched"
         try:
-            num_eps = int(eps_t)
-            if num_eps == 1: num_episodes = '1 episode'
-            else: num_episodes = f"{num_eps} episodes"
+            num_eps_t = int(eps_t)
+            if num_eps_t == 1: num_episodes = '1 episode'
+            else: num_episodes = f"{num_eps_t} episodes"
+            num_eps_w = int(eps_w)
+            if num_eps_w == 0: all_new = 'true'
+            # Watched is true if watched all episodes (and there are episodes).
+            if num_eps_t == num_eps_w and num_eps_t > 0: watched = 'true'
         except: pass
         # Find percentage played.
         perc_played = xbmc.getInfoLabel(f"{item_ref}.Property(WatchedEpisodePercent)")
@@ -151,11 +164,20 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
     elif itemtype == 'tvshow':
         # Find titles.
         title = xbmc.getInfoLabel(f"{item_ref}.Title")
+        # Find year.
+        year = xbmc.getInfoLabel(f"{item_ref}.Year")
         # Find TV show-specific info.
         status = xbmc.getInfoLabel(f"{item_ref}.Status")
         eps_w = xbmc.getInfoLabel(f"{item_ref}.Property(WatchedEpisodes)")
         eps_t = xbmc.getInfoLabel(f"{item_ref}.Property(TotalEpisodes)")
         eps_remaining = f"{eps_w} of {eps_t} watched"
+        try:
+            num_eps_t = int(eps_t)
+            num_eps_w = int(eps_w)
+            if num_eps_w == 0: all_new = 'true'
+            # Watched is true if watched all episodes (and there are episodes).
+            if num_eps_t == num_eps_w and num_eps_t > 0: watched = 'true'
+        except: pass
         # Find percentage played.
         perc_played = xbmc.getInfoLabel(f"{item_ref}.Property(WatchedEpisodePercent)")
         # Find fanart.
@@ -169,6 +191,8 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
     elif itemtype == 'movie':
         # Find titles.
         title = xbmc.getInfoLabel(f"{item_ref}.Title")
+        # Find year.
+        year = xbmc.getInfoLabel(f"{item_ref}.Year")
         # Find duration.
         try:
             dur_h = int(xbmc.getInfoLabel(f"{item_ref}.Duration(h)"))
@@ -177,7 +201,12 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
             else: duration = f"{dur_m}m"
         except: pass
         # Find percentage played.
-        perc_played = xbmc.getInfoLabel(f"{item_ref}.Property(PercentPlayed)")
+        perc_played = xbmc.getInfoLabel(f"{item_ref}.PercentPlayed")
+        # Find if watched.
+        try:
+            # Watched is true if playcount is > 0 and we're not currently playing it.
+            if int(xbmc.getInfoLabel(f"{item_ref}.PlayCount") > 0) and time_remaining == '': watched = 'true'
+        except: pass
         # Find fanart.
         fanart = xbmc.getInfoLabel(f"{item_ref}.Art(fanart)")
         # Find clearlogo.
@@ -191,8 +220,12 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
         # Find titles.
         title = xbmc.getInfoLabel(f"{item_ref}.Title")
         title2 = xbmc.getInfoLabel(f"{item_ref}.Album")
+        # Find year.
+        year = xbmc.getInfoLabel(f"{item_ref}.Year")
         # Find artist.
         artist = xbmc.getInfoLabel(f"{item_ref}.Artist")
+        # Find track number.
+        track_number = xbmc.getInfoLabel(f"{item_ref}.TrackNumber")
         # Find duration.
         try:
             dur_h = int(xbmc.getInfoLabel(f"{item_ref}.Duration(h)"))
@@ -203,7 +236,7 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
             else: duration = f"{dur_m}m {dur_s}s"
         except: pass
         # Find percentage played.
-        perc_played = xbmc.getInfoLabel(f"{item_ref}.Property(PercentPlayed)")
+        perc_played = xbmc.getInfoLabel(f"{item_ref}.PercentPlayed")
         # Find fanart.
         fanart = xbmc.getInfoLabel(f"{item_ref}.Art(thumb)")
         if fanart is None or fanart == '':
@@ -214,6 +247,8 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
     elif itemtype == 'album':
         # Find titles.
         title = xbmc.getInfoLabel(f"{item_ref}.Title")
+        # Find year.
+        year = xbmc.getInfoLabel(f"{item_ref}.Year")
         # Find artist.
         artist = xbmc.getInfoLabel(f"{item_ref}.Artist")
         # Find fanart.
@@ -232,9 +267,7 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
     if hdr_type == 'HDR10': hdr_type = 'HDR'
     elif hdr_type == 'DOLBYVISION': hdr_type = 'Dolby Vision'
     audio_channels = format_audio_channels(xbmc.getInfoLabel(f"{item_ref}.AudioChannels"))
-    year = xbmc.getInfoLabel(f"{item_ref}.Year")
     genre = xbmc.getInfoLabel(f"{item_ref}.Genre(comma)")
-    track_number = xbmc.getInfoLabel(f"{item_ref}.TrackNumber")
     plot = xbmc.getInfoLabel(f"{item_ref}.Plot")
     director = xbmc.getInfoLabel(f"{item_ref}.Director(comma)")
     writer = xbmc.getInfoLabel(f"{item_ref}.Writer(comma)")
@@ -245,6 +278,7 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
     clearlogo = get_cropped_clearlogo(clearlogo_original)
 
     # Set properties.
+    window.setProperty('Details.ItemType', itemtype)
     window.setProperty('Details.Title', title)
     window.setProperty('Details.Title2', title2)
     window.setProperty('Details.Studio', studio)
@@ -265,7 +299,7 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
     window.setProperty('Details.TrackNumber', track_number)
     window.setProperty('Details.EpisodesRemaining', eps_remaining)
     window.setProperty('Details.PercentagePlayed', perc_played)
-    window.setProperty('Details.TimeRemaining', f"{time_remaining} left")
+    window.setProperty('Details.TimeRemaining', time_remaining)
     window.setProperty('Details.Plot', plot)
     window.setProperty('Details.Director', director)
     window.setProperty('Details.Writer', writer)
@@ -275,6 +309,8 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
     window.setProperty('Details.Contrast', contrast)
     window.setProperty('Details.Fanart', fanart)
     window.setProperty('Details.Thumb', xbmc.getInfoLabel(f"{item_ref}.Art(thumb)"))
+    window.setProperty('Details.Watched', watched)
+    window.setProperty('Details.AllNew', all_new)
 
     # If the container is showing the list of episodes of a season, compute previous
     # and next season path for navigation from videonav.
@@ -323,9 +359,6 @@ def populate_listitem_info_from_player():
     # access information with xbmc.getInfoLabel() when a dialog appeared
     # above the window where we are trying to run that method.
     if itemid != active_itemid and (itemid != '' or active_itemid == ''):
-        # Clear properties.#todo:remove?
-        #clear_listitem_properties(False)
-        #window.setProperty('Player.Item.Clearlogo', 'transparent.png')
         # Set the new active item ID and type.
         window.setProperty('Player.Item.DBID', itemid)
         # Set the current file full path.
@@ -360,9 +393,6 @@ def populate_listitem_info_from_listitem(itemtype, itemid):
             # access information with xbmc.getInfoLabel() when a dialog appeared
             # above the window where we are trying to run that method.
             if itemid != active_itemid and (itemid != '' or active_itemid == ''):
-                # Clear properties.#todo:remove?
-                #clear_listitem_properties()
-                #window.setProperty('Item.Clearlogo', 'transparent.png')
                 # Set the new active item ID.
                 window.setProperty('Item.DBID', itemid)
                 # Populate properties.

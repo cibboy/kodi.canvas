@@ -1,38 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 	<!-- Is active element a TV show episode? -->
-	<expression name="IsDetailsItemTypeEpisode">
-		[$EXP[IsVideoPlayerVisible] + !String.IsEmpty(VideoPlayer.Episode)] |
-		[$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.DBTYPE,episode)] |
-		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.DBTYPE,episode)]
-	</expression>
+	<expression name="IsDetailsItemTypeEpisode">String.IsEqual(Window(home).Property(Details.ItemType),episode)</expression>
 	<!-- Is active element a TV show season? -->
-	<expression name="IsDetailsItemTypeSeason">
-		[$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.DBTYPE,season)] |
-		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.DBTYPE,season)]
-	</expression>
+	<expression name="IsDetailsItemTypeSeason">String.IsEqual(Window(home).Property(Details.ItemType),season)</expression>
 	<!-- Is active element a TV show? -->
-	<expression name="IsDetailsItemTypeTvShow">
-		[$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.DBTYPE,tvshow)] |
-		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.DBTYPE,tvshow)]
-	</expression>
+	<expression name="IsDetailsItemTypeTvShow">String.IsEqual(Window(home).Property(Details.ItemType),tvshow)</expression>
 	<!-- Is active element a movie? -->
-	<expression name="IsDetailsItemTypeMovie">
-		[$EXP[IsVideoPlayerVisible] + String.IsEmpty(VideoPlayer.Episode)] |
-		[$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.DBTYPE,movie)] |
-		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + String.IsEqual(Container(501).ListItem.DBTYPE,movie)]
-	</expression>
+	<expression name="IsDetailsItemTypeMovie">String.IsEqual(Window(home).Property(Details.ItemType),movie)</expression>
 	<!-- Is active element a song? -->
-	<expression name="IsDetailsItemTypeSong">
-		$EXP[IsMusicPlayerVisible] |
-		[$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.DBTYPE,song)] |
-		[!$EXP[IsDialogInfoVisible] + !$EXP[IsMusicPlayerVisible] + String.IsEqual(Container(501).ListItem.DBTYPE,song)]
-	</expression>
+	<expression name="IsDetailsItemTypeSong">String.IsEqual(Window(home).Property(Details.ItemType),song)</expression>
 	<!-- Is active element an album? -->
-	<expression name="IsDetailsItemTypeAlbum">
-		[$EXP[IsDialogInfoVisible] + String.IsEqual(ListItem.DBTYPE,album)] |
-		[!$EXP[IsDialogInfoVisible] + !$EXP[IsMusicPlayerVisible] + String.IsEqual(Container(501).ListItem.DBTYPE,album)]
-	</expression>
+	<expression name="IsDetailsItemTypeAlbum">String.IsEqual(Window(home).Property(Details.ItemType),album)</expression>
 	<!-- Is active element video? -->
 	<expression name="IsDetailsItemTypeVideo">$EXP[IsDetailsItemTypeEpisode] | $EXP[IsDetailsItemTypeMovie]</expression>
 	<!-- Is active element video-like? -->
@@ -236,37 +215,13 @@
 	</expression>
 
 	<!-- Is watched? -->
-	<!--todo-->
-	<expression name="IsDetailsWatched">
-		[$EXP[IsDialogInfoVisible] + Integer.IsGreater(ListItem.PlayCount,0)] |
-		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !$EXP[IsMusicPlayerVisible] + Integer.IsGreater(Container(501).ListItem.PlayCount,0)]
-	</expression>
+	<expression name="IsDetailsWatched">String.IsEqual(Window(home).Property(Details.Watched),true)</expression>
 	<!-- Is all new? -->
 	<!--todo-->
-	<expression name="IsDetailsAllNew">
-		[$EXP[IsDetailsItemTypeSeason] | $EXP[IsDetailsItemTypeTvShow]] +
-		[
-			[$EXP[IsDialogInfoVisible] + Integer.IsEqual(ListItem.Property(WatchedEpisodes),0)] |
-			[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + Integer.IsEqual(Container(501).ListItem.Property(WatchedEpisodes),0)]
-		]
-	</expression>
+	<expression name="IsDetailsAllNew">String.IsEqual(Window(home).Property(Details.AllNew),true)</expression>
 	<!-- Is resumable? -->
 	<!--todo-->
-	<expression name="IsDetailsResumable">
-		[
-			!$EXP[IsVideoPlayerVisible] +
-			!$EXP[IsMusicPlayerVisible] +
-			[
-				[$EXP[IsDialogInfoVisible] + ListItem.IsResumable] |
-				[!$EXP[IsDialogInfoVisible] + Container(501).ListItem.IsResumable]
-			] +
-			!String.IsEmpty(Window(home).Property(Item.TimeRemaining))
-		] |
-		[
-			[$EXP[IsVideoPlayerVisible] | $EXP[IsMusicPlayerVisible]] +
-			!String.IsEmpty(Window(home).Property(Player.Item.TimeRemaining))
-		]
-	</expression>
+	<expression name="IsDetailsResumable">!String.IsEmpty(Window(home).Property(Details.TimeRemaining))</expression>
 
 	<!-- Has tags? -->
 	<expression name="HasDetailsTags">

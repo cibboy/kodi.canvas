@@ -170,7 +170,7 @@
 	</variable>
 	<!-- Time remaining -->
 	<variable name="DetailsTimeRemaining">
-		<value>$INFO[Window(home).Property(Details.TimeRemaining)]</value>
+		<value>$INFO[Window(home).Property(Details.TimeRemaining)] left</value>
 	</variable>
 
 	<!-- Plot -->
