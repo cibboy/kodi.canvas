@@ -7,7 +7,7 @@ from media import *
 from utils import *
 
 # Clear custom listitem properties on home used for additional details.
-def clear_listitem_properties(property_base = 'Item', include_navigation = True):
+def clear_listitem_properties(include_navigation = True):
     # All properties reside on home window.
     window = xbmcgui.Window(10000)
 
@@ -15,14 +15,36 @@ def clear_listitem_properties(property_base = 'Item', include_navigation = True)
     if include_navigation:
         window.clearProperty('Navigation.PreviousSeason')
         window.clearProperty('Navigation.NextSeason')
-    window.clearProperty(f"{property_base}.Mpaa")
-    window.clearProperty(f"{property_base}.TimeRemaining")
-    window.clearProperty(f"{property_base}.Clearlogo")
-    window.clearProperty(f"{property_base}.Blur")
-    window.clearProperty(f"{property_base}.Contrast")
-    window.clearProperty(f"{property_base}.Fanart")
-    window.clearProperty(f"{property_base}.Thumb")
-    window.clearProperty(f"{property_base}.FilenameAndPath")
+    window.clearProperty('Details.Title')
+    window.clearProperty('Details.Title2')
+    window.clearProperty('Details.Studio')
+    window.clearProperty('Details.VideoResolution')
+    window.clearProperty('Details.VideoCodec')
+    window.clearProperty('Details.AspectRatio')
+    window.clearProperty('Details.HdrType')
+    window.clearProperty('Details.AudioChannels')
+    window.clearProperty('Details.Year')
+    window.clearProperty('Details.EpisodeNumber')
+    window.clearProperty('Details.EpisodePremiere')
+    window.clearProperty('Details.NumberOfEpisodes')
+    window.clearProperty('Details.Artist')
+    window.clearProperty('Details.Duration')
+    window.clearProperty('Details.Mpaa')
+    window.clearProperty('Details.Status')
+    window.clearProperty('Details.Genre')
+    window.clearProperty('Details.TrackNumber')
+    window.clearProperty('Details.EpisodesRemaining')
+    window.clearProperty('Details.PercentagePlayed')
+    window.clearProperty('Details.TimeRemaining')
+    window.clearProperty('Details.Plot')
+    window.clearProperty('Details.Director')
+    window.clearProperty('Details.Writer')
+    window.clearProperty('Details.FilePath')
+    window.clearProperty('Details.Clearlogo')
+    window.clearProperty('Details.Blur')
+    window.clearProperty('Details.Contrast')
+    window.clearProperty('Details.Fanart')
+    window.clearProperty('Details.Thumb')
 
 # Populate window properties with additional background information for the music player.
 def get_musicplayer_bg_info(thumb):
@@ -37,8 +59,223 @@ def get_musicplayer_bg_info(thumb):
     window.setProperty('Item.Blur', blur)
     window.setProperty('Item.Contrast', contrast)
 
-# Populate window properties with additional information about the requested item.
-def get_additional_media_info(window, itemtype, itemid, item_ref, property_base, find_navigation):
+# Populate window properties with information about the requested item to be used in details.
+def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
+    title = ''
+    title2 = ''
+    studio = ''
+    video_res = ''
+    video_codec = ''
+    aspect_ratio = ''
+    hdr_type = ''
+    audio_channels = ''
+    audio_channels_s1 = ''      #todo: Only on dialog info and player
+    audio_channels_s2 = ''      #todo: Only on dialog info and player
+    audio_lang_s1 = ''          #todo: Only on dialog info and player
+    audio_lang_s2 = ''          #todo: Only on dialog info and player
+    audio_codec_s1 = ''         #todo: Only on dialog info and player
+    audio_codec_s2 = ''         #todo: Only on dialog info and player
+    year = ''
+    ep_number = ''
+    ep_premiere = ''
+    num_episodes = ''
+    artist = ''
+    duration = ''
+    mpaa = ''
+    status = ''
+    genre = ''
+    track_number = ''
+    eps_remaining = ''
+    perc_played = ''
+    time_remaining = ''
+    plot = ''
+    director = ''
+    writer = ''
+    filepath = ''
+    fanart = ''
+    clearlogo_original = ''
+
+    # Retrieve info based on type.
+    if itemtype == 'episode':
+        # Find titles.
+        title = xbmc.getInfoLabel(f"{item_ref}.TVShowTitle")
+        title2 = xbmc.getInfoLabel(f"{item_ref}.Title")
+        # Find episode-specific info.
+        ep_s = xbmc.getInfoLabel(f"{item_ref}.Season")
+        ep_e = xbmc.getInfoLabel(f"{item_ref}.Episode")
+        ep_number = f"S{ep_s}·E{ep_e}"
+        ep_premiere = xbmc.getInfoLabel(f"{item_ref}.Premiered")
+        # Find duration.
+        try:
+            dur_h = int(xbmc.getInfoLabel(f"{item_ref}.Duration(h)"))
+            dur_m = xbmc.getInfoLabel(f"{item_ref}.Duration(mm)")
+            if dur_h > 0: duration = f"{dur_h}h {dur_m}m"
+            else: duration = f"{dur_m}m"
+        except: pass
+        # Find percentage played.
+        perc_played = xbmc.getInfoLabel(f"{item_ref}.Property(PercentPlayed)")
+        # Find fanart.
+        fanart = xbmc.getInfoLabel(f"{item_ref}.Art(season.fanart)")
+        if (fanart is None or fanart == ''): fanart = xbmc.getInfoLabel(f"{item_ref}.Art(tvshow.fanart)")
+        # Find clearlogo.
+        clearlogo_original = xbmc.getInfoLabel(f"{item_ref}.Art(tvshow.clearlogo)")
+        # Find additional info not natively exposed.
+        info = get_additional_episode_info(int(itemid))
+        mpaa = info['mpaa']
+        time_remaining = info['time_remaining']
+
+    elif itemtype == 'season':
+        # Find titles.
+        title = xbmc.getInfoLabel(f"{item_ref}.TVShowTitle")
+        title2 = xbmc.getInfoLabel(f"{item_ref}.Title")
+        # Find season-specific info.
+        eps_w = xbmc.getInfoLabel(f"{item_ref}.Property(WatchedEpisodes)")
+        eps_t = xbmc.getInfoLabel(f"{item_ref}.Property(TotalEpisodes)")
+        eps_remaining = f"{eps_w} of {eps_t} watched"
+        try:
+            num_eps = int(eps_t)
+            if num_eps == 1: num_episodes = '1 episode'
+            else: num_episodes = f"{num_eps} episodes"
+        except: pass
+        # Find percentage played.
+        perc_played = xbmc.getInfoLabel(f"{item_ref}.Property(WatchedEpisodePercent)")
+        # Find fanart.
+        fanart = xbmc.getInfoLabel(f"{item_ref}.Art(fanart)")
+        if fanart is None or fanart == '': fanart = xbmc.getInfoLabel(f"{item_ref}.Art(tvshow.fanart)")
+        # Find clearlogo.
+        clearlogo_original = xbmc.getInfoLabel(f"{item_ref}.Art(tvshow.clearlogo)")
+        # Find additional info not natively exposed.
+        info = get_additional_season_info(int(itemid))
+        mpaa = info['mpaa']
+
+    elif itemtype == 'tvshow':
+        # Find titles.
+        title = xbmc.getInfoLabel(f"{item_ref}.Title")
+        # Find TV show-specific info.
+        status = xbmc.getInfoLabel(f"{item_ref}.Status")
+        eps_w = xbmc.getInfoLabel(f"{item_ref}.Property(WatchedEpisodes)")
+        eps_t = xbmc.getInfoLabel(f"{item_ref}.Property(TotalEpisodes)")
+        eps_remaining = f"{eps_w} of {eps_t} watched"
+        # Find percentage played.
+        perc_played = xbmc.getInfoLabel(f"{item_ref}.Property(WatchedEpisodePercent)")
+        # Find fanart.
+        fanart = xbmc.getInfoLabel(f"{item_ref}.Art(fanart)")
+        # Find clearlogo.
+        clearlogo_original = xbmc.getInfoLabel(f"{item_ref}.Art(clearlogo)")
+        # Find additional info not natively exposed.
+        info = get_additional_tvshow_info(int(itemid))
+        mpaa = info['mpaa']
+
+    elif itemtype == 'movie':
+        # Find titles.
+        title = xbmc.getInfoLabel(f"{item_ref}.Title")
+        # Find duration.
+        try:
+            dur_h = int(xbmc.getInfoLabel(f"{item_ref}.Duration(h)"))
+            dur_m = xbmc.getInfoLabel(f"{item_ref}.Duration(mm)")
+            if dur_h > 0: duration = f"{dur_h}h {dur_m}m"
+            else: duration = f"{dur_m}m"
+        except: pass
+        # Find percentage played.
+        perc_played = xbmc.getInfoLabel(f"{item_ref}.Property(PercentPlayed)")
+        # Find fanart.
+        fanart = xbmc.getInfoLabel(f"{item_ref}.Art(fanart)")
+        # Find clearlogo.
+        clearlogo_original = xbmc.getInfoLabel(f"{item_ref}.Art(clearlogo)")
+        # Find additional info not natively exposed.
+        info = get_additional_movie_info(int(itemid))
+        mpaa = info['mpaa']
+        time_remaining = info['time_remaining']
+
+    elif itemtype == 'song':
+        # Find titles.
+        title = xbmc.getInfoLabel(f"{item_ref}.Title")
+        title2 = xbmc.getInfoLabel(f"{item_ref}.Album")
+        # Find artist.
+        artist = xbmc.getInfoLabel(f"{item_ref}.Artist")
+        # Find duration.
+        try:
+            dur_h = int(xbmc.getInfoLabel(f"{item_ref}.Duration(h)"))
+            dur_m = xbmc.getInfoLabel(f"{item_ref}.Duration(m)")
+            dur_mm = xbmc.getInfoLabel(f"{item_ref}.Duration(mm)")
+            dur_s = xbmc.getInfoLabel(f"{item_ref}.Duration(ss)")
+            if dur_h > 0: duration = f"{dur_h}h {dur_mm}m {dur_s}s"
+            else: duration = f"{dur_m}m {dur_s}s"
+        except: pass
+        # Find percentage played.
+        perc_played = xbmc.getInfoLabel(f"{item_ref}.Property(PercentPlayed)")
+        # Find fanart.
+        fanart = xbmc.getInfoLabel(f"{item_ref}.Art(thumb)")
+        if fanart is None or fanart == '':
+            fanart = xbmc.getInfoLabel(f"{item_ref}.Art(album.thumb)")
+        # Find clearlogo.
+        clearlogo_original = xbmc.getInfoLabel(f"{item_ref}.Art(clearlogo)")
+
+    elif itemtype == 'album':
+        # Find titles.
+        title = xbmc.getInfoLabel(f"{item_ref}.Title")
+        # Find artist.
+        artist = xbmc.getInfoLabel(f"{item_ref}.Artist")
+        # Find fanart.
+        fanart = xbmc.getInfoLabel(f"{item_ref}.Art(thumb)")
+        if fanart is None or fanart == '':
+            fanart = xbmc.getInfoLabel(f"{item_ref}.Art(album.thumb)")
+        # Find clearlogo.
+        clearlogo_original = xbmc.getInfoLabel(f"{item_ref}.Art(clearlogo)")
+
+    # Retrieve common info.
+    studio = xbmc.getInfoLabel(f"{item_ref}.Studio")
+    video_res = xbmc.getInfoLabel(f"{item_ref}.VideoResolution")
+    video_codec = xbmc.getInfoLabel(f"{item_ref}.VideoCodec")
+    aspect_ratio = xbmc.getInfoLabel(f"{item_ref}.VideoAspect")
+    hdr_type = xbmc.getInfoLabel(f"{item_ref}.HdrType").upper()
+    if hdr_type == 'HDR10': hdr_type = 'HDR'
+    elif hdr_type == 'DOLBYVISION': hdr_type = 'Dolby Vision'
+    audio_channels = format_audio_channels(xbmc.getInfoLabel(f"{item_ref}.AudioChannels"))
+    year = xbmc.getInfoLabel(f"{item_ref}.Year")
+    genre = xbmc.getInfoLabel(f"{item_ref}.Genre(comma)")
+    track_number = xbmc.getInfoLabel(f"{item_ref}.TrackNumber")
+    plot = xbmc.getInfoLabel(f"{item_ref}.Plot")
+    director = xbmc.getInfoLabel(f"{item_ref}.Director(comma)")
+    writer = xbmc.getInfoLabel(f"{item_ref}.Writer(comma)")
+    filepath = xbmc.getInfoLabel(f"{item_ref}.FileNameAndPath")
+
+    # Get blurred background, contrast color and cropped clearlogo.
+    blur, contrast = get_blurred(fanart)
+    clearlogo = get_cropped_clearlogo(clearlogo_original)
+
+    # Set properties.
+    window.setProperty('Details.Title', title)
+    window.setProperty('Details.Title2', title2)
+    window.setProperty('Details.Studio', studio)
+    window.setProperty('Details.VideoResolution', video_res)
+    window.setProperty('Details.VideoCodec', video_codec)
+    window.setProperty('Details.AspectRatio', aspect_ratio)
+    window.setProperty('Details.HdrType', hdr_type)
+    window.setProperty('Details.AudioChannels', audio_channels)
+    window.setProperty('Details.Year', year)
+    window.setProperty('Details.EpisodeNumber', ep_number)
+    window.setProperty('Details.EpisodePremiere', ep_premiere)
+    window.setProperty('Details.NumberOfEpisodes', num_episodes)
+    window.setProperty('Details.Artist', artist)
+    window.setProperty('Details.Duration', duration)
+    window.setProperty('Details.Mpaa', mpaa)
+    window.setProperty('Details.Status', status)
+    window.setProperty('Details.Genre', genre)
+    window.setProperty('Details.TrackNumber', track_number)
+    window.setProperty('Details.EpisodesRemaining', eps_remaining)
+    window.setProperty('Details.PercentagePlayed', perc_played)
+    window.setProperty('Details.TimeRemaining', f"{time_remaining} left")
+    window.setProperty('Details.Plot', plot)
+    window.setProperty('Details.Director', director)
+    window.setProperty('Details.Writer', writer)
+    window.setProperty('Details.FilePath', filepath)
+    window.setProperty('Details.Clearlogo', clearlogo)
+    window.setProperty('Details.Blur', blur)
+    window.setProperty('Details.Contrast', contrast)
+    window.setProperty('Details.Fanart', fanart)
+    window.setProperty('Details.Thumb', xbmc.getInfoLabel(f"{item_ref}.Art(thumb)"))
+
     # If the container is showing the list of episodes of a season, compute previous
     # and next season path for navigation from videonav.
     if find_navigation:
@@ -66,62 +303,9 @@ def get_additional_media_info(window, itemtype, itemid, item_ref, property_base,
                 elif s.get('season', None) == next:
                     window.setProperty('Navigation.NextSeason', f"videodb://tvshows/titles/{tvshowid}/{next}/")
 
-    # Retrieve art based on type.
-    if itemtype == 'episode':
-        # Find fanart.
-        fanart = xbmc.getInfoLabel(f"{item_ref}.Art(season.fanart)")
-        if (fanart is None or fanart == ''): fanart = xbmc.getInfoLabel(f"{item_ref}.Art(tvshow.fanart)")
-        # Find clearlogo.
-        clearlogo_original = xbmc.getInfoLabel(f"{item_ref}.Art(tvshow.clearlogo)")
-    elif itemtype == 'season':
-        # Find fanart.
-        fanart = xbmc.getInfoLabel(f"{item_ref}.Art(fanart)")
-        if fanart is None or fanart == '': fanart = xbmc.getInfoLabel(f"{item_ref}.Art(tvshow.fanart)")
-        # Find clearlogo.
-        clearlogo_original = xbmc.getInfoLabel(f"{item_ref}.Art(tvshow.clearlogo)")
-    elif itemtype == 'song' or itemtype == 'album':
-        # Find fanart.
-        fanart = xbmc.getInfoLabel(f"{item_ref}.Art(thumb)")
-        if fanart is None or fanart == '':
-            fanart = xbmc.getInfoLabel(f"{item_ref}.Art(album.thumb)")
-        # Find clearlogo.
-        clearlogo_original = xbmc.getInfoLabel(f"{item_ref}.Art(clearlogo)")
-    else:
-        # Find fanart.
-        fanart = xbmc.getInfoLabel(f"{item_ref}.Art(fanart)")
-        # Find clearlogo.
-        clearlogo_original = xbmc.getInfoLabel(f"{item_ref}.Art(clearlogo)")
-
-    # Get blurred background, contrast color and cropped clearlogo.
-    blur, contrast = get_blurred(fanart)
-    clearlogo = get_cropped_clearlogo(clearlogo_original)
-
-    # Set properties.
-    window.setProperty(f"{property_base}.Clearlogo", clearlogo)
-    window.setProperty(f"{property_base}.Blur", blur)
-    window.setProperty(f"{property_base}.Contrast", contrast)
-    window.setProperty(f"{property_base}.Fanart", fanart)
-    window.setProperty(f"{property_base}.Thumb", xbmc.getInfoLabel(f"{item_ref}.Art(thumb)"))
-
-    # Retrieve type-specific additional info.
-    if itemtype == 'movie':
-        info = get_additional_movie_info(int(itemid))
-        window.setProperty(f"{property_base}.Mpaa", info['mpaa'])
-        window.setProperty(f"{property_base}.TimeRemaining", info['time_remaining'])
-    elif itemtype == 'tvshow':
-        info = get_additional_tvshow_info(int(itemid))
-        window.setProperty(f"{property_base}.Mpaa", info['mpaa'])
-    elif itemtype == 'season':
-        info = get_additional_season_info(int(itemid))
-        window.setProperty(f"{property_base}.Mpaa", info['mpaa'])
-    elif itemtype == 'episode':
-        info = get_additional_episode_info(int(itemid))
-        window.setProperty(f"{property_base}.Mpaa", info['mpaa'])
-        window.setProperty(f"{property_base}.TimeRemaining", info['time_remaining'])
-
 # Populate window properties with additional information about the playing
 # item. It's supposed to be used on OSDs.
-def get_additional_media_info_from_player():
+def populate_listitem_info_from_player():
     # All properties reside on home window.
     window = xbmcgui.Window(10000)
     # Retrieve current window.
@@ -139,15 +323,15 @@ def get_additional_media_info_from_player():
     # access information with xbmc.getInfoLabel() when a dialog appeared
     # above the window where we are trying to run that method.
     if itemid != active_itemid and (itemid != '' or active_itemid == ''):
-        # Clear properties.
-        clear_listitem_properties('Player.Item', False)
-        window.setProperty('Player.Item.Clearlogo', 'transparent.png')
+        # Clear properties.#todo:remove?
+        #clear_listitem_properties(False)
+        #window.setProperty('Player.Item.Clearlogo', 'transparent.png')
         # Set the new active item ID and type.
         window.setProperty('Player.Item.DBID', itemid)
         # Set the current file full path.
         window.setProperty('Player.Item.FilenameAndPath', xbmc.getInfoLabel('Player.FilenameAndPath'))
         # Populate properties.
-        get_additional_media_info(window, itemtype, itemid, player, 'Player.Item', False)
+        populate_listitem_info(window, itemtype, itemid, player, False)
 
 # Populate window properties with additional information about the specified
 # list ID's selected item. This allows the skin to work with information
@@ -156,24 +340,15 @@ def get_additional_media_info_from_player():
 # in cases where a dialog appears rapidly before the xbmc.getInfoLabel()
 # method can be invoked.
 # "Debounced" to improve responsiveness.
-# sync_501 is used to sync list with ID 501 to the current list position,
-# so that details can be more easily pulled from the same list ID all the
-# time. It is a string (later transformed into boolean) to handle fake
-# boolean coming from the skin as strings.
-def get_additional_media_info_from_listitem(itemtype, itemid, currentposition = 1, sync_501 = 'false'):
+def populate_listitem_info_from_listitem(itemtype, itemid):
     # All properties reside on home window.
     window = xbmcgui.Window(10000)
 
     # Poor man's implementation of debouncing.
     window.setProperty('Item.DBID.Debounce', itemid)
-    time.sleep(0.2)
+    time.sleep(0.3)
     debounce_value = window.getProperty('Item.DBID.Debounce')
     if debounce_value == itemid:    # Continue if there were no new requests.
-        # Sync list with ID 501 if requested (used by home that has several lists).
-        sync_501 = sync_501.lower()
-        if sync_501 == 'true' or sync_501 == 'yes': sync_501 = True
-        else: sync_501 = False
-        if sync_501: update_hidden_active_list_position(currentposition)
 
         # Retrieve current active list ID.
         listid = window.getProperty('ActiveListId')
@@ -185,36 +360,23 @@ def get_additional_media_info_from_listitem(itemtype, itemid, currentposition = 
             # access information with xbmc.getInfoLabel() when a dialog appeared
             # above the window where we are trying to run that method.
             if itemid != active_itemid and (itemid != '' or active_itemid == ''):
-                # Clear properties.
-                clear_listitem_properties()
-                window.setProperty('Item.Clearlogo', 'transparent.png')
+                # Clear properties.#todo:remove?
+                #clear_listitem_properties()
+                #window.setProperty('Item.Clearlogo', 'transparent.png')
                 # Set the new active item ID.
                 window.setProperty('Item.DBID', itemid)
                 # Populate properties.
-                get_additional_media_info(window, itemtype, itemid, f"Container({listid}).ListItem", 'Item', True)
+                populate_listitem_info(window, itemtype, itemid, f"Container({listid}).ListItem", True)
 
 # Resets selection additional information.
-def reset_listitem_selection(property_base = 'Item'):
+def reset_listitem_selection():
     # All properties reside on home window.
     window = xbmcgui.Window(10000)
 
     # Clear properties.
-    clear_listitem_properties(property_base)
+    clear_listitem_properties()
     window.clearProperty('ActiveListId')
     window.clearProperty('Item.DBID')
-
-# Updates the position of the hidden list of items that mimics the active
-# one (used for details).
-def update_hidden_active_list_position(position):
-    # Get current window.
-    window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
-
-    # Get control and set position.
-    try:
-        pos = int(position)
-        window.getControl(501).selectItem(pos - 1)
-    except: pass
-
 
 # Navigates to the first visible candidate in the list and returns its ID and type (list or empty list placeholder).
 def navigate_candidates(candidates, window):
@@ -381,9 +543,8 @@ def navigate_home_menu(currentid, direction):
     # If a list candidate was found, wait a moment to let Kodi stabilize the skin, then mimic item onfocus.
     if result['type'] == 'list':
         time.sleep(0.2)
-        update_hidden_active_list_position(xbmc.getInfoLabel(f"Container({result['id']}).CurrentItem"))
         window.setProperty(f"ActiveListId", str(result['id']))
-        get_additional_media_info_from_listitem(xbmc.getInfoLabel(f"Container({result['id']}).ListItem.DBTYPE"), xbmc.getInfoLabel(f"Container({result['id']}).ListItem.DBID"))
+        populate_listitem_info_from_listitem(xbmc.getInfoLabel(f"Container({result['id']}).ListItem.DBTYPE"), xbmc.getInfoLabel(f"Container({result['id']}).ListItem.DBID"))
 
     # Remove the guard.
     window.clearProperty('Menu.Moving')
@@ -792,11 +953,11 @@ if __name__ == '__main__':
             clear_custom_cache()
         
         # Get additional info from player media for skin usage.
-        elif method == 'get_additional_media_info_from_player':
-            get_additional_media_info_from_player()
+        elif method == 'populate_listitem_info_from_player':
+            populate_listitem_info_from_player()
         # Get additional info from media for skin usage.
-        elif method == 'get_additional_media_info_from_listitem':
-            get_additional_media_info_from_listitem(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
+        elif method == 'populate_listitem_info_from_listitem':
+            populate_listitem_info_from_listitem(sys.argv[2], sys.argv[3])
         # Get background info for music player.
         elif method == 'get_musicplayer_bg_info':
             get_musicplayer_bg_info(sys.argv[2])
@@ -807,10 +968,6 @@ if __name__ == '__main__':
         # Resets the selection for additional media in order to remove artifacts.
         elif method == 'reset_listitem_selection':
             reset_listitem_selection()
-        # Updates the position of the hidden list of items that mimics the active
-        # one (used for details).
-        elif method == 'update_hidden_active_list_position':
-            update_hidden_active_list_position(sys.argv[2])
         
         # Navigate between home lists according to availability.
         elif method == 'navigate_home_lists':

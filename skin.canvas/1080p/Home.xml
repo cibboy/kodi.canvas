@@ -16,12 +16,6 @@
 				<param name="visible">$EXP[HasHomeMenuFocus]</param>
 			</include>
 
-			<!--
-				Hidden list with ID 501 that mimics the currently selected list in order to have
-				the same list ID across all windows where to pick details from.
-			-->
-			<include content="HomeActiveItemSyncList" />
-
 			<!-- Loading spinner -->
 			<control type="image">
 				<visible>!$EXP[HasHomeLoaded]</visible>

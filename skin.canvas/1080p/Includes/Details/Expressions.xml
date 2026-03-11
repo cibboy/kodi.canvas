@@ -42,176 +42,90 @@
 
 
 	<!-- Is custom clearlogo available? -->
-	<expression name="IsDetailsClearlogoAvailable">
-		[$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Window(home).Property(Player.Item.Clearlogo))] |
-		[!$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Window(home).Property(Item.Clearlogo))]
-	</expression>
+	<expression name="IsDetailsClearlogoAvailable">!String.IsEmpty(Window(home).Property(Details.Clearlogo))</expression>
 
 	<!-- Has studio? -->
-	<expression name="HasDetailsStudio">
-		[$EXP[IsVideoPlayerVisible] + !String.IsEmpty(VideoPlayer.Studio)] |
-		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Studio)] |
-		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Container(501).ListItem.Studio)]
-	</expression>
+	<expression name="HasDetailsStudio">!String.IsEmpty(Window(home).Property(Details.Studio))</expression>
 
 	<!-- Has resolution? -->
-	<expression name="HasDetailsResolution">
-		[$EXP[IsVideoPlayerVisible] + !String.IsEmpty(VideoPlayer.VideoResolution)] |
-		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.VideoResolution)] |
-		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Container(501).ListItem.VideoResolution)]
-	</expression>
+	<expression name="HasDetailsResolution">!String.IsEmpty(Window(home).Property(Details.VideoResolution))</expression>
 	<!-- Has video codec? -->
-	<expression name="HasDetailsVideoCodec">
-		[$EXP[IsVideoPlayerVisible] + !String.IsEmpty(VideoPlayer.VideoCodec)] |
-		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.VideoCodec)] |
-		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Container(501).ListItem.VideoCodec)]
-	</expression>
+	<expression name="HasDetailsVideoCodec">!String.IsEmpty(Window(home).Property(Details.VideoCodec))</expression>
 	<!-- Has ascpect ratio? -->
-	<expression name="HasDetailsAspectRatio">
-		[$EXP[IsVideoPlayerVisible] + !String.IsEmpty(VideoPlayer.VideoAspect)] |
-		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.VideoAspect)] |
-		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Container(501).ListItem.VideoAspect)]
-	</expression>
+	<expression name="HasDetailsAspectRatio">!String.IsEmpty(Window(home).Property(Details.AspectRatio))</expression>
 	<!-- Is HDR? -->
-	<expression name="IsDetailsHdr">
-		[$EXP[IsVideoPlayerVisible] + !String.IsEmpty(VideoPlayer.HdrType)] |
-		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.HdrType)] |
-		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Container(501).ListItem.HdrType)]
-	</expression>
+	<expression name="IsDetailsHdr">!String.IsEmpty(Window(home).Property(Details.HdrType))</expression>
 	<!-- Has audio channels? -->
-	<expression name="HasDetailsAudioChannels">
-		[$EXP[IsVideoPlayerVisible] + !String.IsEmpty(VideoPlayer.AudioChannels)] |
-		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.AudioChannels)] |
-		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Container(501).ListItem.AudioChannels)]
-	</expression>
+	<expression name="HasDetailsAudioChannels">!String.IsEmpty(Window(home).Property(Details.AudioChannels))</expression>
+	<!--todo-->
 	<expression name="HasDetailsAudioChannelsStream1">
 		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Property(AudioChannels.1))] |
 		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Container(501).ListItem.Property(AudioChannels.1))]
 	</expression>
+	<!--todo-->
 	<expression name="HasDetailsAudioChannelsStream2">
 		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Property(AudioChannels.2))] |
 		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Container(501).ListItem.Property(AudioChannels.2))]
 	</expression>
 	<!-- Has audio language? -->
+	<!--todo-->
 	<expression name="HasDetailsAudioLanguageStream1">
 		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Property(AudioLanguage.1)) + !String.IsEqual(ListItem.Property(AudioLanguage.1),und)] |
 		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Container(501).ListItem.Property(AudioLanguage.1)) + !String.IsEqual(Container(501).ListItem.Property(AudioLanguage.1),und)]
 	</expression>
+	<!--todo-->
 	<expression name="HasDetailsAudioLanguageStream2">
 		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Property(AudioLanguage.2)) + !String.IsEqual(ListItem.Property(AudioLanguage.2),und)] |
 		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Container(501).ListItem.Property(AudioLanguage.2)) + !String.IsEqual(Container(501).ListItem.Property(AudioLanguage.2),und)]
 	</expression>
 	<!-- Has audio codec? -->
+	<!--todo-->
 	<expression name="HasDetailsAudioCodecStream1">
 		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Property(AudioCodec.1))] |
 		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Container(501).ListItem.Property(AudioCodec.1))]
 	</expression>
+	<!--todo-->
 	<expression name="HasDetailsAudioCodecStream2">
 		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Property(AudioCodec.2))] |
 		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Container(501).ListItem.Property(AudioCodec.2))]
 	</expression>
 
 	<!-- Has year? -->
-	<expression name="HasDetailsYear">
-		[$EXP[IsDetailsItemTypeTvShow] | $EXP[IsDetailsItemTypeSeason] | $EXP[IsDetailsItemTypeMovie] | $EXP[IsDetailsItemTypeSong] | $EXP[IsDetailsItemTypeAlbum]] +
-		[
-			[$EXP[IsMusicPlayerVisible] + !String.IsEmpty(MusicPlayer.Year)] |
-			[$EXP[IsVideoPlayerVisible] + !String.IsEmpty(VideoPlayer.Year)] |
-			[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Year)] |
-			[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !$EXP[IsMusicPlayerVisible] + !String.IsEmpty(Container(501).ListItem.Year)]
-		]
-	</expression>
+	<expression name="HasDetailsYear">!String.IsEmpty(Window(home).Property(Details.Year))</expression>
 
 	<!-- Has episode number? -->
-	<expression name="HasDetailsEpisodeNumber">
-		$EXP[IsDetailsItemTypeEpisode] +
-		[
-			[$EXP[IsVideoPlayerVisible] + !String.IsEmpty(VideoPlayer.Season)] |
-			[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Season)] |
-			[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Container(501).ListItem.Season)]
-		] +
-		[
-			[$EXP[IsVideoPlayerVisible] + !String.IsEmpty(VideoPlayer.Episode)] |
-			[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Episode)] |
-			[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Container(501).ListItem.Episode)]
-		]
-	</expression>
+	<expression name="HasDetailsEpisodeNumber">!String.IsEmpty(Window(home).Property(Details.EpisodeNumber))</expression>
 	<!-- Has episode premiered? -->
-	<expression name="HasDetailsEpisodePremiered">
-		$EXP[IsDetailsItemTypeEpisode] +
-		[
-			[$EXP[IsVideoPlayerVisible] + !String.IsEmpty(VideoPlayer.Premiered)] |
-			[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Premiered)] |
-			[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Container(501).ListItem.Premiered)]
-		]
-	</expression>
+	<expression name="HasDetailsEpisodePremiered">!String.IsEmpty(Window(home).Property(Details.EpisodePremiere))</expression>
 	<!-- Has number of episodes? -->
-	<expression name="HasDetailsNumberOfEpisodes">
-		$EXP[IsDetailsItemTypeSeason] +
-		[
-			[$EXP[IsDialogInfoVisible] + Integer.IsGreater(ListItem.Property(TotalEpisodes),0)] |
-			[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + Integer.IsGreater(Container(501).ListItem.Property(TotalEpisodes),0)]
-		]
-	</expression>
+	<expression name="HasDetailsNumberOfEpisodes">!String.IsEmpty(Window(home).Property(Details.NumberOfEpisodes))</expression>
 
 	<!-- Has artist? -->
-	<expression name="HasDetailsArtist">
-		[$EXP[IsMusicPlayerVisible] + !String.IsEmpty(MusicPlayer.Artist)] |
-		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Artist)] |
-		[!$EXP[IsDialogInfoVisible] + !$EXP[IsMusicPlayerVisible] + !String.IsEmpty(Container(501).ListItem.Artist)]
-	</expression>
+	<expression name="HasDetailsArtist">!String.IsEmpty(Window(home).Property(Details.Artist))</expression>
 
 	<!-- Has duration? -->
-	<expression name="HasDetailsDuration">
-		[[$EXP[IsVideoPlayerVisible] | $EXP[IsMusicPlayerVisible]] + !String.IsEmpty(Player.Duration())] |
-		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Duration)] |
-		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !$EXP[IsMusicPlayerVisible] + !$EXP[IsDetailsItemTypeAlbum] + $EXP[IsDetailsItemTypeVideo] + !String.IsEmpty(Container(501).ListItem.Duration)]
-	</expression>
+	<expression name="HasDetailsDuration">!String.IsEmpty(Window(home).Property(Details.Duration))</expression>
 
 	<!-- Has MPAA? -->
-	<expression name="HasDetailsMpaa">
-		[$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Window(home).Property(Player.Item.Mpaa))] |
-		[!$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Window(home).Property(Item.Mpaa))]
-	</expression>
+	<expression name="HasDetailsMpaa">!String.IsEmpty(Window(home).Property(Details.Mpaa))</expression>
 
 	<!-- Has status? -->
-	<expression name="HasDetailsStatus">
-		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Status)] |
-		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Container(501).ListItem.Status)]
-	</expression>
+	<expression name="HasDetailsStatus">!String.IsEmpty(Window(home).Property(Details.Status))</expression>
 
 	<!-- Has track number? -->
-	<expression name="HasDetailsTrackNumber">
-		[$EXP[IsMusicPlayerVisible] + !String.IsEmpty(MusicPlayer.TrackNumber)] |
-		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.TrackNumber)] |
-		[!$EXP[IsDialogInfoVisible] + !$EXP[IsMusicPlayerVisible] + !String.IsEmpty(Container(501).ListItem.TrackNumber)]
-	</expression>
+	<expression name="HasDetailsTrackNumber">!String.IsEmpty(Window(home).Property(Details.TrackNumber))</expression>
 
 	<!-- Has genre? -->
-	<expression name="HasDetailsGenre">
-		[$EXP[IsVideoPlayerVisible] + !String.IsEmpty(VideoPlayer.Genre)] |
-		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Genre)] |
-		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Container(501).ListItem.Genre)]
-	</expression>
+	<expression name="HasDetailsGenre">!String.IsEmpty(Window(home).Property(Details.Genre))</expression>
 
 	<!-- Has director? -->
-	<expression name="HasDetailsDirector">
-		[$EXP[IsVideoPlayerVisible] + !String.IsEmpty(VideoPlayer.Director)] |
-		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Director)] |
-		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Container(501).ListItem.Director)]
-	</expression>
+	<expression name="HasDetailsDirector">!String.IsEmpty(Window(home).Property(Details.Director))</expression>
 	<!-- Has writer? -->
-	<expression name="HasDetailsWriter">
-		[$EXP[IsVideoPlayerVisible] + !String.IsEmpty(VideoPlayer.Writer)] |
-		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.Writer)] |
-		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Container(501).ListItem.Writer)]
-	</expression>
+	<expression name="HasDetailsWriter">!String.IsEmpty(Window(home).Property(Details.Writer))</expression>
 	<!-- Has file path? -->
-	<expression name="HasDetailsFilePath">
-		[$EXP[IsDialogInfoVisible] + !String.IsEmpty(ListItem.FileNameAndPath)] |
-		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !String.IsEmpty(Container(501).ListItem.FileNameAndPath)]
-	</expression>
+	<expression name="HasDetailsFilePath">!String.IsEmpty(Window(home).Property(Details.FilePath))</expression>
 	<!-- Has eng subtitle? -->
+	<!--todo-->
 	<expression name="HasDetailsEngSubtitle">
 		[
 			$EXP[IsDialogInfoVisible] +
@@ -266,6 +180,7 @@
 		]
 	</expression>
 	<!-- Has ita subtitle? -->
+	<!--todo-->
 	<expression name="HasDetailsItaSubtitle">
 		[
 			$EXP[IsDialogInfoVisible] +
@@ -321,11 +236,13 @@
 	</expression>
 
 	<!-- Is watched? -->
+	<!--todo-->
 	<expression name="IsDetailsWatched">
 		[$EXP[IsDialogInfoVisible] + Integer.IsGreater(ListItem.PlayCount,0)] |
 		[!$EXP[IsDialogInfoVisible] + !$EXP[IsVideoPlayerVisible] + !$EXP[IsMusicPlayerVisible] + Integer.IsGreater(Container(501).ListItem.PlayCount,0)]
 	</expression>
 	<!-- Is all new? -->
+	<!--todo-->
 	<expression name="IsDetailsAllNew">
 		[$EXP[IsDetailsItemTypeSeason] | $EXP[IsDetailsItemTypeTvShow]] +
 		[
@@ -334,6 +251,7 @@
 		]
 	</expression>
 	<!-- Is resumable? -->
+	<!--todo-->
 	<expression name="IsDetailsResumable">
 		[
 			!$EXP[IsVideoPlayerVisible] +

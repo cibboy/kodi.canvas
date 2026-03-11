@@ -32,7 +32,7 @@
 							<right>67%</right>
 							<bottom>33%</bottom>
 							<fadetime>ANIMATION_CRAWL</fadetime>
-							<texture flipx="true" flipy="false">$INFO[Window(home).Property(Item.Blur)]</texture>
+							<texture flipx="true" flipy="false">$VAR[BlurArt]</texture>
 						</control>
 						<control type="image">
 							<visible>$EXP[IsDetailsItemTypeMusic]</visible>
@@ -41,7 +41,7 @@
 							<right>25%</right>
 							<bottom>33%</bottom>
 							<fadetime>ANIMATION_CRAWL</fadetime>
-							<texture flipx="true" flipy="false">$INFO[Window(home).Property(Item.Blur)]</texture>
+							<texture flipx="true" flipy="false">$VAR[BlurArt]</texture>
 						</control>
 						<!-- Bottom (videos first, then music) -->
 						<control type="image">
@@ -51,7 +51,7 @@
 							<right>67%</right>
 							<top>67%</top>
 							<fadetime>ANIMATION_CRAWL</fadetime>
-							<texture flipx="true" flipy="true">$INFO[Window(home).Property(Item.Blur)]</texture>
+							<texture flipx="true" flipy="true">$VAR[BlurArt]</texture>
 						</control>
 						<control type="image">
 							<visible>$EXP[IsDetailsItemTypeMusic]</visible>
@@ -60,7 +60,7 @@
 							<right>25%</right>
 							<top>67%</top>
 							<fadetime>ANIMATION_CRAWL</fadetime>
-							<texture flipx="true" flipy="true">$INFO[Window(home).Property(Item.Blur)]</texture>
+							<texture flipx="true" flipy="true">$VAR[BlurArt]</texture>
 						</control>
 					</control>
 					<!-- Right -->
@@ -73,7 +73,7 @@
 							<left>33%</left>
 							<bottom>33%</bottom>
 							<fadetime>ANIMATION_CRAWL</fadetime>
-							<texture flipx="false" flipy="false">$INFO[Window(home).Property(Item.Blur)]</texture>
+							<texture flipx="false" flipy="false">$VAR[BlurArt]</texture>
 						</control>
 						<control type="image">
 							<visible>$EXP[IsDetailsItemTypeMusic]</visible>
@@ -82,7 +82,7 @@
 							<left>75%</left>
 							<bottom>33%</bottom>
 							<fadetime>ANIMATION_CRAWL</fadetime>
-							<texture flipx="false" flipy="false">$INFO[Window(home).Property(Item.Blur)]</texture>
+							<texture flipx="false" flipy="false">$VAR[BlurArt]</texture>
 						</control>
 						<!-- Bottom (videos first, then music) -->
 						<control type="image">
@@ -92,7 +92,7 @@
 							<left>33%</left>
 							<top>67%</top>
 							<fadetime>ANIMATION_CRAWL</fadetime>
-							<texture flipx="false" flipy="true">$INFO[Window(home).Property(Item.Blur)]</texture>
+							<texture flipx="false" flipy="true">$VAR[BlurArt]</texture>
 						</control>
 						<control type="image">
 							<visible>$EXP[IsDetailsItemTypeMusic]</visible>
@@ -101,7 +101,7 @@
 							<left>75%</left>
 							<top>67%</top>
 							<fadetime>ANIMATION_CRAWL</fadetime>
-							<texture flipx="false" flipy="true">$INFO[Window(home).Property(Item.Blur)]</texture>
+							<texture flipx="false" flipy="true">$VAR[BlurArt]</texture>
 						</control>
 					</control>
 				</control>

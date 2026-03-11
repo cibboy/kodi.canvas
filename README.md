@@ -1,3 +1,14 @@
+Wishlist:
+- TV show theme: play once (or in a loop with some pause between plays)
+- More reactive left main menu
+- Review MyVideoNav.xml (and custom equivalent) to show only when fully moved to requested episode (also consider when moving back from player); also, try to capture more events where Kodi is idiotic and tries to navigate the media library not from setting and move to home
+- Preload next episode in player, so play next screen shows it immediately
+- BUG: play something with clearlogo (open OSD to be sure), then play something from file manager: previous clearlogo is used in OSD (might be the one from home, though)
+- BUG: play something from file manager, use back, video continues in background because there's no onload trapping to move to "play next" (which stops if < 90%)
+- Total review of onhover of media elements:
+	- Real debouce
+	- Maintain old clearlogo, fanart, blur and text color until load of new element completes or timeout (1s? 1.5s? timeout = fallbacks, except for fanart), whichever comes first (but if timeout is first, then load completes, new info MUST appear after fallback); must work also across window changes, so these info must be stored in skin vars or vars (careful on navigating to episode list, as th focus might be on the wrong element initially... ugh, it's a mess!)
+
 Guidelines:
 https://medium.com/you-i-tv/designing-for-10ft-ceeb202c1315
 

@@ -46,7 +46,6 @@
 						<param name="dark_unfocused">$PARAM[darken_art]</param>
 						<param name="dark_focused">$PARAM[darken_art]</param>
 						<param name="condition">Integer.IsEqual($PARAM[id],101) | Integer.IsEqual($PARAM[id],103) | Integer.IsEqual($PARAM[id],110)</param>
-						<param name="sync_501">true</param>
 					</include>
 					<!-- Episode layout -->
 					<include content="LandscapeLayout">
@@ -56,7 +55,6 @@
 						<param name="condition">Integer.IsEqual($PARAM[id],102)</param>
 						<param name="show_info">true</param>
 						<param name="textcolor">$VAR[ContrastTextHighlightColor]</param>
-						<param name="sync_501">true</param>
 					</include>
 					<!-- Music layout -->
 					<include content="AlbumLayout">
@@ -64,7 +62,6 @@
 						<param name="dark_unfocused">$PARAM[darken_art]</param>
 						<param name="dark_focused">$PARAM[darken_art]</param>
 						<param name="condition">Integer.IsEqual($PARAM[id],104)</param>
-						<param name="sync_501">true</param>
 						<param name="info1">$VAR[HomeAlbumInfo1]</param>
 						<param name="info2">$VAR[HomeAlbumInfo2]</param>
 						<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
@@ -118,7 +115,6 @@
 						<param name="dark_unfocused">$PARAM[darken_art]</param>
 						<param name="dark_focused">$PARAM[darken_art]</param>
 						<param name="condition">Integer.IsEqual($PARAM[id],106) | Integer.IsEqual($PARAM[id],108)</param>
-						<param name="sync_501">true</param>
 					</include>
 					<!-- Music layout -->
 					<include content="AlbumLayout">
@@ -126,7 +122,6 @@
 						<param name="dark_unfocused">$PARAM[darken_art]</param>
 						<param name="dark_focused">$PARAM[darken_art]</param>
 						<param name="condition">Integer.IsEqual($PARAM[id],112)</param>
-						<param name="sync_501">true</param>
 						<param name="info1">$VAR[HomeAlbumInfo1]</param>
 						<param name="info2">$VAR[HomeAlbumInfo2]</param>
 						<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
@@ -224,7 +219,6 @@
 						<param name="dark_unfocused">$PARAM[darken_art]</param>
 						<param name="condition">Integer.IsEqual($PARAM[id],302)</param>
 						<param name="get_additional_data">false</param>
-						<param name="sync_501">true</param>
 						<param name="info1">$VAR[HomeAlbumInfo1]</param>
 						<param name="info2">$VAR[HomeAlbumInfo2]</param>
 						<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
@@ -622,34 +616,6 @@
 					<onclick condition="$PARAM[is_menu_button]">SetFocus(1001,0)</onclick>
 					<onfocus>SetProperty(Menu.ActiveId,$PARAM[id],home)</onfocus>
 				</control>
-			</control>
-		</definition>
-	</include>
-
-	<!--
-		Hidden list with ID 501 that mimics the currently selected list in order to have
-		the same list ID across all windows where to pick details from.
-	-->
-	<include name="HomeActiveItemSyncList">
-		<definition>
-			<control type="list" id="501">
-				<autoscroll>false</autoscroll>
-				<orientation>horizontal</orientation>
-				<preloaditems>1</preloaditems>
-				<width>0</width>
-				<height>0</height>
-				
-				<itemlayout width="WIDTH_POSTER_LIST_ITEM_CONTAINER" height="HEIGHT_POSTER_LIST_ITEM_CONTAINER"></itemlayout>
-				<focusedlayout width="WIDTH_POSTER_LIST_ITEM_CONTAINER" height="HEIGHT_POSTER_LIST_ITEM_CONTAINER">
-					<!-- Prevent lingering focus on this list when coming from views with 501 with focus (damn Kodi...) -->
-					<control type="button">	
-						<visible allowhiddenfocus="true">false</visible>
-						<onfocus>SetFocus(100)</onfocus>
-					</control>
-				</focusedlayout>
-				<content>$VAR[HomeActiveItemListContent]</content>
-
-				<onback>SetFocus(200)</onback>
 			</control>
 		</definition>
 	</include>

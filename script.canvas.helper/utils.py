@@ -31,3 +31,18 @@ def format_timespan(timespan, format=''):
 	result = result.replace('[s]', f"{seconds}")
 
 	return result
+
+# Converts a single-number audio channel definition into a dot-notation one.
+def format_audio_channels(value):
+	value = str(value)
+	if value == '1': return '1.0'
+	elif value == '2': return '2.0'
+	elif value == '3': return '2.1'
+	elif value == '4': return '4.0'
+	elif value == '5': return '4.1'
+	elif value == '6': return '5.1'
+	elif value == '7': return '6.1'
+	elif value == '8': return '7.1'
+	elif value == '9': return '8.1'
+	elif value == '10': return '9.1'
+	else: return value

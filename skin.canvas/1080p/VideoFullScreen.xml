@@ -5,7 +5,7 @@
 	<onload>PlayerControl(RepeatOff)</onload>
 	<onload condition="$EXP[IsDetailsItemTypeEpisode]">SetProperty(Player.Item.DBTYPE,episode,home)</onload>
 	<onload condition="$EXP[IsDetailsItemTypeMovie]">SetProperty(Player.Item.DBTYPE,movies,home)</onload>
-	<onload>RunScript(script.canvas.helper,get_additional_media_info_from_player)</onload>
+	<onload>RunScript(script.canvas.helper,populate_listitem_info_from_player)</onload>
 
 	<!-- All controls need to have and ID to show. Also, includes need IDs as well -->
 	<controls>
