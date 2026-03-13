@@ -14,6 +14,10 @@ TODO:
 - continue watching should consider items watched but also with time left
 - try "dynamic" colors using variables (variables contain name of color, not definition of color? if so, must define pallette in colors/default.xml and pick from that according to what is returned by python)
 
+BUGS:
+- medianav for movies not working
+- previous/next season from episode nav not working when there are no more episodes (it shows the indicator, and the action moves to a ?random? season)
+
 Guidelines:
 https://medium.com/you-i-tv/designing-for-10ft-ceeb202c1315
 
