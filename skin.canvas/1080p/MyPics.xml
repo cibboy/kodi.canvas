@@ -101,6 +101,7 @@
 								<param name="info2">$VAR[HomeAlbumInfo2]</param>
 								<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
 								<param name="info2_color">$VAR[ContrastTextForegroundColor]</param>
+								<param name="listid">501</param>
 							</include>
 						</include>
 					</control>

@@ -26,6 +26,10 @@
 						<!-- Top (videos first, then music) -->
 						<control type="image">
 							<visible>!$EXP[IsDetailsItemTypeMusic]</visible>
+							<include content="ShowHideFadeAnimation">
+								<param name="speed">ANIMATION_SLOW</param>
+								<param name="delay_in">ANIMATION_FAST</param>
+							</include>
 							<width>67%</width>
 							<height>67%</height>
 							<right>67%</right>
@@ -35,6 +39,10 @@
 						</control>
 						<control type="image">
 							<visible>$EXP[IsDetailsItemTypeMusic]</visible>
+							<include content="ShowHideFadeAnimation">
+								<param name="speed">ANIMATION_SLOW</param>
+								<param name="delay_in">ANIMATION_FAST</param>
+							</include>
 							<width>75%</width>
 							<height>67%</height>
 							<right>25%</right>
@@ -45,6 +53,10 @@
 						<!-- Bottom (videos first, then music) -->
 						<control type="image">
 							<visible>!$EXP[IsDetailsItemTypeMusic]</visible>
+							<include content="ShowHideFadeAnimation">
+								<param name="speed">ANIMATION_SLOW</param>
+								<param name="delay_in">ANIMATION_FAST</param>
+							</include>
 							<width>67%</width>
 							<height>67%</height>
 							<right>67%</right>
@@ -54,6 +66,10 @@
 						</control>
 						<control type="image">
 							<visible>$EXP[IsDetailsItemTypeMusic]</visible>
+							<include content="ShowHideFadeAnimation">
+								<param name="speed">ANIMATION_SLOW</param>
+								<param name="delay_in">ANIMATION_FAST</param>
+							</include>
 							<width>75%</width>
 							<height>67%</height>
 							<right>25%</right>
@@ -67,6 +83,10 @@
 						<!-- Top (videos first, then music) -->
 						<control type="image">
 							<visible>!$EXP[IsDetailsItemTypeMusic]</visible>
+							<include content="ShowHideFadeAnimation">
+								<param name="speed">ANIMATION_SLOW</param>
+								<param name="delay_in">ANIMATION_FAST</param>
+							</include>
 							<width>67%</width>
 							<height>67%</height>
 							<left>33%</left>
@@ -76,6 +96,10 @@
 						</control>
 						<control type="image">
 							<visible>$EXP[IsDetailsItemTypeMusic]</visible>
+							<include content="ShowHideFadeAnimation">
+								<param name="speed">ANIMATION_SLOW</param>
+								<param name="delay_in">ANIMATION_FAST</param>
+							</include>
 							<width>75%</width>
 							<height>67%</height>
 							<left>75%</left>
@@ -86,6 +110,10 @@
 						<!-- Bottom (videos first, then music) -->
 						<control type="image">
 							<visible>!$EXP[IsDetailsItemTypeMusic]</visible>
+							<include content="ShowHideFadeAnimation">
+								<param name="speed">ANIMATION_SLOW</param>
+								<param name="delay_in">ANIMATION_FAST</param>
+							</include>
 							<width>67%</width>
 							<height>67%</height>
 							<left>33%</left>
@@ -95,6 +123,10 @@
 						</control>
 						<control type="image">
 							<visible>$EXP[IsDetailsItemTypeMusic]</visible>
+							<include content="ShowHideFadeAnimation">
+								<param name="speed">ANIMATION_SLOW</param>
+								<param name="delay_in">ANIMATION_FAST</param>
+							</include>
 							<width>75%</width>
 							<height>67%</height>
 							<left>75%</left>

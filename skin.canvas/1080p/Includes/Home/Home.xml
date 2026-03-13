@@ -34,8 +34,7 @@
 					<top>OFFSET_HOME_LIST_AFTER_LABEL</top>
 					<height>HEIGHT_LIST_CONTAINER</height>
 
-					<onfocus>SetProperty(ActiveListId,$PARAM[id],home)</onfocus>
-					<onfocus>RunScript(script.canvas.helper,populate_listitem_info_from_listitem,$INFO[Container($PARAM[id]).ListItem.DBTYPE],$INFO[Container($PARAM[id]).ListItem.DBID],$PARAM[id])</onfocus>
+					<onfocus>RunScript(script.canvas.helper,populate_listitem_info_from_listitem,$PARAM[id])</onfocus>
 					<include content="HomeOnNavigateUp$PARAM[id]" />
 					<include content="HomeOnNavigateDown$PARAM[id]" />
 					<onright>noop</onright>
@@ -49,6 +48,7 @@
 						<param name="dark_unfocused">$PARAM[darken_art]</param>
 						<param name="dark_focused">$PARAM[darken_art]</param>
 						<param name="condition">Integer.IsEqual($PARAM[content_type],1)</param>
+						<param name="listid">$PARAM[id]</param>
 					</include>
 					<!-- Episode layout -->
 					<include content="LandscapeLayout">
@@ -58,6 +58,7 @@
 						<param name="condition">Integer.IsEqual($PARAM[content_type],2)</param>
 						<param name="show_info">true</param>
 						<param name="textcolor">$VAR[ContrastTextHighlightColor]</param>
+						<param name="listid">$PARAM[id]</param>
 					</include>
 					<!-- Music layout -->
 					<include content="AlbumLayout">
@@ -69,6 +70,7 @@
 						<param name="info2">$VAR[HomeAlbumInfo2]</param>
 						<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
 						<param name="info2_color">$VAR[ContrastTextForegroundColor]</param>
+						<param name="listid">$PARAM[id]</param>
 					</include>
 
 					<content>$PARAM[content]</content>
@@ -105,8 +107,7 @@
 					<top>OFFSET_HOME_LIST_AFTER_LABEL</top>
 					<height>HEIGHT_LIST_CONTAINER</height>
 
-					<onfocus>SetProperty(ActiveListId,$PARAM[id],home)</onfocus>
-					<onfocus>RunScript(script.canvas.helper,populate_listitem_info_from_listitem,$INFO[Container($PARAM[id]).ListItem.DBTYPE],$INFO[Container($PARAM[id]).ListItem.DBID],$PARAM[id])</onfocus>
+					<onfocus>RunScript(script.canvas.helper,populate_listitem_info_from_listitem,$PARAM[id])</onfocus>
 					<include content="HomeOnNavigateUp$PARAM[id]" />
 					<include content="HomeOnNavigateDown$PARAM[id]" />
 					<onright>noop</onright>
@@ -120,6 +121,7 @@
 						<param name="dark_unfocused">$PARAM[darken_art]</param>
 						<param name="dark_focused">$PARAM[darken_art]</param>
 						<param name="condition">Integer.IsEqual($PARAM[content_type],1)</param>
+						<param name="listid">$PARAM[id]</param>
 					</include>
 					<!-- Music layout -->
 					<include content="AlbumLayout">
@@ -131,6 +133,7 @@
 						<param name="info2">$VAR[HomeAlbumInfo2]</param>
 						<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
 						<param name="info2_color">$VAR[ContrastTextForegroundColor]</param>
+						<param name="listid">$PARAM[id]</param>
 					</include>
 
 					<content>$PARAM[content]</content>
@@ -170,7 +173,6 @@
 					<top>HEIGHT_DETAILS_TITLE_SECTION</top>
 					<height>HEIGHT_HOME_FULL_WALL_CONTENT</height>
 
-					<!--<onfocus>SetProperty(ActiveListId,$PARAM[id],home)</onfocus>--><!--todo:remove?-->
 					<onfocus>RunScript(script.canvas.helper,clear_listitem_properties)</onfocus>
 					<include content="HomeOnNavigateUp$PARAM[id]" />
 					<include content="HomeOnNavigateDown$PARAM[id]" />
@@ -191,6 +193,7 @@
 						<param name="info2">$VAR[HomeAlbumInfo2]</param>
 						<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
 						<param name="info2_color">$VAR[ContrastTextForegroundColor]</param>
+						<param name="listid">$PARAM[id]</param>
 					</include>
 
 					<content>$PARAM[content]</content>
@@ -286,7 +289,7 @@
 						<include content="HomeOnNavigateDown$PARAM[id]" />
 						<onleft>SetFocus($PARAM[menuid])</onleft>
 						<onback>SetFocus($PARAM[menuid])</onback>
-						<onfocus>RunScript(script.canvas.helper,reset_listitem_selection)</onfocus>
+						<onfocus>RunScript(script.canvas.helper,clear_listitem_properties)</onfocus>
 					</control>
 				</control>
 			</control>

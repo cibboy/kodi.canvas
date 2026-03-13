@@ -453,11 +453,12 @@
 	<!-- Onchange button -->
 	<include name="ArtListsOnChangeButton">
 		<param name="get_additional_data">true</param>
+		<param name="listid"></param>
 
 		<definition>
 			<control type="button">
 				<visible allowhiddenfocus="true">false</visible>
-				<onfocus condition="$PARAM[get_additional_data]">RunScript(script.canvas.helper,populate_listitem_info_from_listitem,$INFO[ListItem.DBTYPE],$INFO[ListItem.DBID])</onfocus>
+				<onfocus condition="$PARAM[get_additional_data]">RunScript(script.canvas.helper,populate_listitem_info_from_listitem,$PARAM[listid])</onfocus>
 			</control>
 		</definition>
 	</include>
@@ -471,6 +472,7 @@
 		<param name="dark_focused">false</param>
 		<param name="condition">true</param>
 		<param name="get_additional_data">true</param>
+		<param name="listid"></param>
 
 		<definition>
 			<itemlayout width="WIDTH_POSTER_LIST_ITEM_CONTAINER" height="HEIGHT_POSTER_LIST_ITEM_CONTAINER" condition="$PARAM[condition]">
@@ -489,6 +491,7 @@
 					<!-- Onchange action -->
 					<include content="ArtListsOnChangeButton">
 						<param name="get_additional_data">$PARAM[get_additional_data]</param>
+						<param name="listid">$PARAM[listid]</param>
 					</include>
 
 					<!-- Poster -->
@@ -511,6 +514,7 @@
 		<param name="show_info">false</param>
 		<param name="textcolor">HIGHLIGHT_CONTRAST_LIGHT</param>
 		<param name="get_additional_data">true</param>
+		<param name="listid"></param>
 
 		<definition>
 			<itemlayout width="WIDTH_LANDSCAPE_LIST_ITEM_CONTAINER" height="HEIGHT_LANDSCAPE_LIST_ITEM_CONTAINER" condition="$PARAM[condition]">
@@ -534,6 +538,7 @@
 					<!-- Onchange action -->
 					<include content="ArtListsOnChangeButton">
 						<param name="get_additional_data">$PARAM[get_additional_data]</param>
+						<param name="listid">$PARAM[listid]</param>
 					</include>
 
 					<!-- Landscape item -->
@@ -564,6 +569,7 @@
 		<param name="info1_color">HIGHLIGHT_CONTRAST_LIGHT</param>
 		<param name="info2_color">FOREGROUND_CONTRAST_LIGHT</param>
 		<param name="get_additional_data">true</param>
+		<param name="listid"></param>
 
 		<definition>
 			<itemlayout width="WIDTH_ALBUM_LIST_ITEM_CONTAINER" height="HEIGHT_ALBUM_LIST_ITEM_CONTAINER">
@@ -591,6 +597,7 @@
 					<!-- Onchange action -->
 					<include content="ArtListsOnChangeButton">
 						<param name="get_additional_data">$PARAM[get_additional_data]</param>
+						<param name="listid">$PARAM[listid]</param>
 					</include>
 					
 					<!-- Album item -->

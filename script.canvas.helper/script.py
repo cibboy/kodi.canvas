@@ -6,7 +6,7 @@ from image import get_blurred, get_cropped_clearlogo
 from media import *
 from utils import *
 
-# Clear custom listitem properties on home used for additional details.
+# Clear custom listitem properties on home used for details.
 def clear_listitem_properties(include_navigation = True):
     # All properties reside on home window.
     window = xbmcgui.Window(10000)
@@ -15,6 +15,8 @@ def clear_listitem_properties(include_navigation = True):
     if include_navigation:
         window.clearProperty('Navigation.PreviousSeason')
         window.clearProperty('Navigation.NextSeason')
+    window.clearProperty('Details.DBID.Debounce')
+    window.clearProperty('Details.DBID')
     window.clearProperty('Details.ItemType')
     window.clearProperty('Details.Title')
     window.clearProperty('Details.Title2')
@@ -51,7 +53,7 @@ def clear_listitem_properties(include_navigation = True):
     window.clearProperty('Details.HasEngSubs')
     window.clearProperty('Details.HasItaSubs')
 
-# Populate window properties with additional background information for the music player.
+# Populate window properties with background information for the music player.
 def get_musicplayer_bg_info(thumb):
     # Work on MusicVisualisation.xml.
     window = xbmcgui.Window(12006)
@@ -367,7 +369,7 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
                 elif s.get('season', None) == next:
                     window.setProperty('Navigation.NextSeason', f"videodb://tvshows/titles/{tvshowid}/{next}/")
 
-# Populate window properties with additional information about the playing
+# Populate window properties with information about the playing
 # item. It's supposed to be used on OSDs.
 def populate_listitem_info_from_player():
     # All properties reside on home window.
@@ -394,26 +396,28 @@ def populate_listitem_info_from_player():
         # Populate properties.
         populate_listitem_info(window, itemtype, itemid, player, False)
 
-# Populate window properties with additional information about the specified
+# Populate window properties with information about the specified
 # list ID's selected item. This allows the skin to work with information
 # not exposed natively by Kodi.
 # Explicitly request item type and ID because live-retrieving might fail
 # in cases where a dialog appears rapidly before the xbmc.getInfoLabel()
 # method can be invoked.
 # "Debounced" to improve responsiveness.
-def populate_listitem_info_from_listitem(itemtype, itemid, listid = '-1'):
-    # All properties reside on home window.
-    window = xbmcgui.Window(10000)
+def populate_listitem_info_from_listitem(listid):
+    if listid != '' and listid is not None:
+        # All properties reside on home window.
+        window = xbmcgui.Window(10000)
 
-    # Poor man's implementation of debouncing.
-    window.setProperty('Details.DBID.Debounce', itemid)
-    time.sleep(0.3)
-    debounce_value = window.getProperty('Details.DBID.Debounce')
-    if debounce_value == itemid:    # Continue if there were no new requests.
-        # Retrieve current active list ID.
-        if listid == '-1': listid = window.getProperty('ActiveListId')
-        
-        if listid != '' and listid is not None:
+        # Retrieve item type and ID.
+        listitem = f"Container({listid}).ListItem"
+        itemtype = xbmc.getInfoLabel(f"{listitem}.DBTYPE")
+        itemid = xbmc.getInfoLabel(f"{listitem}.DBID")
+
+        # Poor man's implementation of debouncing.
+        window.setProperty('Details.DBID.Debounce', itemid)
+        time.sleep(0.3)
+        debounce_value = window.getProperty('Details.DBID.Debounce')
+        if debounce_value == itemid:    # Continue if there were no new requests.
             # Retrieve current active item ID.
             active_itemid = window.getProperty('Details.DBID')
             # Continue if working with a different item. This prevents trying to
@@ -423,67 +427,7 @@ def populate_listitem_info_from_listitem(itemtype, itemid, listid = '-1'):
                 # Set the new active item ID.
                 window.setProperty('Details.DBID', itemid)
                 # Populate properties.
-                populate_listitem_info(window, itemtype, itemid, f"Container({listid}).ListItem", True)
-
-# Resets selection additional information.
-def reset_listitem_selection():
-    # All properties reside on home window.
-    window = xbmcgui.Window(10000)
-
-    # Clear properties.
-    clear_listitem_properties()
-    window.clearProperty('ActiveListId')
-    window.clearProperty('Details.DBID')
-
-def find_home_valid_candidates(candidates, window):
-    # Find the first available candidate, move there.
-    for c in candidates:
-        more = None
-        # If the candidate is a dict, there is additional routing involved.
-        # The component should be identified as 96{id}.
-        if type(c) is dict:
-            more = c['then']
-            c = c['first']
-
-        # Find the group control containing the required list ID.
-        # 98{id} is for lists, 97{id} is for empty list placeholder.
-        # 96{id} is a router, but rerouting must be computed here.
-        # Keep track of type.
-        control = None
-        control_type = ''
-        try:
-            control = window.getControl(int(f"98{c}"))
-            control_type = 'list'
-        except:
-            try:
-                control = window.getControl(int(f"97{c}"))
-                control_type = 'empty_placeholder'
-            except:
-                try:
-                    control = window.getControl(int(f"96{c}"))
-                    control_type = 'router'
-                except:
-                    control = None
-                    control_type = ''
-
-        # If the control was found and it's visible set focus to the requested control ID.
-        if control is not None and control.isVisible():
-            # If additional routing is necessary, do that now.
-            ret = { 'id': [c], 'type': control_type }
-            if more is not None:
-                tmp = find_home_valid_candidates(more, window)
-                if len(tmp['id']) > 0:
-                    ret['id'].append(tmp['id'][0])
-                    ret['type'] = tmp['type']
-            
-            # Flag visibility of empty list placeholder if found such object.#todo: necessary?
-            if ret['type'] == 'empty_placeholder': window.setProperty('EmptyListPlaceholder', str(ret['id']))
-            # Remove empty list placeholder flag if list found.#todo: necessary?
-            else: window.clearProperty('EmptyListPlaceholder')
-
-            return ret
-    
-    return { 'id': [], 'type': None }
+                populate_listitem_info(window, itemtype, itemid, listitem, True)
 
 
 # Prepares window properties and performs navigation for custom video nav for movies and episodes.
@@ -874,22 +818,19 @@ if __name__ == '__main__':
         elif method == 'clear_custom_cache':
             clear_custom_cache()
         
-        # Get additional info from player media for skin usage.
+        # Get info from player media for skin usage.
         elif method == 'populate_listitem_info_from_player':
             populate_listitem_info_from_player()
-        # Get additional info from media for skin usage.
+        # Get info from media for skin usage.
         elif method == 'populate_listitem_info_from_listitem':
-            populate_listitem_info_from_listitem(sys.argv[2], sys.argv[3])
+            populate_listitem_info_from_listitem(sys.argv[2])
         # Get background info for music player.
         elif method == 'get_musicplayer_bg_info':
             get_musicplayer_bg_info(sys.argv[2])
        
-        # Removes additional info previously loaded.
+        # Clear custom listitem properties on home used for details.
         elif method == 'clear_listitem_properties':
             clear_listitem_properties()
-        # Resets the selection for additional media in order to remove artifacts.
-        elif method == 'reset_listitem_selection':
-            reset_listitem_selection()
         
         # Navigate to custom video nav for movies and episodes.
         elif method == 'navigate_movie_episode_videonav':

@@ -10,14 +10,9 @@ Wishlist:
 
 TODO:
 - Version bump to 2.0.0
-- Revision to remove property ActiveListId
-- Complete review of ids (and setfocus) on home to make sure they's consistent
+- Complete review of ids, setfocus and params on home to make sure they's consistent/not useless
 - continue watching should consider items watched but also with time left
 - try "dynamic" colors using variables (variables contain name of color, not definition of color? if so, must define pallette in colors/default.xml and pick from that according to what is returned by python)
-
-BUGS:
-- navigate from pictures to music: detail info not loaded (even if list id passed is correct)
-- blur change is without fade from yoga to music and vice versa 80% of times
 
 Guidelines:
 https://medium.com/you-i-tv/designing-for-10ft-ceeb202c1315

@@ -20,7 +20,6 @@
 				<nested />
 
 				<height>HEIGHT_LIST_CONTAINER</height>
-				<onfocus>SetProperty(ActiveListId,501,home)</onfocus>
 				<onleft condition="$EXP[HasMediaNavNavigatePreviousSeason]">ReplaceWindow(Videos,$INFO[Window(home).Property(Navigation.PreviousSeason)],1)</onleft>
 				<onleft>noop</onleft>
 				<onright condition="$EXP[HasMediaNavNavigateNextSeason]">ReplaceWindow(Videos,$INFO[Window(home).Property(Navigation.NextSeason)],1)</onright>
@@ -32,12 +31,14 @@
 					<param name="art">$INFO[ListItem.Art(poster)]</param>
 					<param name="condition">$EXP[IsDetailsItemTypeSeason]</param>
 					<param name="dark_unfocused">$EXP[IsMediaNavActionBarFocused]</param>
+					<param name="listid">501</param>
 				</include>
 				<!-- Episode layout -->
 				<include content="LandscapeLayout">
 					<param name="art">$INFO[ListItem.Art(thumb)]</param>
 					<param name="condition">$EXP[IsDetailsItemTypeEpisode]</param>
 					<param name="dark_unfocused">$EXP[IsMediaNavActionBarFocused]</param>
+					<param name="listid">501</param>
 				</include>
 			</include>
 		</definition>
