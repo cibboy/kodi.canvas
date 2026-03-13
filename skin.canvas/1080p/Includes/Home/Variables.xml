@@ -28,44 +28,12 @@
 		<value condition="String.IsEqual(ListItem.Property(Type),picturealbum)">Album</value>
 	</variable>
 
-	<!-- Empty list title -->
-	<variable name="HomeEmptyListTitle">
-		<value condition="String.IsEqual(Window(home).Property(EmptyListPlaceholder),105)">Kodi</value>
-		<value condition="String.IsEqual(Window(home).Property(EmptyListPlaceholder),107)">Movies</value>
-		<value condition="String.IsEqual(Window(home).Property(EmptyListPlaceholder),109)">TV Shows</value>
-		<value condition="String.IsEqual(Window(home).Property(EmptyListPlaceholder),111)">Yoga</value>
-		<value condition="String.IsEqual(Window(home).Property(EmptyListPlaceholder),113)">Music</value>
-		<value condition="String.IsEqual(Window(home).Property(EmptyListPlaceholder),115)">Pictures</value>
-	</variable>
-	<!-- Empty list icon -->
-	<variable name="HomeEmptyListIcon">
-		<value condition="String.IsEqual(Window(home).Property(EmptyListPlaceholder),105)">$VAR[LogoIcon]</value>
-		<value condition="String.IsEqual(Window(home).Property(EmptyListPlaceholder),107)">$VAR[MoviesIcon]</value>
-		<value condition="String.IsEqual(Window(home).Property(EmptyListPlaceholder),109)">$VAR[TVShowsIcon]</value>
-		<value condition="String.IsEqual(Window(home).Property(EmptyListPlaceholder),111)">$VAR[YogaIcon]</value>
-		<value condition="String.IsEqual(Window(home).Property(EmptyListPlaceholder),113)">$VAR[MusicIcon]</value>
-		<value condition="String.IsEqual(Window(home).Property(EmptyListPlaceholder),115)">$VAR[PicturesIcon]</value>
-	</variable>
-
-	<!-- Hidden media list content based on active list ID -->
-	<variable name="HomeActiveItemListContent">
-		<value condition="String.IsEqual(Window(home).Property(ActiveListId),101)">$VAR[HomeContinueWatchingContent]</value>
-		<value condition="String.IsEqual(Window(home).Property(ActiveListId),102)">$VAR[HomeRecentEpisodesContent]</value>
-		<value condition="String.IsEqual(Window(home).Property(ActiveListId),103)">$VAR[HomeRecentMoviesContent]</value>
-		<value condition="String.IsEqual(Window(home).Property(ActiveListId),104)">$VAR[HomeRecentSongsContent]</value>
-		<value condition="String.IsEqual(Window(home).Property(ActiveListId),106)">$VAR[HomeMoviesContent]</value>
-		<value condition="String.IsEqual(Window(home).Property(ActiveListId),108)">$VAR[HomeTVShowsContent]</value>
-		<value condition="String.IsEqual(Window(home).Property(ActiveListId),110)">$VAR[HomeYogaContent]</value>
-		<value condition="String.IsEqual(Window(home).Property(ActiveListId),112)">$VAR[HomeMusicContent]</value>
-		<value>special://skin/playlists/empty.xsp</value>
-	</variable>
-
 	<!-- Home lists contents -->
 	<variable name="HomeContinueWatchingContent"><value>plugin://script.canvas.helper/continue_watching/</value></variable>
 	<variable name="HomeRecentEpisodesContent"><value>plugin://script.canvas.helper/recent_episodes/</value></variable>
 	<variable name="HomeRecentMoviesContent"><value>special://skin/playlists/recent.movies.xsp</value></variable>
 	<variable name="HomeRecentSongsContent"><value>special://skin/playlists/recent.songs.xsp</value></variable>
-	<variable name="HomeMoviesContent"><value>special://skin/playlists/movies.xsp</value></variable>
+	<variable name="HomeMoviesContent"><value>special://skin/playlists/movies.xsp</value></variable>-
 	<variable name="HomeTVShowsContent"><value>special://skin/playlists/tvshows.xsp</value></variable>
 	<variable name="HomeYogaContent"><value>plugin://script.canvas.helper/yoga/</value></variable>
 	<variable name="HomeMusicContent">

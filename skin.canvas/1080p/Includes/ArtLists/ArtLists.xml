@@ -457,7 +457,7 @@
 		<definition>
 			<control type="button">
 				<visible allowhiddenfocus="true">false</visible>
-				<onfocus condition="$PARAM[get_additional_data] + !$EXP[IsHomeMenuMoving]">RunScript(script.canvas.helper,populate_listitem_info_from_listitem,$INFO[ListItem.DBTYPE],$INFO[ListItem.DBID])</onfocus>
+				<onfocus condition="$PARAM[get_additional_data]">RunScript(script.canvas.helper,populate_listitem_info_from_listitem,$INFO[ListItem.DBTYPE],$INFO[ListItem.DBID])</onfocus>
 			</control>
 		</definition>
 	</include>

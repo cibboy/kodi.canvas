@@ -2,7 +2,6 @@
 <includes>
 	<include file="Includes/Home/Variables.xml" />
 	<include file="Includes/Home/Expressions.xml" />
-	<include file="Includes/Home/Navigation.xml" />
 
 
 	<!-- Horizontal list of media items. Form factor is based on content type -->
@@ -10,19 +9,18 @@
 		<param name="id"></param>
 		<param name="label"></param>
 		<param name="content"></param>
-		<param name="content_type"></param>
 		<param name="menuid"></param>
 		<param name="onclick"></param>
 		<param name="darken_art">false</param>
 
 		<definition>
-			<control type="group" id="8$PARAM[id]">
+			<control type="group" id="98$PARAM[id]">
 				<visible>Container($PARAM[id]).IsUpdating | !Integer.IsEqual(Container($PARAM[id]).NumItems,0)</visible>
 				<height>HEIGHT_LIST_CONTAINER_WITH_LABEL</height>
 
 				<!-- Label -->
 				<include content="ListLabel">
-					<param name="id">8$PARAM[id]1</param>
+					<param name="id">99$PARAM[id]</param>
 					<param name="label">$PARAM[label]</param>
 					<param name="textcolor">$VAR[ContrastTextHighlightColor]</param>
 				</include>
@@ -35,9 +33,8 @@
 					<height>HEIGHT_LIST_CONTAINER</height>
 
 					<onfocus>SetProperty(ActiveListId,$PARAM[id],home)</onfocus>
-					<onfocus>RunScript(script.canvas.helper,populate_listitem_info_from_listitem,$INFO[Container($PARAM[id]).ListItem.DBTYPE],$INFO[Container($PARAM[id]).ListItem.DBID],$PARAM[id])</onfocus>
-					<include content="HomeOnNavigateUp$PARAM[id]" />
-					<include content="HomeOnNavigateDown$PARAM[id]" />
+					<onup>RunScript(script.canvas.helper,navigate_home_lists,$PARAM[id],up)</onup>
+					<ondown>RunScript(script.canvas.helper,navigate_home_lists,$PARAM[id],down)</ondown>
 					<onright>noop</onright>
 					<onleft>SetFocus($PARAM[menuid])</onleft>
 					<onback>SetFocus($PARAM[menuid])</onback>
@@ -48,14 +45,14 @@
 						<param name="art">$VAR[HomePosterArt]</param>
 						<param name="dark_unfocused">$PARAM[darken_art]</param>
 						<param name="dark_focused">$PARAM[darken_art]</param>
-						<param name="condition">Integer.IsEqual($PARAM[content_type],1)</param>
+						<param name="condition">Integer.IsEqual($PARAM[id],101) | Integer.IsEqual($PARAM[id],103) | Integer.IsEqual($PARAM[id],110)</param>
 					</include>
 					<!-- Episode layout -->
 					<include content="LandscapeLayout">
 						<param name="art">$INFO[ListItem.Art(thumb)]</param>
 						<param name="dark_unfocused">$PARAM[darken_art]</param>
 						<param name="dark_focused">$PARAM[darken_art]</param>
-						<param name="condition">Integer.IsEqual($PARAM[content_type],2)</param>
+						<param name="condition">Integer.IsEqual($PARAM[id],102)</param>
 						<param name="show_info">true</param>
 						<param name="textcolor">$VAR[ContrastTextHighlightColor]</param>
 					</include>
@@ -64,7 +61,7 @@
 						<param name="art">$INFO[ListItem.Art(thumb)]</param>
 						<param name="dark_unfocused">$PARAM[darken_art]</param>
 						<param name="dark_focused">$PARAM[darken_art]</param>
-						<param name="condition">Integer.IsEqual($PARAM[content_type],3)</param>
+						<param name="condition">Integer.IsEqual($PARAM[id],104)</param>
 						<param name="info1">$VAR[HomeAlbumInfo1]</param>
 						<param name="info2">$VAR[HomeAlbumInfo2]</param>
 						<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
@@ -76,24 +73,23 @@
 			</control>
 		</definition>
 	</include>
-	<!-- Wall of media items for strip height. Form factor is based on content type -->
+	<!-- Wall of media items. Form factor is based on content type -->
 	<include name="HomeItemWall">
 		<param name="id"></param>
 		<param name="label"></param>
 		<param name="content"></param>
-		<param name="content_type"></param>
 		<param name="menuid"></param>
 		<param name="onclick"></param>
 		<param name="darken_art">false</param>
 
 		<definition>
-			<control type="group" id="8$PARAM[id]">
+			<control type="group" id="98$PARAM[id]">
 				<visible>Container($PARAM[id]).IsUpdating | !Integer.IsEqual(Container($PARAM[id]).NumItems,0)</visible>
 				<height>HEIGHT_LIST_CONTAINER_WITH_LABEL</height>
 
 				<!-- Label -->
 				<include content="ListLabel">
-					<param name="id">8$PARAM[id]1</param>
+					<param name="id">99$PARAM[id]</param>
 					<param name="label">$PARAM[label]</param>
 					<param name="textcolor">$VAR[ContrastTextHighlightColor]</param>
 				</include>
@@ -106,9 +102,8 @@
 					<height>HEIGHT_LIST_CONTAINER</height>
 
 					<onfocus>SetProperty(ActiveListId,$PARAM[id],home)</onfocus>
-					<onfocus>RunScript(script.canvas.helper,populate_listitem_info_from_listitem,$INFO[Container($PARAM[id]).ListItem.DBTYPE],$INFO[Container($PARAM[id]).ListItem.DBID],$PARAM[id])</onfocus>
-					<include content="HomeOnNavigateUp$PARAM[id]" />
-					<include content="HomeOnNavigateDown$PARAM[id]" />
+					<onup>RunScript(script.canvas.helper,navigate_home_lists,$PARAM[id],up)</onup>
+					<ondown>RunScript(script.canvas.helper,navigate_home_lists,$PARAM[id],down)</ondown>
 					<onright>noop</onright>
 					<onleft>SetFocus($PARAM[menuid])</onleft>
 					<onback>SetFocus($PARAM[menuid])</onback>
@@ -119,14 +114,14 @@
 						<param name="art">$VAR[HomePosterArt]</param>
 						<param name="dark_unfocused">$PARAM[darken_art]</param>
 						<param name="dark_focused">$PARAM[darken_art]</param>
-						<param name="condition">Integer.IsEqual($PARAM[content_type],1)</param>
+						<param name="condition">Integer.IsEqual($PARAM[id],106) | Integer.IsEqual($PARAM[id],108)</param>
 					</include>
 					<!-- Music layout -->
 					<include content="AlbumLayout">
 						<param name="art">$INFO[ListItem.Art(thumb)]</param>
 						<param name="dark_unfocused">$PARAM[darken_art]</param>
 						<param name="dark_focused">$PARAM[darken_art]</param>
-						<param name="condition">Integer.IsEqual($PARAM[content_type],3)</param>
+						<param name="condition">Integer.IsEqual($PARAM[id],112)</param>
 						<param name="info1">$VAR[HomeAlbumInfo1]</param>
 						<param name="info2">$VAR[HomeAlbumInfo2]</param>
 						<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
@@ -138,18 +133,55 @@
 			</control>
 		</definition>
 	</include>
+	<!--
+		Empty placeholder for list of items. This is considered content, not a placeholder for empty lists.
+		It allows to switch from bottom half of screen lists to full height wall of items.
+	-->
+	<include name="HomeItemEmptyPage">
+		<param name="id"></param>
+		<param name="routing_id"></param>
+
+		<definition>
+			<control type="group" id="96$PARAM[id]">
+				<visible>Container($PARAM[routing_id]).IsUpdating | !Integer.IsEqual(Container($PARAM[routing_id]).NumItems,0)</visible>
+				<height>HEIGHT_LIST_CONTAINER_WITH_LABEL</height>
+
+				<control type="button" id="$PARAM[id]">
+					<visible allowhiddenfocus="true">false</visible>
+					<onback>SetFocus(200)</onback>
+				</control>
+			</control>
+		</definition>
+	</include>
+	<!--
+		Empty placeholder for full height list of items. This is considered content, not a placeholder for empty lists.
+		It allows to switch from full height wall of items to bottom half of screen lists.
+	-->
+	<include name="HomeItemEmptyPageFullHeight">
+		<param name="id"></param>
+
+		<definition>
+			<control type="group" id="96$PARAM[id]">
+				<height>SCREEN_HEIGHT</height>
+
+				<control type="button" id="$PARAM[id]">
+					<visible allowhiddenfocus="true">false</visible>
+					<onback>SetFocus(200)</onback>
+				</control>
+			</control>
+		</definition>
+	</include>
 	<!-- Full height wall of media items. Form factor is based on content type -->
 	<include name="HomeItemFullWall">
 		<param name="id"></param>
 		<param name="label"></param>
 		<param name="content"></param>
-		<param name="content_type"></param>
 		<param name="menuid"></param>
 		<param name="onclick"></param>
 		<param name="darken_art">false</param>
 
 		<definition>
-			<control type="group" id="9$PARAM[id]">
+			<control type="group" id="98$PARAM[id]">
 				<visible>Container($PARAM[id]).IsUpdating | !Integer.IsEqual(Container($PARAM[id]).NumItems,0)</visible>
 				<height>SCREEN_HEIGHT</height>
 
@@ -170,10 +202,10 @@
 					<top>HEIGHT_DETAILS_TITLE_SECTION</top>
 					<height>HEIGHT_HOME_FULL_WALL_CONTENT</height>
 
-					<!--<onfocus>SetProperty(ActiveListId,$PARAM[id],home)</onfocus>--><!--todo:remove?-->
+					<onfocus>SetProperty(ActiveListId,$PARAM[id],home)</onfocus>
 					<onfocus>RunScript(script.canvas.helper,clear_listitem_properties)</onfocus>
-					<include content="HomeOnNavigateUp$PARAM[id]" />
-					<include content="HomeOnNavigateDown$PARAM[id]" />
+					<onup>RunScript(script.canvas.helper,navigate_home_lists,$PARAM[id],up)</onup>
+					<ondown>noop</ondown>
 					<onright>noop</onright>
 					<onleft>SetFocus($PARAM[menuid])</onleft>
 					<onback>SetFocus($PARAM[menuid])</onback>
@@ -185,7 +217,7 @@
 						<param name="fallback">$VAR[HomePictureFallbackArt]</param>
 						<param name="overlay_icon">$VAR[HomePictureOverlayIcon]</param>
 						<param name="dark_unfocused">$PARAM[darken_art]</param>
-						<param name="condition">Integer.IsEqual($PARAM[content_type],3)</param>
+						<param name="condition">Integer.IsEqual($PARAM[id],302)</param>
 						<param name="get_additional_data">false</param>
 						<param name="info1">$VAR[HomeAlbumInfo1]</param>
 						<param name="info2">$VAR[HomeAlbumInfo2]</param>
@@ -198,113 +230,87 @@
 			</control>
 		</definition>
 	</include>
-	<!-- Empty placeholder of the same height as a strip, to be used when a page is shown in its place -->
-	<include name="HomeEmptyItemStrip">
-		<param name="id"></param>
+
+	<!-- Placeholder for adding content when there is none (icon and text) -->
+	<include name="HomeEmptyListInfoPlaceholder">
 		<param name="visible"></param>
 
 		<definition>
 			<control type="group">
+				<visible>$PARAM[visible]</visible>
+				<width>WIDTH_HOME_FALLBACK_CONTENT</width>
+				<height>HEIGHT_HOME_FALLBACK_CONTENT</height>
+				<centertop>50%</centertop>
+
+				<!-- Icon -->
+				<control type="image">
+					<width>SIZE_HOME_FALLBACK_ICON</width>
+					<height>SIZE_HOME_FALLBACK_ICON</height>
+					<centerleft>50%</centerleft>
+					<texture colordiffuse="FOREGROUND">$VAR[HomeEmptyListIcon]</texture>
+				</control>
+				<!-- Page title -->
+				<control type="label">
+					<width>WIDTH_HOME_FALLBACK_CONTENT</width>
+					<height>FONT_SIZE_TITLE3</height>
+					<top>100</top>
+					<centerright>50%</centerright>
+					<align>center</align>
+					<font>TITLE3</font>
+					<label>$VAR[HomeEmptyListTitle]</label>
+				</control>
+				<!-- Empty message -->
+				<control type="label">
+					<width>WIDTH_HOME_FALLBACK_CONTENT</width>
+					<height>FONT_SIZE_BODY</height>
+					<top>220</top>
+					<centerright>50%</centerright>
+
+					<align>center</align>
+					<font>BODY</font>
+					<label>No content found</label>
+				</control>
+			</control>
+		</definition>
+	</include>
+	<!-- Placeholder for adding content when there is none (button) -->
+	<include name="HomeEmptyListPlaceholder">
+		<param name="visible">false</param>
+		<param name="id"></param>
+		<param name="label"></param>
+		<param name="menuid"></param>
+		<param name="isvideo">false</param>
+		<param name="ismusic">false</param>
+		<param name="ispictures">false</param>
+
+		<definition>
+			<control type="group" id="97$PARAM[id]">
 				<visible>$PARAM[visible]</visible>
 				<height>HEIGHT_LIST_CONTAINER_WITH_LABEL</height>
-
-				<!-- Hidden button to allow focus -->
+				<right>PADDING_BASE</right>
+			
+				<!-- "Add content" button -->
 				<control type="button" id="$PARAM[id]">
-					<visible allowhiddenfocus="true">false</visible>
-				</control>
-			</control>
-		</definition>
-	</include>
+					<top>OFFSET_HOME_LIST_AFTER_LABEL</top>
+					<width>350</width>
+					<height>120</height>
+					<centerleft>50%</centerleft>
 
-	<!-- Add content page, to be used when no content for a category is found -->
-	<include name="HomeAddSomethingPage">
-		<param name="id"></param>
-		<param name="icon"></param>
-		<param name="title"></param>
-		<param name="button"></param>
-		<param name="visible"></param>
-		<param name="menuid">7001</param>
+					<texturefocus colordiffuse="FOREGROUND_ACCENT" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
+					<texturenofocus colordiffuse="BACKGROUND_OPAQUE50" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturenofocus>
+					<textoffsety>4</textoffsety>
+					<textoffsetx>38</textoffsetx>
+					<textcolor>FOREGROUND</textcolor>
+					<align>center</align>
+					<label>$PARAM[label]</label>
 
-		<definition>
-			<control type="group">
-				<visible>$PARAM[visible]</visible>
-				<height>SCREEN_HEIGHT</height>
-				<right>PADDING_BASE_40P</right>
-
-				<control type="group">
-					<height>500</height>
-					<right>PADDING_BASE_60P</right>
-					<centertop>50%</centertop>
-					
-					<!-- Icon -->
-					<control type="image">
-						<width>SIZE_HOME_FALLBACK_ICON</width>
-						<height>SIZE_HOME_FALLBACK_ICON</height>
-						<centerleft>50%</centerleft>
-						<texture colordiffuse="FOREGROUND">$PARAM[icon]</texture>
-					</control>
-					<!-- Page title -->
-					<control type="label">
-						<width>WIDTH_HOME_FALLBACK_CONTENT</width>
-						<height>FONT_SIZE_TITLE3</height>
-						<top>100</top>
-						<centerright>50%</centerright>
-						<align>center</align>
-						<font>TITLE3</font>
-						<label>$PARAM[title]</label>
-					</control>
-					<!-- Empty message -->
-					<control type="label">
-						<width>WIDTH_HOME_FALLBACK_CONTENT</width>
-						<height>FONT_SIZE_BODY</height>
-						<top>220</top>
-						<centerright>50%</centerright>
-
-						<align>center</align>
-						<font>BODY</font>
-						<label>No content found</label>
-					</control>
-
-					<!-- "Add content" button -->
-					<control type="button" id="$PARAM[id]">
-						<top>300</top>
-						<width>350</width>
-						<height>120</height>
-						<centerleft>50%</centerleft>
-
-						<texturefocus colordiffuse="FOREGROUND_ACCENT" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
-						<texturenofocus colordiffuse="BACKGROUND_OPAQUE50" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturenofocus>
-						<textoffsety>4</textoffsety>
-						<textoffsetx>38</textoffsetx>
-						<textcolor>FOREGROUND</textcolor>
-						<align>center</align>
-						<label>$PARAM[button]</label>
-
-						<onclick>SetProperty(Settings.ActivePage,sources,settings)</onclick>
-						<onclick>RunScript(script.canvas.helper,navigate_home_to_active_settings,mediasettings)</onclick>
-						<include content="HomeOnNavigateUp$PARAM[id]" />
-						<include content="HomeOnNavigateDown$PARAM[id]" />
-						<onleft>SetFocus($PARAM[menuid])</onleft>
-						<onback>SetFocus($PARAM[menuid])</onback>
-						<onfocus>RunScript(script.canvas.helper,reset_listitem_selection)</onfocus>
-					</control>
-				</control>
-			</control>
-		</definition>
-	</include>
-	<!-- Empty placeholder of the same height as a page, to be used when a strip is shown in its place -->
-	<include name="HomeEmptyPage">
-		<param name="id"></param>
-		<param name="visible"></param>
-
-		<definition>
-			<control type="group">
-				<visible>$PARAM[visible]</visible>
-				<height>SCREEN_HEIGHT</height>
-
-				<!-- Hidden button to allow focus -->
-				<control type="button" id="$PARAM[id]">
-					<visible allowhiddenfocus="true">false</visible>
+					<onclick>SetProperty(Settings.ActivePage,sources,settings)</onclick>
+					<onclick>RunScript(script.canvas.helper,navigate_home_to_active_settings,mediasettings)</onclick>
+					<onup>RunScript(script.canvas.helper,navigate_home_lists,$PARAM[id],up)</onup>
+					<ondown>RunScript(script.canvas.helper,navigate_home_lists,$PARAM[id],down)</ondown>
+					<onleft>SetFocus($PARAM[menuid])</onleft>
+					<onback>SetFocus($PARAM[menuid])</onback>
+					<onfocus>RunScript(script.canvas.helper,reset_listitem_selection)</onfocus>
 				</control>
 			</control>
 		</definition>
@@ -315,8 +321,8 @@
 		<param name="darken_art">$EXP[HasHomeMenuFocus]</param>
 
 		<definition>
-			<!-- Lists with strip lists/walls -->
-			<control type="grouplist" id="8000">
+			<!-- Main lists -->
+			<control type="grouplist" id="100">
 				<orientation>vertical</orientation>
 				<itemgap>0</itemgap>
 				<usecontrolcoords>true</usecontrolcoords>
@@ -330,8 +336,7 @@
 					<param name="id">101</param>
 					<param name="label">Continue watching</param>
 					<param name="content">$VAR[HomeContinueWatchingContent]</param>
-					<param name="content_type">1</param>
-					<param name="menuid">7001</param>
+					<param name="menuid">201</param>
 					<param name="onclick">RunScript(script.canvas.helper,navigate_movie_episode_videonav,101)</param>
 					<param name="darken_art">$PARAM[darken_art]</param>
 				</include>
@@ -340,8 +345,7 @@
 					<param name="id">102</param>
 					<param name="label">Recently added episodes</param>
 					<param name="content">$VAR[HomeRecentEpisodesContent]</param>
-					<param name="content_type">2</param>
-					<param name="menuid">7001</param>
+					<param name="menuid">201</param>
 					<param name="onclick">RunScript(script.canvas.helper,navigate_movie_episode_videonav,102)</param>
 					<param name="darken_art">$PARAM[darken_art]</param>
 				</include>
@@ -350,8 +354,7 @@
 					<param name="id">103</param>
 					<param name="label">Recently added movies</param>
 					<param name="content">$VAR[HomeRecentMoviesContent]</param>
-					<param name="content_type">1</param>
-					<param name="menuid">7001</param>
+					<param name="menuid">201</param>
 					<param name="onclick">RunScript(script.canvas.helper,navigate_movie_episode_videonav,103)</param>
 					<param name="darken_art">$PARAM[darken_art]</param>
 				</include>
@@ -360,102 +363,103 @@
 					<param name="id">104</param>
 					<param name="label">Recently added music</param>
 					<param name="content">$VAR[HomeRecentSongsContent]</param>
-					<param name="content_type">3</param>
-					<param name="menuid">7001</param>
+					<param name="menuid">201</param>
 					<param name="onclick">PlayMedia($INFO[ListItem.FileNameAndPath],noresume,playoffset=0)</param>
 					<param name="darken_art">$PARAM[darken_art]</param>
 				</include>
 				<!-- No recent content page -->
-				<include content="HomeEmptyItemStrip">
+				<include content="HomeEmptyListPlaceholder">
 					<param name="visible">Integer.IsEqual(Container(101).NumItems,0) + Integer.IsEqual(Container(102).NumItems,0) + Integer.IsEqual(Container(103).NumItems,0) + Integer.IsEqual(Container(104).NumItems,0)</param>
-					<param name="id">199</param>
+					<param name="id">105</param>
 					<param name="label">Add content</param>
-					<param name="menuid">7001</param>
+					<param name="menuid">201</param>
+					<param name="isvideo">true</param>
 				</include>
-
 				<!-- Movies -->
 				<include content="HomeItemWall">
-					<param name="id">201</param>
+					<param name="id">106</param>
 					<param name="label">Movies</param>
 					<param name="content">$VAR[HomeMoviesContent]</param>
-					<param name="content_type">1</param>
-					<param name="menuid">7002</param>
+					<param name="menuid">202</param>
 					<param name="onclick">RunScript(script.canvas.helper,navigate_movie_episode_videonav,106)</param>
 					<param name="darken_art">$PARAM[darken_art]</param>
 				</include>
 				<!-- No movies page -->
-				<include content="HomeEmptyItemStrip">
-					<param name="visible">Integer.IsEqual(Container(201).NumItems,0)</param>
-					<param name="id">299</param>
+				<include content="HomeEmptyListPlaceholder">
+					<param name="visible">Integer.IsEqual(Container(106).NumItems,0)</param>
+					<param name="id">107</param>
 					<param name="label">Add movies</param>
-					<param name="menuid">7002</param>
+					<param name="menuid">202</param>
+					<param name="isvideo">true</param>
 				</include>
-
 				<!-- TV shows -->
 				<include content="HomeItemWall">
-					<param name="id">301</param>
+					<param name="id">108</param>
 					<param name="label">TV Shows</param>
 					<param name="content">$VAR[HomeTVShowsContent]</param>
-					<param name="content_type">1</param>
-					<param name="menuid">7003</param>
+					<param name="menuid">203</param>
 					<param name="onclick">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.DBID]/,return)</param>
 					<param name="darken_art">$PARAM[darken_art]</param>
 				</include>
 				<!-- No TV shows page -->
-				<include content="HomeEmptyItemStrip">
-					<param name="visible">Integer.IsEqual(Container(301).NumItems,0)</param>
-					<param name="id">399</param>
+				<include content="HomeEmptyListPlaceholder">
+					<param name="visible">Integer.IsEqual(Container(108).NumItems,0)</param>
+					<param name="id">109</param>
 					<param name="label">Add TV shows</param>
-					<param name="menuid">7003</param>
+					<param name="menuid">203</param>
+					<param name="isvideo">true</param>
 				</include>
-
 				<!-- Yoga With Adriene -->
 				<include content="HomeItemStrip">
-					<param name="id">401</param>
+					<param name="id">110</param>
 					<param name="label">Yoga</param>
 					<param name="content">$VAR[HomeYogaContent]</param>
-					<param name="content_type">1</param>
-					<param name="menuid">7004</param>
+					<param name="menuid">204</param>
 					<param name="onclick">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.Property(TvShowId)]/$INFO[ListItem.Season]/,return)</param>
 					<param name="darken_art">$PARAM[darken_art]</param>
 				</include>
 				<!-- No yoga page -->
-				<include content="HomeEmptyItemStrip">
-					<param name="visible">Integer.IsEqual(Container(401).NumItems,0)</param>
-					<param name="id">499</param>
+				<include content="HomeEmptyListPlaceholder">
+					<param name="visible">Integer.IsEqual(Container(110).NumItems,0)</param>
+					<param name="id">111</param>
 					<param name="label">Add yoga</param>
-					<param name="menuid">7004</param>
+					<param name="menuid">204</param>
+					<param name="isvideo">true</param>
 				</include>
-
 				<!-- Music -->
 				<include content="HomeItemWall">
-					<param name="id">501</param>
+					<param name="id">112</param>
 					<param name="label">Music</param>
 					<param name="content">$VAR[HomeMusicContent]</param>
-					<param name="content_type">3</param>
-					<param name="menuid">7005</param>
+					<param name="menuid">205</param>
 					<param name="onclick">$VAR[HomeMusicOnClick]</param>
 					<param name="darken_art">$PARAM[darken_art]</param>
 				</include>
 				<!-- No music page -->
-				<include content="HomeEmptyItemStrip">
-					<param name="visible">Integer.IsEqual(Container(501).NumItems,0)</param>
-					<param name="id">599</param>
+				<include content="HomeEmptyListPlaceholder">
+					<param name="visible">Integer.IsEqual(Container(112).NumItems,0)</param>
+					<param name="id">113</param>
 					<param name="label">Add music</param>
-					<param name="menuid">7005</param>
+					<param name="menuid">205</param>
+					<param name="ismusic">true</param>
 				</include>
-				
-				<!-- Pictures -->
-				<include content="HomeEmptyItemStrip">
-					<param name="visible">true</param>
-					<param name="id">698</param>
-					<param name="label">Add music</param>
-					<param name="menuid">7006</param>
+				<!-- Fake pictures (empty page so full height wall can be shown) -->
+				<include content="HomeItemEmptyPage">
+					<param name="id">114</param>
+					<param name="routing_id">302</param>
+				</include>
+				<!-- No pictures page -->
+				<include content="HomeEmptyListPlaceholder">
+					<param name="visible">Integer.IsEqual(Container(302).NumItems,0)</param>
+					<param name="id">115</param>
+					<param name="label">Add pictures</param>
+					<param name="menuid">206</param>
+					<param name="ispictures">true</param>
 				</include>
 			</control>
 
-			<!-- Lists with full height content -->
-			<control type="grouplist" id="9000">
+			<!-- Pictures list (full height) -->
+			<control type="grouplist" id="300">
 				<orientation>vertical</orientation>
 				<itemgap>0</itemgap>
 				<usecontrolcoords>true</usecontrolcoords>
@@ -463,98 +467,22 @@
 				<height>SCREEN_HEIGHT</height>
 				<onback>SetFocus(1001,0)</onback>
 
-				<!-- Home pages -->
-				<include content="HomeEmptyPage">
-					<param name="id">9198</param>
-					<param name="visible">!Integer.IsEqual(Container(101).NumItems,0) | !Integer.IsEqual(Container(102).NumItems,0) | !Integer.IsEqual(Container(103).NumItems,0) | !Integer.IsEqual(Container(104).NumItems,0)</param>
+				<!-- Empty page for "visibility" -->
+				<include content="HomeItemEmptyPageFullHeight">
+					<param name="id">301</param>
 				</include>
-				<include content="HomeAddSomethingPage">
-					<param name="id">9199</param>
-					<param name="icon">$VAR[LogoIcon]</param>
-					<param name="title">Kodi</param>
-					<param name="button">Add content</param>
-					<param name="visible">Integer.IsEqual(Container(101).NumItems,0) + Integer.IsEqual(Container(102).NumItems,0) + Integer.IsEqual(Container(103).NumItems,0) + Integer.IsEqual(Container(104).NumItems,0)</param>
-					<param name="menuid">7001</param>
-				</include>
-
-				<!-- Movies -->
-				<include content="HomeEmptyPage">
-					<param name="id">9201</param>
-					<param name="visible">!Integer.IsEqual(Container(201).NumItems,0)</param>
-				</include>
-				<include content="HomeAddSomethingPage">
-					<param name="id">9299</param>
-					<param name="icon">$VAR[MoviesIcon]</param>
-					<param name="title">Movies</param>
-					<param name="button">Add movies</param>
-					<param name="visible">Integer.IsEqual(Container(201).NumItems,0)</param>
-					<param name="menuid">7002</param>
-				</include>
-
-				<!-- TV shows -->
-				<include content="HomeEmptyPage">
-					<param name="id">9301</param>
-					<param name="visible">!Integer.IsEqual(Container(301).NumItems,0)</param>
-				</include>
-				<include content="HomeAddSomethingPage">
-					<param name="id">9399</param>
-					<param name="icon">$VAR[TVShowsIcon]</param>
-					<param name="title">TV shows</param>
-					<param name="button">Add TV shows</param>
-					<param name="visible">Integer.IsEqual(Container(301).NumItems,0)</param>
-					<param name="menuid">7003</param>
-				</include>
-
-				<!-- Yoga -->
-				<include content="HomeEmptyPage">
-					<param name="id">9401</param>
-					<param name="visible">!Integer.IsEqual(Container(401).NumItems,0)</param>
-				</include>
-				<include content="HomeAddSomethingPage">
-					<param name="id">9499</param>
-					<param name="icon">$VAR[YogaIcon]</param>
-					<param name="title">Yoga</param>
-					<param name="button">Add yoga</param>
-					<param name="visible">Integer.IsEqual(Container(401).NumItems,0)</param>
-					<param name="menuid">7004</param>
-				</include>
-
-				<!-- Music -->
-				<include content="HomeEmptyPage">
-					<param name="id">9501</param>
-					<param name="visible">!Integer.IsEqual(Container(501).NumItems,0)</param>
-				</include>
-				<include content="HomeAddSomethingPage">
-					<param name="id">9599</param>
-					<param name="icon">$VAR[MusicIcon]</param>
-					<param name="title">Music</param>
-					<param name="button">Add music</param>
-					<param name="visible">Integer.IsEqual(Container(501).NumItems,0)</param>
-					<param name="menuid">7005</param>
-				</include>
-
 				<!-- Pictures -->
 				<include content="HomeItemFullWall">
-					<param name="id">601</param>
+					<param name="id">302</param>
 					<param name="label">Pictures</param>
 					<param name="content">$VAR[HomePicturesContent]</param>
-					<param name="content_type">3</param>
-					<param name="menuid">7006</param>
+					<param name="menuid">206</param>
 					<param name="onclick">$VAR[HomePictureOnClick]</param>
 					<param name="darken_art">$PARAM[darken_art]</param>
-				</include>
-				<include content="HomeAddSomethingPage">
-					<param name="id">9699</param>
-					<param name="icon">$VAR[PicturesIcon]</param>
-					<param name="title">Pictures</param>
-					<param name="button">Add pictures</param>
-					<param name="visible">Integer.IsEqual(Container(601).NumItems,0)</param>
-					<param name="menuid">7006</param>
 				</include>
 			</control>
 		</definition>
 	</include>
-
 
 	<!-- Main menu -->
 	<include name="HomeMainMenu">
@@ -572,7 +500,7 @@
 				</control>
 
 				<!-- Menu -->
-				<control type="grouplist" id="7000">
+				<control type="grouplist" id="200">
 					<orientation>vertical</orientation>
 					<itemgap>-20</itemgap>
 					<usecontrolcoords>true</usecontrolcoords>
@@ -581,33 +509,33 @@
 					<bottom>0</bottom>
 
 					<include content="HomeMainMenuItem">
-						<param name="id">7001</param>
+						<param name="id">201</param>
 						<param name="icon">$VAR[HomeIcon]</param>
 					</include>
 					<include content="HomeMainMenuItem">
-						<param name="id">7002</param>
+						<param name="id">202</param>
 						<param name="icon">$VAR[MoviesIcon]</param>
 					</include>
 					<include content="HomeMainMenuItem">
-						<param name="id">7003</param>
+						<param name="id">203</param>
 						<param name="icon">$VAR[TVShowsIcon]</param>
 					</include>
 					<include content="HomeMainMenuItem">
-						<param name="id">7004</param>
+						<param name="id">204</param>
 						<param name="icon">$VAR[YogaIcon]</param>
 					</include>
 					<include content="HomeMainMenuItem">
-						<param name="id">7005</param>
+						<param name="id">205</param>
 						<param name="icon">$VAR[MusicIcon]</param>
 						<param name="has_filter">true</param>
 					</include>
 					<include content="HomeMainMenuItem">
-						<param name="id">7006</param>
+						<param name="id">206</param>
 						<param name="icon">$VAR[PicturesIcon]</param>
 						<param name="has_filter">true</param>
 					</include>
 					<include content="HomeMainMenuItem">
-						<param name="id">7007</param>
+						<param name="id">207</param>
 						<param name="icon">$VAR[MenuIcon]</param>
 						<param name="is_menu_button">true</param>
 					</include>
@@ -680,10 +608,11 @@
 					<visible allowhiddenfocus="true">false</visible>
 
 					<onback condition="!Player.HasMedia">SetFocus(1001,0)</onback>
-					<include content="HomeOnNavigateUp$PARAM[id]" />
-					<include content="HomeOnNavigateDown$PARAM[id]" />
-					<include content="HomeOnNavigateRightClick$PARAM[id]" />
+					<onup>RunScript(script.canvas.helper,navigate_home_menu,$PARAM[id],up)</onup>
+					<ondown>RunScript(script.canvas.helper,navigate_home_menu,$PARAM[id],down)</ondown>
 					<onleft condition="$PARAM[has_filter]">SetFocus(1100,0)</onleft>
+					<onright condition="!$PARAM[is_menu_button]">RunScript(script.canvas.helper,navigate_home_from_menu_to_lists,$PARAM[id])</onright>
+					<onclick condition="!$PARAM[is_menu_button]">RunScript(script.canvas.helper,navigate_home_from_menu_to_lists,$PARAM[id])</onclick>
 					<onclick condition="$PARAM[is_menu_button]">SetFocus(1001,0)</onclick>
 					<onfocus>SetProperty(Menu.ActiveId,$PARAM[id],home)</onfocus>
 				</control>
@@ -795,10 +724,10 @@
 					<orientation>horizontal</orientation>
 
 					<onback condition="!$EXP[HasHomeLoaded]">SetFocus(99999)</onback>
-					<onback condition="$EXP[HasHomeLoaded]">SetFocus(7000)</onback>
+					<onback condition="$EXP[HasHomeLoaded]">SetFocus(200)</onback>
 					<onup>SetFocus(1001,5)</onup>
 					<ondown>SetFocus(1001,0)</ondown>
-					<onclick>SetFocus(7000)</onclick>
+					<onclick>SetFocus(200)</onclick>
 					<onclick>$INFO[ListItem.Property(onclick)]</onclick>
 
 					<itemlayout height="SIZE_HOME_FLYOUT_ICONBUTTON_CONTAINER" width="SIZE_HOME_FLYOUT_ICONBUTTON_CONTAINER">
@@ -833,11 +762,11 @@
 				<control type="list" id="1001">
 					<top>102</top>
 
-					<onback>SetFocus(7000)</onback>
-					<onleft>SetFocus(7000)</onleft>
+					<onback>SetFocus(200)</onback>
+					<onleft>SetFocus(200)</onleft>
 					<onup>SetFocus(1000,0)</onup>
 					<ondown>SetFocus(1000,0)</ondown>
-					<onclick>SetFocus(7000)</onclick>
+					<onclick>SetFocus(200)</onclick>
 					<onclick>$INFO[ListItem.Property(onclick)]</onclick>
 					<onclick>$INFO[ListItem.Property(onclick2)]</onclick>
 
@@ -931,10 +860,10 @@
 				<control type="list" id="1100">
 					<top>102</top>
 
-					<onback>SetFocus(7000)</onback>
-					<onleft>SetFocus(7000)</onleft>
-					<onright>SetFocus(7000)</onright>
-					<onclick condition="String.IsEqual(ListItem.Property(close_on_click),true)">SetFocus(7000)</onclick>
+					<onback>SetFocus(200)</onback>
+					<onleft>SetFocus(200)</onleft>
+					<onright>SetFocus(200)</onright>
+					<onclick condition="String.IsEqual(ListItem.Property(close_on_click),true)">SetFocus(200)</onclick>
 					<onclick>$INFO[ListItem.Property(onclick)]</onclick>
 					<onclick>$INFO[ListItem.Property(onclick2)]</onclick>
 					<onclick>$INFO[ListItem.Property(onclick3)]</onclick>

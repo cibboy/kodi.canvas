@@ -16,7 +16,6 @@
 
 				<!-- Background blur quadrants -->
 				<control type="group">
-					<visible>!$EXP[IsHomeFullHeightMediaListVisible]</visible>
 					<include content="ShowHideFadeAnimation">
 						<param name="speed">ANIMATION_CRAWL</param>
 						<param name="tween">linear</param>
@@ -119,7 +118,6 @@
 					<include content="ShowHideFadeAnimation">
 						<param name="speed">ANIMATION_CRAWL</param>
 					</include>
-					<visible>!$EXP[IsHomeFullHeightMediaListVisible]</visible>
 
 					<width>67%</width>
 					<height>67%</height>

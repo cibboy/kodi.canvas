@@ -1,6 +1,5 @@
 Wishlist:
 - TV show theme: play once (or in a loop with some pause between plays)
-- More reactive left main menu
 - Review MyVideoNav.xml (and custom equivalent) to show only when fully moved to requested episode (also consider when moving back from player); also, try to capture more events where Kodi is idiotic and tries to navigate the media library not from setting and move to home
 - Preload next episode in player, so play next screen shows it immediately
 - BUG: play something with clearlogo (open OSD to be sure), then play something from file manager: previous clearlogo is used in OSD (might be the one from home, though)
@@ -11,6 +10,14 @@ Wishlist:
 
 TODO:
 - Version bump to 2.0.0
+- Revision to remove property ActiveListId
+- Complete review of ids (and setfocus) on home to make sure they's consistent
+- continue watching should consider items watched but also with time left
+- try "dynamic" colors using variables (variables contain name of color, not definition of color? if so, must define pallette in colors/default.xml and pick from that according to what is returned by python)
+
+BUGS:
+- navigate from pictures to music: detail info not loaded (even if list id passed is correct)
+- blur change is without fade from yoga to music and vice versa 80% of times
 
 Guidelines:
 https://medium.com/you-i-tv/designing-for-10ft-ceeb202c1315

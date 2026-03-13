@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<!-- Continue watching -->
+	<include name="HomeOnNavigateUp101">
+		<onup>noop</onup>
+	</include>
+	<include name="HomeOnNavigateDown101">
+		<ondown condition="Control.IsVisible(8102)">SetFocus(102)</ondown>
+		<ondown condition="!Control.IsVisible(8102) + Control.IsVisible(8103)">SetFocus(103)</ondown>
+		<ondown condition="!Control.IsVisible(8103) + !Control.IsVisible(8103) + Control.IsVisible(8104)">SetFocus(104)</ondown>
+		<ondown condition="!Control.IsVisible(8103) + !Control.IsVisible(8103) + !Control.IsVisible(8104) + Control.IsVisible(8201)">SetFocus(9201)</ondown>
+		<ondown condition="!Control.IsVisible(8103) + !Control.IsVisible(8103) + !Control.IsVisible(8104) + Control.IsVisible(8201)">SetFocus(201)</ondown>
+		<ondown condition="!Control.IsVisible(8103) + !Control.IsVisible(8103) + !Control.IsVisible(8104) + !Control.IsVisible(8201)">SetFocus(299)</ondown>
+		<ondown condition="!Control.IsVisible(8103) + !Control.IsVisible(8103) + !Control.IsVisible(8104) + !Control.IsVisible(8201)">SetFocus(9299)</ondown>
+	</include>
+	<!-- Recently added episodes -->
+	<include name="HomeOnNavigateUp102">
+		<onup condition="Control.IsVisible(8101)">SetFocus(101)</onup>
+	</include>
+	<include name="HomeOnNavigateDown102">
+		<ondown condition="Control.IsVisible(8103)">SetFocus(103)</ondown>
+		<ondown condition="!Control.IsVisible(8103) + Control.IsVisible(8104)">SetFocus(104)</ondown>
+		<ondown condition="!Control.IsVisible(8103) + !Control.IsVisible(8104) + Control.IsVisible(8201)">SetFocus(9201)</ondown>
+		<ondown condition="!Control.IsVisible(8103) + !Control.IsVisible(8104) + Control.IsVisible(8201)">SetFocus(201)</ondown>
+		<ondown condition="!Control.IsVisible(8103) + !Control.IsVisible(8104) + !Control.IsVisible(8201)">SetFocus(299)</ondown>
+		<ondown condition="!Control.IsVisible(8103) + !Control.IsVisible(8104) + !Control.IsVisible(8201)">SetFocus(9299)</ondown>
+	</include>
+	<!-- Recently added movies -->
+	<include name="HomeOnNavigateUp103">
+		<onup condition="Control.IsVisible(8102)">SetFocus(102)</onup>
+		<onup condition="!Control.IsVisible(8102) + Control.IsVisible(8101)">SetFocus(101)</onup>
+	</include>
+	<include name="HomeOnNavigateDown103">
+		<ondown condition="Control.IsVisible(8104)">SetFocus(104)</ondown>
+		<ondown condition="!Control.IsVisible(8104) + Control.IsVisible(8201)">SetFocus(9201)</ondown>
+		<ondown condition="!Control.IsVisible(8104) + Control.IsVisible(8201)">SetFocus(201)</ondown>
+		<ondown condition="!Control.IsVisible(8104) + !Control.IsVisible(8201)">SetFocus(299)</ondown>
+		<ondown condition="!Control.IsVisible(8104) + !Control.IsVisible(8201)">SetFocus(9299)</ondown>
+	</include>
+	<!-- Recently added songs -->
+	<include name="HomeOnNavigateUp104">
+		<onup condition="Control.IsVisible(8103)">SetFocus(103)</onup>
+		<onup condition="!Control.IsVisible(8103) + Control.IsVisible(8102)">SetFocus(102)</onup>
+		<onup condition="!Control.IsVisible(8103) + !Control.IsVisible(8102) + Control.IsVisible(8101)">SetFocus(101)</onup>
+	</include>
+	<include name="HomeOnNavigateDown104">
+		<ondown condition="Control.IsVisible(8201)">SetFocus(9201)</ondown>
+		<ondown condition="Control.IsVisible(8201)">SetFocus(201)</ondown>
+		<ondown condition="!Control.IsVisible(8201)">SetFocus(299)</ondown>
+		<ondown condition="!Control.IsVisible(8201)">SetFocus(9299)</ondown>
+	</include>
+	<!-- Add media -->
+	<include name="HomeOnNavigateUp9199">
+		<onup>noop</onup>
+	</include>
+	<include name="HomeOnNavigateDown9199">
+		<ondown condition="Control.IsVisible(8201)">SetFocus(9201)</ondown>
+		<ondown condition="Control.IsVisible(8201)">SetFocus(201)</ondown>
+		<ondown condition="!Control.IsVisible(8201)">SetFocus(299)</ondown>
+		<ondown condition="!Control.IsVisible(8201)">SetFocus(9299)</ondown>
+	</include>
+	<!-- Menu -->
+	<include name="HomeOnNavigateUp7001">
+		<onup>SetFocus(7007)</onup>
+	</include>
+	<include name="HomeOnNavigateDown7001">
+		<ondown>SetFocus(7002)</ondown>
+		<ondown condition="Control.IsVisible(8201)">SetFocus(9201)</ondown>
+		<ondown condition="Control.IsVisible(8201)">SetFocus(201)</ondown>
+		<ondown condition="!Control.IsVisible(8201)">SetFocus(299)</ondown>
+		<ondown condition="!Control.IsVisible(8201)">SetFocus(9299)</ondown>
+		<ondown>SetFocus(7002)</ondown>
+	</include>
+	<include name="HomeOnNavigateRightClick7001">
+		<onright condition="Control.IsVisible(8101) | Control.IsVisible(8102) | Control.IsVisible(8103) | Control.IsVisible(8104)">SetFocus(8000)</onright>
+		<onclick condition="Control.IsVisible(8101) | Control.IsVisible(8102) | Control.IsVisible(8103) | Control.IsVisible(8104)">SetFocus(8000)</onclick>
+		<onright condition="!Control.IsVisible(8101) + !Control.IsVisible(8102) + !Control.IsVisible(8103) + !Control.IsVisible(8104)">SetFocus(9000)</onright>
+		<onclick condition="!Control.IsVisible(8101) + !Control.IsVisible(8102) + !Control.IsVisible(8103) + !Control.IsVisible(8104)">SetFocus(9000)</onclick>
+	</include>
+
+	<!-- Movies -->
+	<include name="HomeOnNavigateUp201">
+		<onup condition="Control.IsVisible(8104)">SetFocus(9198)</onup>
+		<onup condition="Control.IsVisible(8104)">SetFocus(104)</onup>
+		<onup condition="!Control.IsVisible(8104) + Control.IsVisible(8103)">SetFocus(9198)</onup>
+		<onup condition="!Control.IsVisible(8104) + Control.IsVisible(8103)">SetFocus(103)</onup>
+		<onup condition="!Control.IsVisible(8104) + !Control.IsVisible(8103) + Control.IsVisible(8102)">SetFocus(9198)</onup>
+		<onup condition="!Control.IsVisible(8104) + !Control.IsVisible(8103) + Control.IsVisible(8102)">SetFocus(102)</onup>
+		<onup condition="!Control.IsVisible(8104) + !Control.IsVisible(8103) + !Control.IsVisible(8102) + Control.IsVisible(8101)">SetFocus(9198)</onup>
+		<onup condition="!Control.IsVisible(8104) + !Control.IsVisible(8103) + !Control.IsVisible(8102) + Control.IsVisible(8101)">SetFocus(101)</onup>
+		<onup condition="!Control.IsVisible(8104) + !Control.IsVisible(8103) + !Control.IsVisible(8102) + !Control.IsVisible(8101)">SetFocus(199)</onup>
+		<onup condition="!Control.IsVisible(8104) + !Control.IsVisible(8103) + !Control.IsVisible(8102) + !Control.IsVisible(8101)">SetFocus(9199)</onup>
+	</include>
+	<include name="HomeOnNavigateDown201">
+		<ondown condition="Control.IsVisible(8301)">SetFocus(9301)</ondown>
+		<ondown condition="Control.IsVisible(8301)">SetFocus(301)</ondown>
+		<ondown condition="!Control.IsVisible(8301)">SetFocus(399)</ondown>
+		<ondown condition="!Control.IsVisible(8301)">SetFocus(9399)</ondown>
+	</include>
+	<!-- Add movies -->
+	<include name="HomeOnNavigateUp9299">
+		<onup condition="Control.IsVisible(8104)">SetFocus(9198)</onup>
+		<onup condition="Control.IsVisible(8104)">SetFocus(104)</onup>
+		<onup condition="!Control.IsVisible(8104) + Control.IsVisible(8103)">SetFocus(9198)</onup>
+		<onup condition="!Control.IsVisible(8104) + Control.IsVisible(8103)">SetFocus(103)</onup>
+		<onup condition="!Control.IsVisible(8104) + !Control.IsVisible(8103) + Control.IsVisible(8102)">SetFocus(9198)</onup>
+		<onup condition="!Control.IsVisible(8104) + !Control.IsVisible(8103) + Control.IsVisible(8102)">SetFocus(102)</onup>
+		<onup condition="!Control.IsVisible(8104) + !Control.IsVisible(8103) + !Control.IsVisible(8102) + Control.IsVisible(8101)">SetFocus(9198)</onup>
+		<onup condition="!Control.IsVisible(8104) + !Control.IsVisible(8103) + !Control.IsVisible(8102) + Control.IsVisible(8101)">SetFocus(101)</onup>
+		<onup condition="!Control.IsVisible(8104) + !Control.IsVisible(8103) + !Control.IsVisible(8102) + !Control.IsVisible(8101)">SetFocus(199)</onup>
+		<onup condition="!Control.IsVisible(8104) + !Control.IsVisible(8103) + !Control.IsVisible(8102) + !Control.IsVisible(8101)">SetFocus(9199)</onup>
+	</include>
+	<include name="HomeOnNavigateDown9299">
+		<ondown condition="Control.IsVisible(8301)">SetFocus(9301)</ondown>
+		<ondown condition="Control.IsVisible(8301)">SetFocus(301)</ondown>
+		<ondown condition="!Control.IsVisible(8301)">SetFocus(399)</ondown>
+		<ondown condition="!Control.IsVisible(8301)">SetFocus(9399)</ondown>
+	</include>
+	<!-- Menu -->
+	<include name="HomeOnNavigateUp7002">
+		<onup>SetFocus(7001)</onup>
+		<onup condition="Control.IsVisible(8101)">SetFocus(9198)</onup>
+		<onup condition="Control.IsVisible(8101)">SetFocus(101)</onup>
+		<onup condition="!Control.IsVisible(8101) + Control.IsVisible(8102)">SetFocus(9198)</onup>
+		<onup condition="!Control.IsVisible(8101) + Control.IsVisible(8102)">SetFocus(102)</onup>
+		<onup condition="!Control.IsVisible(8101) + !Control.IsVisible(8102) + Control.IsVisible(8103)">SetFocus(9198)</onup>
+		<onup condition="!Control.IsVisible(8101) + !Control.IsVisible(8102) + Control.IsVisible(8103)">SetFocus(103)</onup>
+		<onup condition="!Control.IsVisible(8101) + !Control.IsVisible(8102) + !Control.IsVisible(8103) + Control.IsVisible(8104)">SetFocus(9198)</onup>
+		<onup condition="!Control.IsVisible(8101) + !Control.IsVisible(8102) + !Control.IsVisible(8103) + Control.IsVisible(8104)">SetFocus(104)</onup>
+		<onup condition="!Control.IsVisible(8101) + !Control.IsVisible(8102) + !Control.IsVisible(8103) + !Control.IsVisible(8104)">SetFocus(199)</onup>
+		<onup condition="!Control.IsVisible(8101) + !Control.IsVisible(8102) + !Control.IsVisible(8103) + !Control.IsVisible(8104)">SetFocus(9199)</onup>
+		<onup>SetFocus(7001)</onup>
+	</include>
+	<include name="HomeOnNavigateDown7002">
+		<ondown>SetFocus(7003)</ondown>
+		<ondown condition="Control.IsVisible(8301)">SetFocus(9301)</ondown>
+		<ondown condition="Control.IsVisible(8301)">SetFocus(301)</ondown>
+		<ondown condition="!Control.IsVisible(8301)">SetFocus(399)</ondown>
+		<ondown condition="!Control.IsVisible(8301)">SetFocus(9399)</ondown>
+		<ondown>SetFocus(7003)</ondown>
+	</include>
+	<include name="HomeOnNavigateRightClick7002">
+		<onright condition="Control.IsVisible(8201)">SetFocus(8000)</onright>
+		<onclick condition="Control.IsVisible(8201)">SetFocus(8000)</onclick>
+		<onright condition="!Control.IsVisible(8201)">SetFocus(9000)</onright>
+		<onclick condition="!Control.IsVisible(8201)">SetFocus(9000)</onclick>
+	</include>
+
+	<!-- TV shows -->
+	<include name="HomeOnNavigateUp301">
+		<onup condition="Control.IsVisible(8201)">SetFocus(9201)</onup>
+		<onup condition="Control.IsVisible(8201)">SetFocus(201)</onup>
+		<onup condition="!Control.IsVisible(8201)">SetFocus(299)</onup>
+		<onup condition="!Control.IsVisible(8201)">SetFocus(9299)</onup>
+	</include>
+	<include name="HomeOnNavigateDown301">
+		<ondown condition="Control.IsVisible(8401)">SetFocus(9401)</ondown>
+		<ondown condition="Control.IsVisible(8401)">SetFocus(401)</ondown>
+		<ondown condition="!Control.IsVisible(8401)">SetFocus(499)</ondown>
+		<ondown condition="!Control.IsVisible(8401)">SetFocus(9499)</ondown>
+	</include>
+	<!-- Add TV shows -->
+	<include name="HomeOnNavigateUp9399">
+		<onup condition="Control.IsVisible(8201)">SetFocus(9201)</onup>
+		<onup condition="Control.IsVisible(8201)">SetFocus(201)</onup>
+		<onup condition="!Control.IsVisible(8201)">SetFocus(299)</onup>
+		<onup condition="!Control.IsVisible(8201)">SetFocus(9299)</onup>
+	</include>
+	<include name="HomeOnNavigateDown9399">
+		<ondown condition="Control.IsVisible(8401)">SetFocus(9401)</ondown>
+		<ondown condition="Control.IsVisible(8401)">SetFocus(401)</ondown>
+		<ondown condition="!Control.IsVisible(8401)">SetFocus(499)</ondown>
+		<ondown condition="!Control.IsVisible(8401)">SetFocus(9499)</ondown>
+	</include>
+	<!-- Menu -->
+	<include name="HomeOnNavigateUp7003">
+		<onup>SetFocus(7002)</onup>
+		<onup condition="Control.IsVisible(8201)">SetFocus(9201)</onup>
+		<onup condition="Control.IsVisible(8201)">SetFocus(201)</onup>
+		<onup condition="!Control.IsVisible(8201)">SetFocus(299)</onup>
+		<onup condition="!Control.IsVisible(8201)">SetFocus(9299)</onup>
+		<onup>SetFocus(7002)</onup>
+	</include>
+	<include name="HomeOnNavigateDown7003">
+		<ondown>SetFocus(7004)</ondown>
+		<ondown condition="Control.IsVisible(8401)">SetFocus(9401)</ondown>
+		<ondown condition="Control.IsVisible(8401)">SetFocus(401)</ondown>
+		<ondown condition="!Control.IsVisible(8401)">SetFocus(499)</ondown>
+		<ondown condition="!Control.IsVisible(8401)">SetFocus(9499)</ondown>
+		<ondown>SetFocus(7004)</ondown>
+	</include>
+	<include name="HomeOnNavigateRightClick7003">
+		<onright condition="Control.IsVisible(8301)">SetFocus(8000)</onright>
+		<onclick condition="Control.IsVisible(8301)">SetFocus(8000)</onclick>
+		<onright condition="!Control.IsVisible(8301)">SetFocus(9000)</onright>
+		<onclick condition="!Control.IsVisible(8301)">SetFocus(9000)</onclick>
+	</include>
+
+	<!-- Yoga -->
+	<include name="HomeOnNavigateUp401">
+		<onup condition="Control.IsVisible(8301)">SetFocus(9301)</onup>
+		<onup condition="Control.IsVisible(8301)">SetFocus(301)</onup>
+		<onup condition="!Control.IsVisible(8301)">SetFocus(399)</onup>
+		<onup condition="!Control.IsVisible(8301)">SetFocus(9399)</onup>
+	</include>
+	<include name="HomeOnNavigateDown401">
+		<ondown condition="Control.IsVisible(8501)">SetFocus(9501)</ondown>
+		<ondown condition="Control.IsVisible(8501)">SetFocus(501)</ondown>
+		<ondown condition="!Control.IsVisible(8501)">SetFocus(599)</ondown>
+		<ondown condition="!Control.IsVisible(8501)">SetFocus(9599)</ondown>
+	</include>
+	<!-- Add yoga -->
+	<include name="HomeOnNavigateUp9499">
+		<onup condition="Control.IsVisible(8301)">SetFocus(9301)</onup>
+		<onup condition="Control.IsVisible(8301)">SetFocus(301)</onup>
+		<onup condition="!Control.IsVisible(8301)">SetFocus(399)</onup>
+		<onup condition="!Control.IsVisible(8301)">SetFocus(9399)</onup>
+	</include>
+	<include name="HomeOnNavigateDown9499">
+		<ondown condition="Control.IsVisible(8501)">SetFocus(9501)</ondown>
+		<ondown condition="Control.IsVisible(8501)">SetFocus(501)</ondown>
+		<ondown condition="!Control.IsVisible(8501)">SetFocus(599)</ondown>
+		<ondown condition="!Control.IsVisible(8501)">SetFocus(9599)</ondown>
+	</include>
+	<!-- Menu -->
+	<include name="HomeOnNavigateUp7004">
+		<onup>SetFocus(7003)</onup>
+		<onup condition="Control.IsVisible(8301)">SetFocus(9301)</onup>
+		<onup condition="Control.IsVisible(8301)">SetFocus(301)</onup>
+		<onup condition="!Control.IsVisible(8301)">SetFocus(399)</onup>
+		<onup condition="!Control.IsVisible(8301)">SetFocus(9399)</onup>
+		<onup>SetFocus(7003)</onup>
+	</include>
+	<include name="HomeOnNavigateDown7004">
+		<ondown>SetFocus(7005)</ondown>
+		<ondown condition="Control.IsVisible(8501)">SetFocus(9501)</ondown>
+		<ondown condition="Control.IsVisible(8501)">SetFocus(501)</ondown>
+		<ondown condition="!Control.IsVisible(8501)">SetFocus(599)</ondown>
+		<ondown condition="!Control.IsVisible(8501)">SetFocus(9599)</ondown>
+		<ondown>SetFocus(7005)</ondown>
+	</include>
+	<include name="HomeOnNavigateRightClick7004">
+		<onright condition="Control.IsVisible(8401)">SetFocus(8000)</onright>
+		<onclick condition="Control.IsVisible(8401)">SetFocus(8000)</onclick>
+		<onright condition="!Control.IsVisible(8401)">SetFocus(9000)</onright>
+		<onclick condition="!Control.IsVisible(8401)">SetFocus(9000)</onclick>
+	</include>
+
+	<!-- Music -->
+	<include name="HomeOnNavigateUp501">
+		<onup condition="Control.IsVisible(8401)">SetFocus(9401)</onup>
+		<onup condition="Control.IsVisible(8401)">SetFocus(401)</onup>
+		<onup condition="!Control.IsVisible(8401)">SetFocus(499)</onup>
+		<onup condition="!Control.IsVisible(8401)">SetFocus(9499)</onup>
+	</include>
+	<include name="HomeOnNavigateDown501">
+		<ondown condition="Control.IsVisible(9601)">SetFocus(698)</ondown>
+		<ondown condition="Control.IsVisible(9601)">SetFocus(601)</ondown>
+		<ondown condition="!Control.IsVisible(9601)">SetFocus(698)</ondown>
+		<ondown condition="!Control.IsVisible(9601)">SetFocus(9699)</ondown>
+	</include>
+	<!-- Add music -->
+	<include name="HomeOnNavigateUp9599">
+		<onup condition="Control.IsVisible(8401)">SetFocus(9401)</onup>
+		<onup condition="Control.IsVisible(8401)">SetFocus(401)</onup>
+		<onup condition="!Control.IsVisible(8401)">SetFocus(499)</onup>
+		<onup condition="!Control.IsVisible(8401)">SetFocus(9499)</onup>
+	</include>
+	<include name="HomeOnNavigateDown9599">
+		<ondown condition="Control.IsVisible(9601)">SetFocus(698)</ondown>
+		<ondown condition="Control.IsVisible(9601)">SetFocus(601)</ondown>
+		<ondown condition="!Control.IsVisible(9601)">SetFocus(698)</ondown>
+		<ondown condition="!Control.IsVisible(9601)">SetFocus(9699)</ondown>
+	</include>
+	<!-- Menu -->
+	<include name="HomeOnNavigateUp7005">
+		<onup>SetFocus(7004)</onup>
+		<onup condition="Control.IsVisible(8401)">SetFocus(9401)</onup>
+		<onup condition="Control.IsVisible(8401)">SetFocus(401)</onup>
+		<onup condition="!Control.IsVisible(8401)">SetFocus(499)</onup>
+		<onup condition="!Control.IsVisible(8401)">SetFocus(9499)</onup>
+		<onup>SetFocus(7004)</onup>
+	</include>
+	<include name="HomeOnNavigateDown7005">
+		<ondown>SetFocus(7006)</ondown>
+		<ondown condition="Control.IsVisible(9601)">SetFocus(698)</ondown>
+		<ondown condition="Control.IsVisible(9601)">SetFocus(601)</ondown>
+		<ondown condition="!Control.IsVisible(9601)">SetFocus(698)</ondown>
+		<ondown condition="!Control.IsVisible(9601)">SetFocus(9699)</ondown>
+		<ondown>SetFocus(7006)</ondown>
+	</include>
+	<include name="HomeOnNavigateRightClick7005">
+		<onright condition="Control.IsVisible(8501)">SetFocus(8000)</onright>
+		<onclick condition="Control.IsVisible(8501)">SetFocus(8000)</onclick>
+		<onright condition="!Control.IsVisible(8501)">SetFocus(9000)</onright>
+		<onclick condition="!Control.IsVisible(8501)">SetFocus(9000)</onclick>
+	</include>
+
+	<!-- Pictures -->
+	<include name="HomeOnNavigateUp601">
+		<onup condition="Control.IsVisible(8501)">SetFocus(9501)</onup>
+		<onup condition="Control.IsVisible(8501)">SetFocus(501)</onup>
+		<onup condition="!Control.IsVisible(8501)">SetFocus(599)</onup>
+		<onup condition="!Control.IsVisible(8501)">SetFocus(9599)</onup>
+	</include>
+	<include name="HomeOnNavigateDown601">
+		<ondown>noop</ondown>
+	</include>
+	<!-- Add pictures -->
+	<include name="HomeOnNavigateUp9699">
+		<onup condition="Control.IsVisible(8501)">SetFocus(9501)</onup>
+		<onup condition="Control.IsVisible(8501)">SetFocus(501)</onup>
+		<onup condition="!Control.IsVisible(8501)">SetFocus(599)</onup>
+		<onup condition="!Control.IsVisible(8501)">SetFocus(9599)</onup>
+	</include>
+	<include name="HomeOnNavigateDown9699">
+		<ondown>noop</ondown>
+	</include>
+	<!-- Menu -->
+	<include name="HomeOnNavigateUp7006">
+		<onup>SetFocus(7005)</onup>
+		<onup condition="Control.IsVisible(8501)">SetFocus(9501)</onup>
+		<onup condition="Control.IsVisible(8501)">SetFocus(501)</onup>
+		<onup condition="!Control.IsVisible(8501)">SetFocus(599)</onup>
+		<onup condition="!Control.IsVisible(8501)">SetFocus(9599)</onup>
+		<onup>SetFocus(7005)</onup>
+	</include>
+	<include name="HomeOnNavigateDown7006">
+		<ondown>SetFocus(7007)</ondown>
+	</include>
+	<include name="HomeOnNavigateRightClick7006">
+		<onright>SetFocus(9000)</onright>
+		<onclick>SetFocus(9000)</onclick>
+	</include>
+
+	
+	<!-- Menu -->
+	<include name="HomeOnNavigateUp7007">
+		<onup>SetFocus(7006)</onup>
+		<onup condition="Control.IsVisible(9601)">SetFocus(698)</onup>
+		<onup condition="Control.IsVisible(9601)">SetFocus(601)</onup>
+		<onup condition="!Control.IsVisible(9601)">SetFocus(698)</onup>
+		<onup condition="!Control.IsVisible(9601)">SetFocus(9699)</onup>
+		<onup>SetFocus(7006)</onup>
+	</include>
+	<include name="HomeOnNavigateDown7007">
+		<ondown>SetFocus(7001)</ondown>
+		<ondown condition="Control.IsVisible(8101)">SetFocus(9198)</ondown>
+		<ondown condition="Control.IsVisible(8101)">SetFocus(101)</ondown>
+		<ondown condition="!Control.IsVisible(8101) + Control.IsVisible(8102)">SetFocus(9198)</ondown>
+		<ondown condition="!Control.IsVisible(8101) + Control.IsVisible(8102)">SetFocus(102)</ondown>
+		<ondown condition="!Control.IsVisible(8101) + !Control.IsVisible(8102) + Control.IsVisible(8103)">SetFocus(9198)</ondown>
+		<ondown condition="!Control.IsVisible(8101) + !Control.IsVisible(8102) + Control.IsVisible(8103)">SetFocus(103)</ondown>
+		<ondown condition="!Control.IsVisible(8101) + !Control.IsVisible(8102) + !Control.IsVisible(8103) + Control.IsVisible(8104)">SetFocus(9198)</ondown>
+		<ondown condition="!Control.IsVisible(8101) + !Control.IsVisible(8102) + !Control.IsVisible(8103) + Control.IsVisible(8104)">SetFocus(104)</ondown>
+		<ondown condition="!Control.IsVisible(8101) + !Control.IsVisible(8102) + !Control.IsVisible(8103) + !Control.IsVisible(8104)">SetFocus(199)</ondown>
+		<ondown condition="!Control.IsVisible(8101) + !Control.IsVisible(8102) + !Control.IsVisible(8103) + !Control.IsVisible(8104)">SetFocus(9199)</ondown>
+		<ondown>SetFocus(7001)</ondown>
+	</include>
+
+	<!-- General fallback for errors -->
+	<include name="HomeOnNavigateUp"></include>
+	<include name="HomeOnNavigateDown"></include>
+</includes>

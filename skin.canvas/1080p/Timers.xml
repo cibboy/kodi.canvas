@@ -18,7 +18,16 @@
 			!Container(104).IsUpdating
 		</stop>
 		<!-- Go to first available list if running for the first time in this session -->
-		<onstop condition="!String.IsEqual(Window(home).Property(Loaded),true)">RunScript(script.canvas.helper,navigate_home_lists,0,down)</onstop>
+		<onstop condition="!Integer.IsEqual(Container(101).NumItems,0)">SetFocus(9198)</onstop>
+		<onstop condition="!Integer.IsEqual(Container(101).NumItems,0)">SetFocus(101)</onstop>
+		<onstop condition="Integer.IsEqual(Container(101).NumItems,0) + !Integer.IsEqual(Container(102).NumItems,0)">SetFocus(9198)</onstop>
+		<onstop condition="Integer.IsEqual(Container(101).NumItems,0) + !Integer.IsEqual(Container(102).NumItems,0)">SetFocus(102)</onstop>
+		<onstop condition="Integer.IsEqual(Container(101).NumItems,0) + Integer.IsEqual(Container(102).NumItems,0) + !Integer.IsEqual(Container(103).NumItems,0)">SetFocus(9198)</onstop>
+		<onstop condition="Integer.IsEqual(Container(101).NumItems,0) + Integer.IsEqual(Container(102).NumItems,0) + !Integer.IsEqual(Container(103).NumItems,0)">SetFocus(103)</onstop>
+		<onstop condition="Integer.IsEqual(Container(101).NumItems,0) + Integer.IsEqual(Container(102).NumItems,0) + Integer.IsEqual(Container(103).NumItems,0) + !Integer.IsEqual(Container(104).NumItems,0)">SetFocus(9198)</onstop>
+		<onstop condition="Integer.IsEqual(Container(101).NumItems,0) + Integer.IsEqual(Container(102).NumItems,0) + Integer.IsEqual(Container(103).NumItems,0) + !Integer.IsEqual(Container(104).NumItems,0)">SetFocus(104)</onstop>
+		<onstop condition="Integer.IsEqual(Container(101).NumItems,0) + Integer.IsEqual(Container(102).NumItems,0) + Integer.IsEqual(Container(103).NumItems,0) + Integer.IsEqual(Container(104).NumItems,0)">SetFocus(199)</onstop>
+		<onstop condition="Integer.IsEqual(Container(101).NumItems,0) + Integer.IsEqual(Container(102).NumItems,0) + Integer.IsEqual(Container(103).NumItems,0) + Integer.IsEqual(Container(104).NumItems,0)">SetFocus(9199)</onstop>
 		<!-- Set flag to indicate we have run at least once, so going to another window and coming back does not reset to first list -->
 		<onstop>SetProperty(Loaded,true,home)</onstop>
 	</timer>

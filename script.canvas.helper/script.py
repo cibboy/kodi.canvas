@@ -15,6 +15,7 @@ def clear_listitem_properties(include_navigation = True):
     if include_navigation:
         window.clearProperty('Navigation.PreviousSeason')
         window.clearProperty('Navigation.NextSeason')
+    window.clearProperty('Details.ItemType')
     window.clearProperty('Details.Title')
     window.clearProperty('Details.Title2')
     window.clearProperty('Details.Studio')
@@ -45,6 +46,10 @@ def clear_listitem_properties(include_navigation = True):
     window.clearProperty('Details.Contrast')
     window.clearProperty('Details.Fanart')
     window.clearProperty('Details.Thumb')
+    window.clearProperty('Details.Watched')
+    window.clearProperty('Details.AllNew')
+    window.clearProperty('Details.HasEngSubs')
+    window.clearProperty('Details.HasItaSubs')
 
 # Populate window properties with additional background information for the music player.
 def get_musicplayer_bg_info(thumb):
@@ -68,12 +73,12 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
     aspect_ratio = ''
     hdr_type = ''
     audio_channels = ''
-    audio_channels_s1 = ''      #todo: Only on dialog info and player
-    audio_channels_s2 = ''      #todo: Only on dialog info and player
-    audio_lang_s1 = ''          #todo: Only on dialog info and player
-    audio_lang_s2 = ''          #todo: Only on dialog info and player
-    audio_codec_s1 = ''         #todo: Only on dialog info and player
-    audio_codec_s2 = ''         #todo: Only on dialog info and player
+    audio_channels_s1 = ''
+    audio_channels_s2 = ''
+    audio_lang_s1 = ''
+    audio_lang_s2 = ''
+    audio_codec_s1 = ''
+    audio_codec_s2 = ''
     year = ''
     ep_number = ''
     ep_premiere = ''
@@ -396,28 +401,27 @@ def populate_listitem_info_from_player():
 # in cases where a dialog appears rapidly before the xbmc.getInfoLabel()
 # method can be invoked.
 # "Debounced" to improve responsiveness.
-def populate_listitem_info_from_listitem(itemtype, itemid):
+def populate_listitem_info_from_listitem(itemtype, itemid, listid = '-1'):
     # All properties reside on home window.
     window = xbmcgui.Window(10000)
 
     # Poor man's implementation of debouncing.
-    window.setProperty('Item.DBID.Debounce', itemid)
+    window.setProperty('Details.DBID.Debounce', itemid)
     time.sleep(0.3)
-    debounce_value = window.getProperty('Item.DBID.Debounce')
+    debounce_value = window.getProperty('Details.DBID.Debounce')
     if debounce_value == itemid:    # Continue if there were no new requests.
-
         # Retrieve current active list ID.
-        listid = window.getProperty('ActiveListId')
+        if listid == '-1': listid = window.getProperty('ActiveListId')
         
         if listid != '' and listid is not None:
             # Retrieve current active item ID.
-            active_itemid = window.getProperty('Item.DBID')
+            active_itemid = window.getProperty('Details.DBID')
             # Continue if working with a different item. This prevents trying to
             # access information with xbmc.getInfoLabel() when a dialog appeared
             # above the window where we are trying to run that method.
             if itemid != active_itemid and (itemid != '' or active_itemid == ''):
                 # Set the new active item ID.
-                window.setProperty('Item.DBID', itemid)
+                window.setProperty('Details.DBID', itemid)
                 # Populate properties.
                 populate_listitem_info(window, itemtype, itemid, f"Container({listid}).ListItem", True)
 
@@ -429,10 +433,9 @@ def reset_listitem_selection():
     # Clear properties.
     clear_listitem_properties()
     window.clearProperty('ActiveListId')
-    window.clearProperty('Item.DBID')
+    window.clearProperty('Details.DBID')
 
-# Navigates to the first visible candidate in the list and returns its ID and type (list or empty list placeholder).
-def navigate_candidates(candidates, window):
+def find_home_valid_candidates(candidates, window):
     # Find the first available candidate, move there.
     for c in candidates:
         more = None
@@ -444,9 +447,8 @@ def navigate_candidates(candidates, window):
 
         # Find the group control containing the required list ID.
         # 98{id} is for lists, 97{id} is for empty list placeholder.
-        # 96{id} is a router, but rerouting must happen here to maintain
-        # proper focus sequence when using side menu.
-        # Keep track to type.
+        # 96{id} is a router, but rerouting must be computed here.
+        # Keep track of type.
         control = None
         control_type = ''
         try:
@@ -466,156 +468,23 @@ def navigate_candidates(candidates, window):
 
         # If the control was found and it's visible set focus to the requested control ID.
         if control is not None and control.isVisible():
-            xbmc.executebuiltin(f"SetFocus({c})")
-
             # If additional routing is necessary, do that now.
-            ret = { 'id': c, 'type': control_type }
-            if more is not None: ret = navigate_candidates(more, window)
+            ret = { 'id': [c], 'type': control_type }
+            if more is not None:
+                tmp = find_home_valid_candidates(more, window)
+                if len(tmp['id']) > 0:
+                    ret['id'].append(tmp['id'][0])
+                    ret['type'] = tmp['type']
             
-            # Flag visibility of empty list placeholder if found such object.
+            # Flag visibility of empty list placeholder if found such object.#todo: necessary?
             if ret['type'] == 'empty_placeholder': window.setProperty('EmptyListPlaceholder', str(ret['id']))
-            # Remove empty list placeholder flag if list found.
+            # Remove empty list placeholder flag if list found.#todo: necessary?
             else: window.clearProperty('EmptyListPlaceholder')
 
             return ret
     
-    return { 'id': None, 'type': None }
+    return { 'id': [], 'type': None }
 
-# Performs navigation on home between lists according to availability.
-def navigate_home_lists(currentid, direction):
-    # Retrieve home window.
-    window = xbmcgui.Window(10000)
-
-    currentid = int(currentid)
-    candidates = []
-
-    # Each list has one or more potential next list.
-    if currentid == 0:                            # Startup
-        candidates = [101, 102, 103, 104, 105]
-    elif currentid == 101:                        # Continue watching
-        if direction == 'down': candidates = [102, 103, 104, 106, 107]
-    elif currentid == 102:                        # Recent episodes
-        if direction == 'down': candidates = [103, 104, 106, 107]
-        else: candidates = [101]
-    elif currentid == 103:                        # Recent movies
-        if direction == 'down': candidates = [104, 106, 107]
-        else: candidates = [102, 101]
-    elif currentid == 104:                        # Recent music
-        if direction == 'down': candidates = [106, 107]
-        else: candidates = [103, 102, 101]
-    elif currentid == 105:                        # No continue watching/recent content
-        if direction == 'down': candidates = [106, 107]
-    elif currentid == 106 or currentid == 107:    # Movies/no movies
-        if direction == 'down': candidates = [108, 109]
-        else: candidates = [104, 103, 102, 101, 105]
-    elif currentid == 108 or currentid == 109:    # TV shows/no TV shows
-        if direction == 'down': candidates = [110, 111]
-        else: candidates = [106, 107]
-    elif currentid == 110 or currentid == 111:    # Yoga/no yoga
-        if direction == 'down': candidates = [112, 113]
-        else: candidates = [108, 109]
-    elif currentid == 112 or currentid == 113:    # Music/no music
-        if direction == 'down': candidates = [{'first': 114, 'then': [302]}, 115]
-        else: candidates = [110, 111]
-    elif currentid == 114 or currentid == 115:    # Pictures/no pictures
-        if direction == 'up': candidates = [112, 113]
-    elif currentid == 302:                        # Actual full-height wall of pictures
-        if direction == 'up': candidates = [{'first': 301, 'then': [112, 113]}]
-    
-    # Find the first available candidate, move there.
-    navigate_candidates(candidates, window)
-
-# Performs navigation on home between menu items (synchronizes lists).
-def navigate_home_menu(currentid, direction):
-    # Retrieve home window.
-    window = xbmcgui.Window(10000)
-
-    # Activate guard against side effects while doing movements/computations
-    # (triggers on items, focus changes, background changes...)
-    window.setProperty('Menu.Moving', 'true')
-
-    currentid = int(currentid)
-    candidates = []
-    next = -1
-
-    # Each item has one or more potential next list.
-    if currentid == 201:    # Home
-        if direction == 'down':
-            candidates = [106, 107]
-            next = 202
-    elif currentid == 202:  # Movies
-        if direction == 'down':
-            candidates = [108, 109]
-            next = 203
-        else:
-            candidates = [101, 102, 103, 104, 105]
-            next = 201
-    elif currentid == 203:  # TV shows
-        if direction == 'down':
-            candidates = [110, 111]
-            next = 204
-        else:
-            candidates = [106, 107]
-            next = 202
-    elif currentid == 204:  # Yoga
-        if direction == 'down':
-            candidates = [112, 113]
-            next = 205
-        else:
-            candidates = [108, 109]
-            next = 203
-    elif currentid == 205:  # Music
-        if direction == 'up':
-            candidates = [110, 111]
-            next = 204
-        else:
-            candidates = [{'first': 114, 'then': [302]}, 115]
-            next = 206
-    elif currentid == 206:  # Pictures
-        if direction == 'down': next = 207
-        else:
-            candidates = [{'first': 301, 'then': [112, 113]}]
-            next = 205
-    elif currentid == 207:  # Menu
-        if direction == 'up': next = 206
-
-    # Rapidly set next active menu ID, so visually there is no artifact.
-    if next != -1: window.setProperty('Menu.ActiveId', str(next))
-    
-    # Find the first available candidate, move there to sync selection.
-    result = navigate_candidates(candidates, window)
-
-    # Then move to the next menu item.
-    if next != -1: xbmc.executebuiltin(f"SetFocus({next})")
-
-    # If a empty list placeholder candidate was found, wait a moment to let Kodi stabilize the skin, the reset info.
-    if result['type'] == 'empty_placeholder':
-        time.sleep(0.2)
-        reset_listitem_selection()
-
-    # If a list candidate was found, wait a moment to let Kodi stabilize the skin, then mimic item onfocus.
-    if result['type'] == 'list':
-        time.sleep(0.2)
-        window.setProperty(f"ActiveListId", str(result['id']))
-        populate_listitem_info_from_listitem(xbmc.getInfoLabel(f"Container({result['id']}).ListItem.DBTYPE"), xbmc.getInfoLabel(f"Container({result['id']}).ListItem.DBID"))
-
-    # Remove the guard.
-    window.clearProperty('Menu.Moving')
-
-def navigate_home_from_menu_to_lists(currentid):
-    window = xbmcgui.Window(10000)
-    currentid = int(currentid)
-
-    # Pictures might go to standard set of lists if empty or to full height list if present.
-    if currentid == 206:
-        try:
-            control = window.getControl(98302)
-            if control is not None and control.isVisible(): xbmc.executebuiltin('SetFocus(300)')
-            else: xbmc.executebuiltin('SetFocus(100)')
-        except:
-            xbmc.executebuiltin('SetFocus(100)')
-    # All the others (except menu) go to the standard set of lists.
-    elif currentid != 207: xbmc.executebuiltin('SetFocus(100)')
 
 # Prepares window properties and performs navigation for custom video nav for movies and episodes.
 def navigate_movie_episode_videonav(containerid):
@@ -1022,15 +891,6 @@ if __name__ == '__main__':
         elif method == 'reset_listitem_selection':
             reset_listitem_selection()
         
-        # Navigate between home lists according to availability.
-        elif method == 'navigate_home_lists':
-            navigate_home_lists(sys.argv[2], sys.argv[3])
-        # Navigate between home menu items synchronizing lists.
-        elif method == 'navigate_home_menu':
-            navigate_home_menu(sys.argv[2], sys.argv[3])
-        # Navigate from home menu items to lists.
-        elif method == 'navigate_home_from_menu_to_lists':
-            navigate_home_from_menu_to_lists(sys.argv[2])
         # Navigate to custom video nav for movies and episodes.
         elif method == 'navigate_movie_episode_videonav':
             navigate_movie_episode_videonav(sys.argv[2])

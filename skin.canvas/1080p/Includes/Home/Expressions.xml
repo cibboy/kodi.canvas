@@ -3,42 +3,23 @@
 	<!-- Is first loading done? -->
 	<expression name="HasHomeLoaded">String.IsEqual(Window(home).Property(Loaded),true)</expression>
 
-	<!-- Is an empty list placeholder showing? -->
-	<expression name="IsHomeEmptyListPlaceholderVisible">
-		String.IsEqual(Window(home).Property(EmptyListPlaceholder),105) |
-		String.IsEqual(Window(home).Property(EmptyListPlaceholder),107) |
-		String.IsEqual(Window(home).Property(EmptyListPlaceholder),109) |
-		String.IsEqual(Window(home).Property(EmptyListPlaceholder),111) |
-		String.IsEqual(Window(home).Property(EmptyListPlaceholder),113) |
-		String.IsEqual(Window(home).Property(EmptyListPlaceholder),115)
-	</expression>
-	<!-- Is a full-height media list visible? -->
-	<expression name="IsHomeFullHeightMediaListVisible">String.IsEqual(Window(home).Property(ActiveListId),302)</expression>
-
-	<!-- Is left menu transitioning between items? -->
-	<expression name="IsHomeMenuMoving">String.IsEqual(Window(home).Property(Menu.Moving),true)</expression>
-	<!--
-		Has left menu focus?
-		Consider true any of the following conditions:
-		- Focus on actual left menu
-		- Left menu is transitioning from an item to another (takes a perceptible amount of ime)
-	-->
+	<!-- Has left menu focus? -->
 	<expression name="HasHomeMenuFocus">
-		Control.HasFocus(200) |
-		Control.HasFocus(201) |
-		Control.HasFocus(202) |
-		Control.HasFocus(203) |
-		Control.HasFocus(204) |
-		Control.HasFocus(205) |
-		Control.HasFocus(206) |
-		Control.HasFocus(207) |
-		$EXP[IsHomeMenuMoving]
+		Control.HasFocus(7000) |
+		Control.HasFocus(7001) |
+		Control.HasFocus(7002) |
+		Control.HasFocus(7003) |
+		Control.HasFocus(7004) |
+		Control.HasFocus(7005) |
+		Control.HasFocus(7006) |
+		Control.HasFocus(7007) |
+		$EXP[IsHomeFlyoutVisible]
 	</expression>
 
 	<!-- Is home music active? -->
-	<expression name="IsHomeMusicActive">Integer.IsEqual(Container(200).Position,4)</expression>
+	<expression name="IsHomeMusicActive">Integer.IsEqual(Container(7000).Position,4)</expression>
 	<!-- Is home pictures active? -->
-	<expression name="IsHomePicturesActive">Integer.IsEqual(Container(200).Position,5)</expression>
+	<expression name="IsHomePicturesActive">Integer.IsEqual(Container(7000).Position,5)</expression>
 
 	<!-- Is home music type albums? -->
 	<expression name="IsHomeMusicTypeAlbums">String.IsEqual(Skin.String(canvas.homemusic),album)</expression>
