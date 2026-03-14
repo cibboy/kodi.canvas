@@ -18,16 +18,10 @@
 			</include>
 
 			<!-- Loading spinner -->
-			<control type="image">
-				<visible>!$EXP[HasHomeLoaded]</visible>
-				<animation effect="rotate" start="360" end="0" center="auto" time="ANIMATION_CRAWL" reversible="false" loop="true" condition="true">Conditional</animation>
-
-				<width>100</width>
-				<height>100</height>
-				<centertop>50%</centertop>
-				<centerleft>50%</centerleft>
-				<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-50.png</texture>
-			</control>
+			<include content="LoadingSpinner">
+				<param name="condition">!$EXP[HasHomeLoaded]</param>
+				<param name="centertop">50%</param>
+			</include>
 			<!-- Safety button to show side menu if loading fails somehow -->
 			<control type="button" id="99999">
 				<visible allowhiddenfocus="true">false</visible>
@@ -36,8 +30,7 @@
 				<onleft>SetFocus(1001,0)</onleft>
 				<onright>SetFocus(1001,0)</onright>
 				<onup>SetFocus(1001,0)</onup>
-				<!--<ondown>SetFocus(1001,0)</ondown>--><!--todo: reenable-->
-				<ondown>SetFocus(101)</ondown>
+				<ondown>SetFocus(1001,0)</ondown>
 			</control>
 
 			<!-- Main content -->

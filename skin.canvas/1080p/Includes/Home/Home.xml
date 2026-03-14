@@ -372,8 +372,6 @@
 				<include content="HomeEmptyItemStrip">
 					<param name="visible">Integer.IsEqual(Container(101).NumItems,0) + Integer.IsEqual(Container(102).NumItems,0) + Integer.IsEqual(Container(103).NumItems,0) + Integer.IsEqual(Container(104).NumItems,0)</param>
 					<param name="id">199</param>
-					<param name="label">Add content</param>
-					<param name="menuid">7001</param>
 				</include>
 
 				<!-- Movies -->
@@ -383,15 +381,13 @@
 					<param name="content">$VAR[HomeMoviesContent]</param>
 					<param name="content_type">1</param>
 					<param name="menuid">7002</param>
-					<param name="onclick">RunScript(script.canvas.helper,navigate_movie_episode_videonav,106)</param>
+					<param name="onclick">RunScript(script.canvas.helper,navigate_movie_episode_videonav,201)</param>
 					<param name="darken_art">$PARAM[darken_art]</param>
 				</include>
 				<!-- No movies page -->
 				<include content="HomeEmptyItemStrip">
 					<param name="visible">Integer.IsEqual(Container(201).NumItems,0)</param>
 					<param name="id">299</param>
-					<param name="label">Add movies</param>
-					<param name="menuid">7002</param>
 				</include>
 
 				<!-- TV shows -->
@@ -408,8 +404,6 @@
 				<include content="HomeEmptyItemStrip">
 					<param name="visible">Integer.IsEqual(Container(301).NumItems,0)</param>
 					<param name="id">399</param>
-					<param name="label">Add TV shows</param>
-					<param name="menuid">7003</param>
 				</include>
 
 				<!-- Yoga With Adriene -->
@@ -426,8 +420,6 @@
 				<include content="HomeEmptyItemStrip">
 					<param name="visible">Integer.IsEqual(Container(401).NumItems,0)</param>
 					<param name="id">499</param>
-					<param name="label">Add yoga</param>
-					<param name="menuid">7004</param>
 				</include>
 
 				<!-- Music -->
@@ -444,16 +436,12 @@
 				<include content="HomeEmptyItemStrip">
 					<param name="visible">Integer.IsEqual(Container(501).NumItems,0)</param>
 					<param name="id">599</param>
-					<param name="label">Add music</param>
-					<param name="menuid">7005</param>
 				</include>
 				
 				<!-- Pictures -->
 				<include content="HomeEmptyItemStrip">
 					<param name="visible">true</param>
 					<param name="id">698</param>
-					<param name="label">Add music</param>
-					<param name="menuid">7006</param>
 				</include>
 			</control>
 

@@ -78,6 +78,25 @@
 		<onload condition="Player.HasVideo">ActivateWindow(1150)</onload>
 	</include>
 
+	<!-- Loading spinner -->
+	<include name="LoadingSpinner">
+		<param name="condition"></param>
+		<param name="centertop"></param>
+
+		<definition>
+			<control type="image">
+				<visible>$PARAM[condition]</visible>
+				<animation effect="rotate" start="360" end="0" center="auto" time="ANIMATION_CRAWL" reversible="false" loop="true" condition="true">Conditional</animation>
+
+				<width>100</width>
+				<height>100</height>
+				<centertop>$PARAM[centertop]</centertop>
+				<centerleft>50%</centerleft>
+				<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-50.png</texture>
+			</control>
+		</definition>
+	</include>
+
 
 	<!-- Is info dialog visible? -->
 	<expression name="IsDialogVideoInfoVisible">Window.IsActive(12003) | Window.IsActive(DialogVideoInfo.xml)</expression>

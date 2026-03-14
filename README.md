@@ -1,7 +1,8 @@
 Wishlist:
 - TV show theme: play once (or in a loop with some pause between plays)
-- Review MyVideoNav.xml (and custom equivalent) to show only when fully moved to requested episode (also consider when moving back from player); also, try to capture more events where Kodi is idiotic and tries to navigate the media library not from setting and move to home
+- Try to capture more events where Kodi is idiotic and tries to navigate the media library not from setting and move to home
 - Preload next episode in player, so play next screen shows it immediately
+- Hide play icon in play next when not highlighted
 - BUG: play something with clearlogo (open OSD to be sure), then play something from file manager: previous clearlogo is used in OSD (might be the one from home, though)
 - BUG: play something from file manager, use back, video continues in background because there's no onload trapping to move to "play next" (which stops if < 90%)
 - Total review of onhover of media elements:
@@ -10,13 +11,14 @@ Wishlist:
 
 TODO:
 - Version bump to 2.0.0
-- Complete review of ids, setfocus and params on home to make sure they's consistent/not useless
 - continue watching should consider items watched but also with time left
 - try "dynamic" colors using variables (variables contain name of color, not definition of color? if so, must define pallette in colors/default.xml and pick from that according to what is returned by python)
+- goto episode in custom medianav should not re-run when coming back from player (or, better, should run only if coming from home, so use window property set/reset on home?)
 
 BUGS:
 - medianav for movies not working
 - previous/next season from episode nav not working when there are no more episodes (it shows the indicator, and the action moves to a ?random? season)
+- no limit on title for play next (on long titles it can overlap image)
 
 Guidelines:
 https://medium.com/you-i-tv/designing-for-10ft-ceeb202c1315

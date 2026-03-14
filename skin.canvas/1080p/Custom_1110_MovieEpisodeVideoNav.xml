@@ -29,6 +29,12 @@
 					<param name="switch_to_601_on_more">String.IsEqual(Window(1110).Property(Content.Type),movie)</param>
 				</include>
 
+				<!-- Loading spinner -->
+				<include content="LoadingSpinner">
+					<param name="condition">!String.IsEqual(Window(1110).Property(ShowList),true)</param>
+					<param name="centertop">70%</param>
+				</include>
+
 				<!-- Single movie list (always hidden) -->
 				<include content="MediaNavItemList" condition="String.IsEqual(Window(1110).Property(Content.Type),movie)">
 					<animation type="Conditional" condition="true"><effect type="fade" start="100" end="0" time="0" tween="cubic" easing="out" /></animation>
@@ -49,7 +55,10 @@
 
 					<!-- Episode list -->
 					<include content="MediaNavItemList" condition="String.IsEqual(Window(1110).Property(Content.Type),episode)">
-						<animation type="Conditional" condition="!String.IsEqual(Window(1110).Property(ShowList),true)"><effect type="fade" start="100" end="0" time="0" tween="cubic" easing="out" reversible="true" /></animation>
+						<!--<animation type="Conditional" condition="!String.IsEqual(Window(1110).Property(ShowList),true)"><effect type="fade" start="100" end="0" time="0" tween="cubic" easing="out" reversible="true" /></animation>-->
+						<animation type="Conditional" condition="!String.IsEqual(Window(1110).Property(ShowList),true)">
+							<effect type="slide" start="0,0" end="0,-99999" time="0" tween="cubic" easing="out" reversible="true" />
+						</animation>
 						<content>$INFO[Window(1110).Property(Content)]</content>
 					</include>
 
