@@ -92,7 +92,7 @@
 				<height>100</height>
 				<centertop>$PARAM[centertop]</centertop>
 				<centerleft>50%</centerleft>
-				<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-50.png</texture>
+				<texture colordiffuse="$VAR[ColorsAccentForeground]" flipy="true" flipx="true">1080p/progress/circle-50.png</texture>
 			</control>
 		</definition>
 	</include>
@@ -162,4 +162,32 @@
 		String.IsEqual(ListItem.Icon,DefaultAddonsZip.png) |
 		String.IsEqual(ListItem.Icon,DefaultAddonsSearch.png)
 	</expression>
+
+
+	<!-- Colors -->
+	<variable name="ColorsAccentForeground">
+		<value>FF$INFO[Window(home).Property(Colors.Accent.Foreground)]</value>
+	</variable>
+	<variable name="ColorsAccentForegroundOpaque75">
+		<value>BF$INFO[Window(home).Property(Colors.Accent.Foreground)]</value>
+	</variable>
+	<variable name="ColorsAccentForegroundOpaque75">
+		<value>7F$INFO[Window(home).Property(Colors.Accent.Foreground)]</value>
+	</variable>
+	<variable name="ColorsContrastForeground">
+		<!-- Force light when home menu has focus (there is a darkening layer) -->
+		<value condition="$EXP[HasHomeMenuFocus] | $EXP[IsVideoPlayerVisible] | $EXP[IsMusicPlayerVisible]">FF$INFO[Window(home).Property(Colors.Contrast.Foreground.Default)]</value>
+		<value>FF$INFO[Window(home).Property(Colors.Contrast.Foreground)]</value>
+	</variable>
+	<!--todo-->
+	<variable name="ContrastTextHighlightColor">
+		<!-- Force light when home menu has focus (there is a darkening layer) -->
+		<value condition="$EXP[HasHomeMenuFocus] | $EXP[IsVideoPlayerVisible] | $EXP[IsMusicPlayerVisible]">HIGHLIGHT_CONTRAST_LIGHT</value>
+		<!-- Light color -->
+		<value condition="$EXP[IsBestTextColorLight]">HIGHLIGHT_CONTRAST_LIGHT</value>
+		<!-- Dark color -->
+		<value condition="$EXP[IsBestTextColorDark]">HIGHLIGHT_CONTRAST_DARK</value>
+		<!-- Fallback -->
+		<value>HIGHLIGHT_CONTRAST_LIGHT</value>
+	</variable>
 </includes>

@@ -174,7 +174,7 @@
 					<param name="info1">$INFO[ListItem.Property(Name)]</param>
 					<param name="info2">$INFO[ListItem.Property(Role)]</param>
 					<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
-					<param name="info2_color">$VAR[ContrastTextForegroundColor]</param>
+					<param name="info2_color">$VAR[ColorsContrastForeground]</param>
 				</include>
 
 				<content>$PARAM[content]</content>
@@ -233,7 +233,7 @@
 				<visible>Control.HasFocus($PARAM[id]) + $PARAM[visible]</visible>
 				<width>WIDTH_MEDIANAV_ACTIONBUTTON_START</width>
 				<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
-				<texture colordiffuse="FOREGROUND_ACCENT">1080p/controls/round-button-extended-start.png</texture>
+				<texture colordiffuse="$VAR[ColorsAccentForeground]">1080p/controls/round-button-extended-start.png</texture>
 			</control>
 			<!-- Icon when focused -->
 			<control type="image" id="92$PARAM[id]">
@@ -250,7 +250,7 @@
 				<width>auto</width>
 				<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
 
-				<texturefocus colordiffuse="FOREGROUND_ACCENT">1080p/controls/round-button-middle.png</texturefocus>
+				<texturefocus colordiffuse="$VAR[ColorsAccentForeground]">1080p/controls/round-button-middle.png</texturefocus>
 				<textcolor>$VAR[MediaNavContrastButtonIconColor]</textcolor>
 				<font>BODY2_STRONG</font>
 				<focusedcolor>BACKGROUND_OPAQUE75</focusedcolor>
@@ -267,7 +267,7 @@
 				<visible>Control.HasFocus($PARAM[id]) + $PARAM[visible]</visible>
 				<width>WIDTH_MEDIANAV_ACTIONBUTTON_END</width>
 				<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
-				<texture colordiffuse="FOREGROUND_ACCENT" flipx="true">1080p/controls/round-button-start.png</texture>
+				<texture colordiffuse="$VAR[ColorsAccentForeground]" flipx="true">1080p/controls/round-button-start.png</texture>
 			</control>
 		</definition>
 	</include>
@@ -425,15 +425,15 @@
 						<height>SIZE_ALBUMNAV_ICON</height>
 						<top>10</top>
 						<left>PADDING_BASE_10P</left>
-						<texture colordiffuse="$VAR[ContrastTextForegroundColor]">$VAR[AlbumNavSongIcon]</texture>
+						<texture colordiffuse="$VAR[ColorsContrastForeground]">$VAR[AlbumNavSongIcon]</texture>
 					</control>
 					<!-- Song title -->
 					<control type="label">
 						<left>PADDING_BASE_50P</left>
 						<width max="685">auto</width>	<!-- max: WIDTH_ALBUMNAV_ITEM - SIZE_ALBUMNAV_ICON - PADDING_BASE_50P - 40 - 100 -->
 						<font>$PARAM[font]</font>
-						<textcolor>$VAR[ContrastTextForegroundColor]</textcolor>
-						<selectedcolor>$VAR[ContrastTextForegroundColor]</selectedcolor>
+						<textcolor>$VAR[ColorsContrastForeground]</textcolor>
+						<selectedcolor>$VAR[ColorsContrastForeground]</selectedcolor>
 						<label>$INFO[ListItem.Title]</label>
 					</control>
 					<!-- Duration -->
@@ -441,8 +441,8 @@
 						<right>PADDING_BASE_10P</right>
 						<width>100</width>
 						<font>$PARAM[font]</font>
-						<textcolor>$VAR[ContrastTextForegroundColor]</textcolor>
-						<selectedcolor>$VAR[ContrastTextForegroundColor]</selectedcolor>
+						<textcolor>$VAR[ColorsContrastForeground]</textcolor>
+						<selectedcolor>$VAR[ColorsContrastForeground]</selectedcolor>
 						<align>right</align>
 						<label>$INFO[ListItem.Duration]</label>
 					</control>

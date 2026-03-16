@@ -14,7 +14,7 @@
 				<control type="image">
 					<width>100</width>
 					<height>100</height>
-					<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-$INFO[Control.GetLabel(10)].png</texture>
+					<texture colordiffuse="$VAR[ColorsAccentForeground]" flipy="true" flipx="true">1080p/progress/circle-$INFO[Control.GetLabel(10)].png</texture>
 				</control>
 			</control>
 

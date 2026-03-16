@@ -39,10 +39,10 @@
 
 								<!-- Content -->
 								<include content="SettingsOptionContentWithSelection">
-									<param name="selectionmark_color">FOREGROUND_ACCENT_ALT</param>
+									<param name="selectionmark_color">FG_ACCENT_ALT</param>
 									<param name="is_selected">ListItem.IsSelected</param>
 									<param name="text_color">FOREGROUND_INVERSE</param>
-									<param name="text_color_selected">FOREGROUND_ACCENT_ALT</param>
+									<param name="text_color_selected">FG_ACCENT_ALT</param>
 									<param name="text_scroll">true</param>
 								</include>
 							</focusedlayout>
@@ -77,10 +77,10 @@
 									<param name="icon_type_circle">$EXP[HasSettingsDialogSelectIcon]</param>
 									<param name="icon">$VAR[SettingsDialogSelectIcon]</param>
 									<param name="text_color">FOREGROUND_INVERSE</param>
-									<param name="text_color_selected">FOREGROUND_ACCENT_ALT</param>
+									<param name="text_color_selected">FG_ACCENT_ALT</param>
 									<param name="text">[CAPITALIZE]$INFO[ListItem.Label][/CAPITALIZE]</param>
 									<param name="description_color">FOREGROUND_INVERSE_OPAQUE75</param>
-									<param name="description_color_selected">FOREGROUND_ACCENT_ALT_OPAQUE75</param>
+									<param name="description_color_selected">FG_ACCENT_ALT_OPAQUE75</param>
 									<param name="description">$INFO[ListItem.Label2]</param>
 									<param name="single_line">String.IsEmpty(ListItem.Label2)</param>
 									<param name="scroll">true</param>

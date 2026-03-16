@@ -1,7 +1,6 @@
 import math
 import json
 import xbmc
-from urllib.parse import urlparse, parse_qsl
 
 # Calls a JSON-RPC method agains Kodi.
 def call_rpc(method, params=None):

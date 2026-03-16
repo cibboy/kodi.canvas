@@ -302,7 +302,7 @@
 					<width>$PARAM[size_focus]</width>
 					<height>$PARAM[size_focus]</height>
 					<fadetime>0</fadetime>
-					<texture colordiffuse="FOREGROUND_ACCENT">1080p/controls/button-circle.png</texture>
+					<texture colordiffuse="$VAR[ColorsAccentForeground]">1080p/controls/button-circle.png</texture>
 				</control>
 
 				<!-- Icon -->
@@ -423,7 +423,7 @@
 					<label>ciao</label>
 					<align>left</align>
 					<font>SETTINGS_CAPTION</font>
-					<textcolor>FOREGROUND_ACCENT_ALT</textcolor>
+					<textcolor>FG_ACCENT_ALT</textcolor>
 				</control>
 			</control>
 		</control>

@@ -23,7 +23,7 @@
 			<height>SCREEN_HEIGHT</height>
 			<right>0</right>
 
-			<texture colordiffuse="FOREGROUND_ACCENT">1080p/diffuse/splash.png</texture>
+			<texture colordiffuse="$VAR[ColorsAccentForeground]">1080p/diffuse/splash.png</texture>
 		</control>
 		<!-- Layer 2 -->
 		<control type="image">
@@ -34,7 +34,7 @@
 			<height>SCREEN_HEIGHT</height>
 			<right>0</right>
 
-			<texture colordiffuse="FOREGROUND_ACCENT2">1080p/diffuse/splash.png</texture>
+			<texture colordiffuse="FOREGROUNDACCENT2">1080p/diffuse/splash.png</texture>
 		</control>
 	</include>
 
@@ -48,7 +48,7 @@
 				<width>150</width>
 				<height>150</height>
 				<centerleft>50%</centerleft>
-				<centertop>320</centertop>
+				<centertop>350</centertop>
 
 				<texture colordiffuse="$PARAM[color]">special://xbmc/media/vendor_icon.png</texture>
 				<aspectratio>keep</aspectratio>
@@ -184,7 +184,7 @@
 				<height>FONT_SIZE_TITLE2</height>
 				<font>TITLE2</font>
 				<align>center</align>
-				<label>Welcome to [COLOR FOREGROUND_ACCENT]Canvas[/COLOR]</label>
+				<label>Welcome to [COLOR $VAR[ColorsAccentForeground]]Canvas[/COLOR]</label>
 			</control>
 
 			<control type="grouplist">
@@ -201,7 +201,7 @@
 					<height>FONT_SIZE_SUBTITLE</height>
 					<font>CAPTION</font>
 					<align>center</align>
-					<label>[COLOR FOREGROUND_ACCENT]Canvas[/COLOR] is a minimalistic Kodi skin. Some settings require a tweak for optimal results. Here is what will be changed:</label>
+					<label>[COLOR $VAR[ColorsAccentForeground]]Canvas[/COLOR] is a minimalistic Kodi skin. Some settings require a tweak for optimal results. Here is what will be changed:</label>
 				</control>
 
 				<!-- List of changes -->
@@ -217,7 +217,7 @@
 							<height>30</height>
 							<left>PADDING_BASE_20P</left>
 							<top>8</top>
-							<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/watched.png</texture>
+							<texture colordiffuse="$VAR[ColorsAccentForeground]">1080p/icons/watched.png</texture>
 						</control>
 
 						<!-- Text -->

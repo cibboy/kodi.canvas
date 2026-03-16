@@ -14,7 +14,7 @@
 			<focusedlayout>
 				<control type="button">
 					<visible allowhiddenfocus="true">false</visible>
-					<onfocus>RunScript(script.canvas.helper,get_musicplayer_bg_info,$INFO[Player.Art(thumb)])</onfocus>
+					<onfocus>RunScript(script.canvas.helper,populate_musicplayer_bg_info,$INFO[Player.Art(thumb)])</onfocus>
 				</control>
 			</focusedlayout>
 			<content>plugin://script.canvas.helper/song/?dbid=$INFO[MusicPlayer.DBID]</content>
@@ -52,7 +52,7 @@
 			<height>100</height>
 			<centertop>50%</centertop>
 			<centerleft>50%</centerleft>
-			<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-50.png</texture>
+			<texture colordiffuse="$VAR[ColorsAccentForeground]" flipy="true" flipx="true">1080p/progress/circle-50.png</texture>
 		</control>
 
 		<!-- Seek right -->

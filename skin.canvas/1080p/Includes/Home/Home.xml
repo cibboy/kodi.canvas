@@ -69,7 +69,7 @@
 						<param name="info1">$VAR[HomeAlbumInfo1]</param>
 						<param name="info2">$VAR[HomeAlbumInfo2]</param>
 						<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
-						<param name="info2_color">$VAR[ContrastTextForegroundColor]</param>
+						<param name="info2_color">$VAR[ColorsContrastForeground]</param>
 						<param name="listid">$PARAM[id]</param>
 					</include>
 
@@ -132,7 +132,7 @@
 						<param name="info1">$VAR[HomeAlbumInfo1]</param>
 						<param name="info2">$VAR[HomeAlbumInfo2]</param>
 						<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
-						<param name="info2_color">$VAR[ContrastTextForegroundColor]</param>
+						<param name="info2_color">$VAR[ColorsContrastForeground]</param>
 						<param name="listid">$PARAM[id]</param>
 					</include>
 
@@ -192,7 +192,7 @@
 						<param name="info1">$VAR[HomeAlbumInfo1]</param>
 						<param name="info2">$VAR[HomeAlbumInfo2]</param>
 						<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
-						<param name="info2_color">$VAR[ContrastTextForegroundColor]</param>
+						<param name="info2_color">$VAR[ColorsContrastForeground]</param>
 						<param name="listid">$PARAM[id]</param>
 					</include>
 
@@ -275,7 +275,7 @@
 						<height>120</height>
 						<centerleft>50%</centerleft>
 
-						<texturefocus colordiffuse="FOREGROUND_ACCENT" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
+						<texturefocus colordiffuse="$VAR[ColorsAccentForeground]" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
 						<texturenofocus colordiffuse="BACKGROUND_OPAQUE50" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturenofocus>
 						<textoffsety>4</textoffsety>
 						<textoffsetx>38</textoffsetx>
@@ -558,7 +558,7 @@
 					<width>SIZE_HOME_MENU_LOGO</width>
 					<height>SIZE_HOME_MENU_LOGO</height>
 					<centerleft>50%</centerleft>
-					<texture colordiffuse="HIGHLIGHT">$VAR[LogoIcon]</texture>
+					<texture colordiffuse="$VAR[ColorsAccentForeground]">$VAR[LogoIcon]</texture>
 					<aspectratio>keep</aspectratio>
 				</control>
 
@@ -630,7 +630,8 @@
 						<height>SIZE_HOME_MENU_ICON_SELECTION</height>
 						<centertop>50%</centertop>
 						<centerleft>50%</centerleft>
-						<texture colordiffuse="FOREGROUND_ACCENT">1080p/diffuse/circle.png</texture>
+						<!--<texture colordiffuse="$VAR[ColorsAccentForeground]">1080p/diffuse/circle.png</texture>-->
+						<texture colordiffuse="$VAR[ColorsAccentForeground]">1080p/diffuse/circle.png</texture>
 						<bordertexture border="SIZE_ITEM_SHADOW_SMALLCIRCLE_DOUBLE" colordiffuse="BACKGROUND_OPAQUE75">1080p/diffuse/shadow-circle-small.png</bordertexture>
 						<bordersize>SIZE_ITEM_SHADOW_SMALLCIRCLE</bordersize>
 					</control>

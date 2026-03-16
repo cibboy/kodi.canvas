@@ -58,7 +58,7 @@
 
 	<!-- Album nav "play all" button -->
 	<variable name="AlbumNavPlayAllButtonColor">
-		<value condition="Control.HasFocus(94600)">FOREGROUND_ACCENT</value>
+		<value condition="Control.HasFocus(94600)">$VAR[ColorsAccentForeground]</value>
 		<value>FOREGROUND_OPAQUE20</value>
 	</variable>
 	<variable name="AlbumNavContrastButtonIconColor">

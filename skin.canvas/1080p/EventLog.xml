@@ -133,7 +133,7 @@
 											<param name="text_color">FOREGROUND_INVERSE</param>
 											<param name="description">$INFO[ListItem.Label2]</param>
 											<param name="description_color">FOREGROUND_INVERSE_OPAQUE75</param>
-											<param name="description_color_selected">FOREGROUND_ACCENT_ALT_OPAQUE75</param>
+											<param name="description_color_selected">FG_ACCENT_ALT_OPAQUE75</param>
 											<param name="single_line">String.IsEmpty(ListItem.Label2)</param>
 											<param name="scroll">true</param>
 										</include>

@@ -12,8 +12,10 @@ Wishlist:
 TODO:
 - Version bump to 2.0.0
 - continue watching should consider items watched but also with time left
-- try "dynamic" colors using variables (variables contain name of color, not definition of color? if so, must define pallette in colors/default.xml and pick from that according to what is returned by python)
+- variable accent color needs some work, especially for legibility of text in tags
+- could use some VERY light tint (of accent color) over blur bg
 - goto episode in custom medianav should not re-run when coming back from player (or, better, should run only if coming from home, so use window property set/reset on home?)
+- Quando si va in medianav episodi, anche se la lista è nascosta finché non ha finito la selezione dell'episodio corretto, i dettagli dell'episodio sbagliato potrebbero essere caricarti e visualizzati, soprattutto su Shield che è più lento.
 
 BUGS:
 - medianav for movies not working

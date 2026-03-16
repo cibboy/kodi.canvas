@@ -357,6 +357,10 @@
 		<ondown condition="!Control.IsVisible(8101) + !Control.IsVisible(8102) + !Control.IsVisible(8103) + !Control.IsVisible(8104)">SetFocus(9199)</ondown>
 		<ondown>SetFocus(7001)</ondown>
 	</include>
+	<include name="HomeOnNavigateRightClick7007">
+		<onright>noop</onright>
+		<onclick>noop</onclick>
+	</include>
 
 	<!-- General fallback for errors -->
 	<include name="HomeOnNavigateUp"></include>

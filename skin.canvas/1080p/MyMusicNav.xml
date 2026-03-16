@@ -64,13 +64,13 @@
 						<!-- Year -->
 						<include content="DetailsInfoText">
 							<param name="text">$INFO[ListItem.Year]</param>
-							<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+							<param name="textcolor">$VAR[ColorsContrastForeground]</param>
 						</include>
 
 						<!-- Artist -->
 						<include content="DetailsInfoText">
 							<param name="text">$INFO[ListItem.Artist]</param>
-							<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+							<param name="textcolor">$VAR[ColorsContrastForeground]</param>
 						</include>
 					</control>
 

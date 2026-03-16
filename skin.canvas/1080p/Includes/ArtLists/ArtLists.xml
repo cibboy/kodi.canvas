@@ -43,7 +43,7 @@
 					<texture colordiffuse="BACKGROUND_OPAQUE75">1080p/icons/watched-bg.png</texture>
 				</control>
 				<control type="image">
-					<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/check.png</texture>
+					<texture colordiffuse="$VAR[ColorsAccentForeground]">1080p/icons/check.png</texture>
 				</control>
 			</control>
 		</definition>
@@ -67,7 +67,7 @@
 					<texture colordiffuse="BACKGROUND_OPAQUE50">1080p/progress/circle-bg.png</texture>
 				</control>
 				<control type="image">
-					<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-$INFO[ListItem.Property(WatchedEpisodePercent)].png</texture>
+					<texture colordiffuse="$VAR[ColorsAccentForeground]" flipy="true" flipx="true">1080p/progress/circle-$INFO[ListItem.Property(WatchedEpisodePercent)].png</texture>
 				</control>
 
 				<!-- Number of episodes -->

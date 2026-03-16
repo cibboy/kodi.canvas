@@ -27,7 +27,7 @@
 						<control type="image">
 							<width>SIZE_NOTIFICATION_ICON</width>
 							<height>SIZE_NOTIFICATION_ICON</height>
-							<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-$INFO[Control.GetLabel(32)].png</texture>
+							<texture colordiffuse="$VAR[ColorsAccentForeground]" flipy="true" flipx="true">1080p/progress/circle-$INFO[Control.GetLabel(32)].png</texture>
 						</control>
 					</control>
 

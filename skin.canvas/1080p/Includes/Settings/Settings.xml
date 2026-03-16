@@ -65,7 +65,7 @@
 						<height>SIZE_HOME_MENU_ICON_SELECTION</height>
 						<centertop>50%</centertop>
 						<centerleft>50%</centerleft>
-						<texture colordiffuse="FOREGROUND_ACCENT">1080p/diffuse/circle.png</texture>
+						<texture colordiffuse="$VAR[ColorsAccentForeground]">1080p/diffuse/circle.png</texture>
 						<bordertexture border="SIZE_ITEM_SHADOW_SMALLCIRCLE_DOUBLE" colordiffuse="BACKGROUND_OPAQUE75">1080p/diffuse/shadow-circle-small.png</bordertexture>
 						<bordersize>SIZE_ITEM_SHADOW_SMALLCIRCLE</bordersize>
 					</control>
@@ -130,10 +130,10 @@
 		<param name="icon_type_circle">false</param>
 		<param name="icon">$INFO[ListItem.Art(thumb)]</param>
 		<param name="text_color">FOREGROUND_OPAQUE75</param>
-		<param name="text_color_selected">FOREGROUND_ACCENT_OPAQUE75</param>
+		<param name="text_color_selected">$VAR[ColorsAccentForegroundOpaque75]</param>
 		<param name="text">$INFO[ListItem.Property(title)]</param>
 		<param name="description_color">FOREGROUND_OPAQUE50</param>
-		<param name="description_color_selected">FOREGROUND_ACCENT_OPAQUE50</param>
+		<param name="description_color_selected">$VAR[ColorsAccentForegroundOpaque50]</param>
 		<param name="description">$INFO[ListItem.Property(description)]</param>
 		<param name="single_line">false</param>
 		<param name="scroll">false</param>
@@ -219,10 +219,10 @@
 
 	<!-- Content for fake option button with selection mark (single line) -->
 	<include name="SettingsOptionContentWithSelection">
-		<param name="selectionmark_color">FOREGROUND_ACCENT_OPAQUE75</param>
+		<param name="selectionmark_color">$VAR[ColorsAccentForegroundOpaque75]</param>
 		<param name="is_selected">false</param>
 		<param name="text_color">FOREGROUND_OPAQUE75</param>
-		<param name="text_color_selected">FOREGROUND_ACCENT_OPAQUE75</param>
+		<param name="text_color_selected">$VAR[ColorsAccentForegroundOpaque75]</param>
 		<param name="text">$INFO[ListItem.Label]</param>
 		<param name="text_scroll">false</param>
 
@@ -614,7 +614,7 @@
 				<label></label>
 				<align>left</align>
 				<font>SETTINGS_CAPTION</font>
-				<textcolor>FOREGROUND_ACCENT_ALT</textcolor>
+				<textcolor>FG_ACCENT_ALT</textcolor>
 			</control>
 
 			<!-- Option button -->
@@ -757,7 +757,7 @@
 						<label>ciao</label>
 						<align>left</align>
 						<font>SETTINGS_CAPTION</font>
-						<textcolor>FOREGROUND_ACCENT_ALT</textcolor>
+						<textcolor>FG_ACCENT_ALT</textcolor>
 					</control>
 				</control>
 			
@@ -889,7 +889,7 @@
 						<label>ciao</label>
 						<align>left</align>
 						<font>SETTINGS_CAPTION</font>
-						<textcolor>FOREGROUND_ACCENT_ALT</textcolor>
+						<textcolor>FG_ACCENT_ALT</textcolor>
 					</control>
 					<!-- Slider template -->
 					<control type="colorbutton" id="15">

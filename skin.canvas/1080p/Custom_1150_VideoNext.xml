@@ -50,7 +50,7 @@
 						</include>
 
 						<font>BODY_STRONG</font>
-						<textcolor>FOREGROUND_ACCENT</textcolor>
+						<textcolor>$VAR[ColorsAccentForeground]</textcolor>
 						<label>$VAR[VideoNextCurrentLabel]</label>
 					</control>
 
@@ -86,7 +86,7 @@
 									<centerleft>50%</centerleft>
 									<width>100</width>
 									<height>100</height>
-									<texture colordiffuse="FOREGROUND_ACCENT">1080p/controls/button-circle.png</texture>
+									<texture colordiffuse="$VAR[ColorsAccentForeground]">1080p/controls/button-circle.png</texture>
 								</control>
 								<control type="image">
 									<centertop>50%</centertop>
@@ -146,7 +146,7 @@
 						<width>WIDTH_NEXTVIDEO_LANDSCAPE</width>
 						<align>right</align>
 						<font>BODY_STRONG</font>
-						<textcolor>FOREGROUND_ACCENT</textcolor>
+						<textcolor>$VAR[ColorsAccentForeground]</textcolor>
 						<label>Next episode</label>
 					</control>
 
@@ -176,7 +176,7 @@
 								<centerleft>50%</centerleft>
 								<width>100</width>
 								<height>100</height>
-								<texture colordiffuse="FOREGROUND_ACCENT">1080p/controls/button-circle.png</texture>
+								<texture colordiffuse="$VAR[ColorsAccentForeground]">1080p/controls/button-circle.png</texture>
 							</control>
 							<control type="image">
 								<centertop>50%</centertop>
@@ -222,19 +222,19 @@
 							<!-- Episode -->
 							<include content="DetailsInfoText">
 								<param name="text">S$INFO[Window(home).Property(Player.NextItem.Season)]·E$INFO[Window(home).Property(Player.NextItem.Episode)]</param>
-								<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+								<param name="textcolor">$VAR[ColorsContrastForeground]</param>
 								<param name="visible">!String.IsEmpty(Window(home).Property(Player.NextItem.Season)) + !String.IsEmpty(Window(home).Property(Player.NextItem.Episode))</param>
 							</include>
 							<!-- Premiered -->
 							<include content="DetailsInfoText">
 								<param name="text">$INFO[Window(home).Property(Player.NextItem.Premiered)]</param>
-								<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+								<param name="textcolor">$VAR[ColorsContrastForeground]</param>
 								<param name="visible">!String.IsEmpty(Window(home).Property(Player.NextItem.Premiered))</param>
 							</include>
 							<!-- Duration -->
 							<include content="DetailsInfoText">
 								<param name="text">$INFO[Window(home).Property(Player.NextItem.Duration)]</param>
-								<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+								<param name="textcolor">$VAR[ColorsContrastForeground]</param>
 								<param name="visible">!String.IsEmpty(Window(home).Property(Player.NextItem.Duration))</param>
 							</include>
 						</control>
@@ -245,7 +245,7 @@
 							<height>200</height>
 
 							<font>BODY2</font>
-							<textcolor>$VAR[ContrastTextForegroundColor]</textcolor>
+							<textcolor>$VAR[ColorsContrastForeground]</textcolor>
 							<label>$INFO[Window(home).Property(Player.NextItem.Plot)]</label>
 							<autoscroll delay="10000" time="1000" repeat="10000">true</autoscroll>
 						</control>

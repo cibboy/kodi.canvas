@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
+	<!-- Initialize dynamic accent colors -->
+	<onload>RunScript(script.canvas.helper,reset_colors)</onload>
 	<onload>ReplaceWindow(1199)</onload>
 	<controls />
 </window>

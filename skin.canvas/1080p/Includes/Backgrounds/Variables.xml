@@ -1,27 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
-	<!-- Contrast text color (against blur art) -->
-	<variable name="ContrastTextForegroundColor">
-		<!-- Force light when home menu has focus (there is a darkening layer) -->
-		<value condition="$EXP[HasHomeMenuFocus] | $EXP[IsVideoPlayerVisible] | $EXP[IsMusicPlayerVisible]">FOREGROUND_CONTRAST_LIGHT</value>
-		<!-- Light color -->
-		<value condition="$EXP[IsBestTextColorLight]">FOREGROUND_CONTRAST_LIGHT</value>
-		<!-- Dark color -->
-		<value condition="$EXP[IsBestTextColorDark]">FOREGROUND_CONTRAST_DARK</value>
-		<!-- Fallback -->
-		<value>FOREGROUND_CONTRAST_LIGHT</value>
-	</variable>
-	<variable name="ContrastTextHighlightColor">
-		<!-- Force light when home menu has focus (there is a darkening layer) -->
-		<value condition="$EXP[HasHomeMenuFocus] | $EXP[IsVideoPlayerVisible] | $EXP[IsMusicPlayerVisible]">HIGHLIGHT_CONTRAST_LIGHT</value>
-		<!-- Light color -->
-		<value condition="$EXP[IsBestTextColorLight]">HIGHLIGHT_CONTRAST_LIGHT</value>
-		<!-- Dark color -->
-		<value condition="$EXP[IsBestTextColorDark]">HIGHLIGHT_CONTRAST_DARK</value>
-		<!-- Fallback -->
-		<value>HIGHLIGHT_CONTRAST_LIGHT</value>
-	</variable>
-
 	<!-- Background image -->
 	<variable name="BackgroundArt">
 		<!-- Next video window visible -->

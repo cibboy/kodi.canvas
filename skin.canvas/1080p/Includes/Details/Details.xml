@@ -113,7 +113,7 @@
 		<param name="text"></param>
 		<param name="visible">true</param>
 		<param name="bgcolor">BACKGROUND_OPAQUE50</param>
-		<param name="textcolor">FOREGROUND_ACCENT</param>
+		<param name="textcolor">$VAR[ColorsAccentForeground]</param>
 
 		<definition>
 			<control type="group">
@@ -227,69 +227,69 @@
 						<!-- Padding -->
 						<include content="DetailsInfoText">
 							<param name="text"> </param>
-							<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+							<param name="textcolor">$VAR[ColorsContrastForeground]</param>
 							<param name="visible">$EXP[HasDetailsTags]</param>
 						</include>
 
 						<!-- Year -->
 						<include content="DetailsInfoText">
 							<param name="text">$VAR[DetailsYear]</param>
-							<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+							<param name="textcolor">$VAR[ColorsContrastForeground]</param>
 							<param name="visible">$EXP[HasDetailsYear]</param>
 						</include>
 						<!-- Episode -->
 						<include content="DetailsInfoText">
 							<param name="text">$VAR[DetailsEpisodeNumber]</param>
-							<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+							<param name="textcolor">$VAR[ColorsContrastForeground]</param>
 							<param name="visible">$EXP[HasDetailsEpisodeNumber]</param>
 						</include>
 						<!-- Premiered -->
 						<include content="DetailsInfoText">
 							<param name="text">$VAR[DetailsEpisodePremiere]</param>
-							<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+							<param name="textcolor">$VAR[ColorsContrastForeground]</param>
 							<param name="visible">$EXP[HasDetailsEpisodePremiered]</param>
 						</include>
 						<!-- Number of episodes -->
 						<include content="DetailsInfoText">
 							<param name="text">$VAR[DetailsNumberOfEpisodes]</param>
-							<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+							<param name="textcolor">$VAR[ColorsContrastForeground]</param>
 							<param name="visible">$EXP[HasDetailsNumberOfEpisodes]</param>
 						</include>
 						<!-- Artist -->
 						<include content="DetailsInfoText">
 							<param name="text">$VAR[DetailsArtist]</param>
-							<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+							<param name="textcolor">$VAR[ColorsContrastForeground]</param>
 							<param name="visible">$EXP[HasDetailsArtist]</param>
 						</include>
 						<!-- Duration -->
 						<include content="DetailsInfoText">
 							<param name="text">$VAR[DetailsDuration]</param>
-							<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+							<param name="textcolor">$VAR[ColorsContrastForeground]</param>
 							<param name="visible">$EXP[HasDetailsDuration]</param>
 						</include>
 						<!-- Mpaa -->
 						<include content="DetailsInfoText">
 							<param name="text">$VAR[DetailsMpaa]</param>
-							<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+							<param name="textcolor">$VAR[ColorsContrastForeground]</param>
 							<param name="visible">$EXP[HasDetailsMpaa]</param>
 						</include>
 						<!-- Status -->
 						<include content="DetailsInfoText">
 							<param name="text">$VAR[DetailsStatus]</param>
-							<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+							<param name="textcolor">$VAR[ColorsContrastForeground]</param>
 							<param name="visible">$EXP[HasDetailsStatus]</param>
 						</include>
 						<!-- Track -->
 						<include content="DetailsInfoText">
 							<param name="text">$VAR[DetailsTrackNumber]</param>
-							<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+							<param name="textcolor">$VAR[ColorsContrastForeground]</param>
 							<param name="visible">$EXP[HasDetailsTrackNumber]</param>
 						</include>
 
 						<!-- Padding -->
 						<include content="DetailsInfoText">
 							<param name="text"> </param>
-							<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+							<param name="textcolor">$VAR[ColorsContrastForeground]</param>
 							<param name="visible">[$EXP[HasDetailsTags] | $EXP[HasDetailsInfo]] + $PARAM[show_progress]</param>
 						</include>
 
@@ -305,14 +305,14 @@
 								<height>SIZE_DETAILS_WATCHED_ICON</height>
 								<top>OFFSET_TOP_DETAILS_WATCHED_ICON</top>
 								<left>OFFSET_LEFT_DETAILS_WATCHED_ICON</left>
-								<texture colordiffuse="FOREGROUND_ACCENT">1080p/icons/watched.png</texture>
+								<texture colordiffuse="$VAR[ColorsAccentForeground]">1080p/icons/watched.png</texture>
 							</control>
 						</include>
 						<!-- All new -->
 						<include content="DetailsInfoTag">
 							<param name="text">All new</param>
 							<param name="visible">$EXP[IsDetailsItemTypeVideoLike] + $EXP[IsDetailsAllNew] + $PARAM[show_progress]</param>
-							<param name="textcolor">FOREGROUND_ACCENT</param>
+							<param name="textcolor">$VAR[ColorsAccentForeground]</param>
 						</include>
 						<!-- Episodes remaining -->
 						<include content="DetailsInfoTagWithIcon">
@@ -331,7 +331,7 @@
 									<texture colordiffuse="FOREGROUND_OPAQUE10">1080p/progress/circle-100.png</texture>
 								</control>
 								<control type="image">
-									<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-$VAR[DetailsPercentPlayed].png</texture>
+									<texture colordiffuse="$VAR[ColorsAccentForeground]" flipy="true" flipx="true">1080p/progress/circle-$VAR[DetailsPercentPlayed].png</texture>
 								</control>
 							</control>
 						</include>
@@ -352,7 +352,7 @@
 									<texture colordiffuse="FOREGROUND_OPAQUE10">1080p/progress/circle-100.png</texture>
 								</control>
 								<control type="image">
-									<texture colordiffuse="FOREGROUND_ACCENT" flipy="true" flipx="true">1080p/progress/circle-$VAR[DetailsPercentPlayed].png</texture>
+									<texture colordiffuse="$VAR[ColorsAccentForeground]" flipy="true" flipx="true">1080p/progress/circle-$VAR[DetailsPercentPlayed].png</texture>
 								</control>
 							</control>
 						</include>
@@ -370,7 +370,7 @@
 						<!-- Genre -->
 						<include content="DetailsInfoText">
 							<param name="text">$VAR[DetailsGenre]</param>
-							<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+							<param name="textcolor">$VAR[ColorsContrastForeground]</param>
 							<param name="visible">$EXP[HasDetailsGenre]</param>
 							<param name="width_limit">0</param>
 						</include>
@@ -383,7 +383,7 @@
 					<height>$PARAM[plot_height]</height>
 
 					<font>BODY2</font>
-					<textcolor>$VAR[ContrastTextForegroundColor]</textcolor>
+					<textcolor>$VAR[ColorsContrastForeground]</textcolor>
 					<label>$VAR[DetailsPlot]</label>
 					<autoscroll delay="10000" time="1000" repeat="10000">true</autoscroll>
 				</control>
@@ -414,7 +414,7 @@
 					<include content="DetailsInfoLabelValue">
 						<param name="label">Director</param>
 						<param name="value">$VAR[DetailsDirector]</param>
-						<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+						<param name="textcolor">$VAR[ColorsContrastForeground]</param>
 						<param name="visible">$EXP[HasDetailsDirector]</param>
 						<param name="width_limit">1000</param>
 					</include>
@@ -422,7 +422,7 @@
 					<include content="DetailsInfoLabelValue">
 						<param name="label">Writer</param>
 						<param name="value">$VAR[DetailsWriter]</param>
-						<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+						<param name="textcolor">$VAR[ColorsContrastForeground]</param>
 						<param name="visible">$EXP[HasDetailsWriter]</param>
 						<param name="width_limit">1000</param>
 					</include>
@@ -430,7 +430,7 @@
 					<include content="DetailsInfoLabelValue">
 						<param name="label">Path</param>
 						<param name="value">$VAR[DetailsFilePath]</param>
-						<param name="textcolor">$VAR[ContrastTextForegroundColor]</param>
+						<param name="textcolor">$VAR[ColorsContrastForeground]</param>
 						<param name="visible">$EXP[HasDetailsFilePath]</param>
 						<param name="width_limit">1000</param>
 					</include>
@@ -448,7 +448,7 @@
 						<control type="image">
 							<width>HEIGHT_DETAILS_INFOLINE_CUSTOM</width>
 							<height>HEIGHT_DETAILS_INFOLINE_CUSTOM</height>
-							<texture colordiffuse="$VAR[ContrastTextForegroundColor]">1080p/icons/video.png</texture>
+							<texture colordiffuse="$VAR[ColorsContrastForeground]">1080p/icons/video.png</texture>
 						</control>
 
 						<!-- Resolution -->
@@ -475,7 +475,7 @@
 						<control type="image">
 							<width>HEIGHT_DETAILS_INFOLINE_CUSTOM</width>
 							<height>HEIGHT_DETAILS_INFOLINE_CUSTOM</height>
-							<texture colordiffuse="$VAR[ContrastTextForegroundColor]">1080p/icons/speaker.png</texture>
+							<texture colordiffuse="$VAR[ColorsContrastForeground]">1080p/icons/speaker.png</texture>
 						</control>
 
 						<!-- Stream 1 -->
@@ -497,7 +497,7 @@
 						<control type="image">
 							<width>HEIGHT_DETAILS_INFOLINE_CUSTOM</width>
 							<height>HEIGHT_DETAILS_INFOLINE_CUSTOM</height>
-							<texture colordiffuse="$VAR[ContrastTextForegroundColor]">1080p/icons/subtitles.png</texture>
+							<texture colordiffuse="$VAR[ColorsContrastForeground]">1080p/icons/subtitles.png</texture>
 						</control>
 
 						<!-- Eng -->

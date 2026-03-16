@@ -6,6 +6,9 @@
 		<stop>Integer.IsGreaterOrEqual(Skin.TimerElapsedSecs(splashredirect),5)</stop>
 		<onstop condition="Skin.HasSetting(canvas.firstrun)">ReplaceWindow(home)</onstop>
 		<onstop condition="!Skin.HasSetting(canvas.firstrun)">ReplaceWindow(1198)</onstop>
+		<onstop condition="!Skin.HasSetting(canvas.firstrun)">Skin.SetBool(canvas.accentmigration,true)</onstop>
+		<onstop condition="Skin.HasSetting(canvas.firstrun) + !Skin.HasSetting(canvas.accentmigration)">RunScript(script.canvas.helper,clear_custom_cache,blur)</onstop>
+		<onstop condition="Skin.HasSetting(canvas.firstrun) + !Skin.HasSetting(canvas.accentmigration)">Skin.SetBool(canvas.accentmigration,true)</onstop>
 	</timer>
 
 	<!-- Home redirection to first available list -->

@@ -2,9 +2,22 @@ import sys, os, shutil, re, time
 import xml.etree.ElementTree as ET
 import xbmc, xbmcgui, xbmcvfs
 from datetime import datetime
-from image import get_blurred, get_cropped_clearlogo
+from image import get_blurred, get_cropped_clearlogo, DEFAULT_COLORS
 from media import *
 from utils import *
+
+# Reset window properties about colors to defaults.
+def reset_colors(window = None):
+    if window is None:
+        # All properties reside on home window.
+        window = xbmcgui.Window(10000)
+
+    #todo: add all
+    window.setProperty('Colors.Accent.Foreground.Default',DEFAULT_COLORS['accent'])
+    window.setProperty('Colors.Contrast.Foreground.Default',DEFAULT_COLORS['contrast'])
+
+    window.setProperty('Colors.Accent.Foreground',DEFAULT_COLORS['accent'])
+    window.setProperty('Colors.Contrast.Foreground',DEFAULT_COLORS['contrast'])
 
 # Clear custom listitem properties on home used for details.
 def clear_listitem_properties(include_navigation = True):
@@ -52,21 +65,24 @@ def clear_listitem_properties(include_navigation = True):
     window.clearProperty('Details.AllNew')
     window.clearProperty('Details.HasEngSubs')
     window.clearProperty('Details.HasItaSubs')
+    reset_colors(window)
 
 # Populate window properties with background information for the music player.
-def get_musicplayer_bg_info(thumb):
+def populate_musicplayer_bg_info(thumb):
     # Work on MusicVisualisation.xml.
     window = xbmcgui.Window(12006)
 
     # Get blurred background.
-    blur, contrast = get_blurred(thumb)
+    blur, colors = get_blurred(thumb)
     
     # Set properties.
     window.setProperty('MusicPlayer.Blur', blur)
-    window.setProperty('MusicPlayer.Contrast', contrast)
+    window.setProperty('MusicPlayer.Contrast', colors['legacy_contrast'])#todo: fix
 
 # Populate window properties with information about the requested item to be used in details.
 def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
+    if window.getProperty('Details.DoNotProcess') == 'true': return
+
     title = ''
     title2 = ''
     studio = ''
@@ -297,51 +313,55 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
     filepath = xbmc.getInfoLabel(f"{item_ref}.FileNameAndPath")
 
     # Get blurred background, contrast color and cropped clearlogo.
-    blur, contrast = get_blurred(fanart)
+    blur, colors = get_blurred(fanart)
     clearlogo = get_cropped_clearlogo(clearlogo_original)
 
-    # Set properties.
-    window.setProperty('Details.ItemType', itemtype)
-    window.setProperty('Details.Title', title)
-    window.setProperty('Details.Title2', title2)
-    window.setProperty('Details.Studio', studio)
-    window.setProperty('Details.VideoResolution', video_res)
-    window.setProperty('Details.VideoCodec', video_codec)
-    window.setProperty('Details.AspectRatio', aspect_ratio)
-    window.setProperty('Details.HdrType', hdr_type)
-    window.setProperty('Details.AudioChannels', audio_channels)
-    window.setProperty('Details.AudioChannels.1', audio_channels_s1)
-    window.setProperty('Details.AudioChannels.2', audio_channels_s2)
-    window.setProperty('Details.AudioLanguage.1', audio_lang_s1)
-    window.setProperty('Details.AudioLanguage.2', audio_lang_s2)
-    window.setProperty('Details.AudioCodec.1', audio_codec_s1)
-    window.setProperty('Details.AudioCodec.2', audio_codec_s2)
-    window.setProperty('Details.Year', year)
-    window.setProperty('Details.EpisodeNumber', ep_number)
-    window.setProperty('Details.EpisodePremiere', ep_premiere)
-    window.setProperty('Details.NumberOfEpisodes', num_episodes)
-    window.setProperty('Details.Artist', artist)
-    window.setProperty('Details.Duration', duration)
-    window.setProperty('Details.Mpaa', mpaa)
-    window.setProperty('Details.Status', status)
-    window.setProperty('Details.Genre', genre)
-    window.setProperty('Details.TrackNumber', track_number)
-    window.setProperty('Details.EpisodesRemaining', eps_remaining)
-    window.setProperty('Details.PercentagePlayed', perc_played)
-    window.setProperty('Details.TimeRemaining', time_remaining)
-    window.setProperty('Details.Plot', plot)
-    window.setProperty('Details.Director', director)
-    window.setProperty('Details.Writer', writer)
-    window.setProperty('Details.FilePath', filepath)
-    window.setProperty('Details.Clearlogo', clearlogo)
-    window.setProperty('Details.Blur', blur)
-    window.setProperty('Details.Contrast', contrast)
-    window.setProperty('Details.Fanart', fanart)
-    window.setProperty('Details.Thumb', xbmc.getInfoLabel(f"{item_ref}.Art(thumb)"))
-    window.setProperty('Details.Watched', watched)
-    window.setProperty('Details.AllNew', all_new)
-    window.setProperty('Details.HasEngSubs', has_eng_sub)
-    window.setProperty('Details.HasItaSubs', has_ita_sub)
+    # Set properties (only if we're still working on the same item).
+    current = window.getProperty('Details.DBID')
+    if current == itemid:
+        window.setProperty('Details.ItemType', itemtype)
+        window.setProperty('Details.Title', title)
+        window.setProperty('Details.Title2', title2)
+        window.setProperty('Details.Studio', studio)
+        window.setProperty('Details.VideoResolution', video_res)
+        window.setProperty('Details.VideoCodec', video_codec)
+        window.setProperty('Details.AspectRatio', aspect_ratio)
+        window.setProperty('Details.HdrType', hdr_type)
+        window.setProperty('Details.AudioChannels', audio_channels)
+        window.setProperty('Details.AudioChannels.1', audio_channels_s1)
+        window.setProperty('Details.AudioChannels.2', audio_channels_s2)
+        window.setProperty('Details.AudioLanguage.1', audio_lang_s1)
+        window.setProperty('Details.AudioLanguage.2', audio_lang_s2)
+        window.setProperty('Details.AudioCodec.1', audio_codec_s1)
+        window.setProperty('Details.AudioCodec.2', audio_codec_s2)
+        window.setProperty('Details.Year', year)
+        window.setProperty('Details.EpisodeNumber', ep_number)
+        window.setProperty('Details.EpisodePremiere', ep_premiere)
+        window.setProperty('Details.NumberOfEpisodes', num_episodes)
+        window.setProperty('Details.Artist', artist)
+        window.setProperty('Details.Duration', duration)
+        window.setProperty('Details.Mpaa', mpaa)
+        window.setProperty('Details.Status', status)
+        window.setProperty('Details.Genre', genre)
+        window.setProperty('Details.TrackNumber', track_number)
+        window.setProperty('Details.EpisodesRemaining', eps_remaining)
+        window.setProperty('Details.PercentagePlayed', perc_played)
+        window.setProperty('Details.TimeRemaining', time_remaining)
+        window.setProperty('Details.Plot', plot)
+        window.setProperty('Details.Director', director)
+        window.setProperty('Details.Writer', writer)
+        window.setProperty('Details.FilePath', filepath)
+        window.setProperty('Details.Clearlogo', clearlogo)
+        window.setProperty('Details.Blur', blur)
+        window.setProperty('Details.Contrast', colors['legacy_contrast'])#todo: fix
+        window.setProperty('Details.Fanart', fanart)
+        window.setProperty('Details.Thumb', xbmc.getInfoLabel(f"{item_ref}.Art(thumb)"))
+        window.setProperty('Details.Watched', watched)
+        window.setProperty('Details.AllNew', all_new)
+        window.setProperty('Details.HasEngSubs', has_eng_sub)
+        window.setProperty('Details.HasItaSubs', has_ita_sub)
+        window.setProperty('Colors.Accent.Foreground', colors['accent'])
+        window.setProperty('Colors.Contrast.Foreground', colors['contrast'])
 
     # If the container is showing the list of episodes of a season, compute previous
     # and next season path for navigation from videonav.
@@ -521,9 +541,14 @@ def toggle_watched(item_type, itemid, watched):
 # the list to the actual episode. This function should be called by the timer
 # when the list is done loading.
 def set_active_episode():
+    # First of all, signal to details renderer that no update needs to run for the time being.
+    window = xbmcgui.Window(10000)
+    window.setProperty('Details.DoNotProcess', 'true')
+
     showid = -1
     season = -1
     episode = -1
+    time.sleep(2)
 
     # Retrive TV show ID, season and episode DBID from window properties.
     try :
@@ -576,6 +601,9 @@ def set_active_episode():
                 try: selected = int(xbmc.getInfoLabel('Container(501).ListItem.DBID'))
                 except: break
         except: pass
+
+    # Activate processing of details.
+    window.clearProperty('Details.DoNotProcess')
 
     # Set window property to show the list (give time for animation to complete).
     time.sleep(0.2)
@@ -794,19 +822,19 @@ def apply_customizations():
             ])
 
 # Clear custom cache (blur bg, cropped clearlogos, themes).
-def clear_custom_cache():
+def clear_custom_cache(type = None):
     # Retrieve folders. If found, delete them.
     blur_folder = xbmcvfs.translatePath('special://temp/temp/canvas.blur/')
     clearlogo_folder = xbmcvfs.translatePath('special://temp/temp/canvas.clearlogo/')
     theme_folder = xbmcvfs.translatePath('special://temp/temp/canvas.theme/')
 
-    if os.path.exists(blur_folder):
+    if os.path.exists(blur_folder) and (type is None or type == 'blur'):
         xbmc.log(f"Removing {blur_folder}", xbmc.LOGINFO)
         shutil.rmtree(blur_folder)
-    if os.path.exists(clearlogo_folder):
+    if os.path.exists(clearlogo_folder) and (type is None or type == 'clearlogo'):
         xbmc.log(f"Removing {clearlogo_folder}", xbmc.LOGINFO)
         shutil.rmtree(clearlogo_folder)
-    if os.path.exists(theme_folder):
+    if os.path.exists(theme_folder) and (type is None or type == 'theme'):
         xbmc.log(f"Removing {theme_folder}", xbmc.LOGINFO)
         shutil.rmtree(theme_folder)
 
@@ -820,7 +848,8 @@ if __name__ == '__main__':
             apply_customizations()
         # Clear custom cache.
         elif method == 'clear_custom_cache':
-            clear_custom_cache()
+            if len(sys.argv) > 2: clear_custom_cache(sys.argv[2])
+            else: clear_custom_cache()
         
         # Get info from player media for skin usage.
         elif method == 'populate_listitem_info_from_player':
@@ -829,9 +858,12 @@ if __name__ == '__main__':
         elif method == 'populate_listitem_info_from_listitem':
             populate_listitem_info_from_listitem(sys.argv[2])
         # Get background info for music player.
-        elif method == 'get_musicplayer_bg_info':
-            get_musicplayer_bg_info(sys.argv[2])
-       
+        elif method == 'populate_musicplayer_bg_info':
+            populate_musicplayer_bg_info(sys.argv[2])
+        # Reset window properties about colors to defaults.
+        elif method == 'reset_colors':
+            reset_colors()
+
         # Clear custom listitem properties on home used for details.
         elif method == 'clear_listitem_properties':
             clear_listitem_properties()

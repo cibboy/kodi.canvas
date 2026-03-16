@@ -59,9 +59,9 @@
 				<align>center</align>
 				<label>$PARAM[label]</label>
 				<texturenofocus colordiffuse="BACKGROUND_OPAQUE20" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturenofocus>
-				<textureradioonfocus colordiffuse="FOREGROUND_ACCENT_ALT">$PARAM[icon]</textureradioonfocus>
-				<textureradioonnofocus colordiffuse="FOREGROUND_ACCENT">$PARAM[icon]</textureradioonnofocus>
-				<textureradioondisabled colordiffuse="FOREGROUND_ACCENT">$PARAM[icon]</textureradioondisabled>
+				<textureradioonfocus colordiffuse="FG_ACCENT_ALT">$PARAM[icon]</textureradioonfocus>
+				<textureradioonnofocus colordiffuse="$VAR[ColorsAccentForeground]">$PARAM[icon]</textureradioonnofocus>
+				<textureradioondisabled colordiffuse="$VAR[ColorsAccentForeground]">$PARAM[icon]</textureradioondisabled>
 				<textureradioofffocus colordiffuse="FOREGROUND_INVERSE">$PARAM[icon]</textureradioofffocus>
 				<textureradiooffnofocus colordiffuse="FOREGROUND_OPAQUE75">$PARAM[icon]</textureradiooffnofocus>
 				<textureradiooffdisabled colordiffuse="FOREGROUND_OPAQUE35">$PARAM[icon]</textureradiooffdisabled>
@@ -268,7 +268,7 @@
 				<visible>Control.HasFocus($PARAM[id]) + $PARAM[visible]</visible>
 				<width>WIDTH_MEDIANAV_ACTIONBUTTON_START</width>
 				<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
-				<texture colordiffuse="FOREGROUND_ACCENT">1080p/controls/round-button-extended-start.png</texture>
+				<texture colordiffuse="$VAR[ColorsAccentForeground]">1080p/controls/round-button-extended-start.png</texture>
 			</control>
 			<!-- Icon when focused -->
 			<control type="image" id="92$PARAM[id]">
@@ -285,7 +285,7 @@
 				<width>auto</width>
 				<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
 
-				<texturefocus colordiffuse="FOREGROUND_ACCENT">1080p/controls/round-button-middle.png</texturefocus>
+				<texturefocus colordiffuse="$VAR[ColorsAccentForeground]">1080p/controls/round-button-middle.png</texturefocus>
 				<textcolor>FOREGROUND_OPAQUE90</textcolor>
 				<font>BODY2_STRONG</font>
 				<focusedcolor>BACKGROUND_OPAQUE75</focusedcolor>
@@ -299,7 +299,7 @@
 				<visible>Control.HasFocus($PARAM[id]) + $PARAM[visible]</visible>
 				<width>WIDTH_MEDIANAV_ACTIONBUTTON_END</width>
 				<height>HEIGHT_MEDIANAV_ACTIONBUTTON</height>
-				<texture colordiffuse="FOREGROUND_ACCENT" flipx="true">1080p/controls/round-button-start.png</texture>
+				<texture colordiffuse="$VAR[ColorsAccentForeground]" flipx="true">1080p/controls/round-button-start.png</texture>
 			</control>
 		</definition>
 	</include>

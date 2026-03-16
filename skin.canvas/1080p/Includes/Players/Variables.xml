@@ -31,7 +31,7 @@
 	</variable>
 	<!-- Progress nib color -->
 	<variable name="PlayerOSDProgressNibColor">
-		<value condition="String.IsEqual(Window(videoosd).Property(FrameAdvance),true)">FOREGROUND_ACCENT</value>
+		<value condition="String.IsEqual(Window(videoosd).Property(FrameAdvance),true)">$VAR[ColorsAccentForeground]</value>
 		<value>HIGHLIGHT</value>
 	</variable>
 	

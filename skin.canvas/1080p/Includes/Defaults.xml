@@ -6,7 +6,7 @@
 		<font>BODY</font>
 		<scroll>false</scroll>
 		<textcolor>FOREGROUND</textcolor>
-		<selectedcolor>FOREGROUND_ACCENT</selectedcolor>
+		<selectedcolor>$VAR[ColorsAccentForeground]</selectedcolor>
 		<disabledcolor>FOREGROUND_OPAQUE35</disabledcolor>
 	</default>
 
@@ -54,10 +54,10 @@
 		<height>HEIGHT_BUTTON_DEFAULT</height>
 		<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
 		<texturenofocus />
-		<textureradioonfocus colordiffuse="FOREGROUND_ACCENT_ALT">1080p/controls/check-on.png</textureradioonfocus>
+		<textureradioonfocus colordiffuse="FG_ACCENT_ALT">1080p/controls/check-on.png</textureradioonfocus>
 		<textureradioonnofocus colordiffuse="FOREGROUND_OPAQUE35">1080p/controls/check-on.png</textureradioonnofocus>
 		<textureradioondisabled colordiffuse="FOREGROUND_INVERSE_OPAQUE75">1080p/controls/check-on.png</textureradioondisabled>
-		<textureradioofffocus colordiffuse="FOREGROUND_ACCENT_ALT">1080p/controls/check-off.png</textureradioofffocus>
+		<textureradioofffocus colordiffuse="FG_ACCENT_ALT">1080p/controls/check-off.png</textureradioofffocus>
 		<textureradiooffnofocus colordiffuse="FOREGROUND_OPAQUE35">1080p/controls/check-off.png</textureradiooffnofocus>
 		<textureradiooffdisabled colordiffuse="FOREGROUND_INVERSE_OPAQUE75">1080p/controls/check-off.png</textureradiooffdisabled>
 		<font>BUTTON</font>
@@ -80,10 +80,10 @@
 		<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
 		<texturenofocus />
 		<textureup colordiffuse="FOREGROUND_INVERSE">1080p/controls/spin-up.png</textureup>
-		<textureupfocus colordiffuse="FOREGROUND_ACCENT_ALT">1080p/controls/spin-up.png</textureupfocus>
+		<textureupfocus colordiffuse="FG_ACCENT_ALT">1080p/controls/spin-up.png</textureupfocus>
 		<textureupdisabled colordiffuse="FOREGROUND_OPAQUE35">1080p/controls/spin-up.png</textureupdisabled>
 		<texturedown colordiffuse="FOREGROUND_INVERSE" flipy="true">1080p/controls/spin-up.png</texturedown>
-		<texturedownfocus colordiffuse="FOREGROUND_ACCENT_ALT" flipy="true">1080p/controls/spin-up.png</texturedownfocus>
+		<texturedownfocus colordiffuse="FG_ACCENT_ALT" flipy="true">1080p/controls/spin-up.png</texturedownfocus>
 		<texturedowndisabled colordiffuse="FOREGROUND_OPAQUE35" flipy="true">1080p/controls/spin-up.png</texturedowndisabled>
 		<font>BUTTON</font>
 		<textcolor>FOREGROUND_OPAQUE75</textcolor>
@@ -108,7 +108,7 @@
 		<texturesliderbar colordiffuse="FOREGROUND_INVERSE" border="6">1080p/progress/bg.png</texturesliderbar>
 		<texturesliderbardisabled colordiffuse="FOREGROUND_OPAQUE35" border="6">1080p/progress/bg.png</texturesliderbardisabled>
 		<textureslidernib colordiffuse="FOREGROUND_OPAQUE50">1080p/progress/mid.png</textureslidernib>
-		<textureslidernibfocus colordiffuse="FOREGROUND_ACCENT">1080p/progress/mid.png</textureslidernibfocus>
+		<textureslidernibfocus colordiffuse="$VAR[ColorsAccentForeground]">1080p/progress/mid.png</textureslidernibfocus>
 		<textureslidernibdisabled colordiffuse="FOREGROUND_INVERSE_OPAQUE75">1080p/progress/mid.png</textureslidernibdisabled>
 		<font>BUTTON</font>
 		<textcolor>FOREGROUND_OPAQUE75</textcolor>
@@ -168,7 +168,7 @@
 		<width>10</width>
         <texturesliderbackground colordiffuse="FOREGROUND_OPAQUE10" border="4">1080p/controls/scrollbar-vertical-bg.png</texturesliderbackground>
         <texturesliderbar colordiffuse="FOREGROUND_DARKER" border="4">1080p/controls/scrollbar-vertical.png</texturesliderbar>
-		<texturesliderbarfocus colordiffuse="FOREGROUND_ACCENT" border="4">1080p/controls/scrollbar-vertical.png</texturesliderbarfocus>
+		<texturesliderbarfocus colordiffuse="$VAR[ColorsAccentForeground]" border="4">1080p/controls/scrollbar-vertical.png</texturesliderbarfocus>
         <textureslidernib/>
         <textureslidernibfocus/>
         <showonepage>false</showonepage>
@@ -179,7 +179,7 @@
 	<default type="progress">
 		<height>12</height>
 		<texturebg colordiffuse="BACKGROUND_OPAQUE50" border="6">1080p/progress/bg.png</texturebg>
-		<midtexture colordiffuse="FOREGROUND_ACCENT" border="6">1080p/progress/mid.png</midtexture>
+		<midtexture colordiffuse="$VAR[ColorsAccentForeground]" border="6">1080p/progress/mid.png</midtexture>
 	</default>
 
 	<!-- Ranges -->
