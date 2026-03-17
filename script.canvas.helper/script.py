@@ -16,13 +16,13 @@ def reset_colors(window = None):
     window.setProperty('Colors.Accent.Foreground.Default',DEFAULT_COLORS['accent'])
     window.setProperty('Colors.Accent.Foreground2.Default',DEFAULT_COLORS['accent2'])
     window.setProperty('Colors.Accent.AltForeground.Default',DEFAULT_COLORS['accent_alt'])
-    window.setProperty('Colors.Contrast.Foreground.Default',DEFAULT_COLORS['contrast_fg'])
-    window.setProperty('Colors.Contrast.Highlight.Default',DEFAULT_COLORS['contrast_highlight'])
+    window.setProperty('Colors.Contrast.Foreground.Default',DEFAULT_COLORS['contrast_fg_light'])
+    window.setProperty('Colors.Contrast.Highlight.Default',DEFAULT_COLORS['contrast_highlight_light'])
 
     window.setProperty('Colors.Accent.Foreground',DEFAULT_COLORS['accent'])
     window.setProperty('Colors.Accent.AltForeground',DEFAULT_COLORS['accent_alt'])
-    window.setProperty('Colors.Contrast.Foreground',DEFAULT_COLORS['contrast_fg'])
-    window.setProperty('Colors.Contrast.Highlight',DEFAULT_COLORS['contrast_highlight'])
+    window.setProperty('Colors.Contrast.Foreground',DEFAULT_COLORS['contrast_fg_light'])
+    window.setProperty('Colors.Contrast.Highlight',DEFAULT_COLORS['contrast_highlight_light'])
 
 # Returns a properly formatted string for the duration, according to requirements.
 def get_duration(item_ref, hours, minutes, seconds):
@@ -39,7 +39,7 @@ def get_duration(item_ref, hours, minutes, seconds):
         except: pass
     if minutes is True:
         try:
-            dur_m = xbmc.getInfoLabel(f"{item_ref}.Duration(m)")
+            dur_m = int(xbmc.getInfoLabel(f"{item_ref}.Duration(m)"))
             dur_mm = xbmc.getInfoLabel(f"{item_ref}.Duration(mm)")
             if dur_m > 0:
                 added_minutes = True

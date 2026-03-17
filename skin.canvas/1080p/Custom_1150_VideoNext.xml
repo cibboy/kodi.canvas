@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window type="window" id="1150">
-	<defaultcontrol always="true">1</defaultcontrol>
-	<onload condition="Integer.IsLess(Player.Progress,90)">PlayerControl(Stop)</onload>
-	<onload condition="Integer.IsLess(Player.Progress,90)">Back</onload>
-	<!-- Next episode info should be avaiable from onload on player. If available, focus on it -->
-	<onload condition="String.IsEqual(Window(home).Property(Player.NextItem.Present),true)">SetFocus(2)</onload>
+	<defaultcontrol always="true">2</defaultcontrol>
+	<onload condition="Integer.IsLess(Player.Progress,90) | Window.Previous(filemanager)">PlayerControl(Stop)</onload>
+	<onload condition="Integer.IsLess(Player.Progress,90) | Window.Previous(filemanager)">Back</onload>
+	<!-- Next episode info should be avaiable from onload on player -->
+	<onload>AlarmClock(focus_next,SetFocus(2),00:00:01,silent)</onload>
 
 	<controls>
 		<include content="Center169AspectRatio">
+
 			<!-- Background with blurred quadrants -->
 			<include content="BackgroundQuadrantBlur" />
 
@@ -116,6 +117,15 @@
 					</control>
 				</control>
 
+				<!-- Hidden button for playing next episode -->
+				<control type="button" id="2">
+					<visible allowhiddenfocus="true">false</visible>
+					<onback>PlayerControl(Stop)</onback>
+					<onback>ClearProperty(Player.Item.DBID,home)</onback>
+					<onclick>PlayMedia($INFO[Window(home).Property(Player.NextItem.File)])</onclick>
+					<onup>SetFocus(1)</onup>
+					<onfocus condition="!String.IsEqual(Window(home).Property(Player.NextItem.Present),true)">SetFocus(1)</onfocus>
+				</control>
 				<!-- Next video -->
 				<control type="group">
 					<visible>String.IsEqual(Window(home).Property(Player.NextItem.Present),true)</visible>
@@ -124,15 +134,6 @@
 					<right>PADDING_BASE</right>
 					<width>1250</width>
 					<height>HEIGHT_NEXTVIDEO_SECTION</height>
-
-					<!-- Hidden button for actions -->
-					<control type="button" id="2">
-						<visible allowhiddenfocus="true">false</visible>
-						<onback>PlayerControl(Stop)</onback>
-						<onback>ClearProperty(Player.Item.DBID,home)</onback>
-						<onclick>PlayMedia($INFO[Window(home).Property(Player.NextItem.File)])</onclick>
-						<onup>SetFocus(1)</onup>
-					</control>
 
 					<!-- Next episode label -->
 					<control type="label">
@@ -204,7 +205,7 @@
 
 						<!-- TV show episode title -->
 						<control type="label">
-							<width>1000</width>
+							<width>650</width>
 							<height>HEIGHT_DETAILS_INFOLINE</height>
 							<aligny>center</aligny>
 							<font>SUBTITLE</font>

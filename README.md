@@ -1,11 +1,3 @@
-Wishlist:
-- TV show theme: play once (or in a loop with some pause between plays)
-- Try to capture more events where Kodi is idiotic and tries to navigate the media library not from setting and move to home
-- Preload next episode in player, so play next screen shows it immediately
-- Hide play icon in play next when not highlighted
-- BUG: play something with clearlogo (open OSD to be sure), then play something from file manager: previous clearlogo is used in OSD (might be the one from home, though)
-- BUG: play something from file manager, use back, video continues in background because there's no onload trapping to move to "play next" (which stops if < 90%)
-
 TODO:
 - Version bump to 2.0.0
 - continue watching should consider items watched but also with time left
@@ -16,11 +8,11 @@ TODO:
 - provare a usare wcag invece di apca per il contrast, e testare diversi valori di quantization
 - MediaNav/Variables.xml > AlbumNavContrastButtonIconColor/MediaNavContrastButtonBackgroundColor/MediaNavContrastButtonIconColor da gestire per migliore contrasto (si porta dietro espressioni in Background/Expression.xml)
 - goto episode in custom medianav should not re-run when coming back from player (or, better, should run only if coming from home, so use window property set/reset on home?)
+- search "todo"
+- remove xbmc.log()
 
 BUGS:
-- medianav for movies not working
 - previous/next season from episode nav not working when there are no more episodes (it shows the indicator, and the action moves to a ?random? season)
-- no limit on title for play next (on long titles it can overlap image)
 
 Guidelines:
 https://medium.com/you-i-tv/designing-for-10ft-ceeb202c1315
