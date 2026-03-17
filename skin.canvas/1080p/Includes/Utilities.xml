@@ -171,23 +171,29 @@
 	<variable name="ColorsAccentForegroundOpaque75">
 		<value>BF$INFO[Window(home).Property(Colors.Accent.Foreground)]</value>
 	</variable>
-	<variable name="ColorsAccentForegroundOpaque75">
+	<variable name="ColorsAccentForegroundOpaque50">
 		<value>7F$INFO[Window(home).Property(Colors.Accent.Foreground)]</value>
+	</variable>
+	<variable name="ColorsAccentForegroundDefault">
+		<value>FF$INFO[Window(home).Property(Colors.Accent.Foreground.Default)]</value>
+	</variable>
+	<variable name="ColorsAccentForeground2Default">
+		<value>BF$INFO[Window(home).Property(Colors.Accent.Foreground2.Default)]</value>
+	</variable>
+	<variable name="ColorsAccentAltForeground">
+		<value>FF$INFO[Window(home).Property(Colors.Accent.AltForeground)]</value>
+	</variable>
+	<variable name="ColorsAccentAltForegroundOpaque75">
+		<value>BF$INFO[Window(home).Property(Colors.Accent.AltForeground)]</value>
 	</variable>
 	<variable name="ColorsContrastForeground">
 		<!-- Force light when home menu has focus (there is a darkening layer) -->
 		<value condition="$EXP[HasHomeMenuFocus] | $EXP[IsVideoPlayerVisible] | $EXP[IsMusicPlayerVisible]">FF$INFO[Window(home).Property(Colors.Contrast.Foreground.Default)]</value>
 		<value>FF$INFO[Window(home).Property(Colors.Contrast.Foreground)]</value>
 	</variable>
-	<!--todo-->
 	<variable name="ContrastTextHighlightColor">
 		<!-- Force light when home menu has focus (there is a darkening layer) -->
-		<value condition="$EXP[HasHomeMenuFocus] | $EXP[IsVideoPlayerVisible] | $EXP[IsMusicPlayerVisible]">HIGHLIGHT_CONTRAST_LIGHT</value>
-		<!-- Light color -->
-		<value condition="$EXP[IsBestTextColorLight]">HIGHLIGHT_CONTRAST_LIGHT</value>
-		<!-- Dark color -->
-		<value condition="$EXP[IsBestTextColorDark]">HIGHLIGHT_CONTRAST_DARK</value>
-		<!-- Fallback -->
-		<value>HIGHLIGHT_CONTRAST_LIGHT</value>
+		<value condition="$EXP[HasHomeMenuFocus] | $EXP[IsVideoPlayerVisible] | $EXP[IsMusicPlayerVisible]">FF$INFO[Window(home).Property(Colors.Contrast.Highlight.Default)]</value>
+		<value>FF$INFO[Window(home).Property(Colors.Contrast.Highlight)]</value>
 	</variable>
 </includes>

@@ -59,7 +59,7 @@
 				<align>center</align>
 				<label>$PARAM[label]</label>
 				<texturenofocus colordiffuse="BACKGROUND_OPAQUE20" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturenofocus>
-				<textureradioonfocus colordiffuse="FG_ACCENT_ALT">$PARAM[icon]</textureradioonfocus>
+				<textureradioonfocus colordiffuse="$VAR[ColorsAccentAltForeground]">$PARAM[icon]</textureradioonfocus>
 				<textureradioonnofocus colordiffuse="$VAR[ColorsAccentForeground]">$PARAM[icon]</textureradioonnofocus>
 				<textureradioondisabled colordiffuse="$VAR[ColorsAccentForeground]">$PARAM[icon]</textureradioondisabled>
 				<textureradioofffocus colordiffuse="FOREGROUND_INVERSE">$PARAM[icon]</textureradioofffocus>

@@ -339,7 +339,7 @@
 
 	<!-- Landscape info (clearlogo or TV show title) -->
 	<include name="ArtListsLandscapeInfo">
-		<param name="textcolor">HIGHLIGHT_CONTRAST_LIGHT</param>
+		<param name="textcolor">$VAR[ContrastTextHighlightColor]</param>
 
 		<definition>
 			<control type="group">
@@ -370,8 +370,8 @@
 	<include name="ArtListsAlbumInfo">
 		<param name="info1"></param>
 		<param name="info2"></param>
-		<param name="info1_color">HIGHLIGHT_CONTRAST_LIGHT</param>
-		<param name="info2_color">FOREGROUND_CONTRAST_LIGHT</param>
+		<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
+		<param name="info2_color">$VAR[ColorsContrastForeground]</param>
 		<param name="scroll">false</param>
 
 		<definition>
@@ -410,8 +410,8 @@
 	<include name="ArtListsPersonInfo">
 		<param name="info1"></param>
 		<param name="info2"></param>
-		<param name="info1_color">HIGHLIGHT_CONTRAST_LIGHT</param>
-		<param name="info2_color">FOREGROUND_CONTRAST_LIGHT</param>
+		<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
+		<param name="info2_color">$VAR[ColorsContrastForeground]</param>
 		<param name="scroll">false</param>
 
 		<definition>
@@ -512,7 +512,7 @@
 		<param name="dark_focused">false</param>
 		<param name="condition">true</param>
 		<param name="show_info">false</param>
-		<param name="textcolor">HIGHLIGHT_CONTRAST_LIGHT</param>
+		<param name="textcolor">$VAR[ContrastTextHighlightColor]</param>
 		<param name="get_additional_data">true</param>
 		<param name="listid"></param>
 
@@ -566,8 +566,8 @@
 		<param name="condition">true</param>
 		<param name="info1"></param>
 		<param name="info2"></param>
-		<param name="info1_color">HIGHLIGHT_CONTRAST_LIGHT</param>
-		<param name="info2_color">FOREGROUND_CONTRAST_LIGHT</param>
+		<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
+		<param name="info2_color">$VAR[ColorsContrastForeground]</param>
 		<param name="get_additional_data">true</param>
 		<param name="listid"></param>
 
@@ -627,8 +627,8 @@
 		<param name="condition">true</param>
 		<param name="info1"></param>
 		<param name="info2"></param>
-		<param name="info1_color">HIGHLIGHT_CONTRAST_LIGHT</param>
-		<param name="info2_color">FOREGROUND_CONTRAST_LIGHT</param>
+		<param name="info1_color">$VAR[ContrastTextHighlightColor]</param>
+		<param name="info2_color">$VAR[ColorsContrastForeground]</param>
 
 		<definition>
 			<itemlayout width="WIDTH_PERSON_LIST_ITEM_CONTAINER" height="HEIGHT_PERSON_LIST_ITEM_CONTAINER" condition="$PARAM[condition]">
@@ -706,7 +706,7 @@
 	<include name="ListLabel">
 		<param name="id"></param>
 		<param name="label"></param>
-		<param name="textcolor">FOREGROUND_CONTRAST_LIGHT</param>
+		<param name="textcolor">$VAR[ColorsContrastForeground]</param>
 
 		<definition>
 			<!-- Label -->

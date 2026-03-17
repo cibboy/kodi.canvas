@@ -23,7 +23,7 @@
 			<height>SCREEN_HEIGHT</height>
 			<right>0</right>
 
-			<texture colordiffuse="$VAR[ColorsAccentForeground]">1080p/diffuse/splash.png</texture>
+			<texture colordiffuse="$VAR[ColorsAccentForegroundDefault]">1080p/diffuse/splash.png</texture>
 		</control>
 		<!-- Layer 2 -->
 		<control type="image">
@@ -34,7 +34,7 @@
 			<height>SCREEN_HEIGHT</height>
 			<right>0</right>
 
-			<texture colordiffuse="FOREGROUNDACCENT2">1080p/diffuse/splash.png</texture>
+			<texture colordiffuse="$VAR[ColorsAccentForeground2Default]">1080p/diffuse/splash.png</texture>
 		</control>
 	</include>
 

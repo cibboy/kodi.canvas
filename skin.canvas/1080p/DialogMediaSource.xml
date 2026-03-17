@@ -51,7 +51,7 @@
 									<param name="icon_type_circle">true</param>
 									<param name="icon">$INFO[ListItem.Icon]</param>
 									<param name="text_color">FOREGROUND_INVERSE</param>
-									<param name="text_color_selected">FG_ACCENT_ALT</param>
+									<param name="text_color_selected">$VAR[ColorsAccentAltForeground]</param>
 									<param name="text">$INFO[ListItem.Label]</param>
 									<param name="single_line">true</param>
 									<param name="scroll">true</param>

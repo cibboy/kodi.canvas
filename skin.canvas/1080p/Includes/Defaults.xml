@@ -54,10 +54,10 @@
 		<height>HEIGHT_BUTTON_DEFAULT</height>
 		<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
 		<texturenofocus />
-		<textureradioonfocus colordiffuse="FG_ACCENT_ALT">1080p/controls/check-on.png</textureradioonfocus>
+		<textureradioonfocus colordiffuse="$VAR[ColorsAccentAltForeground]">1080p/controls/check-on.png</textureradioonfocus>
 		<textureradioonnofocus colordiffuse="FOREGROUND_OPAQUE35">1080p/controls/check-on.png</textureradioonnofocus>
 		<textureradioondisabled colordiffuse="FOREGROUND_INVERSE_OPAQUE75">1080p/controls/check-on.png</textureradioondisabled>
-		<textureradioofffocus colordiffuse="FG_ACCENT_ALT">1080p/controls/check-off.png</textureradioofffocus>
+		<textureradioofffocus colordiffuse="$VAR[ColorsAccentAltForeground]">1080p/controls/check-off.png</textureradioofffocus>
 		<textureradiooffnofocus colordiffuse="FOREGROUND_OPAQUE35">1080p/controls/check-off.png</textureradiooffnofocus>
 		<textureradiooffdisabled colordiffuse="FOREGROUND_INVERSE_OPAQUE75">1080p/controls/check-off.png</textureradiooffdisabled>
 		<font>BUTTON</font>
@@ -80,10 +80,10 @@
 		<texturefocus colordiffuse="BACKGROUND_INVERSE_OPAQUE90" border="SIZE_ITEM_SHADOW_ART_DOUBLE">1080p/controls/button.png</texturefocus>
 		<texturenofocus />
 		<textureup colordiffuse="FOREGROUND_INVERSE">1080p/controls/spin-up.png</textureup>
-		<textureupfocus colordiffuse="FG_ACCENT_ALT">1080p/controls/spin-up.png</textureupfocus>
+		<textureupfocus colordiffuse="$VAR[ColorsAccentAltForeground]">1080p/controls/spin-up.png</textureupfocus>
 		<textureupdisabled colordiffuse="FOREGROUND_OPAQUE35">1080p/controls/spin-up.png</textureupdisabled>
 		<texturedown colordiffuse="FOREGROUND_INVERSE" flipy="true">1080p/controls/spin-up.png</texturedown>
-		<texturedownfocus colordiffuse="FG_ACCENT_ALT" flipy="true">1080p/controls/spin-up.png</texturedownfocus>
+		<texturedownfocus colordiffuse="$VAR[ColorsAccentAltForeground]" flipy="true">1080p/controls/spin-up.png</texturedownfocus>
 		<texturedowndisabled colordiffuse="FOREGROUND_OPAQUE35" flipy="true">1080p/controls/spin-up.png</texturedowndisabled>
 		<font>BUTTON</font>
 		<textcolor>FOREGROUND_OPAQUE75</textcolor>

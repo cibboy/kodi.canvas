@@ -12,10 +12,13 @@ Wishlist:
 TODO:
 - Version bump to 2.0.0
 - continue watching should consider items watched but also with time left
-- variable accent color needs some work, especially for legibility of text in tags
+- variable accent color needs some work, especially for legibility of text in tags (tune color boost)
+- variable accent alt color needs testing for color boost tuning
+- color boost: if starting low sat, keep low sat but increase luminosity?
 - could use some VERY light tint (of accent color) over blur bg
+- provare a usare wcag invece di apca per il contrast, e testare diversi valori di quantization
+- MediaNav/Variables.xml > AlbumNavContrastButtonIconColor/MediaNavContrastButtonBackgroundColor/MediaNavContrastButtonIconColor da gestire per migliore contrasto (si porta dietro espressioni in Background/Expression.xml)
 - goto episode in custom medianav should not re-run when coming back from player (or, better, should run only if coming from home, so use window property set/reset on home?)
-- Quando si va in medianav episodi, anche se la lista è nascosta finché non ha finito la selezione dell'episodio corretto, i dettagli dell'episodio sbagliato potrebbero essere caricarti e visualizzati, soprattutto su Shield che è più lento.
 
 BUGS:
 - medianav for movies not working

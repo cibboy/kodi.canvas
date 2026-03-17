@@ -20,20 +20,6 @@
 	<color name="FOREGROUND_INVERSE_OPAQUE20">33313131</color>
 	<color name="FOREGROUND_INVERSE_OPAQUE10">1A313131</color>
 
-	<color name="FOREGROUND_CONTRAST_LIGHT">FFBEBEBE</color>
-	<color name="FOREGROUND_CONTRAST_DARK">FF212121</color>
-	<color name="HIGHLIGHT_CONTRAST_LIGHT">FFF1F1F1</color>
-	<color name="HIGHLIGHT_CONTRAST_DARK">FF0E0E0E</color>
-
-	<color name="FG_ACCENT_ALT">FF7B5C1B</color>
-	<color name="FG_ACCENT_ALT_OPAQUE90">FF7B5C1B</color>
-	<color name="FG_ACCENT_ALT_OPAQUE75">BF7B5C1B</color>
-	<color name="FG_ACCENT_ALT_OPAQUE50">7F7B5C1B</color>
-	<color name="FG_ACCENT_ALT_OPAQUE35">597B5C1B</color>
-	<color name="FG_ACCENT_ALT_OPAQUE20">337B5C1B</color>
-	<color name="FG_ACCENT_ALT_OPAQUE10">1A7B5C1B</color>
-	<color name="FOREGROUNDACCENT2">BFB67F09</color>
-
 	<color name="FOREGROUND_ERROR">FF992A2A</color>
 
 	<!-- Backgrounds -->

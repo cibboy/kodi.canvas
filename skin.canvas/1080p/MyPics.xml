@@ -42,7 +42,7 @@
 						<height>HEIGHT_DETAILS_TITLE</height>
 						<aligny>center</aligny>
 						<font>TITLE1</font>
-						<textcolor>HIGHLIGHT_CONTRAST_LIGHT</textcolor>
+						<textcolor>$VAR[ContrastTextHighlightColor]</textcolor>
 						<label>Pictures</label>
 					</control>
 
@@ -63,7 +63,7 @@
 								<height>FONT_SIZE_TITLE3</height>
 								<aligny>center</aligny>
 								<font>SUBTITLE</font>
-								<textcolor>HIGHLIGHT_CONTRAST_LIGHT</textcolor>
+								<textcolor>$VAR[ContrastTextHighlightColor]</textcolor>
 								<label>$INFO[Container.FolderName]</label>
 							</control>
 							<!-- Number of items -->
@@ -73,7 +73,7 @@
 								<height>FONT_SIZE_TITLE3</height>
 								<aligny>center</aligny>
 								<font>CAPTION_STRONG</font>
-								<textcolor>HIGHLIGHT_CONTRAST_LIGHT</textcolor>
+								<textcolor>$VAR[ContrastTextHighlightColor]</textcolor>
 								<label>$INFO[Container.NumItems,(, pictures)]</label>
 							</control>
 						</control>

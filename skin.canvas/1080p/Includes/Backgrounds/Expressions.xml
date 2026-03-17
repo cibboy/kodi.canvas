@@ -2,11 +2,11 @@
 <includes>
 	<!-- Is the most suited text color again blur background light/dark? -->
 	<expression name="IsBestTextColorLight">
-		[Window.IsActive(12006) + !String.IsEmpty(Window(12006).Property(Details.Contrast)) + String.IsEqual(Window(12006).Property(Details.Contrast),light)] |
+		[Window.IsActive(12006) + !String.IsEmpty(Window(12006).Property(MusicPlayer.Contrast)) + String.IsEqual(Window(12006).Property(MusicPlayer.Contrast),light)] |
 		!String.IsEmpty(Window(home).Property(Details.Contrast)) + String.IsEqual(Window(home).Property(Details.Contrast),light)
 	</expression>
 	<expression name="IsBestTextColorDark">
-		[Window.IsActive(12006) + !String.IsEmpty(Window(12006).Property(Details.Contrast)) + String.IsEqual(Window(12006).Property(Details.Contrast),dark)] |
+		[Window.IsActive(12006) + !String.IsEmpty(Window(12006).Property(MusicPlayer.Contrast)) + String.IsEqual(Window(12006).Property(MusicPlayer.Contrast),dark)] |
 		!String.IsEmpty(Window(home).Property(Details.Contrast)) + String.IsEqual(Window(home).Property(Details.Contrast),dark)
 	</expression>
 </includes>

@@ -8,9 +8,12 @@ from PIL import Image, ImageFilter, ImageColor, ImageChops
 # Default colors.
 DEFAULT_COLORS = {
     'accent': 'E5A00D',
-    'contrast': 'DEDEDE',
-    'contrast_light': 'DEDEDE',
-    'contrast_dark': '212121'
+    'accent2': 'B67F09',
+    'accent_alt': '7B5C1B',
+    'contrast_fg_light': 'DEDEDE',
+    'contrast_highlight_light': 'F1F1F1',
+    'contrast_fg_dark': '212121',
+    'contrast_highlight_dark': '0E0E0E'
 }
 
 # Converts an sRGB channel (0-255) to linear light (0-1).
@@ -72,12 +75,13 @@ def get_best_contrast_color(img):
 
     # Get an RGB array of candidate text colors.
     candidates = {
-        "light": ImageColor.getrgb(f"#{DEFAULT_COLORS['contrast_light']}"),
-        "dark": ImageColor.getrgb(f"#{DEFAULT_COLORS['contrast_dark']}")
+        "light": ImageColor.getrgb(f"#{DEFAULT_COLORS['contrast_fg_light']}"),
+        "dark": ImageColor.getrgb(f"#{DEFAULT_COLORS['contrast_fg_dark']}")
     }
 
     # Darken the image, as the final background will have an overlay
-    pixels = list(darken_subtract(img, 0).getdata())
+    #pixels = list(darken_subtract(img, 0).getdata())
+    pixels = list(img.getdata())
     # Get contrast ratios for each candidate, using different metrics.
     quantile = 0.2
     scores = {}
@@ -91,7 +95,7 @@ def get_best_contrast_color(img):
     best = max(scores.items(), key=lambda kv: kv[1])
 
     # Return best color.
-    return candidates[best[0]]
+    return best[0]
 
 # Searches the required image, returns its full path and potential edited cache path.
 def get_image(imgPath):
@@ -309,37 +313,70 @@ def get_blurred(imgPath):
         have_color = xbmcvfs.exists(color_file)
 
         contrast = None
+        contrast_fg_hex = None
+        contrast_highlight_hex = None
         accent = None
+        accent_hex = None
 
         # Load info from color file, if present.
         if have_color:
             with open(color_file) as f:
                 colors = json.load(f)
                 contrast = colors.get('contrast', None)
-                accent = colors.get('accent', None)
+                accent_hex = colors.get('accent', None)
+                accent = ImageColor.getrgb(f"#{accent_hex}")
 
         # If we don't have contrast/accent information, or we are missing the blur file, compute them.
         if accent is None or contrast is None or not have_blur:
             # Extract accent as dominant color of resized fanart.
             img = open_usable_image(full_path, True)
-            accent = boost_color(dominant_color_perceptual(img))
-            accent = '%02x%02x%02x' % accent
+            accent = dominant_color_perceptual(img)
+            accent_hex = '%02x%02x%02x' % accent
             # Compute best text contrast from blurred variant.
             img = img.filter(ImageFilter.GaussianBlur(radius=float(15)))
             contrast = get_best_contrast_color(img)
-            contrast = '%02x%02x%02x' % contrast
 
             # Save blurred variant.
             img.save(blur_file, 'JPEG')
             # Save color info.
             with open(color_file, 'w') as f:
-                json.dump({'contrast': contrast, 'accent': accent}, f)
+                json.dump({'contrast': contrast, 'accent': accent_hex}, f)
 
-        legacy = 'light'
-        if contrast == DEFAULT_COLORS['contrast_dark']: legacy = 'dark'
-        return (blur_file, {'contrast': contrast, 'accent': accent, 'legacy_contrast': legacy})
+        # Tune accent.
+        accent_fg = boost_color(accent)
+        accent_alt = boost_color(accent, min_light=0.3, max_light=0.45)
+        accent_fg_hex = '%02x%02x%02x' % accent_fg
+        accent_alt_hex = '%02x%02x%02x' % accent_alt
+
+        # Real contrast colors.
+        if contrast == 'light':
+            contrast_fg_hex = DEFAULT_COLORS['contrast_fg_light']
+            contrast_highlight_hex = DEFAULT_COLORS['contrast_highlight_light']
+        else:
+            contrast_fg_hex = DEFAULT_COLORS['contrast_fg_dark']
+            contrast_highlight_hex = DEFAULT_COLORS['contrast_highlight_dark']
+
+        return (
+            blur_file,
+            {
+                'contrast': contrast,
+                'contrast_fg': contrast_fg_hex,
+                'contrast_highlight': contrast_highlight_hex,
+                'accent': accent_fg_hex,
+                'accent_alt': accent_alt_hex
+            }
+        )
     except:
-        return ('', {'contrast': DEFAULT_COLORS['contrast'], 'accent': DEFAULT_COLORS['accent'], 'legacy_contrast': 'light'})
+        return (
+            '',
+            {
+                'contrast': 'light',
+                'contrast_fg': DEFAULT_COLORS['contrast_fg_light'],
+                'contrast_highlight': DEFAULT_COLORS['contrast_highlight_light'],
+                'accent': DEFAULT_COLORS['accent'],
+                'accent_alt': DEFAULT_COLORS['accent_alt']
+            }
+        )
 
 # Takes an clearlogo path, crops it to the actual content, saves in into temp and returns the new path.
 # It creates 2 version, the original size, cropped, and a smaller one, cropped as well.

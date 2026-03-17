@@ -6,7 +6,7 @@
 	<!-- Infoline text -->
 	<include name="DetailsInfoText">
 		<param name="text"></param>
-		<param name="textcolor">FOREGROUND_CONTRAST_LIGHT</param>
+		<param name="textcolor">$VAR[ColorsContrastForeground]</param>
 		<param name="visible">true</param>
 		<param name="width_limit">400</param>
 
@@ -28,7 +28,7 @@
 	<include name="DetailsInfoLabelValue">
 		<param name="label"></param>
 		<param name="value"></param>
-		<param name="textcolor">FOREGROUND_CONTRAST_LIGHT</param>
+		<param name="textcolor">$VAR[ColorsContrastForeground]</param>
 		<param name="visible">true</param>
 		<param name="width_limit">400</param>
 
@@ -592,7 +592,7 @@
 						<width max="WIDTH_PLAYER_MUSICINFO">auto</width>
 						<height>FONT_SIZE_TITLE1</height>
 						<font>TITLE2</font>
-						<textcolor>HIGHLIGHT</textcolor>
+						<textcolor>FF$INFO[Window(home).Property(MusicPlayer.Contrast.Highlight)]</textcolor>
 						<label>$VAR[DetailsTitle]</label>
 					</control>
 
@@ -602,6 +602,7 @@
 						<width max="WIDTH_PLAYER_MUSICINFO">auto</width>
 						<height>HEIGHT_DETAILS_INFOLINE</height>
 						<font>SUBTITLE</font>
+						<textcolor>FF$INFO[Window(home).Property(MusicPlayer.Contrast.Foreground)]</textcolor>
 						<label>$VAR[DetailsTitle2]</label>
 					</control>
 
@@ -620,6 +621,7 @@
 							<width>auto</width>
 							<height>HEIGHT_DETAILS_INFOLINE_TEXT</height>
 							<font>CAPTION_STRONG</font>
+							<textcolor>FF$INFO[Window(home).Property(MusicPlayer.Contrast.Foreground)]</textcolor>
 							<label>$VAR[DetailsTrackNumber]</label>
 						</control>
 
@@ -629,6 +631,7 @@
 							<width>auto</width>
 							<height>HEIGHT_DETAILS_INFOLINE_TEXT</height>
 							<font>CAPTION_STRONG</font>
+							<textcolor>FF$INFO[Window(home).Property(MusicPlayer.Contrast.Foreground)]</textcolor>
 							<label>$VAR[DetailsYear]</label>
 						</control>
 					</control>
@@ -638,6 +641,7 @@
 						<width max="WIDTH_PLAYER_MUSICINFO">auto</width>
 						<height>HEIGHT_DETAILS_INFOLINE_TEXT</height>
 						<font>CAPTION_STRONG</font>
+						<textcolor>FF$INFO[Window(home).Property(MusicPlayer.Contrast.Foreground)]</textcolor>
 						<label>$VAR[DetailsArtist]</label>
 					</control>
 				</control>

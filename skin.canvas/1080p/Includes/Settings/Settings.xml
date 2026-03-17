@@ -614,7 +614,7 @@
 				<label></label>
 				<align>left</align>
 				<font>SETTINGS_CAPTION</font>
-				<textcolor>FG_ACCENT_ALT</textcolor>
+				<textcolor>$VAR[ColorsAccentAltForeground]</textcolor>
 			</control>
 
 			<!-- Option button -->
@@ -757,7 +757,7 @@
 						<label>ciao</label>
 						<align>left</align>
 						<font>SETTINGS_CAPTION</font>
-						<textcolor>FG_ACCENT_ALT</textcolor>
+						<textcolor>$VAR[ColorsAccentAltForeground]</textcolor>
 					</control>
 				</control>
 			
@@ -889,7 +889,7 @@
 						<label>ciao</label>
 						<align>left</align>
 						<font>SETTINGS_CAPTION</font>
-						<textcolor>FG_ACCENT_ALT</textcolor>
+						<textcolor>$VAR[ColorsAccentAltForeground]</textcolor>
 					</control>
 					<!-- Slider template -->
 					<control type="colorbutton" id="15">

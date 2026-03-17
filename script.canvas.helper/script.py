@@ -14,10 +14,15 @@ def reset_colors(window = None):
 
     #todo: add all
     window.setProperty('Colors.Accent.Foreground.Default',DEFAULT_COLORS['accent'])
-    window.setProperty('Colors.Contrast.Foreground.Default',DEFAULT_COLORS['contrast'])
+    window.setProperty('Colors.Accent.Foreground2.Default',DEFAULT_COLORS['accent2'])
+    window.setProperty('Colors.Accent.AltForeground.Default',DEFAULT_COLORS['accent_alt'])
+    window.setProperty('Colors.Contrast.Foreground.Default',DEFAULT_COLORS['contrast_fg'])
+    window.setProperty('Colors.Contrast.Highlight.Default',DEFAULT_COLORS['contrast_highlight'])
 
     window.setProperty('Colors.Accent.Foreground',DEFAULT_COLORS['accent'])
-    window.setProperty('Colors.Contrast.Foreground',DEFAULT_COLORS['contrast'])
+    window.setProperty('Colors.Accent.AltForeground',DEFAULT_COLORS['accent_alt'])
+    window.setProperty('Colors.Contrast.Foreground',DEFAULT_COLORS['contrast_fg'])
+    window.setProperty('Colors.Contrast.Highlight',DEFAULT_COLORS['contrast_highlight'])
 
 # Clear custom listitem properties on home used for details.
 def clear_listitem_properties(include_navigation = True):
@@ -77,7 +82,9 @@ def populate_musicplayer_bg_info(thumb):
     
     # Set properties.
     window.setProperty('MusicPlayer.Blur', blur)
-    window.setProperty('MusicPlayer.Contrast', colors['legacy_contrast'])#todo: fix
+    window.setProperty('MusicPlayer.Contrast', colors['contrast'])
+    window.setProperty('MusicPlayer.Contrast.Foreground', colors['contrast_fg'])
+    window.setProperty('MusicPlayer.Contrast.Highlight', colors['contrast_highlight'])
 
 # Populate window properties with information about the requested item to be used in details.
 def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
@@ -353,7 +360,7 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
         window.setProperty('Details.FilePath', filepath)
         window.setProperty('Details.Clearlogo', clearlogo)
         window.setProperty('Details.Blur', blur)
-        window.setProperty('Details.Contrast', colors['legacy_contrast'])#todo: fix
+        window.setProperty('Details.Contrast', colors['contrast'])
         window.setProperty('Details.Fanart', fanart)
         window.setProperty('Details.Thumb', xbmc.getInfoLabel(f"{item_ref}.Art(thumb)"))
         window.setProperty('Details.Watched', watched)
@@ -361,7 +368,9 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
         window.setProperty('Details.HasEngSubs', has_eng_sub)
         window.setProperty('Details.HasItaSubs', has_ita_sub)
         window.setProperty('Colors.Accent.Foreground', colors['accent'])
-        window.setProperty('Colors.Contrast.Foreground', colors['contrast'])
+        window.setProperty('Colors.Accent.AltForeground', colors['accent_alt'])
+        window.setProperty('Colors.Contrast.Foreground', colors['contrast_fg'])
+        window.setProperty('Colors.Contrast.Highlight', colors['contrast_highlight'])
 
     # If the container is showing the list of episodes of a season, compute previous
     # and next season path for navigation from videonav.
@@ -548,7 +557,6 @@ def set_active_episode():
     showid = -1
     season = -1
     episode = -1
-    time.sleep(2)
 
     # Retrive TV show ID, season and episode DBID from window properties.
     try :
