@@ -370,8 +370,12 @@
 
 	<!-- Previous/next season indicators (for episode list view) -->
 	<include name="MediaNavPrevNextSeasonIndicators">
+		<param name="visible">true</param>
+
 		<definition>
 			<control type="group">
+				<visible>$PARAM[visible]</visible>
+
 				<bottom>0</bottom>
 				<width>SCREEN_WIDTH</width>
 				<height>HEIGHT_LIST_CONTAINER</height>

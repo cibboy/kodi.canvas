@@ -56,15 +56,22 @@ def get_duration(item_ref, hours, minutes, seconds):
 
     return ret
 
+# Clear episode season navigation.
+def clear_episode_season_navigation(window = None):
+    # All properties reside on home window.
+    if window is None:
+        window = xbmcgui.Window(10000)
+
+    # Clear properties.
+    window.clearProperty('Navigation.PreviousSeason')
+    window.clearProperty('Navigation.NextSeason')
+
 # Clear custom listitem properties on home used for details.
 def clear_listitem_properties(include_navigation = True):
     # All properties reside on home window.
     window = xbmcgui.Window(10000)
 
     # Clear properties.
-    if include_navigation:
-        window.clearProperty('Navigation.PreviousSeason')
-        window.clearProperty('Navigation.NextSeason')
     window.clearProperty('Details.DBID.Debounce')
     window.clearProperty('Details.DBID')
     window.clearProperty('Details.ItemType')
@@ -102,7 +109,9 @@ def clear_listitem_properties(include_navigation = True):
     window.clearProperty('Details.AllNew')
     window.clearProperty('Details.HasEngSubs')
     window.clearProperty('Details.HasItaSubs')
+
     reset_colors(window)
+    if include_navigation: clear_episode_season_navigation(window)
 
 # Populate window properties with background information for the music player.
 def populate_musicplayer_bg_info(thumb):
@@ -119,7 +128,7 @@ def populate_musicplayer_bg_info(thumb):
     window.setProperty('MusicPlayer.Contrast.Highlight', colors['contrast_highlight'])
 
 # Populate window properties with information about the requested item to be used in details.
-def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
+def populate_listitem_info(window, itemtype, itemid, item_ref):
     if window.getProperty('Details.DoNotProcess') == 'true': return
 
     title = ''
@@ -387,32 +396,44 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
         window.setProperty('Colors.Contrast.Foreground', colors['contrast_fg'])
         window.setProperty('Colors.Contrast.Highlight', colors['contrast_highlight'])
 
-    # If the container is showing the list of episodes of a season, compute previous
-    # and next season path for navigation from videonav.
-    if find_navigation:
-        path = xbmc.getInfoLabel(f"{item_ref.replace('.ListItem', '')}.FolderPath")
-        if path is None or path == '': path = xbmc.getInfoLabel('Window(1110).Property(Content)')
-        pattern = r"^videodb://tvshows/titles/(\d+)/(\d+)(?:/|$)"
-        match = re.match(pattern, path)
-        if match:
-            tvshowid = int(match.group(1))
-            season = int(match.group(2))
-            prev = season - 1
-            next = season + 1
+    # If on MyVideoNav.xml or CustomVideoNav (1110), update navigation
+    current_window = xbmcgui.getCurrentWindowId()
+    if current_window == 10025 or current_window == 11110: populate_prev_next_season(item_ref.replace('ListItem', 'FolderPath'))
 
-            # Retrieve list of available seasons in show.
-            seasons = call_rpc('VideoLibrary.GetSeasons', {
-                'tvshowid': tvshowid,
-                'properties': ['season']
-            }).get('seasons', [])
-            
-            # Look for next/previous season among those available.
-            # If found, set window property.
-            for s in seasons:
-                if s.get('season', None) == prev:
-                    window.setProperty('Navigation.PreviousSeason', f"videodb://tvshows/titles/{tvshowid}/{prev}/")
-                elif s.get('season', None) == next:
-                    window.setProperty('Navigation.NextSeason', f"videodb://tvshows/titles/{tvshowid}/{next}/")
+# Populate indicators for presence of previous/next season.
+def populate_prev_next_season(item = 'Container(501).FolderPath'):
+    window = xbmcgui.Window(10000)
+
+    path = xbmc.getInfoLabel(item)
+    if path is None or path == '': path = xbmc.getInfoLabel('Window(1110).Property(Content)')
+    pattern = r"^videodb://tvshows/titles/(\d+)/(\d+)(?:/|$)"
+    match = re.match(pattern, path)
+    if match:
+        tvshowid = int(match.group(1))
+        season = int(match.group(2))
+        prev = season - 1
+        next = season + 1
+
+        # Retrieve list of available seasons in show.
+        seasons = call_rpc('VideoLibrary.GetSeasons', {
+            'tvshowid': tvshowid,
+            'properties': ['season']
+        }).get('seasons', [])
+        
+        # Look for next/previous season among those available.
+        # If found, set window property. Otherwise, clear them.
+        found_prev = False
+        found_next = False
+        for s in seasons:
+            if s.get('season', None) == prev:
+                found_prev = True
+                window.setProperty('Navigation.PreviousSeason', f"videodb://tvshows/titles/{tvshowid}/{prev}/")
+            elif s.get('season', None) == next:
+                found_next = True
+                window.setProperty('Navigation.NextSeason', f"videodb://tvshows/titles/{tvshowid}/{next}/")
+        
+        if not found_prev: window.clearProperty('Navigation.PreviousSeason')
+        if not found_next: window.clearProperty('Navigation.NextSeason')
 
 # Populate window properties with information about the playing
 # item. It's supposed to be used on OSDs.
@@ -439,7 +460,7 @@ def populate_listitem_info_from_player():
         # Set the current file full path.
         window.setProperty('Player.Item.FilenameAndPath', xbmc.getInfoLabel('Player.FilenameAndPath'))
         # Populate properties.
-        populate_listitem_info(window, itemtype, itemid, player, False)
+        populate_listitem_info(window, itemtype, itemid, player)
         # Preload next episode if this is a TV show episode
         if itemtype == 'episode':
             tvshowid = xbmc.getInfoLabel('VideoPlayer.TVShowDBID')
@@ -478,7 +499,7 @@ def populate_listitem_info_from_listitem(listid):
                 # Set the new active item ID.
                 window.setProperty('Details.DBID', itemid)
                 # Populate properties.
-                populate_listitem_info(window, itemtype, itemid, listitem, True)
+                populate_listitem_info(window, itemtype, itemid, listitem)
 
 
 # Prepares window properties and performs navigation for custom video nav for movies and episodes.
@@ -630,6 +651,9 @@ def set_active_episode():
                 try: selected = int(xbmc.getInfoLabel('Container(501).ListItem.DBID'))
                 except: break
         except: pass
+
+    # Check for previous/next season.
+    populate_prev_next_season()
 
     # Activate processing of details.
     window.clearProperty('Details.DoNotProcess')
@@ -882,10 +906,16 @@ if __name__ == '__main__':
         # Get background info for music player.
         elif method == 'populate_musicplayer_bg_info':
             populate_musicplayer_bg_info(sys.argv[2])
+        # Populate indicators for presence of previous/next season.
+        elif method == 'populate_prev_next_season':
+            populate_prev_next_season()
         # Reset window properties about colors to defaults.
         elif method == 'reset_colors':
             reset_colors()
 
+        # Clear episode season navigation.
+        elif method == 'clear_episode_season_navigation':
+            clear_episode_season_navigation()
         # Clear custom listitem properties on home used for details.
         elif method == 'clear_listitem_properties':
             clear_listitem_properties()

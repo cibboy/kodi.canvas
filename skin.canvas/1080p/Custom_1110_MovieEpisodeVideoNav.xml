@@ -2,8 +2,9 @@
 <window type="window" id="1110">
 	<defaultcontrol always="true">501</defaultcontrol>
 
-	<onload>Skin.TimerStart(movieepisodevideonavredir)</onload>
 	<include content="VideoPlayingRedirect" />
+	<onload>RunScript(script.canvas.helper,clear_episode_season_navigation)</onload>
+	<onload>Skin.TimerStart(movieepisodevideonavredir)</onload>
 	<onload>RunScript(script.canvas.helper,play_show_theme)</onload>
 	<onunload condition="$EXP[IsTvShowThemePlaying] + !Window.Next(MyVideoNav.xml) + !Window.Next(VideoFullScreen.xml)">PlayerControl(stop)</onunload>
 	<onunload condition="$EXP[IsTvShowThemePlaying] + !Window.Next(MyVideoNav.xml)">ClearProperty(Player.PlayingTheme,home)</onunload>
@@ -15,7 +16,9 @@
 			<include content="BackgroundQuadrantBlur" />
 
 			<!-- Previous/next season indicators (for episode list view) -->
-			<include content="MediaNavPrevNextSeasonIndicators" />
+			<include content="MediaNavPrevNextSeasonIndicators">
+				<param name="visible">String.IsEqual(Window(1110).Property(ShowList),true)</param>
+			</include>
 
 			<control type="group">
 				<top>PADDING_BASE_80P</top>
@@ -55,7 +58,6 @@
 
 					<!-- Episode list -->
 					<include content="MediaNavItemList" condition="String.IsEqual(Window(1110).Property(Content.Type),episode)">
-						<!--<animation type="Conditional" condition="!String.IsEqual(Window(1110).Property(ShowList),true)"><effect type="fade" start="100" end="0" time="0" tween="cubic" easing="out" reversible="true" /></animation>-->
 						<animation type="Conditional" condition="!String.IsEqual(Window(1110).Property(ShowList),true)">
 							<effect type="slide" start="0,0" end="0,-99999" time="0" tween="cubic" easing="out" reversible="true" />
 						</animation>

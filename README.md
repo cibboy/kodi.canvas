@@ -11,9 +11,6 @@ TODO:
 - search "todo"
 - remove xbmc.log()
 
-BUGS:
-- previous/next season from episode nav not working when there are no more episodes (it shows the indicator, and the action moves to a ?random? season)
-
 Guidelines:
 https://medium.com/you-i-tv/designing-for-10ft-ceeb202c1315
 
