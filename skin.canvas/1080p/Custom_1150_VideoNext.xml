@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window type="window" id="1150">
 	<defaultcontrol always="true">1</defaultcontrol>
-	<onload>ClearProperty(Player.NextItem.Present,home)</onload>
 	<onload condition="Integer.IsLess(Player.Progress,90)">PlayerControl(Stop)</onload>
 	<onload condition="Integer.IsLess(Player.Progress,90)">Back</onload>
-	<!-- Find next episode, if any -->
-	<onload condition="Integer.IsGreaterOrEqual(Player.Progress,90)">RunScript(script.canvas.helper,load_nextup,$INFO[VideoPlayer.TVShowDBID],$INFO[VideoPlayer.Season],$INFO[VideoPlayer.Episode])</onload>
+	<!-- Next episode info should be avaiable from onload on player. If available, focus on it -->
+	<onload condition="String.IsEqual(Window(home).Property(Player.NextItem.Present),true)">SetFocus(2)</onload>
 
 	<controls>
 		<include content="Center169AspectRatio">
@@ -166,6 +165,7 @@
 						</control>
 						<!-- Play icon -->
 						<control type="group">
+							<visible>Control.HasFocus(2)</visible>
 							<centertop>50%</centertop>
 							<centerleft>50%</centerleft>
 							<width>100</width>

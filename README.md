@@ -5,9 +5,6 @@ Wishlist:
 - Hide play icon in play next when not highlighted
 - BUG: play something with clearlogo (open OSD to be sure), then play something from file manager: previous clearlogo is used in OSD (might be the one from home, though)
 - BUG: play something from file manager, use back, video continues in background because there's no onload trapping to move to "play next" (which stops if < 90%)
-- Total review of onhover of media elements:
-	- Real debouce
-	- Maintain old clearlogo, fanart, blur and text color until load of new element completes or timeout (1s? 1.5s? timeout = fallbacks, except for fanart), whichever comes first (but if timeout is first, then load completes, new info MUST appear after fallback); must work also across window changes, so these info must be stored in skin vars or vars (careful on navigating to episode list, as th focus might be on the wrong element initially... ugh, it's a mess!)
 
 TODO:
 - Version bump to 2.0.0

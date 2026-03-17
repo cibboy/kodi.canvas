@@ -440,6 +440,12 @@ def populate_listitem_info_from_player():
         window.setProperty('Player.Item.FilenameAndPath', xbmc.getInfoLabel('Player.FilenameAndPath'))
         # Populate properties.
         populate_listitem_info(window, itemtype, itemid, player, False)
+        # Preload next episode if this is a TV show episode
+        if itemtype == 'episode':
+            tvshowid = xbmc.getInfoLabel('VideoPlayer.TVShowDBID')
+            season = xbmc.getInfoLabel('VideoPlayer.Season')
+            episode = xbmc.getInfoLabel('VideoPlayer.Episode')
+            load_nextup(tvshowid, season, episode)
 
 # Populate window properties with information about the specified
 # list ID's selected item. This allows the skin to work with information
@@ -712,13 +718,6 @@ def load_nextup(tvshowid, season, episode):
         elif duration > 3600: duration = format_timespan(duration, '[H]h [m]m')
         else: duration = format_timespan(duration, '[m]m')
         window.setProperty('Player.NextItem.Duration', duration)
-        # Set focus on play next. Set focus after a second, otherwise it's lost somehow...
-        time.sleep(1)
-        xbmc.executebuiltin('SetFocus(2)')
-    else:
-        # Set focus on currently playing. Set focus after a second, otherwise it's lost somehow...
-        time.sleep(1)
-        xbmc.executebuiltin('SetFocus(1)')
 
 
 # Plays the TV show theme, if available and if allowed.
@@ -911,10 +910,6 @@ if __name__ == '__main__':
         elif method == 'remove_video_item':
             remove_video_item(sys.argv[2], sys.argv[3], sys.argv[4])
         
-        # Finds the next episode to play, if any.
-        elif method == 'load_nextup':
-            load_nextup(sys.argv[2], sys.argv[3], sys.argv[4])
-
         # Play TV show theme, if available.
         elif method == 'play_show_theme':
             play_show_theme()
