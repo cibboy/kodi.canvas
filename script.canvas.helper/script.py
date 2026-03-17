@@ -24,6 +24,38 @@ def reset_colors(window = None):
     window.setProperty('Colors.Contrast.Foreground',DEFAULT_COLORS['contrast_fg'])
     window.setProperty('Colors.Contrast.Highlight',DEFAULT_COLORS['contrast_highlight'])
 
+# Returns a properly formatted string for the duration, according to requirements.
+def get_duration(item_ref, hours, minutes, seconds):
+    ret = ''
+    added_hours = False
+    added_minutes = False
+
+    if hours is True:
+        try:
+            dur_h = int(xbmc.getInfoLabel(f"{item_ref}.Duration(h)"))
+            if dur_h > 0:
+                added_hours = True
+                ret = f"{dur_h}h"
+        except: pass
+    if minutes is True:
+        try:
+            dur_m = xbmc.getInfoLabel(f"{item_ref}.Duration(m)")
+            dur_mm = xbmc.getInfoLabel(f"{item_ref}.Duration(mm)")
+            if dur_m > 0:
+                added_minutes = True
+                if added_hours is True: ret = ret + f"{dur_mm}m"
+                else: ret = f"{dur_m}m"
+        except: pass
+    if seconds is True:
+        try:
+            dur_s = xbmc.getInfoLabel(f"{item_ref}.Duration(s)")
+            dur_ss = xbmc.getInfoLabel(f"{item_ref}.Duration(ss)")
+            if added_minutes is True: ret = ret + f"{dur_ss}s"
+            else: ret = f"{dur_s}s"
+        except: pass
+
+    return ret
+
 # Clear custom listitem properties on home used for details.
 def clear_listitem_properties(include_navigation = True):
     # All properties reside on home window.
@@ -139,12 +171,7 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
         ep_number = f"S{ep_s}·E{ep_e}"
         ep_premiere = xbmc.getInfoLabel(f"{item_ref}.Premiered")
         # Find duration.
-        try:
-            dur_h = int(xbmc.getInfoLabel(f"{item_ref}.Duration(h)"))
-            dur_m = xbmc.getInfoLabel(f"{item_ref}.Duration(mm)")
-            if dur_h > 0: duration = f"{dur_h}h {dur_m}m"
-            else: duration = f"{dur_m}m"
-        except: pass
+        duration = get_duration(item_ref, True, True, False)
         # Find percentage played.
         perc_played = xbmc.getInfoLabel(f"{item_ref}.PercentPlayed")
         # Find if watched.
@@ -229,12 +256,7 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
         # Find year.
         year = xbmc.getInfoLabel(f"{item_ref}.Year")
         # Find duration.
-        try:
-            dur_h = int(xbmc.getInfoLabel(f"{item_ref}.Duration(h)"))
-            dur_m = xbmc.getInfoLabel(f"{item_ref}.Duration(mm)")
-            if dur_h > 0: duration = f"{dur_h}h {dur_m}m"
-            else: duration = f"{dur_m}m"
-        except: pass
+        duration = get_duration(item_ref, True, True, False)
         # Find percentage played.
         perc_played = xbmc.getInfoLabel(f"{item_ref}.PercentPlayed")
         # Find if watched.
@@ -267,14 +289,7 @@ def populate_listitem_info(window, itemtype, itemid, item_ref, find_navigation):
         # Find track number.
         track_number = xbmc.getInfoLabel(f"{item_ref}.TrackNumber")
         # Find duration.
-        try:
-            dur_h = int(xbmc.getInfoLabel(f"{item_ref}.Duration(h)"))
-            dur_m = xbmc.getInfoLabel(f"{item_ref}.Duration(m)")
-            dur_mm = xbmc.getInfoLabel(f"{item_ref}.Duration(mm)")
-            dur_s = xbmc.getInfoLabel(f"{item_ref}.Duration(ss)")
-            if dur_h > 0: duration = f"{dur_h}h {dur_mm}m {dur_s}s"
-            else: duration = f"{dur_m}m {dur_s}s"
-        except: pass
+        duration = get_duration(item_ref, True, True, True)
         # Find percentage played.
         perc_played = xbmc.getInfoLabel(f"{item_ref}.PercentPlayed")
         # Find fanart.
