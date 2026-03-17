@@ -767,10 +767,10 @@ def play_show_theme():
             if not player.isPlaying() or (theme_playing == 'true' and player.getPlayingFile() != cache_theme):
                 current = xbmcgui.getCurrentWindowId()
                 if current == 10025 or current == 11110:
-                    # Set the theme flag, the play in loop.
+                    # Set the theme flag, then play (force no repeat, just in case it was active).
                     window.setProperty('Player.PlayingTheme', 'true')
                     player.play(cache_theme, windowed=True, startpos=0)
-                    xbmc.executebuiltin('PlayerControl(RepeatOne)')
+                    xbmc.executebuiltin('PlayerControl(RepeatOff)')
 
 # Play the album showing in music nav.
 def play_full_album(container_path):
