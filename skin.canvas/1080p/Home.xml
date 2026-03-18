@@ -3,8 +3,7 @@
 	<!-- Default: safety hidden button to show side menu if something goes wrong -->
 	<defaultcontrol>99999</defaultcontrol>
 	<!-- Wait until lists have loaded, then move to the first one available -->
-	<!--<onload condition="!$EXP[HasHomeLoaded]">Skin.TimerStart(homelistselection)</onload>-->
-	<onload>Skin.TimerStart(homelistselection)</onload><!--todo:use with condition when not developing-->
+	<onload condition="Skin.HasSetting(canvas.development) | !$EXP[HasHomeLoaded]">Skin.TimerStart(homelistselection)</onload>
 	<include content="VideoPlayingRedirect" />
 
 	<controls>
