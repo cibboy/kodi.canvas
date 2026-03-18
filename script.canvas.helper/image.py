@@ -337,7 +337,7 @@ def get_colors(cache_name, img_path, blur_path):
             img = open_usable_image(blur_path, False)
             info = get_contrast_color_info(img)
             contrast = info['base']
-            #todo: darken_bg
+            needs_darken_bg = info['darken_bg']
 
             # Save color info.
             with open(color_file, 'w') as f:
@@ -357,25 +357,24 @@ def get_colors(cache_name, img_path, blur_path):
         else:
             contrast_fg_hex = DEFAULT_COLORS['contrast_fg_dark']
             contrast_highlight_hex = DEFAULT_COLORS['contrast_highlight_dark']
-        #todo: add bg darkening info
 
         return {
             'contrast': contrast,
             'contrast_fg': contrast_fg_hex,
             'contrast_highlight': contrast_highlight_hex,
+            'needs_darken_bg': str(needs_darken_bg).lower(),
             'accent': accent_fg_hex,
             'accent_alt': accent_alt_hex
-        }   #todo: add bg darkening info
-    except Exception as t:
-        xbmc.log(str(t),xbmc.LOGINFO)
-        xbmc.log(str(t.__traceback__.tb_lineno),xbmc.LOGINFO)
+        }
+    except:
         return {
             'contrast': 'light',
             'contrast_fg': DEFAULT_COLORS['contrast_fg_light'],
             'contrast_highlight': DEFAULT_COLORS['contrast_highlight_light'],
+            'needs_darken_bg': str(needs_darken_bg).lower(),
             'accent': DEFAULT_COLORS['accent'],
             'accent_alt': DEFAULT_COLORS['accent_alt']
-        }   #todo: add bg darkening info
+        }
 
 
 # Takes an art path, downsizes it, blurs it, saves in into temp and returns the new path.

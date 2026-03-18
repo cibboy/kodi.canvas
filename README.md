@@ -3,12 +3,12 @@ TODO:
 - remove xbmc.log()
 - Version bump to 2.0.0
 - continue watching should consider items watched but also with time left
-- could use some VERY light tint (of accent color) over blur bg
 - MediaNav/Variables.xml > AlbumNavContrastButtonIconColor/MediaNavContrastButtonBackgroundColor/MediaNavContrastButtonIconColor da gestire per migliore contrasto (si porta dietro espressioni in Background/Expression.xml)
 - goto episode in custom medianav should not re-run when coming back from player (or, better, should run only if coming from home, so use window property set/reset on home?)
 - no SxEy se x o y sono vuoti
 - loading in myvideonav.xml
 - strip media sempre con elemento on focus al centro (tranne quando sono i primi elementi)
+- flyout con bordo più sottile e più scuro (come android tv)
 
 Guidelines:
 https://medium.com/you-i-tv/designing-for-10ft-ceeb202c1315

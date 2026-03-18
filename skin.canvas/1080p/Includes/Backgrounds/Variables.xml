@@ -10,4 +10,9 @@
 		<value condition="Window.IsActive(12006)">$INFO[Window(12006).Property(MusicPlayer.Blur)]</value>
 		<value>$INFO[Window(home).Property(Details.Blur)]</value>
 	</variable>
+	<!-- Darkening opacity -->
+	<variable name="BlurDarkeningOpacity">
+		<value condition="String.IsEqual(Window(home).Property(Colors.Contrast.DarkenBg),true)">BACKGROUND_OPAQUE75</value>
+		<value>BACKGROUND_OPAQUE50</value>
+	</variable>
 </includes>

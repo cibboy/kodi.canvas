@@ -12,7 +12,6 @@ def reset_colors(window = None):
         # All properties reside on home window.
         window = xbmcgui.Window(10000)
 
-    #todo: add all
     window.setProperty('Colors.Accent.Foreground.Default',DEFAULT_COLORS['accent'])
     window.setProperty('Colors.Accent.Foreground2.Default',DEFAULT_COLORS['accent2'])
     window.setProperty('Colors.Accent.AltForeground.Default',DEFAULT_COLORS['accent_alt'])
@@ -21,6 +20,7 @@ def reset_colors(window = None):
 
     window.setProperty('Colors.Accent.Foreground',DEFAULT_COLORS['accent'])
     window.setProperty('Colors.Accent.AltForeground',DEFAULT_COLORS['accent_alt'])
+    window.setProperty('Colors.Contrast.DarkenBg','false')
     window.setProperty('Colors.Contrast.Foreground',DEFAULT_COLORS['contrast_fg_light'])
     window.setProperty('Colors.Contrast.Highlight',DEFAULT_COLORS['contrast_highlight_light'])
 
@@ -415,6 +415,7 @@ def populate_listitem_info(window, itemtype, itemid, item_ref):
         window.setProperty('Details.HasItaSubs', has_ita_sub)
         window.setProperty('Colors.Accent.Foreground', colors['accent'])
         window.setProperty('Colors.Accent.AltForeground', colors['accent_alt'])
+        window.setProperty('Colors.Contrast.DarkenBg', colors['needs_darken_bg'])
         window.setProperty('Colors.Contrast.Foreground', colors['contrast_fg'])
         window.setProperty('Colors.Contrast.Highlight', colors['contrast_highlight'])
 

@@ -142,7 +142,7 @@
 					<width>100%</width>
 					<height>100%</height>
 					<fadetime>ANIMATION_CRAWL</fadetime>
-					<texture colordiffuse="BACKGROUND_OPAQUE50" diffuse="1080p/diffuse/background.png" flipx="true" flipy="true">diffuse.png</texture>
+					<texture colordiffuse="$VAR[BlurDarkeningOpacity]" diffuse="1080p/diffuse/background.png" flipx="true" flipy="true">diffuse.png</texture>
 				</control>
 
 				<!-- Art -->
