@@ -630,7 +630,6 @@
 						<height>SIZE_HOME_MENU_ICON_SELECTION</height>
 						<centertop>50%</centertop>
 						<centerleft>50%</centerleft>
-						<!--<texture colordiffuse="$VAR[ColorsAccentForeground]">1080p/diffuse/circle.png</texture>-->
 						<texture colordiffuse="$VAR[ColorsAccentForeground]">1080p/diffuse/circle.png</texture>
 						<bordertexture border="SIZE_ITEM_SHADOW_SMALLCIRCLE_DOUBLE" colordiffuse="BACKGROUND_OPAQUE75">1080p/diffuse/shadow-circle-small.png</bordertexture>
 						<bordersize>SIZE_ITEM_SHADOW_SMALLCIRCLE</bordersize>

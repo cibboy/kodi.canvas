@@ -2,7 +2,7 @@ import sys, os, shutil, re, time
 import xml.etree.ElementTree as ET
 import xbmc, xbmcgui, xbmcvfs
 from datetime import datetime
-from image import get_blurred, get_cropped_clearlogo, DEFAULT_COLORS
+from image import get_blurred, get_colors, get_cropped_clearlogo, DEFAULT_COLORS
 from media import *
 from utils import *
 
@@ -119,7 +119,9 @@ def populate_musicplayer_bg_info(thumb):
     window = xbmcgui.Window(12006)
 
     # Get blurred background.
-    blur, colors = get_blurred(thumb)
+    blur, name = get_blurred(thumb)
+    # Get colors.
+    colors = get_colors(name, blur, blur)
     
     # Set properties.
     window.setProperty('MusicPlayer.Blur', blur)
@@ -163,6 +165,7 @@ def populate_listitem_info(window, itemtype, itemid, item_ref):
     writer = ''
     filepath = ''
     fanart = ''
+    poster = ''
     clearlogo_original = ''
     watched = 'false'
     all_new = 'false'
@@ -195,6 +198,9 @@ def populate_listitem_info(window, itemtype, itemid, item_ref):
         # Find fanart.
         fanart = xbmc.getInfoLabel(f"{item_ref}.Art(season.fanart)")
         if (fanart is None or fanart == ''): fanart = xbmc.getInfoLabel(f"{item_ref}.Art(tvshow.fanart)")
+        # Find poster.
+        poster = xbmc.getInfoLabel(f"{item_ref}.Art(poster)")
+        if (poster is None or poster == ''): poster = xbmc.getInfoLabel(f"{item_ref}.Art(tvshow.poster)")
         # Find clearlogo.
         clearlogo_original = xbmc.getInfoLabel(f"{item_ref}.Art(tvshow.clearlogo)")
         # Find additional info not natively exposed.
@@ -226,6 +232,9 @@ def populate_listitem_info(window, itemtype, itemid, item_ref):
         # Find fanart.
         fanart = xbmc.getInfoLabel(f"{item_ref}.Art(fanart)")
         if fanart is None or fanart == '': fanart = xbmc.getInfoLabel(f"{item_ref}.Art(tvshow.fanart)")
+        # Find poster.
+        poster = xbmc.getInfoLabel(f"{item_ref}.Art(poster)")
+        if (poster is None or poster == ''): poster = xbmc.getInfoLabel(f"{item_ref}.Art(tvshow.poster)")
         # Find clearlogo.
         clearlogo_original = xbmc.getInfoLabel(f"{item_ref}.Art(tvshow.clearlogo)")
         # Find additional info not natively exposed.
@@ -253,6 +262,8 @@ def populate_listitem_info(window, itemtype, itemid, item_ref):
         perc_played = xbmc.getInfoLabel(f"{item_ref}.Property(WatchedEpisodePercent)")
         # Find fanart.
         fanart = xbmc.getInfoLabel(f"{item_ref}.Art(fanart)")
+        # Find poster.
+        poster = xbmc.getInfoLabel(f"{item_ref}.Art(poster)")
         # Find clearlogo.
         clearlogo_original = xbmc.getInfoLabel(f"{item_ref}.Art(clearlogo)")
         # Find additional info not natively exposed.
@@ -280,6 +291,8 @@ def populate_listitem_info(window, itemtype, itemid, item_ref):
             elif xbmc.getInfoLabel(f"{item_ref}.Property(SubtitleLanguage.{i+1})") == 'ita': has_ita_sub = 'true'
         # Find fanart.
         fanart = xbmc.getInfoLabel(f"{item_ref}.Art(fanart)")
+        # Find poster.
+        poster = xbmc.getInfoLabel(f"{item_ref}.Art(poster)")
         # Find clearlogo.
         clearlogo_original = xbmc.getInfoLabel(f"{item_ref}.Art(clearlogo)")
         # Find additional info not natively exposed.
@@ -305,6 +318,10 @@ def populate_listitem_info(window, itemtype, itemid, item_ref):
         fanart = xbmc.getInfoLabel(f"{item_ref}.Art(thumb)")
         if fanart is None or fanart == '':
             fanart = xbmc.getInfoLabel(f"{item_ref}.Art(album.thumb)")
+        # Find poster.
+        poster = xbmc.getInfoLabel(f"{item_ref}.Art(thumb)")
+        if poster is None or poster == '':
+            poster = xbmc.getInfoLabel(f"{item_ref}.Art(album.thumb)")
         # Find clearlogo.
         clearlogo_original = xbmc.getInfoLabel(f"{item_ref}.Art(clearlogo)")
 
@@ -319,6 +336,10 @@ def populate_listitem_info(window, itemtype, itemid, item_ref):
         fanart = xbmc.getInfoLabel(f"{item_ref}.Art(thumb)")
         if fanart is None or fanart == '':
             fanart = xbmc.getInfoLabel(f"{item_ref}.Art(album.thumb)")
+        # Find poster.
+        poster = xbmc.getInfoLabel(f"{item_ref}.Art(thumb)")
+        if poster is None or poster == '':
+            poster = xbmc.getInfoLabel(f"{item_ref}.Art(album.thumb)")
         # Find clearlogo.
         clearlogo_original = xbmc.getInfoLabel(f"{item_ref}.Art(clearlogo)")
 
@@ -343,8 +364,9 @@ def populate_listitem_info(window, itemtype, itemid, item_ref):
     writer = xbmc.getInfoLabel(f"{item_ref}.Writer(comma)")
     filepath = xbmc.getInfoLabel(f"{item_ref}.FileNameAndPath")
 
-    # Get blurred background, contrast color and cropped clearlogo.
-    blur, colors = get_blurred(fanart)
+    # Get blurred background, color info and cropped clearlogo.
+    blur, name = get_blurred(fanart)
+    colors = get_colors(name, fanart, blur)
     clearlogo = get_cropped_clearlogo(clearlogo_original)
 
     # Set properties (only if we're still working on the same item).
@@ -867,12 +889,13 @@ def apply_customizations():
                 '</advancedsettings>'
             ])
 
-# Clear custom cache (blur bg, cropped clearlogos, themes).
+# Clear custom cache (blur bg, cropped clearlogos, themes, color info).
 def clear_custom_cache(type = None):
     # Retrieve folders. If found, delete them.
     blur_folder = xbmcvfs.translatePath('special://temp/temp/canvas.blur/')
     clearlogo_folder = xbmcvfs.translatePath('special://temp/temp/canvas.clearlogo/')
     theme_folder = xbmcvfs.translatePath('special://temp/temp/canvas.theme/')
+    color_folder = xbmcvfs.translatePath('special://temp/temp/canvas.color/')
 
     if os.path.exists(blur_folder) and (type is None or type == 'blur'):
         xbmc.log(f"Removing {blur_folder}", xbmc.LOGINFO)
@@ -883,6 +906,9 @@ def clear_custom_cache(type = None):
     if os.path.exists(theme_folder) and (type is None or type == 'theme'):
         xbmc.log(f"Removing {theme_folder}", xbmc.LOGINFO)
         shutil.rmtree(theme_folder)
+    if os.path.exists(color_folder) and (type is None or type == 'color'):
+        xbmc.log(f"Removing {color_folder}", xbmc.LOGINFO)
+        shutil.rmtree(color_folder)
 
 
 if __name__ == '__main__':
