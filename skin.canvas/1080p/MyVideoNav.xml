@@ -59,6 +59,12 @@
 					<!-- Item controls -->
 					<include content="MediaNavActionButtons" />
 
+					<!-- Loading spinner -->
+					<include content="LoadingSpinner">
+						<param name="condition">Container(501).IsUpdating</param>
+						<param name="centertop">70%</param>
+					</include>
+
 					<!-- Lists -->
 					<control type="grouplist" id="400">
 						<orientation>vertical</orientation>

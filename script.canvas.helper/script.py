@@ -180,7 +180,8 @@ def populate_listitem_info(window, itemtype, itemid, item_ref):
         # Find episode-specific info.
         ep_s = xbmc.getInfoLabel(f"{item_ref}.Season")
         ep_e = xbmc.getInfoLabel(f"{item_ref}.Episode")
-        ep_number = f"S{ep_s}·E{ep_e}"
+        if ep_s != '' and ep_e != '':
+            ep_number = f"S{ep_s}·E{ep_e}"
         ep_premiere = xbmc.getInfoLabel(f"{item_ref}.Premiered")
         # Find duration.
         duration = get_duration(item_ref, True, True, False)
@@ -558,6 +559,7 @@ def navigate_movie_episode_videonav(containerid):
     xbmc.executebuiltin(f"SetProperty(Navigation.TvShowId,{tvshowid},1110)")
     xbmc.executebuiltin(f"SetProperty(Navigation.Season,{season},1110)")
     xbmc.executebuiltin(f"SetProperty(Navigation.Episode,{episode},1110)")
+    xbmc.executebuiltin(f"SetProperty(Navigation.Apply,true,1110)")
 
     # Navigate to destination window.
     xbmc.executebuiltin('ActivateWindow(1110)')

@@ -40,6 +40,6 @@
 		<onstop condition="String.IsEqual(Window(1110).Property(Content.Type),movie)">SetFocus(410)</onstop>
 		<onstop condition="String.IsEqual(Window(1110).Property(Content.Type),movie)">SetProperty(ShowList,true,1110)</onstop>
 		<!-- If showing episodes, first navigate to proper episode, then show list by setting property -->
-		<onstop condition="String.IsEqual(Window(1110).Property(Content.Type),episode)">RunScript(script.canvas.helper,set_active_episode)</onstop>
+		<onstop condition="String.IsEqual(Window(1110).Property(Content.Type),episode) + String.IsEqual(Window(1110).Property(Navigation.Apply),true)">RunScript(script.canvas.helper,set_active_episode)</onstop>
 	</timer>
 </timers>

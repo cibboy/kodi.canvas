@@ -20,11 +20,11 @@
 	</variable>
 	<variable name="MediaNavContrastButtonBackgroundColor">
 		<!-- Light color -->
-		<value condition="$EXP[IsBestTextColorLight]">FOREGROUND_OPAQUE20</value>
+		<value condition="$EXP[IsBestTextColorLight]">FOREGROUND_INVERSE_OPAQUE50</value>
 		<!-- Dark color -->
 		<value condition="$EXP[IsBestTextColorDark]">FOREGROUND_INVERSE_OPAQUE50</value>
 		<!-- Fallback -->
-		<value>FOREGROUND_OPAQUE35</value>
+		<value>FOREGROUND_INVERSE_OPAQUE35</value>
 	</variable>
 
 

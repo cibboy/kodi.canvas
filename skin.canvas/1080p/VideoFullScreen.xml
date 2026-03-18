@@ -3,6 +3,7 @@
 	<defaultcontrol></defaultcontrol>
 	<onload>PlayerControl(RandomOff)</onload>
 	<onload>PlayerControl(RepeatOff)</onload>
+	<onload>ClearProperty(Navigation.Apply,1110)</onload>
 	<onload condition="$EXP[IsDetailsItemTypeEpisode]">SetProperty(Player.Item.DBTYPE,episode,home)</onload>
 	<onload condition="$EXP[IsDetailsItemTypeMovie]">SetProperty(Player.Item.DBTYPE,movies,home)</onload>
 	<!-- Load OSD and next episode info (next episode used by Custom_1150_VideoNext.xml) -->
