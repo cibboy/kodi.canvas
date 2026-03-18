@@ -1,7 +1,4 @@
 TODO:
-- search "todo"
-- remove xbmc.log()
-- Version bump to 2.0.0
 - strip media sempre con elemento on focus al centro (tranne quando sono i primi elementi)
 - flyout con bordo più sottile e più scuro (come android tv)
 

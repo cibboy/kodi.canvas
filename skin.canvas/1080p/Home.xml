@@ -24,7 +24,7 @@
 			<!-- Safety button to show side menu if loading fails somehow -->
 			<control type="button" id="99999">
 				<visible allowhiddenfocus="true">false</visible>
-				<onfocus condition="$EXP[HasHomeLoaded]">SetFocus(200)</onfocus>
+				<onfocus condition="$EXP[HasHomeLoaded]">SetFocus(7000)</onfocus>
 				<onback>SetFocus(1001,0)</onback>
 				<onleft>SetFocus(1001,0)</onleft>
 				<onright>SetFocus(1001,0)</onright>
