@@ -331,7 +331,8 @@ def get_colors(cache_name, img_path, blur_path):
         # If we don't have color information, compute it.
         if dominant is None or contrast is None:
             # Extract accent as dominant color of resized fanart.
-            img = open_usable_image(img_path, True)
+            img_full_path, _ = get_image(img_path)
+            img = open_usable_image(img_full_path, True)
             dominant = dominant_color_perceptual(img)
             # Compute best text contrast from blurred variant.
             img = open_usable_image(blur_path, False)

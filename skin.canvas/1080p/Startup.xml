@@ -2,6 +2,9 @@
 <window>
 	<!-- Initialize dynamic accent colors -->
 	<onload>RunScript(script.canvas.helper,reset_colors)</onload>
+	<!-- Set home as not loaded yet. This prevents control going to a black hole when updating the skin or coming from another -->
+	<onload>SetProperty(Loaded,false,home)</onload>
+	<!-- Go to splash screen -->
 	<onload>ReplaceWindow(1199)</onload>
 	<controls />
 </window>
