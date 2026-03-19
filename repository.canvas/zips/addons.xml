@@ -16,7 +16,7 @@
 		</extension>
 	</addon>
 	
-	<addon id="skin.canvas" name="Canvas" provider-name="Gabriele Seppi" version="2.0.2">
+	<addon id="skin.canvas" name="Canvas" provider-name="Gabriele Seppi" version="2.0.3">
 		<requires>
 			<import addon="xbmc.gui" version="5.17.0"/>
 			<import addon="script.canvas.helper" version="2.0.1"/>

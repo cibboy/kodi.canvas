@@ -1,7 +1,3 @@
-TODO:
-- strip media sempre con elemento on focus al centro (tranne quando sono i primi elementi)
-- flyout con bordo più sottile e più scuro (come android tv)
-
 Guidelines:
 https://medium.com/you-i-tv/designing-for-10ft-ceeb202c1315
 
