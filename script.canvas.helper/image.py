@@ -147,11 +147,21 @@ def get_hue_salience(h):
         return 0.5
 
 # Extracts the dominant color from an image.
-def dominant_color_perceptual(image, reduce_bits=5, ignore_gray=True):
-    img = image.convert("RGB")
+def dominant_color_perceptual(image, reduce_bits=5, ignore_gray=True, alpha_threshold=250, min_count=0):
+    img = image.convert("RGBA")
     pixels = list(img.getdata())
+   
     if not pixels:
-        return (150, 150, 150)
+        return (150, 150, 150),0
+   
+    # Filter out transparent/semi-transparent pixels
+    opaque_pixels = [(r, g, b) for (r, g, b, a) in pixels if a >= alpha_threshold]
+   
+    if not opaque_pixels:
+        # Fallback if all pixels are transparent
+        return (150, 150, 150),0
+   
+    pixels = opaque_pixels
 
     # Compute average image color (background baseline)
     avg_r = sum(p[0] for p in pixels) / len(pixels)
@@ -206,7 +216,7 @@ def dominant_color_perceptual(image, reduce_bits=5, ignore_gray=True):
         # Combine: area * saturation * contrast * hue_salience
         score = (count ** 0.6) * (s ** 0.8) * (contrast_norm ** 1.2) * white_factor * get_hue_salience(h)
 
-        if score > best_score:
+        if count >= min_count and score > best_score:
             best_score = score
             best_key = k
 
@@ -219,7 +229,17 @@ def dominant_color_perceptual(image, reduce_bits=5, ignore_gray=True):
 
     b = bins[best_key]
     count = b["count"]
-    return (int(b["r_sum"] / count), int(b["g_sum"] / count), int(b["b_sum"] / count))
+    ratio = count / len(pixels)
+    r = int(b["r_sum"] / count)
+    g = int(b["g_sum"] / count)
+    b = int(b["b_sum"] / count)
+    # Clamp indigo-to-purple colors to blue if ratio is low.
+    h, s, l = rgb_to_hsl(r, g, b)
+    if h > 0.6 and ratio < 0.1:
+        h = 0.6
+        r, g, b = hsl_to_rgb(h, s, l)
+
+    return (r,g,b), ratio
 
 # Generate multiple accent colors for different UI contexts.
 def generate_ui_accents(rgb, overlay_opacity=0.3):
@@ -303,7 +323,7 @@ def get_contrast_color_info(img, overlay_darkness=0.4):
         else: return {'base': 'dark', 'darken_bg': False}
 
 # Extracts color information from images. Uses cached information, if present.
-def get_colors(cache_name, img_path, blur_path):
+def get_colors(cache_name, clearlogo_path, fanart_path, blur_path):
     try:
         # Load paths.
         canvas_cache = 'special://temp/temp/canvas.color/'
@@ -316,6 +336,8 @@ def get_colors(cache_name, img_path, blur_path):
         contrast = None
         needs_darken_bg = False
         dominant = None
+        clearlogo_use = 'not_found'
+        version = 1
 
         # Search for color info file.
         color_file = xbmcvfs.translatePath(canvas_cache + cache_name + '.json')
@@ -327,13 +349,39 @@ def get_colors(cache_name, img_path, blur_path):
                 needs_darken_bg = color_info.get('needs_darken_bg', False)
                 dominant_hex = color_info.get('dominant', None)
                 dominant = ImageColor.getrgb(f"#{dominant_hex}")
+                clearlogo_use = color_info.get('clearlogo_use', 'not_found')
+                version = color_info.get('version', 1)
 
         # If we don't have color information, compute it.
-        if dominant is None or contrast is None:
-            # Extract accent as dominant color of resized fanart.
-            img_full_path, _ = get_image(img_path)
-            img = open_usable_image(img_full_path, True)
-            dominant = dominant_color_perceptual(img)
+        if dominant is None or contrast is None or (clearlogo_use == 'not_found' and clearlogo_path is not None and clearlogo_path != '') or version != 2:
+            # Extract dominant color from clearlogo, if present.
+            if clearlogo_path is not None and clearlogo_path != '':
+                img_full_path, _ = get_image(clearlogo_path)
+                img = open_usable_image(img_full_path, True)
+                # Handle thresholds differently.
+                dominant, ratio = dominant_color_perceptual(img, ignore_gray=True, reduce_bits=0, min_count=10)
+                r, g, b = dominant
+                rn, gn, bn = r / 255.0, g / 255.0, b / 255.0
+                h, s, v = colorsys.rgb_to_hsv(rn, gn, bn)
+                # Exclude coverage < 10%, > 99.99% and saturation < 30%, unless saturation > 73% and coverage < 99.99%
+                if s < 0.3:
+                    clearlogo_use = 'no'
+                    dominant = None
+                elif s < 0.73 and (ratio < 0.1 or ratio > 0.9999):
+                    clearlogo_use = 'no'
+                    dominant = None
+                elif s >= 0.73 and ratio > 0.9999:
+                    clearlogo_use = 'no'
+                    dominant = None
+                else: clearlogo_use = 'yes'
+            else: clearlogo_use = 'not_found'
+
+            # If dominant from clearlogo unavailable, extract dominant color from resized fanart.
+            if dominant is None:
+                img_full_path, _ = get_image(fanart_path)
+                img = open_usable_image(img_full_path, True)
+                dominant, _ = dominant_color_perceptual(img)
+
             # Compute best text contrast from blurred variant.
             img = open_usable_image(blur_path, False)
             info = get_contrast_color_info(img)
@@ -342,7 +390,16 @@ def get_colors(cache_name, img_path, blur_path):
 
             # Save color info.
             with open(color_file, 'w') as f:
-                json.dump({'contrast': contrast, 'needs_darken_bg': needs_darken_bg, 'dominant': '%02x%02x%02x' % dominant}, f)
+                json.dump(
+                    {
+                        'contrast': contrast,
+                        'needs_darken_bg': needs_darken_bg,
+                        'dominant': '%02x%02x%02x' % dominant,
+                        'clearlogo_use': clearlogo_use,
+                        'version': 2
+                    },
+                    f
+                )
 
         # Further modify dominant color to extract accent colors.
         accents = generate_ui_accents(dominant)

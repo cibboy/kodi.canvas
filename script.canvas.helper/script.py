@@ -121,7 +121,7 @@ def populate_musicplayer_bg_info(thumb):
     # Get blurred background.
     blur, name = get_blurred(thumb)
     # Get colors.
-    colors = get_colors(name, blur, blur)
+    colors = get_colors(name, '', blur, blur)
     
     # Set properties.
     window.setProperty('MusicPlayer.Blur', blur)
@@ -367,8 +367,8 @@ def populate_listitem_info(window, itemtype, itemid, item_ref):
 
     # Get blurred background, color info and cropped clearlogo.
     blur, name = get_blurred(fanart)
-    colors = get_colors(name, fanart, blur)
     clearlogo = get_cropped_clearlogo(clearlogo_original)
+    colors = get_colors(name, clearlogo, fanart, blur)
 
     # Set properties (only if we're still working on the same item).
     current = window.getProperty('Details.DBID')
