@@ -25,6 +25,9 @@
 				<onright condition="$EXP[HasMediaNavNavigateNextSeason]">ReplaceWindow(Videos,$INFO[Window(home).Property(Navigation.NextSeason)],1)</onright>
 				<onright>noop</onright>
 				<onback condition="$EXP[IsDetailsItemTypeSeason]">ReplaceWindow(home)</onback>
+				<onfocus condition="$EXP[IsMediaNavLibraryNavigation] + !Control.IsVisible(502)">Sendclick(2)</onfocus>
+				<onfocus condition="$EXP[IsMediaNavLibraryNavigation]">SetFocus(502)</onfocus>
+				<onfocus condition="$EXP[IsMediaNavLibraryNavigation]">SetProperty(LibraryNav,true,videos)</onfocus>
 
 				<!-- Season layout -->
 				<include content="PosterLayout">

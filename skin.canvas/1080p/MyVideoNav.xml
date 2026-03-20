@@ -3,6 +3,8 @@
 	<defaultcontrol always="true">9999</defaultcontrol>
 	<views>501,502</views>
 	<include content="VideoPlayingRedirect" />
+	<!-- Go back if no elements are present -->
+	<onload condition="Integer.IsEqual(Container(501).NumAllItems,1) + Integer.IsEqual(Container(501).NumItems,0)">Back</onload>
 	<!--
 		Go to home if not arriving here from settings and showing 502.
 		Basically, this is the case of playing a video from 502 and then exiting
