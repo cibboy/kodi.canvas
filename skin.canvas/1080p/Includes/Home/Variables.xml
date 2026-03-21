@@ -47,7 +47,7 @@
 
 	<!-- Home music onclick action -->
 	<variable name="HomeMusicOnClick">
-		<value condition="$EXP[IsHomeMusicTypeAlbums]">ActivateWindow(music,musicdb://albums/$INFO[ListItem.DBID],return)</value>
+		<value condition="$EXP[IsHomeMusicTypeAlbums]">ActivateWindow(music,musicdb://albums/$INFO[ListItem.DBID]/,return)</value>
 		<value>PlayMedia($INFO[ListItem.FileNameAndPath],noresume,playoffset=0)</value>
 	</variable>
 	<!-- Home picture onclick action -->
