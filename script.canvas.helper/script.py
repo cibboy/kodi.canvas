@@ -128,6 +128,7 @@ def populate_musicplayer_info(thumb):
     # Set properties.
     window.setProperty('MusicPlayer.Duration', duration)
     window.setProperty('MusicPlayer.Blur', blur)
+    window.setProperty('MusicPlayer.Accent', colors['accent'])
     window.setProperty('MusicPlayer.Contrast', colors['contrast'])
     window.setProperty('MusicPlayer.Contrast.Foreground', colors['contrast_fg'])
     window.setProperty('MusicPlayer.Contrast.Highlight', colors['contrast_highlight'])

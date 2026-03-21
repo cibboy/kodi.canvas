@@ -205,6 +205,7 @@
 				</control>
 				<control type="progress" id="303">	<!-- Actual progress -->
 					<texturebg colordiffuse="TRANSPARENT" border="6">1080p/progress/bg.png</texturebg>
+					<midtexture colordiffuse="$VAR[PlayerOSDProgressColor]" border="6">1080p/progress/mid.png</midtexture>
 					<info>Player.Progress</info>
 				</control>
 				<control type="ranges" id="304">	<!-- Chapters -->
@@ -302,7 +303,7 @@
 					<width>$PARAM[size_focus]</width>
 					<height>$PARAM[size_focus]</height>
 					<fadetime>0</fadetime>
-					<texture colordiffuse="$VAR[ColorsAccentForeground]">1080p/controls/button-circle.png</texture>
+					<texture colordiffuse="$VAR[PlayerOSDControlColor]">1080p/controls/button-circle.png</texture>
 				</control>
 
 				<!-- Icon -->

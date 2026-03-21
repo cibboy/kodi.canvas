@@ -34,6 +34,16 @@
 		<value condition="String.IsEqual(Window(videoosd).Property(FrameAdvance),true)">$VAR[ColorsAccentForeground]</value>
 		<value>HIGHLIGHT</value>
 	</variable>
+	<!-- Progress color -->
+	<variable name="PlayerOSDProgressColor">
+		<value condition="Window.IsActive(MusicOSD.xml) | Window.IsActive(12006)">FF$INFO[Window(12006).Property(MusicPlayer.Accent)]</value>
+		<value>$VAR[ColorsAccentForeground]</value>
+	</variable>
+	<!-- Controls color -->
+	<variable name="PlayerOSDControlColor">
+		<value condition="Window.IsActive(MusicOSD.xml) | Window.IsActive(12006)">FF$INFO[Window(12006).Property(MusicPlayer.Accent)]</value>
+		<value>$VAR[ColorsAccentForeground]</value>
+	</variable>
 	
 	<!-- Video next current video label -->
 	<variable name="VideoNextCurrentLabel">
