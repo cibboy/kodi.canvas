@@ -593,8 +593,8 @@
 						<width max="WIDTH_PLAYER_MUSICINFO">auto</width>
 						<height>FONT_SIZE_TITLE1</height>
 						<font>TITLE2</font>
-						<textcolor>FF$INFO[Window(home).Property(MusicPlayer.Contrast.Highlight)]</textcolor>
-						<label>$VAR[DetailsTitle]</label>
+						<textcolor>HIGHLIGHT</textcolor>
+						<label>$INFO[MusicPlayer.Title]</label>
 					</control>
 
 					<!-- Album name -->
@@ -603,8 +603,8 @@
 						<width max="WIDTH_PLAYER_MUSICINFO">auto</width>
 						<height>HEIGHT_DETAILS_INFOLINE</height>
 						<font>SUBTITLE</font>
-						<textcolor>FF$INFO[Window(home).Property(MusicPlayer.Contrast.Foreground)]</textcolor>
-						<label>$VAR[DetailsTitle2]</label>
+						<textcolor>FOREGROUND</textcolor>
+						<label>$INFO[MusicPlayer.Album]</label>
 					</control>
 
 					<!-- Track number and year -->
@@ -618,22 +618,22 @@
 
 						<!-- Track number -->
 						<control type="label">
-							<visible>$EXP[HasDetailsTrackNumber]</visible>
+							<visible>!String.IsEmpty(MusicPlayer.TrackNumber)</visible>
 							<width>auto</width>
 							<height>HEIGHT_DETAILS_INFOLINE_TEXT</height>
 							<font>CAPTION_STRONG</font>
-							<textcolor>FF$INFO[Window(home).Property(MusicPlayer.Contrast.Foreground)]</textcolor>
-							<label>$VAR[DetailsTrackNumber]</label>
+							<textcolor>FOREGROUND</textcolor>
+							<label>Track $INFO[MusicPlayer.TrackNumber]</label>
 						</control>
 
 						<!-- Year -->
 						<control type="label">
-							<visible>$EXP[HasDetailsYear]</visible>
+							<visible>!String.IsEmpty(MusicPlayer.Year)</visible>
 							<width>auto</width>
 							<height>HEIGHT_DETAILS_INFOLINE_TEXT</height>
 							<font>CAPTION_STRONG</font>
-							<textcolor>FF$INFO[Window(home).Property(MusicPlayer.Contrast.Foreground)]</textcolor>
-							<label>$VAR[DetailsYear]</label>
+							<textcolor>FOREGROUND</textcolor>
+							<label>$INFO[MusicPlayer.Year]</label>
 						</control>
 					</control>
 
@@ -642,8 +642,8 @@
 						<width max="WIDTH_PLAYER_MUSICINFO">auto</width>
 						<height>HEIGHT_DETAILS_INFOLINE_TEXT</height>
 						<font>CAPTION_STRONG</font>
-						<textcolor>FF$INFO[Window(home).Property(MusicPlayer.Contrast.Foreground)]</textcolor>
-						<label>$VAR[DetailsArtist]</label>
+						<textcolor>FOREGROUND</textcolor>
+						<label>$INFO[MusicPlayer.Artist]</label>
 					</control>
 				</control>
 			</control>

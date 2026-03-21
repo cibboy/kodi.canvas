@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-	<defaultcontrol>900</defaultcontrol>
+	<defaultcontrol always="true">900</defaultcontrol>
 
 	<controls>
 		<include content="MusicInfoDetails">
@@ -8,16 +8,9 @@
 			<param name="art">$INFO[Player.Art(thumb)]</param>
 		</include>
 
-		<!-- Invisible list with content the currently plyaing song. This allows to trigger a script on song change (useful for background updates) -->
-		<control type="list" id="900">
-			<itemlayout></itemlayout>
-			<focusedlayout>
-				<control type="button">
-					<visible allowhiddenfocus="true">false</visible>
-					<onfocus>RunScript(script.canvas.helper,populate_musicplayer_bg_info,$INFO[Player.Art(thumb)])</onfocus>
-				</control>
-			</focusedlayout>
-			<content>plugin://script.canvas.helper/song/?dbid=$INFO[MusicPlayer.DBID]</content>
+		<control type="button" id="900">
+			<visible allowhiddenfocus="true">false</visible>
+			<onfocus>RunScript(script.canvas.helper,populate_musicplayer_info,$INFO[Player.Art(thumb)])</onfocus>
 		</control>
 
 		<!-- Pause icon -->

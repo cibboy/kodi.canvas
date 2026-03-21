@@ -39,7 +39,7 @@
 							<aligny>center</aligny>
 							<font>TITLE3</font>
 							<textcolor>HIGHLIGHT</textcolor>
-							<label>$VAR[DetailsTitle]</label>
+							<label>$INFO[MusicPlayer.Title]</label>
 						</control>
 
 						<!-- Details left -->
@@ -58,13 +58,13 @@
 								<aligny>center</aligny>
 								<font>BODY_STRONG</font>
 								<textcolor>HIGHLIGHT</textcolor>
-								<label>$VAR[DetailsTitle2]</label>
+								<label>$INFO[MusicPlayer.Album]</label>
 							</control>
 							
 							<!-- Duration -->
 							<include content="PlayerOSDInfoText">	
-								<param name="visible">$EXP[HasDetailsDuration]</param>
-								<param name="text">$VAR[DetailsDuration]</param>
+								<param name="visible">!String.IsEmpty(Window(12006).Property(MusicPlayer.Duration))</param>
+								<param name="text">$INFO[Window(12006).Property(MusicPlayer.Duration)]</param>
 							</include>
 						</control>
 					</control>

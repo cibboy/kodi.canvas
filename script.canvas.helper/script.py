@@ -114,7 +114,7 @@ def clear_listitem_properties(include_navigation = True):
     if include_navigation: clear_episode_season_navigation(window)
 
 # Populate window properties with background information for the music player.
-def populate_musicplayer_bg_info(thumb):
+def populate_musicplayer_info(thumb):
     # Work on MusicVisualisation.xml.
     window = xbmcgui.Window(12006)
 
@@ -122,8 +122,11 @@ def populate_musicplayer_bg_info(thumb):
     blur, name = get_blurred(thumb)
     # Get colors.
     colors = get_colors(name, '', blur, blur)
+    # Find duration.
+    duration = get_duration('MusicPlayer', True, True, True)
     
     # Set properties.
+    window.setProperty('MusicPlayer.Duration', duration)
     window.setProperty('MusicPlayer.Blur', blur)
     window.setProperty('MusicPlayer.Contrast', colors['contrast'])
     window.setProperty('MusicPlayer.Contrast.Foreground', colors['contrast_fg'])
@@ -933,8 +936,8 @@ if __name__ == '__main__':
         elif method == 'populate_listitem_info_from_listitem':
             populate_listitem_info_from_listitem(sys.argv[2])
         # Get background info for music player.
-        elif method == 'populate_musicplayer_bg_info':
-            populate_musicplayer_bg_info(sys.argv[2])
+        elif method == 'populate_musicplayer_info':
+            populate_musicplayer_info(sys.argv[2])
         # Populate indicators for presence of previous/next season.
         elif method == 'populate_prev_next_season':
             populate_prev_next_season()
