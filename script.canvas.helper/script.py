@@ -286,7 +286,6 @@ def populate_listitem_info(window, itemtype, itemid, item_ref):
         perc_played = xbmc.getInfoLabel(f"{item_ref}.PercentPlayed")
         # Find if watched.
         try:
-            pc = xbmc.getInfoLabel(f"{item_ref}.PlayCount")
             # Watched is true if playcount is > 0 and we're not currently playing it.
             if int(xbmc.getInfoLabel(f"{item_ref}.PlayCount")) > 0 and time_remaining == '': watched = 'true'
         except: pass
