@@ -347,6 +347,18 @@ def populate_listitem_info(window, itemtype, itemid, item_ref):
         # Find clearlogo.
         clearlogo_original = xbmc.getInfoLabel(f"{item_ref}.Art(clearlogo)")
 
+    else:
+        # Find titles.
+        title = xbmc.getInfoLabel(f"{item_ref}.Title")
+        # Find duration.
+        duration = get_duration(item_ref, True, True, False)
+        # Find percentage played.
+        perc_played = xbmc.getInfoLabel(f"{item_ref}.PercentPlayed")
+        # Find subs.
+        for i in range(20):
+            if xbmc.getInfoLabel(f"{item_ref}.Property(SubtitleLanguage.{i+1})") == 'eng': has_eng_sub = 'true'
+            elif xbmc.getInfoLabel(f"{item_ref}.Property(SubtitleLanguage.{i+1})") == 'ita': has_ita_sub = 'true'
+
     # Retrieve common info.
     studio = xbmc.getInfoLabel(f"{item_ref}.Studio")
     video_res = xbmc.getInfoLabel(f"{item_ref}.VideoResolution")
@@ -373,9 +385,9 @@ def populate_listitem_info(window, itemtype, itemid, item_ref):
     clearlogo = get_cropped_clearlogo(clearlogo_original)
     colors = get_colors(name, clearlogo, fanart, blur)
 
-    # Set properties (only if we're still working on the same item).
+    # Set properties (only if we're still working on the same item or we're in the video player).
     current = window.getProperty('Details.DBID')
-    if current == itemid:
+    if current == itemid or item_ref == 'VideoPlayer':
         window.setProperty('Details.ItemType', itemtype)
         window.setProperty('Details.Title', title)
         window.setProperty('Details.Title2', title2)
@@ -481,7 +493,7 @@ def populate_listitem_info_from_player():
     # Continue if working with a different item. This prevents trying to
     # access information with xbmc.getInfoLabel() when a dialog appeared
     # above the window where we are trying to run that method.
-    if itemid != active_itemid and (itemid != '' or active_itemid == ''):
+    if itemid != active_itemid or itemid != '' or active_itemid == '':
         # Set the new active item ID and type.
         window.setProperty('Player.Item.DBID', itemid)
         # Set the current file full path.
