@@ -37,7 +37,27 @@
 	<variable name="HomeTVShowsContent"><value>special://skin/playlists/tvshows.xsp</value></variable>
 	<variable name="HomeYogaContent"><value>plugin://script.canvas.helper/yoga/</value></variable>
 	<variable name="HomeMusicContent">
+		<value condition="$EXP[IsHomeMusicTypeAlbums] + $EXP[IsHomeMusicSortByAlbum] + $EXP[IsHomeMusicSortDescending]">special://skin/playlists/albums-album-desc.xsp</value>
+		<value condition="$EXP[IsHomeMusicTypeAlbums] + $EXP[IsHomeMusicSortByAlbum] + !$EXP[IsHomeMusicSortDescending]">special://skin/playlists/albums-album-asc.xsp</value>
+		<value condition="$EXP[IsHomeMusicTypeAlbums] + $EXP[IsHomeMusicSortByArtist] + $EXP[IsHomeMusicSortDescending]">special://skin/playlists/albums-artist-desc.xsp</value>
+		<value condition="$EXP[IsHomeMusicTypeAlbums] + $EXP[IsHomeMusicSortByArtist] + !$EXP[IsHomeMusicSortDescending]">special://skin/playlists/albums-artist-asc.xsp</value>
+		<value condition="$EXP[IsHomeMusicTypeAlbums] + $EXP[IsHomeMusicSortByYear] + $EXP[IsHomeMusicSortDescending]">special://skin/playlists/albums-year-desc.xsp</value>
+		<value condition="$EXP[IsHomeMusicTypeAlbums] + $EXP[IsHomeMusicSortByYear] + !$EXP[IsHomeMusicSortDescending]">special://skin/playlists/albums-year-asc.xsp</value>
+		<value condition="$EXP[IsHomeMusicTypeAlbums] + $EXP[IsHomeMusicSortByDateAdded] + $EXP[IsHomeMusicSortDescending]">special://skin/playlists/albums-dateadded-desc.xsp</value>
+		<value condition="$EXP[IsHomeMusicTypeAlbums] + $EXP[IsHomeMusicSortByDateAdded] + !$EXP[IsHomeMusicSortDescending]">special://skin/playlists/albums-dateadded-asc.xsp</value>
+		<value condition="$EXP[IsHomeMusicTypeAlbums] + $EXP[IsHomeMusicSortDescending]">special://skin/playlists/albums-album-desc.xsp</value>
+		<value condition="$EXP[IsHomeMusicTypeAlbums] + !$EXP[IsHomeMusicSortDescending]">special://skin/playlists/albums-album-asc.xsp</value>
 		<value condition="$EXP[IsHomeMusicTypeAlbums]">special://skin/playlists/albums.xsp</value>
+		<value condition="!$EXP[IsHomeMusicTypeAlbums] + $EXP[IsHomeMusicSortByAlbum] + $EXP[IsHomeMusicSortDescending]">special://skin/playlists/songs-album-desc.xsp</value>
+		<value condition="!$EXP[IsHomeMusicTypeAlbums] + $EXP[IsHomeMusicSortByAlbum] + !$EXP[IsHomeMusicSortDescending]">special://skin/playlists/songs-album-asc.xsp</value>
+		<value condition="!$EXP[IsHomeMusicTypeAlbums] + $EXP[IsHomeMusicSortByArtist] + $EXP[IsHomeMusicSortDescending]">special://skin/playlists/songs-artist-desc.xsp</value>
+		<value condition="!$EXP[IsHomeMusicTypeAlbums] + $EXP[IsHomeMusicSortByArtist] + !$EXP[IsHomeMusicSortDescending]">special://skin/playlists/songs-artist-asc.xsp</value>
+		<value condition="!$EXP[IsHomeMusicTypeAlbums] + $EXP[IsHomeMusicSortByYear] + $EXP[IsHomeMusicSortDescending]">special://skin/playlists/songs-year-desc.xsp</value>
+		<value condition="!$EXP[IsHomeMusicTypeAlbums] + $EXP[IsHomeMusicSortByYear] + !$EXP[IsHomeMusicSortDescending]">special://skin/playlists/songs-year-asc.xsp</value>
+		<value condition="!$EXP[IsHomeMusicTypeAlbums] + $EXP[IsHomeMusicSortByDateAdded] + $EXP[IsHomeMusicSortDescending]">special://skin/playlists/songs-dateadded-desc.xsp</value>
+		<value condition="!$EXP[IsHomeMusicTypeAlbums] + $EXP[IsHomeMusicSortByDateAdded] + !$EXP[IsHomeMusicSortDescending]">special://skin/playlists/songs-dateadded-asc.xsp</value>
+		<value condition="!$EXP[IsHomeMusicTypeAlbums] + $EXP[IsHomeMusicSortDescending]">special://skin/playlists/songs-title-desc.xsp</value>
+		<value condition="!$EXP[IsHomeMusicTypeAlbums] + !$EXP[IsHomeMusicSortDescending]">special://skin/playlists/songs-title-asc.xsp</value>
 		<value>special://skin/playlists/songs.xsp</value>
 	</variable>
 	<variable name="HomePicturesContent">
@@ -54,6 +74,37 @@
 	<variable name="HomePictureOnClick">
 		<value condition="$EXP[IsHomePictureTypeAlbums]">ActivateWindow(pictures,$INFO[ListItem.FolderPath],return)</value>
 		<value>ShowPicture($INFO[ListItem.FileNameAndPath])</value>
+	</variable>
+
+	<!-- Home sort property onclick action -->
+	<variable name="HomeSortPropertyOnClick">
+		<value condition="$EXP[IsHomeMusicActive] + $EXP[IsHomeMusicSortByAlbum]">Skin.SetString(canvas.musicsort,artist)</value>
+		<value condition="$EXP[IsHomeMusicActive] + $EXP[IsHomeMusicSortByArtist]">Skin.SetString(canvas.musicsort,year)</value>
+		<value condition="$EXP[IsHomeMusicActive] + $EXP[IsHomeMusicSortByYear]">Skin.SetString(canvas.musicsort,dateadded)</value>
+		<value condition="$EXP[IsHomeMusicActive] + $EXP[IsHomeMusicSortByDateAdded] + $EXP[IsHomeMusicTypeAlbums]">Skin.SetString(canvas.musicsort,album)</value>
+		<value condition="$EXP[IsHomeMusicActive] + $EXP[IsHomeMusicSortByDateAdded]">Skin.SetString(canvas.musicsort,title)</value>
+		<value condition="$EXP[IsHomeMusicActive] + $EXP[IsHomeMusicTypeAlbums]">Skin.SetString(canvas.musicsort,artist)</value>
+		<value condition="$EXP[IsHomeMusicActive]">Skin.SetString(canvas.musicsort,album)</value>
+	</variable>
+	<!-- Home sort property onclick label -->
+	<variable name="HomeSortPropertyLabel">
+		<value condition="$EXP[IsHomeMusicActive] + $EXP[IsHomeMusicSortByAlbum]">Sort by: album</value>
+		<value condition="$EXP[IsHomeMusicActive] + $EXP[IsHomeMusicSortByArtist]">Sort by: artist</value>
+		<value condition="$EXP[IsHomeMusicActive] + $EXP[IsHomeMusicSortByYear]">Sort by: year</value>
+		<value condition="$EXP[IsHomeMusicActive] + $EXP[IsHomeMusicSortByDateAdded]">Sort by: date added</value>
+		<value condition="$EXP[IsHomeMusicActive] + $EXP[IsHomeMusicTypeAlbums]">Sort by: album</value>
+		<value condition="$EXP[IsHomeMusicActive]">Sort by: title</value>
+	</variable>
+
+	<!-- Home sort direction onclick action -->
+	<variable name="HomeSortDirectionOnClick">
+		<value condition="$EXP[IsHomeMusicActive] + $EXP[IsHomeMusicSortDescending]">Skin.SetString(canvas.musicsortdirection,ascending)</value>
+		<value condition="$EXP[IsHomeMusicActive]">Skin.SetString(canvas.musicsortdirection,descending)</value>
+	</variable>
+	<!-- Home sort direction onclick label -->
+	<variable name="HomeSortDirectionLabel">
+		<value condition="$EXP[IsHomeMusicActive] + $EXP[IsHomeMusicSortDescending]">Sort: descending</value>
+		<value condition="$EXP[IsHomeMusicActive]">Sort: ascending</value>
 	</variable>
 
 	<!-- Home filter type onclick action -->
@@ -90,6 +141,11 @@
 	<variable name="SystemInfoIcon"><value>1080p/icons/systeminfo.png</value></variable>
 	<variable name="PlayIcon"><value>1080p/icons/play.png</value></variable>
 	<variable name="ShuffleIcon"><value>1080p/icons/shuffle-on.png</value></variable>
+	<variable name="SortIcon"><value>1080p/icons/sort.png</value></variable>
+	<variable name="SortDirectionIcon">
+		<value condition="$EXP[IsHomeMusicActive] + $EXP[IsHomeMusicSortDescending]">1080p/icons/sort-desc.png</value>
+		<value condition="$EXP[IsHomeMusicActive]">1080p/icons/sort-asc.png</value>
+	</variable>
 	<variable name="FilterTypeIcon">
 		<value condition="$EXP[IsHomeMusicActive] + $EXP[IsHomeMusicTypeAlbums]">1080p/icons/collection.png</value>
 		<value condition="$EXP[IsHomeMusicActive]">1080p/icons/music.png</value>

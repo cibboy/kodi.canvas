@@ -674,7 +674,7 @@
 					<include content="HomeOnNavigateUp$PARAM[id]" />
 					<include content="HomeOnNavigateDown$PARAM[id]" />
 					<include content="HomeOnNavigateRightClick$PARAM[id]" />
-					<onleft condition="$PARAM[has_filter]">SetFocus(1100,0)</onleft>
+					<onleft condition="$PARAM[has_filter]">SetFocus(1100,6)</onleft>
 					<onclick condition="$PARAM[is_menu_button]">SetFocus(1001,0)</onclick>
 					<onfocus>SetProperty(Menu.ActiveId,$PARAM[id],home)</onfocus>
 				</control>
@@ -978,8 +978,22 @@
 							<property name="onclick2">PlayerControl(RandomOff)</property>
 							<property name="close_on_click">true</property>
 						</item>
-						<!-- View type -->
+						<!-- Sort property (music) -->
 						<item id="4">
+							<visible>$EXP[IsHomeMusicActive]</visible>
+							<thumb>$VAR[SortIcon]</thumb>
+							<label>$VAR[HomeSortPropertyLabel]</label>
+							<property name="onclick">$VAR[HomeSortPropertyOnClick]</property>
+						</item>
+						<!-- Sort direction (music) -->
+						<item id="5">
+							<visible>$EXP[IsHomeMusicActive]</visible>
+							<thumb>$VAR[SortDirectionIcon]</thumb>
+							<label>$VAR[HomeSortDirectionLabel]</label>
+							<property name="onclick">$VAR[HomeSortDirectionOnClick]</property>
+						</item>
+						<!-- View type -->
+						<item id="6">
 							<thumb>$VAR[FilterTypeIcon]</thumb>
 							<label>$VAR[HomeFilterTypeLabel]</label>
 							<property name="onclick">$VAR[HomeFilterTypeOnClick]</property>

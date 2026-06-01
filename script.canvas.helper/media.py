@@ -155,7 +155,8 @@ def get_next_episode(tvshowid, season, episode):
 
 # Create a list of continue watching items: movies in progress, episodes in progress,
 # TV shows in progress. It collapses TV shows and episodes into one single item if
-# from the same TV show.
+# from the same TV show. If the first unwatched episode of a TV show is not s01e01
+# and not s00, include it in the list.
 def list_continue_watching(handle):
     # In progress movies.
     movies = call_rpc('VideoLibrary.GetMovies', {
@@ -163,8 +164,10 @@ def list_continue_watching(handle):
         'properties': movie_properties_query + ['lastplayed']
     }).get('movies', [])
 
-    # In progress TV shows.
-    tvshows = call_rpc('VideoLibrary.GetInprogressTVShows', {'properties': ['mpaa', 'lastplayed']})
+    # All and in progress TV shows.
+    tvshows = call_rpc('VideoLibrary.GetTVShows', {'properties': ['mpaa', 'lastplayed']})
+    tvshows_inprogress = call_rpc('VideoLibrary.GetInProgressTVShows', {'properties': []})
+    tvshows_inprogress = list(map(lambda s: s.get('tvshowid', -1), tvshows_inprogress.get('tvshows', [])))
     # For each show, find the next episode.
     next_episodes = []
     for tvshow in tvshows.get('tvshows', []):
@@ -185,10 +188,16 @@ def list_continue_watching(handle):
             'properties': episode_properties_query
         }).get('episodes', [])
 
+        # Acceptance criteria:
+        # - Episode is not None (previous filtering did not exclude everything)
+        # - There is at least one episode (previous filtering did not exclude everything)
+        # - Episode is from in progress TV show
+        # - Episode is not from in progress TV show but is not s01e01 (basically, exclude "new" shows, exclude specials, but include if newest episode is after s01e01)
         if next_episode is not None and len(next_episode) > 0:
             next_episode = next_episode[0]
-            next_episode['tvshow'] = tvshow
-            next_episodes.append(next_episode)
+            if tvshow['tvshowid'] in tvshows_inprogress or next_episode.get('season', 0) > 1 or (next_episode.get('season', 0) == 1 and next_episode.get('episode', 0) > 1):
+                next_episode['tvshow'] = tvshow
+                next_episodes.append(next_episode)
 
     # Sort in progress items according to the last played.
     sorted_items = []
