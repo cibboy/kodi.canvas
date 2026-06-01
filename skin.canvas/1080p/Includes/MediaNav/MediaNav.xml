@@ -394,7 +394,7 @@
 					<centerleft>PADDING_BASE_50P</centerleft>
 					<width>SIZE_MEDIANAV_PREVNEXT_INDICATOR</width>
 					<height>SIZE_MEDIANAV_PREVNEXT_INDICATOR</height>
-					<texture colordiffuse="$VAR[MediaNavContrastButtonBackgroundColor]" flipx="true">1080p/icons/chevron-right.png</texture>
+					<texture colordiffuse="$VAR[MediaNavContrastButtonIconColor]" flipx="true">1080p/icons/chevron-right.png</texture>
 				</control>
 				<!-- Next -->
 				<control type="image">
@@ -403,7 +403,7 @@
 					<centerright>PADDING_BASE_50P</centerright>
 					<width>SIZE_MEDIANAV_PREVNEXT_INDICATOR</width>
 					<height>SIZE_MEDIANAV_PREVNEXT_INDICATOR</height>
-					<texture colordiffuse="$VAR[MediaNavContrastButtonBackgroundColor]">1080p/icons/chevron-right.png</texture>
+					<texture colordiffuse="$VAR[MediaNavContrastButtonIconColor]">1080p/icons/chevron-right.png</texture>
 				</control>
 			</control>
 		</definition>

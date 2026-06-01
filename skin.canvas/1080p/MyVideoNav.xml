@@ -6,7 +6,7 @@
 	<!-- Go back if no elements are present -->
 	<onload condition="Integer.IsEqual(Container(501).NumAllItems,1) + Integer.IsEqual(Container(501).NumItems,0)">Back</onload>
 	<!--
-		Go to home if not arriving here from settings and showing 502.
+		Go to home if not arriving here from settings and showing 502. 
 		Basically, this is the case of playing a video from 502 and then exiting
 		(it would want to show 502, but it's mixed up because it's coming from
 		the video player, and so on. Yeah, just a giant mess of quirks in Kodi...)
