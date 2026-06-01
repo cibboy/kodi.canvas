@@ -676,12 +676,15 @@
 	<!-- Horizontal strip of items -->
 	<include name="ItemStrip">
 		<param name="id"></param>
+		<param name="movement">6</param>
 
 		<definition>
-			<control type="list" id="$PARAM[id]">
+			<control type="fixedlist" id="$PARAM[id]">
 				<autoscroll>false</autoscroll>
 				<orientation>horizontal</orientation>
 				<preloaditems>8</preloaditems>
+				<focusposition>0</focusposition>
+				<movement>$PARAM[movement]</movement>
 				
 				<!-- Additional specific list properties and layout -->
 				<nested />

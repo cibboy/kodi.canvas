@@ -510,7 +510,9 @@ def get_movie_listitem(movie):
     videoinfo.setPlot(movie.get('plot', ''))
     videoinfo.setMpaa(movie.get('mpaa', ''))
     videoinfo.setGenres(movie.get('genre', []))
-    videoinfo.setDuration(int(movie.get('streamdetails', {}).get('video', [{}])[0].get('duration', 0)))
+    video = movie.get('streamdetails', {}).get('video', [{}])
+    if len(video) == 0: video = [{}]
+    videoinfo.setDuration(int(video[0].get('duration', 0)))
     videoinfo.setResumePoint(float(movie.get('resume', {}).get('position', 0)), float(movie.get('resume', {}).get('total', 0)))
     videoinfo.setPlaycount(int(movie.get('playcount', 0)))
     for video in movie.get('streamdetails', {}).get('video', []):
@@ -591,7 +593,9 @@ def get_episode_listitem(episode):
     videoinfo.setStudios(episode.get('studio', []))
     videoinfo.setPlot(episode.get('plot', ''))
     videoinfo.setTvShowTitle(episode.get('showtitle', ''))
-    videoinfo.setDuration(int(episode.get('streamdetails', {}).get('video', [{}])[0].get('duration', 0)))
+    video = episode.get('streamdetails', {}).get('video', [{}])
+    if len(video) == 0: video = [{}]
+    videoinfo.setDuration(int(video[0].get('duration', 0)))
     videoinfo.setResumePoint(float(episode.get('resume', {}).get('position', 0)), float(episode.get('resume', {}).get('total', 0)))
     videoinfo.setPlaycount(int(episode.get('playcount', 0)))
     for video in episode.get('streamdetails', {}).get('video', []):

@@ -80,7 +80,9 @@
 						<ondown>noop</ondown>
 
 						<!-- Media items -->
-						<include content="MediaNavItemList" />
+						<include content="MediaNavItemList">
+							<param name="movement">2</param>
+						</include>
 
 						<!-- Actor list -->
 						<include content="MediaNavActorList" />

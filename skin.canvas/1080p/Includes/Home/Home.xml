@@ -11,6 +11,7 @@
 		<param name="label"></param>
 		<param name="content"></param>
 		<param name="content_type"></param>
+		<param name="movement"></param>
 		<param name="menuid"></param>
 		<param name="onclick"></param>
 		<param name="darken_art">false</param>
@@ -30,6 +31,7 @@
 				<!-- Media item strip -->
 				<include content="ItemStrip">
 					<param name="id">$PARAM[id]</param>
+					<param name="movement">$PARAM[movement]</param>
 
 					<top>OFFSET_HOME_LIST_AFTER_LABEL</top>
 					<height>HEIGHT_LIST_CONTAINER</height>
@@ -334,6 +336,7 @@
 					<param name="label">Continue watching</param>
 					<param name="content">$VAR[HomeContinueWatchingContent]</param>
 					<param name="content_type">1</param>
+					<param name="movement">6</param>
 					<param name="menuid">7001</param>
 					<param name="onclick">RunScript(script.canvas.helper,navigate_movie_episode_videonav,101)</param>
 					<param name="darken_art">$PARAM[darken_art]</param>
@@ -344,6 +347,7 @@
 					<param name="label">Recently added episodes</param>
 					<param name="content">$VAR[HomeRecentEpisodesContent]</param>
 					<param name="content_type">2</param>
+					<param name="movement">2</param>
 					<param name="menuid">7001</param>
 					<param name="onclick">RunScript(script.canvas.helper,navigate_movie_episode_videonav,102)</param>
 					<param name="darken_art">$PARAM[darken_art]</param>
@@ -354,6 +358,7 @@
 					<param name="label">Recently added movies</param>
 					<param name="content">$VAR[HomeRecentMoviesContent]</param>
 					<param name="content_type">1</param>
+					<param name="movement">6</param>
 					<param name="menuid">7001</param>
 					<param name="onclick">RunScript(script.canvas.helper,navigate_movie_episode_videonav,103)</param>
 					<param name="darken_art">$PARAM[darken_art]</param>
@@ -364,6 +369,7 @@
 					<param name="label">Recently added music</param>
 					<param name="content">$VAR[HomeRecentSongsContent]</param>
 					<param name="content_type">3</param>
+					<param name="movement">6</param>
 					<param name="menuid">7001</param>
 					<param name="onclick">PlayMedia($INFO[ListItem.FileNameAndPath],noresume,playoffset=0)</param>
 					<param name="darken_art">$PARAM[darken_art]</param>

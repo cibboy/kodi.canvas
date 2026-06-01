@@ -40,6 +40,7 @@
 
 				<!-- Single movie list (always hidden) -->
 				<include content="MediaNavItemList" condition="String.IsEqual(Window(1110).Property(Content.Type),movie)">
+					<param name="movement">6</param>
 					<animation type="Conditional" condition="true"><effect type="fade" start="100" end="0" time="0" tween="cubic" easing="out" /></animation>
 					<content>$INFO[Window(1110).Property(Content)]</content>
 				</include>
@@ -58,6 +59,7 @@
 
 					<!-- Episode list -->
 					<include content="MediaNavItemList" condition="String.IsEqual(Window(1110).Property(Content.Type),episode)">
+						<param name="movement">2</param>
 						<animation type="Conditional" condition="!String.IsEqual(Window(1110).Property(ShowList),true)">
 							<effect type="slide" start="0,0" end="0,-99999" time="0" tween="cubic" easing="out" reversible="true" />
 						</animation>

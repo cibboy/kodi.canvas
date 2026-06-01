@@ -5,6 +5,8 @@
 	
 	<!-- Horizontal list of media items. Form factor is based on content type -->
 	<include name="MediaNavItemList">
+		<param name="movement"></param>
+
 		<definition>
 			<!-- Label -->
 			<include content="ListLabel">
@@ -16,6 +18,7 @@
 			<!-- Media item strip -->
 			<include content="ItemStrip">
 				<param name="id">501</param>
+				<param name="movement">$PARAM[movement]</param>
 
 				<nested />
 
@@ -168,6 +171,7 @@
 			<!-- Actor strip -->
 			<include content="ItemStrip">
 				<param name="id">601</param>
+				<param name="movement">6</param>
 
 				<height>HEIGHT_LIST_CONTAINER</height>
 
