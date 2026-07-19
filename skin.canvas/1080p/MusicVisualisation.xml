@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
 	<defaultcontrol always="true">900</defaultcontrol>
+	<!-- Start tracking of song changes -->
+	<onload>SetProperty(Song.Title,$INFO[MusicPlayer.Title],12006)</onload>
+	<onload>Skin.TimerStart(songchange)</onload>
+	<onunload>Skin.TimerStop(songchange)</onunload>
 
 	<controls>
 		<include content="MusicInfoDetails">
@@ -67,15 +71,38 @@
 			<param name="slide_to">100</param>
 		</include>
 
-		<!-- Progress and time (during seeking) -->
-		<control type="group" id="300">
-			<visible>Player.Seeking + !Window.IsActive(VideoOSD.xml)</visible>
-			<include content="ShowHideFadeSlideVerticalAnimation">
-				<param name="speed">ANIMATION_MID</param>
-				<param name="delay_out">$VAR[PlayerOSDSeekProgressHideDelay]</param>
-			</include>
+		<!-- Fake OSD -->
+		<include content="PlayerOSD">
+			<param name="visible">!Window.IsActive(MusicOSD.xml)</param>
+			<param name="show_stop">false</param>
+			<param name="show_play">false</param>
+			<param name="show_prev">false</param>
+			<param name="show_next">false</param>
+			<param name="onleft">SetFocus(203)</param>
+			<param name="onright">SetFocus(201)</param>
+			<param name="ondown">noop</param>
 
-			<include content="PlayerOSDProgress" />
-		</control>
+			<!-- Media info -->
+			<control type="group">
+				<left>PADDING_BASE_125P</left>
+				<right>PADDING_BASE_125P</right>
+
+				<!-- Details left -->
+				<control type="grouplist">
+					<orientation>horizontal</orientation>
+					<itemgap>PADDING_BASE_30P</itemgap>
+					<usecontrolcoords>true</usecontrolcoords>
+
+					<bottom>275</bottom>
+					<height>FONT_SIZE_SUBTITLE</height>
+					
+					<!-- Duration -->
+					<include content="PlayerOSDInfoText">	
+						<param name="visible">!String.IsEmpty(Window(12006).Property(MusicPlayer.Duration))</param>
+						<param name="text">$INFO[Window(12006).Property(MusicPlayer.Duration)]</param>
+					</include>
+				</control>
+			</control>
+		</include>
 	</controls>
 </window>

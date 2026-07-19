@@ -958,7 +958,7 @@
 					<content>
 						<!-- Play all (music) -->
 						<item id="1">
-							<visible>$EXP[IsHomeMusicActive] + !$EXP[IsHomeMusicTypeAlbums]</visible>
+							<visible>$EXP[IsHomeMusicActive]</visible>
 							<thumb>$VAR[PlayIcon]</thumb>
 							<label>Play all</label>
 							<property name="onclick">PlayMedia(special://skin/playlists/songs.xsp)</property>
@@ -967,11 +967,11 @@
 						</item>
 						<!-- Shuffle all (music) -->
 						<item id="2">
-							<visible>$EXP[IsHomeMusicActive] + !$EXP[IsHomeMusicTypeAlbums]</visible>
+							<visible>$EXP[IsHomeMusicActive]</visible>
 							<thumb>$VAR[ShuffleIcon]</thumb>
 							<label>Shuffle all</label>
 							<property name="onclick">PlayMedia(special://skin/playlists/songs.xsp)</property>
-							<property name="onclick2">PlayerControl(Random)</property>
+							<property name="onclick2">PlayerControl(RandomOn)</property>
 							<property name="onclick3">PlayerControl(Next)</property>
 							<property name="close_on_click">true</property>
 						</item>

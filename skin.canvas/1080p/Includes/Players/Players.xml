@@ -92,13 +92,18 @@
 
 	<!-- Generic OSD -->
 	<include name="PlayerOSD">
+		<param name="visible">true</param>
 		<param name="show_stop">false</param>
+		<param name="show_play">true</param>
+		<param name="show_prev">true</param>
+		<param name="show_next">true</param>
 		<param name="onleft">SetFocus(100)</param>
 		<param name="onright">SetFocus(100)</param>
 		<param name="ondown">noop</param>
 
 		<definition>
 			<control type="group">
+				<visible>$PARAM[visible]</visible>
 				<width>SCREEN_WIDTH</width>
 				<height>HEIGHT_OSD</height>
 				<bottom>0</bottom>
@@ -145,7 +150,7 @@
 					<ondown>$PARAM[ondown]</ondown>
 
 					<!-- Previous/Rewind -->
-					<include content="PlayerOSDButton">
+					<include content="PlayerOSDButton" condition="$PARAM[show_prev]">
 						<param name="id">101</param>
 						<param name="size">SIZE_OSD_BUTTON</param>
 						<param name="size_focus">SIZE_OSD_BUTTON_FOCUS</param>
@@ -155,7 +160,7 @@
 						<param name="action">$VAR[PlayerOSDPrevRewindAction]</param>
 					</include>
 					<!-- Play/pause -->
-					<include content="PlayerOSDButton">
+					<include content="PlayerOSDButton" condition="$PARAM[show_play]">
 						<param name="id">102</param>
 						<param name="size">SIZE_OSD_BUTTON_BIG</param>
 						<param name="size_focus">SIZE_OSD_BUTTON_BIG_FOCUS</param>
@@ -164,7 +169,7 @@
 						<param name="action">PlayerControl(Play)</param>
 					</include>
 					<!-- Next/Forward -->
-					<include content="PlayerOSDButton">
+					<include content="PlayerOSDButton" condition="$PARAM[show_next]">
 						<param name="id">103</param>
 						<param name="size">SIZE_OSD_BUTTON</param>
 						<param name="size_focus">SIZE_OSD_BUTTON_FOCUS</param>

@@ -42,4 +42,13 @@
 		<!-- If showing episodes, first navigate to proper episode, then show list by setting property -->
 		<onstop condition="String.IsEqual(Window(1110).Property(Content.Type),episode) + String.IsEqual(Window(1110).Property(Navigation.Apply),true)">RunScript(script.canvas.helper,set_active_episode)</onstop>
 	</timer>
+
+	<!-- Timer to "raise" an event when a song ends and a new one starts. To be used exclusively on music player to update colors -->
+	<timer>
+		<name>songchange</name>
+		<stop>!String.IsEqual(Window(12006).Property(Song.Title),MusicPlayer.Title)</stop>
+		<onstop condition="Window.IsVisible(12006)">RunScript(script.canvas.helper,populate_musicplayer_info,$INFO[Player.Art(thumb)])</onstop>
+		<onstop condition="Window.IsVisible(12006)">SetProperty(Song.Title,$INFO[MusicPlayer.Title],12006)</onstop>
+		<onstop condition="Window.IsVisible(12006)">Skin.TimerStart(songchange)</onstop>
+	</timer>
 </timers>
