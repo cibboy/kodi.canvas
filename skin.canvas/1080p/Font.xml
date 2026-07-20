@@ -104,6 +104,16 @@
 			<size>24</size>
 		</font>
 		<font>
+			<name>SONG_TITLE_CLOCK</name>
+			<filename>Geologica-Bold.ttf</filename>
+			<size>24</size>
+		</font>
+		<font>
+			<name>SONG_ARTIST_CLOCK</name>
+			<filename>Geologica-Bold.ttf</filename>
+			<size>22</size>
+		</font>
+		<font>
 			<name>LOGO</name>
 			<filename>Geologica-SemiBold.ttf</filename>
 			<size>200</size>

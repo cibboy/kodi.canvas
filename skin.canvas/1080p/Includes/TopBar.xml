@@ -15,6 +15,14 @@
 					<fadetime>ANIMATION_SLOW</fadetime>
 					<texture colordiffuse="BACKGROUND_OPAQUE90">1080p/diffuse/corner.png</texture>
 				</control>
+				<!-- Additional darkening for song playing info -->
+				<control type="image">
+					<visible>$PARAM[show_background] + Player.HasMedia + Player.HasAudio + !$EXP[IsTvShowThemePlaying] + [Window.IsActive(Home.xml) | Window.IsActive(MyVideoNav.xml) | Window.IsActive(1110)] + !$EXP[IsHomeMenuFlyoutVisible]</visible>
+					<width>100%</width>
+					<height>450</height>
+					<fadetime>ANIMATION_SLOW</fadetime>
+					<texture colordiffuse="BACKGROUND_OPAQUE90">1080p/diffuse/corner.png</texture>
+				</control>
 
 				<!-- Clocks -->
 				<control type="group">
@@ -27,7 +35,7 @@
 						<aligny>center</aligny>
 						<height>FONT_SIZE_SUBTITLE</height>
 						<font>CLOCK</font>
-						<textcolor>FOREGROUND_OPAQUE75</textcolor>
+						<textcolor>FOREGROUND</textcolor>
 						<label>$INFO[System.Time]</label>
 					</control>
 
@@ -39,8 +47,63 @@
 						<aligny>center</aligny>
 						<height>FONT_SIZE_SUBTITLE</height>
 						<font>ETACLOCK</font>
-						<textcolor>FOREGROUND_OPAQUE50</textcolor>
+						<textcolor>FOREGROUND_DARK</textcolor>
 						<label>$INFO[Player.FinishTime]</label>
+					</control>
+				</control>
+
+				<!-- Song playing info -->
+				<control type="group">
+					<visible>Player.HasMedia + Player.HasAudio + !$EXP[IsTvShowThemePlaying] + [Window.IsActive(Home.xml) | Window.IsActive(MyVideoNav.xml) | Window.IsActive(1110)] + !$EXP[IsHomeMenuFlyoutVisible]</visible>
+					<animation type="Visible"><effect type="slide" start="0,PADDING_BASE_80P_NEG" end="0,0" time="ANIMATION_FAST" tween="back" easing="out" reversible="true" /></animation>
+					<animation type="Hidden"><effect type="slide" start="0,0" end="0,PADDING_BASE_80P_NEG" time="ANIMATION_FAST" tween="back" easing="in" reversible="true" /></animation>
+
+					<top>PADDING_BASE_80P</top>
+					<right>220</right>
+					<height>72</height>
+
+					<!-- Play icon -->
+					<control type="image">
+						<visible>Player.Playing</visible>
+						<centertop>50%</centertop>
+						<right>0</right>
+						<width>40</width>
+						<height>40</height>
+						<texture colordiffuse="$VAR[ColorsAccentForeground]">1080p/icons/play.png</texture>
+					</control>
+					<!-- Pause icon -->
+					<control type="image">
+						<visible>Player.Paused</visible>
+						<centertop>50%</centertop>
+						<right>0</right>
+						<width>35</width>
+						<height>35</height>
+						<texture colordiffuse="$VAR[ColorsAccentForeground]">1080p/icons/pause.png</texture>
+					</control>
+
+					<!-- Info -->
+					<control type="group">
+						<right>50</right>
+
+						<!-- Title -->
+						<control type="label">
+							<align>right</align>
+							<aligny>center</aligny>
+							<height>FONT_SIZE_SUBTITLE</height>
+							<font>SONG_TITLE_CLOCK</font>
+							<textcolor>$VAR[ColorsAccentForeground]</textcolor>
+							<label>$INFO[MusicPlayer.Title]</label>
+						</control>
+						<!-- Artist -->
+						<control type="label">
+							<top>26</top>
+							<align>right</align>
+							<aligny>center</aligny>
+							<height>FONT_SIZE_SUBTITLE</height>
+							<font>SONG_ARTIST_CLOCK</font>
+							<textcolor>FOREGROUND</textcolor>
+							<label>$INFO[MusicPlayer.Artist]</label>
+						</control>
 					</control>
 				</control>
 			</control>
