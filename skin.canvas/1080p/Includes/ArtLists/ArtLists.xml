@@ -353,17 +353,20 @@
 				<!-- Title (if clearlogo not available) -->
 				<control type="label">
 					<visible>String.IsEmpty(ListItem.Art(tvshow.clearlogo))</visible>
+					<top>PADDING_BASE_15P</top>
 					<width>auto</width>
 					<font>BODY2_STRONG</font>
 					<textcolor>$PARAM[textcolor]</textcolor>
 					<label>$INFO[ListItem.TVShowTitle]</label>
+					<align>center</align>
 				</control>
 				<!-- Clearlogo -->
 				<control type="image">
-					<width>WIDTH_LANDSCAPE_CLEARLOGO</width>
+					<top>PADDING_BASE_15P</top>
+					<width>100%</width>
 					<height>HEIGHT_LANDSCAPE_CLEARLOGO</height>
 					<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
-					<aspectratio align="left">keep</aspectratio>
+					<aspectratio align="center">keep</aspectratio>
 				</control>
 			</control>
 		</definition>
