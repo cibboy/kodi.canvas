@@ -671,36 +671,47 @@ def set_active_episode():
                 offset = i
                 break
 
-    # Set focus with computed offset.
-    xbmc.executebuiltin(f"SetFocus(501,{offset},absolute)")
-    # Kodi is stupid, sometimes it says it the list has focus, but it doesn't.
-    # So we need to force it again while the focused episoded is not the requested one.
-    time.sleep(0.1)
-    xbmc.executebuiltin(f"SetFocus(501,{offset},absolute)")
-    count = 0
-    current = xbmcgui.getCurrentWindowId()
-    if current == 11110:
-        try:
-            selected = int(xbmc.getInfoLabel('Container(501).ListItem.DBID'))
-            while count < 10 and selected != episode:
-                count += 1
-                xbmc.executebuiltin(f"SetFocus(501,{offset},absolute)")
-                time.sleep(1)
-                current = xbmcgui.getCurrentWindowId()
-                if current != 11110: break
-                try: selected = int(xbmc.getInfoLabel('Container(501).ListItem.DBID'))
-                except: break
-        except: pass
+    # Proceed only if still on media nav.
+    currentWindowId = xbmcgui.getCurrentWindowId()
+    if currentWindowId == 11110:
+        # Set focus with computed offset.
+        xbmc.executebuiltin(f"SetFocus(501,{offset},absolute)")
+        # Kodi is stupid, sometimes it says it the list has focus, but it doesn't.
+        # So we need to force it again while the focused episoded is not the requested one.
+        time.sleep(0.1)
+        # Proceed only if still on media nav.
+        currentWindowId = xbmcgui.getCurrentWindowId()
+        if currentWindowId == 11110:
+            xbmc.executebuiltin(f"SetFocus(501,{offset},absolute)")
+            count = 0
+            current = xbmcgui.getCurrentWindowId()
+            if current == 11110:
+                try:
+                    selected = int(xbmc.getInfoLabel('Container(501).ListItem.DBID'))
+                    while count < 10 and selected != episode:
+                        count += 1
+                        currentWindowId = xbmcgui.getCurrentWindowId()
+                        if currentWindowId != 11110: break
+                        xbmc.executebuiltin(f"SetFocus(501,{offset},absolute)")
+                        
+                        time.sleep(1)
+                        currentWindowId = xbmcgui.getCurrentWindowId()
+                        if currentWindowId != 11110: break
+                        try: selected = int(xbmc.getInfoLabel('Container(501).ListItem.DBID'))
+                        except: break
+                except: pass
 
-    # Check for previous/next season.
-    populate_prev_next_season()
+            # Check for previous/next season.
+            populate_prev_next_season()
 
     # Activate processing of details.
     window.clearProperty('Details.DoNotProcess')
 
     # Set window property to show the list (give time for animation to complete).
     time.sleep(0.2)
-    xbmc.executebuiltin('SetProperty(ShowList,true,1110)')
+    currentWindowId = xbmcgui.getCurrentWindowId()
+    if currentWindowId == 11110:
+        xbmc.executebuiltin('SetProperty(ShowList,true,1110)')
 
 
 # Removes the requested movie/episode/season/TV show from library.
