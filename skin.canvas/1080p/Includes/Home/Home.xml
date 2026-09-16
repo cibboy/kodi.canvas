@@ -428,9 +428,9 @@
 					<param name="id">499</param>
 				</include>
 
-				<!-- Music -->
+				<!-- Music (avoid ID 501 and 502 for conflit with media nav) -->
 				<include content="HomeItemWall">
-					<param name="id">501</param>
+					<param name="id">503</param>
 					<param name="label">Music</param>
 					<param name="content">$VAR[HomeMusicContent]</param>
 					<param name="content_type">3</param>
@@ -440,7 +440,7 @@
 				</include>
 				<!-- No music page -->
 				<include content="HomeEmptyItemStrip">
-					<param name="visible">Integer.IsEqual(Container(501).NumItems,0)</param>
+					<param name="visible">Integer.IsEqual(Container(503).NumItems,0)</param>
 					<param name="id">599</param>
 				</include>
 				
@@ -518,15 +518,15 @@
 
 				<!-- Music -->
 				<include content="HomeEmptyPage">
-					<param name="id">9501</param>
-					<param name="visible">!Integer.IsEqual(Container(501).NumItems,0)</param>
+					<param name="id">9503</param>
+					<param name="visible">!Integer.IsEqual(Container(503).NumItems,0)</param>
 				</include>
 				<include content="HomeAddSomethingPage">
 					<param name="id">9599</param>
 					<param name="icon">$VAR[MusicIcon]</param>
 					<param name="title">Music</param>
 					<param name="button">Add music</param>
-					<param name="visible">Integer.IsEqual(Container(501).NumItems,0)</param>
+					<param name="visible">Integer.IsEqual(Container(503).NumItems,0)</param>
 					<param name="menuid">7005</param>
 				</include>
 
