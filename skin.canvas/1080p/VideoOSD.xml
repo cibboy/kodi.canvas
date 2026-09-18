@@ -225,9 +225,12 @@
 							<texturefocus />
 						</control>
 						<!-- Actor list -->
-						<include content="MediaNavActorList">
-							<param name="content">plugin://script.canvas.helper/actors/?dbid=$INFO[Window(home).Property(Player.Item.DBID)]&amp;dbtype=$INFO[Window(home).Property(Player.Item.DBTYPE)]</param>
-						</include>
+						<control type="group">
+							<visible>Integer.IsGreater(Container(601).NumItems,0)</visible>
+							<include content="MediaNavActorList">
+								<param name="content">plugin://script.canvas.helper/actors/?dbid=$INFO[Window(home).Property(Player.Item.DBID)]&amp;dbtype=$INFO[Window(home).Property(Player.Item.DBTYPE)]</param>
+							</include>
+						</control>
 					</control>
 
 					<!-- Poster art -->
@@ -239,6 +242,7 @@
 
 						<include content="ArtListsPoster">
 							<param name="art">$VAR[PlayerOSDPosterArt]</param>
+							<param name="fallback"></param>
 							<param name="width">WIDTH_DETAILS_POSTER</param>
 							<param name="height">HEIGHT_DETAILS_POSTER</param>
 							<param name="show_decorators">false</param>
