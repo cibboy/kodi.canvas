@@ -225,12 +225,10 @@
 							<texturefocus />
 						</control>
 						<!-- Actor list -->
-						<control type="group">
-							<visible>Integer.IsGreater(Container(601).NumItems,0)</visible>
-							<include content="MediaNavActorList">
-								<param name="content">plugin://script.canvas.helper/actors/?dbid=$INFO[Window(home).Property(Player.Item.DBID)]&amp;dbtype=$INFO[Window(home).Property(Player.Item.DBTYPE)]</param>
-							</include>
-						</control>
+						<include content="MediaNavActorList">
+							<param name="visible">!String.IsEmpty(Window(home).Property(Player.Item.DBID))</param>
+							<param name="content">plugin://script.canvas.helper/actors/?dbid=$INFO[Window(home).Property(Player.Item.DBID)]&amp;dbtype=$INFO[Window(home).Property(Player.Item.DBTYPE)]</param>
+						</include>
 					</control>
 
 					<!-- Poster art -->

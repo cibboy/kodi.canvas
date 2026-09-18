@@ -715,10 +715,12 @@
 		<param name="id"></param>
 		<param name="label"></param>
 		<param name="textcolor">$VAR[ColorsContrastForeground]</param>
+		<param name="visible">true</param>
 
 		<definition>
 			<!-- Label -->
 			<control type="label" id="$PARAM[id]">
+				<visible>$PARAM[visible]</visible>
 				<height>FONT_SIZE_BODY</height>
 				<aligny>center</aligny>
 				<font>BODY_STRONG</font>
@@ -727,6 +729,7 @@
 			</control>
 			<!-- Padding -->
 			<control type="label" id="99$PARAM[id]">
+				<visible>$PARAM[visible]</visible>
 				<height>PADDING_BASE_20P</height>
 				<aligny>center</aligny>
 				<font>BODY_STRONG</font>
