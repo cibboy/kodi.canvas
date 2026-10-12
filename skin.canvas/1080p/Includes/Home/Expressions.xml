@@ -16,6 +16,8 @@
 		$EXP[IsHomeFlyoutVisible]
 	</expression>
 
+	<!-- Is home yoga active? -->
+	<expression name="IsHomeYogaActive">Integer.IsEqual(Container(7000).Position,3)</expression>
 	<!-- Is home music active? -->
 	<expression name="IsHomeMusicActive">Integer.IsEqual(Container(7000).Position,4)</expression>
 	<!-- Is home pictures active? -->

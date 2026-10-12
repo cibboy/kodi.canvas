@@ -121,6 +121,27 @@
 		<value condition="$EXP[IsHomePicturesActive] + $EXP[IsHomePictureTypeAlbums]">View type: albums</value>
 		<value condition="$EXP[IsHomePicturesActive]">View type: pictures</value>
 	</variable>
+
+	<!-- Home flyout landing button action -->
+	<variable name="HomeFlyoutLandingButtonOnClick">
+		<value condition="$EXP[IsHomeYogaActive]">RunScript(script.canvas.helper,reset_yoga)</value>
+		<value condition="$EXP[IsHomeMusicActive] | $EXP[IsHomePicturesActive]">$VAR[HomeFilterTypeOnClick]</value>
+	</variable>
+	<!-- Home flyout landing button close on click -->
+	<variable name="HomeFlyoutLandingButtonCloseOnClick">
+		<value condition="$EXP[IsHomeYogaActive]">true</value>
+		<value condition="$EXP[IsHomeMusicActive] | $EXP[IsHomePicturesActive]">false</value>
+	</variable>
+	<!-- Home flyout landing button icon -->
+	<variable name="HomeFlyoutLandingButtonIcon">
+		<value condition="$EXP[IsHomeYogaActive]">$VAR[MediaNavUnwatchedIcon]</value>
+		<value condition="$EXP[IsHomeMusicActive] | $EXP[IsHomePicturesActive]">$VAR[FilterTypeIcon]</value>
+	</variable>
+	<!-- Home flyout landing button label -->
+	<variable name="HomeFlyoutLandingButtonLabel">
+		<value condition="$EXP[IsHomeYogaActive]">Reset</value>
+		<value condition="$EXP[IsHomeMusicActive] | $EXP[IsHomePicturesActive]">$VAR[HomeFilterTypeLabel]</value>
+	</variable>
 	
 	
 	<!-- Icons -->

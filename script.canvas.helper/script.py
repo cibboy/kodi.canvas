@@ -397,12 +397,6 @@ def populate_listitem_info(window, itemtype, itemid, item_ref):
         window.setProperty('Details.AspectRatio', aspect_ratio)
         window.setProperty('Details.HdrType', hdr_type)
         window.setProperty('Details.AudioChannels', audio_channels)
-        window.setProperty('Details.AudioChannels.1', audio_channels_s1)
-        window.setProperty('Details.AudioChannels.2', audio_channels_s2)
-        window.setProperty('Details.AudioLanguage.1', audio_lang_s1)
-        window.setProperty('Details.AudioLanguage.2', audio_lang_s2)
-        window.setProperty('Details.AudioCodec.1', audio_codec_s1)
-        window.setProperty('Details.AudioCodec.2', audio_codec_s2)
         window.setProperty('Details.Year', year)
         window.setProperty('Details.EpisodeNumber', ep_number)
         window.setProperty('Details.EpisodePremiere', ep_premiere)
@@ -434,6 +428,14 @@ def populate_listitem_info(window, itemtype, itemid, item_ref):
         window.setProperty('Colors.Contrast.DarkenBg', colors['needs_darken_bg'])
         window.setProperty('Colors.Contrast.Foreground', colors['contrast_fg'])
         window.setProperty('Colors.Contrast.Highlight', colors['contrast_highlight'])
+        # Populate audio stream-specific info only if not in player (otherwise it messes up values).
+        if item_ref != 'VideoPlayer':
+            window.setProperty('Details.AudioChannels.1', audio_channels_s1)
+            window.setProperty('Details.AudioChannels.2', audio_channels_s2)
+            window.setProperty('Details.AudioLanguage.1', audio_lang_s1)
+            window.setProperty('Details.AudioLanguage.2', audio_lang_s2)
+            window.setProperty('Details.AudioCodec.1', audio_codec_s1)
+            window.setProperty('Details.AudioCodec.2', audio_codec_s2)
 
     # If on MyVideoNav.xml or CustomVideoNav (1110), update navigation
     current_window = xbmcgui.getCurrentWindowId()
@@ -866,6 +868,24 @@ def play_all_pictures():
         dir = sources[0].get('file', None)
         if dir is not None: xbmc.executebuiltin(f"RecursiveSlideShow({dir})")
 
+# Reset watched status on Yoga with Adriene seasons
+def reset_yoga():
+    tvshow = None
+    shows = call_rpc('VideoLibrary.GetTVShows', {
+        # Filter on title.
+        'filter': {'field': 'title', 'operator': 'is', 'value': 'Yoga with Adriene'}
+    }).get('tvshows', [])
+    if len(shows) > 0:
+        tvshow = shows[0]
+
+    # Reset show.
+    if tvshow is not None:
+        # Load all show episodes.
+        episodes = call_rpc('VideoLibrary.GetEpisodes', {'tvshowid': tvshow['tvshowid']}).get('episodes', [])
+        # Reset watched status of each one.
+        for episode in episodes:
+            toggle_watched('episode', episode['episodeid'], False)
+
 
 # Apply first run customizations.
 def apply_customizations():
@@ -1006,6 +1026,10 @@ if __name__ == '__main__':
         # Start a slideshow of all pictures, recursively (only first source supported).
         elif method == 'play_all_pictures':
             play_all_pictures()
+
+        # Reset watched status on Yoga with Adriene seasons.
+        elif method == 'reset_yoga':
+            reset_yoga()
         
         # Test method.
         elif method == 'ping':
