@@ -413,7 +413,6 @@ def populate_listitem_info(window, itemtype, itemid, item_ref):
         window.setProperty('Details.Plot', plot)
         window.setProperty('Details.Director', director)
         window.setProperty('Details.Writer', writer)
-        window.setProperty('Details.FilePath', filepath)
         window.setProperty('Details.Clearlogo', clearlogo)
         window.setProperty('Details.Blur', blur)
         window.setProperty('Details.Contrast', colors['contrast'])
@@ -436,6 +435,7 @@ def populate_listitem_info(window, itemtype, itemid, item_ref):
             window.setProperty('Details.AudioLanguage.2', audio_lang_s2)
             window.setProperty('Details.AudioCodec.1', audio_codec_s1)
             window.setProperty('Details.AudioCodec.2', audio_codec_s2)
+            window.setProperty('Details.FilePath', filepath)
 
     # If on MyVideoNav.xml or CustomVideoNav (1110), update navigation
     current_window = xbmcgui.getCurrentWindowId()
